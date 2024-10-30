@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,21 @@ Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login']
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
 Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
 Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
+
+
+
+Route::prefix('admin')
+    ->as('admin.')
+
+    ->group(function () {
+
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+
+        Route::resource('products', ProductController::class);
+        Route::resource('catalogues', ProductController::class);
+    });
 
 
 
