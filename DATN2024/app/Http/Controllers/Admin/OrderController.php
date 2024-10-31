@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\StatusOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -46,4 +47,30 @@ class OrderController extends Controller
 
         return response()->json($order);
     }
+
+    // Cập nhật trạng thái đơn hàng
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status_order_id' => 'required|exists:status_orders,id',
+        ]);
+
+        if ($order->status_order_id == 2) {// Id status huỷ
+            return response()->json(['error' => 'Cannot update status. This order has been cancelled.'], 400);
+        }
+
+        $currentStatusId = $order->status_order_id;
+        $newStatusId = $request->input('status_order_id');
+
+        $statusOrderIds = StatusOrder::pluck('id')->toArray();
+
+        if (array_search($newStatusId, $statusOrderIds) <= array_search($currentStatusId, $statusOrderIds)) {
+            return response()->json(['error' => 'You can only update your status.'], 400);
+        }
+
+        $order->update(['status_order_id' => $newStatusId]);
+
+        return response()->json(['message' => 'Order status has been updated.']);
+    }
+
 }
