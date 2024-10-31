@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
@@ -69,4 +70,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/admin/orders', [OrderController::class, 'index'])->name('index');
         Route::get('/admin/orders/{order}', [OrderController::class, 'show'])->name('.show');
         Route::put('/admin/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
+
+        // Invoice
+        Route::get('/admin/invoices', [InvoiceController::class, 'getInvoices']);
     });
