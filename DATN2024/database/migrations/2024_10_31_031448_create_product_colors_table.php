@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('product_colors', function (Blueprint $table) {
             $table->id();
+            $table->string("name", 255);
+            $table->string("color_code", 7)->nullable();
+            $table->tinyInteger("status")->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
