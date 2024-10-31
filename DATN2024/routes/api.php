@@ -73,4 +73,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
         // Invoice
         Route::get('/admin/invoices', [InvoiceController::class, 'getInvoices']);
+        Route::get('/admin/invoices/{id}', [InvoiceController::class, 'showInvoice']);
     });
