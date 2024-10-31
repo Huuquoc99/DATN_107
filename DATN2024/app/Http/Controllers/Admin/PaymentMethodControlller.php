@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentMethodRequest;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 
@@ -28,9 +29,15 @@ class PaymentMethodControlller extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PaymentMethodRequest $request)
     {
-        //
+        if ($request->isMethod("POST")) {
+            $param = $request->except("_token",);
+        
+            PaymentMethod::create($param);
+        
+            return response()->json(['message' => 'Payment method created successfully']);
+        }
     }
 
     /**
