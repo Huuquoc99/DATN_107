@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use App\Models\ProductCapacity;
 use Illuminate\Support\Facades\Route;
@@ -40,5 +41,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::middleware(['auth:sanctum', 'checkAdminMiddleware'])->group(function () {
         Route::apiResource("admin/user", UserController::class);
         Route::apiResource("admin/catalogue", CatalogueController::class);
-         Route::apiResource("admin/producCapacity", ProductCapacity::class);
+        Route::apiResource("admin/producCapacity", ProductCapacity::class);
+        Route::apiResource("admin/productColor", ProductColor::class);
     });
