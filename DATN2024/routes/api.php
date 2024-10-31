@@ -24,6 +24,7 @@ use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Client\CommentController as ClientCommentController;
+use App\Http\Controllers\Client\OrderController as ClientOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +107,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         // Checkout
         Route::post('/checkout', [CheckoutController::class, 'checkout']);
 
+        // Order
+        Route::get('orders', [ClientOrderController::class, 'index'])->name('orders.index');
 
 
     });
