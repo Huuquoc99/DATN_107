@@ -38,4 +38,12 @@ class OrderController extends Controller
 
         return response()->json($result);
     }
+
+     // Xem chi tiết đơn hàng
+    public function show(Order $order)
+    {
+        $order->load('orderItems', 'statusOrder', 'statusPayment');
+
+        return response()->json($order);
+    }
 }
