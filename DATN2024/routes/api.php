@@ -110,5 +110,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         // Order
         Route::get('orders', [ClientOrderController::class, 'index'])->name('orders.index');
         Route::get('orders/{order}', [ClientOrderController::class, 'show'])->name('orders.show');
-
+        Route::post('orders/{order}/cancel', [ClientOrderController::class, 'cancel'])->name('orders.cancel');
     });
