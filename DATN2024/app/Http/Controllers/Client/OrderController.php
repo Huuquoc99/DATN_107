@@ -66,4 +66,19 @@ class OrderController extends Controller
         return response()->json($response);
 
     }
+
+    public function cancel(Order $order)
+    {
+        if ($order->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized action.'], 403);
+        }
+
+        if ($order->status_order_id === 1) {
+            $order->status_order_id = 2; // sửa lại thành id của cancel
+            $order->save();
+            return response()->json(['success' => 'Order cancelled successfully.']);
+        }
+
+        return response()->json(['error' => 'Order cannot be cancelled.'], 400);
+    }
 }
