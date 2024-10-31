@@ -12,10 +12,13 @@ class PaymentMethod extends Model
 
     protected $fillable = [
         "name",
+        "description",
+        "display_order",
         "is_active",
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        "is_active" => "boolean",
+        "display_order" => "integer",
     ];
 }
