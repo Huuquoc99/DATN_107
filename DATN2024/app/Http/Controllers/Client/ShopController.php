@@ -23,4 +23,23 @@ class ShopController extends Controller
             'message' => 'List of successful products.',
         ]);
     }
+
+    public function listProductsByCategory($id)
+{
+    // Lấy danh mục theo ID
+    $catalogue = Catalogue::find($id);
+
+    if (!$catalogue) {
+        return response()->json(['error' => 'Category does not exist.'], 404);
+    }
+
+    $product = Product::where('catalogue_id', $id)
+                       ->where('is_active', 1)
+                       ->paginate(9);
+
+    return response()->json([
+        'data' => $product,
+        'message' => 'List of products by category successfully.',
+    ]);
+}
 }
