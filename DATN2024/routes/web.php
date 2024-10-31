@@ -26,6 +26,9 @@ Route::get('register', [App\Http\Controllers\Client\HomeController::class, 'regi
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
 Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
 Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
+Route::get('cart', [App\Http\Controllers\Client\HomeController::class, 'cart']);
+Route::get('product-detail', [App\Http\Controllers\Client\HomeController::class, 'productdetail']);
+
 
 
 
