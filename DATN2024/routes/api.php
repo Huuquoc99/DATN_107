@@ -93,4 +93,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::put('/user/{id}', [ClientUserController::class, 'updateUserInfo']);
+        Route::put('/user/{id}/password', [ClientUserController::class, 'updatePassword']);
     });
