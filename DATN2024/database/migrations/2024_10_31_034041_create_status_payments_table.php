@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('status_payments', function (Blueprint $table) {
             $table->id();
+            $table->string("code", 50)->unique();
+            $table->string("name", 255);
+            $table->text("description");
+            $table->integer("display_order");
+            $table->boolean("is_active")->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
