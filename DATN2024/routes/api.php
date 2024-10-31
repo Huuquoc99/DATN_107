@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Foundation\Bootstrap\RegisterProviders;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
     Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
         ->name('password.reset');
+
+// Admin
+    Route::middleware(['auth:sanctum', 'checkAdminMiddleware'])->group(function () {
+        Route::apiResource("admin/user", UserController::class);
+    });
