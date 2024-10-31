@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\PaymentMethodControlller;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Client\ClientUserController;
@@ -59,6 +60,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource("admin/banner", BannerController::class);
         Route::apiResource("admin/statusOrder", StatusOrderController::class);
         Route::apiResource("admin/statusPayment", StatusPaymentController::class);
+        Route::apiResource("admin/paymentMethod", PaymentMethodControlller::class);
         // Route::apiResource('admin/products', ProductController::class);
 
 
