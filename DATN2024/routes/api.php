@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -37,4 +38,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Admin
     Route::middleware(['auth:sanctum', 'checkAdminMiddleware'])->group(function () {
         Route::apiResource("admin/user", UserController::class);
+        Route::apiResource("admin/catalogue", CatalogueController::class);
     });
