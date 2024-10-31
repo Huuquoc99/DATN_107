@@ -10,11 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    {{-- Icons --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/plugins/swiper.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/style.css') }}" type="text/css">
 
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lt IE 9]>

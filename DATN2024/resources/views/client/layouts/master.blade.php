@@ -10,7 +10,6 @@
 </head>
 <body>
     @include('client.layouts.partials.header')
-    @include('client.layouts.partials.banner')
 
     @yield('content')
 
