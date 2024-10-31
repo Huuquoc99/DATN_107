@@ -8,4 +8,35 @@ use Illuminate\Database\Eloquent\Model;
 class ProductVariant extends Model
 {
     use HasFactory;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
