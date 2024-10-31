@@ -18,8 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('home', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login']);
+
 Route::get('register', [App\Http\Controllers\Client\HomeController::class, 'register']);
-Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login'])->name('login');
 
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
 Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
