@@ -54,7 +54,8 @@ class PaymentMethodControlller extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $paymentMethod = PaymentMethod::findOrFail($id);
+        return response()->json($paymentMethod);
     }
 
     /**
