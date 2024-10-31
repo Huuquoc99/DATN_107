@@ -122,7 +122,7 @@
         $(document).ready(function () {
             $('#example').DataTable({
                 order: [[0, 'desc']],
-                responsive: true,
+                responsive: false,
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
