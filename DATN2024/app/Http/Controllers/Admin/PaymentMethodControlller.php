@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 
 class PaymentMethodControlller extends Controller
@@ -12,7 +13,8 @@ class PaymentMethodControlller extends Controller
      */
     public function index()
     {
-        //
+        $listPaymentMethod = PaymentMethod::get();
+        return response()->json( $listPaymentMethod, 201);
     }
 
     /**
