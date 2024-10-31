@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Client\CommentController as ClientCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,8 +91,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // Filter by category
         Route::get('/shop/category/{id}', [ShopController::class, 'listProductsByCategory'])->name('shop.category');
 
+    // Detail product
+        // Route::get('/product/{slug}',[ProductController::class, 'productDetail'])->name('product.detail');
+
+    // Comment
+        Route::resource('products/{product_id}/comments', ClientCommentController::class);
 
     Route::middleware('auth:sanctum')->group(function () {
+        // User
         Route::put('/user/{id}', [ClientUserController::class, 'updateUserInfo']);
         Route::put('/user/{id}/password', [ClientUserController::class, 'updatePassword']);
+
+
     });
