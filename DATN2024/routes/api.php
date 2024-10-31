@@ -6,6 +6,7 @@ use App\Models\ProductCapacity;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
@@ -63,4 +64,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/admin/trashed', [TrashedController::class, 'trashed']);
         Route::post('/admin/restore/{id}', [TrashedController::class, 'restore']);
         // Route::delete('/admin/force-delete/{id}', [TrashedController::class, 'forceDelete']);
+
+         // Order
+        Route::get('/admin/orders', [OrderController::class, 'index'])->name('index');
     });
