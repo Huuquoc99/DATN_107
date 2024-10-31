@@ -64,4 +64,18 @@ class CommentController extends Controller
     {
         //
     }
+
+    public function approve($id)
+    {
+        $comment = Comment::findOrFail($id);
+
+        if ($comment->is_active == 0) {
+            return response()->json(['message' => 'Comment is already hidden!'], 400);
+        }
+
+        $comment->is_active = 0; // Ẩn bình luận
+        $comment->save();
+
+        return response()->json(['message' => 'Comment has been hidden successfully.'], 200);
+    }
 }
