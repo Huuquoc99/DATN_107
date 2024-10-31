@@ -82,4 +82,15 @@ class CheckoutController extends Controller
     
         return response()->json(['message' => 'Checkout successful!', 'order_id' => $order->id, 'code' => $order->code], 201);
     }
+
+
+    // Code order
+    function generateUniqueOrderCode($orderId)
+    {
+        do {
+            $code = "ORD-" . $orderId; // Sử dụng order_id
+        } while (Order::where("code", $code)->exists());
+    
+        return $code;
+    }
 }
