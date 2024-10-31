@@ -62,7 +62,7 @@
               <a href="#" class="navigation__link">Home</a>
             </li>
             <li class="navigation__item">
-              <a href="#" class="navigation__link">Shop</a>
+              <a href="/shop" class="navigation__link">Shop</a>
 
             </li>
             <li class="navigation__item">

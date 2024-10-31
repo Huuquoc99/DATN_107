@@ -9,8 +9,7 @@
 
 </head>
 <body>
-    @include('client.layouts.partials.header')
-    @include('client.layouts.partials.banner')
+    @include('client.layouts.partials.header')   
 
     @yield('content')
 
