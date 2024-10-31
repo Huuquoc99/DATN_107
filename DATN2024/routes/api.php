@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ShopController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
@@ -82,4 +83,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // Home
         Route::get("/home", [HomeController::class, "index"])->name("index");
 
+    // List product
+        Route::get("/shop", [ShopController::class, "listProduct"])->name("product.shop");
 
