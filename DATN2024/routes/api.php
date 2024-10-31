@@ -86,3 +86,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // List product
         Route::get("/shop", [ShopController::class, "listProduct"])->name("product.shop");
 
+    // Filter by category
+        Route::get('/shop/category/{id}', [ShopController::class, 'listProductsByCategory'])->name('shop.category');
