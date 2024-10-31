@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\StatusOrderController;
@@ -57,4 +58,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/admin/comments', [CommentController::class, 'index']); 
         Route::put('/admin/comments/approve/{id}', [CommentController::class, 'approve']); 
         Route::delete('/admin/comments/{id}', [CommentController::class, 'destroy']); 
+
+        // Trash
+        Route::get('/admin/trashed', [TrashedController::class, 'trashed']);
     });
