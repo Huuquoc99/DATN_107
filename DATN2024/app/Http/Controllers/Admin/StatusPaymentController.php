@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\StatusPayment;
+use App\Http\Controllers\Controller;
 
 class StatusPaymentController extends Controller
 {
@@ -12,7 +13,8 @@ class StatusPaymentController extends Controller
      */
     public function index()
     {
-        //
+        $listStatusPayment = StatusPayment::get();
+        return response()->json( $listStatusPayment, 201);
     }
 
     /**
