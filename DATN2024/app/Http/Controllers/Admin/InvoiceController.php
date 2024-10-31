@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class InvoiceController extends Controller
 {
@@ -61,5 +62,14 @@ class InvoiceController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getInvoices(Request $request)
+    {
+        $invoices = Order::where('status_payment_id', 5)
+            ->where('status_order_id', 5)
+            ->get(['id as order_id', 'user_name', 'total_price', 'created_at']);
+
+        return response()->json($invoices);
     }
 }
