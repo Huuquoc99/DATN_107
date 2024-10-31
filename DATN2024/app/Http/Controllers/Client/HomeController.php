@@ -20,4 +20,12 @@ class HomeController extends Controller
     { 
         return view('client.auth.login');
     }
+    public function notfound()
+    { 
+        return view('client.notfound');
+    }
+    public function about()
+    { 
+        return view('client.about');
+    }
 }

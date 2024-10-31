@@ -1,7 +1,8 @@
 @extends('client.layouts.notfoundhd')
 
 @section('content')
-<svg class="d-none">
+    <body class="not-found-page">
+  <svg class="d-none">
     <symbol id="icon_nav" viewBox="0 0 25 18">
       <rect width="25" height="2"/><rect y="8" width="20" height="2"/><rect y="16" width="25" height="2"/>
     </symbol>
@@ -151,149 +152,6 @@
     </symbol>
   </svg>
   <!-- Mobile Header -->
-  <div class="header-mobile header_sticky">
-    <div class="container d-flex align-items-center h-100">
-      <a class="mobile-nav-activator d-block position-relative" href="#">
-        <svg class="nav-icon" width="25" height="18" viewBox="0 0 25 18" xmlns="http://www.w3.org/2000/svg"><use href="#icon_nav" /></svg>
-        <span class="btn-close-lg position-absolute top-0 start-0 w-100"></span>
-      </a>
-
-      <div class="logo">
-        <a href="index.html">
-          <img src="{{ asset('theme/client/images/logo.png') }}" alt="Uomo" class="logo__image d-block">
-        </a>
-      </div><!-- /.logo -->
-
-      <a href="#" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
-        <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_cart" /></svg>
-        <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
-      </a>
-    </div><!-- /.container -->
-
-    <nav class="header-mobile__navigation navigation d-flex flex-column w-100 position-absolute top-100 bg-body overflow-auto">
-      <div class="container">
-        <form action="https://uomo-html.flexkitux.com/Demo18/search.html" method="GET" class="search-field position-relative mt-4 mb-3">
-          <div class="position-relative">
-            <input class="search-field__input w-100 border rounded-1" type="text" name="search-keyword" placeholder="Search products">
-            <button class="btn-icon search-popup__submit pb-0 me-2" type="submit">
-              <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_search" /></svg>
-            </button>
-            <button class="btn-icon btn-close-lg search-popup__reset pb-0 me-2" type="reset"></button>
-          </div>
-
-          <div class="position-absolute start-0 top-100 m-0 w-100">
-            <div class="search-result"></div>
-          </div>
-        </form><!-- /.header-search -->
-      </div><!-- /.container -->
-
-      <div class="container">
-        <div class="overflow-hidden">
-          <ul class="navigation__list list-unstyled position-relative">
-            <li class="navigation__item">
-              <a href="#" class="navigation__link js-nav-right d-flex align-items-center">Home<svg class="ms-auto" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><use href="#icon_next_sm" /></svg></a>
-            </li>
-            <li class="navigation__item">
-              <a href="#" class="navigation__link js-nav-right d-flex align-items-center">Shop<svg class="ms-auto" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><use href="#icon_next_sm" /></svg></a>
-            </li>
-
-            <li class="navigation__item">
-              <a href="#" class="navigation__link js-nav-right d-flex align-items-center">Blog<svg class="ms-auto" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><use href="#icon_next_sm" /></svg></a>
-              <div class="sub-menu position-absolute top-0 start-100 w-100 d-none">
-                <a href="#" class="navigation__link js-nav-left d-flex align-items-center border-bottom mb-2"><svg class="me-2" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><use href="#icon_prev_sm" /></svg>Blog</a>
-                <ul class="list-unstyled">
-                  <li class="sub-menu__item"><a href="blog_list1.html" class="menu-link menu-link_us-s">Blog V1</a></li>
-                  <li class="sub-menu__item"><a href="blog_list2.html" class="menu-link menu-link_us-s">Blog V2</a></li>
-                  <li class="sub-menu__item"><a href="blog_list3.html" class="menu-link menu-link_us-s">Blog V3</a></li>
-                  <li class="sub-menu__item"><a href="blog_single.html" class="menu-link menu-link_us-s">Blog Detail</a></li>
-                </ul>
-              </div>
-            </li>
-
-            <li class="navigation__item">
-              <a href="#" class="navigation__link js-nav-right d-flex align-items-center">Pages<svg class="ms-auto" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><use href="#icon_next_sm" /></svg></a>
-              <div class="sub-menu position-absolute top-0 start-100 w-100 d-none">
-                <a href="#" class="navigation__link js-nav-left d-flex align-items-center border-bottom mb-2"><svg class="me-2" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><use href="#icon_prev_sm" /></svg>Pages</a>
-                <ul class="list-unstyled">
-                  <li class="sub-menu__item"><a href="account_dashboard.html" class="menu-link menu-link_us-s">My Account</a></li>
-                  <li class="sub-menu__item"><a href="login_register.html" class="menu-link menu-link_us-s">Login / Register</a></li>
-                  <li class="sub-menu__item"><a href="store_location.html" class="menu-link menu-link_us-s">Store Locator</a></li>
-                  <li class="sub-menu__item"><a href="lookbook.html" class="menu-link menu-link_us-s">Lookbook</a></li>
-                  <li class="sub-menu__item"><a href="faq.html" class="menu-link menu-link_us-s">Faq</a></li>
-                  <li class="sub-menu__item"><a href="terms.html" class="menu-link menu-link_us-s">Terms</a></li>
-                  <li class="sub-menu__item"><a href="404.html" class="menu-link menu-link_us-s">404 Error</a></li>
-                  <li class="sub-menu__item"><a href="coming_soon.html" class="menu-link menu-link_us-s">Coming Soon</a></li>
-                </ul>
-              </div>
-            </li>
-
-            <li class="navigation__item">
-              <a href="about.html" class="navigation__link">About</a>
-            </li>
-
-            <li class="navigation__item">
-              <a href="contact.html" class="navigation__link">Contact</a>
-            </li>
-          </ul><!-- /.navigation__list -->
-        </div><!-- /.overflow-hidden -->
-      </div><!-- /.container -->
-
-      <div class="border-top mt-auto pb-2">
-        <div class="customer-links container mt-4 mb-2 pb-1">
-          <svg class="d-inline-block align-middle" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_user" /></svg>
-          <span class="d-inline-block ms-2 text-uppercase align-middle fw-medium">My Account</span>
-        </div>
-
-        <div class="container d-flex align-items-center">
-          <label for="footerSettingsLanguage_mobile" class="me-2 text-secondary">Language</label>
-          <select id="footerSettingsLanguage_mobile" class="form-select form-select-sm bg-transparent border-0" aria-label="Default select example" name="store-language">
-            <option class="footer-select__option" selected>United Kingdom | English</option>
-            <option class="footer-select__option" value="1">United States | English</option>
-            <option class="footer-select__option" value="2">German</option>
-            <option class="footer-select__option" value="3">French</option>
-            <option class="footer-select__option" value="4">Swedish</option>
-          </select>
-        </div>
-
-        <div class="container d-flex align-items-center">
-          <label for="footerSettingsCurrency_mobile" class="me-2 text-secondary">Currency</label>
-          <select id="footerSettingsCurrency_mobile" class="form-select form-select-sm bg-transparent border-0" aria-label="Default select example" name="store-language">
-            <option selected>$ USD</option>
-            <option value="1">£ GBP</option>
-            <option value="2">€ EURO</option>
-          </select>
-        </div>
-
-        <ul class="container social-links list-unstyled d-flex flex-wrap mb-0">
-          <li>
-            <a href="https://www.facebook.com/" class="footer__social-link d-block ps-0">
-              <svg class="svg-icon svg-icon_facebook" width="9" height="15" viewBox="0 0 9 15" xmlns="http://www.w3.org/2000/svg"><use href="#icon_facebook" /></svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_twitter" width="14" height="13" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg"><use href="#icon_twitter" /></svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_instagram" width="14" height="13" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg"><use href="#icon_instagram" /></svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_youtube" width="16" height="11" viewBox="0 0 16 11" xmlns="http://www.w3.org/2000/svg"><path d="M15.0117 1.8584C14.8477 1.20215 14.3281 0.682617 13.6992 0.518555C12.5234 0.19043 7.875 0.19043 7.875 0.19043C7.875 0.19043 3.19922 0.19043 2.02344 0.518555C1.39453 0.682617 0.875 1.20215 0.710938 1.8584C0.382812 3.00684 0.382812 5.46777 0.382812 5.46777C0.382812 5.46777 0.382812 7.90137 0.710938 9.07715C0.875 9.7334 1.39453 10.2256 2.02344 10.3896C3.19922 10.6904 7.875 10.6904 7.875 10.6904C7.875 10.6904 12.5234 10.6904 13.6992 10.3896C14.3281 10.2256 14.8477 9.7334 15.0117 9.07715C15.3398 7.90137 15.3398 5.46777 15.3398 5.46777C15.3398 5.46777 15.3398 3.00684 15.0117 1.8584ZM6.34375 7.68262V3.25293L10.2266 5.46777L6.34375 7.68262Z"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.pinterest.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_pinterest" width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg"><use href="#icon_pinterest" /></svg>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav><!-- /.navigation -->
-  </div><!-- /.header-mobile -->
 
   <!-- Header Type 1 -->
   <header id="header" class="header header_sticky">
@@ -407,139 +265,16 @@
   <!-- End Header Type 1 -->
 
   <main>
-    <div class="mb-4 pb-4"></div>
-    <section class="about-us container">
-      <div class="mw-930">
-        <h2 class="page-title">ABOUT UOMO</h2>
-      </div>
-      <div class="about-us__content pb-5 mb-5">
-        <p class="mb-5">
-          <img loading="lazy" class="w-100 h-auto d-block" src="{{ asset('theme/client/images/about/about-1.jpg') }}" width="1410" height="550" alt="">
-        </p>
-        <div class="mw-930">
-          <h3 class="mb-4">OUR STORY</h3>
-          <p class="fs-6 fw-medium mb-4">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p class="mb-4">Saw wherein fruitful good days image them, midst, waters upon, saw. Seas lights seasons. Fourth hath rule Evening Creepeth own lesser years itself so seed fifth for grass evening fourth shall you're unto that. Had. Female replenish for yielding so saw all one to yielding grass you'll air sea it, open waters subdue, hath. Brought second Made. Be. Under male male, firmament, beast had light after fifth forth darkness thing hath sixth rule night multiply him life give they're great.</p>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <h5 class="mb-3">Our Mission</h5>
-              <p class="mb-3">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-            <div class="col-md-6">
-              <h5 class="mb-3">Our Vision</h5>
-              <p class="mb-3">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-          </div>
-        </div>
-        <div class="mw-930 d-lg-flex align-items-lg-center">
-          <div class="image-wrapper col-lg-6">
-            <img class="h-auto" loading="lazy" src="{{ asset('theme/client/images/about/about-2.jpg') }}" width="450" height="500" alt="">
-          </div>
-          <div class="content-wrapper col-lg-6 px-lg-4">
-            <h5 class="mb-3">The Company</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sapien dignissim a elementum. Sociis metus, hendrerit mauris id in. Quis sit sit ultrices tincidunt euismod luctus diam. Turpis sodales orci etiam phasellus lacus id leo. Amet turpis nunc, nulla massa est viverra interdum. Praesent auctor nulla morbi non posuere mattis. Arcu eu id maecenas cras.</p>
-          </div>
-        </div>
+    <section class="page-not-found">
+      <div class="content container">
+        <h2 class="mb-3">OOPS!</h2>
+        <h3 class="mb-3">Page not found</h3>
+        <p class="mb-3">Sorry, we couldn't find the page you where looking for. We suggest that you return to home page.</p>
+        <button class="btn btn-primary">GO BACK</button>
       </div>
     </section>
-    
-    <section class="service-promotion horizontal container mw-930 pt-0 mb-md-4 pb-md-4 mb-xl-5">
-      <div class="row">
-        <div class="col-md-4 text-center mb-5 mb-md-0">
-          <div class="service-promotion__icon mb-4">
-            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_shipping" /></svg>
-          </div>
-          <h3 class="service-promotion__title fs-6 text-uppercase">Fast And Free Delivery</h3>
-          <p class="service-promotion__content text-secondary">Free delivery for all orders over $140</p>
-        </div><!-- /.col-md-4 text-center-->
-
-        <div class="col-md-4 text-center mb-5 mb-md-0">
-          <div class="service-promotion__icon mb-4">
-            <svg width="53" height="52" viewBox="0 0 53 52" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_headphone" /></svg>
-          </div>
-          <h3 class="service-promotion__title fs-6 text-uppercase">24/7 Customer Support</h3>
-          <p class="service-promotion__content text-secondary">Friendly 24/7 customer support</p>
-        </div><!-- /.col-md-4 text-center-->
-
-        <div class="col-md-4 text-center mb-4 pb-1 mb-md-0">
-          <div class="service-promotion__icon mb-4">
-            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_shield" /></svg>
-          </div>
-          <h3 class="service-promotion__title fs-6 text-uppercase">Money Back Guarantee</h3>
-          <p class="service-promotion__content text-secondary">We return money within 30 days</p>
-        </div><!-- /.col-md-4 text-center-->
-      </div><!-- /.row -->
-    </section>
-
-    <section class="brands-carousel container mw-930">
-      <h5 class="mb-3 mb-xl-5">Company Partners</h5>
-      <div class="position-relative">
-        <div class="swiper-container js-swiper-slider"
-          data-settings='{
-            "autoplay": {
-              "delay": 5000
-            },
-            "slidesPerView": 5,
-            "slidesPerGroup": 1,
-            "effect": "none",
-            "loop": true,
-            "breakpoints": {
-              "320": {
-                "slidesPerView": 2,
-                "slidesPerGroup": 2,
-                "spaceBetween": 14
-              },
-              "768": {
-                "slidesPerView": 3,
-                "slidesPerGroup": 3,
-                "spaceBetween": 24
-              },
-              "992": {
-                "slidesPerView": 4,
-                "slidesPerGroup": 1,
-                "spaceBetween": 30,
-                "pagination": false
-              },
-              "1200": {
-                "slidesPerView": 5,
-                "slidesPerGroup": 1,
-                "spaceBetween": 30,
-                "pagination": false
-              }
-            }
-          }'>
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand1.png') }}" width="120" height="20" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand2.png') }}" width="87" height="20" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand3.png') }}" width="132" height="22" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand4.png') }}" width="72" height="21" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand5.png') }}" width="123" height="31" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand6.png') }}" width="137" height="22" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img loading="lazy" src="{{ asset('theme/client/images/brands/brand7.png') }}" width="94" height="21" alt="">
-            </div>
-          </div><!-- /.swiper-wrapper -->
-        </div><!-- /.swiper-container js-swiper-slider -->
-      </div><!-- /.position-relative -->
-
-    </section><!-- /.products-carousel container -->
   </main>
-
-  <div class="mb-5 pb-xl-5"></div>
   
-
   <!-- Customer Login Form -->
   <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
     <div class="customer-forms__wrapper d-flex position-relative">
@@ -617,6 +352,7 @@
       </div><!-- /.customer__register -->
     </div><!-- /.customer-forms__wrapper -->
   </div><!-- /.aside aside_right -->
+
 
   <!-- Cart Drawer -->
   <div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
@@ -1096,4 +832,18 @@
 
   <!-- Page Overlay -->
   <div class="page-overlay"></div><!-- /.page-overlay -->
+
+  <!-- External JavaScripts -->
+  <script src="{{ asset('theme/client/Demo18/js/plugins/jquery.min.js') }}"></script>
+  <script src="{{ asset('theme/client/Demo18/js/plugins/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('theme/client/Demo18/js/plugins/bootstrap-slider.min.js') }}"></script>
+  
+  <script src="{{ asset('theme/client/Demo18/js/plugins/swiper.min.js') }}" ></script>
+  <script src="{{ asset('theme/client/Demo18/js/plugins/countdown.js') }}" ></script>
+  <script src="{{ asset('theme/client/Demo18/js/plugins/jquery.fancybox.js') }}" ></script>
+
+  <!-- Footer Scripts -->
+  <script src="{{ asset('theme/client/Demo18/js/theme.js') }}"></script>
+
+</body>
 @endsection
