@@ -55,7 +55,8 @@ class CatalogueController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $catalogue = Catalogue::query()->findOrFail($id);
+        return response()->json($catalogue);
     }
 
     /**
