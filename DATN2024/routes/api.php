@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\StatusOrderController;
+use App\Http\Controllers\Client\ClientUserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use App\Http\Controllers\Admin\StatusPaymentController;
@@ -88,3 +89,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     // Filter by category
         Route::get('/shop/category/{id}', [ShopController::class, 'listProductsByCategory'])->name('shop.category');
+
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::put('/user/{id}', [ClientUserController::class, 'updateUserInfo']);
+    });
