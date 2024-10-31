@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\StatusOrderController;
@@ -49,4 +50,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource("admin/banner", BannerController::class);
         Route::apiResource("admin/statusOrder", StatusOrderController::class);
         Route::apiResource("admin/statusPayment", StatusPaymentController::class);
+        // Route::apiResource('admin/products', ProductController::class);
+
+
+        // Comment
+        Route::get('/admin/comments', [CommentController::class, 'index']); 
     });
