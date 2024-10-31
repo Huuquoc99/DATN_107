@@ -62,9 +62,12 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CommentRequest $request, $product_id, $comment_id)
     {
-        //
+        // http://localhost:8000/api/products/4/comments/8
+        $comment = Comment::findOrFail($comment_id);
+        $comment->update($request->only('content'));
+        return response()->json(['message' => 'Comments have been updated!', 'comment' => $comment]);
     }
 
     /**
