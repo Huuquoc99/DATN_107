@@ -84,6 +84,8 @@ class PaymentMethodControlller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $paymentMethod = PaymentMethod::findOrFail($id);
+        $paymentMethod->delete();
+        return response()->json(['message' => 'Payment method deleted successfully']);
     }
 }
