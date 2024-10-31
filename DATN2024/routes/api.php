@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
@@ -75,3 +76,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/admin/invoices', [InvoiceController::class, 'getInvoices']);
         Route::get('/admin/invoices/{id}', [InvoiceController::class, 'showInvoice']);
     });
+
+
+// Client
+    // Home
+        Route::get("/home", [HomeController::class, "index"])->name("index");
+
+
