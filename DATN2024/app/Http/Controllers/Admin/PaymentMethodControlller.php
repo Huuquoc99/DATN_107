@@ -61,9 +61,22 @@ class PaymentMethodControlller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PaymentMethodRequest $request, string $id)
     {
-        //
+        if ($request->isMethod("PUT")) {
+            $param = $request->except("_token", "_method");
+            $paymentMethod = PaymentMethod::findOrFail($id);
+        
+            $paymentMethod->update($param);
+        
+            if ($paymentMethod->is_active == 0) {
+                $paymentMethod->hide();
+            } else {
+                $paymentMethod->show();
+            }
+        
+            return response()->json(['message' => 'Payment method updated successfully']);
+        }
     }
 
     /**
