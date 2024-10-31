@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\StatusOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StatusOrderRequest;
 
 class StatusOrderController extends Controller
 {
@@ -28,9 +29,15 @@ class StatusOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StatusOrderRequest $request)
     {
-        //
+        if ($request->isMethod("POST")) {
+            $param = $request->except("_token",);
+        
+            StatusOrder::create($param);
+        
+            return response()->json(['message' => 'Status order created successfully']);
+        }
     }
 
     /**
