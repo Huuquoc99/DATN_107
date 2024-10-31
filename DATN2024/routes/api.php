@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -45,4 +46,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource("admin/producCapacity", ProductCapacity::class);
         Route::apiResource("admin/productColor", ProductColor::class);
         Route::apiResource("admin/banner", BannerController::class);
+        Route::apiResource("admin/statusOrder", StatusOrderController::class);
     });
