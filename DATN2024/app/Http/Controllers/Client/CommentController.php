@@ -44,9 +44,11 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($product_id, $comment_id)
     {
-        //
+        // http://localhost:8000/api/products/4/comments/8
+        $comment = Comment::where('product_id', $product_id)->where('id', $comment_id)->firstOrFail();
+        return response()->json($comment);
     }
 
     /**
