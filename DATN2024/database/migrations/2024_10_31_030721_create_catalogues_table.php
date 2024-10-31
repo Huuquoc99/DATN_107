@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('catalogues', function (Blueprint $table) {
             $table->id();
+            $table->string("name", 255);
+            $table->string("cover", 255)->nullable();
+            $table->tinyInteger("is_active")->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
