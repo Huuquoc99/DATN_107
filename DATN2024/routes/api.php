@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Client\ClientUserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -101,6 +102,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         // User
         Route::put('/user/{id}', [ClientUserController::class, 'updateUserInfo']);
         Route::put('/user/{id}/password', [ClientUserController::class, 'updatePassword']);
+
+        // Checkout
+        Route::post('/checkout', [CheckoutController::class, 'checkout']);
+
 
 
     });
