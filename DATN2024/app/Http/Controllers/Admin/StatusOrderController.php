@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\StatusOrder;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StatusOrderController extends Controller
 {
@@ -12,7 +13,8 @@ class StatusOrderController extends Controller
      */
     public function index()
     {
-        //
+        $listStatusOrder = StatusOrder::get();
+        return response()->json( $listStatusOrder, 201);
     }
 
     /**
