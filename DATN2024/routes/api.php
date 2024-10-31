@@ -55,4 +55,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
         // Comment
         Route::get('/admin/comments', [CommentController::class, 'index']); 
+        Route::put('/admin/comments/approve/{id}', [CommentController::class, 'approve']); 
     });
