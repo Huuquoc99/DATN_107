@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Models\ProductCapacity;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -39,4 +40,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::middleware(['auth:sanctum', 'checkAdminMiddleware'])->group(function () {
         Route::apiResource("admin/user", UserController::class);
         Route::apiResource("admin/catalogue", CatalogueController::class);
+         Route::apiResource("admin/producCapacity", ProductCapacity::class);
     });
