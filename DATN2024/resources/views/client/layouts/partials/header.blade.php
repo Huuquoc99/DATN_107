@@ -1,4 +1,80 @@
 
+<div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
+  <div class="customer-forms__wrapper d-flex position-relative">
+    <div class="customer__login">
+      <div class="aside-header d-flex align-items-center">
+        <h3 class="text-uppercase fs-6 mb-0">Login</h3>
+        <button class="btn-close-lg js-close-aside ms-auto"></button>
+      </div><!-- /.aside-header -->
+
+      <form action="https://uomo-html.flexkitux.com/Demo18/login_register.html" method="POST" class="aside-content">
+        <div class="form-floating mb-3">
+          <input name="email" type="email" class="form-control form-control_gray" id="customerNameEmailInput" placeholder="name@example.com">
+          <label for="customerNameEmailInput">Username or email address *</label>
+        </div>
+
+        <div class="pb-3"></div>
+
+        <div class="form-label-fixed mb-3">
+          <label for="customerPasswordInput" class="form-label">Password *</label>
+          <input name="password" id="customerPasswordInput" class="form-control form-control_gray" type="password" placeholder="********">
+        </div>
+
+        <div class="d-flex align-items-center mb-3 pb-2">
+          <div class="form-check mb-0">
+            <input name="remember" class="form-check-input form-check-input_fill" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label text-secondary" for="flexCheckDefault">Remember me</label>
+          </div>
+          <a href="reset_password.html" class="btn-text ms-auto">Lost password?</a>
+        </div>
+
+        <button class="btn btn-primary w-100 text-uppercase" type="submit">Log In</button>
+
+        <div class="customer-option mt-4 text-center">
+          <span class="text-secondary">No account yet?</span>
+          <a href="login_register.html#register-tab" class="btn-text js-show-register">Create Account</a>
+        </div>
+      </form>
+    </div><!-- /.customer__login -->
+
+    <div class="customer__register">
+      <div class="aside-header d-flex align-items-center">
+        <h3 class="text-uppercase fs-6 mb-0">Create an account</h3>
+        <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
+      </div><!-- /.aside-header -->
+
+      <form action="https://uomo-html.flexkitux.com/Demo18/login_register.html" method="POST" class="aside-content">
+        <div class="form-floating mb-4">
+          <input name="username" type="text" class="form-control form-control_gray" id="registerUserNameInput" placeholder="Username">
+          <label for="registerUserNameInput">Username</label>
+        </div>
+
+        <div class="pb-1"></div>
+
+        <div class="form-floating mb-4">
+          <input name="email" type="email" class="form-control form-control_gray" id="registerUserEmailInput" placeholder="user@company.com">
+          <label for="registerUserEmailInput">Email address *</label>
+        </div>
+
+        <div class="pb-1"></div>
+
+        <div class="form-label-fixed mb-4">
+          <label for="registerPasswordInput" class="form-label">Password *</label>
+          <input name="password" id="registerPasswordInput" class="form-control form-control_gray" type="password" placeholder="*******">
+        </div>
+
+        <p class="text-secondary mb-4">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
+
+        <button class="btn btn-primary w-100 text-uppercase" type="submit">Register</button>
+
+        <div class="customer-option mt-4 text-center">
+          <span class="text-secondary">Already have account?</span>
+          <a href="#" class="btn-text js-show-login">Login</a>
+        </div>
+      </form>
+    </div><!-- /.customer__register -->
+  </div><!-- /.customer-forms__wrapper -->
+</div><!-- /.aside aside_right -->
 
 
 <header id="header" class="header sticky_disabled header_sticky-bg_dark w-100 theme-bg-color">
@@ -14,23 +90,19 @@
         <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
           <li>
             <a href="https://facebook.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_facebook" width="9" height="15" viewBox="0 0 9 15" xmlns="http://www.w3.org/2000/svg"><use href="#icon_facebook" /></svg>
-            </a>
+              <i class="fa-brands fa-facebook fa-xl"></i>            </a>
           </li>
           <li>
             <a href="https://twitter.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_twitter" width="14" height="13" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg"><use href="#icon_twitter" /></svg>
-            </a>
+              <i class="fa-brands fa-twitter fa-xl"></i>            </a>
           </li>
           <li>
             <a href="https://instagram.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_instagram" width="14" height="13" viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg"><use href="#icon_instagram" /></svg>
-            </a>
+              <i class="fa-brands fa-instagram fa-xl"></i>            </a>
           </li>
           <li>
             <a href="https://pinterest.com/" class="footer__social-link d-block">
-              <svg class="svg-icon svg-icon_pinterest" width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg"><use href="#icon_pinterest" /></svg>
-            </a>
+              <i class="fa-brands fa-pinterest fa-xl"></i>            </a>
           </li>
         </ul>
         <select class="form-select form-select-sm bg-transparent color-white fs-13" name="store-language">
@@ -67,16 +139,16 @@
             </li>
             <li class="navigation__item">
               <a href="#" class="navigation__link">Blog</a>
-              <ul class="default-menu list-unstyled">
+              {{-- <ul class="default-menu list-unstyled">
                 <li class="sub-menu__item"><a href="blog_list1.html" class="menu-link menu-link_us-s">Blog V1</a></li>
                 <li class="sub-menu__item"><a href="blog_list2.html" class="menu-link menu-link_us-s">Blog V2</a></li>
                 <li class="sub-menu__item"><a href="blog_list3.html" class="menu-link menu-link_us-s">Blog V3</a></li>
                 <li class="sub-menu__item"><a href="blog_single.html" class="menu-link menu-link_us-s">Blog Detail</a></li>
-              </ul><!-- /.box-menu -->
+              </ul><!-- /.box-menu --> --}}
             </li>
             <li class="navigation__item">
               <a href="#" class="navigation__link">Pages</a>
-              <ul class="default-menu list-unstyled">
+              {{-- <ul class="default-menu list-unstyled">
                 <li class="sub-menu__item"><a href="account_dashboard.html" class="menu-link menu-link_us-s">My Account</a></li>
                 <li class="sub-menu__item"><a href="login_register.html" class="menu-link menu-link_us-s">Login / Register</a></li>
                 <li class="sub-menu__item"><a href="store_location.html" class="menu-link menu-link_us-s">Store Locator</a></li>
@@ -85,7 +157,7 @@
                 <li class="sub-menu__item"><a href="terms.html" class="menu-link menu-link_us-s">Terms</a></li>
                 <li class="sub-menu__item"><a href="404.html" class="menu-link menu-link_us-s">404 Error</a></li>
                 <li class="sub-menu__item"><a href="coming_soon.html" class="menu-link menu-link_us-s">Coming Soon</a></li>
-              </ul><!-- /.box-menu -->
+              </ul><!-- /.box-menu --> --}}
             </li>
             <li class="navigation__item">
               <a href="about.html" class="navigation__link">About</a>
@@ -103,16 +175,16 @@
 
           <div class="header-tools__item hover-container">
             <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
-              <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_user" /></svg>
+              <i class="fa-regular fa-user fa-xl"></i>
             </a>
           </div>
   
           <a class="header-tools__item" href="account_wishlist.html">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
+            <i class="fa-regular fa-heart fa-xl"></i>
           </a>
   
           <a href="#" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
-            <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_cart" /></svg>
+            <i class="fa-solid fa-cart-shopping fa-xl"></i>
             <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
           </a>
         </div><!-- /.header__tools -->
@@ -123,11 +195,11 @@
       <div class="container d-flex align-items-center">
         <div class="categories-nav position-relative">
           <h3 class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
-            <svg class="nav-icon" width="25" height="18" viewBox="0 0 25 18" xmlns="http://www.w3.org/2000/svg">
+            <i class="fa-solid fa-bars fa-xl"></i>
               <use href="#icon_nav"/>
             </svg>
             <span class="fw-semi-bold lh-1">Browse Categories</span>
-            <svg class="ms-auto" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <i class="fa-solid fa-angle-down fa-xl"></i>
               <use href="#icon_down"/>
             </svg>
           </h3>
@@ -147,7 +219,7 @@
 
         <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET" class="header-search search-field me-0 border-radius-10">
           <button class="btn header-search__btn" type="submit">
-            <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_search" /></svg>
+            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
           </button>
           <input class="header-search__input w-100" type="text" name="search-keyword" placeholder="Search products...">
           <div class="hover-container position-relative">
@@ -180,7 +252,7 @@
     <div class="cart-drawer-item d-flex position-relative">
       <div class="position-relative">
         <a href="product1_simple.html">
-          <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-1.jpg" alt="">
+          <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
         </a>
       </div>
       <div class="cart-drawer-item__info flex-grow-1">
@@ -205,7 +277,7 @@
     <div class="cart-drawer-item d-flex position-relative">
       <div class="position-relative">
         <a href="product1_simple.html">
-          <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-2.jpg" alt="">
+          <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
         </a>
       </div>
       <div class="cart-drawer-item__info flex-grow-1">
@@ -230,7 +302,7 @@
     <div class="cart-drawer-item d-flex position-relative">
       <div class="position-relative">
         <a href="product1_simple.html">
-          <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-3.jpg" alt="">
+          <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
         </a>
       </div>
       <div class="cart-drawer-item__info flex-grow-1">
