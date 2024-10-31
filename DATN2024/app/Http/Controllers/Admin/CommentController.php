@@ -62,7 +62,10 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+
+        return response()->json(['message' => 'Comment deleted successfully.'], 200);
     }
 
     public function approve($id)
