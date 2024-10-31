@@ -73,8 +73,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($product_id, $comment_id)
     {
-        //
+        $comment = Comment::findOrFail($comment_id);
+        $comment->delete();
+        return response()->json(['message' => 'Bình luận đã được xóa!']);
     }
 }
