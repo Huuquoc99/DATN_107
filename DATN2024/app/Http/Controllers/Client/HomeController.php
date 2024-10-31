@@ -2,22 +2,52 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
+use App\Models\Banner;
+use App\Models\Product;
+use App\Models\Catalogue;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
     public function index()
-    { 
-        return view('client.home');
-    }
+    {
+        $productActive = Product::with(['variants', 'galleries'])
+            ->where('is_active', 1)
+            ->get();
 
-    public function register()
-    { 
-        return view('client.auth.register');
-    }
-    public function login()
-    { 
-        return view('client.auth.login');
+        $productHot = Product::with(['variants', 'galleries'])
+            ->where('is_hot_deal', 1)
+            ->get();
+
+        $productGood = Product::with(['variants', 'galleries'])
+            ->where('is_good_deal', 1)
+            ->get();
+
+        $productNew = Product::with(['variants', 'galleries'])
+            ->where('is_new', 1)
+            ->get();
+
+        $productHome = Product::with(['variants', 'galleries'])
+            ->where('is_show_home', 1)
+            ->get();
+
+        
+        $catalogues = Catalogue::where('is_active', 1)->get();
+
+        $banners = Banner::where('is_active', 1)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'is_active' => $productActive,
+                'is_hot_deal' => $productHot,
+                "is_good_deal" => $productGood,
+                "is_new" => $productNew,
+                "is_show_home" => $productHome,
+                'catalogues' => $catalogues,
+                'banners' => $banners,
+            ],
+        ], 200);
     }
 }
