@@ -277,4 +277,19 @@ class ProductController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'))->render();
     }
 
+    public function search(Request $request)
+    {
+        $data = Product::query()->where('name', 'like', '%'.$request->search_string.'%')
+            ->orWhere('price_regular', 'like', '%'.$request->search_string.'%')
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+        if($data->count() >= 1) {
+            return view('admin.products.pagination', compact('data'))->render();
+        } else {
+            return response()->json([
+                'status' => 'Không tìm thất kết quả!',
+            ],404);
+        }
+    }
 }
