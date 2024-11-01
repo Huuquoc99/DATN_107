@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Catalogue;
 use App\Models\Product;
+use App\Models\ProductCapacity;
+use App\Models\ProductColor;
 use App\Models\ProductGallery;
 use App\Models\ProductVariant;
 use App\Models\Tag;
@@ -20,12 +22,14 @@ class ProductController extends Controller
      */
 
     const PATH_VIEW = 'admin.products.';
+
     public function index()
     {
         $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -76,6 +80,7 @@ class ProductController extends Controller
             DB::commit();
 
         } catch (\Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
@@ -263,4 +268,13 @@ class ProductController extends Controller
 
         return [$dataProduct,$dataProductVariants, $dataProductGalleries, $dataProductTags];
     }
+
+
+    public function pagination()
+    {
+        $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data'))->render();
+    }
+
 }

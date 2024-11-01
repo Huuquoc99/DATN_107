@@ -15,7 +15,6 @@
                         <li class="breadcrumb-item active">Danh sách Sản phẩm</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -26,11 +25,21 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Danh sách</h5>
-                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3">Thêm mới</a>
+                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3">
+                        Thêm mới <i class="fa-regular fa-plus"></i>
+                    </a>
                 </div>
+                <div class="card-header d-flex justify-content-between">
+                    <div id="db-search-product">
+                        <input type="text" id="search" class="form-control" placeholder="Tìm kiếm..." width="200px" >
+                        <div id="error-search"></div>
+                    </div>
+                </div>
+
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                    <div class="table-responsive table-data">
+                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                               style="width:100%">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -50,14 +59,24 @@
                                 <th></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="product-list">
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
-                                        <img src="{{ \Storage::url($item->img_thumbnail) }}" alt="" width="100px">
+                                        @php
+                                            $url = $item->img_thumbnail;
+                                            if (!Str::contains($url, 'http')) {
+                                                $url = \Illuminate\Support\Facades\Storage::url($url);
+                                            }
+                                        @endphp
+                                        <img src="{{ $url }}" alt="" width="100px">
                                     </td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.products.edit', $item) }}">
+                                            {{ $item->name }}
+                                        </a>
+                                    </td>
                                     <td>{{ $item->catalogue ? $item->catalogue->name : 'No Catalogue' }}</td>
                                     <td>{{ $item->price_regular }}</td>
                                     <td>{{ $item->price_sale }}</td>
@@ -75,12 +94,16 @@
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">Xem chi tiết</a>
-                                            <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-primary btn-sm">Sửa</a>
+                                            <a href="{{ route('admin.products.show', $item) }}"
+                                               class="btn btn-info btn-sm">Xem chi tiết <i class="fa-solid fa-circle-info fa-sm"></i></a>
+                                            <a href="{{ route('admin.products.edit', $item) }}"
+                                               class="btn btn-primary btn-sm">Sửa <i class="fa-regular fa-pen-to-square fa-sm"></i></a>
                                             <form action="{{ route('admin.products.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Chắc chắn không?')" type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                <button onclick="return confirm('Chắc chắn không?')" type="submit"
+                                                        class="btn btn-danger btn-sm">Xóa <i class="fa-solid fa-delete-left fa-sm"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>
@@ -97,37 +120,62 @@
 @endsection
 
 @section('style-libs')
-    <!--datatable css-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>
-    <!--datatable responsive css-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"/>
+
 @endsection
 
 @section('script-libs')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <!--datatable js-->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $(document).ready(function () {
-            $('#example').DataTable({
+            var table = $('#example').DataTable({
                 order: [[0, 'desc']],
-                responsive: false,
-                dom: 'Bfrtip',
+                responsive: true,
+                dom: 'rtip',
+                paging: false,
+                info: false,
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
+
+            $(document).on('click', '.pagination a', function (e) {
+                e.preventDefault();
+                let page = $(this).attr('href').split('page=')[1]
+                product(page);
+            })
+
+            function product(page) {
+                $.ajax({
+                    url: "products/pagination/?page=" + page,
+                    success:function (res) {
+                        $('.table-data').html(res);
+                    }
+                })
+            }
+
+            $(document).on('keyup', function (e) {
+                e.preventDefault();
+                let search_string = $('#search').val();
+                $.ajax({
+                    url: "{{ route('admin.products.search') }}",
+                    method: 'get',
+                    data: {search_string: search_string},
+                    success:function (res) {
+                        $('.table-data').html(res);
+                    },
+                    error: function (res) {
+                        if (res.status === 404) {
+                            $('.table-data').html('<p class="alert alert-warning">Không tìm thấy kết quả!</p>');
+                        }
+                    }
+                })
+            })
         });
+
     </script>
 @endsection
