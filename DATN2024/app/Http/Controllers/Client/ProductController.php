@@ -16,12 +16,18 @@ class ProductController extends Controller
         $product = Product::query()->with(['variants','galleries'])->where('slug', $slug)->first();
 
 
-        $colors = ProductColor::select('id', 'name', 'color_code')->get();
+        $colors = ProductColor::query()
+            ->select('id', 'name', 'color_code')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id => [
+                    'name' => $item->name,
+                    'color_code' => $item->color_code
+                ]];
+            })
+            ->all();
         $capacities = ProductCapacity::query()->pluck('name', 'id')->all();
 
-        foreach ($product->galleries as $image) {
-
-        }
         return view('client.product-detail', compact('product','colors','capacities'));
     }
 }

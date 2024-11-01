@@ -22,8 +22,9 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -135,7 +136,7 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <label for="description" class="form-label">Mô tả dài<</label>
+                                <label for="description" class="form-label">Mô tả dài</label>
                                 <textarea class="form-control" name="description" id="content"
                                           rows="2">{!! $product->description !!}</textarea>
                             </div>
@@ -267,7 +268,6 @@
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
 
 

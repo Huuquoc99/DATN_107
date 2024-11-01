@@ -32,7 +32,13 @@ Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notf
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
 Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
 Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
-Route::get('cart', [App\Http\Controllers\Client\HomeController::class, 'cart']);
+
+
+Route::post('cart/add-to-cart', [\App\Http\Controllers\Client\CartController::class, 'addToCart'])
+    ->name('cart.add-to-cart');
+Route::get('cart/list', [\App\Http\Controllers\Client\CartController::class, 'cartList'])
+    ->name('cart.list');
+
 
 
 

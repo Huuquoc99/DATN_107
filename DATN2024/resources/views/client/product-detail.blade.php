@@ -73,15 +73,19 @@
                         <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
                     </div>
                     <div class="product-single__price">
-                        <span>{{ $product->price_regular }}</span>
-{{--                        @foreach($product->variants as $variant)--}}
+                        <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
+                        <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }} VND</del></i></span>
+
+                        {{--                        @foreach($product->variants as $variant)--}}
 {{--                        <span>{{ $variant->price }}</span>--}}
 {{--                        @endforeach--}}
                     </div>
                     <div class="product-single__short-desc">
                         <p>{{ $product->short_description }}</p>
                     </div>
-                    <form action="#" name="addtocart-form" method="post" class="product-form">
+                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="product-form">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <div class="product-options">
                             <!-- Color Selection -->
                             <div class="option-group mb-4">
@@ -97,11 +101,12 @@
                                                    {{ $loop->first ? 'checked' : '' }}
                                                    required>
                                             <label class="btn btn-outline color-choice" for="radio_color_{{ $id }}">
-                                                <span class="color-dot" style="background-color: {{ $color->color_code }};"></span>
-                                                <span class="color-name">{{ $color->name }}</span>
+                                                <span class="color-dot" style="background-color: {{ $color['color_code'] }};"></span>
+                                                <span class="color-name">{{ $color['name'] }}</span>
                                             </label>
                                         </div>
                                     @endforeach
+
                                 </div>
                             </div>
 

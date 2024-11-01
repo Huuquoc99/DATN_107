@@ -75,8 +75,9 @@
                                 <div class="col-md-7 mt-2">
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="sku" class="form-label">Mã</label>
-                                            <input type="text" class="form-control" name="sku" id="sku">
+                                            <label for="sku" class="form-label">Mã sản phẩm</label>
+                                            <input type="text" class="form-control" name="sku" id="sku"
+                                                   value="{{ strtoupper(\Str::random(8)) }}">
                                         </div>
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Kích thước màn hình</label>

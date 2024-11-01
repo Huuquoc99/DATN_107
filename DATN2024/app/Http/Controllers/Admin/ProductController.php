@@ -154,7 +154,6 @@ class ProductController extends Controller
             foreach ($dataProductGalleries as $item) {
                 $item['product_id'] = $product->id;
 
-                // Kiểm tra nếu có 'id' trong $item thì sẽ cập nhật, nếu không sẽ tạo mới
                 ProductGallery::query()->updateOrCreate(
                     isset($item['id']) ? ['id' => $item['id']] : [],
                     $item
