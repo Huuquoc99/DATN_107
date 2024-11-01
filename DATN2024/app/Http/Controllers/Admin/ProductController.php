@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Catalogue;
 use App\Models\Product;
+use App\Models\ProductCapacity;
+use App\Models\ProductColor;
 use App\Models\ProductGallery;
 use App\Models\ProductVariant;
 use App\Models\Tag;
@@ -20,12 +22,14 @@ class ProductController extends Controller
      */
 
     const PATH_VIEW = 'admin.products.';
+
     public function index()
     {
         $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -76,6 +80,7 @@ class ProductController extends Controller
             DB::commit();
 
         } catch (\Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
@@ -262,5 +267,29 @@ class ProductController extends Controller
         $dataProductTags = $request->tags;
 
         return [$dataProduct,$dataProductVariants, $dataProductGalleries, $dataProductTags];
+    }
+
+
+    public function pagination()
+    {
+        $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data'))->render();
+    }
+
+    public function search(Request $request)
+    {
+        $data = Product::query()->where('name', 'like', '%'.$request->search_string.'%')
+            ->orWhere('price_regular', 'like', '%'.$request->search_string.'%')
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+        if($data->count() >= 1) {
+            return view('admin.products.pagination', compact('data'))->render();
+        } else {
+            return response()->json([
+                'status' => 'Không tìm thất kết quả!',
+            ],404);
+        }
     }
 }

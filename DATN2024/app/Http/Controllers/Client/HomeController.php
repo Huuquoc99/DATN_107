@@ -32,7 +32,7 @@ class HomeController extends Controller
             ->where('is_show_home', 1)
             ->get();
 
-        
+
         $catalogues = Catalogue::where('is_active', 1)->get();
 
         $banners = Banner::where('is_active', 1)->get();
