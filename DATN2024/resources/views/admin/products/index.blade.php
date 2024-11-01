@@ -32,7 +32,6 @@
                 <div class="card-header d-flex justify-content-between">
                     <div id="db-search-product">
                         <input type="text" id="search" class="form-control" placeholder="Tìm kiếm..." width="200px" >
-                        <div id="error-search"></div>
                     </div>
                 </div>
 
