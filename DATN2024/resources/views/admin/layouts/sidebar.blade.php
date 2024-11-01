@@ -48,11 +48,11 @@
                     <div class="collapse menu-dropdown" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.catalogues.index') }}" target="_blank" class="nav-link">Danh
+                                <a href="{{ route('admin.catalogues.index') }}" class="nav-link">Danh
                                     sách </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.catalogues.create') }}" target="_blank" class="nav-link">Thêm
+                                <a href="{{ route('admin.catalogues.create') }}" class="nav-link">Thêm
                                     mới</a>
                             </li>
                         </ul>
@@ -67,11 +67,11 @@
                     <div class="collapse menu-dropdown" id="sidebarLayouts2">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.products.index') }}" target="_blank" class="nav-link">Danh sách
+                                <a href="{{ route('admin.products.index') }}" class="nav-link">Danh sách
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.products.create') }}" target="_blank" class="nav-link">Thêm
+                                <a href="{{ route('admin.products.create') }}" class="nav-link">Thêm
                                     mới</a>
                             </li>
                         </ul>

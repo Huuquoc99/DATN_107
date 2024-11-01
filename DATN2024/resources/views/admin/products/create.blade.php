@@ -70,10 +70,7 @@
                                         <label for="short_description" class="form-label">Mô tả ngắn</label>
                                         <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>
                                     </div>
-
-
                                 </div>
-
 
                                 <div class="col-md-7 mt-2">
                                     <div class="row">
