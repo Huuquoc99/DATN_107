@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])->name('product.detail');
+
 Route::get('home', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
 Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login']);
 
@@ -30,7 +33,6 @@ Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']
 Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
 Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
 Route::get('cart', [App\Http\Controllers\Client\HomeController::class, 'cart']);
-Route::get('product-detail', [App\Http\Controllers\Client\HomeController::class, 'productdetail']);
 
 
 

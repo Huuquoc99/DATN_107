@@ -17,10 +17,14 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/plugins/swiper.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/cart.css') }}" type="text/css">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
