@@ -50,7 +50,6 @@
                                         <label for="catalogue_id" class="form-label">Hãng điện thoại</label>
                                         <select class="form-select" name="catalogue_id" id="catalogue_id">
                                             @foreach($catalogues as $id => $name)
-                                                <option value="0">Chờ tao đã!</option>
                                                 <option value="{{ $id }}">{{ $name }}</option>
                                             @endforeach
                                         </select>
@@ -271,7 +270,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary" type="">Thêm mới</button>
+                        <button class="btn btn-primary">Thêm mới <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>

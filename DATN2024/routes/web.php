@@ -45,6 +45,8 @@ Route::prefix('admin')
             return view('admin.dashboard');
         })->name('dashboard');
 
+        Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
+        Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::resource('products', ProductController::class);
         Route::resource('catalogues', ProductController::class);
     });
