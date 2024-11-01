@@ -65,3 +65,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+$(document).on('click', '.cart-table .remove-cart-v2', function(e) {
+    e.preventDefault();
+    let deleteId = $(this).data('id');
+
+    if (confirm('Are you sure you want to remove this item?')) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/cart/delete/',
+            method: 'POST',
+            data: { deleteId: deleteId },
+            success: function(res) {
+                if (res.success) {
+                    // Cập nhật lại nội dung bảng
+                    $('.table-data').html(res.data); // Cập nhật với dữ liệu mới
+                } else {
+                    $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
+                }
+            },
+            error: function(res) {
+                if (res.status === 404) {
+                    $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
+                } else {
+                    $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
+                }
+            }
+        });
+
+        // Xóa hàng từ giao diện người dùng ngay lập tức
+        let parentEl = $(this).closest('tr');
+        $(parentEl).addClass('_removed');
+        setTimeout(() => {
+            $(parentEl).remove();
+        }, 350);
+    }
+});
+
+
+

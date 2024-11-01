@@ -18,7 +18,7 @@
                             <th>Sản phẩm</th>
                             <th></th>
                             <th>Giá</th>
-                            <th>Số lươgnj</th>
+                            <th>Số lượng</th>
                             <th>Tổng tiền</th>
                             <th></th>
                         </tr>
@@ -56,11 +56,8 @@
                                 <span class="shopping-cart__subtotal">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VND</span> <!-- Calculate subtotal -->
                             </td>
                             <td>
-                                <a href="#" class="remove-cart">
-                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="#767676" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z"/>
-                                        <path d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z"/>
-                                    </svg>
+                                <a href="#" class="remove-cart-v2" data-id="{{ $item['product_variant_id'] }}">
+                                    <i class="fa-solid fa-trash-can fa-lg"></i>
                                 </a>
                             </td>
                         </tr>

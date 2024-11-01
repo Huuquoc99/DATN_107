@@ -210,4 +210,33 @@ class CartController extends Controller
             ], 500);
         }
     }
+
+    public function deleteCart(Request $request)
+    {
+        $id = $request->input('deleteId');
+        try {
+            if (Auth::check()) {
+                $cartItem = CartItem::whereHas('cart', function ($query) {
+                    $query->where('user_id', Auth::id());
+                })->where('product_variant_id', $id)->first();
+
+                if ($cartItem) {
+                    $cartItem->delete();
+                }
+            } else {
+
+                $cart = session()->get('cart', []);
+
+                if (isset($cart[$id])) {
+                    unset($cart[$id]);
+                    session()->put('cart', $cart);
+                }
+            }
+
+            return redirect()->back()->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa sản phẩm khỏi giỏ hàng.');
+        }
+    }
+
 }
