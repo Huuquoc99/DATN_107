@@ -49,6 +49,7 @@ class HomeController extends Controller
                 'banners' => $banners,
             ],
         ], 200);
+
     }
 }
 

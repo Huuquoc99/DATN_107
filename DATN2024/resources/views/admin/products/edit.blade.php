@@ -1,14 +1,15 @@
+
 @extends('admin.layouts.master')
 
 @section('title')
-    Sửa sản phẩm
+    Thêm mới Sản phẩm
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Sửa sản phẩm</h4>
+                <h4 class="mb-sm-0">Thêm mới sản phẩm</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -21,10 +22,8 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -41,7 +40,7 @@
                                                value="{{ $product->name }}">
                                     </div>
                                     <div class="mt-3">
-                                        <label for="sku" class="form-label">SKU</label>
+                                        <label for="sku" class="form-label">Mã</label>
                                         <input type="text" class="form-control" name="sku" id="sku"
                                                value="{{ $product->sku }}">
                                     </div>
@@ -56,8 +55,8 @@
                                                name="price_sale" id="price_sale">
                                     </div>
                                     <div class="mt-3">
-                                        <label for="catelogue_id" class="form-label">Catalogues</label>
-                                        <select type="text" class="form-select" name="catelogue_id" id="catelogue_id">
+                                        <label for="catalogue_id " class="form-label">Catalogues</label>
+                                        <select type="text" class="form-select" name="catalogue_id" id="catalogue_id">
                                             @foreach($catalogues as $id => $name)
                                                 <option
                                                     value="{{ $id }}" {{ $product->catelogue_id == $id ? 'selected' : '' }}>{{ $name }}</option>
@@ -65,73 +64,84 @@
                                         </select>
                                     </div>
                                     <div class="mt-3">
-                                        <label for="img_thumbnail" class="form-label">Img Thumbnail</label>
+                                        <label for="img_thumbnail" class="form-label">Ảnh đại diện</label>
                                         @if($product->img_thumbnail)
                                             <img src="{{ \Storage::url($product->img_thumbnail) }}"
                                                  alt="{{ $product->name }}" class="img-thumbnail mb-2"
                                                  style="max-width: 200px;">
                                         @endif
                                         <input type="file" class="form-control" name="img_thumbnail" id="img_thumbnail">
-                                        <small class="form-text text-muted">Leave empty to keep the current
-                                            image</small>
                                     </div>
                                 </div>
-
                                 <div class="col-md-7 mt-2">
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control" name="description" id="content"
-                                                      rows="2">{!! $product->description !!}</textarea>
+                                            <label for="screen_size" class="form-label">Kích thước màn hình</label>
+                                            <input type="text" class="form-control" name="screen_size" id="screen_size" value="{{ $product->screen_size }}">
                                         </div>
                                         <div class="mt-3">
-                                            <label for="material" class="form-label">Material</label>
-                                            <textarea class="form-control" name="material" id="material"
-                                                      rows="2">{{ $product->material }}</textarea>
+                                            <label for="operating_system" class="form-label">Hệ điều hành</label>
+                                            <input type="text" class="form-control" name="operating_system" id="operating_system" value="{{ $product->operating_system }}">
                                         </div>
                                         <div class="mt-3">
-                                            <label for="user_manual" class="form-label">User Manual</label>
-                                            <textarea class="form-control" name="user_manual" id="user_manual"
-                                                      rows="2">{{ $product->user_manual }}</textarea>
+                                            <label for="battery_capacity" class="form-label">Dung lượng pin</label>
+                                            <input type="text" class="form-control" name="battery_capacity" id="battery_capacity" value="{{ $product->battery_capacity }}">
                                         </div>
-                                        <div class="mt-3">
-                                            <label for="content" class="form-label">Content</label>
-                                            <textarea class="form-control" name="content"
-                                                      id="content">{{ $product->content }}</textarea>
-                                        </div>
-                                    </div>
 
-                                    <div class="mt-5">
-                                        <div class="row">
-                                            @php
-                                                $is = [
-                                                    'is_active' => ['name' => 'Kích hoạt', 'color' => 'primary'],
-                                                    'is_hot_deal' => ['name' => 'Sản phẩm Hot', 'color' => 'danger'],
-                                                    'is_good_deal' => ['name' => 'Ưu đãi tốt', 'color' => 'warning'],
-                                                    'is_new' => ['name' => 'Sản phẩm Mới', 'color' => 'success'],
-                                                    'is_show_home' => ['name' => 'Hiển thị trên Trang Chủ', 'color' => 'info'],
-                                                ];
-                                            @endphp
+                                        <div class="mt-3">
+                                            <label for="camera_resolution" class="form-label">Camera</label>
+                                            <input type="text" class="form-control" name="camera_resolution" id="camera_resolution" value="{{ $product->camera_resolution }}">
+                                        </div>
 
-                                            @foreach($is as $key => $value)
-                                                <div class="col-md-4 mb-3">
-                                                    <div class="form-check form-switch form-switch-{{ $value['color'] }} d-flex align-items-center">
-                                                        <input class="form-check-input me-2" type="checkbox" role="switch"
-                                                               name="{{ $key }}" value="1" id="{{ $key }}"
-                                                            {{ isset($product) && $product->$key ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="{{ $key }}">{{ $value['name'] }}</label>
+                                        <div class="mt-3">
+                                            <label for="network_connectivity" class="form-label">Mạng</label>
+                                            <input type="text" class="form-control" name="network_connectivity" id="network_connectivity" value="{{ $product->network_connectivity }}">
+                                        </div>
+
+                                        <div class="mt-3">
+                                            <label for="storage" class="form-label">Dung lượng lưu trữ</label>
+                                            <input type="text" class="form-control" name="storage" id="storage">
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <div class="row">
+                                                @php
+                                                    $is = [
+                                                        'is_active' => ['name' => 'Kích hoạt', 'color' => 'primary'],
+                                                        'is_hot_deal' => ['name' => 'Sản phẩm Hot', 'color' => 'danger'],
+                                                        'is_good_deal' => ['name' => 'Ưu đãi tốt', 'color' => 'warning'],
+                                                        'is_new' => ['name' => 'Sản phẩm Mới', 'color' => 'success'],
+                                                        'is_show_home' => ['name' => 'Hiển thị trên Trang Chủ', 'color' => 'info'],
+                                                    ];
+                                                @endphp
+
+                                                @foreach($is as $key => $value)
+                                                    <div class="col-md-4 mb-3">
+                                                        <div class="form-check form-switch form-switch-{{ $value['color'] }} d-flex align-items-center">
+                                                            <input class="form-check-input me-2" type="checkbox" role="switch"
+                                                                   name="{{ $key }}" value="1" id="{{ $key }}"
+                                                                {{ isset($product) && $product->$key ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="{{ $key }}">{{ $value['name'] }}</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-
+                                    <div class="mt-5">
+                                        <label for="short_description" class="form-label">Mô tả ngắn</label>
+                                        <textarea class="form-control" name="short_description" id="short_description" rows="2">{{ $product->short_description }}</textarea>
+                                    </div>
                                 </div>
-
+                            </div>
+                            <div class="mt-3">
+                                <label for="description" class="form-label">Mô tả dài<</label>
+                                <textarea class="form-control" name="description" id="content"
+                                          rows="2">{!! $product->description !!}</textarea>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
             <!--end col-->
@@ -185,7 +195,7 @@
                                                     <td>
                                                         <input type="text" class="form-control" value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}" name="product_variants[{{ $key }}][quantity]">
                                                     </td>
-                                                     <td>
+                                                    <td>
                                                         <input type="text" class="form-control" value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}" name="product_variants[{{ $key }}][price]">
                                                     </td>
                                                     <td>
@@ -260,6 +270,7 @@
             <!--end col-->
         </div>
 
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -293,11 +304,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary" type="submit">Cập nhật</button>
-                    </div><!-- end card header -->
+                        <button class="btn btn-primary">Chỉnh sửa  <i
+                                class="fa-regular fa-pen-to-square fa-sm"></i></button>
+                    </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
     </form>
 @endsection
