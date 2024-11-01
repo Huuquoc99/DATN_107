@@ -78,7 +78,7 @@ class ProductController extends Controller
             }
 
             DB::commit();
-
+            return redirect()->route('admin.products.index');
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollBack();
@@ -217,7 +217,8 @@ class ProductController extends Controller
                 }
             }
 
-            return back()->with('success', 'Thao tác thành công');
+            return redirect()->route('admin.products.index')
+                ->with('success', 'User deleted successfully!');;
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }

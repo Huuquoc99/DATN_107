@@ -26,6 +26,8 @@
 
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @yield('styles')
@@ -85,7 +87,9 @@
 {{--<script>--}}
 {{--    const PATH_ROOT = '{{ asset('theme/admin') }}';--}}
 {{--</script>--}}
-<!-- JAVASCRIPT -->
+{{--<!-- JAVASCRIPT -->--}}
+
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -95,6 +99,8 @@
 <script src="{{ asset('theme/admin/assets/libs/feather-icons/feather.min.js') }}"></script>
 <script src="{{ asset('theme/admin/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
 <script src="{{ asset('theme/admin/assets/js/plugins.js') }}"></script>
+<script src="{{ asset('theme/admin/assets/js/database-table.js') }}"></script>
+<script src="{{ asset('theme/admin/assets/js/product-galleries.js') }}"></script>
 
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
@@ -106,7 +112,6 @@
 <script src="{{ asset('theme/admin/assets/js/app.js') }}"></script>
 
 @yield('scripts')
-
 </body>
 
 </html>
