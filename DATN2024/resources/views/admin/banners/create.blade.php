@@ -2,19 +2,19 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Catalogue create
+    Banner create
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Catalogue create</h4>
+                <h4 class="mb-sm-0">Banner create</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Catalogue</a></li>
-                        <li class="breadcrumb-item active">Catalogue create</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Banner</a></li>
+                        <li class="breadcrumb-item active">Banner create</li>
                     </ol>
                 </div>
 
@@ -22,22 +22,22 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.catalogues.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.banners.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Catalogue create</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Banner create</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name">
-                                        @error("name") 
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" id="title">
+                                        @error("title") 
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                 <p class="text-danger">{{ $message }}</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -45,6 +45,10 @@
                                         @enderror
                                     </div>
                                     <div class="row">
+                                        <div class="mt-3">
+                                            <label for="description" class="form-label">Description</label>
+                                            <textarea class="form-control" name="description" id="description" rows="2"></textarea>
+                                        </div>
                                         <div class="mt-4">
                                             @php
                                                 $is = [
@@ -61,12 +65,17 @@
                                                 </div>
                                             @endforeach
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <div class="mt-3">
-                                        <label for="cover" class="form-label">Cover</label>
-                                        <input type="file" class="form-control" name="cover" id="cover">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" class="form-control" name="image" id="image">
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="link" class="form-label">Link</label>
+                                        <textarea class="form-control" name="link" id="link" rows="2"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +89,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Thêm mới <i class="fa-regular fa-plus"></i></button>
+                        <button class="btn btn-primary">Banner create <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>

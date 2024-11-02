@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">List</h5>
-                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('admin.banners.create') }}" class="btn btn-primary mb-3">
                         Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
@@ -66,7 +66,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Image</th>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>Active</th>
                                 <th>Create_at</th>
                                 <th>Update_at</th>
@@ -82,7 +82,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.banners.edit', $item) }}">
-                                                {{ $item->name }}
+                                                {{ $item->title }}
                                             </a>
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no active</span>' !!}</td>
