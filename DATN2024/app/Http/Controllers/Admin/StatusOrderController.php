@@ -25,7 +25,9 @@ class StatusOrderController extends Controller
      */
     public function create()
     {
-        return response()->json();
+        // return response()->json();
+        return view("admin.statusOrders.create");
+
     }
 
     /**
@@ -35,10 +37,14 @@ class StatusOrderController extends Controller
     {
         if ($request->isMethod("POST")) {
             $param = $request->except("_token",);
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
         
-            StatusOrder::create($param);
+            $statusOrder = StatusOrder::create($param);
+            $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
         
-            return response()->json(['message' => 'Status order created successfully']);
+            // return response()->json(['message' => 'Status order created successfully']);
+            return redirect()->route("admin.statusOrders.index")->with("success", "Status order created successfully");
+
         }
     }
 
