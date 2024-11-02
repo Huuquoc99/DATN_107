@@ -47,7 +47,8 @@ class BannerController extends Controller
             $param["image"] = $filepath;
             Banner::create($param);
 
-            return response()->json(['message' => 'Banner created successfully']);
+            // return response()->json(['message' => 'Banner created successfully']);
+            return redirect()->route("admin.banners.index")->with("success", "Banner created successfully");
         }
     }
 
