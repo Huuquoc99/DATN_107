@@ -70,7 +70,8 @@ class CatalogueController extends Controller
     public function edit(string $id)
     {
         $catalogue = Catalogue::findOrFail($id);
-        return response()->json($catalogue);
+        // return response()->json($catalogue);
+        return view("admin.catalogues.edit", compact("catalogue"));
     }
 
     /**
@@ -93,16 +94,14 @@ class CatalogueController extends Controller
             }
 
             $param["cover"] = $filepath;
+            $catalogue->is_active = $request->has('is_active') ? 1 : 0;
             $catalogue->update($param);
 
-            if($catalogue->is_active == 0)
-            {
-                $catalogue->hide();
-            }else{
-                $catalogue->show();
-            }
+            $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
-            return response()->json(['message' => 'Catalogue updated successfully']);
+            // return response()->json(['message' => 'Catalogue updated successfully']);
+            return redirect()->route("admin.catalogues.index")->with("Catalogue updated successfully");
+
         }
     }
 
