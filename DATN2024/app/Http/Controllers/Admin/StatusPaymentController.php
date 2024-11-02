@@ -65,7 +65,9 @@ class StatusPaymentController extends Controller
     public function edit(string $id)
     {
         $statusPayment = StatusPayment::findOrFail($id);
-        return response()->json($statusPayment);
+        // return response()->json($statusPayment);
+        return view("admin.statusPayments.edit", compact("statusPayment"));
+
     }
 
     /**
@@ -76,16 +78,15 @@ class StatusPaymentController extends Controller
         if ($request->isMethod("PUT")) {
             $param = $request->except("_token", "_method");
             $statusPayment = StatusPayment::findOrFail($id);
+            $statusPayment->is_active = $request->has('is_active') ? 1 : 0;
         
             $statusPayment->update($param);
+            $statusPayment->is_active == 0 ? $statusPayment->hide() : $statusPayment->show();
+
         
-            if ($statusPayment->is_active == 0) {
-                $statusPayment->hide();
-            } else {
-                $statusPayment->show();
-            }
-        
-            return response()->json(['message' => 'Status payment updated successfully']);
+            // return response()->json(['message' => 'Status payment updated successfully']);
+            return redirect()->route("admin.statusPayments.index")->with("success", "Status payment updated successfully");
+
         }
     }
 
