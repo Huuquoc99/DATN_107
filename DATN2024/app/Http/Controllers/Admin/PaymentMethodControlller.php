@@ -63,7 +63,9 @@ class PaymentMethodControlller extends Controller
     public function edit(string $id)
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
-        return response()->json($paymentMethod);
+        // return response()->json($paymentMethod);
+        return view("admin.paymentMethods.edit", compact("paymentMethod"));
+
     }
 
     /**
