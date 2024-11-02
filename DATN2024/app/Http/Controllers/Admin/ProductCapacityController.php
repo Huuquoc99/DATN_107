@@ -96,6 +96,8 @@ class ProductCapacityController extends Controller
         ProductVariant::query()->where("product_color_id", $id)->delete();
         $productCapacity = ProductCapacity::query()->findOrFail($id);
         $productCapacity->delete();
-        return response()->json(['message' => 'Product Capacity deleted successfully']);
+        // return response()->json(['message' => 'Product Capacity deleted successfully']);
+        return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity deleted successfully");
+
     }
 }
