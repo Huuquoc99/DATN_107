@@ -53,7 +53,9 @@ class ProductCapacityController extends Controller
     public function show(string $id)
     {
         $productCapacity = ProductCapacity::query()->findOrFail($id);
-        return response()->json($productCapacity);
+        // return response()->json($productCapacity);
+        return view("admin.productCapacities.show", compact('productCapacity'));
+
     }
 
     /**
@@ -62,7 +64,9 @@ class ProductCapacityController extends Controller
     public function edit(string $id)
     {
         $productCapacity = ProductCapacity::findOrFail($id);
-        return response()->json($productCapacity);
+        // return response()->json($productCapacity);
+        return view("admin.productCapacities.edit", compact("productCapacity"));
+
     }
 
     /**
