@@ -37,10 +37,14 @@ class StatusPaymentController extends Controller
     {
           if ($request->isMethod("POST")) {
             $param = $request->except("_token",);
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
         
-            StatusPayment::create($param);
+            $statusPayment = StatusPayment::create($param);
+            $statusPayment->is_active == 0 ? $statusPayment->hide() : $statusPayment->show();
         
-            return response()->json(['message' => 'Status payment created successfully']);
+            // return response()->json(['message' => 'Status payment created successfully']);
+            return redirect()->route("admin.statusPayments.index")->with("success", "Status payment created successfully");
+
         }
     }
 
