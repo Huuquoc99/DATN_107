@@ -115,6 +115,8 @@ class BannerController extends Controller
             Storage::disk("public")->delete($banner->image);
         }
 
-        return response()->json(['message' => 'Banner deleted successfully']);
+        // return response()->json(['message' => 'Banner deleted successfully']);
+        return redirect()->route("admin.banners.index")->with("success", "Banner deleted successfully");
+
     }
 }
