@@ -19,15 +19,11 @@ use App\Http\Controllers\Client\HomeController;
 */
 
 Route::get('/', function () {
+    dd(\Illuminate\Support\Facades\Auth::check());
    return view('welcome');
 });
 
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])->name('product.detail');
-
-Route::get('home', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
-Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login']);
-Route::get('/home', [HomeController::class, 'index']);
-
 
 Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound']);
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
