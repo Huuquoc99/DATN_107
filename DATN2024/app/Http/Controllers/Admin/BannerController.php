@@ -58,7 +58,9 @@ class BannerController extends Controller
     public function show(string $id)
     {
         $banner = Banner::query()->findOrFail($id);
-        return response()->json($banner);
+        // return response()->json($banner);
+        return view("admin.banners.show", compact('banner'));
+
     }
 
     /**
