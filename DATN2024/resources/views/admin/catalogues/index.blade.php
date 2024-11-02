@@ -51,6 +51,15 @@
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
+
+                        @if (session("success"))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session("success")}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
                                style="width:100%">
                             <thead>

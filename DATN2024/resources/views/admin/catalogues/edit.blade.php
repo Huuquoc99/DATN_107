@@ -39,6 +39,12 @@
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control" name="name" id="name"
                                                value="{{ $catalogue->name }}">
+                                        @error("name") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="row">
                                         <div class="mt-4">

@@ -50,7 +50,7 @@ class CatalogueController extends Controller
             Catalogue::create($param);
 
             // return response()->json(['message' => 'Catalogue created successfully']);
-            return redirect()->route("admin.catalogues.index")->with("Catalogue created successfully");
+            return redirect()->route("admin.catalogues.index")->with("success", "Catalogue created successfully");
         }
     }
 
@@ -100,7 +100,7 @@ class CatalogueController extends Controller
             $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
             // return response()->json(['message' => 'Catalogue updated successfully']);
-            return redirect()->route("admin.catalogues.index")->with("Catalogue updated successfully");
+            return redirect()->route("admin.catalogues.index")->with("success", "Catalogue updated successfully");
 
         }
     }
@@ -117,6 +117,8 @@ class CatalogueController extends Controller
             Storage::disk("public")->delete($catalogue->cover);
         }
 
-        return response()->json(['message' => 'Catalogue deleted successfully']);
+        // return response()->json(['message' => 'Catalogue deleted successfully']);
+        return redirect()->route("admin.catalogues.index")->with("success", "Catalogue deleted successfully");
+
     }
 }
