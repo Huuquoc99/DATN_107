@@ -47,8 +47,9 @@ class PaymentMethodControlller extends Controller
             }
 
             $param["image"] = $filepath;
-            PaymentMethod::create($param);
-        
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
+            $paymentMethod = PaymentMethod::create($param);
+            $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
             // return response()->json(['message' => 'Payment method created successfully']);
             return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method created successfully");
 
