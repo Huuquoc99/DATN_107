@@ -89,7 +89,7 @@ Payment method create
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Banner create <i class="fa-regular fa-plus"></i></button>
+                        <button class="btn btn-primary">Payment method create <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>
