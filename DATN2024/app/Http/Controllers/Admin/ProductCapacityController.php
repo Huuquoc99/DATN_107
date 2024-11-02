@@ -40,9 +40,10 @@ class ProductCapacityController extends Controller
             $param = $request->except("_token");
         
          
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
+            $productCapacity = ProductCapacity::create($param);
+            $productCapacity->is_active == 0 ? $productCapacity->hide() : $productCapacity->show();
 
-            ProductCapacity::create($param);
-        
             // return response()->json(['message' => 'Product Capacity created successfully']);
             return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity created successfully");
 
