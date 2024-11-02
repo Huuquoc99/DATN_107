@@ -80,12 +80,18 @@ class ProductColorController extends Controller
         $param = $request->except("_token", "_method");
     
         $productColor = ProductColor::findOrFail($id);
+        $productColor->is_active = $request->has('is_active') ? 1 : 0;
+
         $productColor->update($param);
+        $productColor->is_active == 0 ? $productColor->hide() : $productColor->show();
     
-        return response()->json([
-            'message' => 'Product Color updated successfully',
-            'data' => $productColor
-        ]);
+        // return response()->json([
+        //     'message' => 'Product Color updated successfully',
+        //     'data' => $productColor
+        // ]);
+
+        return redirect()->route("admin.productColors.index")->with("success", "Product Color updated successfully");
+
     }
 
     /**
@@ -96,6 +102,8 @@ class ProductColorController extends Controller
         ProductVariant::query()->where("product_color_id", $id)->delete();
         $productColor = ProductColor::query()->findOrFail($id);
         $productColor->delete();
-        return response()->json(['message' => 'Product Color deleted successfully']);
+        // return response()->json(['message' => 'Product Color deleted successfully']);
+        return redirect()->route("admin.productColors.index")->with("success", "Product Color deleted successfully");
+
     }
 }
