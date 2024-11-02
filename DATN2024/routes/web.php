@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\PaymentMethodControlller;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,7 +55,7 @@ Route::prefix('admin')
         // Catalogue
         Route::resource('catalogues', CatalogueController::class);
         Route::resource('banners', BannerController::class);
-
+        Route::resource('paymentMethods', PaymentMethodControlller::class);
     });
 
 
