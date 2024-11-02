@@ -98,6 +98,8 @@ class PaymentMethodControlller extends Controller
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
         $paymentMethod->delete();
-        return response()->json(['message' => 'Payment method deleted successfully']);
+        // return response()->json(['message' => 'Payment method deleted successfully']);
+        return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method deleted successfully");
+
     }
 }
