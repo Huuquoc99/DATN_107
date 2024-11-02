@@ -16,7 +16,9 @@ class ProductColorController extends Controller
     public function index()
     {
         $listProductColor = ProductColor::all();
-        return response()->json($listProductColor, 200);
+        // return response()->json($listProductColor, 200);
+        return view("admin.productColors.index", compact('listProductColor'));
+
     }
 
     /**
@@ -24,7 +26,9 @@ class ProductColorController extends Controller
      */
     public function create()
     {
-        return response()->json();
+        // return response()->json();
+        return view("admin.productColors.create");
+
     }
 
     /**
@@ -34,10 +38,15 @@ class ProductColorController extends Controller
     {
         if ($request->isMethod("POST")) {
             $param = $request->except("_token");
+
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
         
-            ProductColor::create($param);
+            $productColor = ProductColor::create($param);
+            $productColor->is_active == 0 ? $productColor->hide() : $productColor->show();
         
-            return response()->json(['message' => 'Product Color created successfully']);
+            // return response()->json(['message' => 'Product Color created successfully']);
+            return redirect()->route("admin.productColors.index")->with("success", "Product color created successfully");
+
         }
     }
 
