@@ -94,9 +94,12 @@ class BannerController extends Controller
             }
 
             $param["image"] = $filepath;
+            $banner->is_active = $request->has('is_active') ? 1 : 0;
             $banner->update($param);
+            $banner->is_active == 0 ? $banner->hide() : $banner->show();
 
-            return response()->json(['message' => 'Banner updated successfully']);
+            // return response()->json(['message' => 'Banner updated successfully']);
+            return redirect()->route("admin.banners.index")->with("success", "Banner updated successfully");
         }
     }
 
