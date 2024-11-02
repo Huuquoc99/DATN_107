@@ -91,6 +91,23 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts4" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Payment method</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts4">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.paymentMethods.index') }}" class="nav-link">Payment method list</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.paymentMethods.create') }}" class="nav-link">Payment method create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
