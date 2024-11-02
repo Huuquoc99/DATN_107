@@ -85,7 +85,7 @@
                                         <img src="{{ $url }}" alt="" width="100px" height="120px">
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.products.edit', $item) }}">
+                                        <a href="{{ route('admin.products.show', $item) }}">
                                             {{ $item->name }}
                                         </a>
                                     </td>

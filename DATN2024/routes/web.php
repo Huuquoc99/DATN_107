@@ -42,6 +42,9 @@ Route::get('cart/list', [\App\Http\Controllers\Client\CartController::class, 'ca
 Route::post('cart/delete', [\App\Http\Controllers\Client\CartController::class, 'deleteCart'])
     ->name('cart.delete');
 
+Route::post('cart/update', [\App\Http\Controllers\Client\CartController::class, 'updateCart'])
+    ->name('cart.update');
+
 
 
 

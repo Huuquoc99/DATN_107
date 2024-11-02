@@ -10,18 +10,19 @@
             <em>Quản lý túi mua sắm của bạn</em>
           </span>
         </a>
+        <div id="delete-success"></div>
         <div class="shopping-cart">
             <div class="cart-table__wrapper">
                 <table class="cart-table">
                     <thead>
-                        <tr>
-                            <th>Sản phẩm</th>
-                            <th></th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Tổng tiền</th>
-                            <th></th>
-                        </tr>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th></th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach($unifiedCart as $item)
@@ -37,23 +38,23 @@
                                 <div class="shopping-cart__product-item__detail">
                                     <h4><a href="{{ route('product.detail', $item['product_id']) }}">{{ $item['name'] }}</a></h4>
                                     <ul class="shopping-cart__product-item__options">
-                                        <li>{{ $item['color'] }}</li>  <!-- Fixed typo here -->
+                                        <li>{{ $item['color'] }}</li>
                                         <li>{{ $item['capacity'] }}</li>
                                     </ul>
                                 </div>
                             </td>
                             <td>
-                                <span class="shopping-cart__product-price">{{ number_format($item['price'], 0, ',', '.') }} VND</span> <!-- Format price if needed -->
+                                <span class="shopping-cart__product-price">{{ number_format($item['price'], 0, ',', '.') }} VND</span>
                             </td>
                             <td>
                                 <div class="qty-control position-relative">
-                                    <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="qty-control__number text-center"> <!-- Use quantity from item -->
+                                    <input type="number" data-id="{{ $item['product_variant_id'] }}" name="quantity" value="{{ $item['quantity'] }}" min="1" class="qty-control__number text-center">
                                     <div class="qty-control__reduce">-</div>
                                     <div class="qty-control__increase">+</div>
                                 </div>
                             </td>
                             <td>
-                                <span class="shopping-cart__subtotal">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VND</span> <!-- Calculate subtotal -->
+                                <span class="shopping-cart__subtotal">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VND</span>
                             </td>
                             <td>
                                 <a href="#" class="remove-cart-v2" data-id="{{ $item['product_variant_id'] }}">
@@ -63,17 +64,12 @@
                         </tr>
                     @endforeach
                     </tbody>
-
                 </table>
                 <div class="cart-table-footer">
-                    <form action="https://uomo-html.flexkitux.com/Demo18/" class="position-relative bg-body">
-                        <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code">
-                        <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
-                               value="APPLY COUPON">
-                    </form>
-                    <button class="btn btn-light">UPDATE CART</button>
+                    <button type="button" id="update-cart" class="btn btn-light">UPDATE CART</button>
                 </div>
             </div>
+
             <div class="shopping-cart__totals-wrapper">
                 <div class="sticky-content">
                     <div class="shopping-cart__totals">
@@ -128,4 +124,7 @@
             </div>
         </div>
     </section>
+    <script>
+        const updateCartUrl = "{{ route('cart.update') }}";
+    </script>
 @endsection

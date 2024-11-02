@@ -28,6 +28,8 @@
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @yield('styles')
@@ -101,6 +103,7 @@
 <script src="{{ asset('theme/admin/assets/js/plugins.js') }}"></script>
 <script src="{{ asset('theme/admin/assets/js/database-table.js') }}"></script>
 <script src="{{ asset('theme/admin/assets/js/product-galleries.js') }}"></script>
+<script src="{{ asset('theme/admin/assets/js/product.js') }}"></script>
 
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>

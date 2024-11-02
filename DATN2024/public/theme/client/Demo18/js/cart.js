@@ -69,39 +69,98 @@ $(document).on('click', '.cart-table .remove-cart-v2', function(e) {
     e.preventDefault();
     let deleteId = $(this).data('id');
 
-    if (confirm('Are you sure you want to remove this item?')) {
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/cart/delete/',
-            method: 'POST',
-            data: { deleteId: deleteId },
-            success: function(res) {
-                if (res.success) {
-                    // Cập nhật lại nội dung bảng
-                    $('.table-data').html(res.data); // Cập nhật với dữ liệu mới
-                } else {
-                    $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
+    Swal.fire({
+        title: 'Bạn có chắc chắn muốn xóa sản phẩm này?',
+        text: 'Hành động này không thể khôi phục lại!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Có, xóa nó!',
+        cancelButtonText: 'Không, giữ lại!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/cart/delete/',
+                method: 'POST',
+                data: { deleteId: deleteId },
+                success: function(res) {
+                    Swal.fire(
+                        'Đã xóa!',
+                        'Sản phẩm đã được xóa thành công từ giỏ hàng!',
+                        'success'
+                    );
+                    $('.table-data').html(res);
+                },
+                error: function(res) {
+                    if (res.status === 404) {
+                        $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
+                    } else {
+                        $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
+                    }
                 }
-            },
-            error: function(res) {
-                if (res.status === 404) {
-                    $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
-                } else {
-                    $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
-                }
-            }
-        });
+            });
 
-        // Xóa hàng từ giao diện người dùng ngay lập tức
-        let parentEl = $(this).closest('tr');
-        $(parentEl).addClass('_removed');
-        setTimeout(() => {
-            $(parentEl).remove();
-        }, 350);
-    }
+            let parentEl = $(this).closest('tr');
+            $(parentEl).addClass('_removed');
+            setTimeout(() => {
+                $(parentEl).remove();
+            }, 350);
+        }
+    });
 });
+
+document.getElementById('update-cart').addEventListener('click', function () {
+    let cartData = {};
+    document.querySelectorAll('.qty-control__number').forEach(input => {
+        const productVariantId = input.getAttribute('data-id');
+        const quantity = input.value;
+        cartData[productVariantId] = quantity;
+    });
+
+    fetch(updateCartUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        body: JSON.stringify({ cart: cartData })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                    Swal.fire({
+                        title: 'Cập nhật thành công!',
+                        text: data.message || 'Số lượng sản phẩm trong giỏ hàng đã được cập nhật.',
+                        icon: 'success',
+                        confirmButtonText: 'Ok',
+                        timer: 2000,
+                    timerProgressBar: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Thông tin!',
+                    text: data.message || 'Cập nhật giỏ hàng thành công!',
+                    icon: 'info',
+                    confirmButtonText: 'Ok',
+                    timer: 2000,
+                    timerProgressBar: true,
+                }).then(() => {
+                    location.reload();
+                });
+            }
+        })
+});
+
+
+
 
 
 
