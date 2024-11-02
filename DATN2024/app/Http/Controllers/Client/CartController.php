@@ -102,7 +102,7 @@ class CartController extends Controller
             }
         }
 
-//        dd($unifiedCart);
+        dd($unifiedCart);
 
         return view('client.cart', compact('unifiedCart', 'totalAmount'));
 
@@ -246,6 +246,8 @@ class CartController extends Controller
     {
         $cartData = $request->input('cart', []);
 
+        DB::beginTransaction();
+
         try {
             foreach ($cartData as $productVariantId => $quantity) {
                 $productVariant = ProductVariant::query()->with('product')->findOrFail($productVariantId);
@@ -288,6 +290,8 @@ class CartController extends Controller
                     session()->put('cart', $sessionCart);
                 }
             }
+
+            DB::commit();
 
             return response()->json([
                 'success' => true,

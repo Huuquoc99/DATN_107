@@ -1,80 +1,69 @@
-
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
-    <div class="customer-forms__wrapper d-flex position-relative">
-        <div class="customer__login">
-            <div class="aside-header d-flex align-items-center">
-                <h3 class="text-uppercase fs-6 mb-0">Login</h3>
-                <button class="btn-close-lg js-close-aside ms-auto"></button>
-            </div><!-- /.aside-header -->
-
-            <form action="https://uomo-html.flexkitux.com/Demo18/login_register.html" method="POST" class="aside-content">
-                <div class="form-floating mb-3">
-                    <input name="email" type="email" class="form-control form-control_gray" id="customerNameEmailInput" placeholder="name@example.com">
-                    <label for="customerNameEmailInput">Username or email address *</label>
+    <div class="container mt-5" style="max-width: 400px;">
+        {{-- Thông tin người dùng khi đã đăng nhập --}}
+        @auth
+            <div class="card shadow-sm">
+                <div class="card-header text-center bg-primary text-white">
+                    <h4 class="mb-0">Thông tin người dùng</h4>
                 </div>
-
-                <div class="pb-3"></div>
-
-                <div class="form-label-fixed mb-3">
-                    <label for="customerPasswordInput" class="form-label">Password *</label>
-                    <input name="password" id="customerPasswordInput" class="form-control form-control_gray" type="password" placeholder="********">
+                <div class="card-body text-center">
+                    <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
+                    <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
+                    {{-- Thêm các thông tin khác nếu cần --}}
+                    <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
+                    </form>
                 </div>
+            </div>
+        @endauth
+    </div>
+    @guest
+        <div class="customer-forms__wrapper d-flex position-relative">
+            <div class="customer__login">
+                <div class="aside-header d-flex align-items-center">
+                    <h3 class="text-uppercase fs-6 mb-0">Đăng nhập</h3>
+                    <button class="btn-close-lg js-close-aside ms-auto"></button>
+                </div><!-- /.aside-header -->
 
-                <div class="d-flex align-items-center mb-3 pb-2">
-                    <div class="form-check mb-0">
-                        <input name="remember" class="form-check-input form-check-input_fill" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">Remember me</label>
+                <form action="{{ route('login') }}" method="POST" class="aside-content">
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input name="email" type="email" class="form-control form-control_gray"
+                            id="customerNameEmailInput" placeholder="name@example.com" required>
+                        <label for="customerNameEmailInput">Email *</label>
                     </div>
-                    <a href="reset_password.html" class="btn-text ms-auto">Lost password?</a>
-                </div>
 
-                <button class="btn btn-primary w-100 text-uppercase" type="submit">Log In</button>
+                    <div class="pb-3"></div>
 
-                <div class="customer-option mt-4 text-center">
-                    <span class="text-secondary">No account yet?</span>
-                    <a href="login_register.html#register-tab" class="btn-text js-show-register">Create Account</a>
-                </div>
-            </form>
-        </div><!-- /.customer__login -->
+                    <div class="form-label-fixed mb-3">
+                        <label for="customerPasswordInput" class="form-label">Mật khẩu *</label>
+                        <input name="password" id="customerPasswordInput" class="form-control form-control_gray"
+                            type="password" placeholder="********" required>
+                    </div>
 
-        <div class="customer__register">
-            <div class="aside-header d-flex align-items-center">
-                <h3 class="text-uppercase fs-6 mb-0">Create an account</h3>
-                <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
-            </div><!-- /.aside-header -->
+                    <div class="d-flex align-items-center mb-3 pb-2">
+                        <div class="form-check mb-0">
+                            <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
+                                id="flexCheckDefault">
+                            <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
+                        </div>
+                        <a href="#" class="btn-text ms-auto">Quên mật khẩu?</a>
+                    </div>
 
-            <form action="https://uomo-html.flexkitux.com/Demo18/login_register.html" method="POST" class="aside-content">
-                <div class="form-floating mb-4">
-                    <input name="username" type="text" class="form-control form-control_gray" id="registerUserNameInput" placeholder="Username">
-                    <label for="registerUserNameInput">Username</label>
-                </div>
+                    <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>
 
-                <div class="pb-1"></div>
+                    <div class="customer-option mt-4 text-center">
+                        <span class="text-secondary">Chưa có tài khoản?</span>
+                        <a href="{{ route('register') }}" class="btn-text js-show-register">Tạo tài khoản</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endguest
+</div>
 
-                <div class="form-floating mb-4">
-                    <input name="email" type="email" class="form-control form-control_gray" id="registerUserEmailInput" placeholder="user@company.com">
-                    <label for="registerUserEmailInput">Email address *</label>
-                </div>
 
-                <div class="pb-1"></div>
-
-                <div class="form-label-fixed mb-4">
-                    <label for="registerPasswordInput" class="form-label">Password *</label>
-                    <input name="password" id="registerPasswordInput" class="form-control form-control_gray" type="password" placeholder="*******">
-                </div>
-
-                <p class="text-secondary mb-4">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
-
-                <button class="btn btn-primary w-100 text-uppercase" type="submit">Register</button>
-
-                <div class="customer-option mt-4 text-center">
-                    <span class="text-secondary">Already have account?</span>
-                    <a href="#" class="btn-text js-show-login">Login</a>
-                </div>
-            </form>
-        </div><!-- /.customer__register -->
-    </div><!-- /.customer-forms__wrapper -->
-</div><!-- /.aside aside_right -->
 
 
 <header id="header" class="header sticky_disabled header_sticky-bg_dark w-100 theme-bg-color">
@@ -90,19 +79,19 @@
                 <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
                     <li>
                         <a href="https://facebook.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-facebook fa-xl"></i>            </a>
+                            <i class="fa-brands fa-facebook fa-xl"></i> </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-twitter fa-xl"></i>            </a>
+                            <i class="fa-brands fa-twitter fa-xl"></i> </a>
                     </li>
                     <li>
                         <a href="https://instagram.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-instagram fa-xl"></i>            </a>
+                            <i class="fa-brands fa-instagram fa-xl"></i> </a>
                     </li>
                     <li>
                         <a href="https://pinterest.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-pinterest fa-xl"></i>            </a>
+                            <i class="fa-brands fa-pinterest fa-xl"></i> </a>
                     </li>
                 </ul>
                 <select class="form-select form-select-sm bg-transparent color-white fs-13" name="store-language">
@@ -183,7 +172,8 @@
                         <i class="fa-regular fa-heart fa-xl"></i>
                     </a>
 
-                    <a href="#" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
+                    <a href="#" class="header-tools__item header-tools__cart js-open-aside"
+                        data-aside="cartDrawer">
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
                         <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
                     </a>
@@ -194,37 +184,47 @@
         <div class="header-bottom pb-4 mb-2">
             <div class="container d-flex align-items-center">
                 <div class="categories-nav position-relative">
-                    <h3 class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
+                    <h3
+                        class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <use href="#icon_nav"/>
+                        <use href="#icon_nav" />
                         </svg>
                         <span class="fw-semi-bold lh-1">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
-                        <use href="#icon_down"/>
+                        <use href="#icon_down" />
                         </svg>
                     </h3>
                     <ul class="categories-nav__list list-unstyled border-radius-10">
                         <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Mobiles & Tablets</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a>
+                        </li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Mobiles & Tablets</a>
+                        </li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">TV & Audio</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Car & Motorbike</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Hmoe & Garden</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Car & Motorbike</a>
+                        </li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Hmoe & Garden</a>
+                        </li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Toys & Kids</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Sporting Goods</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Sporting Goods</a>
+                        </li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Pet Supplies</a></li>
                     </ul>
                 </div>
 
-                <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET" class="header-search search-field me-0 border-radius-10">
+                <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
+                    class="header-search search-field me-0 border-radius-10">
                     <button class="btn header-search__btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     </button>
-                    <input class="header-search__input w-100" type="text" name="search-keyword" placeholder="Search products...">
+                    <input class="header-search__input w-100" type="text" name="search-keyword"
+                        placeholder="Search products...">
                     <div class="hover-container position-relative">
                         <div class="js-hover__open">
-                            <input class="header-search__category search-field__actor border-0 bg-white w-100 fw-semi-bold" type="text" name="search-category" placeholder="ALL CATEGORY" readonly>
+                            <input
+                                class="header-search__category search-field__actor border-0 bg-white w-100 fw-semi-bold"
+                                type="text" name="search-category" placeholder="ALL CATEGORY" readonly>
                         </div>
                         <div class="header-search__category-list js-hidden-content mt-2">
                             <ul class="search-suggestion list-unstyled">
@@ -244,7 +244,8 @@
 <!-- End Header Type 6 -->
 <div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
     <div class="aside-header d-flex align-items-center">
-        <h3 class="text-uppercase fs-6 mb-0">SHOPPING BAG ( <span class="cart-amount js-cart-items-count">1</span> ) </h3>
+        <h3 class="text-uppercase fs-6 mb-0">SHOPPING BAG ( <span class="cart-amount js-cart-items-count">1</span> )
+        </h3>
         <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
     </div><!-- /.aside-header -->
 
@@ -252,7 +253,8 @@
         <div class="cart-drawer-item d-flex position-relative">gi
             <div class="position-relative">
                 <a href="product1_simple.html">
-                    <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
+                    <img loading="lazy" class="cart-drawer-item__img"
+                        src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -261,7 +263,8 @@
                 <p class="cart-drawer-item__option text-secondary">Size: L</p>
                 <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="qty-control position-relative">
-                        <input type="number" name="quantity" value="1" min="1" class="qty-control__number border-0 text-center">
+                        <input type="number" name="quantity" value="1" min="1"
+                            class="qty-control__number border-0 text-center">
                         <div class="qty-control__reduce text-start">-</div>
                         <div class="qty-control__increase text-end">+</div>
                     </div><!-- .qty-control -->
@@ -277,7 +280,8 @@
         <div class="cart-drawer-item d-flex position-relative">
             <div class="position-relative">
                 <a href="product1_simple.html">
-                    <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
+                    <img loading="lazy" class="cart-drawer-item__img"
+                        src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -286,7 +290,8 @@
                 <p class="cart-drawer-item__option text-secondary">Size: XS</p>
                 <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="qty-control position-relative">
-                        <input type="number" name="quantity" value="4" min="1" class="qty-control__number border-0 text-center">
+                        <input type="number" name="quantity" value="4" min="1"
+                            class="qty-control__number border-0 text-center">
                         <div class="qty-control__reduce text-start">-</div>
                         <div class="qty-control__increase text-end">+</div>
                     </div><!-- .qty-control -->
@@ -302,7 +307,8 @@
         <div class="cart-drawer-item d-flex position-relative">
             <div class="position-relative">
                 <a href="product1_simple.html">
-                    <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
+                    <img loading="lazy" class="cart-drawer-item__img"
+                        src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -311,7 +317,8 @@
                 <p class="cart-drawer-item__option text-secondary">Size: L</p>
                 <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="qty-control position-relative">
-                        <input type="number" name="quantity" value="3" min="1" class="qty-control__number border-0 text-center">
+                        <input type="number" name="quantity" value="3" min="1"
+                            class="qty-control__number border-0 text-center">
                         <div class="qty-control__reduce text-start">-</div>
                         <div class="qty-control__increase text-end">+</div>
                     </div><!-- .qty-control -->

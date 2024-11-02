@@ -10,6 +10,9 @@ use Illuminate\Http\Response;
 
 class RegisterController extends Controller
 {
+    public function showFormRegister(){
+        return view('client.auth.register');
+    }
     public function register()
     {
         try{
@@ -22,9 +25,7 @@ class RegisterController extends Controller
             $user = User::create($data);
             $token = $user->createToken($user->id)->plainTextToken;
 
-            return response()->json([
-                "token" => $token
-            ]);
+            return view('client.auth.login');
         }catch(\Throwable $th){
             if($th instanceof ValidationException){
                 return response()->json([
