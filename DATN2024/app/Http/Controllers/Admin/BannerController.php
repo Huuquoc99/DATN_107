@@ -15,7 +15,8 @@ class BannerController extends Controller
     public function index()
     {
         $listBanner = Banner::all();
-        return response()->json($listBanner, 201);
+        // return response()->json($listBanner, 201);
+        return view("admin.banners.index", compact('listBanner'));
     }
 
     /**
