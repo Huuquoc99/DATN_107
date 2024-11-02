@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,8 @@ Route::prefix('admin')
         Route::resource('products', ProductController::class);
         // Catalogue
         Route::resource('catalogues', CatalogueController::class);
+        Route::resource('banners', BannerController::class);
+
     });
 
 
