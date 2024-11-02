@@ -78,16 +78,16 @@ class StatusOrderController extends Controller
         if ($request->isMethod("PUT")) {
             $param = $request->except("_token", "_method");
             $statusOrder = StatusOrder::findOrFail($id);
+            $statusOrder->is_active = $request->has('is_active') ? 1 : 0;
         
             $statusOrder->update($param);
+            $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
         
-            if ($statusOrder->is_active == 0) {
-                $statusOrder->hide();
-            } else {
-                $statusOrder->show();
-            }
+            
         
-            return response()->json(['message' => 'Status order updated successfully']);
+            // return response()->json(['message' => 'Status order updated successfully']);
+            return redirect()->route("admin.statusOrders.index")->with("success", "Status order updated successfully");
+
         }
     }
 
@@ -98,6 +98,8 @@ class StatusOrderController extends Controller
     {
         $statusOrder = StatusOrder::findOrFail($id);
         $statusOrder->delete();
-        return response()->json(['message' => 'Status order deleted successfully']);
+        // return response()->json(['message' => 'Status order deleted successfully']);
+        return redirect()->route("admin.statusOrders.index")->with("success", "Status order deleted successfully");
+
     }
 }
