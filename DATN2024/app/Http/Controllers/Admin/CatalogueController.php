@@ -47,7 +47,9 @@ class CatalogueController extends Controller
             }
 
             $param["cover"] = $filepath;
-            Catalogue::create($param);
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
+            $catalogue = Catalogue::create($param);
+            $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
             // return response()->json(['message' => 'Catalogue created successfully']);
             return redirect()->route("admin.catalogues.index")->with("success", "Catalogue created successfully");
