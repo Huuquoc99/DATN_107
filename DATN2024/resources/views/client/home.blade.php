@@ -2,6 +2,8 @@
 
 @section('content')
 @include('client.layouts.partials.banner')
+
+
 @include('client.layouts.partials.shop-by-categories')
 @include('client.layouts.partials.product')
 @include('client.layouts.partials.discount')

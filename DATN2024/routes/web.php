@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CatalogueController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Client\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,23 +19,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   return view('welcome');
 });
 
-Route::get('home', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
-Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login']);
+Route::get('/home', [HomeController::class, 'index']);
 
-Route::get('register', [App\Http\Controllers\Client\HomeController::class, 'register']);
-Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login'])->name('login');
-Route::get('reset_password', [App\Http\Controllers\Client\HomeController::class, 'resetpassword']);
-Route::get('checkout', [App\Http\Controllers\Client\HomeController::class, 'checkout']);
 
-Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound']);
-Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
-Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
-Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
-Route::get('cart', [App\Http\Controllers\Client\HomeController::class, 'cart']);
-Route::get('product-detail', [App\Http\Controllers\Client\HomeController::class, 'productdetail']);
+// Auth
+Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
+Route::get('/login', [LoginController::class, 'showLogin']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Handle the form submission
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post("login",  [LoginController::class, 'login'])->name('login');
+
+// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
+// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+// Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+//     ->name('password.reset');
 
 
 
@@ -48,8 +54,10 @@ Route::prefix('admin')
         Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
         Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::resource('products', ProductController::class);
-        Route::resource('catalogues', ProductController::class);
+        Route::resource('catalogues', CatalogueController::class);
     });
+
+
 
 
 
