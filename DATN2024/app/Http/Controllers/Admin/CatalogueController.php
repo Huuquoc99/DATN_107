@@ -49,7 +49,8 @@ class CatalogueController extends Controller
             $param["cover"] = $filepath;
             Catalogue::create($param);
 
-            return response()->json(['message' => 'Catalogue created successfully']);
+            // return response()->json(['message' => 'Catalogue created successfully']);
+            return redirect()->route("admin.catalogues.index")->with("Catalogue created successfully");
         }
     }
 

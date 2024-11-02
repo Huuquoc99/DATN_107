@@ -37,6 +37,9 @@
                                     <div>
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control" name="name" id="name">
+                                        @error("name") 
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="row">
                                         <div class="mt-4">
