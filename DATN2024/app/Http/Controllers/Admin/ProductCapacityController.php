@@ -16,7 +16,9 @@ class ProductCapacityController extends Controller
     public function index()
     {
         $listProductCapacity = ProductCapacity::all();
-        return response()->json($listProductCapacity, 200);
+        // return response()->json($listProductCapacity, 200);
+        return view("admin.productCapacities.index", compact('listProductCapacity'));
+
     }
 
     /**
@@ -24,7 +26,9 @@ class ProductCapacityController extends Controller
      */
     public function create()
     {
-        return response()->json();
+        // return response()->json();
+        return view("admin.productCapacities.create");
+
     }
 
     /**
