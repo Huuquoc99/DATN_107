@@ -40,7 +40,9 @@ class PaymentMethodControlller extends Controller
         
             PaymentMethod::create($param);
         
-            return response()->json(['message' => 'Payment method created successfully']);
+            // return response()->json(['message' => 'Payment method created successfully']);
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method created successfully");
+
         }
     }
 
