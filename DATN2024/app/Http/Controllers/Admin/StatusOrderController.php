@@ -65,7 +65,9 @@ class StatusOrderController extends Controller
     public function edit(string $id)
     {
         $statusOrder = StatusOrder::findOrFail($id);
-        return response()->json($statusOrder);
+        // return response()->json($statusOrder);
+        return view("admin.statusOrders.edit", compact("statusOrder"));
+
     }
 
     /**
