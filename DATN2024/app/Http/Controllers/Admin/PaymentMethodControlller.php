@@ -85,7 +85,9 @@ class PaymentMethodControlller extends Controller
                 $paymentMethod->show();
             }
         
-            return response()->json(['message' => 'Payment method updated successfully']);
+            // return response()->json(['message' => 'Payment method updated successfully']);
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method updated successfully");
+
         }
     }
 
