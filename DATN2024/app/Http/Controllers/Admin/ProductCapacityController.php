@@ -41,7 +41,9 @@ class ProductCapacityController extends Controller
         
             ProductCapacity::create($param);
         
-            return response()->json(['message' => 'Product Capacity created successfully']);
+            // return response()->json(['message' => 'Product Capacity created successfully']);
+            return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity created successfully");
+
         }
     }
 
