@@ -11,6 +11,7 @@ class PaymentMethod extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        "image",
         "name",
         "description",
         "display_order",
