@@ -43,17 +43,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Danh mục sản phẩm</span>
+                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Catalogues</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.catalogues.index') }}" class="nav-link">Danh
-                                    sách </a>
+                                <a href="{{ route('admin.catalogues.index') }}" class="nav-link">Catalogue list</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.catalogues.create') }}" class="nav-link">Thêm
-                                    mới</a>
+                                <a href="{{ route('admin.catalogues.create') }}" class="nav-link">Catalogue create</a>
                             </li>
                         </ul>
                     </div>

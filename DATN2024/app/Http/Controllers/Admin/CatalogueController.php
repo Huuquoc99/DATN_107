@@ -17,7 +17,8 @@ class CatalogueController extends Controller
     {
         $listCatalogue = Catalogue::withCount("products")->get();
         // $listCatalogue = Catalogue::all();
-        return response()->json( $listCatalogue, 201);
+        // return response()->json( $listCatalogue, 201);
+        return view("admin.catalogues.index", compact('listCatalogue'));
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,12 @@ Route::prefix('admin')
             return view('admin.dashboard');
         })->name('dashboard');
 
+        // Product
         Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
         Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::resource('products', ProductController::class);
-        Route::resource('catalogues', ProductController::class);
+        // Catalogue
+        Route::resource('catalogues', CatalogueController::class);
     });
 
 
