@@ -54,7 +54,9 @@ class StatusPaymentController extends Controller
     public function show(string $id)
     {
         $statusPayment = StatusPayment::query()->findOrFail($id);
-        return response()->json($statusPayment);
+        // return response()->json($statusPayment);
+        return view("admin.statusPayments.show", compact('statusPayment'));
+
     }
 
     /**
