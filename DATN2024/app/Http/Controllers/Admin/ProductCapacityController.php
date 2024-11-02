@@ -79,10 +79,13 @@ class ProductCapacityController extends Controller
         $productCapacity = ProductCapacity::findOrFail($id);
         $productCapacity->update($param);
     
-        return response()->json([
-            'message' => 'Product Capacity updated successfully',
-            'data' => $productCapacity
-        ]);
+        // return response()->json([
+        //     'message' => 'Product Capacity updated successfully',
+        //     'data' => $productCapacity
+        // ]);
+
+        return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity updated successfully");
+
     }
 
     /**
