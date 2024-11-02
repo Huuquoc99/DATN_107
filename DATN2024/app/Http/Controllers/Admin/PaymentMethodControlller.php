@@ -52,7 +52,9 @@ class PaymentMethodControlller extends Controller
     public function show(string $id)
     {
         $paymentMethod = PaymentMethod::query()->findOrFail($id);
-        return response()->json($paymentMethod);
+        // return response()->json($paymentMethod);
+        return view("admin.paymentMethods.show", compact('paymentMethod'));
+
     }
 
     /**
