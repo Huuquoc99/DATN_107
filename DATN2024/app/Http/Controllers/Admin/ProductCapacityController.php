@@ -39,6 +39,8 @@ class ProductCapacityController extends Controller
         if ($request->isMethod("POST")) {
             $param = $request->except("_token");
         
+         
+
             ProductCapacity::create($param);
         
             // return response()->json(['message' => 'Product Capacity created successfully']);
@@ -77,7 +79,9 @@ class ProductCapacityController extends Controller
         $param = $request->except("_token", "_method");
     
         $productCapacity = ProductCapacity::findOrFail($id);
+        $productCapacity->is_active = $request->has('is_active') ? 1 : 0;
         $productCapacity->update($param);
+        $productCapacity->is_active == 0 ? $productCapacity->hide() : $productCapacity->show();
     
         // return response()->json([
         //     'message' => 'Product Capacity updated successfully',

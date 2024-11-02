@@ -43,9 +43,12 @@ class BannerController extends Controller
             }else{
                 $filepath = null;
             }
+            
 
             $param["image"] = $filepath;
-            Banner::create($param);
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
+            $banner = Banner::create($param);
+            $banner->is_active == 0 ? $banner->hide() : $banner->show();
 
             // return response()->json(['message' => 'Banner created successfully']);
             return redirect()->route("admin.banners.index")->with("success", "Banner created successfully");
