@@ -25,7 +25,9 @@ class PaymentMethodControlller extends Controller
      */
     public function create()
     {
-        return response()->json();
+        // return response()->json();
+        return view("admin.paymentMethods.create");
+
     }
 
     /**
