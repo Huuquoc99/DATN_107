@@ -159,6 +159,23 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts8" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Status Payment</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts8">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.statusPayments.index') }}" class="nav-link">Status Payment list</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.statusPayments.create') }}" class="nav-link">Status Payment create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
