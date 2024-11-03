@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Catalogue;
 use App\Models\Product;
 use App\Models\ProductCapacity;
@@ -168,7 +169,7 @@ class ProductController extends Controller
                     Storage::delete($productImgThumbnailCurrent);
                 }
             }
-            return redirect()->route('admin.products.index');
+            return redirect()->route('admin.products.index')->with("success", "Product updated successfully");
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             DB::rollBack();

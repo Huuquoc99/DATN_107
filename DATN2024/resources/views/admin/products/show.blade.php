@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Chi tiết sản phẩm: {{ $product->name }}
+    Product detail: {{ $product->name }}
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Chi tiết sản phẩm</h4>
+                <h4 class="mb-sm-0">Product detail</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Sản phẩm</a></li>
-                        <li class="breadcrumb-item active">Chi tiết</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Table</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>
             </div>
@@ -63,9 +63,9 @@
                             <div class="mt-4 mt-xl-3">
                                 <h4 class="mt-1 mb-3">{{ $product->name }}</h4>
 
-                                <h5 class="mb-4">Giá:
+                                <h5 class="mb-4">Price:
                                     @if($product->price_sale)
-                                        <span class="text-muted me-2"><del>${{ number_format($product->price_regular, 2) }}</del></span>
+                                        <span class="text-muted me-2 "><del class="text-danger">${{ number_format($product->price_regular, 2) }}</del></span>
                                         <b>${{ number_format($product->price_sale, 2) }}</b>
                                     @else
                                         <b>${{ number_format($product->price_regular, 2) }}</b>
@@ -76,7 +76,7 @@
                                     <div class="col-md-6">
                                         <div>
                                             <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> SKU: {{ $product->sku }}</p>
-                                            <p class="text-muted"><i class="bx bx-shape-triangle font-size-16 align-middle text-primary me-1"></i> Danh mục: {{ $product->catalogue->name ?? 'N/A' }}</p>
+                                            <p class="text-muted"><i class="bx bx-shape-triangle font-size-16 align-middle text-primary me-1"></i> Catalogue: {{ $product->catalogue->name ?? 'N/A' }}</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -87,15 +87,15 @@
                                 </div>
 
                                 <div class="product-color">
-                                    <h5 class="font-size-15">Màu sắc và dung lượng:</h5>
+                                    <h5 class="font-size-15">Variant:</h5>
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>Màu</th>
-                                            <th>Dung lượng</th>
-                                            <th>Số lượng</th>
-                                            <th>Giá</th>
-                                            <th>Mã</th>
+                                            <th>Color</th>
+                                            <th>Capacity</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>SKU</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -114,19 +114,19 @@
 
                                 <div class="mt-4">
                                     @if($product->is_active)
-                                        <span class="badge bg-primary">Đang kích hoạt</span>
+                                        <span class="badge bg-primary">Active</span>
                                     @endif
                                     @if($product->is_hot_deal)
-                                        <span class="badge bg-danger">Là sản phẩm hot</span>
+                                        <span class="badge bg-danger">Hot deal</span>
                                     @endif
                                     @if($product->is_good_deal)
-                                        <span class="badge bg-warning">Sản phẩm ưu đãi</span>
+                                        <span class="badge bg-warning">Good deal</span>
                                     @endif
                                     @if($product->is_new)
-                                        <span class="badge bg-success">Sản phẩm mới</span>
+                                        <span class="badge bg-success">New</span>
                                     @endif
                                     @if($product->is_show_home)
-                                        <span class="badge bg-info">Sản phẩm hiển thị trang chủ</span>
+                                        <span class="badge bg-info">Show home</span>
                                     @endif
                                 </div>
 
@@ -141,35 +141,35 @@
                     </div>
 
                     <div class="mt-5">
-                        <h5 class="mb-3">Thông tin chi tiết :</h5>
+                        <h5 class="mb-3">Details::</h5>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-bordered">
                                 <tbody>
                                 <tr>
-                                    <th scope="row" style="width: 400px;">Mô tả ngắn</th>
+                                    <th scope="row" style="width: 400px;">Short_description</th>
                                     <td>{{ $product->short_description }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Mô tả dài</th>
+                                    <th scope="row">Description</th>
                                     <td>
                                         {!! $product->description !!}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Kích thước màn hình</th>
+                                    <th scope="row">Screen_size</th>
                                     <td>{{ $product->screen_size }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Dung lượng pin</th>
+                                    <th scope="row">Battery_capacity</th>
                                     <td>{{ $product->battery_capacity }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Độ phân giải camera</th>
+                                    <th scope="row">Camera_resolution</th>
                                     <td>{{ $product->camera_resolution }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Hệ điều hành</th>
+                                    <th scope="row">Operating_system</th>
                                     <td>{{ $product->operating_system }}</td>
                                 </tr>
                                 <tr>
@@ -181,15 +181,15 @@
                                     <td>{{ $product->ram }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Dung lượng lưu trữ</th>
+                                    <th scope="row">Storage</th>
                                     <td>{{ $product->storage }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Loại SIM</th>
+                                    <th scope="row">Sim_type</th>
                                     <td>{{ $product->sim_type }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Kết nối mạng</th>
+                                    <th scope="row">Network_connectivity</th>
                                     <td>{{ $product->network_connectivity }}</td>
                                 </tr>
                                 </tbody>
@@ -207,16 +207,16 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-start align-items-center">
                         <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary me-2">
-                            <i class="bx bx-edit me-1"></i> Chỉnh sửa sản phẩm
+                            <i class="bx bx-edit me-1"></i> Product edit
                         </a>
                         <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')">
-                                <i class="bx bx-trash me-1"></i> Xóa sản phẩm
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">
+                                <i class="bx bx-trash me-1"></i> Product delete
                             </button>
                         </form>
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Trở về danh sách</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Back</a>
                     </div>
                 </div>
             </div>

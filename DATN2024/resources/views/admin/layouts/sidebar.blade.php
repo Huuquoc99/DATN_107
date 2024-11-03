@@ -72,17 +72,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts2" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-checkbox-multiple-blank-fill"></i> <span data-key="t-layouts">Sản phẩm</span>
+                       <i class="ri-checkbox-multiple-blank-fill"></i> <span data-key="t-layouts">Products</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts2">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.products.index') }}" class="nav-link">Danh sách
-                                </a>
+                                <a href="{{ route('admin.products.index') }}" class="nav-link">Product list</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.products.create') }}" class="nav-link">Thêm
-                                    mới</a>
+                                <a href="{{ route('admin.products.create') }}" class="nav-link">Product create</a>
                             </li>
                         </ul>
                     </div>
