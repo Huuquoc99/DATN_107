@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PaymentMethodControlller;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\StatusOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,7 @@ Route::prefix('admin')
         Route::resource('paymentMethods', PaymentMethodControlller::class);
         Route::resource('productCapacities', ProductCapacityController::class);
         Route::resource('productColors', ProductColorController::class);
+        Route::resource('statusOrders', StatusOrderController::class);
 
     });
 

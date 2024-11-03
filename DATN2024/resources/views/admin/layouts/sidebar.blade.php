@@ -142,6 +142,23 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts7" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Status order</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts7">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.productColors.index') }}" class="nav-link">Status order list</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.productColors.create') }}" class="nav-link">Status order create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
