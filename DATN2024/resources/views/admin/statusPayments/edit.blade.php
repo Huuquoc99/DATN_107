@@ -2,19 +2,19 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Status Payment edit
+Status Payment 
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Status Payment edit</h4>
+                <h4 class="mb-sm-0">Status Payment</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Status Payment</a></li>
-                        <li class="breadcrumb-item active">Status Payment edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
+                        <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div>
 
@@ -55,7 +55,7 @@ Status Payment edit
                                         <div class="mt-4">
                                             @php
                                                 $is = [
-                                                    'is_active' => ['name' => 'Kích hoạt', 'color' => 'primary'],
+                                                    'is_active' => ['name' => 'Active', 'color' => 'primary'],
                                                 ];
                                             @endphp
                                             @foreach($is as $key => $value)
