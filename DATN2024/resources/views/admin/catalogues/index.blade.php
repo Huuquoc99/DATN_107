@@ -25,12 +25,12 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">List</h5>
+                    <h5 class="card-title mb-0">Catalogue</h5>
                     <a href="{{ route('admin.catalogues.create') }}" class="btn btn-primary mb-3">
                         Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
-                <div class="card-header d-flex justify-content-between align-items-center ">
+                {{-- <div class="card-header d-flex justify-content-between align-items-center ">
                     <div class="search-wrapper">
                         <div class="input-group" style="width: 250px;">
                             <input type="text" id="search" class="form-control" placeholder="Search...">
@@ -47,7 +47,7 @@
                             <option value="4">Yesterday</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">

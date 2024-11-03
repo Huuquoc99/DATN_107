@@ -13,7 +13,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">Customer</li>
+                        <li class="breadcrumb-item active"> List</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">List</h5>
+                    <h5 class="card-title mb-0">Customer list</h5>
                     {{-- <a href="{{ route('admin.customers.create') }}" class="btn btn-primary mb-3">
                         Create <i class="fa-regular fa-plus"></i>
                     </a> --}}
@@ -59,12 +59,12 @@
                                             <img src="{{ Storage::url($item->avatar)}}" alt="" width="100" height="120">
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.customers.edit', $item) }}">
+                                            <a href="{{ route('admin.customers.show', $item) }}">
                                                 {{ $item->name }}
                                             </a>
                                         </td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->type == 1 ? 'Admin' : 'User' }}</td>
+                                        <td class="text-danger">{{ $item->type == 1 ? 'Admin' : 'User' }}</td>
                                         <td>{{ $item->create_at }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
