@@ -2,23 +2,21 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="#" class="logo logo-dark">
+        <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="50px"
-                     width="50px">
+                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="40px" width="50px">
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="#" class="logo logo-light">
+        <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="50px"
-                     width="200px">
+                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="40px" width="200px">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -34,16 +32,26 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#"
+                    <a class="nav-link menu-link" href="{{ route('admin.dashboard') }}"
                        aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts9" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts">
+                       <i class="ri-group-line"></i>
+                       <span data-key="t-layouts">
+                            <a href="{{ route('admin.customers.index') }}">Customers</a>
+                       </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Catalogues</span>
+                       <i class="ri-layout-2-fill"></i> <span data-key="t-layouts">Catalogues</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
@@ -60,7 +68,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts2" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Sản phẩm</span>
+                       <i class="ri-checkbox-multiple-blank-fill"></i> <span data-key="t-layouts">Sản phẩm</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts2">
                         <ul class="nav nav-sm flex-column">
@@ -78,7 +86,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts3" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Banners</span>
+                       <i class="ri-mist-fill"></i> <span data-key="t-layouts">Banners</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts3">
                         <ul class="nav nav-sm flex-column">
@@ -95,7 +103,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts4" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Payment method</span>
+                       <i class="ri-bank-card-fill"></i><span data-key="t-layouts">Payment method</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts4">
                         <ul class="nav nav-sm flex-column">
@@ -112,7 +120,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts5" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Product capacity</span>
+                       <i class="ri-sensor-fill"></i> <span data-key="t-layouts">Product capacity</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts5">
                         <ul class="nav nav-sm flex-column">
@@ -129,7 +137,8 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts6" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Product color</span>
+                       <i class="ri-pantone-fill"></i>
+                       <span data-key="t-layouts">Product color</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts6">
                         <ul class="nav nav-sm flex-column">
@@ -146,7 +155,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts7" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Status order</span>
+                       <i class="ri-bubble-chart-fill"></i> <span data-key="t-layouts">Status order</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts7">
                         <ul class="nav nav-sm flex-column">
@@ -163,7 +172,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts8" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Status Payment</span>
+                       <i class="ri-copper-coin-line"></i> <span data-key="t-layouts">Status Payment</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts8">
                         <ul class="nav nav-sm flex-column">
