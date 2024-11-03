@@ -20,7 +20,7 @@ class StatusPayment extends Model
 
     protected $casts = [
         "is_active" => "boolean",
-        "display_order" => "integer",
+        "display_order" => "int",
     ];
 
     public function hide()

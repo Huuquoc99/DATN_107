@@ -97,6 +97,8 @@ class StatusPaymentController extends Controller
     {
         $statusPayment = StatusPayment::findOrFail($id);
         $statusPayment->delete();
-        return response()->json(['message' => 'Status payment deleted successfully']);
+        // return response()->json(['message' => 'Status payment deleted successfully']);
+        return redirect()->route("admin.statusPayments.index")->with("success", "Status payment deleted successfully");
+
     }
 }
