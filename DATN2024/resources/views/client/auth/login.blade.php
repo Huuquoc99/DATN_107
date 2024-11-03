@@ -43,11 +43,10 @@
                         name="email"
                         type="email"
                         class="form-control form-control_gray"
-                        id="customerNameEmailInput1"
+                        id=""
                         placeholder="Email address *"
-                        required
                     />
-                    <label for="customerNameEmailInput1">Email address *</label>
+                    <label for="">Email address *</label>
                 </div>
 
                 <div class="form-floating mb-3">

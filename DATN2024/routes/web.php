@@ -23,6 +23,7 @@ Route::get('/', function () {
    return view('welcome');
 });
 
+Route::get('/home', [HomeController::class, 'index']);
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])->name('product.detail');
 
 Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound']);

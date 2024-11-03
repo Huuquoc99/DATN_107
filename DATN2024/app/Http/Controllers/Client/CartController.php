@@ -16,9 +16,11 @@ class CartController extends Controller
 {
     public function cartList()
     {
+//        dd(session('cart'));
         $totalAmount = 0;
         $unifiedCart = [];
-        $sessionCart = session()->get('cart', []);
+        $sessionCart = session('cart');
+
 
         if (Auth::check()) {
             $dbCart = Cart::with(['items.productVariant.product'])
@@ -37,44 +39,50 @@ class CartController extends Controller
                         'price' => $productVariant->price,
                         'quantity' => $item->quantity,
                         'color' => $productVariant->color->name,
-                        'size' => $productVariant->capacity->name,
+                        'capacity' => $productVariant->capacity->name,
                         'image' => $productVariant->image
                     ];
 
                     $totalAmount += $item->quantity * ($product->price_sale ?? $product->price);
                 }
-                // Thêm giỏ hàng session và db
                 if (!empty($sessionCart)) {
+
                     foreach ($sessionCart as $item) {
+
                         $cartItem = CartItem::query()->where([
                             'cart_id' => $dbCart->id,
                             'product_variant_id' => $item['product_variant_id']
                         ])->first();
-
                         if ($cartItem) {
-                            $cartItem->quantity += $item['quantity'];
-                            $cartItem->save();
-                            // Cập nhật số lượng
+                            $newQuantity = $cartItem->quantity + $item['quantity'];
+                            $cartItem->update(['quantity' => $newQuantity]);
+
                             if (isset($unifiedCart[$item['product_variant_id']])) {
-                                $unifiedCart[$item['product_variant_id']]['quantity'] += $item['quantity'];
+                                $unifiedCart[$item['product_variant_id']]['quantity'] = $newQuantity;
                             }
                         } else {
-                            CartItem::query()->create([
+                            $newCartItem = CartItem::query()->create([
                                 'cart_id' => $dbCart->id,
                                 'product_variant_id' => $item['product_variant_id'],
                                 'quantity' => $item['quantity'],
                                 'price' => $item['price']
                             ]);
 
-                            $unifiedCart[$item['product_variant_id']] = $item;
+                            $unifiedCart[$item['product_variant_id']] = [
+                                'product_variant_id' => $newCartItem->product_variant_id,
+                                'quantity' => $newCartItem->quantity,
+                                'price' => $newCartItem->price,
+                            ];
                         }
-                        $totalAmount += $item['quantity'] * $item['price'];
+
+                        // Tính tổng giá
+                        $totalAmount = $item['quantity'] * $item['price'];
                     }
                     // Xóa session sau khi đã lưu vào db
                     session()->forget('cart');
                 }
             } else {
-                // Tạo mới giỏ hàng trong db nếu giỏ hàng db trống
+                dd($sessionCart);
                 if (!empty($sessionCart)) {
                     $dbCart = Cart::query()->create([
                         'user_id' => Auth::id()
@@ -89,7 +97,7 @@ class CartController extends Controller
                         ]);
 
                         $unifiedCart[$item['product_variant_id']] = $item;
-                        $totalAmount += $item['quantity'] * $item['price'];
+                        $totalAmount = $item['quantity'] * $item['price'];
                     }
 
                     session()->forget('cart');
@@ -101,8 +109,6 @@ class CartController extends Controller
                 $totalAmount += $item['quantity'] * $item['price'];
             }
         }
-
-        dd($unifiedCart);
 
         return view('client.cart', compact('unifiedCart', 'totalAmount'));
 
@@ -126,8 +132,6 @@ class CartController extends Controller
 
             $quantity = (int) $request->input('quantity', 0);
 
-//            dd($productVariant);
-
             $stock_quantity = $productVariant->quantity;
 
             if (Auth::check()) {
@@ -139,6 +143,7 @@ class CartController extends Controller
                     'cart_id' => $cart->id,
                     'product_variant_id' => $productVariant->id
                 ])->first();
+
 
                 if (!$cartItem) {
                     if ($quantity > $stock_quantity) {
@@ -153,53 +158,42 @@ class CartController extends Controller
                         'quantity' => $quantity,
                         'price' => $productVariant->price
                     ]);
-                } else {
-                    if (($cartItem->quantity + $quantity) > $stock_quantity) {
+                }
+
+            } else {
+                $cart = session()->get('cart', []);
+                $cartItemKey = $productVariant->id;
+
+                if (isset($cart[$cartItemKey])) {
+                    $newQuantity = $cart[$cartItemKey]['quantity'] + $quantity;
+
+                    if ($newQuantity > $stock_quantity) {
                         return response()->json([
                             'error' => 'Vượt quá số lượng cho phép'
                         ], 400);
                     }
 
-                    $cartItem->update([
-                        'quantity' => $cartItem->quantity + $quantity,
-                        'price' => $productVariant->price
-                    ]);
+                    $cart[$cartItemKey]['quantity'] = $newQuantity;
+                } else {
+                    if ($quantity > $stock_quantity) {
+                        return response()->json([
+                            'error' => 'Vượt quá số lượng cho phép'
+                        ], 400);
+                    }
+
+                    $cart[$cartItemKey] = [
+                        'product_variant_id' => $productVariant->id,
+                        'product_id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $productVariant->price,
+                        'quantity' => $quantity,
+                        'color' => $productVariant->color->name,
+                        'capacity' => $productVariant->capacity->name,
+                        'image' => $productVariant->image
+                    ];
                 }
+                session()->put('cart', $cart);
             }
-
-            $cart = session()->get('cart', []);
-            $cartItemKey = $productVariant->id;
-
-            if (isset($cart[$cartItemKey])) {
-                $newQuantity = $cart[$cartItemKey]['quantity'] + $quantity;
-
-                if ($newQuantity > $stock_quantity) {
-                    return response()->json([
-                        'error' => 'Vượt quá số lượng cho phép'
-                    ], 400);
-                }
-
-                $cart[$cartItemKey]['quantity'] = $newQuantity;
-            } else {
-                if ($quantity > $stock_quantity) {
-                    return response()->json([
-                        'error' => 'Vượt quá số lượng cho phép'
-                    ], 400);
-                }
-
-                $cart[$cartItemKey] = [
-                    'product_variant_id' => $productVariant->id,
-                    'product_id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $productVariant->price,
-                    'quantity' => $quantity,
-                    'color' => $productVariant->color->name,
-                    'capacity' => $productVariant->capacity->name,
-                    'image' => $productVariant->image
-                ];
-            }
-
-            session()->put('cart', $cart);
 
             DB::commit();
 
@@ -246,8 +240,6 @@ class CartController extends Controller
     {
         $cartData = $request->input('cart', []);
 
-        DB::beginTransaction();
-
         try {
             foreach ($cartData as $productVariantId => $quantity) {
                 $productVariant = ProductVariant::query()->with('product')->findOrFail($productVariantId);
@@ -276,7 +268,6 @@ class CartController extends Controller
                             ->where('cart_id', $cart->id)
                             ->where('product_variant_id', $productVariantId)
                             ->first();
-
                         $cartItem->update(['quantity' => $quantity]);
                     }
                 } else {
@@ -290,8 +281,6 @@ class CartController extends Controller
                     session()->put('cart', $sessionCart);
                 }
             }
-
-            DB::commit();
 
             return response()->json([
                 'success' => true,

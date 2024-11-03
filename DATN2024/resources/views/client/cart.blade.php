@@ -29,14 +29,12 @@
                         <tr>
                             <td>
                                 <div class="shopping-cart__product-item">
-                                    <a href="{{ route('product.detail', $item['product_id']) }}">
-                                        <img loading="lazy" src="{{ \Illuminate\Support\Facades\Storage::url($item['image'] ?? 'default-image.jpg') }}" width="120" height="120" alt="">
-                                    </a>
+                                    <img loading="lazy" src="{{ \Illuminate\Support\Facades\Storage::url($item['image'] ?? 'default-image.jpg') }}" width="120" height="120" alt="">
                                 </div>
                             </td>
                             <td>
                                 <div class="shopping-cart__product-item__detail">
-                                    <h4><a href="{{ route('product.detail', $item['product_id']) }}">{{ $item['name'] }}</a></h4>
+                                    <h4><a href="#">{{ $item['name'] }}</a></h4>
                                     <ul class="shopping-cart__product-item__options">
                                         <li>{{ $item['color'] }}</li>
                                         <li>{{ $item['capacity'] }}</li>

@@ -64,7 +64,6 @@ class HomeController extends Controller
         //         'banners' => $banners,
         //     ],
         // ], 200);
-        return view('client.home', compact('productActive', 'productHot', 'productGood', 'productNew', 'productHome', 'catalogues', 'banners'));
 
     }
 }
