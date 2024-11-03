@@ -108,6 +108,23 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts5" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Product capacity</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts5">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.productCapacities.index') }}" class="nav-link">Product capacity list</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.productCapacities.create') }}" class="nav-link">Product capacity create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
