@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Catalogue detail</h4>
+                <h4 class="mb-sm-0">Catalogue</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('admin.catalogues.index') }}">Catalogue</a></li>
@@ -65,7 +65,7 @@
 
                                 <div class="mt-4">
                                     @if($catalogue->is_active)
-                                        <span class="badge bg-primary">Đang kích hoạt</span>
+                                        <span class="badge bg-primary">Active</span>
                                     @endif
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                         <form action="{{ route('admin.catalogues.destroy', $catalogue->id) }}" method="POST" class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">
                                 <i class="bx bx-trash me-1"></i> Catalogue delete
                             </button>
                         </form>
