@@ -14,8 +14,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $users = User::paginate(7);
-        return response()->json($users);
+        // $users = User::paginate(7);
+        // return response()->json($users);
+        return view("admin.customers.index", compact('users'));
+
     }
 
     /**
@@ -41,7 +43,9 @@ class UserController extends Controller
     {
         $users = User::findOrFail($id);
         if($users) {
-            return response()->json($users);
+            // return response()->json($users);
+            return view("admin.customers.show", compact('users'));
+
         }else{
             return response()->json(["message" => "User not found"], 404);
         }
@@ -52,7 +56,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $users = User::findOrFail($id);
+        return view('admin.customers.edit', compact('users'));
     }
 
     /**
@@ -60,7 +65,15 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'type' => 'required|in:0,1',
+        ]);
+    
+        $user = User::findOrFail($id);
+        $user->type = $request->type;
+        $user->save();
+    
+        return redirect()->route('admin.customers.index')->with('success', 'User type updated successfully.');
     }
 
     /**

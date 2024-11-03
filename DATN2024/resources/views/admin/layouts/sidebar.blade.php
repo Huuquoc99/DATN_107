@@ -41,11 +41,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts9" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-group-line"></i>
-                       <span data-key="t-layouts">
-                            <a href="{{ route('admin.customers.index') }}">Customers</a>
-                       </span>
+                       <i class="ri-group-line"></i><span data-key="t-layouts">Customers</span>
                     </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts9">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.customers.index') }}" class="nav-link">Customer list</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="nav-item">

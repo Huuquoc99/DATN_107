@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Catalogue list')
+@section('title', 'Customer')
 
 @section('content')
 
@@ -8,12 +8,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Catalogue list</h4>
+                <h4 class="mb-sm-0">Customer</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">Catalogue list</li>
+                        <li class="breadcrumb-item active">Customer</li>
                     </ol>
                 </div>
             </div>
@@ -26,83 +26,54 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">List</h5>
-                    <a href="{{ route('admin.catalogues.create') }}" class="btn btn-primary mb-3">
+                    {{-- <a href="{{ route('admin.customers.create') }}" class="btn btn-primary mb-3">
                         Create <i class="fa-regular fa-plus"></i>
-                    </a>
+                    </a> --}}
                 </div>
-                <div class="card-header d-flex justify-content-between align-items-center ">
-                    <div class="search-wrapper">
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search...">
-                            <span class="input-group-text"><i class="ri-search-line"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="flex-shrink-0">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: 15px">
-                            <option selected="">Filter</option>
-                            <option value="1">Highest price</option>
-                            <option value="2">Lowest price</option>
-                            <option value="3">Today</option>
-                            <option value="4">Yesterday</option>
-                        </select>
-                    </div>
-                </div>
-
                 <div class="card-body">
                     <div class="table-responsive table-data ">
-
                         @if (session("success"))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session("success")}}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-
-
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
                                style="width:100%">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Cover</th>
+                                <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Active</th>
+                                <th>Email</th>
+                                <th>Type</th>
                                 <th>Create_at</th>
-                                <th>Update_at</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
-                                @foreach($listCatalogue as $item)
+                                @foreach($users as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->cover)}}" alt="" width="100" height="120">
+                                            <img src="{{ Storage::url($item->avatar)}}" alt="" width="100" height="120">
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.catalogues.edit', $item) }}">
+                                            <a href="{{ route('admin.customers.edit', $item) }}">
                                                 {{ $item->name }}
                                             </a>
                                         </td>
-                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->type == 1 ? 'Admin' : 'User' }}</td>
+                                        <td>{{ $item->create_at }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="{{ route('admin.catalogues.show', $item) }}" class="btn btn-info btn-sm">Show 
+                                                <a href="{{ route('admin.customers.show', $item) }}" class="btn btn-info btn-sm">Show 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>
-                                                <a href="{{ route('admin.catalogues.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
+                                                <a href="{{ route('admin.customers.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
-                                                <form action="{{ route('admin.catalogues.destroy', $item) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Bạn có chắc chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Delete 
-                                                        <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                    </button>
-                                                </form>
                                             </div>
                                         </td>
                                     </tr>

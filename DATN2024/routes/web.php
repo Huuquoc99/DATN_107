@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\StatusPaymentController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +57,7 @@ Route::prefix('admin')
         Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
         Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::resource('products', ProductController::class);
-        // Catalogue
+        // Other
         Route::resource('catalogues', CatalogueController::class);
         Route::resource('banners', BannerController::class);
         Route::resource('paymentMethods', PaymentMethodControlller::class);
@@ -64,6 +65,11 @@ Route::prefix('admin')
         Route::resource('productColors', ProductColorController::class);
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
+        Route::resource('customers', UserController::class);
+        // Customer
+        Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+
 
     });
 
