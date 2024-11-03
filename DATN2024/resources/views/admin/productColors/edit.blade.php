@@ -2,19 +2,19 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Product color edit
+Product color 
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Product color edit</h4>
+                <h4 class="mb-sm-0">Product color </h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Product color</a></li>
-                        <li class="breadcrumb-item active">Product color edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table </a></li>
+                        <li class="breadcrumb-item active">Edit  </li>
                     </ol>
                 </div>
 
@@ -29,7 +29,7 @@ Product color edit
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Product color</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Product color edit</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
@@ -51,7 +51,7 @@ Product color edit
                                         <div class="mt-4">
                                             @php
                                                 $is = [
-                                                    'is_active' => ['name' => 'Kích hoạt', 'color' => 'primary'],
+                                                    'is_active' => ['name' => 'Active ', 'color' => 'primary'],
                                                 ];
                                             @endphp
                                             @foreach($is as $key => $value)

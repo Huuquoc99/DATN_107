@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Product color list')
+@section('title', 'Product color ')
 
 @section('content')
 
@@ -8,12 +8,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Product color list</h4>
+                <h4 class="mb-sm-0">Product color </h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">Product color list</li>
+                        <li class="breadcrumb-item active">  List</li>
                     </ol>
                 </div>
             </div>
@@ -25,30 +25,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">List</h5>
+                    <h5 class="card-title mb-0">Product color list</h5>
                     <a href="{{ route('admin.productColors.create') }}" class="btn btn-primary mb-3">
                         Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
-                <div class="card-header d-flex justify-content-between align-items-center ">
-                    <div class="search-wrapper">
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search...">
-                            <span class="input-group-text"><i class="ri-search-line"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="flex-shrink-0">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: 15px">
-                            <option selected="">Filter</option>
-                            <option value="1">Highest price</option>
-                            <option value="2">Lowest price</option>
-                            <option value="3">Today</option>
-                            <option value="4">Yesterday</option>
-                        </select>
-                    </div>
-                </div>
-
                 <div class="card-body">
                     <div class="table-responsive table-data ">
 
@@ -60,7 +41,7 @@
                         @endif
 
 
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
                             <tr>
@@ -87,7 +68,7 @@
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
                                         <td>
-                                            <div class="d-flex gap-2">
+                                            <div class="d-flex gap-2 justify-content-center">
                                                 {{-- <a href="{{ route('admin.productColors.show', $item) }}" class="btn btn-info btn-sm">Show 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a> --}}
@@ -97,7 +78,7 @@
                                                 <form action="{{ route('admin.productColors.destroy', $item) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button onclick="return confirm('Bạn có chắc chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Delete 
+                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Delete 
                                                         <i class="fa-solid fa-delete-left fa-sm"></i>
                                                     </button>
                                                 </form>
