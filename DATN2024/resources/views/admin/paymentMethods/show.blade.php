@@ -8,10 +8,10 @@ Payment method detail: {{ $paymentMethod->name }}
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Payment method detail</h4>
+                <h4 class="mb-sm-0">Payment method </h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.paymentMethods.index') }}">Payment method</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.paymentMethods.index') }}">Table</a></li>
                         <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>
@@ -65,7 +65,7 @@ Payment method detail: {{ $paymentMethod->name }}
 
                                 <div class="mt-4">
                                     @if($paymentMethod->is_active)
-                                        <span class="badge bg-primary">Đang kích hoạt</span>
+                                        <span class="badge bg-primary">Active</span>
                                     @endif
                                 </div>
                                 <h6 class="mt-3 mb-3">{{ $paymentMethod->description }}</h6>
@@ -89,7 +89,7 @@ Payment method detail: {{ $paymentMethod->name }}
                         <form action="{{ route('admin.paymentMethods.destroy', $paymentMethod->id) }}" method="POST" class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">
                                 <i class="bx bx-trash me-1"></i> Payment Method delete
                             </button>
                         </form>
