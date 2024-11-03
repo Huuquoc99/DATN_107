@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('status_payments', function (Blueprint $table) {
             $table->id();
-            $table->string("code", 50)->unique();
+            $table->string("code", 50);
             $table->string("name", 255);
             $table->text("description");
             $table->integer("display_order");
