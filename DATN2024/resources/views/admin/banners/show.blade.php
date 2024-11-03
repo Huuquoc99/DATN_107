@@ -45,9 +45,12 @@
                                 <h4 class="mt-1 mb-3">{{ $banner->title }}</h4>
 
                                 <div class="mt-4">
-                                    @if($banner->is_active)
+                                    @if($banner->is_active == 1)
                                         <span class="badge bg-primary">Active</span>
+                                    @elseif($banner->is_active == 0)
+                                        <span class="badge bg-danger">No active</span>
                                     @endif
+                                    
                                 </div>
                                 <h6 class="mt-3 mb-3">{{ $banner->description }}</h6>
                                 <h6 class="mt-5 mb-3">{{ $banner->link }}</h6>

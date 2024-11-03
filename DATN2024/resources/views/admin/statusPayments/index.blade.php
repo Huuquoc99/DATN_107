@@ -67,7 +67,7 @@
                                             </a>
                                         </td>
                                         <td>{{ $item->display_order }}</td>
-                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no active</span>' !!}</td>
+                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
                                         <td>

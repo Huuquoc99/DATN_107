@@ -38,7 +38,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
                             <tr>
@@ -64,10 +64,12 @@
                                             </a>
                                         </td>
                                         <td>{{ $item->email }}</td>
-                                        <td class="text-danger">{{ $item->type == 1 ? 'Admin' : 'User' }}</td>
+                                        {{-- <td class="text-danger">{{ $item->type == 1 ? 'Admin' : 'User' }}</td> --}}
+                                        <td>{!! $item->type == 1 ? '<span class="badge bg-primary">Admin</span>' : '<span class="badge bg-success">User</span>' !!}</td>
+
                                         <td>{{ $item->create_at }}</td>
                                         <td>
-                                            <div class="d-flex gap-2">
+                                            <div class="d-flex gap-2  justify-content-center">
                                                 <a href="{{ route('admin.customers.show', $item) }}" class="btn btn-info btn-sm">Show 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>

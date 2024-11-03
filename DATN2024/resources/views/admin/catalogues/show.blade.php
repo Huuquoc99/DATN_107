@@ -64,8 +64,10 @@
                                 <h4 class="mt-1 mb-3">{{ $catalogue->name }}</h4>
 
                                 <div class="mt-4">
-                                    @if($catalogue->is_active)
+                                    @if($catalogue->is_active == 1)
                                         <span class="badge bg-primary">Active</span>
+                                    @elseif($catalogue->is_active == 0)
+                                        <span class="badge bg-danger">No active</span>
                                     @endif
                                 </div>
                             </div>

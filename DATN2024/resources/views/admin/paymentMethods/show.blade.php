@@ -64,8 +64,10 @@ Payment method detail: {{ $paymentMethod->name }}
                                 <h4 class="mt-1 mb-3">{{ $paymentMethod->name }}</h4>
 
                                 <div class="mt-4">
-                                    @if($paymentMethod->is_active)
+                                    @if($paymentMethod->is_active == 1)
                                         <span class="badge bg-primary">Active</span>
+                                    @elseif($banner->is_active == 0)
+                                        <span class="badge bg-danger">No active</span>
                                     @endif
                                 </div>
                                 <h6 class="mt-3 mb-3">{{ $paymentMethod->description }}</h6>
