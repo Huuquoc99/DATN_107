@@ -90,9 +90,9 @@
                                         <td>{{ $item->updated_at }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="{{ route('admin.statusOrders.show', $item) }}" class="btn btn-info btn-sm">Show 
+                                                {{-- <a href="{{ route('admin.statusOrders.show', $item) }}" class="btn btn-info btn-sm">Show 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
-                                                </a>
+                                                </a> --}}
                                                 <a href="{{ route('admin.statusOrders.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
