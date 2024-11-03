@@ -12,11 +12,11 @@ class ProductCapacity extends Model
 
     protected $fillable = [
         "name",
-        "status",
+        "is_active",
     ];
 
     protected $casts = [
-        "status" => "boolean",
+        "is_active" => "boolean",
     ];
 
     public function hide()

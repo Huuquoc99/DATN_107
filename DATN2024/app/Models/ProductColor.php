@@ -13,11 +13,11 @@ class ProductColor extends Model
     protected $fillable = [
         "name",
         "color_code",
-        "status",
+        "is_active",
     ];
 
     protected $casts = [
-        "status" => "boolean",
+        "is_active" => "boolean",
     ];
 
     public function hide()

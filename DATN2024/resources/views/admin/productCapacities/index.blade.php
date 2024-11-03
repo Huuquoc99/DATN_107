@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Payment method list')
+@section('title', 'Product capacity list')
 
 @section('content')
 
@@ -8,12 +8,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Payment method list</h4>
+                <h4 class="mb-sm-0">Product capacity list</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">Payment method list</li>
+                        <li class="breadcrumb-item active">Product capacity list</li>
                     </ol>
                 </div>
             </div>
@@ -65,7 +65,6 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Create_at</th>
@@ -82,7 +81,7 @@
                                                 {{ $item->name }}
                                             </a>
                                         </td>
-                                        <td>{!! $item->status ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no active</span>' !!}</td>
+                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no active</span>' !!}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
                                         <td>
