@@ -151,10 +151,10 @@
                     <div class="collapse menu-dropdown" id="sidebarLayouts7">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.productColors.index') }}" class="nav-link">Status order list</a>
+                                <a href="{{ route('admin.statusOrders.index') }}" class="nav-link">Status order list</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.productColors.create') }}" class="nav-link">Status order create</a>
+                                <a href="{{ route('admin.statusOrders.create') }}" class="nav-link">Status order create</a>
                             </li>
                         </ul>
                     </div>

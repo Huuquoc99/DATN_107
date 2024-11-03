@@ -75,7 +75,7 @@
                             </tr>
                             </thead>
                             <tbody id="product-list">
-                                @foreach($listStatusOrders as $item)
+                                @foreach($listStatusOrder as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->code }}</td>
