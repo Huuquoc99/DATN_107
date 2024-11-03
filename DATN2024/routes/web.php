@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\PaymentMethodControlller;
 use App\Http\Controllers\Admin\ProductCapacityController;
+use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,7 @@ Route::prefix('admin')
         Route::resource('banners', BannerController::class);
         Route::resource('paymentMethods', PaymentMethodControlller::class);
         Route::resource('productCapacities', ProductCapacityController::class);
+        Route::resource('productColors', ProductColorController::class);
 
     });
 

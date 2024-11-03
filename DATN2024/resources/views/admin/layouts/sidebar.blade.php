@@ -125,6 +125,23 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts6" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Product color</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts6">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.productColors.index') }}" class="nav-link">Product color list</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.productColors.create') }}" class="nav-link">Product color create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
