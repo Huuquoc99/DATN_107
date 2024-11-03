@@ -46,8 +46,8 @@ Status order create
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control" name="description" id="description" rows="2"></textarea>
+                                            <label for="display_order" class="form-label">Display_order</label>
+                                            <input type="number" class="form-control" name="display_order" id="display_order">
                                         </div>
                                         <div class="mt-4">
                                             @php
@@ -73,9 +73,21 @@ Status order create
                                         <label for="image" class="form-label">Image</label>
                                         <input type="file" class="form-control" name="image" id="image">
                                     </div> --}}
+                                    
+                                    
                                     <div class="mt-3">
-                                        <label for="display_order" class="form-label">Display_order</label>
-                                        <input type="number" class="form-control" name="display_order" id="display_order">
+                                        <label for="code" class="form-label">Code</label>
+                                        <input type="text" class="form-control" name="code" id="code">
+                                        @error("code") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" name="description" id="description" rows="2"></textarea>
                                     </div>
                                 </div>
                             </div>
