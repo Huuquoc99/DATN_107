@@ -71,6 +71,8 @@ Route::prefix('admin')
 
         Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
         Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
+        Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
+
         Route::resource('products', ProductController::class);
         Route::resource('catalogues', CatalogueController::class);
     });
