@@ -79,7 +79,7 @@ class ProductController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.products.index');
+            return redirect()->route('admin.products.index')->with("success", "Product created successfully");
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollBack();
@@ -219,7 +219,7 @@ class ProductController extends Controller
             }
 
             return redirect()->route('admin.products.index')
-                ->with('success', 'User deleted successfully!');;
+                ->with('success', 'Product deleted successfully!');;
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }

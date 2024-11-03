@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\StatusPaymentController;
+use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,8 +70,9 @@ Route::prefix('admin')
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-
-
+        // Trashed
+        Route::get('/trashed', [TrashedController::class, 'trashed'])->name('trashed');
+        Route::post('/trashed/{id}/restore', [TrashedController::class, 'restore'])->name('restore');
     });
 
 
