@@ -5,6 +5,7 @@
     Thêm mới Sản phẩm
 @endsection
 
+
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -36,27 +37,40 @@
                                 <div class="col-md-5">
                                     <div>
                                         <label for="name" class="form-label">Tên sản phẩm</label>
-                                        <input type="text" class="form-control" name="name" id="name">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}">
+                                        @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="price_regular" class="form-label">Giá thường</label>
-                                        <input type="number" value="0" class="form-control" name="price_regular" id="price_regular">
+                                        <input type="number" class="form-control @error('price_regular') is-invalid @enderror" name="price_regular" id="price_regular" value="{{ old('price_regular') }}">
+                                        @error('price_regular')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="price_sale" class="form-label">Giá giảm giá</label>
-                                        <input type="number" value="0" class="form-control" name="price_sale" id="price_sale">
+                                        <input type="number" class="form-control" name="price_sale" id="price_sale" value="{{ old('price_sale') }}">
                                     </div>
                                     <div class="mt-3">
                                         <label for="catalogue_id" class="form-label">Hãng điện thoại</label>
-                                        <select class="form-select" name="catalogue_id" id="catalogue_id">
+                                        <select class="form-select @error('catalogue_id') is-invalid @enderror" name="catalogue_id" id="catalogue_id">
+                                            <option value="0">Danh mục</option>
                                             @foreach($catalogues as $id => $name)
                                                 <option value="{{ $id }}">{{ $name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('catalogue_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="img_thumbnail" class="form-label">Ảnh đại diện</label>
-                                        <input type="file" class="form-control" name="img_thumbnail" id="img_thumbnail">
+                                        <input type="file" class="form-control @error('img_thumbnail') is-invalid @enderror" name="img_thumbnail" id="img_thumbnail" value="{{ old('img_thumbnail') }}">
+                                        @error('img_thumbnail')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="processor" class="form-label">CPU</label>
