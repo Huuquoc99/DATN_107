@@ -422,7 +422,7 @@
                                         target="_blank">privacy policy</a>.
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">PLACE ORDER</button>
+                            <button type="submit" class="btn btn-primary btn-checkout mb-4">PLACE ORDER</button>
                         </div>
                     </div>
                 </div>

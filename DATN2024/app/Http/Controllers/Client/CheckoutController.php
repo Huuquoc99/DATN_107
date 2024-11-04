@@ -70,6 +70,7 @@ class CheckoutController extends Controller
             'total_price' => $this->calculateTotal($cart->id), 
             'status_order_id' => 1,
             'status_payment_id' => 1,
+            'code' => $this->generateOrderCode(), 
         ]);
 
         // Thêm từng sản phẩm vào đơn hàng
@@ -100,6 +101,11 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.success');
     }
 
+    protected function generateOrderCode()
+    {
+        return 'ORDER-' . strtoupper(uniqid()); // Tạo mã đơn hàng duy nhất
+    }
+
     private function calculateTotal($cartId)
     {
         $cartItems = CartItem::where('cart_id', $cartId)->get();
@@ -109,6 +115,24 @@ class CheckoutController extends Controller
         }
         return $total;
     }
+
+    public function success()
+    {
+        // Lấy thông tin đơn hàng mới nhất của người dùng
+        $order = Order::where('user_id', Auth::id())
+            ->with(['orderItems.product', 'paymentMethod']) // Lấy thông tin sản phẩm và phương thức thanh toán
+            ->latest()
+            ->first();
+
+        // Nếu không tìm thấy đơn hàng
+        if (!$order) {
+            return redirect()->route('checkout')->with('error', 'Không tìm thấy đơn hàng.');
+        }
+
+        return view('client.success', compact('order'));
+    }
+
+
 }
 
 

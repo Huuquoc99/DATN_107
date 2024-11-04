@@ -61,14 +61,22 @@ Route::post('cart/delete', [\App\Http\Controllers\Client\CartController::class, 
 Route::post('cart/update', [\App\Http\Controllers\Client\CartController::class, 'updateCart'])
     ->name('cart.update');
 
-// Chekcout
+
 Route::middleware('auth')->group(function () {
+
+    // Chekcout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-    Route::get('/checkout/success', function () {
-        return view('client.success');
-    })->name('checkout.success');
-    
+    // Route::get('/checkout/success', function () {
+    //     return view('client.success');
+    // })->name('checkout.success');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+
+// Order
+// routes/web.php
+Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
+Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
+
 });
 
 // Auth

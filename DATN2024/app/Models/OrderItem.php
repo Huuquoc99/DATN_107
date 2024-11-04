@@ -36,7 +36,7 @@ class OrderItem extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class); // Giả sử bạn có model Product
+        return $this->belongsTo(Product::class); 
     }
 
     public function capacity()
