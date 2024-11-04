@@ -1,20 +1,25 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TrashedController;
+use App\Http\Controllers\Auth\RegisterController;
+// use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Client\CheckoutController;
+use App\Http\Controllers\Admin\StatusOrderController;
+use App\Http\Controllers\Admin\ProductColorController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\StatusPaymentController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\PaymentMethodControlller;
 use App\Http\Controllers\Admin\ProductCapacityController;
-use App\Http\Controllers\Admin\ProductColorController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\StatusOrderController;
-use App\Http\Controllers\Admin\StatusPaymentController;
-use App\Http\Controllers\Admin\TrashedController;
-use App\Http\Controllers\Admin\UserController;
-// use App\Http\Controllers\Admin\CatalogueController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Client\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +38,11 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])->name('product.detail');
+Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
+    ->name('product.detail');
+Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
+    ->name('product.getVariantDetails');
+Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
 Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound']);
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
@@ -51,6 +60,16 @@ Route::post('cart/delete', [\App\Http\Controllers\Client\CartController::class, 
 
 Route::post('cart/update', [\App\Http\Controllers\Client\CartController::class, 'updateCart'])
     ->name('cart.update');
+
+// Chekcout
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::get('/checkout/success', function () {
+        return view('client.success');
+    })->name('checkout.success');
+    
+});
 
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');

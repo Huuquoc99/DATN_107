@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddToCartRequest;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
@@ -115,7 +116,7 @@ class CartController extends Controller
     }
 
 
-    public function addToCart(Request $request)
+    public function addToCart(AddToCartRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -147,9 +148,7 @@ class CartController extends Controller
 
                 if (!$cartItem) {
                     if ($quantity > $stock_quantity) {
-                        return response()->json([
-                            'error' => 'Vượt quá số lượng cho phép'
-                        ], 400);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá tồn kho.']);
                     }
 
                     CartItem::query()->create([
@@ -168,17 +167,14 @@ class CartController extends Controller
                     $newQuantity = $cart[$cartItemKey]['quantity'] + $quantity;
 
                     if ($newQuantity > $stock_quantity) {
-                        return response()->json([
-                            'error' => 'Vượt quá số lượng cho phép'
-                        ], 400);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá tồn kho.']);
                     }
+
 
                     $cart[$cartItemKey]['quantity'] = $newQuantity;
                 } else {
                     if ($quantity > $stock_quantity) {
-                        return response()->json([
-                            'error' => 'Vượt quá số lượng cho phép'
-                        ], 400);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá tồn kho.']);
                     }
 
                     $cart[$cartItemKey] = [

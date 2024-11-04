@@ -26,4 +26,8 @@ class CartItem extends Model
         return $this->belongsTo(ProductVariant::class);
     }
     
+    public function product()
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id'); // Đảm bảo bạn thay thế 'product_variant_id' bằng tên cột thực tế trong bảng 'cart_items'
+    }
 }
