@@ -11,6 +11,7 @@ use App\Models\ProductColor;
 use App\Models\ProductGallery;
 use App\Models\ProductVariant;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -27,8 +28,9 @@ class ProductController extends Controller
     public function index()
     {
         $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
+        $catalogues = Catalogue::all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
     }
 
 
@@ -294,4 +296,71 @@ class ProductController extends Controller
             ],404);
         }
     }
+
+    public function filter(Request $request)
+    {
+        $query = Product::query();
+
+        // Xử lý lọc theo danh mục nếu có
+        if ($request->filled('category_id')) {
+            $query->where('catalogue_id', $request->category_id);
+        }
+
+        if ($request->filled('filter')) {
+            switch($request->filter) {
+                case 'is_active':
+                    $query->where('status', 'is_active');
+                    break;
+                case 'is_new':
+                    $query->where('status', 'is_new');
+                    break;
+                case 'outOfStock':
+                    $query->where('quantity', 0);
+                    break;
+                case 'priceAsc':
+                    $query->orderBy('price_regular', 'asc');
+                    break;
+                case 'priceDesc':
+                    $query->orderBy('price_regular', 'desc');
+                    break;
+                case 'newest':
+                    $query->latest();
+                    break;
+                case 'oldest':
+                    $query->oldest();
+                    break;
+                case 'today':
+                    $query->whereDate('created_at', Carbon::today());
+                    break;
+                case 'yesterday':
+                    $query->whereDate('created_at', Carbon::yesterday());
+                    break;
+                case 'lastWeek':
+                    $query->whereBetween('created_at', [
+                        Carbon::now()->subWeek(),
+                        Carbon::now()
+                    ]);
+                    break;
+                case 'lastMonth':
+                    $query->whereBetween('created_at', [
+                        Carbon::now()->subMonth(),
+                        Carbon::now()
+                    ]);
+                    break;
+                case 'lowStock':
+                    $query->where('quantity', '<=', 10)
+                        ->where('quantity', '>', 0);
+                    break;
+                case 'inStock':
+                    $query->where('quantity', '>', 0);
+                    break;
+            }
+        }
+
+        $data = $query->get();
+
+        // Trả về view partial chỉ chứa phần table body
+        return view('admin.products.filter', compact('data'))->render();
+    }
+
 }

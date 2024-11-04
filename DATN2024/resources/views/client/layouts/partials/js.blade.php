@@ -11,4 +11,5 @@
 
 <!-- Footer Scripts -->
 <script src="{{ asset('theme/client/Demo18/js/theme.js') }}"></script>
+<script src="{{ asset('theme/client/Demo18/js/cart.js') }}"></script>
 

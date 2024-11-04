@@ -115,14 +115,9 @@ Product
                                 <div class="col-md-7 mt-2">
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="sku" class="form-label">SKU</label>
-                                            <input type="text" class="form-control" name="sku" id="sku">
-                                            @error("sku") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            <label for="sku" class="form-label">Mã sản phẩm</label>
+                                            <input type="text" class="form-control" name="sku" id="sku"
+                                                   value="{{ strtoupper(\Str::random(8)) }}">
                                         </div>
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Screen_size</label>

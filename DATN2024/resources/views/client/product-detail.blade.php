@@ -9,95 +9,28 @@
                     <div class="product-single__media" data-media-type="vertical-thumbnail">
                         <div class="product-single__image">
                             <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide product-single__image-item">
-                                        <img loading="lazy" class="h-auto"
-                                             src="{{asset('theme/client/images/products/product_0.jpg')}}" width="674"
-                                             height="674" alt="">
-                                        <a data-fancybox="gallery"
-                                           href="{{asset('theme/client/images/products/product_0.jpg')}}"
-                                           data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_zoom"/>
-                                            </svg>
+                                <div class="product-gallery-horizontal">
+                                    <div class="main-image-container">
+                                        <img id="mainImage" src="{{ Storage::url($product->img_thumbnail) }}" class="main-image" alt="{{ $product->name }}">
+                                        <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn" data-fancybox="gallery">
+                                            <i class="fas fa-search-plus"></i>
                                         </a>
+                                        <div class="swiper-button-next">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </div>
                                     </div>
-                                    <div class="swiper-slide product-single__image-item">
-                                        <img loading="lazy" class="h-auto"
-                                             src="{{asset('theme/client/images/products/product_0-1.jpg')}}" width="674"
-                                             height="674" alt="">
-                                        <a data-fancybox="gallery"
-                                           href="{{asset('theme/client/images/products/product_0-1.jpg')}}"
-                                           data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_zoom"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide product-single__image-item">
-                                        <img loading="lazy" class="h-auto"
-                                             src="{{asset('theme/client/images/products/product_0-2.jpg')}}" width="674"
-                                             height="674" alt="">
-                                        <a data-fancybox="gallery"
-                                           href="{{asset('theme/client/images/products/product_0-2.jpg')}}"
-                                           data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_zoom"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide product-single__image-item">
-                                        <img loading="lazy" class="h-auto"
-                                             src="{{asset('theme/client/images/products/product_0-3.jpg')}}" width="674"
-                                             height="674" alt="">
-                                        <a data-fancybox="gallery"
-                                           href="{{asset('theme/client/images/products/product_0-3.jpg')}}"
-                                           data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_zoom"/>
-                                            </svg>
-                                        </a>
+                                    <div class="thumbnail-column">
+                                        @foreach($product->galleries as $image)
+                                            <div class="thumb-item">
+                                                <img src="{{ Storage::url($image->image) }}"
+                                                     onclick="changeImage('{{ Storage::url($image->image) }}')"
+                                                     alt="{{ $product->name }}">
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="swiper-button-prev">
-                                    <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_prev_sm"/>
-                                    </svg>
-                                </div>
-                                <div class="swiper-button-next">
-                                    <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_next_sm"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-single__thumbnail">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide product-single__image-item"><img loading="lazy"
-                                                                                              class="h-auto"
-                                                                                              src="{{asset('theme/client/images/products/product_0.jpg" ')}}width="
-                                                                                              104" height="104" alt="">
-                                    </div>
-                                    <div class="swiper-slide product-single__image-item"><img loading="lazy"
-                                                                                              class="h-auto"
-                                                                                              src="{{asset('theme/client/images/products/product_0-1.jpg')}}"
-                                                                                              width="104" height="104"
-                                                                                              alt=""></div>
-                                    <div class="swiper-slide product-single__image-item"><img loading="lazy"
-                                                                                              class="h-auto"
-                                                                                              src="{{asset('theme/client/images/products/product_0-2.jpg')}}"
-                                                                                              width="104" height="104"
-                                                                                              alt=""></div>
-                                    <div class="swiper-slide product-single__image-item"><img loading="lazy"
-                                                                                              class="h-auto"
-                                                                                              src="{{asset('theme/client/images/products/product_0-3.jpg')}}"
-                                                                                              width="104" height="104"
-                                                                                              alt=""></div>
+                                    <i class="fa-solid fa-chevron-left"></i>
                                 </div>
                             </div>
                         </div>
@@ -128,106 +61,104 @@
                             </a>
                         </div><!-- /.shop-acs -->
                     </div>
-                    <h1 class="product-single__name">Lightweight Puffer Jacket With a Hood</h1>
+                    <h1 class="product-single__name">{{ $product->name }}</h1>
                     <div class="product-single__rating">
                         <div class="reviews-group d-flex">
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_star"/>
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_star"/>
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_star"/>
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_star"/>
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_star"/>
-                            </svg>
+                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
+                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
+                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
+                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
+                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
                         </div>
                         <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
                     </div>
                     <div class="product-single__price">
-                        <span class="current-price">$449</span>
+                        <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
+                        <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }} VND</del></i></span>
+
+                        {{--                        @foreach($product->variants as $variant)--}}
+{{--                        <span>{{ $variant->price }}</span>--}}
+{{--                        @endforeach--}}
                     </div>
                     <div class="product-single__short-desc">
-                        <p>Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida nec dui.
-                            Aenean aliquam varius ipsum, non ultricies tellus sodales eu. Donec dignissim viverra nunc,
-                            ut aliquet magna posuere eget.</p>
+                        <p>{{ $product->short_description }}</p>
                     </div>
-                    <form name="addtocart-form" method="post">
-                        <div class="product-single__addtocart">
-                            <div class="qty-control position-relative">
-                                <input type="number" name="quantity" value="1" min="1"
-                                       class="qty-control__number text-center">
-                                <div class="qty-control__reduce">-</div>
-                                <div class="qty-control__increase">+</div>
-                            </div><!-- .qty-control -->
-                            <button type="submit" class="btn btn-primary btn-addtocart js-open-aside"
-                                    data-aside="cartDrawer">Add to Cart
+                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="product-form">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <div class="product-options">
+                            <!-- Color Selection -->
+                            <div class="option-group mb-4">
+                                <label class="option-label">Màu sắc:</label>
+                                <div class="option-selections">
+                                    @foreach($colors as $id => $color)
+                                        <div class="option-item">
+                                            <input type="radio"
+                                                   class="btn-check"
+                                                   id="radio_color_{{ $id }}"
+                                                   name="product_color_id"
+                                                   value="{{ $id }}"
+                                                   {{ $loop->first ? 'checked' : '' }}
+                                                   required>
+                                            <label class="btn btn-outline color-choice" for="radio_color_{{ $id }}">
+                                                <span class="color-dot" style="background-color: {{ $color['color_code'] }};"></span>
+                                                <span class="color-name">{{ $color['name'] }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+
+                            <!-- Capacity Selection -->
+                            <div class="option-group mb-4">
+                                <label class="option-label">Dung lượng:</label>
+                                <div class="option-selections">
+                                    @foreach($capacities as $id => $name)
+                                        <div class="option-item">
+                                            <input type="radio"
+                                                   class="btn-check"
+                                                   id="radio_size_{{ $id }}"
+                                                   name="product_capacity_id"
+                                                   value="{{ $id }}"
+                                                   {{ $loop->first ? 'checked' : '' }}
+                                                   required>
+                                            <label class="btn btn-outline-secondary" for="radio_size_{{ $id }}">
+                                                {{ $name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <!-- Quantity Control -->
+                            <div class="quantity-control mb-4">
+                                <label class="option-label">Số lượng:</label>
+                                <div class="quantity-wrapper">
+                                    <button type="button" class="quantity-btn minus">-</button>
+                                    <input type="number"
+                                           name="quantity"
+                                           value="1"
+                                           min="1"
+                                           class="quantity-input">
+                                    <button type="button" class="quantity-btn plus">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Add to Cart Button -->
+                            <button type="submit"
+                                    class="btn btn-primary btn-lg w-100 btn-addtocart"
+                                    data-aside="cartDrawer">
+                                <i class="ri-shopping-cart-line me-2"></i>
+                                Thêm vào giỏ hàng
                             </button>
                         </div>
                     </form>
-                    <div class="product-single__addtolinks">
-                        <a href="#" class="menu-link menu-link_us-s add-to-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_heart"/>
-                            </svg>
-                            <span>Add to Wishlist</span></a>
-                        <share-button class="share-button">
-                            <button
-                                class="menu-link menu-link_us-s to-share border-0 bg-transparent d-flex align-items-center">
-                                <svg width="16" height="19" viewBox="0 0 16 19" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_sharing"/>
-                                </svg>
-                                <span>Share</span>
-                            </button>
-                            <details id="Details-share-template__main" class="m-1 xl:m-1.5" hidden="">
-                                <summary class="btn-solid m-1 xl:m-1.5 pt-3.5 pb-3 px-5">+</summary>
-                                <div id="Article-share-template__main"
-                                     class="share-button__fallback flex items-center absolute top-full left-0 w-full px-2 py-4 bg-container shadow-theme border-t z-10">
-                                    <div class="field grow mr-4">
-                                        <label class="field__label sr-only" for="url">Link</label>
-                                        <input type="text" class="field__input w-full" id="url"
-                                               value="https://uomo-crystal.myshopify.com/blogs/news/go-to-wellness-tips-for-mental-health"
-                                               placeholder="Link" onclick="this.select();" readonly="">
-                                    </div>
-                                    <button class="share-button__copy no-js-hidden">
-                                        <svg class="icon icon-clipboard inline-block mr-1" width="11" height="13"
-                                             fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                             focusable="false" viewBox="0 0 11 13">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                  d="M2 1a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1V1H2zM1 2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V3a1 1 0 00-1-1H1zm0 10V3h7v9H1z"
-                                                  fill="currentColor"></path>
-                                        </svg>
-                                        <span class="sr-only">Copy link</span>
-                                    </button>
-                                </div>
-                            </details>
-                        </share-button>
-                        <script src="js/details-disclosure.js" defer="defer"></script>
-                        <script src="js/share.js" defer="defer"></script>
-                    </div>
-                    <div class="product-single__meta-info">
-                        <div class="meta-item">
-                            <label>SKU:</label>
-                            <span>N/A</span>
-                        </div>
-                        <div class="meta-item">
-                            <label>Categories:</label>
-                            <span>Casual & Urban Wear, Jackets, Men</span>
-                        </div>
-                        <div class="meta-item">
-                            <label>Tags:</label>
-                            <span>biker, black, bomber, leather</span>
-                        </div>
-                    </div>
                 </div>
             </div>
+
+
+
             <div class="product-single__details-tab">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">

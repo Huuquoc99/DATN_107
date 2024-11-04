@@ -36,22 +36,22 @@
                     </li>
                 </ul>
         <div class="login-form">
-            <form name="login-form" class="needs-validation" novalidate>
+            <form name="login-form" class="needs-validation" method="POST" action="{{ route('login') }}" novalidate>
+                @csrf
                 <div class="form-floating mb-3">
                     <input
-                        name="login_email"
+                        name="email"
                         type="email"
                         class="form-control form-control_gray"
-                        id="customerNameEmailInput1"
+                        id=""
                         placeholder="Email address *"
-                        required
                     />
-                    <label for="customerNameEmailInput1">Email address *</label>
+                    <label for="">Email address *</label>
                 </div>
 
                 <div class="form-floating mb-3">
                     <input
-                        name="login_password"
+                        name="password"
                         type="password"
                         class="form-control form-control_gray"
                         id="customerPasswodInput"

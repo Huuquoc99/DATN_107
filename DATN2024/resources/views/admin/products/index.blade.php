@@ -39,12 +39,29 @@
                     </div>
 
                     <div class="flex-shrink-0">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: 15px">
-                            <option selected="">Filter</option>
-                            <option value="1">Highest price</option>
-                            <option value="2">Lowest price</option>
-                            <option value="3">Today</option>
-                            <option value="4">Yesterday</option>
+                        <select id="product-filter" class="form-select form-select-sm">
+                            <option value="">Tất cả sản phẩm</option>
+
+                            <optgroup label="Danh mục">
+                                @foreach($catalogues as $item)
+                                    <option value="{{ $item->id }}" data-catalogue-id="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </optgroup>
+                            <!-- Giá -->
+                            <optgroup label="Giá">
+                                <option value="priceAsc">Giá tăng dần</option>
+                                <option value="priceDesc">Giá giảm dần</option>
+                            </optgroup>
+
+                            <!-- Thời gian -->
+                            <optgroup label="Thời gian">
+                                <option value="newest">Mới nhất</option>
+                                <option value="oldest">Cũ nhất</option>
+                                <option value="today">Hôm nay</option>
+                                <option value="yesterday">Hôm qua</option>
+                                <option value="lastWeek">Tuần trước</option>
+                                <option value="lastMonth">Tháng trước</option>
+                            </optgroup>
                         </select>
                     </div>
                 </div>
@@ -81,7 +98,7 @@
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>
+                                    <td style="width: auto; height: 60px">
                                         @php
                                             $url = $item->img_thumbnail;
                                             if (!Str::contains($url, 'http')) {
@@ -91,7 +108,7 @@
                                         <img src="{{ $url }}" alt="" width="100px" height="120px">
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.products.edit', $item) }}">
+                                        <a href="{{ route('admin.products.show', $item) }}">
                                             {{ $item->name }}
                                         </a>
                                     </td>
@@ -107,8 +124,8 @@
                                             <span class="badge bg-info">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
-                                    {{-- <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->updated_at }}</td> --}}
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td>
                                     <td>
                                         <div class="d-flex gap-2  justify-content-center">
                                             <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">
@@ -192,6 +209,41 @@
                     }
                 })
             })
+
+            {{--$('#product-filter').change(function () {--}}
+            {{--    let filter = $(this).val();--}}
+            {{--    $.ajax({--}}
+            {{--        url: "{{ route('admin.products.filter') }}",--}}
+            {{--        method: 'get',--}}
+            {{--        data: {filter: filter},--}}
+            {{--        success: function (res) {--}}
+            {{--            $('.table-data').html(res);--}}
+            {{--        },--}}
+            {{--        error: function (res) {--}}
+            {{--            $('.table-data').html('<p class="alert alert-primary">Có lỗi xảy ra!</p>');--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--});--}}
+
+            $('#product-filter').change(function () {
+                let filter = $(this).val();
+                let categoryId = $(this).find('option:selected').data('catalogue-id'); // Lấy category_id
+                $.ajax({
+                    url: "{{ route('admin.products.filter') }}",
+                    method: 'get',
+                    data: {
+                        filter: filter,
+                        category_id: categoryId // Gửi category_id lên server
+                    },
+                    success: function (res) {
+                        $('.table-data').html(res);
+                    },
+                    error: function (res) {
+                        $('.table-data').html('<p class="alert alert-primary">Có lỗi xảy ra!</p>');
+                    }
+                });
+            });
+
         });
 
     </script>
