@@ -34,7 +34,7 @@
                                         <td>{{ $order['code'] }}</td>
                                         <td>{{ $order['created_at']->format('F j, Y') }}</td>
                                         <td>{{ $order['status_order'] }}</td>
-                                        {{-- <td>{{ number_format($order['total_price'], 2) }}</td> --}}
+                                        <td>{{ number_format($order['total_price'], 2) }}</td>
                                         <td><a href="{{ route('account.orders.show', $order['id']) }}"
                                                 class="btn btn-primary">VIEW</a></td>
                                     </tr>

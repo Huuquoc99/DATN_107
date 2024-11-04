@@ -19,7 +19,7 @@ class OrderController extends Controller
                 'created_at' => $order->created_at,
                 'status_order' => $order->statusOrder->name,
                 'status_payment' => $order->statusPayment->name, 
-                'total' => $order->total_price, 
+                'total_price' => $order->total_price, 
             ];
         });
 
@@ -33,19 +33,26 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        // Kiểm tra quyền truy cập
         if ($order->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
+            return redirect()->route('orders.index')->with('error', 'Unauthorized action.');
         }
     
-        // Tải thông tin đơn hàng và các mục trong đơn hàng
+        // Tải thông tin đơn hàng và các sản phẩm trong đơn hàng
         $orderWithItems = $order->load([
-            'orderItems:id,order_id,product_variant_id,quantity,product_name,product_sku,product_img_thumbnail',
+            'orderItems',
             'statusOrder:id,name', 
-            'statusPayment:id,name', 
+            'statusPayment:id,name',
+            'paymentMethod:id,name', // Nếu có bảng payment_method để lấy tên
         ]);
     
-        return view('client.orderdetails', compact('orderWithItems'));
+        // Truyền dữ liệu vào view
+        return view('client.orderdetails', [
+            'order' => $orderWithItems
+        ]);
     }
+    
+
     
 
     public function cancel(Order $order)
