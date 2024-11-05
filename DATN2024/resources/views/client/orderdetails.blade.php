@@ -80,7 +80,7 @@
                         </div>
                     @endif
                     <table class="orders-table ">
-                        <form action="{{ route('account.orders.updateStatus', $order->id) }}" method="POST" id="update-status-form">
+                        {{-- <form action="{{ route('account.orders.updateStatus', $order->id) }}" method="POST" id="update-status-form">
                             @csrf
                             <td>
                                 <select id="status" name="status_order_id" class="form-select"
@@ -95,13 +95,36 @@
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-primary mt-2">Update Status</button>
-
                             </td>
+                        </form> --}}
 
-                        </form>
+
+
+
                         <tr>
                             <td class="w-50"><strong>Status order</strong></td>
-                            <td class="w-50">{{ $order->statusOrder->name ?? 'N/A' }}</td>
+                            <td class="w-50">
+                                @if ($order->status_order_id == 1)
+                                {{ $order->statusOrder->name ?? 'N/A' }}
+                                    <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                                    </form>
+                                @elseif ($order->status_order_id == 2)
+                                {{ $order->statusOrder->name ?? 'N/A' }}
+                                    <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success">Đã nhận được hàng</button>
+                                    </form>
+                                @elseif ($order->status_order_id == 3)
+                                    <span class="text-success">Hoàn thành</span>
+                                @elseif ($order->status_order_id == 4)
+                                    <span class="text-danger">Đã hủy</span>
+                                @else
+                                    <span class="text-muted">Trạng thái không xác định</span>
+                                @endif
+                            </td>
+                            
                             
                         </tr>
                         <tr>

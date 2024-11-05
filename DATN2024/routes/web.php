@@ -77,6 +77,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
 Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
 Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
+Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
+Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
 
 
 });

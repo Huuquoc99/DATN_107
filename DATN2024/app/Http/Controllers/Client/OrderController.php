@@ -107,24 +107,38 @@ class OrderController extends Controller
     }
 
 
-    public function cancelOrder($orderId)
+    public function cancelOrder($id)
+{
+    $order = Order::findOrFail($id);
+
+    // Kiểm tra nếu trạng thái là 1 mới cho phép hủy
+    if ($order->status_order_id == 1) {
+        $order->status_order_id = 4; // Cập nhật trạng thái thành 5 (đã hủy)
+        $order->save();
+
+        // Có thể thêm logic lưu lịch sử trạng thái ở đây nếu cần
+        // Lưu lịch sử trạng thái
+
+        return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
+    }
+
+    return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
+}
+
+
+
+
+    public function markAsReceived(Order $order)
     {
-        $order = Order::find($orderId);
-        $canceledStatus = StatusOrder::where('name', 'canceled')->first();
 
-        if ($order && $canceledStatus && $order->status_order_id !== $canceledStatus->id) {
-            $history = json_decode($order->history, true) ?? [];
-            $history[] = [
-                'status_order_id' => $canceledStatus->id,
-                'updated_at' => now()
-            ];
-            $order->history = json_encode($history);
-
-            $order->status_order_id = $canceledStatus->id;
+        if ($order->status_order_id == 2) {
+            $order->status_order_id = 3;
             $order->save();
 
-            return response()->json(['message' => 'Đơn hàng đã được hủy.', 'history' => $history]);
+            return redirect()->back()->with('success', 'Đơn hàng đã được cập nhật thành hoàn thành.');
         }
-        return response()->json(['message' => 'Không thể hủy đơn hàng.'], 400);
+
+        return redirect()->back()->with('error', 'Không thể cập nhật trạng thái đơn hàng.');
     }
+
 }
