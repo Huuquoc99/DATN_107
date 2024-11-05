@@ -100,12 +100,48 @@
                         <div class="col-xl-6">
                             <div class="mt-4 mt-xl-3">
                                 <h4 class="mt-1 mb-3">Order Details</h4>
+
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
                                 <table class="table table-bordered dt-responsive nowrap table-striped align-middle"
                                     style="width:100%">
                                     <tbody>
                                         <tr>
                                             <th>Status order</th>
-                                            <td>{{ $order->statusOrder->name }}</td>
+                                            <td>
+                                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}"
+                                                    method="POST" class="d-flex align-items-center">
+                                                    @csrf
+                                                    <div class="form-group mb-0 mr-2">
+                                                        <select name="status_order_id" id="status_order_id"
+                                                            class="form-control me-3" style="width:150px">
+                                                            @foreach ($statusOrders as $status)
+                                                                <option value="{{ $status->id }}"
+                                                                    {{ $order->status_order_id == $status->id ? 'selected' : '' }}
+                                                                    {{ $status->id < $order->status_order_id ||
+                                                                    (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
+                                                                        ? 'disabled'
+                                                                        : '' }}>
+                                                                    {{ $status->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary ml-2">Update
+                                                        status</button>
+                                                </form>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Status payment</th>

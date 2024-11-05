@@ -30,28 +30,25 @@ class OrderController extends Controller
     }
     
 
-    public function updateStatus(Request $request, Order $order)
+
+    public function updateStatus(Request $request, $id)
     {
-        $request->validate([
-            'status_order_id' => 'required|exists:status_orders,id',
-        ]);
+        $order = Order::findOrFail($id);
 
-        if ($order->status_order_id == 4) {
-            return redirect()->back()->withErrors(['error' => 'Cannot update status. This order has been cancelled.']);
-        }
-
-        $currentStatusId = $order->status_order_id;
         $newStatusId = $request->input('status_order_id');
 
-        $statusOrderIds = StatusOrder::pluck('id')->toArray();
+        if ($newStatusId > $order->status_order_id) {
+            $order->status_order_id = $newStatusId;
+            $order->save();
 
-        if (array_search($newStatusId, $statusOrderIds) <= array_search($currentStatusId, $statusOrderIds)) {
-            return redirect()->back()->withErrors(['error' => 'You can only update your status.']);
+            return redirect()->route('admin.orders.show', $id)->with('success', 'Order status updated successfully.');
+        } else {
+            return redirect()->route('admin.orders.show', $id)->with('error', 'Cannot update to a lower status.');
         }
-
-        $order->update(['status_order_id' => $newStatusId]);
-
-        return redirect()->route('admin.orders.show', $order->id)->with('success', 'Order status has been updated.');
     }
+
+
+    
+    
 
 }
