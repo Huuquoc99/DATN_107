@@ -13,7 +13,6 @@ class OrderController extends Controller
     {
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->get();
 
-        // Lọc theo trạng thái 
         if ($request->has('status')) {
             $orders = $orders->where('status_order_id', $request->input('status'));
         }
@@ -21,25 +20,23 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
-    // Xem chi tiết đơn hàng
     public function show(Order $order)
     {
-        // Tải các mối quan hệ cần thiết
-        $order->load('orderItems.product', 'statusOrder', 'statusPayment'); // Tải thông tin sản phẩm từ order items
-        $statusOrders = StatusOrder::all(); // Lấy tất cả trạng thái đơn hàng
+
+        $order->load('orderItems.product', 'statusOrder', 'statusPayment'); 
+        $statusOrders = StatusOrder::all(); 
     
         return view('admin.orders.show', compact('order', 'statusOrders'));
     }
     
 
-    // Cập nhật trạng thái đơn hàng
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
             'status_order_id' => 'required|exists:status_orders,id',
         ]);
 
-        if ($order->status_order_id == 2) { // Id status huỷ
+        if ($order->status_order_id == 4) {
             return redirect()->back()->withErrors(['error' => 'Cannot update status. This order has been cancelled.']);
         }
 
