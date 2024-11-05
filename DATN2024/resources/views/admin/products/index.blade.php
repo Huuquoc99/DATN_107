@@ -39,28 +39,28 @@
                     </div>
 
                     <div class="flex-shrink-0">
-                        <select id="product-filter" class="form-select form-select-sm">
-                            <option value="">Tất cả sản phẩm</option>
+                        <select id="product-filter" class="form-select " >
+                            <option value="">All products</option>
 
-                            <optgroup label="Danh mục">
+                            <optgroup label="Catalogues">
                                 @foreach($catalogues as $item)
                                     <option value="{{ $item->id }}" data-catalogue-id="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </optgroup>
                             <!-- Giá -->
-                            <optgroup label="Giá">
-                                <option value="priceAsc">Giá tăng dần</option>
-                                <option value="priceDesc">Giá giảm dần</option>
+                            <optgroup label="Price">
+                                <option value="priceAsc">Price increases gradually</option>
+                                <option value="priceDesc">Price decreasing</option>
                             </optgroup>
 
                             <!-- Thời gian -->
                             <optgroup label="Thời gian">
-                                <option value="newest">Mới nhất</option>
-                                <option value="oldest">Cũ nhất</option>
-                                <option value="today">Hôm nay</option>
-                                <option value="yesterday">Hôm qua</option>
-                                <option value="lastWeek">Tuần trước</option>
-                                <option value="lastMonth">Tháng trước</option>
+                                <option value="newest">Latest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="today">Today</option>
+                                <option value="yesterday">Yesterday</option>
+                                <option value="lastWeek">Last Week</option>
+                                <option value="lastMonth">Last Month</option>
                             </optgroup>
                         </select>
                     </div>
@@ -124,8 +124,8 @@
                                             <span class="badge bg-info">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td>
+                                    {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td> --}}
                                     <td>
                                         <div class="d-flex gap-2  justify-content-center">
                                             <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">

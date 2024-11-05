@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="page-title pt-5">Order detail - {{ $order->code }}</h2>
-      
+
     <section class="my-account container">
         <h2 class="page-title pt-5">User information</h2>
         <div class="row">
@@ -68,10 +68,41 @@
         <div class="row d-flex justify-content-center">
             <div class="col-lg-7 ">
                 <div class="page-content my-account__orders-list">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <table class="orders-table ">
+                        <form action="{{ route('account.orders.updateStatus', $order->id) }}" method="POST" id="update-status-form">
+                            @csrf
+                            <td>
+                                <select id="status" name="status_order_id" class="form-select"
+                                aria-label="Default select example">
+                                @foreach ($statusOrders as $status)
+                                    <option value="{{ $status->id }}"
+                                        {{ $order->status_order_id == $status->id ? 'selected' : '' }}>
+                                        {{ $status->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary mt-2">Update Status</button>
+
+                            </td>
+
+                        </form>
                         <tr>
-                            <td><strong>Status order</strong></td>
-                            <td>{{ $order->statusOrder->name ?? 'N/A' }}</td>
+                            <td class="w-50"><strong>Status order</strong></td>
+                            <td class="w-50">{{ $order->statusOrder->name ?? 'N/A' }}</td>
+                            
                         </tr>
                         <tr>
                             <td><strong>Status payment:</strong></td>
@@ -123,10 +154,10 @@
                                     <td>{{ number_format($item->product_price_regular, 2) }} VND</td>
                                     <td>{{ number_format($item->product_price_sale, 2) }} VND</td>
                                     <td>
-                                        @if($item->product_capacity_id)
-                                            {{ $item->capacity->name ?? 'N/A' }} 
+                                        @if ($item->product_capacity_id)
+                                            {{ $item->capacity->name ?? 'N/A' }}
                                         @endif
-                                        @if($item->product_color_id)
+                                        @if ($item->product_color_id)
                                             - {{ $item->color->name ?? 'N/A' }}
                                         @endif
                                     </td>

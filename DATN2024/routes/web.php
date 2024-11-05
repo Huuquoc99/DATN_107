@@ -7,10 +7,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
-use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
@@ -73,9 +74,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // Order
-// routes/web.php
 Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
 Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
+Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
+
 
 });
 
