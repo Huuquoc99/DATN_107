@@ -111,14 +111,9 @@ class OrderController extends Controller
 {
     $order = Order::findOrFail($id);
 
-    // Kiểm tra nếu trạng thái là 1 mới cho phép hủy
     if ($order->status_order_id == 1) {
-        $order->status_order_id = 4; // Cập nhật trạng thái thành 5 (đã hủy)
+        $order->status_order_id = 4; 
         $order->save();
-
-        // Có thể thêm logic lưu lịch sử trạng thái ở đây nếu cần
-        // Lưu lịch sử trạng thái
-
         return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
     }
 
