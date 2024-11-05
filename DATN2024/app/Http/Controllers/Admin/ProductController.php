@@ -292,7 +292,7 @@ class ProductController extends Controller
             return view('admin.products.pagination', compact('data'))->render();
         } else {
             return response()->json([
-                'status' => 'Không tìm thất kết quả!',
+                'status' => 'No results found!',
             ],404);
         }
     }
