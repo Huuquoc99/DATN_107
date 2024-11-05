@@ -18,35 +18,19 @@ class OrderController extends Controller
             $orders = $orders->where('status_order_id', $request->input('status'));
         }
 
-        $result = $orders->map(function ($order) {
-            return [
-                'order_id' => $order->id,
-                'code' => $order->code,
-                'user_name' => $order->user_name,
-                'status_order' => $order->statusOrder->name ?? 'Unknown', 
-                'status_payment' => $order->statusPayment->name ?? 'Unknown', 
-                'total_price' => $order->total_price,
-                'orderItems' => $order->orderItems->map(function ($orderItems) {
-                    return [
-                        'product_name' => $orderItems->product_name,
-                        'product_img_thumbnail' => $orderItems->product_img_thumbnail,
-                        'product_price' => $orderItems->product_price_regular,
-                        'quantity' => $orderItems->quantity,
-                    ];
-                }),
-            ];
-        });
-
-        return response()->json($result);
+        return view('admin.orders.index', compact('orders'));
     }
 
-     // Xem chi tiết đơn hàng
+    // Xem chi tiết đơn hàng
     public function show(Order $order)
     {
-        $order->load('orderItems', 'statusOrder', 'statusPayment');
-
-        return response()->json($order);
+        // Tải các mối quan hệ cần thiết
+        $order->load('orderItems.product', 'statusOrder', 'statusPayment'); // Tải thông tin sản phẩm từ order items
+        $statusOrders = StatusOrder::all(); // Lấy tất cả trạng thái đơn hàng
+    
+        return view('admin.orders.show', compact('order', 'statusOrders'));
     }
+    
 
     // Cập nhật trạng thái đơn hàng
     public function updateStatus(Request $request, Order $order)
@@ -55,8 +39,8 @@ class OrderController extends Controller
             'status_order_id' => 'required|exists:status_orders,id',
         ]);
 
-        if ($order->status_order_id == 2) {// Id status huỷ
-            return response()->json(['error' => 'Cannot update status. This order has been cancelled.'], 400);
+        if ($order->status_order_id == 2) { // Id status huỷ
+            return redirect()->back()->withErrors(['error' => 'Cannot update status. This order has been cancelled.']);
         }
 
         $currentStatusId = $order->status_order_id;
@@ -65,12 +49,12 @@ class OrderController extends Controller
         $statusOrderIds = StatusOrder::pluck('id')->toArray();
 
         if (array_search($newStatusId, $statusOrderIds) <= array_search($currentStatusId, $statusOrderIds)) {
-            return response()->json(['error' => 'You can only update your status.'], 400);
+            return redirect()->back()->withErrors(['error' => 'You can only update your status.']);
         }
 
         $order->update(['status_order_id' => $newStatusId]);
 
-        return response()->json(['message' => 'Order status has been updated.']);
+        return redirect()->route('admin.orders.show', $order->id)->with('success', 'Order status has been updated.');
     }
 
 }

@@ -189,6 +189,20 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts11" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                       <i class="ri-shopping-cart-2-line"></i> <span data-key="t-layouts">Order</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts11">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.orders.index') }}" class="nav-link">Order list</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts10" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
                        <i class="ri-delete-bin-line"></i> <span data-key="t-layouts">Trashed</span>

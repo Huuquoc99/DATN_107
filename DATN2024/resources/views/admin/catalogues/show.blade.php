@@ -11,7 +11,7 @@
                 <h4 class="mb-sm-0">Catalogue</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.catalogues.index') }}">Catalogue</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.catalogues.index') }}">Table</a></li>
                         <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>

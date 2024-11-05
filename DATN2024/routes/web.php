@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\TrashedController;
 // use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\ProductColorController;
@@ -131,6 +132,11 @@ Route::prefix('admin')
         Route::get('/trashed', [TrashedController::class, 'trashed'])->name('trashed');
         Route::post('/trashed/{id}/restore', [TrashedController::class, 'restore'])->name('restore');
         // Route::resource('catalogues', CatalogueController::class);
+
+        // Orders
+        Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index'); 
+        Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show'); 
+        Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
     });
 
 

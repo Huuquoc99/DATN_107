@@ -108,17 +108,17 @@ class OrderController extends Controller
 
 
     public function cancelOrder($id)
-{
-    $order = Order::findOrFail($id);
+    {
+        $order = Order::findOrFail($id);
 
-    if ($order->status_order_id == 1) {
-        $order->status_order_id = 4; 
-        $order->save();
-        return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
+        if ($order->status_order_id == 1) {
+            $order->status_order_id = 4;
+            $order->save();
+            return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
+        }
+
+        return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
     }
-
-    return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
-}
 
 
 
@@ -135,5 +135,4 @@ class OrderController extends Controller
 
         return redirect()->back()->with('error', 'Không thể cập nhật trạng thái đơn hàng.');
     }
-
 }
