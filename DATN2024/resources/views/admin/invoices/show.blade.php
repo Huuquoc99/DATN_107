@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-
+@section("title", "Invoice")
 @section('content')
 <div>
     @if(!$order)
