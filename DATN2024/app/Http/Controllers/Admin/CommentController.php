@@ -13,8 +13,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comment = Comment::all(); 
-        return response()->json($comment, 200);
+        $comments = Comment::all();  
+        return view('admin.comments.index', compact('comments'));
     }
 
     /**
@@ -38,7 +38,8 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('admin.comments.show', compact('comment'));
     }
 
     /**
@@ -46,7 +47,8 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('admin.comments.edit', compact('comment'));
     }
 
     /**
@@ -54,7 +56,20 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        if ($request->has('is_active')) {
+            $request->validate([
+                'is_active' => 'required|boolean', 
+            ]);
+
+            $comment->is_active = $request->input('is_active');
+            $comment->save();
+
+            return redirect()->route('admin.comments.index')->with('success', 'Comment status updated successfully.');
+        }
+
+        return redirect()->route('admin.comments.index')->with('error', 'Failed to update status.');
     }
 
     /**
@@ -65,20 +80,6 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
         $comment->delete();
 
-        return response()->json(['message' => 'Comment deleted successfully.'], 200);
-    }
-
-    public function approve($id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        if ($comment->is_active == 0) {
-            return response()->json(['message' => 'Comment is already hidden!'], 400);
-        }
-
-        $comment->is_active = 0; // Ẩn bình luận
-        $comment->save();
-
-        return response()->json(['message' => 'Comment has been hidden successfully.'], 200);
+        return redirect()->route('admin.comments.index')->with('success', 'Comment deleted successfully.');
     }
 }

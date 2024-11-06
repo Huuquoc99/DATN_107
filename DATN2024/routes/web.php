@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\ProductColorController;
@@ -75,30 +76,15 @@ Route::middleware('auth')->group(function () {
     // })->name('checkout.success');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
-// Order
-Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
-Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
-Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
-Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
-Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
+    // Order
+    Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
+    Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
+    Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
+    Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
+    Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
 
 
 });
-
-// Auth
-Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
-Route::get('/login', [LoginController::class, 'showLogin']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Handle the form submission
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post("login",  [LoginController::class, 'login'])->name('login');
-
-// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
-// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
-// Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
-//     ->name('password.reset');
-
 
 
 
@@ -126,6 +112,8 @@ Route::prefix('admin')
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
+        Route::resource('comments', CommentController::class);
+        
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
@@ -143,20 +131,4 @@ Route::prefix('admin')
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
 
-
-
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
