@@ -9,7 +9,6 @@
         <th>Bộ nhớ</th>
         <th>Dung lượn pin</th>
         <th>Hệ điều hành</th>
-        <th>Mô tả</th>
         <th>Trạng thái</th>
         <th>Tags</th>
         <th>Ngày tạo</th>
@@ -40,7 +39,6 @@
             <td>{{ $item->storage }}</td>
             <td>{{ $item->battery_capacity }}</td>
             <td>{{ $item->operating_system }}</td>
-            <td style="width: 100px">{{ $item->short_description }}</td>
             <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
             <td>
                 @foreach($item->tags as $tag)

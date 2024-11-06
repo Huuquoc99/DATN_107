@@ -40,8 +40,16 @@ class ProductController extends Controller
     public function create()
     {
         $catalogues = Catalogue::query()->pluck('name', 'id')->all();
-        $colors = ProductColor::query()->pluck('name', 'id')->all();
-        $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
+        $colors = ProductColor::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
+        $capacity = ProductCapacity::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
         $tags = Tag::query()->pluck('name', 'id')->all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('catalogues', 'colors', 'capacity', 'tags'));
