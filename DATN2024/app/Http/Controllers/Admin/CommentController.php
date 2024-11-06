@@ -38,8 +38,7 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        $comment = Comment::findOrFail($id);
-        return view('admin.comments.show', compact('comment'));
+
     }
 
     /**
@@ -57,20 +56,22 @@ class CommentController extends Controller
     public function update(Request $request, string $id)
     {
         $comment = Comment::findOrFail($id);
-
+    
         if ($request->has('is_active')) {
             $request->validate([
-                'is_active' => 'required|boolean', 
+                'is_active' => 'required|boolean',
             ]);
-
+    
             $comment->is_active = $request->input('is_active');
-            $comment->save();
-
-            return redirect()->route('admin.comments.index')->with('success', 'Comment status updated successfully.');
+        } else {
+            $comment->is_active = 0;
         }
-
-        return redirect()->route('admin.comments.index')->with('error', 'Failed to update status.');
+    
+        $comment->save();
+    
+        return redirect()->route('admin.comments.index')->with('success', 'Comment status updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -38,6 +38,13 @@
                             </div>
                         @endif
 
+                        @if (session("error"))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session("error")}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
 
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
@@ -46,6 +53,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Product</th>
+                                <th>Content</th>
                                 <th>Active</th>
                                 <th>Create at</th>
                                 <th>Update at</th>
@@ -58,14 +66,12 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->user->name}}</td>
                                         <td>{{ $item->product->name }}</td>
+                                        <td>{{ $item->content }}</td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
                                         <td >
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.comments.show', $item) }}" class="btn btn-info btn-sm">Show 
-                                                    <i class="fa-solid fa-circle-info fa-sm"></i>
-                                                </a>
                                                 <a href="{{ route('admin.comments.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
