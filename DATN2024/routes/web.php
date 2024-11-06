@@ -106,8 +106,10 @@ Route::post("login",  [LoginController::class, 'login'])->name('login');
 Route::prefix('admin')
     ->as('admin.')
     ->group(function () {
+
         Route::get('login', [AdminLoginController::class, 'showLoginForm'])->middleware('guest');
         Route::post('login', [AdminLoginController::class, 'login'])->name('login');
+        Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     })
 
     ->middleware(['checkAdminMiddleware'])
