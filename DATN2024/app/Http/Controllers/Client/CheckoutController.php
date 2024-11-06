@@ -2,95 +2,138 @@
 
 namespace App\Http\Controllers\Client;
 
+use Log;
+use App\Models\Cart;
 use App\Models\Order;
+use App\Models\CartItem;
 use App\Models\OrderItem;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
 use App\Models\ProductVariant;
+use App\Models\ProductCapacity;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
-    public function checkout(Request $request)
+    public function index()
     {
-        // Xác thực dữ liệu
-        $validated = $request->validate([
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        if (!$cart) {
+            return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống.');
+        }
+
+        // Thêm kiểm tra xem có item trong giỏ hàng không
+        $cartItems = CartItem::where('cart_id', $cart->id)->with('product')->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống.');
+        }
+
+        // Lấy danh sách phương thức thanh toán
+        $paymentMethods = PaymentMethod::all();
+
+        return view('client.checkout', compact('user', 'cartItems', 'paymentMethods')); // Thêm paymentMethods vào compact
+    }
+
+
+    public function processCheckout(Request $request)
+    {
+        $request->validate([
             'ship_user_name' => 'required|string|max:255',
             'ship_user_email' => 'required|email|max:255',
             'ship_user_phone' => 'required|string|max:15',
             'ship_user_address' => 'required|string|max:255',
-            'ship_user_note' => 'nullable|string',
-            'cart_items' => 'required|array',
-            'cart_items.*.product_variant_id' => 'required|exists:product_variants,id',
-            'cart_items.*.quantity' => 'required|integer|min:1',
         ]);
-    
-        $user = Auth::user(); 
-    
-        $totalPrice = 0; 
-        $code = 'Order_' . strtoupper(uniqid());
-       
+
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->first();
+        $paymentMethodId = $request->input('payment_method_id');
+     
+        // Tạo đơn hàng
         $order = Order::create([
             'user_id' => $user->id,
             'user_name' => $user->name,
             'user_email' => $user->email,
-            'user_phone' => $user->phone, 
-            'user_address' => $user->address, 
-            'total_price' => 0, 
-            'status_order_id' => 1, 
-            'status_payment_id' => 1, 
+            'user_address' => $user->address,
+            'user_phone' => $user->phone,
+
+            'ship_user_name' => $request->ship_user_name,
+            'ship_user_email' => $request->ship_user_email,
+            'ship_user_phone' => $request->ship_user_phone,
+            'ship_user_address' => $request->ship_user_address,
+            'payment_method_id' => $paymentMethodId,
+            'total_price' => $this->calculateTotal($cart->id), 
+            'status_order_id' => 1,
+            'status_payment_id' => 1,
+            'code' => $this->generateOrderCode(), 
         ]);
 
-        $orderCode = $this->generateUniqueOrderCode($order->id);
-        $order->code = $orderCode;
-    
-        // Lưu thông tin người nhận hàng từ input
-        $order->ship_user_name = $validated['ship_user_name'];
-        $order->ship_user_email = $validated['ship_user_email'];
-        $order->ship_user_phone = $validated['ship_user_phone'];
-        $order->ship_user_address = $validated['ship_user_address'];
-        $order->ship_user_note = $validated['ship_user_note'];
-        $order->save();
-    
-        $orderItems = []; 
-    
-        foreach ($validated['cart_items'] as $item) {
-           
-            $productVariant = ProductVariant::findOrFail($item['product_variant_id']);
-    
-           
-            $totalPrice += $productVariant->price * $item['quantity'];
-
-            $orderItems[] = [
+        // Thêm từng sản phẩm vào đơn hàng
+        foreach ($cart->items as $item) {
+            // $capacity = ProductCapacity::where('id', $item->product_variant_id)->first();
+            // $color = ProductColor::where('id', $item->product_variant_id)->first();
+            $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
+            OrderItem::create([
                 'order_id' => $order->id,
-                'product_variant_id' => $item['product_variant_id'],
-                'quantity' => $item['quantity'],
-                'product_name' => $productVariant->product->name,
-                'product_sku' => $productVariant->product->sku,
-                'product_price_regular' => $productVariant->price,
-                'product_price_sale' => $productVariant->product->price_sale,
-                'product_img_thumbnail' => $productVariant->product->thumbnail,
-                'variant_capacity_name' => $productVariant->capacity->name,
-                'variant_color_name' => $productVariant->color->name,
-            ];
+                'product_id' => $item->product_id,
+                'product_variant_id' => $item->product_variant_id,
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+                'product_name' => $item->productVariant->product->name,
+                'product_sku' => $item->productVariant->product->sku,
+                'product_img_thumbnail' => $item->productVariant->product->img_thumbnail,
+                'product_price_regular' => $item->productVariant->product->price_regular,
+                'product_price_sale' => $item->productVariant->product->price_sale,
+                'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null, // Kiểm tra capacity
+                'product_color_id' => $productVariant->color ? $productVariant->color->id : null, // Kiểm tra color
+                
+            ]);
         }
-    
-    
-        OrderItem::insert($orderItems);
 
-        $order->update(['total_price' => $totalPrice]);
-    
-        return response()->json(['message' => 'Checkout successful!', 'order_id' => $order->id, 'code' => $order->code], 201);
+        // Xóa giỏ hàng sau khi thanh toán
+        $cart->items()->delete();
+
+        return redirect()->route('checkout.success');
     }
 
-
-    // Code order
-    function generateUniqueOrderCode($orderId)
+    protected function generateOrderCode()
     {
-        do {
-            $code = "ORD-" . $orderId; // Sử dụng order_id
-        } while (Order::where("code", $code)->exists());
-    
-        return $code;
+        return 'ORDER-' . strtoupper(uniqid()); // Tạo mã đơn hàng duy nhất
     }
+
+    private function calculateTotal($cartId)
+    {
+        $cartItems = CartItem::where('cart_id', $cartId)->get();
+        $total = 0;
+        foreach ($cartItems as $item) {
+            $total += $item->price * $item->quantity;
+        }
+        return $total;
+    }
+
+    public function success()
+    {
+        // Lấy thông tin đơn hàng mới nhất của người dùng
+        $order = Order::where('user_id', Auth::id())
+            ->with(['orderItems.product', 'paymentMethod']) // Lấy thông tin sản phẩm và phương thức thanh toán
+            ->latest()
+            ->first();
+
+        // Nếu không tìm thấy đơn hàng
+        if (!$order) {
+            return redirect()->route('checkout')->with('error', 'Không tìm thấy đơn hàng.');
+        }
+
+        return view('client.success', compact('order'));
+    }
+
+
 }
+
+
+

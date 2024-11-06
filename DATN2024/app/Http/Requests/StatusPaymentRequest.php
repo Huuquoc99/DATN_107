@@ -22,7 +22,7 @@ class StatusPaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:50|unique:status_orders,code',
+            'code' => 'required|string|max:50',
             'name' => 'required|string|max:100',
             'description' => 'nullable|string|max:255',
             'display_order' => 'nullable|integer|min:1',
@@ -33,7 +33,7 @@ class StatusPaymentRequest extends FormRequest
     {
         return [
             'code.required' => 'The code field is required.',
-            'code.unique' => 'The code must be unique.',
+            // 'code.unique' => 'The code must be unique.',
             'code.max' => 'The code cannot exceed 50 characters.',
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a string',

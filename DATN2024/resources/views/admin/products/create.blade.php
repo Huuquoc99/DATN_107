@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Thêm mới Sản phẩm
+Product
 @endsection
 
 
@@ -10,12 +10,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Thêm mới sản phẩm</h4>
+                <h4 class="mb-sm-0">Product</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
-                        <li class="breadcrumb-item active">Thêm mới</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
 
@@ -29,59 +29,93 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Thông tin</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Product create</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-5">
                                     <div>
-                                        <label for="name" class="form-label">Tên sản phẩm</label>
+                                        <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}">
-                                        @error('name')
-                                            <div class="text-danger">{{ $message }}</div>
+                                        @error("name") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="price_regular" class="form-label">Giá thường</label>
+                                        <label for="price_regular" class="form-label">Price regular</label>
                                         <input type="number" class="form-control @error('price_regular') is-invalid @enderror" name="price_regular" id="price_regular" value="{{ old('price_regular') }}">
-                                        @error('price_regular')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        @error("price_regular") 
+                                        <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                            <p class="text-danger">{{ $message }}</p>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="price_sale" class="form-label">Giá giảm giá</label>
+                                        <label for="price_sale" class="form-label">Price sale</label>
                                         <input type="number" class="form-control" name="price_sale" id="price_sale" value="{{ old('price_sale') }}">
                                     </div>
                                     <div class="mt-3">
-                                        <label for="catalogue_id" class="form-label">Hãng điện thoại</label>
+                                        <label for="catalogue_id" class="form-label">Catalogues</label>
                                         <select class="form-select @error('catalogue_id') is-invalid @enderror" name="catalogue_id" id="catalogue_id">
-                                            <option value="0">Danh mục</option>
+                                            <option value="0">Catalogues</option>
                                             @foreach($catalogues as $id => $name)
                                                 <option value="{{ $id }}">{{ $name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('catalogue_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        @error("catalogue_id") 
+                                        <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                            <p class="text-danger">{{ $message }}</p>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="img_thumbnail" class="form-label">Ảnh đại diện</label>
+                                        <label for="img_thumbnail" class="form-label">Image thumbnail</label>
                                         <input type="file" class="form-control @error('img_thumbnail') is-invalid @enderror" name="img_thumbnail" id="img_thumbnail" value="{{ old('img_thumbnail') }}">
-                                        @error('img_thumbnail')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        @error("img_thumbnail") 
+                                        <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                            <p class="text-danger">{{ $message }}</p>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="processor" class="form-label">CPU</label>
+                                        <label for="processor" class="form-label">Processor</label>
                                         <input type="text" class="form-control" name="processor" id="processor">
+                                        @error("processor") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="ram" class="form-label">Ram</label>
                                         <input type="text" class="form-control" name="ram" id="ram">
+                                        @error("ram") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="short_description" class="form-label">Mô tả ngắn</label>
+                                        <label for="sim_type" class="form-label">Sim type</label>
+                                        <input type="text" class="form-control" name="sim_type" id="sim_type">
+                                        @error("sim_type") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @enderror 
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="short_description" class="form-label">Short description</label>
                                         <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -89,47 +123,83 @@
                                 <div class="col-md-7 mt-2">
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="sku" class="form-label">Mã sản phẩm</label>
+                                            <label for="sku" class="form-label">SKU</label>
                                             <input type="text" class="form-control" name="sku" id="sku"
                                                    value="{{ strtoupper(\Str::random(8)) }}">
                                         </div>
                                         <div class="mt-3">
-                                            <label for="screen_size" class="form-label">Kích thước màn hình</label>
+                                            <label for="screen_size" class="form-label">Screen size</label>
                                             <input type="text" class="form-control" name="screen_size" id="screen_size">
+                                            @error("screen_size") 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror 
                                         </div>
                                         <div class="mt-3">
-                                            <label for="operating_system" class="form-label">Hệ điều hành</label>
+                                            <label for="operating_system" class="form-label">Operating system</label>
                                             <input type="text" class="form-control" name="operating_system" id="operating_system">
+                                            @error("operating_system") 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror 
                                         </div>
                                         <div class="mt-3">
-                                            <label for="battery_capacity" class="form-label">Dung lượng pin</label>
+                                            <label for="battery_capacity" class="form-label">Battery capacity</label>
                                             <input type="text" class="form-control" name="battery_capacity" id="battery_capacity">
+                                            @error("battery_capacity") 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror 
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="camera_resolution" class="form-label">Camera</label>
+                                            <label for="camera_resolution" class="form-label">Camera resolution</label>
                                             <input type="text" class="form-control" name="camera_resolution" id="camera_resolution">
+                                            @error("camera_resolution") 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror 
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="network_connectivity" class="form-label">Mạng</label>
+                                            <label for="network_connectivity" class="form-label">Network connectivity</label>
                                             <input type="text" class="form-control" name="network_connectivity" id="network_connectivity">
+                                            @error("network_connectivity") 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror 
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="storage" class="form-label">Dung lượng lưu trữ</label>
+                                            <label for="storage" class="form-label">Storage</label>
                                             <input type="text" class="form-control" name="storage" id="storage">
+                                            @error("storage") 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror 
                                         </div>
 
                                         <div class="mt-5">
                                             <div class="row">
                                                 @php
                                                     $is = [
-                                                        'is_active' => ['name' => 'Kích hoạt', 'color' => 'primary'],
-                                                        'is_hot_deal' => ['name' => 'Sản phẩm Hot', 'color' => 'danger'],
-                                                        'is_good_deal' => ['name' => 'Ưu đãi tốt', 'color' => 'warning'],
-                                                        'is_new' => ['name' => 'Sản phẩm Mới', 'color' => 'success'],
-                                                        'is_show_home' => ['name' => 'Hiển thị trên Trang Chủ', 'color' => 'info'],
+                                                        'is_active' => ['name' => 'Active', 'color' => 'primary'],
+                                                        'is_hot_deal' => ['name' => 'Hot deal', 'color' => 'danger'],
+                                                        'is_good_deal' => ['name' => 'Good deal', 'color' => 'warning'],
+                                                        'is_new' => ['name' => 'New', 'color' => 'success'],
+                                                        'is_show_home' => ['name' => 'Show home', 'color' => 'info'],
                                                     ];
                                                 @endphp
 
@@ -150,7 +220,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <label for="content" class="form-label">Mô tả dài</label>
+                                <label for="content" class="form-label">Description</label>
                                 <textarea class="form-control" name="description" id="content"></textarea>
                             </div>
                         </div>
@@ -165,7 +235,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Biến thể</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
                     </div><!-- end card header -->
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
@@ -173,12 +243,12 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <tr class="text-center">
-                                            <th>Dung lượng</th>
-                                            <th>Màu sắc</th>
-                                            <th>Số lượng</th>
-                                            <th>Giá</th>
-                                            <th>Mã sản phẩm</th>
-                                            <th>Hình ảnh</th>
+                                            <th>Capacity</th>
+                                            <th>Color</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>SKU</th>
+                                            <th>Image</th>
                                         </tr>
 
                                         @foreach($capacity as $sizeID => $sizeName)
@@ -189,18 +259,18 @@
 
                                                     @if($flagRowspan)
                                                         <td style="vertical-align: middle;"
-                                                            rowspan="{{ count($colors) }}"><b>{{ $sizeName }}</b></td>
+                                                            rowspan="{{ count($colors) }}">{{ $sizeName }}</td>
                                                     @endif
                                                     @php($flagRowspan = false)
 
-                                                    <td>
+                                                    <td style="vertical-align: middle;">
                                                         {{$colorName}}
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" value="0" name="product_variants[{{ $sizeID . '-' . $colorID }}][quantity]">
+                                                        <input type="number" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][quantity]">
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" value="0" name="product_variants[{{ $sizeID . '-' . $colorID }}][price]">
+                                                        <input type="number" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][price]">
                                                     </td>
 
                                                     <td>
@@ -229,14 +299,14 @@
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Gallery</h4>
-                            <button type="button" class="btn btn-primary" onclick="addImageGallery()">Thêm ảnh</button>
+                            <button type="button" class="btn btn-primary" onclick="addImageGallery()">Create</button>
                         </div>
                         <!-- end card header -->
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4" id="gallery_list">
                                     <div class="col-md-4" id="gallery_default_item">
-                                        <label for="gallery_default" class="form-label">Ảnh sản phẩm</label>
+                                        <label for="gallery_default" class="form-label">Image</label>
                                         <div class="d-flex">
                                             <input type="file" class="form-control" name="product_galleries[]" id="gallery_default">
                                         </div>
@@ -255,7 +325,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Thông tin thêm</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">More information</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
@@ -282,7 +352,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Thêm mới <i class="fa-regular fa-plus"></i></button>
+                        <button class="btn btn-primary">Product create <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -304,8 +374,8 @@
                 <div class="col-md-4" id="${id}_item">
                     <label for="${id}" class="form-label">Image</label>
                     <div class="d-flex">
-                        <input type="file" class="form-control" name="product_galleries[]" id="${id}">
-                        <button type="button" class="btn btn-danger" onclick="removeImageGallery('${id}_item')">
+                        <input type="file" class="form-control me-3" name="product_galleries[]" id="${id}">
+                        <button type="button" class="btn btn-danger " onclick="removeImageGallery('${id}_item')">
                             <span class="bx bx-trash"></span>
                         </button>
                     </div>
@@ -316,7 +386,7 @@
         }
 
         function removeImageGallery(id) {
-            if (confirm('Chắc chắn xóa không?')) {
+            if (confirm('Are you sure you want to delete?')) {
                 $('#' + id).remove();
             }
         }

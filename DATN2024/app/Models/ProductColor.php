@@ -13,10 +13,22 @@ class ProductColor extends Model
     protected $fillable = [
         "name",
         "color_code",
-        "status",
+        "is_active",
     ];
 
     protected $casts = [
-        "status" => "boolean",
+        "is_active" => "boolean",
     ];
+
+    public function hide()
+    {
+        $this->is_active = 0;
+        $this->save();
+    }
+
+    public function show()
+    {
+        $this->is_active = 1;
+        $this->save();
+    }
 }

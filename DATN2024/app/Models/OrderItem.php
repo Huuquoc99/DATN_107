@@ -19,8 +19,9 @@ class OrderItem extends Model
         'product_img_thumbnail',
         'product_price_regular',
         'product_price_sale',
-        'variant_capavity_name',
-        'variant_color_name',
+        'product_capacity_id',
+        'product_color_id',
+        
     ];
 
     public function order()
@@ -31,5 +32,20 @@ class OrderItem extends Model
     public function productVariant()
     {
         return $this->belongsTo(ProductVariant::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class); 
+    }
+
+    public function capacity()
+    {
+        return $this->belongsTo(ProductCapacity::class, 'product_capacity_id', 'id');
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(ProductColor::class, 'product_color_id', 'id');
     }
 }

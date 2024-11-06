@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Order;
+use App\Models\ProductCapacity;
+use App\Models\ProductColor;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,8 +25,8 @@ return new class extends Migration
             $table->string(column: "product_img_thumbnail");
             $table->double("product_price_regular");
             $table->double("product_price_sale");
-            $table->string("variant_capacity_name", 255);
-            $table->string("variant_color_name", 255);
+            $table->foreignIdFor(model: ProductCapacity::class)->constrained();
+            $table->foreignIdFor(model: ProductColor::class)->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

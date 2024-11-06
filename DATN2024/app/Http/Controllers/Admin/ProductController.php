@@ -40,8 +40,16 @@ class ProductController extends Controller
     public function create()
     {
         $catalogues = Catalogue::query()->pluck('name', 'id')->all();
-        $colors = ProductColor::query()->pluck('name', 'id')->all();
-        $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
+        $colors = ProductColor::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
+        $capacity = ProductCapacity::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
         $tags = Tag::query()->pluck('name', 'id')->all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('catalogues', 'colors', 'capacity', 'tags'));
@@ -81,7 +89,7 @@ class ProductController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.products.index');
+            return redirect()->route('admin.products.index')->with("success", "Product created successfully");
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollBack();
@@ -171,7 +179,7 @@ class ProductController extends Controller
                     Storage::delete($productImgThumbnailCurrent);
                 }
             }
-            return redirect()->route('admin.products.index');
+            return redirect()->route('admin.products.index')->with("success", "Product updated successfully");
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             DB::rollBack();
@@ -221,7 +229,7 @@ class ProductController extends Controller
             }
 
             return redirect()->route('admin.products.index')
-                ->with('success', 'User deleted successfully!');;
+                ->with('success', 'Product deleted successfully!');;
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -292,7 +300,7 @@ class ProductController extends Controller
             return view('admin.products.pagination', compact('data'))->render();
         } else {
             return response()->json([
-                'status' => 'Không tìm thất kết quả!',
+                'status' => 'No results found!',
             ],404);
         }
     }

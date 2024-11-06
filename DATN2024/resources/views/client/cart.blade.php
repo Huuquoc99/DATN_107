@@ -115,7 +115,10 @@
                     </div>
                     <div class="mobile_fixed-btn_wrapper">
                         <div class="button-wrapper container">
-                            <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
+                            
+                            <a href="{{ route('checkout.index') }}">
+                                <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
+                            </a>
                         </div>
                     </div>
                 </div>
