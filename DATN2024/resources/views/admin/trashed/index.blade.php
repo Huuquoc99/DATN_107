@@ -49,7 +49,7 @@
                                 <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
-                                <th>Delete_at</th>
+                                <th>Delete at</th>
                                 <th>Action</th>
                             </tr>
                             </thead>

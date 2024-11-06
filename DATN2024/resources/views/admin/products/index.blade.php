@@ -87,8 +87,8 @@
                                 <th>Catalogue</th>
                                 <th>Price</th>
                                 <th>Storage</th>
-                                <th>Battery_capacity</th>
-                                <th>Operating_system</th>
+                                <th>Battery capacity</th>
+                                <th>Operating system</th>
                                 <th>Active</th>
                                 <th>Tags</th>
                                 <th>Action</th>

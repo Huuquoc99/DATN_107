@@ -8,12 +8,12 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
+use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\TrashedController;
 // use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\ProductColorController;
@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\PaymentMethodControlller;
 use App\Http\Controllers\Admin\ProductCapacityController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,9 @@ Route::prefix('admin')
         Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show'); 
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
+        // Invoice
+        Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
+        Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
 
 
 

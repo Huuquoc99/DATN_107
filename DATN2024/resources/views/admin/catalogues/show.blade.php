@@ -33,28 +33,11 @@
                                                 <div class="main-image mb-3">
                                                     <img id="mainImage" src="{{ Storage::url($catalogue->cover) }}" alt="{{ $catalogue->name }}" class="img-fluid">
                                                 </div>
-                                                {{-- <div class="thumbnail-container d-flex flex-wrap justify-content-center">
-                                                    @foreach($catalogue->galleries as $key => $gallery)
-                                                        <div class="thumbnail-item {{ $key == 0 ? 'active' : '' }}" data-image="{{ Storage::url($gallery->image) }}">
-                                                            <img src="{{ Storage::url($gallery->image) }}" alt="Product Image {{ $key + 1 }}" class="img-fluid">
-                                                        </div>
-                                                    @endforeach
-                                                </div> --}}
+                                               
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-4 col-sm-3 col-4">
-                                        <div class="nav flex-column nav-pills" role="tablist">
-                                            <a class="nav-link active" id="product-1-tab" data-bs-toggle="pill" href="#product-1" role="tab">
-                                                <img src="{{ Storage::url($product->img_thumbnail) }}" alt="" class="img-fluid mx-auto d-block rounded">
-                                            </a>
-                                            @foreach($product->galleries as $index => $gallery)
-                                                <a class="nav-link" id="product-{{ $index + 2 }}-tab" data-bs-toggle="pill" href="#product-{{ $index + 2 }}" role="tab">
-                                                    <img src="{{ Storage::url($gallery->image) }}" alt="" class="img-fluid mx-auto d-block rounded">
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    </div> --}}
+                                
                                 </div>
                             </div>
                         </div>

@@ -66,7 +66,7 @@ Product color
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <div class="mt-3">
-                                        <label for="color_code" class="form-label">Color_code</label>
+                                        <label for="color_code" class="form-label">Color code</label>
                                         <input type="text" class="form-control" name="color_code" id="color_code">
                                         @error("color_code") 
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -98,32 +98,4 @@ Product color
 @section('script-libs')
     <script src="https:////cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 @endsection
-{{-- 
-@section('scripts')
-    <script>
-        CKEDITOR.replace('content');
 
-        function addImageGallery() {
-            let id = 'gen' + '_' + Math.random().toString(36).substring(2, 15).toLowerCase();
-            let html = `
-                <div class="col-md-4" id="${id}_item">
-                    <label for="${id}" class="form-label">Image</label>
-                    <div class="d-flex">
-                        <input type="file" class="form-control" name="product_galleries[]" id="${id}">
-                        <button type="button" class="btn btn-danger" onclick="removeImageGallery('${id}_item')">
-                            <span class="bx bx-trash"></span>
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            $('#gallery_list').append(html);
-        }
-
-        function removeImageGallery(id) {
-            if (confirm('Chắc chắn xóa không?')) {
-                $('#' + id).remove();
-            }
-        }
-    </script>
-@endsection --}}

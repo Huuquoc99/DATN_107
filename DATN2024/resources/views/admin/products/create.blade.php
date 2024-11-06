@@ -46,7 +46,7 @@ Product
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="price_regular" class="form-label">Price_regular</label>
+                                        <label for="price_regular" class="form-label">Price regular</label>
                                         <input type="number" class="form-control @error('price_regular') is-invalid @enderror" name="price_regular" id="price_regular" value="{{ old('price_regular') }}">
                                         @error("price_regular") 
                                         <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -56,7 +56,7 @@ Product
                                     @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="price_sale" class="form-label">Price_sale</label>
+                                        <label for="price_sale" class="form-label">Price sale</label>
                                         <input type="number" class="form-control" name="price_sale" id="price_sale" value="{{ old('price_sale') }}">
                                     </div>
                                     <div class="mt-3">
@@ -105,7 +105,7 @@ Product
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="sim_type" class="form-label">Sim_type</label>
+                                        <label for="sim_type" class="form-label">Sim type</label>
                                         <input type="text" class="form-control" name="sim_type" id="sim_type">
                                         @error("sim_type") 
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -115,7 +115,7 @@ Product
                                         @enderror 
                                     </div>
                                     <div class="mt-3">
-                                        <label for="short_description" class="form-label">Short_description</label>
+                                        <label for="short_description" class="form-label">Short description</label>
                                         <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@ Product
                                                    value="{{ strtoupper(\Str::random(8)) }}">
                                         </div>
                                         <div class="mt-3">
-                                            <label for="screen_size" class="form-label">Screen_size</label>
+                                            <label for="screen_size" class="form-label">Screen size</label>
                                             <input type="text" class="form-control" name="screen_size" id="screen_size">
                                             @error("screen_size") 
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -138,7 +138,7 @@ Product
                                             @enderror 
                                         </div>
                                         <div class="mt-3">
-                                            <label for="operating_system" class="form-label">Operating_system</label>
+                                            <label for="operating_system" class="form-label">Operating system</label>
                                             <input type="text" class="form-control" name="operating_system" id="operating_system">
                                             @error("operating_system") 
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -148,7 +148,7 @@ Product
                                             @enderror 
                                         </div>
                                         <div class="mt-3">
-                                            <label for="battery_capacity" class="form-label">Battery_capacity</label>
+                                            <label for="battery_capacity" class="form-label">Battery capacity</label>
                                             <input type="text" class="form-control" name="battery_capacity" id="battery_capacity">
                                             @error("battery_capacity") 
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -159,7 +159,7 @@ Product
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="camera_resolution" class="form-label">Camera_resolution</label>
+                                            <label for="camera_resolution" class="form-label">Camera resolution</label>
                                             <input type="text" class="form-control" name="camera_resolution" id="camera_resolution">
                                             @error("camera_resolution") 
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
@@ -170,7 +170,7 @@ Product
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="network_connectivity" class="form-label">Network_connectivity</label>
+                                            <label for="network_connectivity" class="form-label">Network connectivity</label>
                                             <input type="text" class="form-control" name="network_connectivity" id="network_connectivity">
                                             @error("network_connectivity") 
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">

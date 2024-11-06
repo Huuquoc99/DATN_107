@@ -147,7 +147,7 @@
                             <table class="table mb-0 table-bordered">
                                 <tbody>
                                 <tr>
-                                    <th scope="row" style="width: 400px;">Short_description</th>
+                                    <th scope="row" style="width: 400px;">Short description</th>
                                     <td>{{ $product->short_description }}</td>
                                 </tr>
                                 <tr>
@@ -157,19 +157,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Screen_size</th>
+                                    <th scope="row">Screen size</th>
                                     <td>{{ $product->screen_size }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Battery_capacity</th>
+                                    <th scope="row">Battery capacity</th>
                                     <td>{{ $product->battery_capacity }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Camera_resolution</th>
+                                    <th scope="row">Camera resolution</th>
                                     <td>{{ $product->camera_resolution }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Operating_system</th>
+                                    <th scope="row">Operating system</th>
                                     <td>{{ $product->operating_system }}</td>
                                 </tr>
                                 <tr>
@@ -185,11 +185,11 @@
                                     <td>{{ $product->storage }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Sim_type</th>
+                                    <th scope="row">Sim type</th>
                                     <td>{{ $product->sim_type }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Network_connectivity</th>
+                                    <th scope="row">Network connectivity</th>
                                     <td>{{ $product->network_connectivity }}</td>
                                 </tr>
                                 </tbody>

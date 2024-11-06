@@ -47,10 +47,10 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Color_code</th>
+                                <th>Color code</th>
                                 <th>Status</th>
-                                <th>Create_at</th>
-                                <th>Update_at</th>
+                                <th>Create at</th>
+                                <th>Update at</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -101,52 +101,4 @@
 
 @endsection
 
-{{-- @section('script-libs')
-
-    <script>
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $(document).ready(function () {
-            $(document).on('click', '.pagination a', function (e) {
-                e.preventDefault();
-                let page = $(this).attr('href').split('page=')[1]
-                product(page);
-            })
-
-
-            function product(page) {
-                $.ajax({
-                    url: "catalogues/pagination/?page=" + page,
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    }
-                })
-            }
-
-            $(document).on('keyup', function (e) {
-                e.preventDefault();
-                let search_string = $('#search').val();
-                $.ajax({
-                    url: "{{ route('admin.catalogues.search') }}",
-                    method: 'get',
-                    data: {search_string: search_string},
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    },
-                    error: function (res) {
-                        if (res.status === 404) {
-                            $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
-                        }
-                    }
-                })
-            })
-        });
-
-    </script>
-@endsection --}}
 

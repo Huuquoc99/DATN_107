@@ -203,6 +203,20 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts12" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                       <i class="ri-file-text-line"></i> <span data-key="t-layouts">Invoice</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts12">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.invoices.index') }}" class="nav-link">Invoice list</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts10" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
                        <i class="ri-delete-bin-line"></i> <span data-key="t-layouts">Trashed</span>

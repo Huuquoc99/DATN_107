@@ -117,25 +117,6 @@
             </div>
         </section>
     </div>
-
-                <div class="form-floating mb-3">
-                    <input
-                        name="login_password"
-                        type="password"
-                        class="form-control form-control_gray"
-                        id="customerPasswodInput"
-                        placeholder="Password *"
-                        required
-                    />
-                    <label for="customerPasswodInput">Password *</label>
-                </div>
-
-    @include('client.layouts.partials.discount')
-    @include('client.layouts.partials.new-popular')
-    @include('client.layouts.partials.review')
-    @include('client.layouts.partials.blog')
-
-
     {{-- @include('client.layouts.partials.shop-brand') --}}
 
 @endsection

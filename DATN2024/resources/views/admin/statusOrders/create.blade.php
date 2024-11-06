@@ -46,7 +46,7 @@ Status order
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="display_order" class="form-label">Display_order</label>
+                                            <label for="display_order" class="form-label">Display order</label>
                                             <input type="number" class="form-control" name="display_order" id="display_order">
                                         </div>
                                         <div class="mt-4">
