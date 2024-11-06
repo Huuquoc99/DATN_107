@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PaymentMethodRequest;
-use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\PaymentMethodRequest;
 
 class PaymentMethodControlller extends Controller
 {
@@ -15,7 +16,9 @@ class PaymentMethodControlller extends Controller
     public function index()
     {
         $listPaymentMethod = PaymentMethod::get();
-        return response()->json( $listPaymentMethod, 201);
+        // return response()->json( $listPaymentMethod, 201);
+        return view("admin.paymentMethods.index", compact('listPaymentMethod'));
+
     }
 
     /**
@@ -23,7 +26,9 @@ class PaymentMethodControlller extends Controller
      */
     public function create()
     {
-        return response()->json();
+        // return response()->json();
+        return view("admin.paymentMethods.create");
+
     }
 
     /**
@@ -34,9 +39,20 @@ class PaymentMethodControlller extends Controller
         if ($request->isMethod("POST")) {
             $param = $request->except("_token",);
         
-            PaymentMethod::create($param);
-        
-            return response()->json(['message' => 'Payment method created successfully']);
+            if($request->hasFile("image"))
+            {
+                $filepath = $request->file("image")->store("uploads/paymentMethods", "public");
+            }else{
+                $filepath = null;
+            }
+
+            $param["image"] = $filepath;
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
+            $paymentMethod = PaymentMethod::create($param);
+            $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
+            // return response()->json(['message' => 'Payment method created successfully']);
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method created successfully");
+
         }
     }
 
@@ -46,7 +62,9 @@ class PaymentMethodControlller extends Controller
     public function show(string $id)
     {
         $paymentMethod = PaymentMethod::query()->findOrFail($id);
-        return response()->json($paymentMethod);
+        // return response()->json($paymentMethod);
+        return view("admin.paymentMethods.show", compact('paymentMethod'));
+
     }
 
     /**
@@ -55,7 +73,9 @@ class PaymentMethodControlller extends Controller
     public function edit(string $id)
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
-        return response()->json($paymentMethod);
+        // return response()->json($paymentMethod);
+        return view("admin.paymentMethods.edit", compact("paymentMethod"));
+
     }
 
     /**
@@ -67,15 +87,23 @@ class PaymentMethodControlller extends Controller
             $param = $request->except("_token", "_method");
             $paymentMethod = PaymentMethod::findOrFail($id);
         
-            $paymentMethod->update($param);
-        
-            if ($paymentMethod->is_active == 0) {
-                $paymentMethod->hide();
-            } else {
-                $paymentMethod->show();
+            if($request->hasFile("image")){
+                if($paymentMethod->image && Storage::disk("public")->exists($paymentMethod->image))
+                {
+                    Storage::disk("public")->delete($paymentMethod->image);
+                }
+                $filepath = $request->file("image")->store("uploads/paymentMethods", "public");
+            }else{
+                $filepath = $paymentMethod->image;
             }
-        
-            return response()->json(['message' => 'Payment method updated successfully']);
+
+            $param["image"] = $filepath;
+            $paymentMethod->is_active = $request->has('is_active') ? 1 : 0;
+            $paymentMethod->update($param);
+            $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
+            // return response()->json(['message' => 'Payment method updated successfully']);
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method updated successfully");
+
         }
     }
 
@@ -86,6 +114,12 @@ class PaymentMethodControlller extends Controller
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
         $paymentMethod->delete();
-        return response()->json(['message' => 'Payment method deleted successfully']);
+        if($paymentMethod->image && Storage::disk("public")->exists($paymentMethod->image))
+        {
+            Storage::disk("public")->delete($paymentMethod->image);
+        }
+        // return response()->json(['message' => 'Payment method deleted successfully']);
+        return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method deleted successfully");
+
     }
 }

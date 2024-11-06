@@ -2,18 +2,16 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Hình ảnh</th>
-        <th>Tên sản phẩm</th>
-        <th>Hãng điện thoại</th>
-        <th>Giá</th>
-        <th>Bộ nhớ</th>
-        <th>Dung lượn pin</th>
-        <th>Hệ điều hành</th>
-        <th>Trạng thái</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Catalogue</th>
+        <th>Price</th>
+        <th>Storage</th>
+        <th>Battery capacity</th>
+        <th>Operating system</th>
+        <th>Active</th>
         <th>Tags</th>
-        <th>Ngày tạo</th>
-        <th>Ngày cập nhật</th>
-        <th></th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -45,13 +43,13 @@
                     <span class="badge bg-info">{{ $tag->name }}</span>
                 @endforeach
             </td>
-            <td>{{ $item->created_at }}</td>
+             <td>{{ $item->created_at }}</td>
             <td>{{ $item->updated_at }}</td>
             <td>
                 <div class="d-flex gap-2">
-                    <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">Xem chi tiết <i class="fa-solid fa-circle-info fa-sm"></i></a>
-                    <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-primary btn-sm">Sửa <i class="fa-regular fa-pen-to-square fa-sm"></i></a>
-                    <a href="#" class="btn btn-danger btn-sm remove-product" data-id="{{ $item->id }}">Xóa <i class="fa-solid fa-delete-left fa-sm"></i></a>
+                    <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">Show <i class="fa-solid fa-circle-info fa-sm"></i></a>
+                    <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-primary btn-sm">Edit <i class="fa-regular fa-pen-to-square fa-sm"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm remove-product" data-id="{{ $item->id }}">Delete <i class="fa-solid fa-delete-left fa-sm"></i></a>
                 </div>
             </td>
         </tr>

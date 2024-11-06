@@ -17,7 +17,8 @@ class CatalogueController extends Controller
     {
         $listCatalogue = Catalogue::withCount("products")->get();
         // $listCatalogue = Catalogue::all();
-        return response()->json( $listCatalogue, 201);
+        // return response()->json( $listCatalogue, 201);
+        return view("admin.catalogues.index", compact('listCatalogue'));
     }
 
     /**
@@ -25,7 +26,8 @@ class CatalogueController extends Controller
      */
     public function create()
     {
-        return response()->json();
+        // return response()->json();
+        return view("admin.catalogues.create");
     }
 
     /**
@@ -45,9 +47,12 @@ class CatalogueController extends Controller
             }
 
             $param["cover"] = $filepath;
-            Catalogue::create($param);
+            $param['is_active'] = $request->has('is_active') ? 1 : 0;
+            $catalogue = Catalogue::create($param);
+            $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
-            return response()->json(['message' => 'Catalogue created successfully']);
+            // return response()->json(['message' => 'Catalogue created successfully']);
+            return redirect()->route("admin.catalogues.index")->with("success", "Catalogue created successfully");
         }
     }
 
@@ -57,7 +62,8 @@ class CatalogueController extends Controller
     public function show(string $id)
     {
         $catalogue = Catalogue::query()->findOrFail($id);
-        return response()->json($catalogue);
+        // return response()->json($catalogue);
+        return view("admin.catalogues.show", compact('catalogue'));
     }
 
     /**
@@ -66,7 +72,8 @@ class CatalogueController extends Controller
     public function edit(string $id)
     {
         $catalogue = Catalogue::findOrFail($id);
-        return response()->json($catalogue);
+        // return response()->json($catalogue);
+        return view("admin.catalogues.edit", compact("catalogue"));
     }
 
     /**
@@ -89,16 +96,14 @@ class CatalogueController extends Controller
             }
 
             $param["cover"] = $filepath;
+            $catalogue->is_active = $request->has('is_active') ? 1 : 0;
             $catalogue->update($param);
 
-            if($catalogue->is_active == 0)
-            {
-                $catalogue->hide();
-            }else{
-                $catalogue->show();
-            }
+            $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
-            return response()->json(['message' => 'Catalogue updated successfully']);
+            // return response()->json(['message' => 'Catalogue updated successfully']);
+            return redirect()->route("admin.catalogues.index")->with("success", "Catalogue updated successfully");
+
         }
     }
 
@@ -114,6 +119,8 @@ class CatalogueController extends Controller
             Storage::disk("public")->delete($catalogue->cover);
         }
 
-        return response()->json(['message' => 'Catalogue deleted successfully']);
+        // return response()->json(['message' => 'Catalogue deleted successfully']);
+        return redirect()->route("admin.catalogues.index")->with("success", "Catalogue deleted successfully");
+
     }
 }

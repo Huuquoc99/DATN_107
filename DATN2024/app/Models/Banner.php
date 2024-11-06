@@ -21,4 +21,16 @@ class Banner extends Model
     protected $casts = [
         "is_active" => "boolean",
     ];
+
+    public function hide()
+    {
+        $this->is_active = 0;
+        $this->save();
+    }
+
+    public function show()
+    {
+        $this->is_active = 1;
+        $this->save();
+    }
 }

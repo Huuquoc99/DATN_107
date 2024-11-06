@@ -22,4 +22,6 @@ class Cart extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+
+    
 }

@@ -11,7 +11,9 @@ class TrashedController extends Controller
     public function trashed()
     {
         $trashed = Product::onlyTrashed()->get();
-        return response()->json($trashed);
+        // return response()->json($trashed);
+        return view("admin.trashed.index", compact('trashed'));
+
     }
 
     public function restore($id)
@@ -19,7 +21,8 @@ class TrashedController extends Controller
         $product = Product::withTrashed()->findOrFail($id);
         $product->restore();
 
-        return response()->json(['message' => 'Product restore successful']);
+        // return response()->json(['message' => 'Product restore successful']);
+        return redirect()->route('admin.trashed')->with('success', 'Product restore successful');
     }
 
     // public function forceDelete($id)

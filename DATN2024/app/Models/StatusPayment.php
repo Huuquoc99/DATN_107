@@ -20,8 +20,20 @@ class StatusPayment extends Model
 
     protected $casts = [
         "is_active" => "boolean",
-        "display_order" => "integer",
+        "display_order" => "int",
     ];
+
+    public function hide()
+    {
+        $this->is_active = 0;
+        $this->save();
+    }
+
+    public function show()
+    {
+        $this->is_active = 1;
+        $this->save();
+    }
 
     public function orders()
     {
