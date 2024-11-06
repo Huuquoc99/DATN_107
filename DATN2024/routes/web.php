@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -40,7 +41,7 @@ Route::get('/', function () {
    return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
     ->name('product.detail');
 Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
@@ -104,37 +105,43 @@ Route::post("login",  [LoginController::class, 'login'])->name('login');
 
 Route::prefix('admin')
     ->as('admin.')
+    ->group(function () {
+        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->middleware('guest');
+        Route::post('login', [AdminLoginController::class, 'login'])->name('login');
+    })
 
+    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         Route::get('/', function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
+
         // Product
         Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
         Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
-
         Route::resource('products', ProductController::class);
-        // Other
+
+        // Other resources
         Route::resource('catalogues', CatalogueController::class);
         Route::resource('tags', TagController::class);
-
         Route::resource('banners', BannerController::class);
-        Route::resource('paymentMethods', PaymentMethodControlller::class);
+        Route::resource('paymentMethods', PaymentMethodController::class);
         Route::resource('productCapacities', ProductCapacityController::class);
         Route::resource('productColors', ProductColorController::class);
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
+
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+
         // Trashed
         Route::get('/trashed', [TrashedController::class, 'trashed'])->name('trashed');
         Route::post('/trashed/{id}/restore', [TrashedController::class, 'restore'])->name('restore');
-        // Route::resource('catalogues', CatalogueController::class);
 
         // Orders
         Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
@@ -145,6 +152,7 @@ Route::prefix('admin')
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
     });
+
 
 
 

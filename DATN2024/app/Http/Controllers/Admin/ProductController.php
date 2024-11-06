@@ -33,6 +33,12 @@ class ProductController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
     }
 
+//    public function index()
+//    {
+//
+//        return view('admin.products.test');
+//    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -207,18 +213,22 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+            $check_cartItem = $product->variants()->whereHas('cartItems')->exists();
+
+            if ($check_cartItem) {
+                return back()->with('error', 'Sản phẩm này đang có trong giỏ hàng của người dùng và không thể xóa.');
+            }
+
             $dataHasImage = $product->galleries->toArray() + $product->variants->toArray();
 
             DB::transaction(function () use ($product) {
                 $product->tags()->sync([]);
-
                 $product->galleries()->delete();
 
                 foreach ($product->variants as $variant) {
                     $variant->orderItems()->delete();
                 }
                 $product->variants()->delete();
-
                 $product->delete();
             }, 3);
 
@@ -229,11 +239,13 @@ class ProductController extends Controller
             }
 
             return redirect()->route('admin.products.index')
-                ->with('success', 'Product deleted successfully!');;
+                ->with('success', 'Product deleted successfully!');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             return back()->with('error', $exception->getMessage());
         }
     }
+
 
     private function handleData(Request $request)
     {
