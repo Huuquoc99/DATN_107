@@ -86,6 +86,23 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts14" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts">
+                       <i class="ri-bookmark-line"></i> <span data-key="t-layouts">Tag</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts14">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.tags.index') }}" class="nav-link">Tag list
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.tags.create') }}" class="nav-link">Tag create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts13" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
                        <i class="ri-question-answer-line"></i><span data-key="t-layouts">Comments</span>
@@ -243,24 +260,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLayouts3" data-bs-toggle="collapse" role="button"
-                       aria-controls="sidebarLayouts">
-                        <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Tag</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLayouts3">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.tags.index') }}" class="nav-link">Danh sách
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.tags.create') }}" class="nav-link">Thêm
-                                    mới</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                
 
 
             </ul>
