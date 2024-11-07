@@ -86,6 +86,19 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts13" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts">
+                       <i class="ri-question-answer-line"></i><span data-key="t-layouts">Comments</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts13">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.comments.index') }}" class="nav-link">Comment list</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts3" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
                        <i class="ri-mist-fill"></i> <span data-key="t-layouts">Banners</span>
