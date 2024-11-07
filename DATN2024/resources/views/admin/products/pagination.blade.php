@@ -43,8 +43,8 @@
                     <span class="badge bg-info">{{ $tag->name }}</span>
                 @endforeach
             </td>
-            {{-- <td>{{ $item->created_at }}</td>
-            <td>{{ $item->updated_at }}</td> --}}
+             <td>{{ $item->created_at }}</td>
+            <td>{{ $item->updated_at }}</td>
             <td>
                 <div class="d-flex gap-2">
                     <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">Show <i class="fa-solid fa-circle-info fa-sm"></i></a>

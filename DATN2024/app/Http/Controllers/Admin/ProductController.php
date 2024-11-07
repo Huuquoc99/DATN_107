@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
+        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
         $catalogues = Catalogue::all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
@@ -40,8 +40,16 @@ class ProductController extends Controller
     public function create()
     {
         $catalogues = Catalogue::query()->pluck('name', 'id')->all();
-        $colors = ProductColor::query()->pluck('name', 'id')->all();
-        $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
+        $colors = ProductColor::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
+        $capacity = ProductCapacity::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
         $tags = Tag::query()->pluck('name', 'id')->all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('catalogues', 'colors', 'capacity', 'tags'));
@@ -50,7 +58,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductStoreRequest $request)
+    public function store(Request $request)
     {
         list(
             $dataProduct,

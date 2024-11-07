@@ -90,7 +90,6 @@
                                 <th>Battery capacity</th>
                                 <th>Operating system</th>
                                 <th>Active</th>
-                                <th>Tags</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -119,11 +118,7 @@
                                     <td>{{ $item->operating_system }}</td>
                                     {{-- <td style="width: 100px">{{ $item->short_description }}</td> --}}
                                     <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
-                                    <td>
-                                        @foreach($item->tags as $tag)
-                                            <span class="badge bg-info">{{ $tag->name }}</span>
-                                        @endforeach
-                                    </td>
+
                                     {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td> --}}
                                     <td>

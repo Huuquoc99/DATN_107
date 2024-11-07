@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -9,11 +11,10 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\InvoiceController;
-use App\Http\Controllers\Admin\ProductController;
 // use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\CatalogueController;
+// use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
@@ -105,6 +106,8 @@ Route::prefix('admin')
         Route::resource('products', ProductController::class);
         // Other
         Route::resource('catalogues', CatalogueController::class);
+        Route::resource('tags', TagController::class);
+
         Route::resource('banners', BannerController::class);
         Route::resource('paymentMethods', PaymentMethodControlller::class);
         Route::resource('productCapacities', ProductCapacityController::class);
@@ -123,8 +126,8 @@ Route::prefix('admin')
         // Route::resource('catalogues', CatalogueController::class);
 
         // Orders
-        Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index'); 
-        Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show'); 
+        Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
         // Invoice
@@ -132,3 +135,19 @@ Route::prefix('admin')
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
 
     });
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
