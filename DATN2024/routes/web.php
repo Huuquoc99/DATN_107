@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Admin\PaymentMethodControlller;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
