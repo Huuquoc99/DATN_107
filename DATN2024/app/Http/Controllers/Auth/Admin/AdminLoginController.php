@@ -25,6 +25,7 @@ class AdminLoginController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !$user->isAdmin()) {
+            Auth::logout();
             return back()
                 ->withInput($request->only('email'))
                 ->withErrors(['email' => 'Invalid admin credentials or you are not authorized to access admin area.']);

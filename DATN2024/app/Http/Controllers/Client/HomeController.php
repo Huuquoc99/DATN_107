@@ -66,5 +66,20 @@ class HomeController extends Controller
         // ], 200);
 
     }
+
+    public function shop()
+    {
+        return view('client.shop');
+    }
+
+    public function about()
+    {
+        return view('client.about');
+    }
+
+    public function contact()
+    {
+        return view('client.contact');
+    }
 }
 
