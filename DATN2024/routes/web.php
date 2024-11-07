@@ -22,6 +22,7 @@ Route::get('register', [App\Http\Controllers\Client\HomeController::class, 'regi
 Route::get('login', [App\Http\Controllers\Client\HomeController::class, 'login'])->name('login');
 Route::get('reset_password', [App\Http\Controllers\Client\HomeController::class, 'resetpassword']);
 Route::get('checkout', [App\Http\Controllers\Client\HomeController::class, 'checkout']);
+Route::get('confirm_password', [App\Http\Controllers\Client\HomeController::class, 'confirmpassword']);
 
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
 Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
