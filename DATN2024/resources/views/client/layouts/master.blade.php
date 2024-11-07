@@ -9,7 +9,7 @@
     @include('client.layouts.partials.css')
 
 </head>
-<body>
+<body class="!overflow-x-hidden" style="overflow-x: hidden">
     @include('client.layouts.partials.header')
 
     @yield('content')
