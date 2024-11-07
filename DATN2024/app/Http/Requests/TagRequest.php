@@ -11,7 +11,7 @@ class TagRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class TagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required|max:255",
+            
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "Tag names cannot be left blank",
+            "name.max" => "Tag name must not exceed 255 characters",
+            
         ];
     }
 }
