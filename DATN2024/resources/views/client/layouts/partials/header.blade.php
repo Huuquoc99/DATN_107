@@ -47,7 +47,7 @@
                                 id="flexCheckDefault">
                             <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
                         </div>
-                        <a href="#" class="btn-text ms-auto">Quên mật khẩu?</a>
+                        <a href="{{ route('forgot-password') }}" class="btn-text ms-auto">Quên mật khẩu?</a>
                     </div>
 
                     <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>

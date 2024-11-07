@@ -88,10 +88,8 @@
                                 <th>Storage</th>
                                 <th>Battery capacity</th>
                                 <th>Operating system</th>
-                                <th>Trạng thái</th>
-                                <th>Ngày tạo</th>
-                                <th>Ngày cập nhật</th>
-                                <th></th>
+                                <th>Active</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -118,16 +116,19 @@
                                     <td>{{ $item->battery_capacity }}</td>
                                     <td>{{ $item->operating_system }}</td>
                                     <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td>
+
+                                    {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td> --}}
                                     <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="{{ route('admin.products.show', $item) }}"
-                                               class="btn btn-info btn-sm">Xem chi tiết <i
-                                                    class="fa-solid fa-circle-info fa-sm"></i></a>
-                                            <a href="{{ route('admin.products.edit', $item) }}"
-                                               class="btn btn-primary btn-sm">Sửa <i
-                                                    class="fa-regular fa-pen-to-square fa-sm"></i></a>
+                                        <div class="d-flex gap-2  justify-content-center">
+                                            <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">
+                                                Show
+                                                <i class="fa-solid fa-circle-info fa-sm"></i>
+                                            </a>
+                                            <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-primary btn-sm">
+                                                Edit 
+                                               <i class="fa-regular fa-pen-to-square fa-sm"></i>
+                                            </a>
                                             <form action="{{ route('admin.products.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')

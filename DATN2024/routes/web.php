@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\InvoiceController;
 // use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\ProductColorController;
@@ -76,12 +78,12 @@ Route::middleware('auth')->group(function () {
     // })->name('checkout.success');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
-// Order
-Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
-Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
-Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
-Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
-Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
+    // Order
+    Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
+    Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
+    Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
+    Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
+    Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
 
 
 });
@@ -95,6 +97,19 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post("login",  [LoginController::class, 'login'])->name('login');
 
+
+Route::get('/forgot-password', function () {
+    return view('client.auth.forgot-password');
+})->middleware('guest')->name('forgot-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('guest')->name('forgot-password');
+Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm ']);
+
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('reset-password');
+
+
+
+
+// Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password');
 // Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
 // Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
 // Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
@@ -136,6 +151,9 @@ Route::prefix('admin')
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
+
+        Route::resource('comments', CommentController::class);
+        
 
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');

@@ -12,7 +12,15 @@ class InvoiceController extends Controller
     {
         $invoices = Order::where('status_payment_id', 2)
             ->where('status_order_id', 3)
-            ->get(['id as order_id', 'user_name', 'total_price', 'created_at']);
+            ->get([
+                'id', 
+                'code',
+                'ship_user_name', 
+                'ship_user_phone',
+                'total_price', 
+                'created_at',
+                'status_payment_id',
+            ]);
 
         return view('admin.invoices.index', compact('invoices'));
     }
