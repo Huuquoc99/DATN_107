@@ -246,7 +246,7 @@ class ProductController extends Controller
                 ->with('success', 'Product deleted successfully!');
         } catch (\Exception $exception) {
             dd($exception->getMessage());
-            return back()->with('error', $exception->getMessage());
+            return back()->with('error', $exception->getMessage());         
         }
     }
 
