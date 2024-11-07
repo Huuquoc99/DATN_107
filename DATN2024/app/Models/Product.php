@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $fillable = [
         "catalogue_id",
         "name",
@@ -65,6 +66,6 @@ class Product extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class); 
+        return $this->hasMany(Comment::class);
     }
 }

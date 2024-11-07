@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckAdminMiddleware
@@ -13,17 +14,15 @@ class CheckAdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa
-        if (!$request->user()) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        $user = Auth::user();
+
+        if (!$user || !$user->isAdmin()) {
+            return redirect()->route('admin.login')
+                ->with('error', 'Unauthorized access attempted. This incident has been logged.');
         }
 
-        // Kiểm tra xem người dùng có phải admin hay không
-        if ($request->user()->type !== 1) { // 1 là admin
-            return response()->json(['message' => 'Forbidden'], 403);
-        }
         return $next($request);
     }
 }

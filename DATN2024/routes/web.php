@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 // use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
+// use App\Http\Controllers\Admin\CatalogueController;
 // use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
@@ -42,7 +44,7 @@ Route::get('/', function () {
    return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
     ->name('product.detail');
 Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
@@ -87,43 +89,80 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Auth
+Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
+Route::get('/login', [LoginController::class, 'showLogin']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Handle the form submission
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post("login",  [LoginController::class, 'login'])->name('login');
+
+
+Route::get('/forgot-password', function () {
+    return view('client.auth.forgot-password');
+})->middleware('guest')->name('forgot-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('guest')->name('forgot-password');
+Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm ']);
+
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('reset-password');
+
+
+
+
+// Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password');
+// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
+// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+// Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+//     ->name('password.reset');
+
+
 
 
 Route::prefix('admin')
     ->as('admin.')
+    ->group(function () {
 
+        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->middleware('guest');
+        Route::post('login', [AdminLoginController::class, 'login'])->name('login');
+        Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
+    })
+
+    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         Route::get('/', function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
+
         // Product
         Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
         Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
-
         Route::resource('products', ProductController::class);
-        // Other
+
+        // Other resources
         Route::resource('catalogues', CatalogueController::class);
         Route::resource('tags', TagController::class);
-
         Route::resource('banners', BannerController::class);
-        Route::resource('paymentMethods', PaymentMethodControlller::class);
+        Route::resource('paymentMethods', PaymentMethodController::class);
         Route::resource('productCapacities', ProductCapacityController::class);
         Route::resource('productColors', ProductColorController::class);
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
+
         Route::resource('comments', CommentController::class);
         
+
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+
         // Trashed
         Route::get('/trashed', [TrashedController::class, 'trashed'])->name('trashed');
         Route::post('/trashed/{id}/restore', [TrashedController::class, 'restore'])->name('restore');
-        // Route::resource('catalogues', CatalogueController::class);
 
         // Orders
         Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
@@ -136,7 +175,6 @@ Route::prefix('admin')
 
     });
     // });
-
 
 
 
