@@ -4,13 +4,13 @@
     @include('client.layouts.partials.banner')
     @include('client.layouts.partials.shop-by-categories')
 
+
     <div class="bg-grey">
         <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
-
+    
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
                 <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers on Car Parts</h2>
-
                 <ul class="nav nav-tabs justify-content-center" id="collections-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase theme-color fs-13 fw-semi-bold active"
@@ -34,15 +34,15 @@
                      aria-labelledby="collections-tab-1-trigger">
                     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5">
                         @foreach($products as $item)
-                        <div class="product-card-wrapper mb-2">
-                            <div class="product-card product-card_style9 border rounded-3 mb-3 mb-md-4 bg-white">
+                        <div class="product-card-wrapper mb-4">
+                            <div class="product-card product-card_style9 border rounded-3 bg-white h-100">
                                 <div class="position-relative pb-3">
-                                    <div class="pc__img-wrapper pc__img-wrapper_wide3">
+                                    <div class="pc__img-wrapper pc__img-wrapper_wide3 overflow-hidden">
                                         <a href="{{ route('product.detail', $item->slug) }}">
                                             <img loading="lazy"
                                                  src="{{ \Illuminate\Support\Facades\Storage::url($item->img_thumbnail) }}"
-                                                 style="height: 500px" alt="Cropped Faux leather Jacket"
-                                                 class="pc__img">
+                                                 alt="{{ $item->name }}"
+                                                 class="pc__img img-fluid w-100 h-auto">
                                         </a>
                                     </div>
                                     <div class="anim_appear-bottom position-absolute w-100 text-center">
@@ -106,17 +106,18 @@
                         @endforeach
                     </div>
                 </div>
-
-                <div class="tab-pane fade show" id="collections-tab-2" role="tabpanel"
-                     aria-labelledby="collections-tab-2-trigger">
+    
+                <div class="tab-pane fade" id="collections-tab-2" role="tabpanel" aria-labelledby="collections-tab-2-trigger">
                 </div>
-
-                <div class="tab-pane fade show" id="collections-tab-3" role="tabpanel"
-                     aria-labelledby="collections-tab-3-trigger">
+    
+                <div class="tab-pane fade" id="collections-tab-3" role="tabpanel" aria-labelledby="collections-tab-3-trigger">
                 </div>
             </div>
         </section>
     </div>
+    
+
+
     {{-- @include('client.layouts.partials.shop-brand') --}}
 
 @endsection

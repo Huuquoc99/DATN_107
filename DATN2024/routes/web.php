@@ -88,6 +88,34 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Auth
+Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
+Route::get('/login', [LoginController::class, 'showLogin']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Handle the form submission
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post("login",  [LoginController::class, 'login'])->name('login');
+
+
+Route::get('/forgot-password', function () {
+    return view('client.auth.forgot-password');
+})->middleware('guest')->name('forgot-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('guest')->name('forgot-password');
+Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm ']);
+
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('reset-password');
+
+
+
+
+// Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password');
+// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
+// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+// Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+//     ->name('password.reset');
+
+
 
 
 Route::prefix('admin')
