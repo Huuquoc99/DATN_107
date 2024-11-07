@@ -38,6 +38,12 @@
                                     <div class="mb-3">
                                         <label for="" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" name="name">
+                                        @error("name") 
+                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                <p class="text-danger">{{ $message }}</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="mb-3 form-check">
                                         <input type="checkbox" class="form-check-input" id="" name="status">
