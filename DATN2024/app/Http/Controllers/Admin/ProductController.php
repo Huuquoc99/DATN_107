@@ -47,12 +47,12 @@ class ProductController extends Controller
     {
         $catalogues = Catalogue::query()->pluck('name', 'id')->all();
         $colors = ProductColor::query()
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
 
         $capacity = ProductCapacity::query()
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
 
