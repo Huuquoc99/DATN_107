@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="pc__info position-relative">
-                                    <p class="pc__category fs-13 fw-medium">{{ $item->catalogue->name }}</p>
+                                    <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
                                     <h6 class="pc__title fs-16 mb-2"><a href="">{{ $item->name }}</a></h6>
                                     <div class="product-card__review d-sm-flex align-items-center">
                                         <div class="reviews-group d-flex">

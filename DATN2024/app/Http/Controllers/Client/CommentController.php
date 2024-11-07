@@ -3,80 +3,102 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index($product_id)
+    public function __construct()
     {
-        $comments = Comment::where('product_id', $product_id)->where('is_active', true)->get();
-        return response()->json($comments);
+        $this->middleware('auth', ['only' => ['edit', 'destroy']]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index($productId)
     {
-        return response()->json();
+        $product = Product::find($productId);
+        $comments = Comment::where('product_id', $productId)->get();
+
+        return view('comments.index', compact('product', 'comments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(CommentRequest $request, $product_id)
+    public function store(Request $request, $productId)
     {
-        $comment = Comment::create([
-            'user_id' => $request->user_id,
-            'product_id' => $product_id,
-            'content' => $request->content,
-            'is_active' => true,
+        $request->validate([
+            'content' => 'required|string',
         ]);
 
-        return response()->json(['message' => 'Comment created successfully!', 'comment' => $comment], 201);
+        $comment = new Comment();
+        $comment->content = $request->content;
+        $comment->product_id = $productId;
+        $comment->user_id = auth()->id();
+        $comment->is_active = true; 
+
+        $comment->save();
+
+        return redirect()->route('comments.index', ['productId' => $productId])
+                         ->with('message', 'Bình luận đã được gửi thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($product_id, $comment_id)
+    public function edit($id)
     {
-        // http://localhost:8000/api/products/4/comments/8
-        $comment = Comment::where('product_id', $product_id)->where('id', $comment_id)->firstOrFail();
-        return response()->json($comment);
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                             ->with('error', 'Bình luận không tìm thấy');
+        }
+
+        if ($comment->user_id != auth()->id()) {
+            return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                             ->with('error', 'Bạn không có quyền sửa bình luận này');
+        }
+
+        return view('comments.edit', compact('comment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                             ->with('error', 'Bình luận không tìm thấy');
+        }
+
+        if ($comment->user_id != auth()->id()) {
+            return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                             ->with('error', 'Bạn không có quyền sửa bình luận này');
+        }
+
+        $comment->content = $request->content;
+        $comment->save();
+
+        return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                         ->with('message', 'Bình luận đã được cập nhật!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(CommentRequest $request, $product_id, $comment_id)
+    public function destroy($id)
     {
-        // http://localhost:8000/api/products/4/comments/8
-        $comment = Comment::findOrFail($comment_id);
-        $comment->update($request->only('content'));
-        return response()->json(['message' => 'Comments have been updated!', 'comment' => $comment]);
-    }
+        $comment = Comment::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($product_id, $comment_id)
-    {
-        $comment = Comment::findOrFail($comment_id);
+        if (!$comment) {
+            return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                             ->with('error', 'Bình luận không tìm thấy');
+        }
+
+        if ($comment->user_id != auth()->id()) {
+            return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                             ->with('error', 'Bạn không có quyền xóa bình luận này');
+        }
+
         $comment->delete();
-        return response()->json(['message' => 'Bình luận đã được xóa!']);
+
+        return redirect()->route('comments.index', ['productId' => $comment->product_id])
+                         ->with('message', 'Bình luận đã bị xóa!');
     }
 }

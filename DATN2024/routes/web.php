@@ -80,6 +80,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
+    
+    // Comment
+    Route::get('comments', [CommentController::class, 'index']);  
+    Route::put('comments/{id}', [CommentController::class, 'edit']);  
+    Route::delete('comments/{id}', [CommentController::class, 'destroy']);
+    Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 
 });
@@ -143,7 +149,6 @@ Route::prefix('admin')
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
-
         Route::resource('comments', CommentController::class);
 
 
@@ -163,9 +168,9 @@ Route::prefix('admin')
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
+
     });
-
-
+    // });
 
 
 
