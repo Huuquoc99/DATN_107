@@ -31,21 +31,6 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Tag create</h4>
                     </div><!-- end card header -->
-<<<<<<< HEAD
-                    <div class="col-6">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="description" name="description">
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="" name="status">
-                                Status
-=======
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -73,7 +58,6 @@
                                         </div>
                                     </div>
                                 </div>
->>>>>>> hoa04
                             </div>
                         </div>
                     </div>
