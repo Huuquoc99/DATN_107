@@ -8,12 +8,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Danh sách Tags</h4>
+                <h4 class="mb-sm-0">Tag</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                        <li class="breadcrumb-item active">Danh sách tag</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
+                        <li class="breadcrumb-item active">List</li>
                     </ol>
                 </div>
             </div>
@@ -25,9 +25,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Danh sách</h5>
+                    <h5 class="card-title mb-0">Tag list</h5>
                     <a href="{{ route('admin.tags.create') }}" class="btn btn-primary mb-3">
-                        Thêm mới <i class="fa-regular fa-plus"></i>
+                        Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
 
@@ -58,16 +58,16 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a href="{{ route('admin.tags.show', $item) }}"
-                                               class="btn btn-info btn-sm">Xem chi tiết <i
+                                               class="btn btn-info btn-sm">Show <i
                                                     class="fa-solid fa-circle-info fa-sm"></i></a>
                                             <a href="{{ route('admin.tags.edit', $item) }}"
-                                               class="btn btn-primary btn-sm">Sửa <i
+                                               class="btn btn-primary btn-sm">Edit <i
                                                     class="fa-regular fa-pen-to-square fa-sm"></i></a>
                                             <form action="{{ route('admin.tags.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button onclick="return confirm('Chắc chắn không?')" type="submit"
-                                                        class="btn btn-danger btn-sm">Xóa <i
+                                                        class="btn btn-danger btn-sm">Delete <i
                                                         class="fa-solid fa-delete-left fa-sm"></i>
                                                 </button>
                                             </form>

@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\Admin\CatalogueController;
+// use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
@@ -23,7 +24,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-// use App\Http\Controllers\Admin\PaymentMethodControlller;
+// use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -146,7 +147,7 @@ Route::prefix('admin')
         Route::resource('catalogues', CatalogueController::class);
         Route::resource('tags', TagController::class);
         Route::resource('banners', BannerController::class);
-        Route::resource('paymentMethods', PaymentMethodControlller::class);
+        Route::resource('paymentMethods', PaymentMethodController::class);
         Route::resource('productCapacities', ProductCapacityController::class);
         Route::resource('productColors', ProductColorController::class);
         Route::resource('statusOrders', StatusOrderController::class);
@@ -172,9 +173,9 @@ Route::prefix('admin')
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
+
     });
-
-
+    // });
 
 
 
