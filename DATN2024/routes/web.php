@@ -85,6 +85,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
+    
+    // Comment
+    Route::get('comments', [CommentController::class, 'index']);  
+    Route::put('comments/{id}', [CommentController::class, 'edit']);  
+    Route::delete('comments/{id}', [CommentController::class, 'destroy']);
+    Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 
 });
