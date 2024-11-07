@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\PaymentMethodRequest;
 
-class PaymentMethodControlller extends Controller
+class PaymentMethodController extends Controller
 {
     /**
      * Display a listing of the resource.
