@@ -12,6 +12,7 @@
         </a>
         <div id="delete-success"></div>
         <div class="shopping-cart">
+            @if (count($unifiedCart) > 0)
             <div class="cart-table__wrapper">
                 <table class="cart-table">
                     <thead>
@@ -68,6 +69,7 @@
                 </div>
             </div>
 
+
             <div class="shopping-cart__totals-wrapper">
                 <div class="sticky-content">
                     <div class="shopping-cart__totals">
@@ -115,13 +117,19 @@
                     </div>
                     <div class="mobile_fixed-btn_wrapper">
                         <div class="button-wrapper container">
-                            
+
                             <a href="{{ route('checkout.index') }}">
                                 <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
                             </a>
                         </div>
                     </div>
                 </div>
+                @else
+                    <div class="empty-cart">
+                        <p>Bạn chưa có sản phẩm nào trong giỏ hàng.</p>
+                        <a href="{{ route('home') }}" class="btn btn-primary">Tiếp tục mua sắm</a>
+                    </div>
+                @endif
             </div>
         </div>
     </section>

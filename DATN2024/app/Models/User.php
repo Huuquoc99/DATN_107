@@ -48,6 +48,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function isAdmin()
+    {
+        return $this->type === 1;
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
@@ -63,5 +68,5 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
-    
+
 }

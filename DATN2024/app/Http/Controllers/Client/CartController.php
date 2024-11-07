@@ -17,7 +17,6 @@ class CartController extends Controller
 {
     public function cartList()
     {
-//        dd(session('cart'));
         $totalAmount = 0;
         $unifiedCart = [];
         $sessionCart = session('cart');
@@ -150,7 +149,6 @@ class CartController extends Controller
                     if ($quantity > $stock_quantity) {
                         return back()->withErrors(['quantity' => 'Số lượng vượt quá tồn kho.']);
                     }
-
                     CartItem::query()->create([
                         'cart_id' => $cart->id,
                         'product_variant_id' => $productVariant->id,

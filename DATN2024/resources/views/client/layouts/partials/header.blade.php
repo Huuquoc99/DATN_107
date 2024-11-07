@@ -1,6 +1,5 @@
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
     <div class="container mt-5" style="max-width: 400px;">
-        {{-- Thông tin người dùng khi đã đăng nhập --}}
         @auth
             <div class="card shadow-sm">
                 <div class="card-header text-center bg-primary text-white">
@@ -128,25 +127,9 @@
                         </li>
                         <li class="navigation__item">
                             <a href="#" class="navigation__link">Blog</a>
-                            {{-- <ul class="default-menu list-unstyled">
-                              <li class="sub-menu__item"><a href="blog_list1.html" class="menu-link menu-link_us-s">Blog V1</a></li>
-                              <li class="sub-menu__item"><a href="blog_list2.html" class="menu-link menu-link_us-s">Blog V2</a></li>
-                              <li class="sub-menu__item"><a href="blog_list3.html" class="menu-link menu-link_us-s">Blog V3</a></li>
-                              <li class="sub-menu__item"><a href="blog_single.html" class="menu-link menu-link_us-s">Blog Detail</a></li>
-                            </ul><!-- /.box-menu --> --}}
                         </li>
                         <li class="navigation__item">
                             <a href="#" class="navigation__link">Pages</a>
-                            {{-- <ul class="default-menu list-unstyled">
-                              <li class="sub-menu__item"><a href="account_dashboard.html" class="menu-link menu-link_us-s">My Account</a></li>
-                              <li class="sub-menu__item"><a href="login_register.html" class="menu-link menu-link_us-s">Login / Register</a></li>
-                              <li class="sub-menu__item"><a href="store_location.html" class="menu-link menu-link_us-s">Store Locator</a></li>
-                              <li class="sub-menu__item"><a href="lookbook.html" class="menu-link menu-link_us-s">Lookbook</a></li>
-                              <li class="sub-menu__item"><a href="faq.html" class="menu-link menu-link_us-s">Faq</a></li>
-                              <li class="sub-menu__item"><a href="terms.html" class="menu-link menu-link_us-s">Terms</a></li>
-                              <li class="sub-menu__item"><a href="404.html" class="menu-link menu-link_us-s">404 Error</a></li>
-                              <li class="sub-menu__item"><a href="coming_soon.html" class="menu-link menu-link_us-s">Coming Soon</a></li>
-                            </ul><!-- /.box-menu --> --}}
                         </li>
                         <li class="navigation__item">
                             <a href="about.html" class="navigation__link">About</a>
