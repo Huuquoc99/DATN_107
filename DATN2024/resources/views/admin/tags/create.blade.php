@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Thêm mới Tag
+    Tag
 @endsection
 
 
@@ -10,12 +10,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Thêm mới tag</h4>
+                <h4 class="mb-sm-0">Tag</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tag</a></li>
-                        <li class="breadcrumb-item active">Thêm mới</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
 
@@ -29,34 +29,42 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Thông tin</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Tag create</h4>
                     </div><!-- end card header -->
-                    <div class="col-6">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="cover" name="cover">
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="" name="status">
-                                Status
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row gy-4">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="" name="status">
+                                        Status
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Description</label>
+                                            <input type="text" class="form-control" id="description" name="description">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                  
+                    
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Thêm mới <i class="fa-regular fa-plus"></i></button>
+                        <button class="btn btn-primary">Tag create <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>
