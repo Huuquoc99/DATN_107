@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 // use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\CatalogueController;
+// use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
