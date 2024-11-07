@@ -152,7 +152,6 @@ Route::prefix('admin')
         Route::resource('statusOrders', StatusOrderController::class);
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
-
         Route::resource('comments', CommentController::class);
         
 

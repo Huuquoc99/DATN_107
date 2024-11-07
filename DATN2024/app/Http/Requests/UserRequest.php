@@ -23,9 +23,10 @@ class UserRequest extends FormRequest
     {
         return [
             "name" => "required|string|max:255",
+            // "email" => "required|email|max:255|unique:users,email",
             "email" => "required|email|max:255",
             "password" => "required|string|min:8|max:20", 
-            "phone" => "required|string|max:255",
+            "phone" => "required|numeric|max:255",
             "address" => "required|string|max:255",
         ];
     }
@@ -37,10 +38,13 @@ class UserRequest extends FormRequest
             "name.max" => "Name must not exceed 255 characters.",
             "email.required" => "Email is required.",
             "email.max" => "Email must not exceed 255 characters.",
+            // "email.unique" => "This email is already taken.",
             "password.required" => "Password is required.",
             "password.max" => "Password must not exceed 20 characters.",
+            "password.min" => "Password must be at least 8 characters.",
             "phone.required" => "Phone number is required.",
             "phone.max" => "Phone number must not exceed 255 characters.",
+            "phone.numeric" => "Phone number must be a valid number.",
             "address.required" => "Address is required.",
             "address.max" => "Address must not exceed 255 characters.",
         ];
