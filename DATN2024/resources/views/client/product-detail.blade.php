@@ -11,8 +11,10 @@
                             <div class="swiper-container">
                                 <div class="product-gallery-horizontal">
                                     <div class="main-image-container">
-                                        <img id="mainImage" src="{{ Storage::url($product->img_thumbnail) }}" class="main-image" alt="{{ $product->name }}">
-                                        <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn" data-fancybox="gallery">
+                                        <img id="mainImage" src="{{ Storage::url($product->img_thumbnail) }}"
+                                            class="main-image" alt="{{ $product->name }}">
+                                        <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn"
+                                            data-fancybox="gallery">
                                             <i class="fas fa-search-plus"></i>
                                         </a>
                                         <div class="swiper-button-next">
@@ -20,11 +22,11 @@
                                         </div>
                                     </div>
                                     <div class="thumbnail-column">
-                                        @foreach($product->galleries as $image)
+                                        @foreach ($product->galleries as $image)
                                             <div class="thumb-item">
                                                 <img src="{{ Storage::url($image->image) }}"
-                                                     onclick="changeImage('{{ Storage::url($image->image) }}')"
-                                                     alt="{{ $product->name }}">
+                                                    onclick="changeImage('{{ Storage::url($image->image) }}')"
+                                                    alt="{{ $product->name }}">
                                             </div>
                                         @endforeach
                                     </div>
@@ -48,15 +50,15 @@
                             class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
                             <a href="#" class="text-uppercase fw-medium disabled">
                                 <svg class="mb-1px" width="10" height="10" viewBox="0 0 25 25"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_prev_md"/>
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <use href="#icon_prev_md" />
                                 </svg>
                                 <span class="menu-link menu-link_us-s">Prev</span></a>
                             <a href="product2_variable.html" class="text-uppercase fw-medium"><span
                                     class="menu-link menu-link_us-s">Next</span>
                                 <svg class="mb-1px" width="10" height="10" viewBox="0 0 25 25"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_next_md"/>
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <use href="#icon_next_md" />
                                 </svg>
                             </a>
                         </div><!-- /.shop-acs -->
@@ -74,30 +76,31 @@
                     </div>
                     <h5 class="product-single__price" id="product-price">
                         <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
-                        <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }} VND</del></i></span>
+                        <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }}
+                                    VND</del></i></span>
                     </h5>
                     <div class="product-single__short-desc">
                         <p>{{ $product->short_description }}</p>
                     </div>
-                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="product-form">
+                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post"
+                        class="product-form">
                         @csrf
-                        <input type="hidden" name="product_id" data-product-id="{{ $product->id }}" value="{{ $product->id }}">
+                        <input type="hidden" name="product_id" data-product-id="{{ $product->id }}"
+                            value="{{ $product->id }}">
                         <div class="product-options">
                             <!-- Color Selection -->
                             <div class="option-group mb-4">
                                 <label class="option-label">Màu sắc:</label>
                                 <div class="option-selections">
-                                    @foreach($colors as $id => $color)
+                                    @foreach ($colors as $id => $color)
                                         <div class="option-item">
-                                            <input type="radio"
-                                                   class="btn-check"
-                                                   id="radio_color_{{ $id }}"
-                                                   name="product_color_id"
-                                                   value="{{ $id }}"
-                                                   {{ $loop->first ? 'checked' : '' }}
-                                                   required>
-                                            <label class="btn btn-outline color-choice" for="radio_color_{{ $id }}">
-                                                <span class="color-dot" style="background-color: {{ $color['color_code'] }};"></span>
+                                            <input type="radio" class="btn-check" id="radio_color_{{ $id }}"
+                                                name="product_color_id" value="{{ $id }}"
+                                                {{ $loop->first ? 'checked' : '' }} required>
+                                            <label class="btn btn-outline color-choice"
+                                                for="radio_color_{{ $id }}">
+                                                <span class="color-dot"
+                                                    style="background-color: {{ $color['color_code'] }};"></span>
                                                 <span class="color-name">{{ $color['name'] }}</span>
                                             </label>
                                         </div>
@@ -110,16 +113,13 @@
                             <div class="option-group mb-4">
                                 <label class="option-label">Dung lượng:</label>
                                 <div class="option-selections">
-                                    @foreach($capacities as $id => $name)
+                                    @foreach ($capacities as $id => $name)
                                         <div class="option-item">
-                                            <input type="radio"
-                                                   class="btn-check"
-                                                   id="radio_size_{{ $id }}"
-                                                   name="product_capacity_id"
-                                                   value="{{ $id }}"
-                                                   {{ $loop->first ? 'checked' : '' }}
-                                                   required>
-                                            <label class="btn btn-outline-secondary" for="radio_size_{{ $id }}">
+                                            <input type="radio" class="btn-check" id="radio_size_{{ $id }}"
+                                                name="product_capacity_id" value="{{ $id }}"
+                                                {{ $loop->first ? 'checked' : '' }} required>
+                                            <label class="btn btn-outline-secondary"
+                                                for="radio_size_{{ $id }}">
                                                 {{ $name }}
                                             </label>
                                         </div>
@@ -128,26 +128,23 @@
                             </div>
 
                             <!-- Quantity Control -->
-                            <span class="option-label">Tình trạng:  <span id="stock-status"></span></span>
+                            <span class="option-label">Tình trạng: <span id="stock-status"></span></span>
                             <div class="quantity-control mb-4">
                                 <label class="option-label">Số lượng</label>
                                 <div class="quantity-wrapper">
                                     <button type="button" class="quantity-btn minus">-</button>
-                                    <input type="number"
-                                           name="quantity"
-                                           value="1"
-                                           class="quantity-input @error('quantity') is-invalid @enderror">
+                                    <input type="number" name="quantity" value="1"
+                                        class="quantity-input @error('quantity') is-invalid @enderror">
                                     <button type="button" class="quantity-btn plus">+</button>
                                 </div>
 
                                 @error('quantity')
-                                <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <button type="submit"
-                                    class="btn btn-primary btn-lg w-100 btn-addtocart"
-                                    data-aside="cartDrawer">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
+                                data-aside="cartDrawer">
                                 <i class="ri-shopping-cart-line me-2"></i>
                                 Thêm vào giỏ hàng
                             </button>
@@ -155,6 +152,10 @@
                     </form>
                 </div>
             </div>
+            <div>
+                @include('client.comment')
+            </div>
+            
         </section>
     </main>
 @endsection
