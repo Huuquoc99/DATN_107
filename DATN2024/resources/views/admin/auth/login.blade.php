@@ -4,7 +4,7 @@
 <head>
     <head>
         <meta charset="utf-8"/>
-        <title>@yield('title')</title>
+        <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         @yield('style-libs')
@@ -55,7 +55,7 @@
                                     <div class="position-relative h-100 d-flex flex-column">
                                         <div class="mb-4">
                                             <a href="index.html" class="d-block">
-                                                <img src="assets/images/logo-light.png" alt="" height="18">
+                                                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="18">
                                             </a>
                                         </div>
                                         <div class="mt-auto">
@@ -92,49 +92,62 @@
                                 <div class="p-lg-5 p-4">
                                     <div>
                                         <h5 class="text-primary">Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to Velzon.</p>
+                                        <p class="text-muted">Sign in to continue to TechStore.</p>
                                     </div>
 
                                     <div class="mt-4">
-                                        @if(session('error'))
-                                            <div class="alert alert-danger">
-                                                {{ session('error') }}
-                                            </div>
-                                        @endif
-
-                                        @if ($errors->has('email'))
-                                            <div class="alert alert-danger">
-                                                {{ $errors->first('email') }}
-                                            </div>
-                                        @endif
+                                        
                                         <form action="{{ route('admin.login') }}" method="post">
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
-                                            </div>
+                                                <input type="email" name="email" class="form-control mb-3" id="email" placeholder="Enter email">
+                                                @if(session('error'))
+                                                    <div class="alert alert-danger">
+                                                        {{ session('error') }}
+                                                    </div>
+                                                @endif
 
+                                                @if ($errors->has('email'))
+                                                    <div class="alert alert-danger">
+                                                        {{ $errors->first('email') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                                
                                             <div class="mb-3">
-                                                <div class="float-end">
-                                                    <a href="auth-pass-reset-cover.html" class="text-muted">Forgot password?</a>
-                                                </div>
+                                                
                                                 <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    <input type="password" name="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input">
+                                                    <input type="password" name="password" class="form-control pe-5 password-input mb-3" placeholder="Enter password" id="password-input">
                                                     <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
-                                                </div>
+                                                    @if(session('error'))
+                                                        <div class="alert alert-danger">
+                                                            {{ session('error') }}
+                                                        </div>
+                                                    @endif
+
+                                                    @if ($errors->has('password'))
+                                                        <div class="alert alert-danger">
+                                                            {{ $errors->first('password') }}
+                                                        </div>
+                                                    @endif
+                                                    </div>
                                             </div>
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
                                                 <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                                <div class="float-end">
+                                                    <a href="auth-pass-reset-cover.html" class="text-muted">Forgot password?</a>
+                                                </div>
                                             </div>
 
                                             <div class="mt-4">
                                                 <button class="btn btn-success w-100" type="submit">Sign In</button>
                                             </div>
 
-                                            <div class="mt-4 text-center">
+                                            {{-- <div class="mt-4 text-center">
                                                 <div class="signin-other-title">
                                                     <h5 class="fs-13 mb-4 title">Sign In with</h5>
                                                 </div>
@@ -145,7 +158,7 @@
                                                     <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
                                                     <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                         </form>
                                     </div>

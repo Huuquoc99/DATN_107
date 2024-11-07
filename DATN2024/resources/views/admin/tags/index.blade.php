@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Danh sách Sản phẩm')
+@section('title', 'Tag')
 
 @section('content')
 
@@ -33,6 +33,14 @@
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
+
+                        @if (session("success"))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session("success")}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
                                style="width:100%">
                             <thead>
@@ -43,7 +51,7 @@
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -66,7 +74,7 @@
                                             <form action="{{ route('admin.tags.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Chắc chắn không?')" type="submit"
+                                                <button onclick="return confirm('Are you sure you want to delete?')" type="submit"
                                                         class="btn btn-danger btn-sm">Delete <i
                                                         class="fa-solid fa-delete-left fa-sm"></i>
                                                 </button>
