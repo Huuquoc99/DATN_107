@@ -19,6 +19,7 @@ class CheckAdminMiddleware
         $user = Auth::user();
 
         if (!$user || !$user->isAdmin()) {
+            Auth::logout();
             return redirect()->route('admin.login')
                 ->with('error', 'Unauthorized access attempted. This incident has been logged.');
         }

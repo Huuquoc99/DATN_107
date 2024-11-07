@@ -48,10 +48,10 @@ Route::post('product/get-variant-details', [\App\Http\Controllers\Client\Product
     ->name('product.getVariantDetails');
 Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
-Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound']);
-Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
-Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
-Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
+Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound'])->name('notfound');
+Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about'])->name('about');
+Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact'])->name('contact');
+Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop'])->name('shop');
 
 
 Route::post('cart/add-to-cart', [\App\Http\Controllers\Client\CartController::class, 'addToCart'])

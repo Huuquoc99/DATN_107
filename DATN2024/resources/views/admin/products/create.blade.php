@@ -38,22 +38,16 @@ Product
                                     <div>
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        @error("name")
+                                        <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="price_regular" class="form-label">Price regular</label>
                                         <input type="number" class="form-control @error('price_regular') is-invalid @enderror" name="price_regular" id="price_regular" value="{{ old('price_regular') }}">
-                                        @error("price_regular") 
-                                        <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                            <p class="text-danger">{{ $message }}</p>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-                                    @enderror
+                                        @error("price_regular")
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="price_sale" class="form-label">Price sale</label>
@@ -67,56 +61,44 @@ Product
                                                 <option value="{{ $id }}">{{ $name }}</option>
                                             @endforeach
                                         </select>
-                                        @error("catalogue_id") 
-                                        <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                            <p class="text-danger">{{ $message }}</p>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-                                    @enderror
+                                        @error("catalogue_id")
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="img_thumbnail" class="form-label">Image thumbnail</label>
                                         <input type="file" class="form-control @error('img_thumbnail') is-invalid @enderror" name="img_thumbnail" id="img_thumbnail" value="{{ old('img_thumbnail') }}">
-                                        @error("img_thumbnail") 
-                                        <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                            <p class="text-danger">{{ $message }}</p>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
+                                        @error("img_thumbnail")
+                                        <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="processor" class="form-label">Processor</label>
-                                        <input type="text" class="form-control" name="processor" id="processor">
-                                        @error("processor") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('processor') is-invalid @enderror"  name="processor" id="processor"  >
+                                        @error("processor")
+                                        <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="ram" class="form-label">Ram</label>
-                                        <input type="text" class="form-control" name="ram" id="ram">
-                                        @error("ram") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('ram') is-invalid @enderror" name="ram" id="ram">
+                                        @error("ram")
+                                        <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="sim_type" class="form-label">Sim type</label>
-                                        <input type="text" class="form-control" name="sim_type" id="sim_type">
-                                        @error("sim_type") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
-                                        @enderror 
+                                        <input type="text" class="form-control @error('sim_type') is-invalid @enderror" name="sim_type" id="sim_type">
+                                        @error("sim_type")
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="short_description" class="form-label">Short description</label>
                                         <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>
+                                        @error("short_description")
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -130,65 +112,47 @@ Product
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Screen size</label>
                                             <input type="text" class="form-control" name="screen_size" id="screen_size">
-                                            @error("screen_size") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            @error("screen_size")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="operating_system" class="form-label">Operating system</label>
                                             <input type="text" class="form-control" name="operating_system" id="operating_system">
-                                            @error("operating_system") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            @error("operating_system")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="battery_capacity" class="form-label">Battery capacity</label>
                                             <input type="text" class="form-control" name="battery_capacity" id="battery_capacity">
-                                            @error("battery_capacity") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            @error("battery_capacity")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="camera_resolution" class="form-label">Camera resolution</label>
                                             <input type="text" class="form-control" name="camera_resolution" id="camera_resolution">
-                                            @error("camera_resolution") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            @error("camera_resolution")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="network_connectivity" class="form-label">Network connectivity</label>
                                             <input type="text" class="form-control" name="network_connectivity" id="network_connectivity">
-                                            @error("network_connectivity") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            @error("network_connectivity")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
                                             <input type="text" class="form-control" name="storage" id="storage">
-                                            @error("storage") 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror 
+                                            @error("storage")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="mt-5">
@@ -286,7 +250,6 @@ Product
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Catalogue;
 use App\Models\Product;
 use App\Models\ProductCapacity;
@@ -33,11 +34,6 @@ class ProductController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
     }
 
-//    public function index()
-//    {
-//
-//        return view('admin.products.test');
-//    }
 
 
     /**
@@ -122,8 +118,17 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $catalogues = Catalogue::query()->pluck('name', 'id')->all();
-        $colors =  ProductColor::query()->pluck('name', 'id')->all();
-        $capacities = ProductCapacity::query()->pluck('name', 'id')->all();
+
+
+        $colors = ProductColor::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
+
+        $capacities = ProductCapacity::query()
+            ->where('status', 1)
+            ->pluck('name', 'id')
+            ->all();
         $tags = Tag::query()->pluck('name', 'id')->all();
 
         $product->load(['catalogue', 'tags', 'variants', 'galleries']);
@@ -134,7 +139,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         list(
             $dataProduct,
@@ -171,7 +176,6 @@ class ProductController extends Controller
             foreach ($dataProductGalleries as $item) {
                 $item['product_id'] = $product->id;
 
-                // Kiểm tra nếu có 'id' trong $item thì sẽ cập nhật, nếu không sẽ tạo mới
                 ProductGallery::query()->updateOrCreate(
                     isset($item['id']) ? ['id' => $item['id']] : [],
                     $item
@@ -249,7 +253,7 @@ class ProductController extends Controller
 
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['product_variants', 'tags', 'product_galleries']);
+        $dataProduct = $request->except(['tags' ]);
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
         $dataProduct['is_good_deal'] ??= 0;
