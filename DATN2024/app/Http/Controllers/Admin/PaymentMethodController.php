@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\PaymentMethodRequest;
 
-class PaymentMethodControlller extends Controller
+class PaymentMethodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,7 +38,7 @@ class PaymentMethodControlller extends Controller
     {
         if ($request->isMethod("POST")) {
             $param = $request->except("_token",);
-        
+
             if($request->hasFile("image"))
             {
                 $filepath = $request->file("image")->store("uploads/paymentMethods", "public");
@@ -86,7 +86,7 @@ class PaymentMethodControlller extends Controller
         if ($request->isMethod("PUT")) {
             $param = $request->except("_token", "_method");
             $paymentMethod = PaymentMethod::findOrFail($id);
-        
+
             if($request->hasFile("image")){
                 if($paymentMethod->image && Storage::disk("public")->exists($paymentMethod->image))
                 {

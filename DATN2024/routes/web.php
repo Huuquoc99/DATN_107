@@ -4,8 +4,6 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\Admin\AdminLoginController;
-use App\Http\Controllers\Payment\MomoPaymentController;
-use App\Http\Controllers\Payment\VnpayPaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -25,6 +23,7 @@ use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +72,7 @@ Route::middleware('auth')->group(function () {
     //     return view('client.success');
     // })->name('checkout.success');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.failed');
 
     // Order
     Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
@@ -84,8 +84,10 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::post('/vnpay-payment',   [VnpayPaymentController::class, 'vnpayPayment'])->name('payment.vnpay');
-Route::post('/momo-payment',    [MomoPaymentController::class, 'momoPayment'])->name('payment.momo');
+//Route::post('/vnpay-payment',   [VnpayPaymentController::class, 'vnpayPayment'])->name('payment.vnpay');
+Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
+
+//Route::post('/momo-payment',    [MomoPaymentController::class, 'momoPayment'])->name('payment.momo');
 
 
 // Auth

@@ -104,9 +104,18 @@ class CartController extends Controller
                 }
             }
         } else {
-            $unifiedCart = $sessionCart;
-            foreach ($sessionCart as $item) {
-                $totalAmount += $item['quantity'] * $item['price'];
+            if (!empty($sessionCart)) {
+                $unifiedCart = $sessionCart;
+
+                foreach ($sessionCart as $item) {
+                    $totalAmount += $item['quantity'] * $item['price'];
+                }
+            } else {
+                return view('client.cart', [
+                    'unifiedCart' => [],
+                    'totalAmount' => 0,
+                    'message' => 'Chưa có sản phẩm trong giỏ hàng.'
+                ]);
             }
         }
 
