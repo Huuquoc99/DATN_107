@@ -214,7 +214,6 @@ Product
                                             <th>SKU</th>
                                             <th>Image</th>
                                         </tr>
-
                                         @foreach($capacity as $sizeID => $sizeName)
                                             @php($flagRowspan = true)
 

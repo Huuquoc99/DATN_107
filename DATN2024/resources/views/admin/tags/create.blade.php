@@ -39,7 +39,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="cover" name="cover">
+                                <input type="text" class="form-control" id="description" name="description">
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="" name="status">
