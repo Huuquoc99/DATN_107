@@ -55,7 +55,7 @@
                                     <div class="position-relative h-100 d-flex flex-column">
                                         <div class="mb-4">
                                             <a href="index.html" class="d-block">
-                                                <img src="assets/images/logo-light.png" alt="" height="18">
+                                                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="18">
                                             </a>
                                         </div>
                                         <div class="mt-auto">
@@ -92,7 +92,7 @@
                                 <div class="p-lg-5 p-4">
                                     <div>
                                         <h5 class="text-primary">Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to Velzon.</p>
+                                        <p class="text-muted">Sign in to continue to TechStore.</p>
                                     </div>
 
                                     <div class="mt-4">
