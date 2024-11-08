@@ -6,6 +6,7 @@ use Log;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\CartItem;
+use App\Mail\OrderPlaced;
 use App\Models\OrderItem;
 use App\Models\ProductColor;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use App\Models\ProductCapacity;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -27,14 +29,12 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống.');
         }
 
-        // Thêm kiểm tra xem có item trong giỏ hàng không
         $cartItems = CartItem::where('cart_id', $cart->id)->with('product')->get();
 
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống.');
         }
 
-        // Lấy danh sách phương thức thanh toán
         $paymentMethods = PaymentMethod::all();
 
         return view('client.checkout', compact('user', 'cartItems', 'paymentMethods')); // Thêm paymentMethods vào compact
@@ -54,7 +54,6 @@ class CheckoutController extends Controller
         $cart = Cart::where('user_id', $user->id)->first();
         $paymentMethodId = $request->input('payment_method_id');
      
-        // Tạo đơn hàng
         $order = Order::create([
             'user_id' => $user->id,
             'user_name' => $user->name,
@@ -73,7 +72,7 @@ class CheckoutController extends Controller
             'code' => $this->generateOrderCode(), 
         ]);
 
-        // Thêm từng sản phẩm vào đơn hàng
+       
         foreach ($cart->items as $item) {
             // $capacity = ProductCapacity::where('id', $item->product_variant_id)->first();
             // $color = ProductColor::where('id', $item->product_variant_id)->first();
@@ -89,13 +88,14 @@ class CheckoutController extends Controller
                 'product_img_thumbnail' => $item->productVariant->product->img_thumbnail,
                 'product_price_regular' => $item->productVariant->product->price_regular,
                 'product_price_sale' => $item->productVariant->product->price_sale,
-                'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null, // Kiểm tra capacity
-                'product_color_id' => $productVariant->color ? $productVariant->color->id : null, // Kiểm tra color
+                'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null, 
+                'product_color_id' => $productVariant->color ? $productVariant->color->id : null, 
                 
             ]);
         }
 
-        // Xóa giỏ hàng sau khi thanh toán
+        Mail::to($user->email)->send(new OrderPlaced($order));
+
         $cart->items()->delete();
 
         return redirect()->route('checkout.success');
@@ -103,7 +103,7 @@ class CheckoutController extends Controller
 
     protected function generateOrderCode()
     {
-        return 'ORDER-' . strtoupper(uniqid()); // Tạo mã đơn hàng duy nhất
+        return 'ORDER-' . strtoupper(uniqid()); 
     }
 
     private function calculateTotal($cartId)
@@ -118,13 +118,11 @@ class CheckoutController extends Controller
 
     public function success()
     {
-        // Lấy thông tin đơn hàng mới nhất của người dùng
         $order = Order::where('user_id', Auth::id())
-            ->with(['orderItems.product', 'paymentMethod']) // Lấy thông tin sản phẩm và phương thức thanh toán
+            ->with(['orderItems.product', 'paymentMethod']) 
             ->latest()
             ->first();
 
-        // Nếu không tìm thấy đơn hàng
         if (!$order) {
             return redirect()->route('checkout')->with('error', 'Không tìm thấy đơn hàng.');
         }

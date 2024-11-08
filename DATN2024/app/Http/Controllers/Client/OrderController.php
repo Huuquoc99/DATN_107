@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Order;
+use App\Mail\OrderPlaced;
 use App\Models\StatusOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -93,6 +95,8 @@ class OrderController extends Controller
         if ($order->status_order_id == 1) {
             $order->status_order_id = 4;
             $order->save();
+
+            Mail::to(Auth::user()->user_email)->send(new OrderPlaced($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
         }
 
@@ -107,6 +111,7 @@ class OrderController extends Controller
             $order->status_order_id = 3;
             $order->save();
 
+            Mail::to(Auth::user()->user_email)->send(new OrderPlaced($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được cập nhật thành hoàn thành.');
         }
 
