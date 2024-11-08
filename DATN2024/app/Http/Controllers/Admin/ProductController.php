@@ -121,12 +121,12 @@ class ProductController extends Controller
 
 
         $colors = ProductColor::query()
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
 
         $capacities = ProductCapacity::query()
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
         $tags = Tag::query()->pluck('name', 'id')->all();
@@ -246,7 +246,7 @@ class ProductController extends Controller
                 ->with('success', 'Product deleted successfully!');
         } catch (\Exception $exception) {
             dd($exception->getMessage());
-            return back()->with('error', $exception->getMessage());         
+            return back()->with('error', $exception->getMessage());
         }
     }
 
