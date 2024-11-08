@@ -153,8 +153,15 @@ class CartController extends Controller
                     'product_variant_id' => $productVariant->id
                 ])->first();
 
+                if ($cartItem) {
+                    $newQuantity = $cartItem->quantity + $quantity;
 
-                if (!$cartItem) {
+                    if ($newQuantity > $stock_quantity) {
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá tồn kho.']);
+                    }
+
+                    $cartItem->update(['quantity' => $newQuantity]);
+                } else {
                     if ($quantity > $stock_quantity) {
                         return back()->withErrors(['quantity' => 'Số lượng vượt quá tồn kho.']);
                     }
@@ -165,7 +172,6 @@ class CartController extends Controller
                         'price' => $productVariant->price
                     ]);
                 }
-
             } else {
                 $cart = session()->get('cart', []);
                 $cartItemKey = $productVariant->id;

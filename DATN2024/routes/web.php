@@ -68,9 +68,6 @@ Route::middleware('auth')->group(function () {
     // Chekcout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-    // Route::get('/checkout/success', function () {
-    //     return view('client.success');
-    // })->name('checkout.success');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.failed');
 
