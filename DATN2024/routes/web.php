@@ -16,8 +16,6 @@ use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
-// use App\Http\Controllers\Admin\CatalogueController;
-// use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
@@ -25,7 +23,6 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
