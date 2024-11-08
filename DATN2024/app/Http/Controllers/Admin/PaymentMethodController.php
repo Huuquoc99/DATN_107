@@ -38,7 +38,7 @@ class PaymentMethodController extends Controller
     {
         if ($request->isMethod("POST")) {
             $param = $request->except("_token",);
-        
+
             if($request->hasFile("image"))
             {
                 $filepath = $request->file("image")->store("uploads/paymentMethods", "public");
@@ -86,7 +86,7 @@ class PaymentMethodController extends Controller
         if ($request->isMethod("PUT")) {
             $param = $request->except("_token", "_method");
             $paymentMethod = PaymentMethod::findOrFail($id);
-        
+
             if($request->hasFile("image")){
                 if($paymentMethod->image && Storage::disk("public")->exists($paymentMethod->image))
                 {
