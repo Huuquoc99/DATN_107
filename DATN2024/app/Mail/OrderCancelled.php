@@ -10,10 +10,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderPlaced extends Mailable
+class OrderCancelled extends Mailable
 {
     use Queueable, SerializesModels;
-
     public $order;
     /**
      * Create a new message instance.
@@ -29,14 +28,15 @@ class OrderPlaced extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Placed',
+            subject: 'Order Cancelled',
         );
     }
 
+
     public function build()
     {
-        return $this->subject("Order Confirmation")
-            ->markdown("client.mailSuccess")
+        return $this->subject("Đơn hàng của bạn đã bị hủy")
+            ->markdown("client.mailCancel")
             ->with("order", $this->order);
     }
 }

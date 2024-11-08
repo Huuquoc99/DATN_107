@@ -7,6 +7,7 @@ use App\Mail\OrderPlaced;
 use App\Models\StatusOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderCancelled;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -96,7 +97,7 @@ class OrderController extends Controller
             $order->status_order_id = 4;
             $order->save();
 
-            Mail::to(Auth::user()->user_email)->send(new OrderPlaced($order));
+            Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
         }
 

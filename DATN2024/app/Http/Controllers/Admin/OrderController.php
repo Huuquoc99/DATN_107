@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
 use App\Models\StatusOrder;
+use App\Mail\OrderCancelled;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\AdminOrderCancelled;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -41,6 +44,7 @@ class OrderController extends Controller
             $order->status_order_id = $newStatusId;
             $order->save();
 
+            Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
             return redirect()->route('admin.orders.show', $id)->with('success', 'Order status updated successfully.');
         } else {
             return redirect()->route('admin.orders.show', $id)->with('error', 'Cannot update to a lower status.');
