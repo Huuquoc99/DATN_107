@@ -49,7 +49,7 @@
                                     </div>
                                     
                                     <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="" name="status" @if($tag->is_active ) checked @endif value="1">
+                                        <input type="checkbox" class="form-check-input" id="" name="status" @if($tag->status ) checked @endif value="1">
                                         Status
                                     </div>
                                 </div>

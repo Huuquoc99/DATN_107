@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\Admin\AdminLoginController;
+use App\Http\Controllers\Payment\MomoPaymentController;
+use App\Http\Controllers\Payment\VnpayPaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -12,7 +14,6 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\InvoiceController;
-// use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\Admin\CatalogueController;
@@ -51,22 +52,19 @@ Route::post('product/get-variant-details', [\App\Http\Controllers\Client\Product
     ->name('product.getVariantDetails');
 Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
-Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound']);
-Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about']);
-Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact']);
-Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop']);
+Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound'])->name('notfound');
+Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about'])->name('about');
+Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact'])->name('contact');
+Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop'])->name('shop');
 
 
-Route::post('cart/add-to-cart', [\App\Http\Controllers\Client\CartController::class, 'addToCart'])
-    ->name('cart.add-to-cart');
-Route::get('cart/list', [\App\Http\Controllers\Client\CartController::class, 'cartList'])
-    ->name('cart.list');
+Route::prefix('cart')->name('cart.')->group(function () {
+    Route::post('add-to-cart',  [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('list',          [CartController::class, 'cartList'])->name('list');
+    Route::post('delete',       [CartController::class, 'deleteCart'])->name('delete');
+    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+});
 
-Route::post('cart/delete', [\App\Http\Controllers\Client\CartController::class, 'deleteCart'])
-    ->name('cart.delete');
-
-Route::post('cart/update', [\App\Http\Controllers\Client\CartController::class, 'updateCart'])
-    ->name('cart.update');
 
 
 Route::middleware('auth')->group(function () {
@@ -95,6 +93,10 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Route::post('/vnpay-payment',   [VnpayPaymentController::class, 'vnpayPayment'])->name('payment.vnpay');
+// Route::post('/momo-payment',    [MomoPaymentController::class, 'momoPayment'])->name('payment.momo');
+
+
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
 Route::get('/login', [LoginController::class, 'showLogin']);
@@ -116,14 +118,6 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 
 
 
-// Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password');
-// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
-// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
-// Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
-//     ->name('password.reset');
-
-
-
 
 Route::prefix('admin')
     ->as('admin.')
@@ -134,7 +128,7 @@ Route::prefix('admin')
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     })
 
-    ->middleware(['checkAdminMiddleware'])
+//    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         Route::get('/', function () {
@@ -159,7 +153,7 @@ Route::prefix('admin')
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
         Route::resource('comments', CommentController::class);
-        
+
 
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');

@@ -111,7 +111,7 @@
         <div class="header-middle border-0 position-relative py-4">
             <div class="container d-flex align-items-center">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="{{ route('home') }}">
                         <img src="{{ asset('theme/client/images/logo-cars.png') }}" alt="Uomo" class="logo__image">
                     </a>
                 </div><!-- /.logo -->
@@ -119,7 +119,7 @@
                 <nav class="navigation flex-grow-1 fs-15 fw-semi-bold">
                     <ul class="navigation__list list-unstyled d-flex">
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link">Home</a>
+                            <a href="{{ route('home') }}" class="navigation__link">Home</a>
                         </li>
                         <li class="navigation__item">
                             <a href="/shop" class="navigation__link">Shop</a>
@@ -132,10 +132,10 @@
                             <a href="#" class="navigation__link">Pages</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="about.html" class="navigation__link">About</a>
+                            <a href="{{ route('about') }}" class="navigation__link">About</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="contact.html" class="navigation__link">Contact</a>
+                            <a href="{{ route('contact') }}" class="navigation__link">Contact</a>
                         </li>
                     </ul><!-- /.navigation__list -->
                 </nav><!-- /.navigation -->
@@ -155,8 +155,7 @@
                         <i class="fa-regular fa-heart fa-xl"></i>
                     </a>
 
-                    <a href="#" class="header-tools__item header-tools__cart js-open-aside"
-                        data-aside="cartDrawer">
+                    <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
                         <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
                     </a>
