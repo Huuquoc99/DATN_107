@@ -1,29 +1,30 @@
 <?php
 
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CatalogueController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Auth\Admin\AdminLoginController;
-use App\Http\Controllers\Payment\MomoPaymentController;
-use App\Http\Controllers\Payment\VnpayPaymentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Payment\MomoPaymentController;
+use App\Http\Controllers\Payment\VnpayPaymentController;
 use App\Http\Controllers\Admin\ProductCapacityController;
+use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 /*

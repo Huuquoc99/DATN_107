@@ -34,43 +34,23 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        // Kiểm tra quyền truy cập
         if ($order->user_id !== Auth::id()) {
             return redirect()->route('orders.index')->with('error', 'Unauthorized action.');
         }
 
-        // Tải thông tin đơn hàng và các sản phẩm trong đơn hàng
         $orderWithItems = $order->load([
             'orderItems',
             'statusOrder:id,name',
             'statusPayment:id,name',
-            'paymentMethod:id,name', // Nếu có bảng payment_method để lấy tên
+            'paymentMethod:id,name',
         ]);
         $statusOrders = StatusOrder::all();
-        // Truyền dữ liệu vào view
         return view('client.orderdetails', [
             'order' => $orderWithItems,
             'statusOrders' => $statusOrders,
         ]);
     }
 
-
-
-
-    // public function cancel(Order $order)
-    // {
-    //     if ($order->user_id !== Auth::id()) {
-    //         return response()->json(['error' => 'Unauthorized action.'], 403);
-    //     }
-
-    //     if ($order->status_order_id === 1) {
-    //         $order->status_order_id = 2; // sửa lại thành id của cancel
-    //         $order->save();
-    //         return response()->json(['success' => 'Order cancelled successfully.']);
-    //     }
-
-    //     return response()->json(['error' => 'Order cannot be cancelled.'], 400);
-    // }
 
     public function getStatusHistory($orderId)
     {
@@ -98,7 +78,6 @@ class OrderController extends Controller
             $order->status_order_id = $statusId;
             $order->save();
 
-            // Chuyển hướng về trang chi tiết đơn hàng với thông báo
             return redirect()->route('account.orders.show', $order->id)
                 ->with('success', 'Order status has been updated.');
         }
@@ -119,8 +98,6 @@ class OrderController extends Controller
 
         return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
     }
-
-
 
 
     public function markAsReceived(Order $order)
