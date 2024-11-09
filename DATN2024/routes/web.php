@@ -58,7 +58,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('add-to-cart',  [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('list',          [CartController::class, 'cartList'])->name('list');
     Route::post('delete',       [CartController::class, 'deleteCart'])->name('delete');
-    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+//    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+    Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
+
 });
 
 

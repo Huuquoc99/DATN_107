@@ -106,10 +106,12 @@ class ProductController extends Controller
     {
         $product->load(['variants', 'galleries', 'tags']);
 
+        $totalQuantity = $product->variants->sum('quantity');
+
         $color = ProductColor::query()->pluck('name', 'id')->all();
         $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity','color'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity','color','totalQuantity'));
     }
 
     /**
@@ -121,12 +123,12 @@ class ProductController extends Controller
 
 
         $colors = ProductColor::query()
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
 
         $capacities = ProductCapacity::query()
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
         $tags = Tag::query()->pluck('name', 'id')->all();
