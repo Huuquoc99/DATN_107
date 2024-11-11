@@ -1,0 +1,45 @@
+.product-detail-imgs {
+    margin-bottom: 30px;
+}
+
+.main-image {
+    margin-left: 40px;
+}
+
+.thumbnail-container {
+    margin-top: 20px;
+    margin-right: 100px;
+}
+
+.thumbnail-item {
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.thumbnail-item.active {
+    border: 2px solid #798ca1;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0;
+    padding: 10px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #788ba3;
+    color: #fff;
+}

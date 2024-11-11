@@ -123,7 +123,7 @@
                                 </div>
 
                                 @error('quantity')
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-dark h6">{{ $message }}</div>
                                 @enderror
                             </div>
 

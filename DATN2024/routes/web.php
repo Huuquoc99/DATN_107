@@ -65,7 +65,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('add-to-cart',  [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('list',          [CartController::class, 'cartList'])->name('list');
     Route::post('delete',       [CartController::class, 'deleteCart'])->name('delete');
-    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+//    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+    Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
+
 });
 
 
@@ -75,9 +77,6 @@ Route::middleware('auth')->group(function () {
     // Chekcout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-    // Route::get('/checkout/success', function () {
-    //     return view('client.success');
-    // })->name('checkout.success');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.failed');
 

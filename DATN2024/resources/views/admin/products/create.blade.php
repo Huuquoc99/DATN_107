@@ -213,21 +213,19 @@ Product
                                             <th>Price</th>
                                             <th>SKU</th>
                                             <th>Image</th>
+                                            <th>Xóa</th>
                                         </tr>
                                         @foreach($capacity as $sizeID => $sizeName)
                                             @php($flagRowspan = true)
-
                                             @foreach($colors as $colorID => $colorName)
-                                                <tr class="text-center">
-
+                                                <tr class="text-center" data-variant="{{ $sizeID . '-' . $colorID }}" data-size="{{ $sizeID }}">
                                                     @if($flagRowspan)
-                                                        <td style="vertical-align: middle;"
-                                                            rowspan="{{ count($colors) }}">{{ $sizeName }}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $sizeID }}">{{ $sizeName }}</td>
                                                     @endif
                                                     @php($flagRowspan = false)
 
-                                                    <td style="vertical-align: middle;">
-                                                        {{$colorName}}
+                                                    <td>
+                                                        <div style="width: 40px; height: 40px; background: {{ $colorName }}; border: #0a0c0d 1px solid"></div>
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][quantity]">
@@ -235,12 +233,14 @@ Product
                                                     <td>
                                                         <input type="number" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][price]">
                                                     </td>
-
                                                     <td>
                                                         <input type="text" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][sku]">
                                                     </td>
                                                     <td>
                                                         <input type="file" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][image]">
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $sizeID . '-' . $colorID }}')">Xóa</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -352,5 +352,33 @@ Product
                 $('#' + id).remove();
             }
         }
+
+        function removeVariant(variantId) {
+            const row = document.querySelector(`tr[data-variant="${variantId}"]`);
+            if (!row) return;
+
+            const sizeId = row.getAttribute('data-size');
+            const sizeRows = document.querySelectorAll(`tr[data-size="${sizeId}"]`);
+            const totalRows = sizeRows.length;
+
+            if (totalRows === 1) {
+                row.remove();
+                return;
+            }
+
+            const currentIndex = Array.from(sizeRows).indexOf(row);
+            const sizeCell = document.querySelector(`.size-cell-${sizeId}`);
+
+            if (currentIndex === 0 && sizeCell) {
+                const nextRow = sizeRows[1];
+                sizeCell.setAttribute('rowspan', totalRows - 1);
+                nextRow.insertBefore(sizeCell, nextRow.firstChild);
+            } else if (sizeCell) {
+                sizeCell.setAttribute('rowspan', totalRows - 1);
+            }
+
+            row.remove();
+        }
+
     </script>
 @endsection
