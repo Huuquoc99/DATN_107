@@ -112,6 +112,7 @@
                                         <div>
                                             <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> SKU: {{ $product->sku }}</p>
                                             <p class="text-muted"><i class="bx bx-shape-triangle font-size-16 align-middle text-primary me-1"></i> Catalogue: {{ $product->catalogue->name ?? 'N/A' }}</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +192,8 @@
                                             <tbody>
                                             <tr>
                                                 <th scope="row" style="width: 200px;">Brands</th>
-                                                <td>{{ $product->catalogue->name }}</td>
+                                                {{-- <td>{{ $product->catalogue->name }}</td> --}}
+                                                <td>{{ $product->catalogue ? $product->catalogue->name : 'No Catalogue' }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Screen Size</th>

@@ -12,7 +12,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
                         <li class="breadcrumb-item active"> List</li>
                     </ol>
                 </div>
@@ -25,29 +25,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Banner list</h5>
+                    <h5 class="card-title mb-0">Danh sách</h5>
                     <a href="{{ route('admin.banners.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
-                {{-- <div class="card-header d-flex justify-content-between align-items-center ">
-                    <div class="search-wrapper">
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search...">
-                            <span class="input-group-text"><i class="ri-search-line"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="flex-shrink-0">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: 15px">
-                            <option selected="">Filter</option>
-                            <option value="1">Highest price</option>
-                            <option value="2">Lowest price</option>
-                            <option value="3">Today</option>
-                            <option value="4">Yesterday</option>
-                        </select>
-                    </div>
-                </div> --}}
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
@@ -65,12 +47,12 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Active</th>
-                                <th>Create at</th>
-                                <th>Update at</th>
-                                <th>Action</th>
+                                <th>Hình ảnh</th>
+                                <th>Tiêu đề</th>
+                                <th>Hoạt động</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
