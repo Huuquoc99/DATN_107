@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông Báo Hủy Đơn Hàng</title>
+    <title>Thông Báo Cập Nhật Trạng Thái Đơn Hàng</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,20 +75,20 @@
 
 <div class="container">
     <div class="header">
-        <h2 style="padding-left: 20px">Thông Báo Hủy Đơn Hàng</h2>
+        <h2 style="padding-left: 20px">Thông Báo Cập Nhật Trạng Thái Đơn Hàng</h2>
     </div>
 
     <div class="content">
         <p>Chào <strong>{{ $order->user->name }}</strong>,</p>
-        <p>Chúng tôi rất tiếc phải thông báo rằng đơn hàng của bạn với mã số <strong>{{ $order->code }}</strong> đã bị hủy theo yêu cầu của quản trị viên.</p>
+        <p>Chúng tôi thông báo rằng đơn hàng của bạn với mã số <strong>{{ $order->code }}</strong> đã được admin cập nhật trạng thái: {{ $order->statusOrder->name }}</p>
         
         <div class="order-details">
             <p><strong>Chi tiết đơn hàng:</strong></p>
             <p>Mã đơn hàng: <strong>{{ $order->code }}</strong></p>
-            <p>Trạng thái: <strong>Đã bị hủy</strong></p>
+            <p>Trạng thái: <strong>{{ $order->statusOrder->name }}</strong></p>
         </div>
 
-        <p>Chúng tôi rất tiếc về sự bất tiện này. Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ thêm, vui lòng liên hệ với chúng tôi qua email hoặc số điện thoại dưới đây.</p>
+        <p>Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ thêm, vui lòng liên hệ với chúng tôi qua email hoặc số điện thoại dưới đây.</p>
 
         <p>Chân thành cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
     </div>
