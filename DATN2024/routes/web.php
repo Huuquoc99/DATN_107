@@ -13,8 +13,9 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
-use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\AccountController;
 // use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
@@ -135,7 +136,7 @@ Route::prefix('admin')
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     })
 
-//    ->middleware(['checkAdminMiddleware'])
+    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         Route::get('/', function () {
@@ -179,6 +180,10 @@ Route::prefix('admin')
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
 
+        // Account
+        Route::get('/account/{id}/edit', [AccountController::class, 'edit'])->name('account.edit');
+        Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
+        Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
     });
     // });
 
