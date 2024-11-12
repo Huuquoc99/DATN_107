@@ -12,7 +12,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
                         <li class="breadcrumb-item active"> List</li>
                     </ol>
                 </div>
@@ -25,9 +25,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Danh sách</h5>
+                    <h5 class="card-title mb-0">Banner list</h5>
                     <a href="{{ route('admin.banners.create') }}" class="btn btn-primary mb-3">
-                        Thêm mới <i class="fa-regular fa-plus"></i>
+                        Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
 
@@ -47,12 +47,12 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Hình ảnh</th>
-                                <th>Tiêu đề</th>
-                                <th>Hoạt động</th>
-                                <th>Ngày tạo</th>
-                                <th>Ngày cập nhật</th>
-                                <th>Hành động</th>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Active</th>
+                                <th>Create at</th>
+                                <th>Update at</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
