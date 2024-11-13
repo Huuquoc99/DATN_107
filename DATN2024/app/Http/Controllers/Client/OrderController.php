@@ -113,7 +113,7 @@ class OrderController extends Controller
             $order->status_order_id = 3;
             $order->save();
 
-            Mail::to(Auth::user()->user_email)->send(new OrderPlaced($order));
+            Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được cập nhật thành hoàn thành.');
         }
 
