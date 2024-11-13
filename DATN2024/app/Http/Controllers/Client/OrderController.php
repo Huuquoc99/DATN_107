@@ -32,7 +32,7 @@ class OrderController extends Controller
         }
 
         // return response()->json($orders, 201);
-        return view('client.history', compact('orders'));
+        return view('client.account.history', compact('orders'));
     }
 
     public function show(Order $order)
@@ -48,7 +48,7 @@ class OrderController extends Controller
             'paymentMethod:id,name',
         ]);
         $statusOrders = StatusOrder::all();
-        return view('client.orderdetails', [
+        return view('client.account.orderdetails', [
             'order' => $orderWithItems,
             'statusOrders' => $statusOrders,
         ]);
