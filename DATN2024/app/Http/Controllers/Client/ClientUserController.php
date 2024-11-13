@@ -74,7 +74,7 @@ class ClientUserController extends Controller
             $user = Auth::user();
         
             if (!Hash::check($request->old_password, $user->password)) {
-                return back()->with('error1', 'Old password is incorrect!');
+                return back()->with('error', 'Old password is incorrect!');
             }
     
             $user->password = Hash::make($request->new_password);
@@ -84,8 +84,35 @@ class ClientUserController extends Controller
         
             return redirect()->route('account.changePassword', ['id' => $id])->with('success', 'Password has been changed successfully!');
         } catch (\Exception $e) {
-            return back()->with('error1', 'An unexpected error occurred while updating the password!');
+            return back()->with('error', 'An unexpected error occurred while updating the password!');
         }
     }
+
+    public function updateAvatar(Request $request, $id)
+    {
+        if (Auth::id() !== (int)$id || Auth::user()->type !== 0) {
+            return redirect()->route('accountdetail')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
+        }
+
+        $validated = $request->validate([
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar && Storage::exists('public/' . $user->avatar)) {
+                Storage::delete('public/' . $user->avatar);
+            }
+
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+        }
+
+        $user->save();
+        return redirect()->route('accountdetail', ['id' => $id])->with('success1', 'Cập nhật avatar thành công!');
+    }
+
+
     
 }
