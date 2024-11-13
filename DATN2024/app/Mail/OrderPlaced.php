@@ -36,7 +36,7 @@ class OrderPlaced extends Mailable
     public function build()
     {
         return $this->subject("Order Confirmation")
-            ->markdown("client.mailSuccess")
+            ->markdown("client.mail.success")
             ->with("order", $this->order);
     }
 }
