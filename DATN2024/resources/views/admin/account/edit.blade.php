@@ -90,40 +90,76 @@
                                 </div>
                             @endif
 
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
                                         {{ $error }}
                                     @endforeach
                                 </div>
-                            @endif
+                            @endif --}}
                             <form action="{{ route('admin.account.updateProfile', ['id' => $user->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                           
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" value="{{ old('name', $user->name) }}" name="name">
+                                            <input type="text" class="form-control" id="name"
+                                                value="{{ old('name', $user->name) }}" name="name">
+                                            @error('name')
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
+                                                    style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" value="{{ old('email', $user->email) }}" name="email">
+                                            <input type="email" class="form-control" id="email"
+                                                value="{{ old('email', $user->email) }}" name="email">
+                                            @error('email')
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
+                                                    style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone</label>
-                                            <input type="number" class="form-control" id="phone" value="{{ old('phone', $user->phone) }}" name="phone">
+                                            <input type="number" class="form-control" id="phone"
+                                                value="{{ old('phone', $user->phone) }}" name="phone">
+                                            @error('phone')
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
+                                                    style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address" value="{{ old('address', $user->address) }}" name="address">
+                                            <input type="text" class="form-control" id="address"
+                                                value="{{ old('address', $user->address) }}" name="address">
+                                            @error('address')
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
+                                                    style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -134,36 +170,61 @@
                                     </div>
                                 </div>
                             </form>
-                            
+
                         </div>
                         <div class="tab-pane" id="changePassword" role="tabpanel">
-                            <form action="javascript:void(0);">
+
+                            @if (session('success1'))
+                                <div class="alert alert-success">
+                                    {{ session('success1') }}
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error1)
+                                        {{ $error1 }}
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <form action="{{ route('admin.account.changePassword', Auth::user()->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+
                                 <div class="row g-2">
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="oldpasswordInput" class="form-label">Old Password*</label>
-                                            <input type="password" class="form-control" id="oldpasswordInput"
-                                                placeholder="Enter current password">
+                                            <input type="password" name="old_password" class="form-control"
+                                                id="oldpasswordInput" placeholder="Enter current password">
+                                            {{-- @error('old_password') 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror --}}
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="newpasswordInput" class="form-label">New Password*</label>
-                                            <input type="password" class="form-control" id="newpasswordInput"
-                                                placeholder="Enter new password">
+                                            <input type="password" name="new_password" class="form-control"
+                                                id="newpasswordInput" placeholder="Enter new password">
+                                            {{-- @error('new_password') 
+                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @enderror --}}
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div>
-                                            <label for="confirmpasswordInput" class="form-label">Confirm Password*</label>
-                                            <input type="password" class="form-control" id="confirmpasswordInput"
-                                                placeholder="Confirm password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <a href="javascript:void(0);"
-                                                class="link-primary text-decoration-underline">Forgot Password ?</a>
+                                            <label for="new_password_confirmation" class="form-label">Confirm
+                                                Password*</label>
+                                            <input type="password" name="new_password_confirmation" class="form-control"
+                                                id="new_password_confirmation" placeholder="Confirm password">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -173,6 +234,8 @@
                                     </div>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
                 </div>

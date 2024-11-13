@@ -184,6 +184,7 @@ Route::prefix('admin')
         Route::get('/account/{id}/edit', [AccountController::class, 'edit'])->name('account.edit');
         Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
+        Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
     });
     // });
 

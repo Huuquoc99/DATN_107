@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AccountController extends Controller
 {
@@ -28,8 +31,8 @@ class AccountController extends Controller
         }
 
         $validated = $request->validate([
-            'name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:users,email,' . $id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:10|min:10',
         ]);
@@ -86,4 +89,33 @@ class AccountController extends Controller
 
         return redirect()->route('admin.account.edit', ['id' => $id]);
     }
+
+
+    public function changePassword(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed|different:old_password', 
+        ]);
+    
+        try {
+            $user = Auth::user();
+        
+            if (!Hash::check($request->old_password, $user->password)) {
+                return back()->with('error1', 'Old password is incorrect!');
+            }
+    
+            $user->password = Hash::make($request->new_password);
+            // dd($user); 
+            // Lỗi thì cũng kệ nó k được xoá k được sửa
+            $user->save(); 
+        
+            return redirect()->route('admin.account.edit', ['id' => $id])->with('success1', 'Password has been changed successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error1', 'An unexpected error occurred while updating the password!');
+        }
+    }
+    
+    
+
 }
