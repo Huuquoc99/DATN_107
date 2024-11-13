@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Client;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClientUserController extends Controller
@@ -62,22 +63,29 @@ class ClientUserController extends Controller
         return view('client.account.changepass');
     }
 
-    public function updatePassword(Request $request, string $id)
+    public function changePassword(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            "password" => "required|string|min:8|confirmed", 
+        $validated = $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed|different:old_password', 
         ]);
-
-        if ($request->isMethod("PUT")) {
-            $user = User::findOrFail($id);
-            $param['password'] = bcrypt($validatedData['password']); 
-
-            $user->update($param);
-
-            return response()->json(['message' => 'Password updated successfully']);
+    
+        try {
+            $user = Auth::user();
+        
+            if (!Hash::check($request->old_password, $user->password)) {
+                return back()->with('error1', 'Old password is incorrect!');
+            }
+    
+            $user->password = Hash::make($request->new_password);
+            // dd($user); 
+            // Lỗi thì cũng kệ nó k được xoá k được sửa
+            $user->save(); 
+        
+            return redirect()->route('account.changePassword', ['id' => $id])->with('success', 'Password has been changed successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error1', 'An unexpected error occurred while updating the password!');
         }
-
-        return response()->json(['message' => 'Invalid request method'], 405);
     }
     
 }

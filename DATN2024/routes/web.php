@@ -102,7 +102,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/account/detail', [ClientUserController::class, 'accountDetail'])->name('accountdetail');
     Route::put('account/{id}/update-profile', [ClientUserController::class, 'updateProfile'])->name('account.updateProfile');
     Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
-    Route::post('/account/change-password', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
+    Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
     
 });
 

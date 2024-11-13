@@ -18,28 +18,45 @@
                 <div class="col-lg-9">
                     <div class="page-content my-account__edit">
                         <div class="my-account__edit-form">
-                            <form name="account_edit_form" class="needs-validation" novalidate>
+                            <div class="col-md-12">
+                                <div class="my-3">
+                                    <h5 class="text-uppercase mb-0">Password change</h5>
+                                </div>
+                            </div>
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </div>
+                            @endif
+                            <form name="account_edit_form" class="needs-validation" novalidate action="{{ route('account.updatePassword', Auth::user()->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="my-3">
-                                            <h5 class="text-uppercase mb-0">Password change</h5>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="password" class="form-control" id="old_password" placeholder="Password">
+                                            <input type="password" class="form-control" id="old_password" placeholder="Password" name="old_password">
                                             <label for="old_password">Old Password</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="password" class="form-control" id="new_password" placeholder="Phone">
+                                            <input type="password" class="form-control" id="new_password" placeholder="Phone" name="new_password">
                                             <label for="new_password">New Password</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="password" class="form-control" id="new_password_confirmation" placeholder="Email">
+                                            <input type="password" class="form-control" id="new_password_confirmation" placeholder="Email" name="new_password_confirmation">
                                             <label for="new_password_confirmation">Confirm password</label>
                                         </div>
                                     </div>
