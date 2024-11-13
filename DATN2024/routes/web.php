@@ -23,6 +23,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
+use App\Http\Controllers\Client\ClientUserController;
 use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\PaymentMethodController;
@@ -96,6 +97,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('comments/{id}', [CommentController::class, 'destroy']);
     Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
+    // Account
+    Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
+    Route::get('/account/detail', [ClientUserController::class, 'accountDetail'])->name('accountdetail');
 
 });
 

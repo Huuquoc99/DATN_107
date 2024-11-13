@@ -13,6 +13,8 @@
                         @csrf
                         <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
                     </form>
+                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary">My Account</a>
+
                 </div>
             </div>
         @endauth

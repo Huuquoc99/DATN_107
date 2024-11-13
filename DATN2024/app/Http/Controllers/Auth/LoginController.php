@@ -95,5 +95,10 @@ class LoginController extends Controller
             }
         }
     }
+
+    public function dashboard()
+    {
+        return view('client.account.dashboard');
+    }
 }
 // dsfsdf

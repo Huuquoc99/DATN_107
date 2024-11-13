@@ -5,10 +5,20 @@ namespace App\Http\Controllers\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ClientUserController extends Controller
 {
+
+    public function accountDetail()
+    {
+        // Lấy thông tin người dùng hiện tại
+        $user = Auth::user();
+        
+        // Trả về view với thông tin người dùng
+        return view('client.account.accountdetails', compact('user'));
+    }
     // Thay đổi thông tin người dùng
     // public function updateUserInfo(Request $request, string $id)
     // {
