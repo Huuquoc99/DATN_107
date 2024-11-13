@@ -12,6 +12,8 @@
               <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s ">Dashboard</a></li>
               <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s">Orders</a></li>
               <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s menu-link_active">Account Details</a></li>
+              <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s">Change password</a></li>
+
             </ul>
         </div>
         <div class="col-lg-9">
@@ -19,54 +21,36 @@
             <div class="my-account__edit-form">
               <form name="account_edit_form" class="needs-validation" novalidate>
                 <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-floating my-3">
-                      <input type="text" class="form-control" id="account_first_name" placeholder="First Name" required>
-                      <label for="account_first_name">First Name</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-floating my-3">
-                      <input type="text" class="form-control" id="account_last_name" placeholder="Last Name" required>
-                      <label for="account_last_name">Last Name</label>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-floating my-3">
-                      <input type="text" class="form-control" id="account_display_name" placeholder="Display Name" required>
-                      <label for="account_display_name">Display Name</label>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-floating my-3">
-                      <input type="email" class="form-control" id="account_email" placeholder="Email Address" required>
-                      <label for="account_email">Email Address</label>
-                    </div>
-                  </div>
                   <div class="col-md-12">
                     <div class="my-3">
-                      <h5 class="text-uppercase mb-0">Password Change</h5>
+                      <h5 class="text-uppercase mb-0">User Information</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating my-3">
+                      <input type="text" class="form-control" id="name" placeholder="Name">
+                      <label for="name"> Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating my-3">
+                      <input type="text" class="form-control" id="phone" placeholder="Phone">
+                      <label for="phone">Phone</label>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-floating my-3">
-                      <input type="password" class="form-control" id="account_current_password" placeholder="Current password" required>
-                      <label for="account_current_password">Current password</label>
+                      <input type="email" class="form-control" id="email" placeholder="Email">
+                      <label for="email">Email</label>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-floating my-3">
-                      <input type="password" class="form-control" id="account_new_password" placeholder="New password" required>
-                      <label for="account_new_password">New password</label>
+                      <input type="text" class="form-control" id="address" placeholder="Address" required>
+                      <label for="address"> Address</label>
                     </div>
                   </div>
-                  <div class="col-md-12">
-                    <div class="form-floating my-3">
-                      <input type="password" class="form-control" data-cf-pwd="#account_new_password" id="account_confirm_password" placeholder="Confirm new password" required>
-                      <label for="account_confirm_password">Confirm new password</label>
-                      <div class="invalid-feedback">Passwords did not match!</div>
-                    </div>
-                  </div>
+              
                   <div class="col-md-12">
                     <div class="my-3">
                       <button class="btn btn-primary">Save Changes</button>

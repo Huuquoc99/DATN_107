@@ -116,6 +116,11 @@ class ClientUserController extends Controller
         return response()->json(['message' => 'Invalid request method'], 405);
     }
 
+    public function showChangePasswordForm()
+    {
+        return view('client.account.changepass');
+    }
+
     // Thay đổi mật khẩu
     public function updatePassword(Request $request, string $id)
     {

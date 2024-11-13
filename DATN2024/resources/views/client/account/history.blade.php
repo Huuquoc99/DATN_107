@@ -11,6 +11,7 @@
                         <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s ">Dashboard</a></li>
                         <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s menu-link_active">Orders</a></li>
                         <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s">Account Details</a></li>
+                        <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s">Change password</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-9">
@@ -30,8 +31,20 @@
                                     <tr>
                                         <td>{{ $order['code'] }}</td>
                                         <td>{{ $order['created_at']->format('F j, Y') }}</td>
-                                        <td>{{ $order['status_order'] }}</td>
-                                        <td>{{ number_format($order['total_price'], 2) }}</td>
+                                        
+                                        <td>
+                                            @if ($order['status_order_id'] == 1)
+                                                <span class="badge bg-warning text-dark">{{ $order['status_order_name'] }}</span>
+                                            @elseif ($order['status_order_id'] == 2)
+                                                <span class="badge bg-primary">{{ $order['status_order_name'] }}</span>
+                                            @elseif ($order['status_order_id'] == 3)
+                                                <span class="badge bg-success text-dark">{{ $order['status_order_name'] }}</span>
+                                            @else
+                                                <span class="badge bg-secondary text-dark">{{ $order['status_order_name'] }}</span>
+                                            @endif
+                                        </td>
+                                        
+                                        <td>{{ number_format($order['total_price'], 2) }} VND</td>
                                         <td><a href="{{ route('account.orders.show', $order['id']) }}"
                                                 class="btn btn-primary">VIEW</a></td>
                                     </tr>

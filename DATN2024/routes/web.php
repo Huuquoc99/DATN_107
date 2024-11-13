@@ -100,7 +100,8 @@ Route::middleware('auth')->group(function () {
     // Account
     Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
     Route::get('/account/detail', [ClientUserController::class, 'accountDetail'])->name('accountdetail');
-
+    Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
+    Route::post('/account/change-password', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
 });
 
 //Route::post('/vnpay-payment',   [VnpayPaymentController::class, 'vnpayPayment'])->name('payment.vnpay');

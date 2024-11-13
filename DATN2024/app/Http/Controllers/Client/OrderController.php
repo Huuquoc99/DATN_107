@@ -21,7 +21,8 @@ class OrderController extends Controller
                 'id' => $order->id,
                 'code' => $order->code,
                 'created_at' => $order->created_at,
-                'status_order' => $order->statusOrder->name,
+                'status_order_id' => $order->statusOrder->id, 
+                'status_order_name' => $order->statusOrder->name, 
                 'status_payment' => $order->statusPayment->name,
                 'total_price' => $order->total_price,
             ];
