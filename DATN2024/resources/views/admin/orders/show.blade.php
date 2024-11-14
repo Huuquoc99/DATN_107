@@ -49,7 +49,7 @@
                                     <th scope="col">Product Details</th>
                                     <th scope="col">Item Price</th>
                                     <th scope="col">Quantity</th>
-                                    <th scope="col">Rating</th>
+                                    <th scope="col">SKU</th>
                                     <th scope="col" class="text-end">Total Amount</th>
                                 </tr>
                             </thead>
@@ -74,7 +74,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
-                                                    <h5 class="fs-15">{{ $item->product->name ?? 'N/A' }}</h5>
+                                                    <h5 class="fs-15">{{ $item->product_name ?? 'N/A' }}</h5>
                                                     <p class="text-muted mb-0">Color: 
                                                         <span class="fw-medium">
                                                             @if ($item->product_color_id)
@@ -94,7 +94,7 @@
                                         </td>
                                         <td>{{ number_format($item->product_price_sale, 2) }} VND</td>
                                         <td>{{ $item->quantity }}</td>
-                                        <td>{{ $item->product->sku ?? 'N/A' }}</td>
+                                        <td>{{ $item->product_sku ?? 'N/A' }}</td>
                                         <td class="fw-medium text-end">
                                             $239.98
                                         </td>
