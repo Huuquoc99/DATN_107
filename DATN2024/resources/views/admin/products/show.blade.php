@@ -131,7 +131,6 @@
                                             <th>Capacity</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <th>SKU</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -141,7 +140,6 @@
                                                 <td>{{ $capacity[$variant->product_capacity_id] ?? 'Không xác định' }}</td>
                                                 <td>{{ $variant->quantity }}</td>
                                                 <td>{{ number_format($variant->price, 2) }} VND</td>
-                                                <td>{{ $variant->sku }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

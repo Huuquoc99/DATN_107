@@ -179,22 +179,23 @@ class CheckoutController extends Controller
         $order = Order::find($orderId);
 
         if ($vnpayData['vnp_ResponseCode'] == '00') {
-            $order->status_payment_id = 2; // Thanh toán thành công
-            $order->save();
-        } elseif ($vnpayData['vnp_ResponseCode'] == '07') {
-            $order->status_payment_id = 3; // Thanh toán bị hủy
+            $order->status_payment_id = 2;
             $order->save();
 
-            return redirect()->route('checkout.failed')->with('error', 'Giao dịch bị hủy, vui lòng thử lại.');
+            $cart = Cart::where('user_id', $order->user_id)->first();
+            if ($cart) {
+                $cart->items()->delete();
+            }
+
+            return redirect()->route('checkout.success');
         } else {
             $order->status_payment_id = 3;
             $order->save();
 
             return redirect()->route('checkout.failed')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
         }
-
-        return redirect()->route('checkout.success');
     }
+
 
     protected function generateOrderCode()
     {

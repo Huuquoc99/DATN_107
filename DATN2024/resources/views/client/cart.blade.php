@@ -17,8 +17,8 @@
                     <table class="cart-table">
                         <thead>
                         <tr>
-                            <th>Sản phẩm</th>
                             <th></th>
+                            <th>Sản phẩm</th>
                             <th>Giá</th>
                             <th>Số lượng</th>
                             <th>Tổng tiền</th>
@@ -28,6 +28,7 @@
                         <tbody>
                         @foreach($unifiedCart as $item)
                             <tr>
+
                                 <td>
                                     <div class="shopping-cart__product-item">
                                         <img loading="lazy" src="{{ \Illuminate\Support\Facades\Storage::url($item['image'] ?? 'default-image.jpg') }}" width="120" height="120" alt="">
@@ -75,30 +76,12 @@
                                 <tbody>
                                 <tr>
                                     <th>Subtotal</th>
-                                    <td>$1300</td>
+                                    <td id="totalAmount">0 VND</td>
                                 </tr>
                                 <tr>
                                     <th>Shipping</th>
                                     <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input form-check-input_fill" type="checkbox" value=""
-                                                   id="free_shipping">
-                                            <label class="form-check-label" for="free_shipping">Free shipping</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input form-check-input_fill" type="checkbox" value=""
-                                                   id="flat_rate">
-                                            <label class="form-check-label" for="flat_rate">Flat rate: $49</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input form-check-input_fill" type="checkbox" value=""
-                                                   id="local_pickup">
-                                            <label class="form-check-label" for="local_pickup">Local pickup: $8</label>
-                                        </div>
-                                        <div>Shipping to AL.</div>
-                                        <div>
-                                            <a href="#" class="menu-link menu-link_us-s">CHANGE ADDRESS</a>
-                                        </div>
+                                        <!-- Các lựa chọn shipping -->
                                     </td>
                                 </tr>
                                 <tr>
@@ -107,14 +90,13 @@
                                 </tr>
                                 <tr>
                                     <th>Total</th>
-                                    <td>$1319</td>
+                                    <td id="finalTotal">0 VND</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
-
                                 <a href="{{ route('checkout.index') }}">
                                     <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
                                 </a>

@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Xử lý khi người dùng nhập trực tiếp vào input
         shoppingCart.addEventListener('change', function(event) {
             if (event.target.matches('.qty-control__number')) {
                 const input = event.target;
@@ -81,7 +80,7 @@ function updateQuantity(input, newQuantity) {
         },
         success: function(response) {
             if (response.success) {
-                // Cập nhật UI
+
                 input.value = response.quantity;
 
                 // Cập nhật tổng tiền của sản phẩm
@@ -91,22 +90,19 @@ function updateQuantity(input, newQuantity) {
                     subtotalElement.textContent = response.total + ' VND';
                 }
 
-                // Animation để báo thành công
                 input.style.backgroundColor = '#e8f5e9';
                 setTimeout(() => {
                     input.style.backgroundColor = '';
                 }, 300);
             } else {
-                // Khôi phục giá trị cũ nếu có lỗi
                 alert(response.message || 'Có lỗi xảy ra khi cập nhật số lượng');
             }
         },
         error: function(xhr) {
             console.error('Error:', xhr);
-            alert('Cập nhật số lượng thất bại, vui lòng thử lại.');
+            alert('Số lượng sản phẩm trong kho không đủ!');
         },
         complete: function() {
-            // Ẩn loading
             loadingOverlay.style.display = 'none';
         }
     });
@@ -163,51 +159,68 @@ function createLoadingOverlay(input) {
     return overlay;
 }
 
+$(document).ready(function() {
+    $('.product-select-checkbox').on('change', function() {
+        let totalAmount = 0;
+
+        $('.product-select-checkbox:checked').each(function() {
+            let productId = $(this).data('id');
+            let quantity = parseInt($(this).closest('tr').find('.qty-control__number').val());
+            let price = parseFloat($(this).closest('tr').find('.shopping-cart__product-price').text().replace(' VND', '').replace(',', ''));
+
+            totalAmount += price * quantity;
+        });
+
+        $('#totalAmount').text(totalAmount.toLocaleString('vi-VN') + ',000 VND');
+
+    });
+});
 
 
-//
-// function changeImage(src) {
-//     // Change main image
-//     document.getElementById('mainImage').src = src;
-//     // Update zoom link
-//     document.querySelector('.zoom-btn').href = src;
-//
-//     // Update active state of thumbnails
-//     const thumbs = document.querySelectorAll('.thumb-item');
-//     thumbs.forEach(thumb => {
-//         if(thumb.querySelector('img').src === src) {
-//             thumb.classList.add('active');
-//         } else {
-//             thumb.classList.remove('active');
-//         }
-//     });
-// }
-//
-// // Initialize Fancybox
-// document.addEventListener('DOMContentLoaded', function() {
-//     Fancybox.bind('[data-fancybox="gallery"]', {
-//         loop: true
-//     });
-// });
-//
-// function changeImage(src) {
-//     document.getElementById('mainImage').src = src;
-// }
-//
-// document.addEventListener('DOMContentLoaded', function () {
-//     const swiper = new Swiper('.swiper-container', {
-//         // Enable navigation buttons
-//         navigation: {
-//             nextEl: '.swiper-button-next',
-//             prevEl: '.swiper-button-prev',
-//         },
-//         // Additional options (optional)
-//         loop: true, // Enables infinite scrolling
-//         slidesPerView: 1,
-//         spaceBetween: 10,
-//     });
-// });
-//
+
+
+
+function changeImage(src) {
+    // Change main image
+    document.getElementById('mainImage').src = src;
+    // Update zoom link
+    document.querySelector('.zoom-btn').href = src;
+
+    // Update active state of thumbnails
+    const thumbs = document.querySelectorAll('.thumb-item');
+    thumbs.forEach(thumb => {
+        if(thumb.querySelector('img').src === src) {
+            thumb.classList.add('active');
+        } else {
+            thumb.classList.remove('active');
+        }
+    });
+}
+
+// Initialize Fancybox
+document.addEventListener('DOMContentLoaded', function() {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        loop: true
+    });
+});
+
+function changeImage(src) {
+    document.getElementById('mainImage').src = src;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper-container', {
+        // Enable navigation buttons
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        loop: true, // Enables infinite scrolling
+        slidesPerView: 1,
+        spaceBetween: 10,
+    });
+});
+
 $(document).on('click', '.cart-table .remove-cart-v2', function(e) {
     e.preventDefault();
     let deleteId = $(this).data('id');
@@ -233,7 +246,7 @@ $(document).on('click', '.cart-table .remove-cart-v2', function(e) {
                 success: function(res) {
                     Swal.fire(
                         'Đã xóa!',
-                        'Sản phẩm đã được xóa thành công từ giỏ hàng!',
+                        'Sản phẩm đã được xóa thành công khỏi giỏ hàng!',
                         'success'
                     );
                     $('.table-data').html(res);
