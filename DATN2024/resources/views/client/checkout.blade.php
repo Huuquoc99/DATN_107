@@ -98,20 +98,14 @@
                                         <label class="form-check-label" for="checkout_payment_method_{{ $method->id }}">
                                             {{ $method->name }}
                                             <span class="option-detail d-block">
-                                                Make your payment directly into our bank account. Please use your Order ID
-                                                as the payment reference. Your order will not be shipped until the funds
-                                                have cleared in our account.
+                                                {{ $method->description }}
                                             </span>
                                         </label>
                                     </div>
                                 @endforeach
-                                <div class="policy-text">
-                                    Your personal data will be used to process your order, support your experience
-                                    throughout this website, and for other purposes described in our <a href="terms.html"
-                                        target="_blank">privacy policy</a>.
-                                </div>
+
                             </div>
-                            <button type="submit" class="btn btn-primary btn-checkout mb-4">PLACE ORDER</button>
+                            <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">PLACE ORDER</button>
                         </div>
                     </div>
                 </div>

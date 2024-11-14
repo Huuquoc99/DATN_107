@@ -37,7 +37,7 @@ class Order extends Model
 
     public function statusOrder()
     {
-        return $this->belongsTo(StatusOrder::class);
+        return $this->belongsTo(StatusOrder::class, 'status_order_id');
     }
 
     public function statusPayment()

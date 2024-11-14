@@ -38,33 +38,33 @@
                                     <div>
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control" name="name" id="name" value="{{ $product->name }}">
-                                        @error("name") 
+                                        @error("name")
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                 <p class="text-danger">{{ $message }}</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                        @enderror 
+                                        @enderror
                                     </div>
-                                    
+
                                     <div class="mt-3">
                                         <label for="price_regular" class="form-label">Price Regular</label>
                                         <input type="number" value="{{ $product->price_regular }}" class="form-control" name="price_regular" id="price_regular">
-                                        @error("price_regular") 
+                                        @error("price_regular")
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                 <p class="text-danger">{{ $message }}</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                        @enderror 
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="price_sale" class="form-label">Price Sale</label>
                                         <input type="number" value="{{ $product->price_sale }}" class="form-control" name="price_sale" id="price_sale">
-                                        @error("price_sale") 
+                                        @error("price_sale")
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                 <p class="text-danger">{{ $message }}</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                        @enderror 
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="catalogue_id " class="form-label">Catalogues</label>
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="mt-3">
                                         <label for="img_thumbnail" class="form-label">Image</label>
-                                        
+
                                         <input type="file" class="form-control mb-3" name="img_thumbnail" id="img_thumbnail">
                                         @if($product->img_thumbnail)
                                             <img src="{{ \Storage::url($product->img_thumbnail) }}"
@@ -88,24 +88,24 @@
                                     <div class="mt-3">
                                         <label for="processor" class="form-label">Processor</label>
                                         <input type="text" class="form-control" name="processor" id="processor" value="{{ $product->processor }}">
-                                        @error("processor") 
+                                        @error("processor")
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                 <p class="text-danger">{{ $message }}</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                        @enderror 
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="ram" class="form-label">Ram</label>
                                         <input type="text" class="form-control" name="ram" id="ram" value="{{ $product->ram }}">
-                                        @error("ram") 
+                                        @error("ram")
                                             <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                 <p class="text-danger">{{ $message }}</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                        @enderror 
+                                        @enderror
                                     </div>
-                                    
+
                                     <div class="mt-3">
                                         <label for="short_description" class="form-label">Short description</label>
                                         <textarea class="form-control" name="short_description" id="short_description" rows="2">{{ $product->short_description }}</textarea>
@@ -116,85 +116,85 @@
                                         <div class="mt-3">
                                             <label for="sku" class="form-label">SKU</label>
                                             <input type="text" class="form-control" name="sku" id="sku" value="{{ $product->sku }}">
-                                            @error("sku") 
+                                            @error("sku")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Screen size</label>
                                             <input type="text" class="form-control" name="screen_size" id="screen_size" value="{{ $product->screen_size }}">
-                                            @error("screen_size") 
+                                            @error("screen_size")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="operating_system" class="form-label">Operating system</label>
                                             <input type="text" class="form-control" name="operating_system" id="operating_system" value="{{ $product->operating_system }}">
-                                            @error("operating_system") 
+                                            @error("operating_system")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="battery_capacity" class="form-label">Battery capacity</label>
                                             <input type="text" class="form-control" name="battery_capacity" id="battery_capacity" value="{{ $product->battery_capacity }}">
-                                            @error("battery_capacity") 
+                                            @error("battery_capacity")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="camera_resolution" class="form-label">Camera resolution</label>
                                             <input type="text" class="form-control" name="camera_resolution" id="camera_resolution" value="{{ $product->camera_resolution }}">
-                                            @error("camera_resolution") 
+                                            @error("camera_resolution")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="network_connectivity" class="form-label">Network connectivity</label>
                                             <input type="text" class="form-control" name="network_connectivity" id="network_connectivity" value="{{ $product->network_connectivity }}">
-                                            @error("network_connectivity") 
+                                            @error("network_connectivity")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
                                             <input type="text" class="form-control" name="storage" id="storage" value="{{ $product->storage }}">
-                                            @error("storage") 
+                                            @error("storage")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert" >
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="sim_type" class="form-label">Sim type</label>
                                             <input type="text" class="form-control" name="sim_type" id="sim_type" value="{{ $product->sim_type }}">
-                                            @error("sim_type") 
+                                            @error("sim_type")
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
-                                            @enderror 
+                                            @enderror
                                         </div>
                                         <div class="mt-5">
                                             <div class="row">
@@ -221,7 +221,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div class="mt-3">
@@ -253,8 +253,9 @@
                                             <th>Color</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <th>SKU</th>
                                             <th>Image</th>
+                                            <th></th>
+                                            <th>Xoa</th>
                                         </tr>
 
                                         @php
@@ -266,7 +267,6 @@
                                                     'quantity' => $item->quantity,
                                                     'image' => $item->image,
                                                     'price' => $item->price,
-                                                    'sku' => $item->sku,
                                                 ];
                                             });
                                         @endphp
@@ -276,22 +276,19 @@
                                             @php($flagRowspan = true)
                                             @foreach($colors as $colorID => $colorName)
                                                 @php($key = $capacityID . '-' . $colorID)
-                                                <tr class="text-center">
+                                                <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
                                                     @if($flagRowspan)
-                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}"><b>{{ $capacityName }}</b></td>
+                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $capacityID }}">{{ $capacityName }}</td>
                                                     @endif
                                                     @php($flagRowspan = false)
                                                     <td>
-                                                        <div style="width: 40px; height: 40px; background: {{ $colorName }}; border: #0a0c0d 1px solid"></div>
+                                                        <div>{{ $colorName }}</div>
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}" name="product_variants[{{ $key }}][quantity]">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}" name="product_variants[{{ $key }}][price]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="{{ isset($variants[$key]['sku']) ? $variants[$key]['sku'] : 0 }}" name="product_variants[{{ $key }}][sku]">
                                                     </td>
                                                     <td>
                                                         <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
@@ -301,6 +298,9 @@
                                                         @if(isset($variants[$key]['image']) && $variants[$key]['image'])
                                                             <img src="{{ \Storage::url($variants[$key]['image']) }}" width="100px" height="40px">
                                                         @endif
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $capacityID . '-' . $colorID }}')">Xóa</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -330,7 +330,7 @@
                                     @foreach($product->galleries as $item)
                                         <div class="col-md-4" id="storage_{{ $item->id }}_item">
                                             <label for="gallery_default" class="form-label">Image</label>
-                                            <div>   
+                                            <div>
                                                 <div class="d-flex">
                                                     <input type="file" class="form-control me-3" name="product_galleries[]" id="gallery_default">
                                                     <button type="button" class="btn btn-danger"
@@ -396,7 +396,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Product edit  
+                        <button class="btn btn-primary">Product edit
                             <i class="fa-regular fa-pen-to-square fa-sm"></i>
                         </button>
                     </div>
@@ -436,5 +436,33 @@
                 $('#' + id).remove();
             }
         }
+
+        function removeVariant(variantId) {
+            const row = document.querySelector(`tr[data-variant="${variantId}"]`);
+            if (!row) return;
+
+            const capacityID = row.getAttribute('data-size');
+            const sizeRows = document.querySelectorAll(`tr[data-size="${capacityID}"]`);
+            const totalRows = sizeRows.length;
+
+            if (totalRows === 1) {
+                row.remove();
+                return;
+            }
+
+            const currentIndex = Array.from(sizeRows).indexOf(row);
+            const sizeCell = document.querySelector(`.size-cell-${capacityID}`);
+
+            if (currentIndex === 0 && sizeCell) {
+                const nextRow = sizeRows[1];
+                sizeCell.setAttribute('rowspan', totalRows - 1);
+                nextRow.insertBefore(sizeCell, nextRow.firstChild);
+            } else if (sizeCell) {
+                sizeCell.setAttribute('rowspan', totalRows - 1);
+            }
+
+            row.remove();
+        }
+
     </script>
 @endsection

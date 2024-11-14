@@ -13,6 +13,8 @@
                         @csrf
                         <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
                     </form>
+                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary">My Account</a>
+
                 </div>
             </div>
         @endauth
@@ -202,21 +204,6 @@
                     </button>
                     <input class="header-search__input w-100" type="text" name="search-keyword"
                         placeholder="Search products...">
-                    <div class="hover-container position-relative">
-                        <div class="js-hover__open">
-                            <input
-                                class="header-search__category search-field__actor border-0 bg-white w-100 fw-semi-bold"
-                                type="text" name="search-category" placeholder="ALL CATEGORY" readonly>
-                        </div>
-                        <div class="header-search__category-list js-hidden-content mt-2">
-                            <ul class="search-suggestion list-unstyled">
-                                <li class="search-suggestion__item js-search-select">All Category</li>
-                                <li class="search-suggestion__item js-search-select">Men</li>
-                                <li class="search-suggestion__item js-search-select">Women</li>
-                                <li class="search-suggestion__item js-search-select">Kids</li>
-                            </ul>
-                        </div>
-                    </div>
                 </form><!-- /.header-search -->
             </div>
         </div><!-- /.header-bottom -->

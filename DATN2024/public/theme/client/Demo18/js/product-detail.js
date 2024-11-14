@@ -25,7 +25,6 @@ document.querySelectorAll('input[name="product_color_id"], input[name="product_c
     input.addEventListener('change', checkStock);
 });
 
-// Gọi checkStock lần đầu để thiết lập tình trạng hàng khi tải trang
 document.addEventListener('DOMContentLoaded', checkStock);
 
 $(document).ready(function() {
@@ -72,5 +71,7 @@ $(document).ready(function() {
             }
         });
     });
+
+
 
 });

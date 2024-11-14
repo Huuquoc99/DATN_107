@@ -1,30 +1,40 @@
 <?php
 
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CatalogueController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Auth\Admin\AdminLoginController;
-use App\Http\Controllers\Payment\MomoPaymentController;
-use App\Http\Controllers\Payment\VnpayPaymentController;
+// use App\Http\Controllers\Admin\ProductController;
+// use App\Http\Controllers\Admin\CatalogueController;
+// use App\Http\Controllers\Admin\TagController;
+// use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
+use App\Http\Controllers\Admin\AccountController;
+// use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
+use App\Http\Controllers\Client\ClientUserController;
 use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\StatusPaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Payment\MomoPaymentController;
+use App\Http\Controllers\Payment\VnpayPaymentController;
 use App\Http\Controllers\Admin\ProductCapacityController;
+use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+// use App\Http\Controllers\Admin\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +69,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('add-to-cart',  [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('list',          [CartController::class, 'cartList'])->name('list');
     Route::post('delete',       [CartController::class, 'deleteCart'])->name('delete');
-    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+//    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
+    Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
+
 });
 
 
@@ -69,10 +81,8 @@ Route::middleware('auth')->group(function () {
     // Chekcout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-    // Route::get('/checkout/success', function () {
-    //     return view('client.success');
-    // })->name('checkout.success');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.failed');
 
     // Order
     Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
@@ -87,11 +97,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('comments/{id}', [CommentController::class, 'destroy']);
     Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
+    // Account
+    Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
+    Route::get('/account/detail', [ClientUserController::class, 'accountDetail'])->name('accountdetail');
+    Route::put('account/{id}/update-profile', [ClientUserController::class, 'updateProfile'])->name('account.updateProfile');
+    Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
+    Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
+    Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
 
 });
 
-Route::post('/vnpay-payment',   [VnpayPaymentController::class, 'vnpayPayment'])->name('payment.vnpay');
-Route::post('/momo-payment',    [MomoPaymentController::class, 'momoPayment'])->name('payment.momo');
+Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
+
 
 
 // Auth
@@ -120,12 +137,12 @@ Route::prefix('admin')
     ->as('admin.')
     ->group(function () {
 
-        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->middleware('guest');
+        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [AdminLoginController::class, 'login'])->name('login');
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     })
 
-//    ->middleware(['checkAdminMiddleware'])
+    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         Route::get('/', function () {
@@ -169,6 +186,11 @@ Route::prefix('admin')
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
 
+        // Account
+        Route::get('/account/{id}/edit', [AccountController::class, 'edit'])->name('account.edit');
+        Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
+        Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
+        Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
     });
     // });
 
