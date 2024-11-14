@@ -200,20 +200,20 @@ Product
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
                     </div><!-- end card header -->
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" id="variant-table">
                                         <tr class="text-center">
                                             <th>Capacity</th>
                                             <th>Color</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <th>SKU</th>
                                             <th>Image</th>
-                                            <th>Xóa</th>
+                                            <th></th>
                                         </tr>
                                         @foreach($capacity as $sizeID => $sizeName)
                                             @php($flagRowspan = true)
@@ -225,22 +225,28 @@ Product
                                                     @php($flagRowspan = false)
 
                                                     <td>
-                                                        <div style="width: 40px; height: 40px; background: {{ $colorName }}; border: #0a0c0d 1px solid"></div>
+                                                        <div>{{ $colorName }}</div>
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][quantity]">
+                                                        @error("product_variants.{$sizeID}-{$colorID}.quantity")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][price]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][sku]">
+                                                        @error("product_variants.{$sizeID}-{$colorID}.price")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </td>
                                                     <td>
                                                         <input type="file" class="form-control" name="product_variants[{{ $sizeID . '-' . $colorID }}][image]">
+                                                        @error("product_variants.{$sizeID}-{$colorID}.image")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $sizeID . '-' . $colorID }}')">Xóa</button>
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $sizeID . '-' . $colorID }}')">Del</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -261,7 +267,7 @@ Product
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Gallery</h4>
-                            <button type="button" class="btn btn-primary" onclick="addImageGallery()">Create</button>
+                            <button type="button" class="btn btn-primary" onclick="addImageGallery()"><i class="fa-solid fa-plus fa-lg"></i></button>
                         </div>
                         <!-- end card header -->
                         <div class="card-body">
@@ -315,6 +321,7 @@ Product
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <button class="btn btn-primary">Product create <i class="fa-regular fa-plus"></i></button>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success">Product list</a>
                     </div>
                 </div>
             </div>
@@ -379,6 +386,43 @@ Product
 
             row.remove();
         }
+
+        let variantCount = 0; // Để tạo id duy nhất cho các biến thể mới
+
+        function addNewVariant() {
+            const variantTable = document.querySelector('#variant-table');
+            const newRow = document.createElement('tr');
+            newRow.classList.add('text-center');
+
+            // Tạo sizeID và colorID tạm thời để giữ định dạng "product_variants[sizeID-colorID]"
+            const sizeID = `newSize${variantCount}`;
+            const colorID = `newColor${variantCount}`;
+            variantCount++; // Tăng biến đếm
+
+            newRow.innerHTML = `
+        <td>
+            <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
+        </td>
+        <td>
+            <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
+        </td>
+        <td>
+            <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
+        </td>
+        <td>
+            <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">Xóa</button>
+        </td>
+    `;
+
+            variantTable.appendChild(newRow);
+        }
+
 
     </script>
 @endsection

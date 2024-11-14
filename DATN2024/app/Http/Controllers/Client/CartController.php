@@ -309,6 +309,7 @@ class CartController extends Controller
             $productVariantId = $request->product_variant_id;
             $quantity = $request->quantity;
 
+
             if (!$productVariantId || $quantity < 1) {
                 return response()->json([
                     'success' => false,
@@ -316,7 +317,21 @@ class CartController extends Controller
                 ], 400);
             }
 
-            // Update cart based on authentication status
+            $productVariant = ProductVariant::find($productVariantId);
+            if (!$productVariant) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sản phẩm không tồn tại'
+                ], 404);
+            }
+
+            if ($quantity > $productVariant->quantity) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Số lượng yêu cầu vượt quá số lượng trong kho'
+                ], 404);
+            }
+
             if (Auth::check()) {
                 $cartItem = CartItem::whereHas('cart', function ($query) {
                     $query->where('user_id', Auth::id());
@@ -329,20 +344,16 @@ class CartController extends Controller
                     ], 404);
                 }
 
-                // Cập nhật số lượng trong giỏ hàng của người dùng đã đăng nhập
                 $cartItem->update(['quantity' => $quantity]);
 
-                // Tính toán tổng tiền cho sản phẩm đã cập nhật
                 $total = $this->calculateTotalForCartItem($cartItem);
 
             } else {
-                // Xử lý cho khách vãng lai
                 $cart = session()->get('cart', []);
                 if (isset($cart[$productVariantId])) {
                     $cart[$productVariantId]['quantity'] = $quantity;
                     session()->put('cart', $cart);
 
-                    // Tính toán tổng tiền cho sản phẩm trong giỏ hàng khách vãng lai
                     $total = $this->calculateTotal($cart[$productVariantId]);
                 } else {
                     return response()->json([

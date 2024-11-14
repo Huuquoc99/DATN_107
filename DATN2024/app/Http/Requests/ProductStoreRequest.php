@@ -40,12 +40,12 @@ class ProductStoreRequest extends FormRequest
             'short_description' => 'required|string|max:255',
 //             Validate các biến thể
 
-            'product_variants.*.quantity' => 'nullable|integer|min:0',
-            'product_variants.*.price' => 'nullable|numeric|min:0',
-            'product_variants.*.sku' => 'nullable|string|max:20',
-            'product_variants.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'tags' => 'nullable|array',
-            'tags.*' => 'exists:tags,id',
+//            'product_variants.*.quantity' => 'required|integer|min:0',
+//            'product_variants.*.price' => 'required|numeric|min:0',
+//            'product_variants.*.sku' => 'required|string|max:20',
+//            'product_variants.*.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'tags' => 'nullable|array',
+//            'tags.*' => 'exists:tags,id',
         ];
     }
 
@@ -83,6 +83,17 @@ class ProductStoreRequest extends FormRequest
             'camera_resolution.max' => 'Camera resolution may not exceed 255 characters.',
             'network_connectivity.max' => 'Network connectivity may not exceed 255 characters.',
             'storage.max' => 'Storage may not exceed 255 characters.',
+
+//            'product_variants.*.quantity.required' => 'Số lượng là bắt buộc.',
+//            'product_variants.*.quantity.integer' => 'Số lượng phải là số nguyên.',
+//            'product_variants.*.quantity.min' => 'Số lượng phải lớn hơn 0.',
+//            'product_variants.*.price.required' => 'Giá là bắt buộc.',
+//            'product_variants.*.price.numeric' => 'Giá phải là số.',
+//            'product_variants.*.price.min' => 'Giá phải lớn hơn hoặc bằng 0.',
+//            'product_variants.*.image.image' => 'Hình ảnh phải là một file hình ảnh.',
+//            'product_variants.*.image.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg, gif.',
+//            'product_variants.*.image.max' => 'Hình ảnh không được vượt quá 2MB.',
+
         ];
     }
 }

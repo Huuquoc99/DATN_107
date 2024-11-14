@@ -83,10 +83,8 @@ Route::middleware('auth')->group(function () {
 
 });
 
-//Route::post('/vnpay-payment',   [VnpayPaymentController::class, 'vnpayPayment'])->name('payment.vnpay');
 Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
 
-//Route::post('/momo-payment',    [MomoPaymentController::class, 'momoPayment'])->name('payment.momo');
 
 
 // Auth
@@ -115,7 +113,7 @@ Route::prefix('admin')
     ->as('admin.')
     ->group(function () {
 
-        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->middleware('guest');
+        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [AdminLoginController::class, 'login'])->name('login');
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     })

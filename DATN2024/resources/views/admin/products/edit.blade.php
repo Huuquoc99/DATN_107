@@ -253,8 +253,9 @@
                                             <th>Color</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <th>SKU</th>
                                             <th>Image</th>
+                                            <th></th>
+                                            <th>Xoa</th>
                                         </tr>
 
                                         @php
@@ -266,7 +267,6 @@
                                                     'quantity' => $item->quantity,
                                                     'image' => $item->image,
                                                     'price' => $item->price,
-                                                    'sku' => $item->sku,
                                                 ];
                                             });
                                         @endphp
@@ -276,22 +276,19 @@
                                             @php($flagRowspan = true)
                                             @foreach($colors as $colorID => $colorName)
                                                 @php($key = $capacityID . '-' . $colorID)
-                                                <tr class="text-center">
+                                                <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
                                                     @if($flagRowspan)
-                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}"><b>{{ $capacityName }}</b></td>
+                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $capacityID }}">{{ $capacityName }}</td>
                                                     @endif
                                                     @php($flagRowspan = false)
                                                     <td>
-                                                        <div style="width: 40px; height: 40px; background: {{ $colorName }}; border: #0a0c0d 1px solid"></div>
+                                                        <div>{{ $colorName }}</div>
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}" name="product_variants[{{ $key }}][quantity]">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}" name="product_variants[{{ $key }}][price]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="{{ isset($variants[$key]['sku']) ? $variants[$key]['sku'] : 0 }}" name="product_variants[{{ $key }}][sku]">
                                                     </td>
                                                     <td>
                                                         <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
@@ -301,6 +298,9 @@
                                                         @if(isset($variants[$key]['image']) && $variants[$key]['image'])
                                                             <img src="{{ \Storage::url($variants[$key]['image']) }}" width="100px" height="40px">
                                                         @endif
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $capacityID . '-' . $colorID }}')">Xóa</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -436,5 +436,33 @@
                 $('#' + id).remove();
             }
         }
+
+        function removeVariant(variantId) {
+            const row = document.querySelector(`tr[data-variant="${variantId}"]`);
+            if (!row) return;
+
+            const capacityID = row.getAttribute('data-size');
+            const sizeRows = document.querySelectorAll(`tr[data-size="${capacityID}"]`);
+            const totalRows = sizeRows.length;
+
+            if (totalRows === 1) {
+                row.remove();
+                return;
+            }
+
+            const currentIndex = Array.from(sizeRows).indexOf(row);
+            const sizeCell = document.querySelector(`.size-cell-${capacityID}`);
+
+            if (currentIndex === 0 && sizeCell) {
+                const nextRow = sizeRows[1];
+                sizeCell.setAttribute('rowspan', totalRows - 1);
+                nextRow.insertBefore(sizeCell, nextRow.firstChild);
+            } else if (sizeCell) {
+                sizeCell.setAttribute('rowspan', totalRows - 1);
+            }
+
+            row.remove();
+        }
+
     </script>
 @endsection
