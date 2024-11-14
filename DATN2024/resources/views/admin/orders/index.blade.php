@@ -169,7 +169,16 @@
                                                 <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
                                             </td>
                                             <td class="amount">{{ $order->total_price }} VND</td>
-                                            <td class="payment">{{ $order->statusPayment->name }}</td>
+                                            {{-- <td class="payment">{{ $order->statusPayment->name }}</td> --}}
+                                            <td class="payment">
+                                                @if ($order->statusPayment->id == 1)
+                                                    <span class="badge bg-warning-subtle text-warning text-uppercase">{{ $order->statusPayment->name }}</span>
+                                                @elseif ($order->statusPayment->id == 2)
+                                                    <span class="badge bg-success-subtle text-success text-uppercase">{{ $order->statusPayment->name }}</span>
+                                                @else
+                                                    <span class="badge bg-info-subtle text-info text-uppercase">{{ $order->statusPayment->name }}</span>
+                                                @endif
+                                            </td>
                                             <td class="status">
                                                 @if ($order->statusOrder->id == 1)
                                                     <span class="badge bg-warning-subtle text-warning text-uppercase">{{ $order->statusOrder->name }}</span>
@@ -191,11 +200,11 @@
                                                             <i class="ri-eye-fill fs-16"></i>
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
+                                                    {{-- <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
                                                         <a href="#showModal" data-bs-toggle="modal" class="text-primary d-inline-block edit-item-btn">
                                                             <i class="ri-pencil-fill fs-16"></i>
                                                         </a>
-                                                    </li>
+                                                    </li> --}}
                                                     {{-- <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
                                                         <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
                                                             <i class="ri-delete-bin-5-fill fs-16"></i>
@@ -207,6 +216,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            
                             <div class="noresult" style="display: none">
                                 <div class="text-center">
                                     <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style="width:75px;height:75px"></lord-icon>
@@ -215,7 +225,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
+                        {{-- <div class="d-flex justify-content-end">
                             <div class="pagination-wrap hstack gap-2">
                                 <a class="page-item pagination-prev disabled" href="#">
                                     Previous
@@ -225,84 +235,51 @@
                                     Next
                                 </a>
                             </div>
+                        </div> --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} orders</p>
+                            </div>
+                            <div>
+                                {{ $orders->links() }}
+                            </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    {{-- <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header bg-light p-3">
                                     <h5 class="modal-title" id="exampleModalLabel">&nbsp;</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                                 </div>
-                                <form class="tablelist-form" autocomplete="off">
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                                <form class="tablelist-form" autocomplete="off" action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                    @csrf
                                     <div class="modal-body">
                                         <input type="hidden" id="id-field" />
-
-                                        <div class="mb-3" id="modal-id">
-                                            <label for="orderId" class="form-label">ID</label>
-                                            <input type="text" id="orderId" class="form-control" placeholder="ID" readonly />
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="customername-field" class="form-label">Customer Name</label>
-                                            <input type="text" id="customername-field" class="form-control" placeholder="Enter name" required />
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="productname-field" class="form-label">Product</label>
-                                            <select class="form-control" data-trigger name="productname-field" id="productname-field" required />
-                                                <option value="">Product</option>
-                                                <option value="Puma Tshirt">Puma Tshirt</option>
-                                                <option value="Adidas Sneakers">Adidas Sneakers</option>
-                                                <option value="350 ml Glass Grocery Container">350 ml Glass Grocery Container</option>
-                                                <option value="American egale outfitters Shirt">American egale outfitters Shirt</option>
-                                                <option value="Galaxy Watch4">Galaxy Watch4</option>
-                                                <option value="Apple iPhone 12">Apple iPhone 12</option>
-                                                <option value="Funky Prints T-shirt">Funky Prints T-shirt</option>
-                                                <option value="USB Flash Drive Personalized with 3D Print">USB Flash Drive Personalized with 3D Print</option>
-                                                <option value="Oxford Button-Down Shirt">Oxford Button-Down Shirt</option>
-                                                <option value="Classic Short Sleeve Shirt">Classic Short Sleeve Shirt</option>
-                                                <option value="Half Sleeve T-Shirts (Blue)">Half Sleeve T-Shirts (Blue)</option>
-                                                <option value="Noise Evolve Smartwatch">Noise Evolve Smartwatch</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="date-field" class="form-label">Order Date</label>
-                                            <input type="date" id="date-field" class="form-control" data-provider="flatpickr" required data-date-format="d M, Y" data-enable-time required placeholder="Select date" />
-                                        </div>
-
-                                        <div class="row gy-4 mb-3">
-                                            <div class="col-md-6">
-                                                <div>
-                                                    <label for="amount-field" class="form-label">Amount</label>
-                                                    <input type="text" id="amount-field" class="form-control" placeholder="Total amount" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div>
-                                                    <label for="payment-field" class="form-label">Payment Method</label>
-                                                    <select class="form-control" data-trigger name="payment-method" required id="payment-field">
-                                                        <option value="">Payment Method</option>
-                                                        <option value="Mastercard">Mastercard</option>
-                                                        <option value="Visa">Visa</option>
-                                                        <option value="COD">COD</option>
-                                                        <option value="Paypal">Paypal</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div>
                                             <label for="delivered-status" class="form-label">Delivery Status</label>
-                                            <select class="form-control" data-trigger name="delivered-status" required id="delivered-status">
-                                                <option value="">Delivery Status</option>
-                                                <option value="Pending">Pending</option>
-                                                <option value="Inprogress">Inprogress</option>
-                                                <option value="Cancelled">Cancelled</option>
-                                                <option value="Pickups">Pickups</option>
-                                                <option value="Delivered">Delivered</option>
-                                                <option value="Returns">Returns</option>
+                                            <select class="form-control" data-trigger name="status_order_id" required id="status_order_id">
+                                                @foreach ($statusOrders as $status)
+                                                    <option value="{{ $status->id }}"
+                                                        {{ $order->status_order_id == $status->id ? 'selected' : '' }}
+                                                        {{ $status->id < $order->status_order_id ||
+                                                        (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
+                                                            ? 'disabled'
+                                                            : '' }}>
+                                                        {{ $status->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -316,27 +293,66 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <!-- Modal -->
-                    <div class="modal fade flip" id="deleteOrder" tabindex="-1" aria-hidden="true">
+                    {{-- <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                                <div class="modal-body p-5 text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#405189,secondary:#f06548" style="width:90px;height:90px"></lord-icon>
-                                    <div class="mt-4 text-center">
-                                        <h4>You are about to delete a order ?</h4>
-                                        <p class="text-muted fs-15 mb-4">Deleting your order will remove all of your information from our database.</p>
-                                        <div class="hstack gap-2 justify-content-center remove">
-                                            <button class="btn btn-link link-success fw-medium text-decoration-none" id="deleteRecord-close" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</button>
-                                            <button class="btn btn-danger" id="delete-record">Yes, Delete It</button>
+                                <div class="modal-header bg-light p-3">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update Order Status</h5> <!-- Tiêu đề cho modal -->
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                                </div>
+                                
+                                <!-- Hiển thị thông báo nếu có lỗi hoặc thành công -->
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                    
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                    
+                                <form class="tablelist-form" autocomplete="off" action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <!-- Bạn có thể loại bỏ input này nếu không dùng đến -->
+                                        <input type="hidden" id="id-field" />
+                    
+                                        <div>
+                                            <label for="delivered-status" class="form-label">Delivery Status</label>
+                                            <select class="form-control" data-trigger name="status_order_id" required id="status_order_id">
+                                                @foreach ($statusOrders as $status)
+                                                    <option value="{{ $status->id }}"
+                                                        {{ $order->status_order_id == $status->id ? 'selected' : '' }}
+                                                        {{ $status->id < $order->status_order_id ||
+                                                        (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
+                                                            ? 'disabled'
+                                                            : '' }}>
+                                                        {{ $status->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
+                                    
+                                    <div class="modal-footer">
+                                        <div class="hstack gap-2 justify-content-end">
+                                            <!-- Nút đóng modal -->
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                            
+                                            <!-- Nút cập nhật trạng thái đơn hàng -->
+                                            <button type="submit" class="btn btn-success" id="add-btn">Update Status</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                    <!--end modal -->
+                    </div> --}}
+                    
                 </div>
             </div>
 
