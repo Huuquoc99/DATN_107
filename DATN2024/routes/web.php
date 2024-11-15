@@ -69,17 +69,23 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('add-to-cart',  [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('list',          [CartController::class, 'cartList'])->name('list');
     Route::post('delete',       [CartController::class, 'deleteCart'])->name('delete');
-//    Route::post('update',       [CartController::class, 'updateCart'])->name('update');
     Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
 
 });
 
+// VnPay Payment
+Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
 
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
+Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
+Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
 
 Route::middleware('auth')->group(function () {
 
-    // Chekcout
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    // Checkout
+//    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.failed');
@@ -90,10 +96,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
-    
+
     // Comment
-    Route::get('comments', [CommentController::class, 'index']);  
-    Route::put('comments/{id}', [CommentController::class, 'edit']);  
+    Route::get('comments', [CommentController::class, 'index']);
+    Route::put('comments/{id}', [CommentController::class, 'edit']);
     Route::delete('comments/{id}', [CommentController::class, 'destroy']);
     Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
@@ -106,10 +112,6 @@ Route::middleware('auth')->group(function () {
     Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
 
 });
-
-Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
-
-
 
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
