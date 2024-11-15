@@ -48,16 +48,7 @@
 
                     </div>
                     <h4 class="product">{{ $product->name }}</h4>
-                    <div class="product-single__rating">
-                        <div class="reviews-group d-flex">
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                        </div>
-                        <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
-                    </div>
+                 
                     <h5 class="product-single__price" id="product-price">
                         <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
                         <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }}

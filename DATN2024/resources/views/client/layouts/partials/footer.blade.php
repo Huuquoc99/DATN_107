@@ -1,5 +1,5 @@
 <footer class="footer footer_type_1 dark theme-bg-color">
-    <div class="footer-top container">
+    <div class="footer-top header-container mx-auto">
       <div class="block-newsletter mb-4">
         <h3 class="block__title text-uppercase text-white fs-30 fw-semi-bold mb-2">Subscribe to our newsletter</h3>
         <p class="mb-4">Be the first to get the latest news about trends, promotions, and much more!</p>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="d-block d-md-flex align-items-center container">
+      <div class="d-block d-md-flex align-items-center header-container mx-auto">
         <span class="footer-copyright me-auto">©2023 Uomo</span>
         <div class="footer-settings d-block d-md-flex align-items-center">
           <div class="d-flex align-items-center">
@@ -73,7 +73,7 @@
   </footer>
 
   <!-- Mobile Fixed Footer -->
-  <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
+  <footer class="footer-mobile header-container mx-auto w-100 px-5 d-md-none bg-body">
     <div class="row text-center">
       <div class="col-4">
         <a href="https://uomo-html.flexkitux.com/" class="footer-mobile__link d-flex flex-column align-items-center">

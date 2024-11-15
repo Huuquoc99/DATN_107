@@ -30,8 +30,8 @@
                 <form action="{{ route('login') }}" method="POST" class="aside-content">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input name="email" type="email" class="form-control form-control_gray"
-                            id="customerNameEmailInput" placeholder="name@example.com" required>
+                        <input name="email" type="email" class="form-control form-control_gray" id="customerNameEmailInput"
+                            placeholder="name@example.com" required>
                         <label for="customerNameEmailInput">Email *</label>
                     </div>
 
@@ -67,41 +67,45 @@
 
 
 
-<header id="header" class="header sticky_disabled header_sticky-bg_dark w-100 theme-bg-color">
+<header id="header" class="header sticky-top w-100 theme-bg-color bg-dark">
     <div class="header-top bordered-20per">
-        <div class="container d-flex align-items-center">
+        <div class="header-container mx-auto d-flex align-items-center">
             <ul class="list-unstyled d-flex flex-1 gap-3 m-0">
-                <li><a href="#" class="menu-link menu-link_us-s fs-13">Shipping</a></li>
-                <li><a href="#" class="menu-link menu-link_us-s fs-13">FAQ</a></li>
-                <li><a href="contact.html" class="menu-link menu-link_us-s fs-13">Contact</a></li>
-                <li><a href="#" class="menu-link menu-link_us-s fs-13">Track Order</a></li>
+                <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">Shipping</a></li>
+                <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">FAQ</a></li>
+                <li><a href="contact.html" class="menu-link menu-link_us-s fs-13 text-white">Contact</a></li>
+                <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">Track Order</a></li>
             </ul>
-            <div class="heeader-top__right flex-1 d-flex gap-1 justify-content-end">
+            <div class="header-top__right flex-1 d-flex gap-1 justify-content-end">
                 <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
                     <li>
-                        <a href="https://facebook.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-facebook fa-xl"></i> </a>
+                        <a href="https://facebook.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-facebook fa-xl"></i>
+                        </a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-twitter fa-xl"></i> </a>
+                        <a href="https://twitter.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-twitter fa-xl"></i>
+                        </a>
                     </li>
                     <li>
-                        <a href="https://instagram.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-instagram fa-xl"></i> </a>
+                        <a href="https://instagram.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-instagram fa-xl"></i>
+                        </a>
                     </li>
                     <li>
-                        <a href="https://pinterest.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-pinterest fa-xl"></i> </a>
+                        <a href="https://pinterest.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-pinterest fa-xl"></i>
+                        </a>
                     </li>
                 </ul>
-                <select class="form-select form-select-sm bg-transparent color-white fs-13" name="store-language">
+                <select class="form-select form-select-sm bg-transparent text-white fs-13" name="store-language">
                     <option value="english" selected>English</option>
                     <option value="german">German</option>
                     <option value="french">French</option>
                     <option value="swedish">Swedish</option>
                 </select>
-                <select class="form-select form-select-sm bg-transparent color-white fs-13" name="store-currency">
+                <select class="form-select form-select-sm bg-transparent text-white fs-13" name="store-currency">
                     <option value="usd" selected>$ USD</option>
                     <option value="gbp">£ GBP</option>
                     <option value="eur">€ EURO</option>
@@ -111,36 +115,35 @@
     </div>
     <div class="header-desk_type_6 style2">
         <div class="header-middle border-0 position-relative py-4">
-            <div class="container d-flex align-items-center">
+            <div class="header-container mx-auto d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
                         <img src="{{ asset('theme/client/images/logo-cars.png') }}" alt="Uomo" class="logo__image">
                     </a>
-                </div><!-- /.logo -->
+                </div>
 
                 <nav class="navigation flex-grow-1 fs-15 fw-semi-bold">
                     <ul class="navigation__list list-unstyled d-flex">
                         <li class="navigation__item">
-                            <a href="{{ route('home') }}" class="navigation__link">Home</a>
+                            <a href="{{ route('home') }}" class="navigation__link text-white">Home</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="/shop" class="navigation__link">Shop</a>
-
+                            <a href="/shop" class="navigation__link text-white">Shop</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link">Blog</a>
+                            <a href="#" class="navigation__link text-white">Blog</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link">Pages</a>
+                            <a href="#" class="navigation__link text-white">Pages</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('about') }}" class="navigation__link">About</a>
+                            <a href="{{ route('about') }}" class="navigation__link text-white">About</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('contact') }}" class="navigation__link">Contact</a>
+                            <a href="{{ route('contact') }}" class="navigation__link text-white">Contact</a>
                         </li>
-                    </ul><!-- /.navigation__list -->
-                </nav><!-- /.navigation -->
+                    </ul>
+                </nav>
 
                 <div class="header-tools d-flex align-items-center me-0">
                     <div class="header-tools__item text-white d-none d-xxl-block">
@@ -149,51 +152,31 @@
 
                     <div class="header-tools__item hover-container">
                         <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
-                            <i class="fa-regular fa-user fa-xl"></i>
+                            <i class="fa-regular fa-user fa-xl text-white"></i>
                         </a>
                     </div>
 
-                    <a class="header-tools__item" href="account_wishlist.html">
-                        <i class="fa-regular fa-heart fa-xl"></i>
-                    </a>
-
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
-                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                        <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
                         <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
                     </a>
-                </div><!-- /.header__tools -->
+                </div>
             </div>
-        </div><!-- /.header-middle -->
+        </div>
 
         <div class="header-bottom pb-4 mb-2">
-            <div class="container d-flex align-items-center">
+            <div class="header-container mx-auto d-flex align-items-center">
                 <div class="categories-nav position-relative">
                     <h3
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <use href="#icon_nav" />
-                        </svg>
                         <span class="fw-semi-bold lh-1">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
-                        <use href="#icon_down" />
-                        </svg>
                     </h3>
                     <ul class="categories-nav__list list-unstyled border-radius-10">
                         <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Mobiles & Tablets</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">TV & Audio</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Car & Motorbike</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Hmoe & Garden</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Toys & Kids</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Sporting Goods</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Pet Supplies</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li>
                     </ul>
                 </div>
 
@@ -204,10 +187,10 @@
                     </button>
                     <input class="header-search__input w-100" type="text" name="search-keyword"
                         placeholder="Search products...">
-                </form><!-- /.header-search -->
+                </form>
             </div>
-        </div><!-- /.header-bottom -->
-    </div><!-- /.header-desk header-desk_type_6 -->
+        </div>
+    </div>
 </header>
 
 <!-- End Header Type 6 -->
