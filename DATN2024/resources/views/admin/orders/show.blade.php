@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table-card">
-                        @if (session('error'))
+                        {{-- @if (session('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
                             </div>
@@ -42,7 +42,7 @@
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
-                        @endif
+                        @endif --}}
                         <table class="table table-nowrap align-middle table-borderless mb-0">
                             <thead class="table-light text-muted">
                                 <tr>
@@ -458,7 +458,19 @@
                             </form>
                         </div> --}}
 
+                        
                         <div class="flex-grow-1 ms-2">
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             {{-- <h6 class="mb-0">{{ $order->statusOrder->name }}</h6> --}}
                             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="d-flex flex-column align-items-start">
                                 @csrf

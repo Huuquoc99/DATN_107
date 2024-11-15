@@ -72,6 +72,11 @@
                                 <i class="far fa-user"></i> Change Password
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#forgotPassword" role="tab">
+                                <i class="ri-file-paper-line"></i> Forgot Password
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="card-body p-4">
@@ -221,6 +226,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
+                                        <div class="mb-3 mt-3">
+                                            <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
                                         <div class="text-end">
                                             <button type="submit" class="btn btn-success">Change Password</button>
                                         </div>
@@ -229,6 +239,41 @@
                             </form>
 
 
+                        </div>
+                        <div class="tab-pane" id="forgotPassword" role="tabpanel">
+
+                            @if (session('success1'))
+                                <div class="alert alert-success">
+                                    {{ session('success1') }}
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error1)
+                                        {{ $error1 }}
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            {{-- <form action="{{ route('admin.account.forgotPassword.submit') }}" method="POST">
+                                @csrf
+
+                                <div class="row g-2">
+                                    <div class="col-lg-12 pb-2">
+                                        <div>
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                id="email" placeholder="Enter current email">
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary">Forgot Password</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </form> --}}
+                            
                         </div>
                     </div>
                 </div>

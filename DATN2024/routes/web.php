@@ -33,7 +33,10 @@ use App\Http\Controllers\Payment\MomoPaymentController;
 use App\Http\Controllers\Payment\VnpayPaymentController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Auth\Admin\AdminLoginController;
+use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
+use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+
 // use App\Http\Controllers\Admin\PaymentMethodController;
 
 /*
@@ -191,6 +194,9 @@ Route::prefix('admin')
         Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
+        // Forgot password
+
+
     });
     // });
 
