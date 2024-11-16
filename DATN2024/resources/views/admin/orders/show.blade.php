@@ -76,6 +76,7 @@
                                         <tr>
                                             <th>Ship user address</th>
                                             <td>{{ $order->ship_user_address }}</td>
+                                            
                                         </tr>
                                         <tr>
                                             <th>Ship user note</th>
