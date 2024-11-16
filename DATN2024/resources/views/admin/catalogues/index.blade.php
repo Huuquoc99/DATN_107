@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Catalogue list')
+@section('title', 'Catalogue')
 
 @section('content')
 

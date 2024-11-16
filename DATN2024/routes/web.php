@@ -124,13 +124,17 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::post("login",  [LoginController::class, 'login'])->name('login');
 
 
-// Route::get('/forgot-password', function () {
-//     return view('client.auth.forgot-password');
-// })->middleware('guest')->name('forgot-password');
-// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('guest')->name('forgot-password');
-// Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm ']);
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 
-// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('reset-password');
+// Route để xử lý gửi link đặt lại mật khẩu qua email
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Route để hiển thị form đặt lại mật khẩu
+// Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('client.passwords.reset');
+
+// Route để xử lý đặt lại mật khẩu
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 

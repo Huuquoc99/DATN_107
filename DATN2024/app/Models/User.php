@@ -7,7 +7,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\CustomResetPasswordLink;
+use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Notifications\CustomResetPasswordLinkForClient;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -71,9 +73,18 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     // Sử dụng notification tùy chỉnh
+    //     $this->notify(new CustomResetPasswordLink($token));
+    // }
+
     public function sendPasswordResetNotification($token)
     {
-        // Sử dụng notification tùy chỉnh
-        $this->notify(new CustomResetPasswordLink($token));
+        if ($this->type == 1) {
+            $this->notify(new CustomResetPasswordNotification($token));  
+        } else {
+            $this->notify(new CustomResetPasswordLinkForClient($token)); 
+        }
     }
 }
