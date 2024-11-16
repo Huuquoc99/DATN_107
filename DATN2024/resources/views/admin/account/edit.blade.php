@@ -72,11 +72,11 @@
                                 <i class="far fa-user"></i> Change Password
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#forgotPassword" role="tab">
                                 <i class="ri-file-paper-line"></i> Forgot Password
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <div class="card-body p-4">
@@ -225,11 +225,11 @@
                                                 id="new_password_confirmation" placeholder="Confirm password">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    {{-- <div class="col-lg-12">
                                         <div class="mb-3 mt-3">
                                             <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-12">
                                         <div class="text-end">
                                             <button type="submit" class="btn btn-success">Change Password</button>
