@@ -44,6 +44,18 @@ class HomeController extends Controller
     }
 
 
+    public function search(Request $request) {
+
+
+
+//    return view('shop', [
+//        'products' => $products,
+//        'source' => 'search',
+//        'title' => 'Kết quả tìm kiếm',
+//        'keyword' => $request->keyword
+//    ]);
+    }
+
     public function about()
     {
         return view('client.about');

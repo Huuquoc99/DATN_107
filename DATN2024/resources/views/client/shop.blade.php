@@ -302,88 +302,88 @@
                     </div><!-- /.shop-acs -->
                 </div><!-- /.d-flex justify-content-between -->
 
-                <div class="products-grid row row-cols-2 row-cols-md-3" id="products-grid">
-                    <div class="product-card-wrapper">
-                        <div class="product-card mb-3 mb-md-4 mb-xxl-5">
-                            <div class="pc__img-wrapper">
-                                <div class="swiper-container background-img js-swiper-slider"
-                                     data-settings='{"resizeObserver": true}'>
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <a href="product1_simple.html"><img loading="lazy"
-                                                                                src="{{asset('theme/client/images/products/product_1.jpg ')}}"
-                                                                                width="330" height="400"
-                                                                                alt="Cropped Faux leather Jacket"
-                                                                                class="pc__img"></a>
+                <div class="products-grid row row-cols-2 row-cols-md-4" id="products-grid">
+                    @foreach($products as $product)
+                        <div class="product-card-wrapper col-6 col-md-4 col-lg-3 mb-3 mb-md-4 mb-xxl-5">
+                            <div class="product-card">
+                                <div class="pc__img-wrapper">
+                                    <div class="swiper-container background-img js-swiper-slider">
+                                        <div class="swiper-wrapper">
+                                            <div class="">
+                                                <a href="{{ route('product.detail', $product->slug) }}">
+                                                    <img
+                                                        src="{{ \Illuminate\Support\Facades\Storage::url($product->img_thumbnail) }}"
+                                                        alt="{{ $product->name }}"
+                                                        style="width: 100%; height: auto;">
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <a
-                                    class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                                    data-aside="cartDrawer" title="Add To Cart">Add To Cart
-                                </a>
-                            </div>
-
-                            <div class="pc__info position-relative">
-                                <p class="pc__category">Dresses</p>
-                                <h6 class="pc__title"><a href="product1_simple.html">Cropped Faux Leather Jacket</a>
-                                </h6>
-                                <div class="product-card__price d-flex">
-                                    <span class="money price">$29</span>
-                                </div>
-                                <div class="product-card__review d-flex align-items-center">
-                                    <div class="reviews-group d-flex">
-                                        <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_star"/>
-                                        </svg>
-                                        <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_star"/>
-                                        </svg>
-                                        <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_star"/>
-                                        </svg>
-                                        <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_star"/>
-                                        </svg>
-                                        <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_star"/>
-                                        </svg>
+                                <div class="position-relative">
+                                    <p class="pc__category">{{ $product->catalogue->name }}</p>
+                                    <h6 class="pc__title">
+                                        <a href="{{ route('product.detail', $product->slug) }}">
+                                            {{ \Illuminate\Support\Str::limit($product->name, 20) }}
+                                        </a>
+                                    </h6>
+                                    <div class="product-card__price d-flex">
+                                        <span class="money price">{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
                                     </div>
-                                    <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
+                                    <div class="product-card__review d-flex align-items-center">
+                                        <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
+                                    </div>
                                 </div>
-
-                                <button
-                                    class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                    title="Add To Wishlist">
-                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_heart"/>
-                                    </svg>
-                                </button>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /.products-grid row -->
+                    @endforeach
+                </div>
+
+                <!-- /.products-grid row -->
 
                 <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
-                    <a href="#" class="btn-link d-inline-flex align-items-center">
+                    <!-- Link trang trước -->
+                    @if ($products->onFirstPage())
+                        <span class="btn-link d-inline-flex align-items-center text-muted">
                         <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
                             <use href="#icon_prev_sm"/>
                         </svg>
-                        <span class="fw-medium">PREV</span>
-                    </a>
+                            <span class="fw-medium">PREV</span>
+                        </span>
+                    @else
+                        <a href="{{ $products->previousPageUrl() }}" class="btn-link d-inline-flex align-items-center">
+                            <svg class="me-1" width="7" height="11" viewBox="0 0 7 11"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <use href="#icon_prev_sm"/>
+                            </svg>
+                            <span class="fw-medium">PREV</span>
+                        </a>
+                    @endif
+
                     <ul class="pagination mb-0">
-                        <li class="page-item"><a class="btn-link px-1 mx-2 btn-link_active" href="#">1</a></li>
-                        <li class="page-item"><a class="btn-link px-1 mx-2" href="#">2</a></li>
-                        <li class="page-item"><a class="btn-link px-1 mx-2" href="#">3</a></li>
-                        <li class="page-item"><a class="btn-link px-1 mx-2" href="#">4</a></li>
+                        @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                            <li class="page-item{{ $page == $products->currentPage() ? ' active' : '' }}">
+                                <a class="btn-link px-1 mx-2{{ $page == $products->currentPage() ? ' btn-link_active' : '' }}"
+                                   href="{{ $url }}">{{ $page }}</a>
+                            </li>
+                        @endforeach
                     </ul>
-                    <a href="#" class="btn-link d-inline-flex align-items-center">
-                        <span class="fw-medium me-1">NEXT</span>
-                        <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_next_sm"/>
-                        </svg>
-                    </a>
+
+                    @if ($products->hasMorePages())
+                        <a href="{{ $products->nextPageUrl() }}" class="btn-link d-inline-flex align-items-center">
+                            <span class="fw-medium me-1">NEXT</span>
+                            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+                                <use href="#icon_next_sm"/>
+                            </svg>
+                        </a>
+                    @else
+                        <span class="btn-link d-inline-flex align-items-center text-muted">
+                            <span class="fw-medium me-1">NEXT</span>
+                            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+                                <use href="#icon_next_sm"/>
+                            </svg>
+                        </span>
+                    @endif
                 </nav>
             </div>
         </section><!-- /.shop-main container -->
