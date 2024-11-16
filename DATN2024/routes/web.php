@@ -55,7 +55,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
 
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
     ->name('product.detail');

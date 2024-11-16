@@ -44,6 +44,16 @@ class HomeController extends Controller
     }
 
 
+    public function productByCatalogue($id)
+    {
+        $products = Product::query()->where('catalogue_id', $id)->paginate(1);
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'catalogue',
+            'title' => 'Products by category'
+        ]);
+    }
+
     public function search(Request $request) {
 
 

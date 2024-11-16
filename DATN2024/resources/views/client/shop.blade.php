@@ -302,9 +302,9 @@
                     </div><!-- /.shop-acs -->
                 </div><!-- /.d-flex justify-content-between -->
 
-                <div class="products-grid row row-cols-2 row-cols-md-4" id="products-grid">
+                <div class="products-grid row row-cols-2 row-cols-md-4 p-2" id="products-grid">
                     @foreach($products as $product)
-                        <div class="product-card-wrapper col-6 col-md-4 col-lg-3 mb-3 mb-md-4 mb-xxl-5">
+                        <div class="product-card-wrapper col-6 col-md-4 col-lg-3 mb-3 mb-md-4 mb-xxl-5 border-1">
                             <div class="product-card">
                                 <div class="pc__img-wrapper">
                                     <div class="swiper-container background-img js-swiper-slider">
@@ -324,7 +324,7 @@
                                     <p class="pc__category">{{ $product->catalogue->name }}</p>
                                     <h6 class="pc__title">
                                         <a href="{{ route('product.detail', $product->slug) }}">
-                                            {{ \Illuminate\Support\Str::limit($product->name, 20) }}
+                                            <b>{{ \Illuminate\Support\Str::limit($product->name, 30) }}</b>
                                         </a>
                                     </h6>
                                     <div class="product-card__price d-flex">
@@ -338,6 +338,7 @@
                         </div>
                     @endforeach
                 </div>
+
 
                 <!-- /.products-grid row -->
 
