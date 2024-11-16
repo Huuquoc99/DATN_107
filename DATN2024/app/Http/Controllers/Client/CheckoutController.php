@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\GuestOrderPlaced;
 use Log;
 use App\Models\Cart;
 use App\Models\Order;
@@ -101,18 +102,28 @@ class CheckoutController extends Controller
             ]);
         }
 
-//        event(new GuestOrderPlaced($order));
 
+//        dd($order);
         session(['order_code' => $order->code]);
 
-
         if ($paymentMethodId == 2) {
-            return $this->processVNPAY($order);
+
+            $paymentResult = $this->processVNPAY($order);
+
+            if ($paymentResult['status'] == 'success') {
+                GuestOrderPlaced::dispatch($order);
+                session()->forget('cart');
+                return redirect()->route('guest-checkout.success');
+            } else {
+                $order->update(['status_order_id' => 3]); // Assuming 3 is the 'failed' status
+                return redirect()->route('guest-checkout.failure');
+            }
+        } else {
+
+            GuestOrderPlaced::dispatch($order);
+            session()->forget('cart');
+            return redirect()->route('guest-checkout.success');
         }
-
-        session()->forget('cart');
-
-        return redirect()->route('guest-checkout.success');
     }
 
 
