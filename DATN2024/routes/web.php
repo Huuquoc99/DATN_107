@@ -46,18 +46,21 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//
+//Route::get('/', function () {
+//    dd(\Illuminate\Support\Facades\Auth::check());
+//   return view('welcome');
+//});
 
-Route::get('/', function () {
-    dd(\Illuminate\Support\Facades\Auth::check());
-   return view('welcome');
-});
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
     ->name('product.detail');
 Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
     ->name('product.getVariantDetails');
 Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
+
 
 Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound'])->name('notfound');
 Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about'])->name('about');

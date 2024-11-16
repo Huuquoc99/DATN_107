@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\GuestOrderPlaced;
+use App\Models\ProductCapacity;
+use App\Models\ProductColor;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
@@ -27,6 +29,16 @@ class SendOrderConfirmationEmail
             $order = $event->order;
             $orderItems = $order->orderItems;
 
+            foreach ($orderItems as $item) {
+                $capacity = ProductCapacity::find($item->product_capacity_id);
+                $color = ProductColor::find($item->product_color_id);
+                $colorName = $color ? $color->name : 'Un know';
+                $capacityName = $capacity ? $capacity->name : 'Un know';
+
+                $item->color_name = $colorName;
+                $item->capacity_name = $capacityName;
+            }
+
             $data = [
                 'order_code' => $order->code,
                 'customer_name' => $order->user_name,
@@ -42,10 +54,11 @@ class SendOrderConfirmationEmail
                 'items' => $orderItems,
             ];
 
+//            dd($data);
             Mail::send('client.mail.confirm-order', $data, function ($message) use ($order) {
                 $message->to($order->user_email, $order->user_name)
                     ->subject('Xác nhận đơn hàng #' . $order->code);
-                $message->from('your_email@example.com', 'Tên cửa hàng');
+                $message->from('dinhpvph31545@fpt.edu.vn', 'Techstore');
             });
 
             Log::info("Order confirmation email sent for Order #" . $order->code);

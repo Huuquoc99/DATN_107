@@ -159,7 +159,6 @@
 
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
                     </a>
                 </div><!-- /.header__tools -->
             </div>
