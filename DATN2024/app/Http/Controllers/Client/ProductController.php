@@ -53,7 +53,6 @@ class ProductController extends Controller
     {
         $product = Product::with(['variants'])->find($productId);
 
-        // Giả sử bạn có quan hệ giữa sản phẩm và biến thể dựa trên màu sắc và dung lượng
         $variant = $product->variants()->where('product_color_id', $colorId)->where('product_capacity_id', $capacityId)->first();
 
         if ($variant) {

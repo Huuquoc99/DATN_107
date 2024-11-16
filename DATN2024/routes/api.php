@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource("admin/banner", BannerController::class);
         Route::apiResource("admin/statusOrder", StatusOrderController::class);
         Route::apiResource("admin/statusPayment", StatusPaymentController::class);
-        Route::apiResource("admin/paymentMethod", PaymentMethodControlller::class);
+        // Route::apiResource("admin/paymentMethod", PaymentMethodControlller::class);
         // Route::apiResource('admin/products', ProductController::class);
 
 

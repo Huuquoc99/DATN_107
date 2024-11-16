@@ -60,15 +60,17 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
         list(
             $dataProduct,
             $dataProductVariants,
+            $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
             ) = $this->handleData($request);
 
+//        dd($dataNewProductVariants);
         try {
             DB::beginTransaction();
 
@@ -77,6 +79,26 @@ class ProductController extends Controller
 
             foreach ($dataProductVariants as $item) {
                 $item += ['product_id' => $product->id];
+
+                ProductVariant::query()->create($item);
+            }
+
+            foreach ($dataNewProductVariants as $item) {
+                $size = ProductCapacity::query()->firstOrCreate(
+                    ['name' => $item['size']],
+                    ['is_active' => 1]
+                );
+
+                $color = ProductColor::query()->firstOrCreate(
+                    ['name' => $item['color']],
+                    ['is_active' => 1]
+                );
+
+                $item += [
+                    'product_id' => $product->id,
+                    'product_capacity_id' => $size->id,
+                    'product_color_id' => $color->id,
+                ];
 
                 ProductVariant::query()->create($item);
             }
@@ -106,10 +128,12 @@ class ProductController extends Controller
     {
         $product->load(['variants', 'galleries', 'tags']);
 
+        $totalQuantity = $product->variants->sum('quantity');
+
         $color = ProductColor::query()->pluck('name', 'id')->all();
         $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity','color'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity','color','totalQuantity'));
     }
 
     /**
@@ -216,6 +240,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
         try {
             $check_cartItem = $product->variants()->whereHas('cartItems')->exists();
 
@@ -253,7 +278,7 @@ class ProductController extends Controller
 
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['tags' ]);
+        $dataProduct = $request->except(['tags','product_galleries','new_product_variants']);
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
         $dataProduct['is_good_deal'] ??= 0;
@@ -267,6 +292,23 @@ class ProductController extends Controller
             $dataProduct['img_thumbnail'] = Storage::put('products', $dataProduct['img_thumbnail']);
         }
 
+        $dataNewProductVariantsTmp = $request->new_product_variants;
+        $dataNewProductVariants = [];
+
+        if (is_array($dataNewProductVariantsTmp) && !empty($dataNewProductVariantsTmp)) {
+            foreach ($dataNewProductVariantsTmp as $key => $item) {
+                $dataNewProductVariants[] = [
+                    'size' => $item['size'] ?? null,
+                    'color' => $item['color'] ?? null,
+                    'quantity' => $item['quantity'] ?? 0,
+                    'price' => $item['price'] ?? 0,
+                    'sku' => $item['sku'] ?? null,
+                    'status' => isset($item['status']) && $item['status'] == 1 ? 0 : 1,
+                    'image' => !empty($item['image']) ? Storage::put('product_variants', $item['image']) : null,
+                ];
+            }
+        }
+
         $dataProductVariantsTmp = $request->product_variants;
         $dataProductVariants = [];
         foreach ($dataProductVariantsTmp as $key => $item) {
@@ -276,11 +318,11 @@ class ProductController extends Controller
                 'product_color_id' => $tmp[1],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
-                'sku' => $item['sku'],
-                'status' => isset($item['status']) && $item['status'] == 1 ? 1 : 0,
+                'status' => isset($item['status']) && $item['status'] == 1 ? 0 : 1,
                 'image' => !empty($item['image']) ? Storage::put('product_variants', $item['image']) : null
             ];
         }
+//        dd($dataProductVariants);
 
         $dataProductGalleriesTmp = $request->product_galleries ?: [];
         $dataProductGalleries = [];
@@ -294,7 +336,7 @@ class ProductController extends Controller
 
         $dataProductTags = $request->tags;
 
-        return [$dataProduct,$dataProductVariants, $dataProductGalleries, $dataProductTags];
+        return [$dataProduct,$dataProductVariants, $dataNewProductVariants, $dataProductGalleries, $dataProductTags];
     }
 
 
