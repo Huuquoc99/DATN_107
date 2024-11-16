@@ -34,8 +34,8 @@ use App\Http\Controllers\Payment\VnpayPaymentController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
-use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
 
@@ -124,13 +124,13 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::post("login",  [LoginController::class, 'login'])->name('login');
 
 
-Route::get('/forgot-password', function () {
-    return view('client.auth.forgot-password');
-})->middleware('guest')->name('forgot-password');
-Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('guest')->name('forgot-password');
-Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm ']);
+// Route::get('/forgot-password', function () {
+//     return view('client.auth.forgot-password');
+// })->middleware('guest')->name('forgot-password');
+// Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->middleware('guest')->name('forgot-password');
+// Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm ']);
 
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('reset-password');
+// Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('reset-password');
 
 
 
@@ -143,6 +143,11 @@ Route::prefix('admin')
         Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [AdminLoginController::class, 'login'])->name('login');
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
+        
+        Route::get('password/reset', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        Route::post('password/email', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        Route::get('password/reset/{token}', [AdminForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+        Route::post('password/reset', [AdminForgotPasswordController::class, 'reset'])->name('password.update');
     })
 
     ->middleware(['checkAdminMiddleware'])
@@ -194,7 +199,6 @@ Route::prefix('admin')
         Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
-        // Forgot password
 
 
     });

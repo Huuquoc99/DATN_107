@@ -139,7 +139,7 @@
                                                 <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
                                                 <label class="form-check-label" for="auth-remember-check">Remember me</label>
                                                 <div class="float-end">
-                                                    <a href="auth-pass-reset-cover.html" class="text-muted">Forgot password?</a>
+                                                    <a href="{{ route('admin.password.request') }}" class="text-muted">Forgot password?</a>
                                                 </div>
                                             </div>
 
@@ -163,9 +163,9 @@
                                         </form>
                                     </div>
 
-                                    <div class="mt-5 text-center">
+                                    {{-- <div class="mt-5 text-center">
                                         <p class="mb-0">Don't have an account ? <a href="auth-signup-cover.html" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end col -->
