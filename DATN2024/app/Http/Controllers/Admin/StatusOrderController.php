@@ -83,8 +83,6 @@ class StatusOrderController extends Controller
             $statusOrder->update($param);
             $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
         
-            
-        
             // return response()->json(['message' => 'Status order updated successfully']);
             return redirect()->route("admin.statusOrders.index")->with("success", "Status order updated successfully");
 

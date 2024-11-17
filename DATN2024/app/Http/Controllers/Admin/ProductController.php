@@ -367,7 +367,6 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        // Xử lý lọc theo danh mục nếu có
         if ($request->filled('category_id')) {
             $query->where('catalogue_id', $request->category_id);
         }
@@ -425,7 +424,6 @@ class ProductController extends Controller
 
         $data = $query->get();
 
-        // Trả về view partial chỉ chứa phần table body
         return view('admin.products.filter', compact('data'))->render();
     }
 

@@ -35,27 +35,6 @@ class OrderController extends Controller
     
         return view('admin.orders.show', compact('order', 'statusOrders'));
     }
-    
-
-
-    // public function updateStatus(Request $request, $id)
-    // {
-    //     $order = Order::findOrFail($id);
-
-    //     $newStatusId = $request->input('status_order_id');
-
-    //     if ($newStatusId > $order->status_order_id) {
-    //         $order->status_order_id = $newStatusId;
-    //         $order->save();
-
-    //         Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
-    //         return redirect()->route('admin.orders.show', $id)->with('success', 'Order status updated successfully.');
-    //     } else {
-    //         return redirect()->route('admin.orders.show', $id)->with('error', 'Cannot update to a lower status.');
-    //     }
-    // }
-
-
 
     public function updateStatus(Request $request, $id)
     {
