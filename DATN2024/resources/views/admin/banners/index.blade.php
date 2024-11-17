@@ -30,24 +30,6 @@
                         Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
-                {{-- <div class="card-header d-flex justify-content-between align-items-center ">
-                    <div class="search-wrapper">
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search...">
-                            <span class="input-group-text"><i class="ri-search-line"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="flex-shrink-0">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: 15px">
-                            <option selected="">Filter</option>
-                            <option value="1">Highest price</option>
-                            <option value="2">Lowest price</option>
-                            <option value="3">Today</option>
-                            <option value="4">Yesterday</option>
-                        </select>
-                    </div>
-                </div> --}}
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">

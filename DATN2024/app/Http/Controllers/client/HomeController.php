@@ -37,33 +37,8 @@ class HomeController extends Controller
 
         $banners = Banner::where('is_active', 1)->get();
 
-        //        return response()->json([
-        //            'status' => 'success',
-        //            'data' => [
-        //                'is_active' => $productActive,
-        //                'is_hot_deal' => $productHot,
-        //                "is_good_deal" => $productGood,
-        //                "is_new" => $productNew,
-        //                "is_show_home" => $productHome,
-        //                'catalogues' => $catalogues,
-        //                'banners' => $banners,
-        //            ],
-        //        ], 200);
         $products = Product::query()->latest('id')->paginate(8);
-
         return view('client.home', compact('products'));
-        // return response()->json([
-        //     'status' => 'success',
-        //     'data' => [
-        //         'is_active' => $productActive,
-        //         'is_hot_deal' => $productHot,
-        //         "is_good_deal" => $productGood,
-        //         "is_new" => $productNew,
-        //         "is_show_home" => $productHome,
-        //         'catalogues' => $catalogues,
-        //         'banners' => $banners,
-        //     ],
-        // ], 200);
 
     }
 
@@ -82,3 +57,4 @@ class HomeController extends Controller
         return view('client.contact');
     }
 }
+

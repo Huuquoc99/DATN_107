@@ -11,8 +11,10 @@
 </head>
 <body>
     @include('client.layouts.partials.header')
-
-    @yield('content')
+    <section>
+        @yield('content')
+    </section>
+    
 
     <footer class="site-footer border-top">
         @include('client.layouts.partials.footer')
@@ -23,3 +25,9 @@
 
 </body>
 </html>
+ {{-- <style>
+    body {
+        transform: scale(0.8); 
+        transform-origin: top center;
+}
+ </style> --}}

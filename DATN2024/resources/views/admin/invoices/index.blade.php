@@ -218,7 +218,7 @@
                                             </div>
                                         </th>
                                         <td>
-                                            <a href="{{ route('admin.customers.show', $invoice) }}">{{ $invoice->code }}</a>
+                                            <a href="{{ route('admin.invoices.show', $invoice) }}">{{ $invoice->code }}</a>
                                         </td>
                                         <td>{{ $invoice->ship_user_name }}</td>
                                         <td>{{ $invoice->ship_user_phone }}</td>
