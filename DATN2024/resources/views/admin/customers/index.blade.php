@@ -3,8 +3,6 @@
 @section('title', 'Customer')
 
 @section('content')
-
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -19,16 +17,12 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Customer list</h5>
-                    {{-- <a href="{{ route('admin.customers.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
-                    </a> --}}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table-data ">
@@ -56,7 +50,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->avatar)}}" alt="" width="100" height="120">
+                                            <img src="{{ Storage::url($item->avatar)}}" alt="" width="70px" height="60px">
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.customers.show', $item) }}">
@@ -64,7 +58,6 @@
                                             </a>
                                         </td>
                                         <td>{{ $item->email }}</td>
-                                        {{-- <td class="text-danger">{{ $item->type == 1 ? 'Admin' : 'User' }}</td> --}}
                                         <td>{!! $item->type == 1 ? '<span class="badge bg-primary">Admin</span>' : '<span class="badge bg-success">User</span>' !!}</td>
 
                                         <td>{{ $item->create_at }}</td>
@@ -82,13 +75,19 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} users</p>
+                            </div>
+                            <div>
+                                {{ $users->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end row -->
 @endsection
 
 @section('style-libs')

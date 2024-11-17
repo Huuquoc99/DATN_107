@@ -82,14 +82,6 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
-
-                            {{-- @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                </div>
-                            @endif --}}
                             <form action="{{ route('admin.account.updateProfile', ['id' => $user->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
@@ -161,15 +153,6 @@
                                     {{ session('success1') }}
                                 </div>
                             @endif
-
-                            {{-- @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error1)
-                                        {{ $error1 }}
-                                    @endforeach
-                                </div>
-                            @endif --}}
-
                             <form action="{{ route('admin.account.changePassword', Auth::user()->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
@@ -207,11 +190,6 @@
                                                 id="new_password_confirmation" placeholder="Confirm password">
                                         </div>
                                     </div>
-                                    {{-- <div class="col-lg-12">
-                                        <div class="mb-3 mt-3">
-                                            <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
-                                        </div>
-                                    </div> --}}
                                     <div class="col-lg-12">
                                         <div class="text-end">
                                             <button type="submit" class="btn btn-success">Change Password</button>
@@ -219,43 +197,6 @@
                                     </div>
                                 </div>
                             </form>
-
-
-                        </div>
-                        <div class="tab-pane" id="forgotPassword" role="tabpanel">
-
-                            @if (session('success1'))
-                                <div class="alert alert-success">
-                                    {{ session('success1') }}
-                                </div>
-                            @endif
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error1)
-                                        {{ $error1 }}
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            {{-- <form action="{{ route('admin.account.forgotPassword.submit') }}" method="POST">
-                                @csrf
-
-                                <div class="row g-2">
-                                    <div class="col-lg-12 pb-2">
-                                        <div>
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control"
-                                                id="email" placeholder="Enter current email">
-                                        </div>
-                                    </div>
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">Forgot Password</button>
-                                    </div>
-                                    </div>
-                                </div>
-                            </form> --}}
-                            
                         </div>
                     </div>
                 </div>
