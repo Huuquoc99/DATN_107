@@ -36,11 +36,11 @@
                     @foreach($products as $item)
                         <div class="col">
                             <div class="product-card product-card_style9 border rounded-3 bg-white h-100">
-                                <div class="position-relative pb-3">
+                                <div class="position-relative">
                                     <a href="{{ route('product.detail', $item->slug) }}" class="">
                                         <div class="pc__img-wrapper pc__img-wrapper_wide3 overflow-hidden ">
                                             <img loading="lazy"
-                                                src="https://cdn.tgdd.vn/Files/2022/04/13/1425497/tim-hieu-ve-ti-le-man-hinh-tren-smartphone-va-su-p-4.jpg"
+                                            src="{{ \Illuminate\Support\Facades\Storage::url($item->img_thumbnail) }}"
                                                 alt="{{ $item->name }}" class="pc__img img-fluid w-100 h-200px" />
                                         </div>
                                     </a>
@@ -60,17 +60,23 @@
                                     </div>
                                 </div>
                                 <div class="pc__info position-relative">
-                                    <h6 class="pc__title fs-20 mb-2"><a href="">{{ $item->name }}</a></h6>
+                                    <h6 class="pc__title__name "><a href="">{{ $item->name }}</a></h6>
                                     <div class="product-card__review d-sm-flex align-items-center">
                                         <span
-                                            class="reviews-note text-lowercase  text-decoration-line-through text-secondary fs-16 ms-sm-1">{{ $item->price_regular }} đ</span>
+                                            class="reviews-note text-lowercase  text-decoration-line-through text-secondary fs-16 ms-sm-1">{{ $item->price_regular }}
+                                            đ</span>
                                     </div>
                                     <div class="product-card__review d-sm-flex align-items-center">
                                         <span
-                                            class="reviews-note text-lowercase text-danger text-secondary fs-18 ms-sm-1">{{ $item->price_sale }} đ</span>
+                                            class="reviews-note product_pricesale text-lowercase text-secondary fs-18 ms-sm-1">{{ $item->price_sale }}
+                                            đ</span>
                                     </div>
                                     <div class="product-card__price d-flex">
                                         <span class="money price fs-16 fw-semi-bold"></span>
+                                    </div>
+                                    <div id="accordion-filter-2" class="accordion-collapse collapse show border-0"
+                                        aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
+
                                     </div>
                                 </div>
                             </div>

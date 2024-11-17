@@ -50,21 +50,21 @@
                     <h4 class="product">{{ $product->name }}</h4>
                  
                     <h5 class="product-single__price" id="product-price">
-                        <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
-                        <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }}
+                        <span style=" font-size: 20px; color: red">{{ number_format($product->price_regular, 0, ',', '.') }} VND</span> <br/>
+                        <span style=" font-size: 16px;"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }}
                                     VND</del></i></span>
                     </h5>
-                    <div class="product-single__short-desc">
+                    <div class="product-single__short-desc mb-2 ">
                         <p>{{ $product->short_description }}</p>
                     </div>
                     <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post"
-                        class="product-form">
+                        class="">
                         @csrf
                         <input type="hidden" name="product_id" data-product-id="{{ $product->id }}"
                             value="{{ $product->id }}">
                         <div class="product-options">
                             <!-- Color Selection -->
-                            <div class="option-group mb-4">
+                            <div class="option-group mb-2">
                                 <label class="option-label">Màu sắc:</label>
                                 <div class="option-selections">
                                     @foreach ($colors as $id => $color)
@@ -85,7 +85,7 @@
                             </div>
 
                             <!-- Capacity Selection -->
-                            <div class="option-group mb-4">
+                            <div class="option-group mb-2">
                                 <label class="option-label">Dung lượng:</label>
                                 <div class="option-selections">
                                     @foreach ($capacities as $id => $name)

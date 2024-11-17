@@ -67,7 +67,7 @@
 
 
 
-<header id="header" class="header sticky-top w-100 theme-bg-color bg-dark">
+<header id="header" class="header w-100 theme-bg-color bg-dark">
     <div class="header-top bordered-20per">
         <div class="header-container mx-auto d-flex align-items-center">
             <ul class="list-unstyled d-flex flex-1 gap-3 m-0">
@@ -99,17 +99,7 @@
                         </a>
                     </li>
                 </ul>
-                <select class="form-select form-select-sm bg-transparent text-white fs-13" name="store-language">
-                    <option value="english" selected>English</option>
-                    <option value="german">German</option>
-                    <option value="french">French</option>
-                    <option value="swedish">Swedish</option>
-                </select>
-                <select class="form-select form-select-sm bg-transparent text-white fs-13" name="store-currency">
-                    <option value="usd" selected>$ USD</option>
-                    <option value="gbp">£ GBP</option>
-                    <option value="eur">€ EURO</option>
-                </select>
+               
             </div>
         </div>
     </div>
@@ -146,9 +136,7 @@
                 </nav>
 
                 <div class="header-tools d-flex align-items-center me-0">
-                    <div class="header-tools__item text-white d-none d-xxl-block">
-                        <span class="fs-15 fw-semi-bold text-uppercase">Need Help? 0020 500</span>
-                    </div>
+                   
 
                     <div class="header-tools__item hover-container">
                         <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
@@ -202,7 +190,7 @@
     </div><!-- /.aside-header -->
 
     <div class="aside-content cart-drawer-items-list">
-        <div class="cart-drawer-item d-flex position-relative">gi
+        <div class="cart-drawer-item d-flex position-relative">
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
