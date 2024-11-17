@@ -55,7 +55,7 @@
                                     <div class="position-relative h-100 d-flex flex-column">
                                         <div class="mb-4">
                                             <a href="{{ route("admin.login")}}" class="d-block">
-                                                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="18">
+                                                <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="30">
                                             </a>
                                         </div>
                                         <div class="mt-auto">

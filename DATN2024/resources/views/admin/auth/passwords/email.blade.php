@@ -41,16 +41,15 @@
                                         <div class="bg-overlay"></div>
                                         <div class="position-relative h-100 d-flex flex-column">
                                             <div class="mb-4">
-                                                <a href="index.html" class="d-block">
-                                                    <img src="{{ asset('theme/admin/assets/images/logo-light.png')}}" alt="" height="18">
+                                                <a href="{{ route("admin.login")}}" class="d-block">
+                                                    <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt="" height="30">
                                                 </a>
                                             </div>
-                                            <div class="mt-auto">
-                                                <div class="mb-3">
-                                                    <i class="ri-double-quotes-l display-4 text-success"></i>
-                                                </div>
+                                            <div class="mt-5">
+                                                <img src="{{ asset('theme/admin/assets/images/login.png') }}" alt="" height="200px" style="padding-left: 130px">
 
                                                 <div id="qoutescarouselIndicators" class="carousel slide" data-bs-ride="carousel">
+                                                    
                                                     <div class="carousel-indicators">
                                                         <button type="button" data-bs-target="#qoutescarouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                                         <button type="button" data-bs-target="#qoutescarouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -76,13 +75,13 @@
                                 <!-- end col -->
 
                                 <div class="col-lg-6">
-                                    <div class="p-lg-5 p-4">
+                                    <div class="p-lg-5 p-3">
                                         <h5 class="text-primary">Forgot Password?</h5>
                                         <p class="text-muted">Reset password with velzon</p>
 
-                                        <div class="mt-2 text-center">
+                                        <div class="text-center">
                                             <lord-icon
-                                                src="https://cdn.lordicon.com/rhvddzym.json" trigger="loop" colors="primary:#0ab39c" class="avatar-xl">
+                                                src="https://cdn.lordicon.com/rhvddzym.json" trigger="loop" colors="primary:#516090" class="avatar-xl">
                                             </lord-icon>
                                         </div>
 
@@ -96,34 +95,22 @@
                                                 @csrf
                                                 <div class="mb-4">
                                                     <label class="form-label" for="email">{{ __('Email') }}</label>
-                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
+                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                                                     @error('email')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
                                                 </div>
-                                                @if (session("status"))
-                                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                        {{ session("status")}}
-                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                    </div>
-                                                @endif
-                                                @if ($errors->any())
-                                                    <div class="alert alert-danger">
-                                                        @foreach ($errors->all() as $error)
-                                                            {{ $error }}
-                                                        @endforeach
-                                                    </div>
-                                                @endif
+        
 
                                                 <div class="text-center mt-4">
-                                                    <button class="btn btn-success w-100" type="submit">{{ __('Send Reset Link') }}</button>
+                                                    <button class="btn btn-primary w-100" type="submit">{{ __('Send Reset Link') }}</button>
                                                 </div>
                                             </form><!-- end form -->
                                         </div>
 
-                                        <div class="mt-5 text-center">
+                                        <div class="mt-3 text-center">
                                             <p class="mb-0">Wait, I remember my password... <a href="{{ route("admin.login")}}" class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
                                         </div>
                                     </div>
