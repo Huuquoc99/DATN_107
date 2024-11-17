@@ -38,14 +38,6 @@
                             </div>
                         @endif
 
-                        @if (session("error"))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session("error")}}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
@@ -64,12 +56,24 @@
                                 @foreach($comments as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->user->name}}</td>
-                                        <td>{{ $item->product->name }}</td>
-                                        <td>{{ $item->content }}</td>
+                                        <td>
+                                            {{ \Illuminate\Support\Str::limit($item->user->name, 15, '...') }}
+                                        </td>
+                                        <td>
+                                            {{ \Illuminate\Support\Str::limit($item->product->name, 15, '...') }}
+                                        </td>
+                                        <td>
+                                            {{ \Illuminate\Support\Str::limit($item->content, 15, '...') }}
+                                        </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at ? $item->created_at->format('d M, Y') : 'N/A' }}</span>
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at ? $item->created_at->format('h:iA') : '' }}</small>
+                                        </td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->updated_at ? $item->updated_at->format('d M, Y') : 'N/A' }}</span>
+                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at ? $item->updated_at->format('h:iA') : '' }}</small>
+                                        </td>                                        
                                         <td >
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.comments.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
@@ -88,7 +92,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $comments->firstItem() }} to {{ $comments->lastItem() }} of {{ $comments->total() }} comments</p>
+                            </div>
+                            <div>
+                                {{ $comments->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
