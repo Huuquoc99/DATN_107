@@ -117,7 +117,7 @@
                                         </a>
                                     </td>
                                     <td>{{ $item->catalogue ? $item->catalogue->name : 'No Catalogue' }}</td>
-                                    <td>{{ $item->price_regular }}</td>
+                                    <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
                                     <td>{{ $item->storage }}</td>
                                     <td>{{ $item->battery_capacity }}</td>
                                     <td>{{ $item->operating_system }}</td>

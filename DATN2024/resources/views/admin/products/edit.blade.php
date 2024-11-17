@@ -327,7 +327,7 @@
                                                             </td>
                                                             <td>
                                                                 @if(isset($variants[$key]['image']) && $variants[$key]['image'])
-                                                                    <img src="{{ Storage::url($variants[$key]['image']) }}" width="60px" height="100px">
+                                                                    <img src="{{ Storage::url($variants[$key]['image']) }}" width="100px" height="100px">
                                                                 @endif
                                                             </td>
                                                         </tr>
