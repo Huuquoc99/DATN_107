@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -19,7 +18,6 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -60,7 +58,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img  src="{{ Storage::url($item->cover)}}" alt="" width="100" height="120">
+                                            <img  src="{{ Storage::url($item->cover)}}" alt="" width="70px" height="60px">
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.catalogues.show', $item) }}">
@@ -68,8 +66,14 @@
                                             </a>
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                        </td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                        </td>
                                         <td >
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.catalogues.show', $item) }}" class="btn btn-info btn-sm">Show 
@@ -91,7 +95,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listCatalogue->firstItem() }} to {{ $listCatalogue->lastItem() }} of {{ $listCatalogue->total() }} catalogues</p>
+                            </div>
+                            <div>
+                                {{ $listCatalogue->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

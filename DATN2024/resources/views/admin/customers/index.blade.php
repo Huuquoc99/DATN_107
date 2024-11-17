@@ -59,8 +59,10 @@
                                         </td>
                                         <td>{{ $item->email }}</td>
                                         <td>{!! $item->type == 1 ? '<span class="badge bg-primary">Admin</span>' : '<span class="badge bg-success">User</span>' !!}</td>
-
-                                        <td>{{ $item->create_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2  justify-content-center">
                                                 <a href="{{ route('admin.customers.show', $item) }}" class="btn btn-info btn-sm">Show 
