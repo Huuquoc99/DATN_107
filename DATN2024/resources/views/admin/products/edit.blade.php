@@ -203,7 +203,7 @@
                                                         'is_active' => ['name' => 'Active', 'color' => 'primary'],
                                                         'is_hot_deal' => ['name' => 'Hot deal', 'color' => 'danger'],
                                                         'is_good_deal' => ['name' => 'Good deal', 'color' => 'warning'],
-                                                        'is_new' => ['name' => 'Color', 'color' => 'success'],
+                                                        'is_new' => ['name' => 'New', 'color' => 'success'],
                                                         'is_show_home' => ['name' => 'Show home', 'color' => 'info'],
                                                     ];
                                                 @endphp
@@ -296,7 +296,7 @@
                                                     </td>
                                                     <td>
                                                         @if(isset($variants[$key]['image']) && $variants[$key]['image'])
-                                                            <img src="{{ \Storage::url($variants[$key]['image']) }}" width="100px" height="40px">
+                                                            <img src="{{ \Storage::url($variants[$key]['image']) }}" width="60px" height="100px">
                                                         @endif
                                                     </td>
                                                     <td>
@@ -315,6 +315,7 @@
             </div>
             <!--end col-->
         </div>
+
 
         <div class="row">
             <div class="col-lg-12">
@@ -352,8 +353,6 @@
                                     </div>
                                 @endif
                             </div>
-
-                            {{--Thằng này dùng để lưu ảnh xóa--}}
                             <div id="delete_galleries"></div>
                         </div>
 
@@ -361,6 +360,16 @@
                 </div>
             </div>
         </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
 
         <div class="row">
@@ -414,29 +423,6 @@
     <script>
         CKEDITOR.replace('content');
 
-        function addImageGallery() {
-            let id = 'gen' + '_' + Math.random().toString(36).substring(2, 15).toLowerCase();
-            let html = `
-                <div class="col-md-4" id="${id}_item">
-                    <label for="${id}" class="form-label ">Image</label>
-                    <div class="d-flex">
-                        <input type="file" class="form-control me-3" name="product_galleries[]" id="${id}">
-                        <button type="button" class="btn btn-danger" onclick="removeImageGallery('${id}_item')">
-                            <span class="bx bx-trash"></span>
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            $('#gallery_list').append(html);
-        }
-
-        function removeImageGallery(id) {
-            if (confirm('Are you sure you want to delete?')) {
-                $('#' + id).remove();
-            }
-        }
-
         function removeVariant(variantId) {
             const row = document.querySelector(`tr[data-variant="${variantId}"]`);
             if (!row) return;
@@ -462,6 +448,92 @@
             }
 
             row.remove();
+        }
+
+        function addImageGallery() {
+            const randomId = 'gallery_' + Math.random().toString(36).substr(2, 9);
+
+            const newGalleryHtml = `
+        <div class="col-md-4" id="${randomId}_item">
+            <label class="form-label">Image</label>
+            <div class="d-flex">
+                <input type="file"
+                       class="form-control me-3"
+                       name="product_galleries[]"
+                       onchange="previewImage(this)"
+                       accept="image/*">
+                <button type="button"
+                        class="btn btn-danger"
+                        onclick="removeImageGallery('${randomId}_item')">
+                    <span class="bx bx-trash"></span>
+                </button>
+            </div>
+            <div class="mt-2">
+                <img class="preview-image mt-3" src="" width="100px" style="display:none;">
+            </div>
+        </div>
+    `;
+
+            document.getElementById('gallery_list').insertAdjacentHTML('beforeend', newGalleryHtml);
+        }
+
+        function removeImageGallery(itemId, galleryId = null, imagePath = null) {
+            const element = document.getElementById(itemId);
+            if (element) {
+                element.remove();
+            }
+
+            if (galleryId && imagePath) {
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_galleries[]';
+                deleteInput.value = galleryId;
+
+                document.getElementById('delete_galleries').appendChild(deleteInput);
+            }
+
+            const galleryList = document.getElementById('gallery_list');
+            if (galleryList.children.length === 0) {
+                addDefaultGalleryItem();
+            }
+        }
+
+        function addDefaultGalleryItem() {
+            const defaultHtml = `
+        <div class="col-md-4" id="gallery_default_item">
+            <label for="gallery_default" class="form-label">Image</label>
+            <div class="d-flex">
+                <input type="file"
+                       class="form-control"
+                       name="product_galleries[]"
+                       id="gallery_default"
+                       onchange="previewImage(this)"
+                       accept="image/*">
+            </div>
+            <div class="mt-2">
+                <img class="preview-image mt-3" src="" width="100px" style="display:none;">
+            </div>
+        </div>
+    `;
+            document.getElementById('gallery_list').innerHTML = defaultHtml;
+        }
+
+        function previewImage(input) {
+            const previewImg = input.parentElement.nextElementSibling.querySelector('.preview-image');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewImg.src = '';
+                previewImg.style.display = 'none';
+            }
         }
 
     </script>

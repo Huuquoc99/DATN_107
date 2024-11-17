@@ -43,6 +43,9 @@ class ProductUpdateRequest extends FormRequest
             'is_good_deal' => 'nullable|boolean',
             'is_new' => 'nullable|boolean',
             'is_show_home' => 'nullable|boolean',
+
+            'product_galleries' => 'required|array|min:1',
+            'product_galleries.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
 
     }

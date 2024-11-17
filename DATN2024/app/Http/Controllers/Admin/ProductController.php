@@ -165,9 +165,11 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
+
         list(
             $dataProduct,
             $dataProductVariants,
+            $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
             ) = $this->handleData($request);
@@ -179,6 +181,7 @@ class ProductController extends Controller
 
             $product->update($dataProduct);
 
+            $product->tags()->sync($dataProductTags);
 
             foreach ($dataProductVariants as  $item) {
                 $existingVariant = ProductVariant::query()->where([
@@ -196,12 +199,25 @@ class ProductController extends Controller
             }
 
 
-            foreach ($dataProductGalleries as $item) {
-                $item['product_id'] = $product->id;
-                ProductGallery::query()->updateOrCreate(
-                    isset($item['id']) ? ['id' => $item['id']] : [],
-                    $item
-                );
+            if ($request->has('delete_galleries')) {
+                foreach ($request->delete_galleries as $galleryId) {
+                    $gallery = ProductGallery::find($galleryId);
+                    if ($gallery) {
+                        Storage::delete($gallery->image);
+                        $gallery->delete();
+                    }
+                }
+            }
+
+            if ($request->hasFile('product_galleries')) {
+                foreach ($request->file('product_galleries') as $image) {
+                    $path = $image->store('product_galleries', 'public');
+
+                    ProductGallery::query()->create([
+                        'product_id' => $product->id,
+                        'image' => $path
+                    ]);
+                }
             }
 
             DB::commit();
@@ -320,7 +336,6 @@ class ProductController extends Controller
                 'image' => !empty($item['image']) ? Storage::put('product_variants', $item['image']) : null
             ];
         }
-//        dd($dataProductVariants);
 
         $dataProductGalleriesTmp = $request->product_galleries ?: [];
         $dataProductGalleries = [];
