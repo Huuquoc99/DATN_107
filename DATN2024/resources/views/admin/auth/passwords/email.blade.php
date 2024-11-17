@@ -25,11 +25,8 @@
 </head>
 
 <body>
-
-    <!-- auth-page wrapper -->
     <div class="auth-page-wrapper auth-bg-cover py-5 d-flex justify-content-center align-items-center min-vh-100">
         <div class="bg-overlay"></div>
-        <!-- auth-page content -->
         <div class="auth-page-content overflow-hidden pt-lg-5">
             <div class="container">
                 <div class="row">
@@ -67,12 +64,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- end carousel -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- end col -->
 
                                 <div class="col-lg-6">
                                     <div class="p-lg-5 p-3">
@@ -107,7 +102,7 @@
                                                 <div class="text-center mt-4">
                                                     <button class="btn btn-primary w-100" type="submit">{{ __('Send Reset Link') }}</button>
                                                 </div>
-                                            </form><!-- end form -->
+                                            </form>
                                         </div>
 
                                         <div class="mt-3 text-center">
@@ -115,40 +110,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- end col -->
                             </div>
-                            <!-- end row -->
                         </div>
-                        <!-- end card -->
                     </div>
-                    <!-- end col -->
-
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end container -->
         </div>
-        <!-- end auth page content -->
-
-        <!-- footer -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0">&copy;
-                                <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                <script>document.write(new Date().getFullYear())</script> TechStore. Crafted with <i class="mdi mdi-heart text-danger"></i> by TechStore
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-        <!-- end Footer -->
     </div>
-    <!-- end auth-page-wrapper -->
-
-    <!-- JAVASCRIPT -->
     <script src="{{ asset('theme/admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('theme/admin/assets/libs/simplebar/simplebar.min.js')}}"></script>
     <script src="{{ asset('theme/admin/assets/libs/node-waves/waves.min.js')}}"></script>

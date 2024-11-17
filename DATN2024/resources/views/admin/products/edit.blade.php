@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Product edit</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -234,7 +234,6 @@
 
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">
@@ -242,7 +241,7 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -313,7 +312,6 @@
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">
@@ -322,7 +320,7 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Gallery</h4>
                         <button type="button" class="btn btn-primary" onclick="addImageGallery()">Create</button>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4" id="gallery_list">
@@ -368,7 +366,7 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">More information</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -389,7 +387,6 @@
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">

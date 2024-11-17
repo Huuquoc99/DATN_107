@@ -30,7 +30,7 @@ Product
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Product create</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -192,7 +192,6 @@ Product
 
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">
@@ -201,7 +200,7 @@ Product
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
                         <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -258,7 +257,6 @@ Product
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">
@@ -269,7 +267,7 @@ Product
                             <h4 class="card-title mb-0 flex-grow-1">Gallery</h4>
                             <button type="button" class="btn btn-primary" onclick="addImageGallery()"><i class="fa-solid fa-plus fa-lg"></i></button>
                         </div>
-                        <!-- end card header -->
+                       
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4" id="gallery_list">
@@ -287,34 +285,6 @@ Product
                 </div>
             </div>
         </div>
-
-
-        {{-- <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">More information</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="live-preview">
-                            <div class="row gy-4">
-                                <div class="col-md-12">
-                                    <div>
-                                        <label for="tags" class="form-label">Tags</label>
-                                        <select class="form-select" name="tags[]" id="tags" multiple>
-                                            @foreach($tags as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         <div class="row">
             <div class="col-lg-12">

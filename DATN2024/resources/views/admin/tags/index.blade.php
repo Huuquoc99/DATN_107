@@ -3,8 +3,6 @@
 @section('title', 'Tag')
 
 @section('content')
-
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -19,7 +17,6 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -75,9 +72,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
-                                            {{-- <a href="{{ route('admin.tags.show', $item) }}"
-                                               class="btn btn-info btn-sm">Show <i
-                                                    class="fa-solid fa-circle-info fa-sm"></i></a> --}}
                                             <a href="{{ route('admin.tags.edit', $item) }}"
                                                class="btn btn-primary btn-sm">Edit <i
                                                     class="fa-regular fa-pen-to-square fa-sm"></i></a>
@@ -89,8 +83,6 @@
                                                         class="fa-solid fa-delete-left fa-sm"></i>
                                                 </button>
                                             </form>
-                                            {{--                                            <a class="btn btn-danger btn-sm delete-product " data-id="{{ $item->id }}">Xóa <i class="fa-solid fa-delete-left fa-sm"></i>--}}
-                                            {{--                                            </a>--}}
                                         </div>
                                     </td>
                                 </tr>

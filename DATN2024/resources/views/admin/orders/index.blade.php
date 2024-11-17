@@ -41,7 +41,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--end row-->
                     </form>
                 </div>
                 <div class="card-body pt-0">
@@ -88,7 +87,6 @@
                                         </th>
                                         <th class="sort" data-sort="id">Order ID</th>
                                         <th class="sort" data-sort="customer_name">Customer</th>
-                                        {{-- <th class="sort" data-sort="product_name">Product</th> --}}
                                         <th class="sort" data-sort="date">Order Date</th>
                                         <th class="sort" data-sort="amount">Amount</th>
                                         <th class="sort" data-sort="payment">Payment Method</th>
@@ -110,13 +108,11 @@
                                             <td class="customer_name">
                                                 {{ \Illuminate\Support\Str::limit($order->user->name, 15, '...') }}
                                             </td>
-                                            {{-- <td class="product_name">{{ $order->product->name }}</td> --}}
                                             <td class="date">
                                                 <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span> 
                                                 <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
                                             </td>
                                             <td class="amount">{{ number_format($order->total_price, 0, ',', '.') }} VND</td>
-                                            {{-- <td class="payment">{{ $order->statusPayment->name }}</td> --}}
                                             <td class="payment">
                                                 @if ($order->statusPayment->id == 1)
                                                     <span class="badge bg-warning-subtle text-warning text-uppercase">{{ $order->statusPayment->name }}</span>
@@ -147,16 +143,6 @@
                                                             <i class="ri-eye-fill fs-16"></i>
                                                         </a>
                                                     </li>
-                                                    {{-- <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                                        <a href="#showModal" data-bs-toggle="modal" class="text-primary d-inline-block edit-item-btn">
-                                                            <i class="ri-pencil-fill fs-16"></i>
-                                                        </a>
-                                                    </li> --}}
-                                                    {{-- <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
-                                                        <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
-                                                            <i class="ri-delete-bin-5-fill fs-16"></i>
-                                                        </a>
-                                                    </li> --}}
                                                 </ul>
                                             </td>
                                         </tr>
@@ -172,17 +158,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="d-flex justify-content-end">
-                            <div class="pagination-wrap hstack gap-2">
-                                <a class="page-item pagination-prev disabled" href="#">
-                                    Previous
-                                </a>
-                                <ul class="pagination listjs-pagination mb-0"></ul>
-                                <a class="page-item pagination-next" href="#">
-                                    Next
-                                </a>
-                            </div>
-                        </div> --}}
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} orders</p>
@@ -191,122 +166,11 @@
                                 {{ $orders->links() }}
                             </div>
                         </div>
-                    </div>
-                    {{-- <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header bg-light p-3">
-                                    <h5 class="modal-title" id="exampleModalLabel">&nbsp;</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-                                </div>
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                <form class="tablelist-form" autocomplete="off" action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <input type="hidden" id="id-field" />
-                                        <div>
-                                            <label for="delivered-status" class="form-label">Delivery Status</label>
-                                            <select class="form-control" data-trigger name="status_order_id" required id="status_order_id">
-                                                @foreach ($statusOrders as $status)
-                                                    <option value="{{ $status->id }}"
-                                                        {{ $order->status_order_id == $status->id ? 'selected' : '' }}
-                                                        {{ $status->id < $order->status_order_id ||
-                                                        (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
-                                                            ? 'disabled'
-                                                            : '' }}>
-                                                        {{ $status->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="hstack gap-2 justify-content-end">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" id="add-btn">Add Order</button>
-                                            <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header bg-light p-3">
-                                    <h5 class="modal-title" id="exampleModalLabel">Update Order Status</h5> <!-- Tiêu đề cho modal -->
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-                                </div>
-                                
-                                <!-- Hiển thị thông báo nếu có lỗi hoặc thành công -->
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                    
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                    
-                                <form class="tablelist-form" autocomplete="off" action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <!-- Bạn có thể loại bỏ input này nếu không dùng đến -->
-                                        <input type="hidden" id="id-field" />
-                    
-                                        <div>
-                                            <label for="delivered-status" class="form-label">Delivery Status</label>
-                                            <select class="form-control" data-trigger name="status_order_id" required id="status_order_id">
-                                                @foreach ($statusOrders as $status)
-                                                    <option value="{{ $status->id }}"
-                                                        {{ $order->status_order_id == $status->id ? 'selected' : '' }}
-                                                        {{ $status->id < $order->status_order_id ||
-                                                        (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
-                                                            ? 'disabled'
-                                                            : '' }}>
-                                                        {{ $status->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="modal-footer">
-                                        <div class="hstack gap-2 justify-content-end">
-                                            <!-- Nút đóng modal -->
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            
-                                            <!-- Nút cập nhật trạng thái đơn hàng -->
-                                            <button type="submit" class="btn btn-success" id="add-btn">Update Status</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div> --}}
-                    
+                    </div>   
                 </div>
             </div>
-
         </div>
-        <!--end col-->
     </div>
-    <!-- end row -->
 @endsection
 
 @section('style-libs')

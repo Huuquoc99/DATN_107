@@ -73,12 +73,6 @@ Status Payment
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    {{-- <div class="mt-3">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" class="form-control" name="image" id="image">
-                                    </div> --}}
-                                    
-                                    
                                     <div class="mt-3">
                                         <label for="code" class="form-label">Code</label>
                                         <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" id="code">
@@ -103,7 +97,6 @@ Status Payment
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

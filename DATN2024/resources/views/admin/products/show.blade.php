@@ -72,7 +72,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end col -->
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="p-2 border border-dashed rounded">
                                             <div class="d-flex align-items-center">
@@ -88,7 +87,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end col -->
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="p-2 border border-dashed rounded">
                                             <div class="d-flex align-items-center">
@@ -104,7 +102,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end col -->
                                 </div>
 
                                 <div class="row mt-3">
@@ -190,7 +187,6 @@
                                             <tbody>
                                             <tr>
                                                 <th scope="row" style="width: 200px;">Brands</th>
-                                                {{-- <td>{{ $product->catalogue->name }}</td> --}}
                                                 <td>{{ $product->catalogue ? $product->catalogue->name : 'No Catalogue' }}</td>
                                             </tr>
                                             <tr>
