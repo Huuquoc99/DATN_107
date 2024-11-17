@@ -60,16 +60,22 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->image)}}" alt="" width="100" height="120">
+                                            <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px">
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.banners.show', $item) }}">
-                                                {{ $item->title }}
+                                                {{ \Illuminate\Support\Str::limit($item->title, 15, '...') }}
                                             </a>
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                        </td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">Show 
