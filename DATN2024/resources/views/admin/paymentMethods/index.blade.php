@@ -60,17 +60,25 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->image)}}" alt="" width="100" height="120">
+                                            <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px">
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.paymentMethods.show', $item) }}">
-                                                {{ $item->name }}
+                                                {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
-                                        <td>{{ $item->display_order }}</td>
+                                        <td>
+                                            {{ \Illuminate\Support\Str::limit($item->display_order, 15, '...') }}
+                                        </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                        </td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.paymentMethods.show', $item) }}" class="btn btn-info btn-sm">Show 
@@ -92,7 +100,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listPaymentMethod->firstItem() }} to {{ $listPaymentMethod->lastItem() }} of {{ $listPaymentMethod->total() }} Payment methods</p>
+                            </div>
+                            <div>
+                                {{ $listPaymentMethod->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

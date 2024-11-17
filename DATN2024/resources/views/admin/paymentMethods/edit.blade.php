@@ -37,19 +37,23 @@ Payment method
                                 <div class="col-md-6">
                                     <div>
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name"
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                                                value="{{ $paymentMethod->name }}">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control" name="description" id="description" rows="2" >{{ $paymentMethod->description }}</textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="2" >{{ $paymentMethod->description }}</textarea>
+                                            @error('description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="mt-4">
                                             @php
@@ -73,16 +77,26 @@ Payment method
                                 <div class="col-md-6 mt-2">
                                     <div class="mt-3">
                                         <label for="image" class="form-label">Image</label>
-                                        <input type="file" class="form-control" name="image" id="image">
+                                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image">
                                         @if($paymentMethod->image)
                                             <img src="{{ \Storage::url($paymentMethod->image) }}"
                                                 alt="{{ $paymentMethod->title }}" class="img-thumbnail mb-2 mt-4"
                                                 style="max-width: 200px;">
                                         @endif
+                                        @error('image')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="display_order" class="form-label">Display order</label>
-                                        <textarea class="form-control" name="display_order" id="display_order" rows="2" >{{ $paymentMethod->display_order }}</textarea>
+                                        <textarea class="form-control @error('display_order') is-invalid @enderror" name="display_order" id="display_order" rows="2" >{{ $paymentMethod->display_order }}</textarea>
+                                        @error('display_order')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
