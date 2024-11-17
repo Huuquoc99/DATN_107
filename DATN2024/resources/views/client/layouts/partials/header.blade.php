@@ -196,8 +196,9 @@
                     </ul>
                 </div>
 
-                <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
+                <form action="{{ route('product.search') }}" method="post"
                     class="header-search search-field me-0 border-radius-10">
+                    @csrf
                     <button class="btn header-search__btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     </button>

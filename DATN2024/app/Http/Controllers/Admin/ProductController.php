@@ -179,7 +179,6 @@ class ProductController extends Controller
 
             $product->update($dataProduct);
 
-            $product->tags()->sync($dataProductTags);
 
             foreach ($dataProductVariants as  $item) {
                 $existingVariant = ProductVariant::query()->where([
@@ -199,7 +198,6 @@ class ProductController extends Controller
 
             foreach ($dataProductGalleries as $item) {
                 $item['product_id'] = $product->id;
-
                 ProductGallery::query()->updateOrCreate(
                     isset($item['id']) ? ['id' => $item['id']] : [],
                     $item
@@ -340,40 +338,35 @@ class ProductController extends Controller
     }
 
 
-    public function pagination()
-    {
-        $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
-
-        return view(self::PATH_VIEW . __FUNCTION__, compact('data'))->render();
-    }
-
-    public function search(Request $request)
-    {
-        $data = Product::query()->where('name', 'like', '%'.$request->search_string.'%')
-            ->orWhere('price_regular', 'like', '%'.$request->search_string.'%')
-            ->orderBy('id', 'desc')
-            ->paginate(5);
-
-        if($data->count() >= 1) {
-            return view('admin.products.pagination', compact('data'))->render();
-        } else {
-            return response()->json([
-                'status' => 'No results found!',
-            ],404);
-        }
-    }
 
     public function filter(Request $request)
     {
         $query = Product::query();
 
-        // Xử lý lọc theo danh mục nếu có
+        if ($request->filled('search_string')) {
+            $searchString = $request->search_string;
+            $query->where(function ($q) use ($searchString) {
+                $q->where('name', 'like', '%' . $searchString . '%')
+                    ->orWhere('price_regular', 'like', '%' . $searchString . '%')
+                    ->orWhere('battery_capacity', 'like', '%' . $searchString . '%')
+                    ->orWhere('camera_resolution', 'like', '%' . $searchString . '%')
+                    ->orWhere('operating_system', 'like', '%' . $searchString . '%')
+                    ->orWhere('processor', 'like', '%' . $searchString . '%')
+                    ->orWhere('ram', 'like', '%' . $searchString . '%')
+                    ->orWhere('storage', 'like', '%' . $searchString . '%')
+                    ->orWhere('sim_type', 'like', '%' . $searchString . '%')
+                    ->orWhere('network_connectivity', 'like', '%' . $searchString . '%');
+            });
+        }
+
+
         if ($request->filled('category_id')) {
             $query->where('catalogue_id', $request->category_id);
         }
 
+        // Áp dụng bộ lọc khác
         if ($request->filled('filter')) {
-            switch($request->filter) {
+            switch ($request->filter) {
                 case 'is_active':
                     $query->where('status', 'is_active');
                     break;
@@ -423,10 +416,10 @@ class ProductController extends Controller
             }
         }
 
-        $data = $query->get();
+        $data = $query->paginate(5);
 
-        // Trả về view partial chỉ chứa phần table body
         return view('admin.products.filter', compact('data'))->render();
     }
+
 
 }
