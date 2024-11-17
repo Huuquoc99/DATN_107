@@ -4,11 +4,11 @@
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
-            <h2 class="page-title">Shipping and Checkout</h2>
+            <h2 class="">Shipping and Checkout</h2>
 
-            <form action="{{ route('checkout.process') }}" method="POST">
+            <form action="{{ route('guest-checkout.process') }}" method="POST">
                 @csrf
-                <div class="checkout-form">
+                <div class="checkout-form mb-5">
                     <div class="billing-info__wrapper">
                         <h4>BILLING DETAILS</h4>
 
@@ -16,30 +16,42 @@
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="text" class="form-control" id="ship_user_name" placeholder="First Name"
-                                           value="{{ old('ship_user_name', $user->name ?? '') }}" required name="ship_user_name">
+                                           name="ship_user_name" @error('ship_user_name') is-invalid @enderror">
                                     <label for="ship_user_name"> Name</label>
+                                    @error('ship_user_name')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="email" class="form-control" id="ship_user_email" placeholder="Email"
-                                           value="{{ old('ship_user_email', $user->email ?? '') }}" required name="ship_user_email">
+                                           name="ship_user_email">
                                     <label for="ship_user_email">Email</label>
+                                    @error('ship_user_email')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="number" class="form-control" id="ship_user_phone" placeholder="Phone"
-                                           value="{{ old('ship_user_phone', $user->phone ?? '') }}" required name="ship_user_phone">
+                                           name="ship_user_phone">
                                     <label for="ship_user_phone">Phone</label>
+                                    @error('ship_user_phone')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="text" class="form-control" id="ship_user_address" placeholder="Address"
-                                           value="{{ old('ship_user_address', $user->address ?? '') }}" required name="ship_user_address">
+                                           name="ship_user_address">
                                     <label for="ship_user_address">Address</label>
+                                    @error('ship_user_address')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -50,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="checkout__totals-wrapper">
+                    <div class="checkout__totals-wrapper mt-5">
                         <div class="sticky-content">
                             <div class="checkout__totals">
                                 <h3>Your Order</h3>
@@ -62,39 +74,18 @@
                                     <th>PRICE</th>
                                     </thead>
                                     <tbody>
-                                    @if(Auth::check())
-                                        @foreach ($cartItems as $item)
-                                            <tr>
-                                                <td>{{ $item->productVariant->product->name }} x {{ $item->quantity }}</td>
-                                                <td>{{ $item->productVariant->capacity->name }}</td>
-                                                <td>{{ $item->productVariant->color->name }}</td>
-                                                <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
                                         @foreach ($guest_cart as $item)
-                                                <tr>
+                                            <tr>
                                                 <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
                                                 <td>{{ $item['capacity'] }}</td>
                                                 <td>{{ $item['color'] }}</td>
                                                 <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
                                             </tr>
                                         @endforeach
-                                    @endif
                                     </tbody>
                                 </table>
                                 <table class="checkout-totals">
                                     <tbody>
-                                    @if(Auth::check())
-                                        <tr>
-                                            <th>SUBTOTAL</th>
-                                            <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
-                                        </tr>
-                                        <tr>
-                                            <th>TOTAL</th>
-                                            <td>{{ number_format($item->price * $item->quantity, 0, ',', '.') }} VNĐ</td>
-                                        </tr>
-                                    @else
                                         <tr>
                                             <th>SUBTOTAL</th>
                                             <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
@@ -103,7 +94,6 @@
                                             <th>TOTAL</th>
                                             <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VNĐ</td>
                                         </tr>
-                                    @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -123,7 +113,7 @@
                                 @endforeach
 
                             </div>
-                            <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">PLACE ORDER</button>
+                            <button type="submit" class="btn btn-primary mb-4" name="redirect">PLACE ORDER</button>
                         </div>
                     </div>
                 </div>

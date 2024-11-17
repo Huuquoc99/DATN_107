@@ -2,12 +2,12 @@
 
 @section('content')
     @include('client.layouts.partials.banner')
-    @include('client.layouts.partials.shop-by-categories')
 
+    @include('client.layouts.partials.shop-by-categories')
 
     <div class="bg-grey">
         <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
-    
+
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
                 <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers on Car Parts</h2>
@@ -42,30 +42,13 @@
                                             <img loading="lazy"
                                                  src="{{ \Illuminate\Support\Facades\Storage::url($item->img_thumbnail) }}"
                                                  alt="{{ $item->name }}"
-                                                 class="pc__img img-fluid w-100 h-auto">
+                                                 class="pc__img img-fluid w-75 h-auto" style="margin-left: 25px">
                                         </a>
-                                    </div>
-                                    <div class="anim_appear-bottom position-absolute w-100 text-center">
-                                        <button
-                                            class="btn btn-round btn-hover-red border-0 text-uppercase me-2 js-add-cart js-open-aside d-inline-flex align-items-center justify-content-center"
-                                            data-aside="cartDrawer" title="Add To Cart">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                        </button>
-                                        <button
-                                            class="btn btn-round btn-hover-red border-0 text-uppercase me-2 js-quick-view d-inline-flex align-items-center justify-content-center"
-                                            data-bs-toggle="modal" data-bs-target="#quickView" title="Quick view">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button
-                                            class="btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist d-inline-flex align-items-center justify-content-center"
-                                            title="Add To Wishlist">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
                                     </div>
                                 </div>
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
-                                    <h6 class="pc__title fs-16 mb-2"><a href="">{{ $item->name }}</a></h6>
+                                    <h6 class="pc__title fs-16 mb-2"><a href="">{{ \Illuminate\Support\Str::limit($item->name, 20) }}</a></h6>
                                     <div class="product-card__review d-sm-flex align-items-center">
                                         <div class="reviews-group d-flex">
                                             <svg class="review-star" viewBox="0 0 9 9"
@@ -98,7 +81,7 @@
                                             class="reviews-note text-lowercase text-secondary fs-13 ms-sm-1">{{ $item->price }}</span>
                                     </div>
                                     <div class="product-card__price d-flex">
-                                        <span class="money price fs-16 fw-semi-bold">{{ $item->price_regular }}</span>
+                                        <span class="money price fs-16 fw-semi-bold">{{ number_format($item->price_regular, 0, ',', '.') }} VND</span>
                                     </div>
                                 </div>
                             </div>
@@ -106,16 +89,16 @@
                         @endforeach
                     </div>
                 </div>
-    
+
                 <div class="tab-pane fade" id="collections-tab-2" role="tabpanel" aria-labelledby="collections-tab-2-trigger">
                 </div>
-    
+
                 <div class="tab-pane fade" id="collections-tab-3" role="tabpanel" aria-labelledby="collections-tab-3-trigger">
                 </div>
             </div>
         </section>
     </div>
-    
+
 
 
     {{-- @include('client.layouts.partials.shop-brand') --}}

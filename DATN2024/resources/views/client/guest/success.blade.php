@@ -13,7 +13,7 @@
                         <path d="M40 51.2C39.402 51.2 38.8 51.802 38.8 52.4V52.8C38.8 53.398 39.402 54 40 54C40.598 54 41.2 53.398 41.2 52.8V52.4C41.2 51.802 40.598 51.2 40 51.2Z" fill="white"/>
                     </svg>
                     <h3>Payment Success</h3>
-                    <p>Unfortunately, your payment was not successful. Please try again or contact support.</p>
+                    <p>Payment successful! Thank you for shopping at Techstore.</p>
                 </div>
                 <div class="order-info">
                     <div class="order-info__item">
