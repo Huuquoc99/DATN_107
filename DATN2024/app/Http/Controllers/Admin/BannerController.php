@@ -15,7 +15,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $listBanner = Banner::all();
+        $listBanner = Banner::paginate(5);
         // return response()->json($listBanner, 201);
         return view("admin.banners.index", compact('listBanner'));
     }

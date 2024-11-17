@@ -108,7 +108,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listStatusOrder->firstItem() }} to {{ $listStatusOrder->lastItem() }} of {{ $listStatusOrder->total() }} status orders</p>
+                            </div>
+                            <div>
+                                {{ $listStatusOrder->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

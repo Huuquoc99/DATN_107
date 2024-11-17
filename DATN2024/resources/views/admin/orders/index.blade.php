@@ -1,14 +1,14 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Order Management')
+@section('title', 'Order')
 
 @section('content')
 
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Order Management</h4>
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between ">
+                <h4 class="mb-sm-0">Order</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -27,15 +27,8 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center gy-3">
                         <div class="col-sm">
-                            <h5 class="card-title mb-0">Order History</h5>
+                            <h5 class="card-title mb-0">Order</h5>
                         </div>
-                        {{-- <div class="col-sm-auto">
-                            <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Create Order</button>
-                                <button type="button" class="btn btn-info"><i class="ri-file-download-line align-bottom me-1"></i> Import</button>
-                                <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body border border-dashed border-end-0 border-start-0">
@@ -47,49 +40,6 @@
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
                             </div>
-                            <!--end col-->
-                            <div class="col-xxl-2 col-sm-6">
-                                <div>
-                                    <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y" data-range-date="true" id="demo-datepicker" placeholder="Select date">
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-2 col-sm-4">
-                                <div>
-                                    <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                        <option value="">Status</option>
-                                        <option value="all" selected>All</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Inprogress">Inprogress</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                        <option value="Pickups">Pickups</option>
-                                        <option value="Returns">Returns</option>
-                                        <option value="Delivered">Delivered</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-2 col-sm-4">
-                                <div>
-                                    <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idPayment">
-                                        <option value="">Select Payment</option>
-                                        <option value="all" selected>All</option>
-                                        <option value="Mastercard">Mastercard</option>
-                                        <option value="Paypal">Paypal</option>
-                                        <option value="Visa">Visa</option>
-                                        <option value="COD">COD</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-1 col-sm-4">
-                                <div>
-                                    <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-1 align-bottom"></i>
-                                        Filters
-                                    </button>
-                                </div>
-                            </div>
-                            <!--end col-->
                         </div>
                         <!--end row-->
                     </form>
@@ -109,12 +59,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link py-3 Pickups" data-bs-toggle="tab" id="Pickups" href="#pickups" role="tab" aria-selected="false">
-                                    <i class="ri-truck-line me-1 align-bottom"></i> Pickups <span class="badge bg-danger align-middle ms-1">2</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-3 Returns" data-bs-toggle="tab" id="Returns" href="#returns" role="tab" aria-selected="false">
-                                    <i class="ri-arrow-left-right-fill me-1 align-bottom"></i> Returns
+                                    <i class="ri-truck-line me-1 align-bottom"></i> Pickups 
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -124,7 +69,7 @@
                             </li>
                         </ul>
 
-                        <div class="table-responsive table-card mb-1">
+                        <div class="table-responsive table-card mb-1 text-center">
 
                             @if (session("success"))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -133,7 +78,7 @@
                                 </div>
                             @endif
 
-                            <table class="table table-nowrap align-middle" id="orderTable">
+                            <table class="table table-nowrap align-middle " id="orderTable">
                                 <thead class="text-muted table-light">
                                     <tr class="text-uppercase">
                                         <th scope="col" style="width: 25px;">
@@ -162,13 +107,15 @@
                                             <td class="id">
                                                 <a href="{{ route('admin.orders.show', $order) }}" class="fw-medium link-primary">#{{ $order->code }}</a>
                                             </td>
-                                            <td class="customer_name">{{ $order->user->name }}</td>
+                                            <td class="customer_name">
+                                                {{ \Illuminate\Support\Str::limit($order->user->name, 15, '...') }}
+                                            </td>
                                             {{-- <td class="product_name">{{ $order->product->name }}</td> --}}
                                             <td class="date">
                                                 <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span> 
                                                 <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
                                             </td>
-                                            <td class="amount">{{ $order->total_price }} VND</td>
+                                            <td class="amount">{{ number_format($order->total_price, 0, ',', '.') }} VND</td>
                                             {{-- <td class="payment">{{ $order->statusPayment->name }}</td> --}}
                                             <td class="payment">
                                                 @if ($order->statusPayment->id == 1)
@@ -195,8 +142,8 @@
                                             </td>
                                             <td>
                                                 <ul class="list-inline hstack gap-2 mb-0">
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
-                                                        <a href="{{ route('admin.orders.show', $order->id) }}" class="text-primary d-inline-block">
+                                                    <li class="list-inline-item" style="padding-left: 45px" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                        <a href="{{ route('admin.orders.show', $order->id) }}" class="text-primary d-inline-block ">
                                                             <i class="ri-eye-fill fs-16"></i>
                                                         </a>
                                                     </li>

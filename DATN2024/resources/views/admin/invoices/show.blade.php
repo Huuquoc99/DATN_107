@@ -159,8 +159,8 @@
                             <div class="mt-3">
                                 <h6 class="text-muted text-uppercase fw-semibold mb-3">Payment Details:</h6>
                                 <p class="text-muted mb-1">Payment Method: <span class="fw-medium" id="payment-method">{{ $order->paymentMethod->name }}</span></p>
-                                <p class="text-muted mb-1">Card Holder: <span class="fw-medium" id="card-holder-name">David Nichols</span></p>
-                                <p class="text-muted mb-1">Card Number: <span class="fw-medium" id="card-number">xxx xxxx xxxx 1234</span></p>
+                                {{-- <p class="text-muted mb-1">Card Holder: <span class="fw-medium" id="card-holder-name">David Nichols</span></p>
+                                <p class="text-muted mb-1">Card Number: <span class="fw-medium" id="card-number">xxx xxxx xxxx 1234</span></p> --}}
                                 <p class="text-muted">Total Amount: 
                                     <span class="fw-medium" id=""></span>
                                     <span id="card-total-amount">{{ number_format($order->total_price, 0, ',', '.') }} VND</span>
@@ -179,8 +179,8 @@
                             </div>
                             <div class="hstack gap-2 justify-content-end d-print-none mt-4">
                                 <a href="{{ route('admin.invoices.index') }}" class="btn btn-secondary"><i class="ri-arrow-left-line"></i> Back</a>
-                                <a href="javascript:window.print()" class="btn btn-success"><i class="ri-printer-line align-bottom me-1"></i> Print</a>
-                                <a href="javascript:void(0);" class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Download</a>
+                                <a href="javascript:window.print()" class="btn btn-primary"><i class="ri-printer-line align-bottom me-1"></i> Print</a>
+                                {{-- <a href="javascript:window.download()" class="btn btn-primary"><i class="ri-download-2-line align-bottom me-1"></i> Download</a> --}}
                             </div>
                         </div>
                     </div>

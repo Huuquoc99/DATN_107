@@ -106,7 +106,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listStatusPayment->firstItem() }} to {{ $listStatusPayment->lastItem() }} of {{ $listStatusPayment->total() }} status payments</p>
+                            </div>
+                            <div>
+                                {{ $listStatusPayment->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

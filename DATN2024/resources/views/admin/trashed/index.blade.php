@@ -64,10 +64,19 @@
                                                 $url = \Illuminate\Support\Facades\Storage::url($url);
                                             }
                                         @endphp
-                                        <img src="{{ $url }}" alt="" width="100px" height="120px">
+                                        <img src="{{ $url }}" alt="" width="70px" height="60px">
                                     </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->deleted_at }}</td>
+                                    <td>
+                                        {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+                                    </td>
+                                    <td>
+                                        @if($item->deleted_at)
+                                            <span id="invoice-date">{{ $item->deleted_at->format('d M, Y') }}</span>
+                                            <small class="text-muted" id="invoice-time">{{ $item->deleted_at->format('h:iA') }}</small>
+                                        @else
+                                            <span class="text-muted">N/A</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex gap-2  justify-content-center">
                                          
@@ -86,7 +95,14 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $data->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $trashed->firstItem() }} to {{ $trashed->lastItem() }} of {{ $trashed->total() }} trashed</p>
+                            </div>
+                            <div>
+                                {{ $trashed->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -94,7 +94,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listProductColor->firstItem() }} to {{ $listProductColor->lastItem() }} of {{ $listProductColor->total() }} product colors</p>
+                            </div>
+                            <div>
+                                {{ $listProductColor->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

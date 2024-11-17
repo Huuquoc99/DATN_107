@@ -95,7 +95,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listProductCapacity->firstItem() }} to {{ $listProductCapacity->lastItem() }} of {{ $listProductCapacity->total() }} product capacities</p>
+                            </div>
+                            <div>
+                                {{ $listProductCapacity->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

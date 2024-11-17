@@ -97,6 +97,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listBanner->firstItem() }} to {{ $listBanner->lastItem() }} of {{ $listBanner->total() }} banners</p>
+                            </div>
+                            <div>
+                                {{ $listBanner->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

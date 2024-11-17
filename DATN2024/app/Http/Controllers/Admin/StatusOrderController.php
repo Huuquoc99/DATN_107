@@ -14,7 +14,7 @@ class StatusOrderController extends Controller
      */
     public function index()
     {
-        $listStatusOrder = StatusOrder::get();
+        $listStatusOrder = StatusOrder::paginate(5);
         // return response()->json( $listStatusOrder, 201);
         return view("admin.statusOrders.index", compact('listStatusOrder'));
 
