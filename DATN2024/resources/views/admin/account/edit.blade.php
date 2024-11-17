@@ -52,7 +52,7 @@
                             <button type="submit" class="btn btn-primary">Update avatar</button>
                         </form>
 
-                        <h5 class="fs-16 mb-1 mt-3">{{ Auth::user()->name }}</h5>
+                        <h5 class="fs-16 mb-3 mt-3">{{ Auth::user()->name }}</h5>
                         <p class="text-muted mb-0">{{ Auth::user()->type == 1 ? 'Admin' : 'User' }}</p>
                     </div>
                 </div>
@@ -72,11 +72,6 @@
                                 <i class="far fa-user"></i> Change Password
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#forgotPassword" role="tab">
-                                <i class="ri-file-paper-line"></i> Forgot Password
-                            </a>
-                        </li> --}}
                     </ul>
                 </div>
                 <div class="card-body p-4">
@@ -103,60 +98,49 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name"
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                                 value="{{ old('name', $user->name) }}" name="name">
                                             @error('name')
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                    style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
+                                        
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email"
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                                 value="{{ old('email', $user->email) }}" name="email">
                                             @error('email')
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                    style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone</label>
-                                            <input type="number" class="form-control" id="phone"
+                                            <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
                                                 value="{{ old('phone', $user->phone) }}" name="phone">
                                             @error('phone')
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                    style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address"
+                                            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                                                 value="{{ old('address', $user->address) }}" name="address">
                                             @error('address')
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                    style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                        aria-label="Close"></button>
-                                                </div>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -178,13 +162,13 @@
                                 </div>
                             @endif
 
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error1)
                                         {{ $error1 }}
                                     @endforeach
                                 </div>
-                            @endif
+                            @endif --}}
 
                             <form action="{{ route('admin.account.changePassword', Auth::user()->id) }}" method="POST">
                                 @csrf
@@ -194,34 +178,32 @@
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="oldpasswordInput" class="form-label">Old Password*</label>
-                                            <input type="password" name="old_password" class="form-control"
+                                            <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror"
                                                 id="oldpasswordInput" placeholder="Enter current password">
-                                            {{-- @error('old_password') 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror --}}
+                                            @error('old_password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="newpasswordInput" class="form-label">New Password*</label>
-                                            <input type="password" name="new_password" class="form-control"
+                                            <input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror"
                                                 id="newpasswordInput" placeholder="Enter new password">
-                                            {{-- @error('new_password') 
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            @enderror --}}
+                                            @error('new_password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="new_password_confirmation" class="form-label">Confirm
                                                 Password*</label>
-                                            <input type="password" name="new_password_confirmation" class="form-control"
+                                            <input type="password" name="new_password_confirmation" class="form-control @error('new_password_confirmation') is-invalid @enderror"
                                                 id="new_password_confirmation" placeholder="Confirm password">
                                         </div>
                                     </div>

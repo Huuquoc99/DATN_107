@@ -94,8 +94,8 @@ class AccountController extends Controller
     public function changePassword(Request $request, $id)
     {
         $validated = $request->validate([
-            'old_password' => 'required|string',
-            'new_password' => 'required|string|min:8|confirmed|different:old_password', 
+            'old_password' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/',
+            'new_password' => 'required|string|min:8|confirmed|different:old_password|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/', 
         ]);
     
         try {
