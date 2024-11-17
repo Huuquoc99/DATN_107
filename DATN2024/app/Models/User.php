@@ -73,12 +73,6 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
-    // public function sendPasswordResetNotification($token)
-    // {
-    //     // Sử dụng notification tùy chỉnh
-    //     $this->notify(new CustomResetPasswordLink($token));
-    // }
-
     public function sendPasswordResetNotification($token)
     {
         if ($this->type == 1) {
