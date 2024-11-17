@@ -37,14 +37,43 @@ class HomeController extends Controller
 
         $banners = Banner::where('is_active', 1)->get();
 
+        $catalogues = Catalogue::where('is_active', 1)->get();
         $products = Product::query()->latest('id')->paginate(8);
-        return view('client.home', compact('products'));
+        return view('client.home', compact('products', 'catalogues'));
 
+    }
+
+
+    public function productByCatalogue($id)
+    {
+        $products = Product::query()->where('catalogue_id', $id)->paginate(1);
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'catalogue',
+            'title' => 'Products by category'
+        ]);
     }
 
     public function shop()
     {
-        return view('client.shop');
+        $products = Product::query()->with(['catalogue'])->latest('id')->paginate(8);
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'shop',
+            'title' => 'All products'
+        ]);
+    }
+
+    public function search(Request $request) {
+
+
+
+//    return view('shop', [
+//        'products' => $products,
+//        'source' => 'search',
+//        'title' => 'Kết quả tìm kiếm',
+//        'keyword' => $request->keyword
+//    ]);
     }
 
     public function about()
