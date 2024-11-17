@@ -387,17 +387,16 @@ Product
             row.remove();
         }
 
-        let variantCount = 0; // Để tạo id duy nhất cho các biến thể mới
-
+        let variantCount = 0;
         function addNewVariant() {
+
             const variantTable = document.querySelector('#variant-table');
             const newRow = document.createElement('tr');
             newRow.classList.add('text-center');
 
-            // Tạo sizeID và colorID tạm thời để giữ định dạng "product_variants[sizeID-colorID]"
             const sizeID = `newSize${variantCount}`;
             const colorID = `newColor${variantCount}`;
-            variantCount++; // Tăng biến đếm
+            variantCount++;
 
             newRow.innerHTML = `
         <td>

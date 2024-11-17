@@ -28,7 +28,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
+        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(12);
         $catalogues = Catalogue::all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
@@ -70,7 +70,6 @@ class ProductController extends Controller
             $dataProductTags
             ) = $this->handleData($request);
 
-//        dd($dataNewProductVariants);
         try {
             DB::beginTransaction();
 
@@ -84,26 +83,26 @@ class ProductController extends Controller
             }
 
             foreach ($dataNewProductVariants as $item) {
-                $size = ProductCapacity::query()->firstOrCreate(
-                    ['name' => $item['size']],
-                    ['is_active' => 1]
-                );
+                if (!empty($item_update['size']) && !empty($item_update['color'])) {
+                    $size = ProductCapacity::query()->firstOrCreate(
+                        ['name' => $item['size']],
+                        ['is_active' => 1]
+                    );
 
-                $color = ProductColor::query()->firstOrCreate(
-                    ['name' => $item['color']],
-                    ['is_active' => 1]
-                );
+                    $color = ProductColor::query()->firstOrCreate(
+                        ['name' => $item['color']],
+                        ['is_active' => 1]
+                    );
 
-                $item += [
-                    'product_id' => $product->id,
-                    'product_capacity_id' => $size->id,
-                    'product_color_id' => $color->id,
-                ];
+                    $item += [
+                        'product_id' => $product->id,
+                        'product_capacity_id' => $size->id,
+                        'product_color_id' => $color->id,
+                    ];
 
-                ProductVariant::query()->create($item);
+                    ProductVariant::query()->create($item);
+                }
             }
-
-            $product->tags()->attach($dataProductTags);
 
 
             foreach ($dataProductGalleries as $item) {
@@ -111,6 +110,8 @@ class ProductController extends Controller
 
                 ProductGallery::query()->create($item);
             }
+
+            $product->tags()->attach($dataProductTags);
 
             DB::commit();
             return redirect()->route('admin.products.index')->with("success", "Product created successfully");
@@ -181,7 +182,6 @@ class ProductController extends Controller
 
             $product->update($dataProduct);
 
-            $product->tags()->sync($dataProductTags);
 
             foreach ($dataProductVariants as  $item) {
                 $existingVariant = ProductVariant::query()->where([
@@ -197,6 +197,29 @@ class ProductController extends Controller
                     $existingVariant->update($item);
                 }
             }
+
+            foreach ($dataNewProductVariants as $item_update) {
+                if (!empty($item_update['size']) && !empty($item_update['color'])) {
+                    $size = ProductCapacity::query()->firstOrCreate(
+                        ['name' => $item_update['size']],
+                        ['is_active' => 1]
+                    );
+
+                    $color = ProductColor::query()->firstOrCreate(
+                        ['name' => $item_update['color']],
+                        ['is_active' => 1]
+                    );
+
+                    $item_update += [
+                        'product_id' => $product->id,
+                        'product_capacity_id' => $size->id,
+                        'product_color_id' => $color->id,
+                    ];
+
+                    ProductVariant::query()->create($item_update);
+                }
+            }
+
 
 
             if ($request->has('delete_galleries')) {
@@ -219,6 +242,8 @@ class ProductController extends Controller
                     ]);
                 }
             }
+
+            $product->tags()->sync($dataProductTags);
 
             DB::commit();
 
@@ -307,6 +332,7 @@ class ProductController extends Controller
         }
 
         $dataNewProductVariantsTmp = $request->new_product_variants;
+
         $dataNewProductVariants = [];
 
         if (is_array($dataNewProductVariantsTmp) && !empty($dataNewProductVariantsTmp)) {
@@ -322,6 +348,8 @@ class ProductController extends Controller
                 ];
             }
         }
+
+
 
         $dataProductVariantsTmp = $request->product_variants;
         $dataProductVariants = [];
@@ -379,7 +407,6 @@ class ProductController extends Controller
             $query->where('catalogue_id', $request->category_id);
         }
 
-        // Áp dụng bộ lọc khác
         if ($request->filled('filter')) {
             switch ($request->filter) {
                 case 'is_active':
@@ -431,10 +458,8 @@ class ProductController extends Controller
             }
         }
 
-        $data = $query->paginate(5);
+        $data = $query->paginate(12);
 
         return view('admin.products.filter', compact('data'))->render();
     }
-
-
 }

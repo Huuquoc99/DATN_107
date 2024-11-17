@@ -114,7 +114,7 @@
             <div class="container d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('theme/client/images/logo-cars.png') }}" alt="Uomo" class="logo__image">
+                        <img src="#" alt="Uomo" class="logo__image">
                     </a>
                 </div><!-- /.logo -->
 
@@ -223,7 +223,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
+                        src="#" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -250,7 +250,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
+                        src="#" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -277,7 +277,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
+                        src="#" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">

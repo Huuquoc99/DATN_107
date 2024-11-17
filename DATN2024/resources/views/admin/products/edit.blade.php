@@ -237,17 +237,20 @@
             <!--end col-->
         </div>
 
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
+
                     </div><!-- end card header -->
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" id="variant-table">
                                         <tr class="text-center">
                                             <th>Capacity</th>
                                             <th>Color</th>
@@ -255,7 +258,6 @@
                                             <th>Price</th>
                                             <th>Image</th>
                                             <th></th>
-                                            <th>Xoa</th>
                                         </tr>
 
                                         @php
@@ -271,39 +273,67 @@
                                             });
                                         @endphp
 
-
                                         @foreach($capacities as $capacityID => $capacityName)
-                                            @php($flagRowspan = true)
-                                            @foreach($colors as $colorID => $colorName)
-                                                @php($key = $capacityID . '-' . $colorID)
-                                                <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
-                                                    @if($flagRowspan)
-                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $capacityID }}">{{ $capacityName }}</td>
+                                            @php
+                                                $hasDataInCapacity = false;
+                                                $visibleColorsInCapacity = [];
+
+                                                foreach($colors as $colorID => $colorName) {
+                                                    $key = $capacityID . '-' . $colorID;
+                                                    if (
+                                                        isset($variants[$key]) &&
+                                                        (
+                                                            !empty($variants[$key]['quantity']) ||
+                                                            !empty($variants[$key]['price']) ||
+                                                            !empty($variants[$key]['image'])
+                                                        )
+                                                    ) {
+                                                        $hasDataInCapacity = true;
+                                                        $visibleColorsInCapacity[] = $colorID;
+                                                    }
+                                                }
+                                            @endphp
+
+                                            @if($hasDataInCapacity)
+                                                @php($flagRowspan = true)
+                                                @foreach($colors as $colorID => $colorName)
+                                                    @php($key = $capacityID . '-' . $colorID)
+                                                    @if(in_array($colorID, $visibleColorsInCapacity))
+                                                        <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
+                                                            @if($flagRowspan)
+                                                                <td style="vertical-align: middle;" rowspan="{{ count($visibleColorsInCapacity) }}" class="size-cell-{{ $capacityID }}">
+                                                                    {{ $capacityName }}
+                                                                </td>
+                                                            @endif
+                                                            @php($flagRowspan = false)
+                                                            <td>
+                                                                <div>{{ $colorName }}</div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}"
+                                                                       name="product_variants[{{ $key }}][quantity]">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}"
+                                                                       name="product_variants[{{ $key }}][price]">
+                                                            </td>
+                                                            <td>
+                                                                <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
+                                                                <input type="hidden" class="form-control"
+                                                                       value="{{ isset($variants[$key]['image']) ? $variants[$key]['image'] : '' }}"
+                                                                       name="product_variants[{{ $key }}][current_image]">
+                                                            </td>
+                                                            <td>
+                                                                @if(isset($variants[$key]['image']) && $variants[$key]['image'])
+                                                                    <img src="{{ Storage::url($variants[$key]['image']) }}" width="60px" height="100px">
+                                                                @endif
+                                                            </td>
+                                                        </tr>
                                                     @endif
-                                                    @php($flagRowspan = false)
-                                                    <td>
-                                                        <div>{{ $colorName }}</div>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}" name="product_variants[{{ $key }}][quantity]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}" name="product_variants[{{ $key }}][price]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
-                                                        <input type="hidden" class="form-control" value="{{ isset($variants[$key]['image']) ? $variants[$key]['image'] : '' }}" name="product_variants[{{ $key }}][current_image]">
-                                                    </td>
-                                                    <td>
-                                                        @if(isset($variants[$key]['image']) && $variants[$key]['image'])
-                                                            <img src="{{ \Storage::url($variants[$key]['image']) }}" width="60px" height="100px">
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $capacityID . '-' . $colorID }}')">Xóa</button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </table>
                                 </div>
@@ -401,6 +431,7 @@
             <!--end col-->
         </div>
 
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -421,7 +452,80 @@
 
 @section('scripts')
     <script>
-        CKEDITOR.replace('content');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('tr.no-data').forEach(function(row) {
+                row.style.display = 'none';
+            });
+        });
+
+        CKEDITOR.replace('content')
+
+        let variantCount = 0;
+
+        function addNewVariant() {
+
+            const sizeID = `newSize${variantCount}`;
+            const colorID = `newColor${variantCount}`;
+            variantCount++;
+
+            const newRow = `
+            <tr class="text-center">
+                <td style="vertical-align: middle;">
+                     <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
+                 </td>
+               <td style="vertical-align: middle;">
+                    <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
+                </td>
+                <td>
+                   <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
+                </td>
+                <td>
+                    <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">
+                </td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button>
+                </td>
+            </tr>
+                   `;
+
+            document.querySelector('tbody').insertAdjacentHTML('beforeend', newRow);
+        }
+
+        function handleCapacityChange(select) {
+            const row = select.closest('tr');
+            const newCapacityInput = row.querySelector('.new-capacity-input');
+
+            if (select.value === 'new') {
+                newCapacityInput.style.display = 'block';
+            } else {
+                newCapacityInput.style.display = 'none';
+            }
+        }
+
+        function handleColorChange(select) {
+            const row = select.closest('tr');
+            const newColorInput = row.querySelector('.new-color-input');
+
+            if (select.value === 'new') {
+                newColorInput.style.display = 'block';
+            } else {
+                newColorInput.style.display = 'none';
+            }
+        }
+
+        function removeVariant(button) {
+            if(confirm('Bạn có chắc chắn muốn xóa biến thể này?')) {
+                button.closest('tr').remove();
+            }
+        }
+
+
+
 
         function removeVariant(variantId) {
             const row = document.querySelector(`tr[data-variant="${variantId}"]`);

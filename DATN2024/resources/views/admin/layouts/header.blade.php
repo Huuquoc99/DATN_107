@@ -6,22 +6,22 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="#" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="#" alt=""
                                 height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="#" alt=""
                                 height="17">
                         </span>
                     </a>
 
                     <a href="#" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="#" alt=""
                                 height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="#" alt=""
                                 height="17">
                         </span>
                     </a>
@@ -90,7 +90,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{{ asset('theme/admin/assets/images/users/avatar-2.jpg') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="m-0">Angela Bernier</h6>
@@ -101,7 +101,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{{ asset('theme/admin/assets/images/users/avatar-3.jpg') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="m-0">David Grasso</h6>
@@ -112,7 +112,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{{ asset('theme/admin/assets/images/users/avatar-5.jpg') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="m-0">Mike Bunch</h6>
@@ -157,7 +157,7 @@
                 <div class="dropdown ms-1 topbar-head-dropdown header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="header-lang-img" src="{{ asset('theme/admin/assets/images/flags/us.svg') }}"
+                        <img id="header-lang-img" src="#"
                             alt="Header Language" height="20" class="rounded">
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -165,7 +165,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en"
                             title="English">
-                            <img src="{{ asset('theme/admin/assets/images/flags/us.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">English</span>
                         </a>
@@ -173,7 +173,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp"
                             title="Spanish">
-                            <img src="{{ asset('theme/admin/assets/images/flags/spain.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">Española</span>
                         </a>
@@ -181,14 +181,14 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr"
                             title="German">
-                            <img src="{{ asset('theme/admin/assets/images/flags/germany.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18"> <span class="align-middle">Deutsche</span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it"
                             title="Italian">
-                            <img src="{{ asset('theme/admin/assets/images/flags/italy.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">Italiana</span>
                         </a>
@@ -196,7 +196,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru"
                             title="Russian">
-                            <img src="{{ asset('theme/admin/assets/images/flags/russia.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">русский</span>
                         </a>
@@ -204,7 +204,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ch"
                             title="Chinese">
-                            <img src="{{ asset('theme/admin/assets/images/flags/china.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">中国人</span>
                         </a>
@@ -212,7 +212,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr"
                             title="French">
-                            <img src="{{ asset('theme/admin/assets/images/flags/french.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">français</span>
                         </a>
@@ -220,7 +220,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ar"
                             title="Arabic">
-                            <img src="{{ asset('theme/admin/assets/images/flags/ae.svg') }}" alt="user-image"
+                            <img src="#" alt="user-image"
                                 class="me-2 rounded" height="18">
                             <span class="align-middle">Arabic</span>
                         </a>
@@ -249,21 +249,21 @@
                             <div class="row g-0">
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="#!">
-                                        <img src="{{ asset('theme/admin/assets/images/brands/github.png') }}"
+                                        <img src="#"
                                             alt="Github">
                                         <span>GitHub</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="#!">
-                                        <img src="{{ asset('theme/admin/assets/images/brands/bitbucket.png') }}"
+                                        <img src="#"
                                             alt="bitbucket">
                                         <span>Bitbucket</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="#!">
-                                        <img src="{{ asset('theme/admin/assets/images/brands/dribbble.png') }}"
+                                        <img src="#"
                                             alt="dribbble">
                                         <span>Dribbble</span>
                                     </a>
@@ -273,21 +273,21 @@
                             <div class="row g-0">
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="#!">
-                                        <img src="{{ asset('theme/admin/assets/images/brands/dropbox.png') }}"
+                                        <img src="#"
                                             alt="dropbox">
                                         <span>Dropbox</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="#!">
-                                        <img src="{{ asset('theme/admin/assets/images/brands/mail_chimp.png') }}"
+                                        <img src="#"
                                             alt="mail_chimp">
                                         <span>Mail Chimp</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="#!">
-                                        <img src="{{ asset('theme/admin/assets/images/brands/slack.png') }}"
+                                        <img src="#"
                                             alt="slack">
                                         <span>Slack</span>
                                     </a>
@@ -333,7 +333,7 @@
                                 </div>
                                 <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('theme/admin/assets/images/products/img-1.png') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="mt-0 mb-1 fs-14">
@@ -358,7 +358,7 @@
 
                                 <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('theme/admin/assets/images/products/img-2.png') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="mt-0 mb-1 fs-14">
@@ -382,7 +382,7 @@
 
                                 <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('theme/admin/assets/images/products/img-3.png') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="mt-0 mb-1 fs-14">
@@ -406,7 +406,7 @@
 
                                 <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('theme/admin/assets/images/products/img-6.png') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="mt-0 mb-1 fs-14">
@@ -430,7 +430,7 @@
 
                                 <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('theme/admin/assets/images/products/img-5.png') }}"
+                                        <img src="#"
                                             class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
                                         <div class="flex-grow-1">
                                             <h6 class="mt-0 mb-1 fs-14">
@@ -568,7 +568,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex">
-                                            <img src="{{ asset('theme/admin/assets/images/users/avatar-2.jpg') }}"
+                                            <img src="#"
                                                 class="me-3 rounded-circle avatar-xs flex-shrink-0" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
@@ -626,7 +626,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex">
-                                            <img src="{{ asset('theme/admin/assets/images/users/avatar-8.jpg') }}"
+                                            <img src="#"
                                                 class="me-3 rounded-circle avatar-xs flex-shrink-0" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
@@ -664,7 +664,7 @@
                                 <div data-simplebar style="max-height: 300px;" class="pe-2">
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{{ asset('theme/admin/assets/images/users/avatar-3.jpg') }}"
+                                            <img src="#"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
@@ -690,7 +690,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{{ asset('theme/admin/assets/images/users/avatar-2.jpg') }}"
+                                            <img src="#"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
@@ -718,10 +718,10 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{{ asset('theme/admin/assets/images/users/avatar-6.jpg') }}"
+                                            <img src="#"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-grow-1">
-                                                <a href="#!" class="stretched-link">
+                                                <a href="#" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
                                                 </a>
                                                 <div class="fs-13 text-muted">
@@ -746,7 +746,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{{ asset('theme/admin/assets/images/users/avatar-8.jpg') }}"
+                                            <img src="#"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
