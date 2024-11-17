@@ -19,7 +19,7 @@ class AdminLoginController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email', 'max:255'],
-            'password' => ['required', 'min:8', 'max:20'],
+            'password' => ['required', 'min:8', 'max:20', 'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/'],
         ]);
 
 

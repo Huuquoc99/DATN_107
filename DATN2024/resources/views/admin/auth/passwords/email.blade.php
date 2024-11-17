@@ -89,21 +89,7 @@
                                         <div class="alert border-0 alert-warning text-center mb-2 mx-2" role="alert">
                                             Enter your email and instructions will be sent to you!
                                         </div>
-                                        @if (session("status"))
-                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                {{ session("status")}}
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
-                                        @endif
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
+                                        
                                         <div class="p-2">
                                             
                                             <form method="POST" action="{{ route('admin.password.email') }}">
@@ -117,6 +103,19 @@
                                                         </span>
                                                     @enderror
                                                 </div>
+                                                @if (session("status"))
+                                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                        {{ session("status")}}
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                @endif
+                                                @if ($errors->any())
+                                                    <div class="alert alert-danger">
+                                                        @foreach ($errors->all() as $error)
+                                                            {{ $error }}
+                                                        @endforeach
+                                                    </div>
+                                                @endif
 
                                                 <div class="text-center mt-4">
                                                     <button class="btn btn-success w-100" type="submit">{{ __('Send Reset Link') }}</button>
