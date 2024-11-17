@@ -182,7 +182,7 @@
 
                                 <span class="text-start ms-xl-2">
                                     <span
-                                        class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ \Illuminate\Support\Str::limit(Auth::user()->name, 15, '...') }}</span>
+                                        class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}</span>
                                     <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{ Auth::user()->type == 1 ? 'Admin' : 'User' }}</span>
                                 </span>
                             </span>
@@ -190,7 +190,7 @@
 
                         <div class="dropdown-menu dropdown-menu-end">
                             <h6 class="dropdown-header">Welcome, 
-                                {{ \Illuminate\Support\Str::limit(Auth::user()->name, 15, '...') }}!
+                                {{ \Illuminate\Support\Str::limit(Auth::user()->name, 8, '...') }}!
                             </h6>
                             <a class="dropdown-item"
                                 href="{{ route('admin.account.edit', ['id' => Auth::user()->id]) }}">

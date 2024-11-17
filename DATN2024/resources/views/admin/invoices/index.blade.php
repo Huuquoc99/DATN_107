@@ -41,31 +41,6 @@
                                 <i class="ri-search-line search-icon"></i>
                             </div>
                         </div>
-                        
-                        <div class="col-xxl-3 col-sm-4">
-                            <input type="text" class="form-control bg-light border-light" id="datepicker-range" placeholder="Select date">
-                        </div>
-                     
-                        <div class="col-xxl-3 col-sm-4">
-                            <div class="input-light">
-                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                    <option value="">Status</option>
-                                    <option value="all" selected>All</option>
-                                    <option value="Unpaid">Unpaid</option>
-                                    <option value="Paid">Paid</option>
-                                    <option value="Cancel">Cancel</option>
-                                    <option value="Refund">Refund</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-
-                        <div class="col-xxl-1 col-sm-4">
-                            <button type="button" class="btn btn-primary w-100" onclick="SearchData();">
-                                <i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
-                            </button>
-                        </div>
-                      
                     </div>
                   
                 </form>
