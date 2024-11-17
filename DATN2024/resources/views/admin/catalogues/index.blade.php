@@ -62,7 +62,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.catalogues.show', $item) }}">
-                                                {{ $item->name }}
+                                                {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>

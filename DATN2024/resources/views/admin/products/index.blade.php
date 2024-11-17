@@ -82,7 +82,7 @@
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
                             <tr>
@@ -93,9 +93,8 @@
                                 <th>Price</th>
                                 <th>Storage</th>
                                 <th>Battery capacity</th>
-                                <th>Operating system</th>
                                 <th>Active</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -113,18 +112,17 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.products.show', $item) }}">
-                                            {{ $item->name }}
+                                            {{ \Illuminate\Support\Str::limit($item->name, 10, '...') }}
                                         </a>
+                                        
                                     </td>
-                                    <td>{{ $item->catalogue ? $item->catalogue->name : 'No Catalogue' }}</td>
-                                    <td>{{ $item->price_regular }}</td>
+                                    <td>
+                                        {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'No Catalogue' }}
+                                    </td>                                    
+                                    <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
                                     <td>{{ $item->storage }}</td>
                                     <td>{{ $item->battery_capacity }}</td>
-                                    <td>{{ $item->operating_system }}</td>
                                     <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
-
-                                    {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td> --}}
                                     <td>
                                         <div class="d-flex gap-2  justify-content-center">
                                             <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">
@@ -138,20 +136,25 @@
                                             <form action="{{ route('admin.products.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Are you sure?')" type="submit"
+                                                <button onclick="return confirm('Are you sure you want to delete?')" type="submit"
                                                         class="btn btn-danger btn-sm">Del <i
                                                         class="fa-solid fa-delete-left fa-sm"></i>
                                                 </button>
                                             </form>
-{{--                                            <a class="btn btn-danger btn-sm delete-product " data-id="{{ $item->id }}">Xóa <i class="fa-solid fa-delete-left fa-sm"></i>--}}
-{{--                                            </a>--}}
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $data->links() }}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} products</p>
+                            </div>
+                            <div>
+                                {{ $data->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

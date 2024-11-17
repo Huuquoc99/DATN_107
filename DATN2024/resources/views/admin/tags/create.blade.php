@@ -37,12 +37,11 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="mb-3 form-check">
@@ -54,7 +53,7 @@
                                     <div class="card-body">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Description</label>
-                                            <input type="text" class="form-control" id="description" name="description">
+                                            <textarea name="description" id="" cols="30" rows="2" type="text" class="form-control" id="description"></textarea>
                                         </div>
                                     </div>
                                 </div>

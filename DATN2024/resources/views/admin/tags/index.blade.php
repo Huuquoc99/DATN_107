@@ -41,7 +41,7 @@
                             </div>
                         @endif
 
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
                             <tr>
@@ -49,8 +49,8 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>Created at</th>
+                                <th>Updated at</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -58,16 +58,26 @@
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->description }}</td>
-                                    <td>{!! $item->status ? '<span class="badge bg-primary">YES</span>' : '<span class="badge bg-danger">NO</span>' !!}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td>
                                     <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="{{ route('admin.tags.show', $item) }}"
+                                        {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+                                    </td>
+                                    <td>
+                                        {{ \Illuminate\Support\Str::limit($item->description, 15, '...') }}
+                                    </td>
+                                    <td>{!! $item->status ? '<span class="badge bg-primary">YES</span>' : '<span class="badge bg-danger">NO</span>' !!}</td>
+                                    <td>
+                                        <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                    </td>
+                                    <td>
+                                        <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
+                                        <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2 justify-content-center">
+                                            {{-- <a href="{{ route('admin.tags.show', $item) }}"
                                                class="btn btn-info btn-sm">Show <i
-                                                    class="fa-solid fa-circle-info fa-sm"></i></a>
+                                                    class="fa-solid fa-circle-info fa-sm"></i></a> --}}
                                             <a href="{{ route('admin.tags.edit', $item) }}"
                                                class="btn btn-primary btn-sm">Edit <i
                                                     class="fa-regular fa-pen-to-square fa-sm"></i></a>
@@ -87,7 +97,14 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $data->links() }}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} tags</p>
+                            </div>
+                            <div>
+                                {{ $data->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

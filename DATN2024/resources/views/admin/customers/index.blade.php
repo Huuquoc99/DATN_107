@@ -54,7 +54,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.customers.show', $item) }}">
-                                                {{ $item->name }}
+                                                {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
                                         <td>{{ $item->email }}</td>

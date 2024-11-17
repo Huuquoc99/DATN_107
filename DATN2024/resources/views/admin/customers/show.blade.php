@@ -47,9 +47,9 @@
                                 <h5 class="mt-3 mb-3">{{ $users->address }}</h5>
                                 <h5 class="mt-3 mb-3">{{ $users->phone }}</h5>
                                 <h3>
-                                    @if($users->is_active == 1)
+                                    @if($users->type == 1)
                                         <span class="badge bg-primary">Admin</span>
-                                    @elseif($users->is_active == 0)
+                                    @elseif($users->type == 0)
                                         <span class="badge bg-success"> User</span>
                                     @endif
                                 </h3>

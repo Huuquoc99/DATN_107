@@ -48,7 +48,7 @@ class Catalogue extends Model
 
         foreach ($this->products as $product)
         {
-            $product->show();
+            // $product->show();
         }
     }
 }
