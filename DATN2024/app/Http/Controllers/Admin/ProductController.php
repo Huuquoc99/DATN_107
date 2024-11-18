@@ -28,7 +28,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
+        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(12);
         $catalogues = Catalogue::all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
@@ -70,7 +70,6 @@ class ProductController extends Controller
             $dataProductTags
             ) = $this->handleData($request);
 
-//        dd($dataNewProductVariants);
         try {
             DB::beginTransaction();
 
@@ -84,26 +83,26 @@ class ProductController extends Controller
             }
 
             foreach ($dataNewProductVariants as $item) {
-                $size = ProductCapacity::query()->firstOrCreate(
-                    ['name' => $item['size']],
-                    ['is_active' => 1]
-                );
+                if (!empty($item_update['size']) && !empty($item_update['color'])) {
+                    $size = ProductCapacity::query()->firstOrCreate(
+                        ['name' => $item['size']],
+                        ['is_active' => 1]
+                    );
 
-                $color = ProductColor::query()->firstOrCreate(
-                    ['name' => $item['color']],
-                    ['is_active' => 1]
-                );
+                    $color = ProductColor::query()->firstOrCreate(
+                        ['name' => $item['color']],
+                        ['is_active' => 1]
+                    );
 
-                $item += [
-                    'product_id' => $product->id,
-                    'product_capacity_id' => $size->id,
-                    'product_color_id' => $color->id,
-                ];
+                    $item += [
+                        'product_id' => $product->id,
+                        'product_capacity_id' => $size->id,
+                        'product_color_id' => $color->id,
+                    ];
 
-                ProductVariant::query()->create($item);
+                    ProductVariant::query()->create($item);
+                }
             }
-
-            $product->tags()->attach($dataProductTags);
 
 
             foreach ($dataProductGalleries as $item) {
@@ -111,6 +110,8 @@ class ProductController extends Controller
 
                 ProductGallery::query()->create($item);
             }
+
+            $product->tags()->attach($dataProductTags);
 
             DB::commit();
             return redirect()->route('admin.products.index')->with("success", "Product created successfully");
@@ -165,9 +166,11 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
+
         list(
             $dataProduct,
             $dataProductVariants,
+            $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
             ) = $this->handleData($request);
@@ -179,7 +182,6 @@ class ProductController extends Controller
 
             $product->update($dataProduct);
 
-            $product->tags()->sync($dataProductTags);
 
             foreach ($dataProductVariants as  $item) {
                 $existingVariant = ProductVariant::query()->where([
@@ -196,15 +198,52 @@ class ProductController extends Controller
                 }
             }
 
+            foreach ($dataNewProductVariants as $item_update) {
+                if (!empty($item_update['size']) && !empty($item_update['color'])) {
+                    $size = ProductCapacity::query()->firstOrCreate(
+                        ['name' => $item_update['size']],
+                        ['is_active' => 1]
+                    );
 
-            foreach ($dataProductGalleries as $item) {
-                $item['product_id'] = $product->id;
+                    $color = ProductColor::query()->firstOrCreate(
+                        ['name' => $item_update['color']],
+                        ['is_active' => 1]
+                    );
 
-                ProductGallery::query()->updateOrCreate(
-                    isset($item['id']) ? ['id' => $item['id']] : [],
-                    $item
-                );
+                    $item_update += [
+                        'product_id' => $product->id,
+                        'product_capacity_id' => $size->id,
+                        'product_color_id' => $color->id,
+                    ];
+
+                    ProductVariant::query()->create($item_update);
+                }
             }
+
+
+
+            if ($request->has('delete_galleries')) {
+                foreach ($request->delete_galleries as $galleryId) {
+                    $gallery = ProductGallery::find($galleryId);
+                    if ($gallery) {
+                        Storage::delete($gallery->image);
+                        $gallery->delete();
+                    }
+                }
+            }
+
+            if ($request->hasFile('product_galleries')) {
+                foreach ($request->file('product_galleries') as $image) {
+                    $path = $image->store('product_galleries', 'public');
+
+                    ProductGallery::query()->create([
+                        'product_id' => $product->id,
+                        'image' => $path
+                    ]);
+                }
+            }
+
+            $product->tags()->sync($dataProductTags);
 
             DB::commit();
 
@@ -293,6 +332,7 @@ class ProductController extends Controller
         }
 
         $dataNewProductVariantsTmp = $request->new_product_variants;
+
         $dataNewProductVariants = [];
 
         if (is_array($dataNewProductVariantsTmp) && !empty($dataNewProductVariantsTmp)) {
@@ -309,6 +349,8 @@ class ProductController extends Controller
             }
         }
 
+
+
         $dataProductVariantsTmp = $request->product_variants;
         $dataProductVariants = [];
         foreach ($dataProductVariantsTmp as $key => $item) {
@@ -322,7 +364,6 @@ class ProductController extends Controller
                 'image' => !empty($item['image']) ? Storage::put('product_variants', $item['image']) : null
             ];
         }
-//        dd($dataProductVariants);
 
         $dataProductGalleriesTmp = $request->product_galleries ?: [];
         $dataProductGalleries = [];
@@ -340,39 +381,34 @@ class ProductController extends Controller
     }
 
 
-    public function pagination()
-    {
-        $data = Product::query()->with(['catalogue', 'tags'])->latest('id')->paginate(5);
-
-        return view(self::PATH_VIEW . __FUNCTION__, compact('data'))->render();
-    }
-
-    public function search(Request $request)
-    {
-        $data = Product::query()->where('name', 'like', '%'.$request->search_string.'%')
-            ->orWhere('price_regular', 'like', '%'.$request->search_string.'%')
-            ->orderBy('id', 'desc')
-            ->paginate(5);
-
-        if($data->count() >= 1) {
-            return view('admin.products.pagination', compact('data'))->render();
-        } else {
-            return response()->json([
-                'status' => 'No results found!',
-            ],404);
-        }
-    }
 
     public function filter(Request $request)
     {
         $query = Product::query();
+
+        if ($request->filled('search_string')) {
+            $searchString = $request->search_string;
+            $query->where(function ($q) use ($searchString) {
+                $q->where('name', 'like', '%' . $searchString . '%')
+                    ->orWhere('price_regular', 'like', '%' . $searchString . '%')
+                    ->orWhere('battery_capacity', 'like', '%' . $searchString . '%')
+                    ->orWhere('camera_resolution', 'like', '%' . $searchString . '%')
+                    ->orWhere('operating_system', 'like', '%' . $searchString . '%')
+                    ->orWhere('processor', 'like', '%' . $searchString . '%')
+                    ->orWhere('ram', 'like', '%' . $searchString . '%')
+                    ->orWhere('storage', 'like', '%' . $searchString . '%')
+                    ->orWhere('sim_type', 'like', '%' . $searchString . '%')
+                    ->orWhere('network_connectivity', 'like', '%' . $searchString . '%');
+            });
+        }
+
 
         if ($request->filled('category_id')) {
             $query->where('catalogue_id', $request->category_id);
         }
 
         if ($request->filled('filter')) {
-            switch($request->filter) {
+            switch ($request->filter) {
                 case 'is_active':
                     $query->where('status', 'is_active');
                     break;
@@ -422,9 +458,8 @@ class ProductController extends Controller
             }
         }
 
-        $data = $query->get();
+        $data = $query->paginate(12);
 
         return view('admin.products.filter', compact('data'))->render();
     }
-
 }

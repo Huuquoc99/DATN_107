@@ -39,6 +39,99 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="mt-5">
+                                <div class="product-content mt-5">
+                                    <h5 class="fs-14 mb-3">Product Description :</h5>
+                                    <nav>
+                                        <ul class="nav nav-tabs nav-tabs-custom nav-success" id="nav-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="nav-speci-tab" data-bs-toggle="tab" href="#nav-speci" role="tab" aria-controls="nav-speci" aria-selected="true">Specification</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="nav-detail-tab" data-bs-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="false">Details</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="nav-tag-tab" data-bs-toggle="tab" href="#nav-tag" role="tab" aria-controls="nav-tag" aria-selected="false">Tags</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <div class="tab-content border border-top-0 p-4" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-speci" role="tabpanel" aria-labelledby="nav-speci-tab">
+                                            <div class="table-responsive">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">Status</th>
+                                                        <td>
+                                                            <div>
+                                                                @if($product->is_active)
+                                                                    <span class="badge bg-primary">Active</span>
+                                                                @endif
+                                                                @if($product->is_hot_deal)
+                                                                    <span class="badge bg-danger">Hot deal</span>
+                                                                @endif
+                                                                @if($product->is_good_deal)
+                                                                    <span class="badge bg-warning">Good deal</span>
+                                                                @endif
+                                                                @if($product->is_new)
+                                                                    <span class="badge bg-success">New</span>
+                                                                @endif
+                                                                @if($product->is_show_home)
+                                                                    <span class="badge bg-info">Show home</span>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" style="width: 200px;">Brands</th>
+                                                        {{-- <td>{{ $product->catalogue->name }}</td> --}}
+                                                        <td>{{ $product->catalogue ? $product->catalogue->name : 'No Catalogue' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Screen Size</th>
+                                                        <td>{{ $product->screen_size }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Battery</th>
+                                                        <td>{{ $product->battery_capacity }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Camera</th>
+                                                        <td>{{ $product->camera_resolution }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Processor</th>
+                                                        <td>{{ $product->processor }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Ram</th>
+                                                        <td>{{ $product->ram }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Storage</th>
+                                                        <td>{{ $product->storage }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">
+                                            <div>
+                                                <p>{!! $product->description !!}</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-tag" role="tabpanel" aria-labelledby="nav-tag-tab">
+                                            <div>
+                                                <div class="mt-4">
+                                                    @foreach($product->tags as $tag)
+                                                        <span class="badge bg-secondary me-1">{{ $tag->name }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-xl-6">
@@ -109,7 +202,7 @@
                                         <div>
                                             <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> SKU: {{ $product->sku }}</p>
                                             <p class="text-muted"><i class="bx bx-shape-triangle font-size-16 align-middle text-primary me-1"></i> Catalogue: {{ $product->catalogue->name ?? 'N/A' }}</p>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -124,41 +217,27 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>Color</th>
                                             <th>Capacity</th>
+                                            <th>Color</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
+                                            <th>Image</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($product->variants as $variant)
                                             <tr>
-                                                <td>{{ $color[$variant->product_color_id] ?? 'Không xác định' }}</td>
                                                 <td>{{ $capacity[$variant->product_capacity_id] ?? 'Không xác định' }}</td>
+                                                <td>{{ $color[$variant->product_color_id] ?? 'Không xác định' }}</td>
                                                 <td>{{ $variant->quantity }}</td>
-                                                <td>{{ number_format($variant->price, 2) }} VND</td>
+                                                <td>{{ number_format($variant->price, 0, ',', '.') }} VND</td>
+                                                <td>
+                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($variant->image) }}" style="width: 100px; height: 100px;">
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
-                                </div>
-
-                                <div class="mt-4">
-                                    @if($product->is_active)
-                                        <span class="badge bg-primary">Active</span>
-                                    @endif
-                                    @if($product->is_hot_deal)
-                                        <span class="badge bg-danger">Hot deal</span>
-                                    @endif
-                                    @if($product->is_good_deal)
-                                        <span class="badge bg-warning">Good deal</span>
-                                    @endif
-                                    @if($product->is_new)
-                                        <span class="badge bg-success">New</span>
-                                    @endif
-                                    @if($product->is_show_home)
-                                        <span class="badge bg-info">Show home</span>
-                                    @endif
                                 </div>
                             </div>
                         </div>

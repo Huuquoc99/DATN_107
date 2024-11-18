@@ -64,17 +64,30 @@ class HomeController extends Controller
         ]);
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $query = Product::query();
+
+        if (!empty($keyword)) {
+            $query->where('name', 'LIKE', '%' . $keyword . '%')
+                ->orWhereHas('catalogue', function ($q) use ($keyword) {
+                    $q->where('name', 'LIKE', '%' . $keyword . '%');
+                });
+        }
+
+        $products = $query->paginate(12);
 
 
-
-//    return view('shop', [
-//        'products' => $products,
-//        'source' => 'search',
-//        'title' => 'Kết quả tìm kiếm',
-//        'keyword' => $request->keyword
-//    ]);
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'search',
+            'keyword' => $keyword,
+            'title' => 'Search Results'
+        ]);
     }
+
 
     public function about()
     {
