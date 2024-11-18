@@ -59,6 +59,7 @@ use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
 
 Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
     ->name('product.detail');
@@ -170,8 +171,6 @@ Route::prefix('admin')
 
 
         // Product
-        Route::get('products/pagination/', [ProductController::class, 'pagination'])->name('products.pagination');
-        Route::get('products/search/', [ProductController::class, 'search'])->name('products.search');
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
         Route::resource('products', ProductController::class);
 

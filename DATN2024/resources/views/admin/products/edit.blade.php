@@ -203,7 +203,7 @@
                                                         'is_active' => ['name' => 'Active', 'color' => 'primary'],
                                                         'is_hot_deal' => ['name' => 'Hot deal', 'color' => 'danger'],
                                                         'is_good_deal' => ['name' => 'Good deal', 'color' => 'warning'],
-                                                        'is_new' => ['name' => 'Color', 'color' => 'success'],
+                                                        'is_new' => ['name' => 'New', 'color' => 'success'],
                                                         'is_show_home' => ['name' => 'Show home', 'color' => 'info'],
                                                     ];
                                                 @endphp
@@ -237,17 +237,20 @@
             <!--end col-->
         </div>
 
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
+
                     </div><!-- end card header -->
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" id="variant-table">
                                         <tr class="text-center">
                                             <th>Capacity</th>
                                             <th>Color</th>
@@ -255,7 +258,6 @@
                                             <th>Price</th>
                                             <th>Image</th>
                                             <th></th>
-                                            <th>Xoa</th>
                                         </tr>
 
                                         @php
@@ -271,39 +273,67 @@
                                             });
                                         @endphp
 
-
                                         @foreach($capacities as $capacityID => $capacityName)
-                                            @php($flagRowspan = true)
-                                            @foreach($colors as $colorID => $colorName)
-                                                @php($key = $capacityID . '-' . $colorID)
-                                                <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
-                                                    @if($flagRowspan)
-                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $capacityID }}">{{ $capacityName }}</td>
+                                            @php
+                                                $hasDataInCapacity = false;
+                                                $visibleColorsInCapacity = [];
+
+                                                foreach($colors as $colorID => $colorName) {
+                                                    $key = $capacityID . '-' . $colorID;
+                                                    if (
+                                                        isset($variants[$key]) &&
+                                                        (
+                                                            !empty($variants[$key]['quantity']) ||
+                                                            !empty($variants[$key]['price']) ||
+                                                            !empty($variants[$key]['image'])
+                                                        )
+                                                    ) {
+                                                        $hasDataInCapacity = true;
+                                                        $visibleColorsInCapacity[] = $colorID;
+                                                    }
+                                                }
+                                            @endphp
+
+                                            @if($hasDataInCapacity)
+                                                @php($flagRowspan = true)
+                                                @foreach($colors as $colorID => $colorName)
+                                                    @php($key = $capacityID . '-' . $colorID)
+                                                    @if(in_array($colorID, $visibleColorsInCapacity))
+                                                        <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
+                                                            @if($flagRowspan)
+                                                                <td style="vertical-align: middle;" rowspan="{{ count($visibleColorsInCapacity) }}" class="size-cell-{{ $capacityID }}">
+                                                                    {{ $capacityName }}
+                                                                </td>
+                                                            @endif
+                                                            @php($flagRowspan = false)
+                                                            <td>
+                                                                <div>{{ $colorName }}</div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}"
+                                                                       name="product_variants[{{ $key }}][quantity]">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                       value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}"
+                                                                       name="product_variants[{{ $key }}][price]">
+                                                            </td>
+                                                            <td>
+                                                                <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
+                                                                <input type="hidden" class="form-control"
+                                                                       value="{{ isset($variants[$key]['image']) ? $variants[$key]['image'] : '' }}"
+                                                                       name="product_variants[{{ $key }}][current_image]">
+                                                            </td>
+                                                            <td>
+                                                                @if(isset($variants[$key]['image']) && $variants[$key]['image'])
+                                                                    <img src="{{ Storage::url($variants[$key]['image']) }}" width="100px" height="100px">
+                                                                @endif
+                                                            </td>
+                                                        </tr>
                                                     @endif
-                                                    @php($flagRowspan = false)
-                                                    <td>
-                                                        <div>{{ $colorName }}</div>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}" name="product_variants[{{ $key }}][quantity]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}" name="product_variants[{{ $key }}][price]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
-                                                        <input type="hidden" class="form-control" value="{{ isset($variants[$key]['image']) ? $variants[$key]['image'] : '' }}" name="product_variants[{{ $key }}][current_image]">
-                                                    </td>
-                                                    <td>
-                                                        @if(isset($variants[$key]['image']) && $variants[$key]['image'])
-                                                            <img src="{{ \Storage::url($variants[$key]['image']) }}" width="100px" height="40px">
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant('{{ $capacityID . '-' . $colorID }}')">Xóa</button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </table>
                                 </div>
@@ -315,6 +345,7 @@
             </div>
             <!--end col-->
         </div>
+
 
         <div class="row">
             <div class="col-lg-12">
@@ -352,8 +383,6 @@
                                     </div>
                                 @endif
                             </div>
-
-                            {{--Thằng này dùng để lưu ảnh xóa--}}
                             <div id="delete_galleries"></div>
                         </div>
 
@@ -361,6 +390,16 @@
                 </div>
             </div>
         </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
 
         <div class="row">
@@ -392,6 +431,7 @@
             <!--end col-->
         </div>
 
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -412,30 +452,80 @@
 
 @section('scripts')
     <script>
-        CKEDITOR.replace('content');
 
-        function addImageGallery() {
-            let id = 'gen' + '_' + Math.random().toString(36).substring(2, 15).toLowerCase();
-            let html = `
-                <div class="col-md-4" id="${id}_item">
-                    <label for="${id}" class="form-label ">Image</label>
-                    <div class="d-flex">
-                        <input type="file" class="form-control me-3" name="product_galleries[]" id="${id}">
-                        <button type="button" class="btn btn-danger" onclick="removeImageGallery('${id}_item')">
-                            <span class="bx bx-trash"></span>
-                        </button>
-                    </div>
-                </div>
-            `;
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('tr.no-data').forEach(function(row) {
+                row.style.display = 'none';
+            });
+        });
 
-            $('#gallery_list').append(html);
+        CKEDITOR.replace('content')
+
+        let variantCount = 0;
+
+        function addNewVariant() {
+
+            const sizeID = `newSize${variantCount}`;
+            const colorID = `newColor${variantCount}`;
+            variantCount++;
+
+            const newRow = `
+            <tr class="text-center">
+                <td style="vertical-align: middle;">
+                     <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
+                 </td>
+               <td style="vertical-align: middle;">
+                    <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
+                </td>
+                <td>
+                   <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
+                </td>
+                <td>
+                    <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">
+                </td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button>
+                </td>
+            </tr>
+                   `;
+
+            document.querySelector('tbody').insertAdjacentHTML('beforeend', newRow);
         }
 
-        function removeImageGallery(id) {
-            if (confirm('Are you sure you want to delete?')) {
-                $('#' + id).remove();
+        function handleCapacityChange(select) {
+            const row = select.closest('tr');
+            const newCapacityInput = row.querySelector('.new-capacity-input');
+
+            if (select.value === 'new') {
+                newCapacityInput.style.display = 'block';
+            } else {
+                newCapacityInput.style.display = 'none';
             }
         }
+
+        function handleColorChange(select) {
+            const row = select.closest('tr');
+            const newColorInput = row.querySelector('.new-color-input');
+
+            if (select.value === 'new') {
+                newColorInput.style.display = 'block';
+            } else {
+                newColorInput.style.display = 'none';
+            }
+        }
+
+        function removeVariant(button) {
+            if(confirm('Bạn có chắc chắn muốn xóa biến thể này?')) {
+                button.closest('tr').remove();
+            }
+        }
+
+
+
 
         function removeVariant(variantId) {
             const row = document.querySelector(`tr[data-variant="${variantId}"]`);
@@ -462,6 +552,92 @@
             }
 
             row.remove();
+        }
+
+        function addImageGallery() {
+            const randomId = 'gallery_' + Math.random().toString(36).substr(2, 9);
+
+            const newGalleryHtml = `
+        <div class="col-md-4" id="${randomId}_item">
+            <label class="form-label">Image</label>
+            <div class="d-flex">
+                <input type="file"
+                       class="form-control me-3"
+                       name="product_galleries[]"
+                       onchange="previewImage(this)"
+                       accept="image/*">
+                <button type="button"
+                        class="btn btn-danger"
+                        onclick="removeImageGallery('${randomId}_item')">
+                    <span class="bx bx-trash"></span>
+                </button>
+            </div>
+            <div class="mt-2">
+                <img class="preview-image mt-3" src="" width="100px" style="display:none;">
+            </div>
+        </div>
+    `;
+
+            document.getElementById('gallery_list').insertAdjacentHTML('beforeend', newGalleryHtml);
+        }
+
+        function removeImageGallery(itemId, galleryId = null, imagePath = null) {
+            const element = document.getElementById(itemId);
+            if (element) {
+                element.remove();
+            }
+
+            if (galleryId && imagePath) {
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_galleries[]';
+                deleteInput.value = galleryId;
+
+                document.getElementById('delete_galleries').appendChild(deleteInput);
+            }
+
+            const galleryList = document.getElementById('gallery_list');
+            if (galleryList.children.length === 0) {
+                addDefaultGalleryItem();
+            }
+        }
+
+        function addDefaultGalleryItem() {
+            const defaultHtml = `
+        <div class="col-md-4" id="gallery_default_item">
+            <label for="gallery_default" class="form-label">Image</label>
+            <div class="d-flex">
+                <input type="file"
+                       class="form-control"
+                       name="product_galleries[]"
+                       id="gallery_default"
+                       onchange="previewImage(this)"
+                       accept="image/*">
+            </div>
+            <div class="mt-2">
+                <img class="preview-image mt-3" src="" width="100px" style="display:none;">
+            </div>
+        </div>
+    `;
+            document.getElementById('gallery_list').innerHTML = defaultHtml;
+        }
+
+        function previewImage(input) {
+            const previewImg = input.parentElement.nextElementSibling.querySelector('.preview-image');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewImg.src = '';
+                previewImg.style.display = 'none';
+            }
         }
 
     </script>

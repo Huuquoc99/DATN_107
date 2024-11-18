@@ -117,7 +117,7 @@
                                         </a>
                                     </td>
                                     <td>{{ $item->catalogue ? $item->catalogue->name : 'No Catalogue' }}</td>
-                                    <td>{{ $item->price_regular }}</td>
+                                    <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
                                     <td>{{ $item->storage }}</td>
                                     <td>{{ $item->battery_capacity }}</td>
                                     <td>{{ $item->operating_system }}</td>
@@ -170,50 +170,31 @@
         });
 
         $(document).ready(function () {
-            $(document).on('click', '.pagination a', function (e) {
+
+            $('#search').on('keyup', function (e) {
                 e.preventDefault();
-                let page = $(this).attr('href').split('page=')[1]
-                product(page);
-            })
-
-
-            function product(page) {
-                $.ajax({
-                    url: "products/pagination/?page=" + page,
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    }
-                })
-            }
-
-            $(document).on('keyup', function (e) {
-                e.preventDefault();
-                let search_string = $('#search').val();
-                $.ajax({
-                    url: "{{ route('admin.products.search') }}",
-                    method: 'get',
-                    data: {search_string: search_string},
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    },
-                    error: function (res) {
-                        if (res.status === 404) {
-                            $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
-                        }
-                    }
-                })
-            })
-
+                let search_string = $(this).val();
+                let filter = $('#product-filter').val();
+                let categoryId = $('#product-filter').find('option:selected').data('catalogue-id');
+                loadProducts(1, search_string, filter, categoryId);
+            });
 
             $('#product-filter').change(function () {
                 let filter = $(this).val();
-                let categoryId = $(this).find('option:selected').data('catalogue-id'); // Lấy category_id
+                let categoryId = $(this).find('option:selected').data('catalogue-id');
+                let search_string = $('#search').val();
+                loadProducts(1, search_string, filter, categoryId);
+            });
+
+            function loadProducts(page = 1, search_string = '', filter = '', categoryId = '') {
                 $.ajax({
                     url: "{{ route('admin.products.filter') }}",
                     method: 'get',
                     data: {
+                        page: page,
+                        search_string: search_string,
                         filter: filter,
-                        category_id: categoryId // Gửi category_id lên server
+                        category_id: categoryId
                     },
                     success: function (res) {
                         $('.table-data').html(res);
@@ -222,47 +203,7 @@
                         $('.table-data').html('<p class="alert alert-primary">Có lỗi xảy ra!</p>');
                     }
                 });
-            });
-
-            {{--$(document).on('click', '.delete-product', function (e) {--}}
-            {{--    e.preventDefault();--}}
-            {{--    let productId = $(this).data('id');--}}
-
-            {{--    Swal.fire({--}}
-            {{--        title: 'Are you sure?',--}}
-            {{--        text: "You won't be able to revert this!",--}}
-            {{--        icon: 'warning',--}}
-            {{--        showCancelButton: true,--}}
-            {{--        confirmButtonColor: '#3085d6',--}}
-            {{--        cancelButtonColor: '#d33',--}}
-            {{--        confirmButtonText: 'Yes, delete it!'--}}
-            {{--    }).then((result) => {--}}
-            {{--        if (result.isConfirmed) {--}}
-            {{--            $.ajax({--}}
-            {{--                url: `/products/${productId}`,--}}
-            {{--                type: 'DELETE',--}}
-            {{--                data: {--}}
-            {{--                    _token: '{{ csrf_token() }}'--}}
-            {{--                },--}}
-            {{--                success: function (response) {--}}
-            {{--                    Swal.fire(--}}
-            {{--                        'Deleted!',--}}
-            {{--                        'Your product has been deleted.',--}}
-            {{--                        'success'--}}
-            {{--                    );--}}
-            {{--                    $(`tr[data-id="${productId}"]`).remove();--}}
-            {{--                },--}}
-            {{--                error: function (xhr) {--}}
-            {{--                    Swal.fire(--}}
-            {{--                        'Error!',--}}
-            {{--                        'Failed to delete product.',--}}
-            {{--                        'error'--}}
-            {{--                    );--}}
-            {{--                }--}}
-            {{--            });--}}
-            {{--        }--}}
-            {{--    });--}}
-            {{--});--}}
+            }
         });
 
     </script>
