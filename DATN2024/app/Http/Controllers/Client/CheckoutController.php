@@ -32,16 +32,39 @@ class CheckoutController extends Controller
                 return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
             }
 
-            $cartItems = CartItem::where('cart_id', $cart->id)->with('product')->get();
+            $cartItems = CartItem::query()->with(['productVariant','product'])->where('cart_id', $cart->id)->with('product')->get();
 
-            if ($cartItems->isEmpty()) {
-                return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
+            foreach ($cartItems as $item) {
+
+                $productVariant = $item->productVariant;
+
+                $color          = $productVariant->color->name;
+                $capacity       = $productVariant->capacity->name;
+                $product_name   = $productVariant->product->name;
+
+                if ($productVariant->quantity < $item->quantity) {
+                    return redirect()->route('cart.list')->with('error', 'The product "' . $product_name . ' '.$color.' '.$capacity.'"   has insufficient inventory.');
+                }
+
+                if ($cartItems->isEmpty()) {
+                    return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
+                }
             }
 
             return view('client.checkout', compact('user', 'cartItems', 'paymentMethods'));
 
+
         } else {
             $guest_cart = session('cart', []);
+
+            foreach ($guest_cart as $item) {
+                $productVariant = ProductVariant::find($item['product_variant_id']);
+
+                if ($productVariant->quantity < $item['quantity']) {
+                    return redirect()->route('cart.list')->with('error', 'The product has insufficient inventory.');
+                }
+            }
+
             return view('client.guest.checkout', compact('guest_cart', 'paymentMethods'));
         }
     }
@@ -110,10 +133,13 @@ class CheckoutController extends Controller
 
             $paymentResult = $this->processVNPAY($order);
 
+            dd($paymentResult['status']);
+
             if ($paymentResult['status'] == 'success') {
+                dd($order);
                 GuestOrderPlaced::dispatch($order);
                 session()->forget('cart');
-                return redirect()->route('guest-checkout.success');
+                return redirect()->route('guest-checkout.success', compact('order'));
             } else {
                 $order->update(['status_order_id' => 3]); // Assuming 3 is the 'failed' status
                 return redirect()->route('guest-checkout.failure');
@@ -262,6 +288,7 @@ class CheckoutController extends Controller
 
     public function vnpayReturn(Request $request)
     {
+
         $vnpayData = $request->all();
         $orderId = $vnpayData['vnp_TxnRef'];
         $order = Order::where('code', $orderId)->first();
@@ -284,13 +311,15 @@ class CheckoutController extends Controller
                 return redirect()->route('checkout.failed')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
             }
         } else {
+
             if ($vnpayData['vnp_ResponseCode'] == '00') {
                 $order->status_payment_id = 2;
                 $order->save();
 
                 session()->forget('cart');
 
-                return redirect()->route('guest-checkout.success');
+                GuestOrderPlaced::dispatch($order);
+                return redirect()->route('guest-checkout.success', compact('order'));
             } else {
                 $order->status_payment_id = 3;
                 $order->save();
@@ -340,19 +369,8 @@ class CheckoutController extends Controller
             return view('client.success', compact('order'));
         }  else {
 
-            $orderCode = session('order_code');
 
-
-            if (!$orderCode) {
-                return redirect()->route('checkout')->with('error', 'Không tìm thấy đơn hàng.');
-            }
-
-            $order = Order::where('code', $orderCode)
-                ->with(['orderItems.product', 'paymentMethod'])
-                ->latest()
-                ->first();
-
-            return view('client.guest.success', compact('order'));
+            return view('client.guest.success');
         }
     }
 
