@@ -37,72 +37,80 @@
                                 <div class="col-md-5">
                                     <div>
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name" value="{{ $product->name }}">
-                                        @error("name")
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ $product->name }}">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
 
                                     <div class="mt-3">
                                         <label for="price_regular" class="form-label">Price Regular</label>
-                                        <input type="number" value="{{ $product->price_regular }}" class="form-control" name="price_regular" id="price_regular">
-                                        @error("price_regular")
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="number" value="{{ $product->price_regular }}" class="form-control @error('price_regular') is-invalid @enderror" name="price_regular" id="price_regular">
+                                        @error('price_regular')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="price_sale" class="form-label">Price Sale</label>
-                                        <input type="number" value="{{ $product->price_sale }}" class="form-control" name="price_sale" id="price_sale">
-                                        @error("price_sale")
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="number" value="{{ $product->price_sale }}" class="form-control @error('price_sale') is-invalid @enderror" name="price_sale" id="price_sale">
+                                        @error('price_sale')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="catalogue_id " class="form-label">Catalogues</label>
-                                        <select type="text" class="form-select" name="catalogue_id" id="catalogue_id">
+                                        <select type="text" class="form-select @error('catalogue_id') is-invalid @enderror" name="catalogue_id" id="catalogue_id">
                                             @foreach($catalogues as $id => $name)
                                                 <option
-                                                    value="{{ $id }}" {{ $product->catelogue_id == $id ? 'selected' : '' }}>{{ $name }}</option>
+                                                    value="{{ $id }}" {{ $product->catelogue_id == $id ? 'selected' : '' }}>
+                                                    {{ \Illuminate\Support\Str::limit($name, 60, '...') }}
+                                                </option>
+
                                             @endforeach
                                         </select>
+                                        @error('catalogue_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="img_thumbnail" class="form-label">Image</label>
 
-                                        <input type="file" class="form-control mb-3" name="img_thumbnail" id="img_thumbnail">
+                                        <input type="file" class="form-control mb-3 @error('img_thumbnail') is-invalid @enderror" name="img_thumbnail" id="img_thumbnail">
                                         @if($product->img_thumbnail)
                                             <img src="{{ \Storage::url($product->img_thumbnail) }}"
                                                  alt="{{ $product->name }}" class="img-thumbnail mb-2"
                                                  style="max-width: 200px;">
                                         @endif
+                                        @error('img_thumbnail')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="processor" class="form-label">Processor</label>
-                                        <input type="text" class="form-control" name="processor" id="processor" value="{{ $product->processor }}">
-                                        @error("processor")
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('processor') is-invalid @enderror" name="processor" id="processor" value="{{ $product->processor }}">
+                                        @error('processor')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="ram" class="form-label">Ram</label>
-                                        <input type="text" class="form-control" name="ram" id="ram" value="{{ $product->ram }}">
-                                        @error("ram")
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('ram') is-invalid @enderror" name="ram" id="ram" value="{{ $product->ram }}">
+                                        @error('ram')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
 
@@ -115,85 +123,77 @@
                                     <div class="row">
                                         <div class="mt-3">
                                             <label for="sku" class="form-label">SKU</label>
-                                            <input type="text" class="form-control" name="sku" id="sku" value="{{ $product->sku }}">
-                                            @error("sku")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku" value="{{ $product->sku }}">
+                                            @error('sku')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Screen size</label>
-                                            <input type="text" class="form-control" name="screen_size" id="screen_size" value="{{ $product->screen_size }}">
-                                            @error("screen_size")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('screen_size') is-invalid @enderror" name="screen_size" id="screen_size" value="{{ $product->screen_size }}">
+                                            @error('screen_size')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="operating_system" class="form-label">Operating system</label>
-                                            <input type="text" class="form-control" name="operating_system" id="operating_system" value="{{ $product->operating_system }}">
-                                            @error("operating_system")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('operating_system') is-invalid @enderror" name="operating_system" id="operating_system" value="{{ $product->operating_system }}">
+                                            @error('operating_system')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="battery_capacity" class="form-label">Battery capacity</label>
-                                            <input type="text" class="form-control" name="battery_capacity" id="battery_capacity" value="{{ $product->battery_capacity }}">
-                                            @error("battery_capacity")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('battery_capacity') is-invalid @enderror" name="battery_capacity" id="battery_capacity" value="{{ $product->battery_capacity }}">
+                                            @error('battery_capacity')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="camera_resolution" class="form-label">Camera resolution</label>
-                                            <input type="text" class="form-control" name="camera_resolution" id="camera_resolution" value="{{ $product->camera_resolution }}">
-                                            @error("camera_resolution")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('camera_resolution') is-invalid @enderror" name="camera_resolution" id="camera_resolution" value="{{ $product->camera_resolution }}">
+                                            @error('camera_resolution')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="network_connectivity" class="form-label">Network connectivity</label>
-                                            <input type="text" class="form-control" name="network_connectivity" id="network_connectivity" value="{{ $product->network_connectivity }}">
-                                            @error("network_connectivity")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('network_connectivity') is-invalid @enderror" name="network_connectivity" id="network_connectivity" value="{{ $product->network_connectivity }}">
+                                            @error('network_connectivity')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
 
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
-                                            <input type="text" class="form-control" name="storage" id="storage" value="{{ $product->storage }}">
-                                            @error("storage")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert" >
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('storage') is-invalid @enderror" name="storage" id="storage" value="{{ $product->storage }}">
+                                            @error('storage')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="sim_type" class="form-label">Sim type</label>
-                                            <input type="text" class="form-control" name="sim_type" id="sim_type" value="{{ $product->sim_type }}">
-                                            @error("sim_type")
-                                                <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
+                                            <input type="text" class="form-control @error('sim_type') is-invalid @enderror" name="sim_type" id="sim_type" value="{{ $product->sim_type }}">
+                                            @error('sim_type')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                         <div class="mt-5">

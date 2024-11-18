@@ -19,19 +19,7 @@
         </div>
     </div>
 
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-primary">
-            {{ session('success') }}
-        </div>
-    @endif
-
-
+    
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -82,6 +70,19 @@
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
