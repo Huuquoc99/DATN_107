@@ -1,8 +1,7 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <main>
-        <div class="mb-md-1 pb-md-3"></div>
+    <div style="padding-top: 110px;">
         <section class="product-single container">
             <div class="row">
                 <div class="col-lg-7">
@@ -40,11 +39,7 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="d-flex justify-content-between mb-4 pb-md-2">
-                        <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
-                            <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
-                        </div><!-- /.breadcrumb -->
+                    
 
                     </div>
                     <h4 class="product">{{ $product->name }}</h4>
@@ -85,7 +80,7 @@
                             </div>
 
                             <!-- Capacity Selection -->
-                            <div class="option-group mb-2">
+                            <div class="option-group mb-3">
                                 <label class="option-label">Dung lượng:</label>
                                 <div class="option-selections">
                                     @foreach ($capacities as $id => $name)
@@ -104,9 +99,9 @@
 
                             <!-- Quantity Control -->
                             <span class="option-label">Tình trạng: <span id="stock-status"></span></span>
-                            <div class="quantity-control mb-4">
-                                <label class="option-label">Số lượng</label>
-                                <div class="quantity-wrapper">
+                            <div class="quantity-control d-flex align-items-center mb-4">
+                                <label class="option-label" style="padding-top: 9px;">Số lượng</label>
+                                <div class="quantity-wrapper" style="margin-left: 35px;">
                                     <button type="button" class="quantity-btn minus">-</button>
                                     <input type="number" name="quantity" value="1"
                                         class="quantity-input @error('quantity') is-invalid @enderror">
@@ -291,5 +286,5 @@
             </div>
             
         </section>
-    </main>
+    </div>
 @endsection

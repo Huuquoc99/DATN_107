@@ -1,4 +1,4 @@
-<div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
+<div class="aside aside_right overflow-hidden customer-forms" id="customerForms" style>
     <div class="container mt-5" style="max-width: 400px;">
         @auth
             <div class="card shadow-sm">
@@ -68,7 +68,7 @@
 
 
 <header id="header" class="header w-100 theme-bg-color bg-dark">
-    <div class="header-top bordered-20per">
+    <!-- <div class="header-top bordered-20per">
         <div class="header-container mx-auto d-flex align-items-center">
             <ul class="list-unstyled d-flex flex-1 gap-3 m-0">
                 <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">Shipping</a></li>
@@ -102,13 +102,13 @@
                
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="header-desk_type_6 style2">
         <div class="header-middle border-0 position-relative py-4">
             <div class="header-container mx-auto d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('theme/client/images/logo-cars.png') }}" alt="Uomo" class="logo__image">
+                        <img src="{{ asset('theme/client/images/techStore.png') }}" alt="Uomo" class="logo__image">
                     </a>
                 </div>
 

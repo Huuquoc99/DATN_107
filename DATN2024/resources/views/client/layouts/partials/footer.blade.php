@@ -5,7 +5,7 @@
         <div class="footer-column footer-store-info col-12 mb-4 mb-lg-0">
           <div class="logo">
             <a href="index.html">
-              <img src="{{ asset('theme/client/images/logo.png') }}" alt="Uomo" class="logo__image d-block">
+              <img src="{{ asset('theme/client/images/techStore.png') }}" alt="Uomo" class="logo__image d-block">
             </a>
           </div><!-- /.logo -->
           <p class="footer-address">1418 River Drive, Suite 35 Cottonhall, CA 9622 United States</p>
