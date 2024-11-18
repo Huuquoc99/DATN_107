@@ -55,7 +55,9 @@
 
                             <optgroup label="Catalogues">
                                 @foreach($catalogues as $item)
-                                    <option value="{{ $item->id }}" data-catalogue-id="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}" data-catalogue-id="{{ $item->id }}">
+                                        {{ \Illuminate\Support\Str::limit($item->name, 20, '...') }}
+                                    </option>
                                 @endforeach
                             </optgroup>
                             <!-- Giá -->

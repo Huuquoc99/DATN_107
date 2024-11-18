@@ -58,7 +58,9 @@ Product
                                         <select class="form-select @error('catalogue_id') is-invalid @enderror" name="catalogue_id" id="catalogue_id">
                                             <option value="0">Catalogues</option>
                                             @foreach($catalogues as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}</option>
+                                                <option value="{{ $id }}">
+                                                    {{ \Illuminate\Support\Str::limit($name, 55, '...') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error("catalogue_id")
@@ -95,7 +97,7 @@ Product
                                     </div>
                                     <div class="mt-3">
                                         <label for="short_description" class="form-label">Short description</label>
-                                        <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>
+                                        <textarea class="form-control @error('short_description') is-invalid @enderror" name="short_description" id="short_description" rows="2"></textarea>
                                         @error("short_description")
                                         <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -106,26 +108,26 @@ Product
                                     <div class="row">
                                         <div class="mt-3">
                                             <label for="sku" class="form-label">SKU</label>
-                                            <input type="text" class="form-control" name="sku" id="sku"
+                                            <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku"
                                                    value="{{ strtoupper(\Str::random(8)) }}">
                                         </div>
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Screen size</label>
-                                            <input type="text" class="form-control" name="screen_size" id="screen_size">
+                                            <input type="text" class="form-control @error('screen_size') is-invalid @enderror" name="screen_size" id="screen_size">
                                             @error("screen_size")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="operating_system" class="form-label">Operating system</label>
-                                            <input type="text" class="form-control" name="operating_system" id="operating_system">
+                                            <input type="text" class="form-control @error('operating_system') is-invalid @enderror" name="operating_system" id="operating_system">
                                             @error("operating_system")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="battery_capacity" class="form-label">Battery capacity</label>
-                                            <input type="text" class="form-control" name="battery_capacity" id="battery_capacity">
+                                            <input type="text" class="form-control @error('battery_capacity') is-invalid @enderror" name="battery_capacity" id="battery_capacity">
                                             @error("battery_capacity")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -133,7 +135,7 @@ Product
 
                                         <div class="mt-3">
                                             <label for="camera_resolution" class="form-label">Camera resolution</label>
-                                            <input type="text" class="form-control" name="camera_resolution" id="camera_resolution">
+                                            <input type="text" class="form-control @error('camera_resolution') is-invalid @enderror" name="camera_resolution" id="camera_resolution">
                                             @error("camera_resolution")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -141,7 +143,7 @@ Product
 
                                         <div class="mt-3">
                                             <label for="network_connectivity" class="form-label">Network connectivity</label>
-                                            <input type="text" class="form-control" name="network_connectivity" id="network_connectivity">
+                                            <input type="text" class="form-control @error('network_connectivity') is-invalid @enderror" name="network_connectivity" id="network_connectivity">
                                             @error("network_connectivity")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -149,7 +151,7 @@ Product
 
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
-                                            <input type="text" class="form-control" name="storage" id="storage">
+                                            <input type="text" class="form-control @error('storage') is-invalid @enderror" name="storage" id="storage">
                                             @error("storage")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -281,7 +283,6 @@ Product
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -291,7 +292,7 @@ Product
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <button class="btn btn-primary">Product create <i class="fa-regular fa-plus"></i></button>
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success">Product list</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success" style="margin-left: 10px">Product list</a>
                     </div>
                 </div>
             </div>
