@@ -62,12 +62,7 @@
             <input class="btn-link fw-medium bg-white position-absolute top-0 end-0 h-100" type="submit" value="JOIN">
           </form>
 
-          <div class="mt-4 pt-3">
-            <strong class="fw-medium">Secure payments</strong>
-            <p class="mt-2">
-              <img loading="lazy" src="{{asset('theme/client/images/payment-options.png') }}" alt="Acceptable payment gateways">
-            </p>
-          </div>
+         
         </div><!-- /.footer-column -->
       </div><!-- /.row-cols-5 -->
     </div><!-- /.footer-middle container -->

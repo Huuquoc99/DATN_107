@@ -32,7 +32,7 @@
         <div class="tab-content pt-2" id="collections-tab-content">
             <div class="tab-pane fade show active" id="collections-tab-1" role="tabpanel"
                 aria-labelledby="collections-tab-1-trigger">
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 gx-3 gy-4">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 gx-3 gy-4">
                     @foreach($products as $item)
                         <div class="col">
                             <div class="product-card product-card_style9 border rounded-3 bg-white h-100">

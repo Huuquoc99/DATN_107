@@ -17389,7 +17389,7 @@ textarea.form-control.is-invalid {
 }
 
 .logo__image {
-    max-width: 100%;
+    max-width: 70%;
     max-height: 120px;
 }
 
@@ -17628,6 +17628,7 @@ textarea.form-control.is-invalid {
 }
 .header-desk_type_6 .header-middle {
     padding: 1.25rem 0;
+    padding-top:5px;
     border-bottom: 1px solid #e4e4e4;
 }
 .header-desk_type_6 .logo {
@@ -20464,9 +20465,8 @@ a.add-to-wishlist.active .flaticon.flaticon-heart {
 }
 
 .shopping-cart {
-    display: flex;
-    flex-direction: column;
-    gap: 3.625rem;
+    display: block;
+   
 }
 @media (min-width: 1200px) {
     .shopping-cart {
@@ -20478,12 +20478,23 @@ a.add-to-wishlist.active .flaticon.flaticon-heart {
     flex-grow: 1;
 }
 .shopping-cart__totals-wrapper .sticky-content {
-    padding-top: 3.125rem;
+    
+    padding-top: 1.125rem;
+    display:flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+    align-items: end;
+ 
+
+
 }
 .shopping-cart__totals-wrapper
     .mobile_fixed-btn_wrapper
     .button-wrapper:not(.fixed-btn) {
     padding: 0;
+
+    
+
 }
 .shopping-cart__totals-wrapper .mobile_fixed-btn_wrapper .fixed-btn {
     position: fixed;
@@ -20491,7 +20502,9 @@ a.add-to-wishlist.active .flaticon.flaticon-heart {
     right: var(--bs-gutter-x, 0.9375rem);
     bottom: 4rem;
     width: auto;
+    
 }
+
 @media (min-width: 768px) {
     .shopping-cart__totals-wrapper .mobile_fixed-btn_wrapper .fixed-btn {
         bottom: 1rem;
@@ -20506,23 +20519,30 @@ a.add-to-wishlist.active .flaticon.flaticon-heart {
     width: 100%;
     height: 3.75rem;
     font-size: 0.875rem;
+    margin-bottom: 15px;
 }
 .shopping-cart__totals {
-    border: 1px solid #222;
+   
     margin-bottom: 1.25rem;
-    padding: 2.5rem 2.5rem 0.5rem;
+    padding: 2.5rem 5.5rem 0.5rem  0.5rem;
     max-width: 100%;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    
+   
+
 }
 @media (min-width: 1200px) {
     .shopping-cart__totals {
-        width: 26.25rem;
+        width: 21.25rem;
     }
 }
 .shopping-cart__totals > h3,
 .shopping-cart__totals > .h3 {
     font-size: 1rem;
     text-transform: uppercase;
-    margin-bottom: 1.25rem;
+    
+    margin-top: -15px;
 }
 .shopping-cart__totals table {
     width: 100%;
@@ -20537,10 +20557,13 @@ a.add-to-wishlist.active .flaticon.flaticon-heart {
 .shopping-cart__totals table th {
     text-transform: uppercase;
     vertical-align: baseline;
+
 }
 .shopping-cart__totals table tr:last-child th,
 .shopping-cart__totals table tr:last-child td {
     border-bottom: 0;
+}
+.shopping-cart__totals table tr:last-child td {
 }
 .shopping-cart .cart-table {
     width: 100%;

@@ -1,13 +1,12 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <div class="mb-4 pb-4"></div>
-    <section class="shop-checkout container" style="margin-bottom: 40px">
+    <div class="mb-4 mt-4 pb-4"></div>
+    <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
         <h2 class="page-title">Giỏ hàng</h2>
         <a href="{{ route('cart.list') }}" class="checkout-steps__item active">
             <span class="checkout-steps__item-title">
-            <span>TÚI MUA SẮM</span>
-            <em>Quản lý túi mua sắm của bạn</em>
+            <span style="margin-top:-20px">TÚI MUA SẮM</span>
           </span>
         </a>
         <div id="delete-success"></div>
@@ -68,29 +67,19 @@
                 </div>
 
 
-                <div class="shopping-cart__totals-wrapper">
+                <div class="shopping-cart__totals-wrapper ">
                     <div class="sticky-content">
                         <div class="shopping-cart__totals">
-                            <h3>Cart Totals</h3>
+                            <h3 style="">Cart Totals</h3>
                             <table class="cart-totals">
                                 <tbody>
                                 <tr>
-                                    <th>Subtotal</th>
-                                    <td id="totalAmount">0 VND</td>
+                                    <th>Subtotal :</th>
+                                    <td id="totalAmount">11111111111111111111 VND</td>
                                 </tr>
-                                <tr>
-                                    <th>Shipping</th>
-                                    <td>
-                                        <!-- Các lựa chọn shipping -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>VAT</th>
-                                    <td>$19</td>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <td id="finalTotal">0 VND</td>
+                                <tr style="color: red">
+                                    <th>Total :</th>
+                                    <td id="finalTotal">111111111111111111111 VND</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -98,7 +87,7 @@
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
                                 <a href="{{ route('checkout.index') }}">
-                                    <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
+                                    <button style="" class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
                                 </a>
                             </div>
                         </div>

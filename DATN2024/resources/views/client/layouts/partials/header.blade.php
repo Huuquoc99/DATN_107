@@ -104,7 +104,7 @@
         </div>
     </div> -->
     <div class="header-desk_type_6 container style2">
-        <div class="header-middle  border-0 position-relative py-4">
+        <div class="header-middle  border-0 position-relative py-2">
             <div class="header-container mx-auto d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
@@ -150,7 +150,7 @@
         </div>
 
         <div class="header-bottom pb-4 mb-2">
-            <div class="header-container mx-auto d-flex align-items-center">
+            <div class="header-container mx-auto d-flex align-items-center ">
                 <div class="categories-nav position-relative">
                     <h3
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
