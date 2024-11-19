@@ -75,11 +75,7 @@
                                 </div>
                             @endif
                         </form>
-
-
-
-
-                        <div class="my-account__edit-form">
+                       <div class="my-account__edit-form">
 
                             <div class="col-md-12">
                                 <div class="my-3">
