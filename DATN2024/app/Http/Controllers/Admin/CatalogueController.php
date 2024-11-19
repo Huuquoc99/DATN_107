@@ -15,7 +15,7 @@ class CatalogueController extends Controller
      */
     public function index()
     {
-        $listCatalogue = Catalogue::withCount("products")->get();
+        $listCatalogue = Catalogue::withCount("products")->orderBy('created_at', 'desc')->paginate(7);
         // $listCatalogue = Catalogue::all();
         // return response()->json( $listCatalogue, 201);
         return view("admin.catalogues.index", compact('listCatalogue'));

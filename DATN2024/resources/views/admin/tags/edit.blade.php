@@ -32,19 +32,18 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Tag edit</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" value="{{ $tag->name }}">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $tag->name }}">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     
@@ -57,20 +56,16 @@
                                     <div class="card-body">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Description</label>
-                                            <input type="text" class="form-control" id="cover" name="description" value="{{ $tag->description }}">
+                                            <textarea type="text" class="form-control" id="cover" name="description" cols="30" rows="2">{{ $tag->description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                            
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">

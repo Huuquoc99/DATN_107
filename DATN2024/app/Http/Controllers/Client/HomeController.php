@@ -37,15 +37,57 @@ class HomeController extends Controller
 
         $banners = Banner::where('is_active', 1)->get();
 
+        $catalogues = Catalogue::where('is_active', 1)->get();
         $products = Product::query()->latest('id')->paginate(8);
-        return view('client.home', compact('products'));
+        return view('client.home', compact('products', 'catalogues'));
 
+    }
+
+
+    public function productByCatalogue($id)
+    {
+        $products = Product::query()->where('catalogue_id', $id)->paginate(1);
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'catalogue',
+            'title' => 'Products by category'
+        ]);
     }
 
     public function shop()
     {
-        return view('client.shop');
+        $products = Product::query()->with(['catalogue'])->latest('id')->paginate(8);
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'shop',
+            'title' => 'All products'
+        ]);
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $query = Product::query();
+
+        if (!empty($keyword)) {
+            $query->where('name', 'LIKE', '%' . $keyword . '%')
+                ->orWhereHas('catalogue', function ($q) use ($keyword) {
+                    $q->where('name', 'LIKE', '%' . $keyword . '%');
+                });
+        }
+
+        $products = $query->paginate(12);
+
+
+        return view('client.shop', [
+            'products' => $products,
+            'source' => 'search',
+            'keyword' => $keyword,
+            'title' => 'Search Results'
+        ]);
+    }
+
 
     public function about()
     {

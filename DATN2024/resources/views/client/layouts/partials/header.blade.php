@@ -49,7 +49,7 @@
                                 id="flexCheckDefault">
                             <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
                         </div>
-                        <a href="{{ route('forgot-password') }}" class="btn-text ms-auto">Quên mật khẩu?</a>
+                        {{-- <a href="{{ route('forgot-password') }}" class="btn-text ms-auto">Quên mật khẩu?</a> --}}
                     </div>
 
                     <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>
@@ -114,7 +114,7 @@
             <div class="container d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('theme/client/images/logo-cars.png') }}" alt="Uomo" class="logo__image">
+                        <img src="#" alt="Uomo" class="logo__image">
                     </a>
                 </div><!-- /.logo -->
 
@@ -159,7 +159,6 @@
 
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
                     </a>
                 </div><!-- /.header__tools -->
             </div>
@@ -197,8 +196,9 @@
                     </ul>
                 </div>
 
-                <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
+                <form action="{{ route('product.search') }}" method="post"
                     class="header-search search-field me-0 border-radius-10">
+                    @csrf
                     <button class="btn header-search__btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     </button>
@@ -223,7 +223,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
+                        src="#" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -250,7 +250,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
+                        src="#" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -277,7 +277,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
+                        src="#" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">

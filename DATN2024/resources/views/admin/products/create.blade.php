@@ -30,7 +30,7 @@ Product
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Product create</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -58,7 +58,9 @@ Product
                                         <select class="form-select @error('catalogue_id') is-invalid @enderror" name="catalogue_id" id="catalogue_id">
                                             <option value="0">Catalogues</option>
                                             @foreach($catalogues as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}</option>
+                                                <option value="{{ $id }}">
+                                                    {{ \Illuminate\Support\Str::limit($name, 55, '...') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error("catalogue_id")
@@ -95,7 +97,7 @@ Product
                                     </div>
                                     <div class="mt-3">
                                         <label for="short_description" class="form-label">Short description</label>
-                                        <textarea class="form-control" name="short_description" id="short_description" rows="2"></textarea>
+                                        <textarea class="form-control @error('short_description') is-invalid @enderror" name="short_description" id="short_description" rows="2"></textarea>
                                         @error("short_description")
                                         <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -106,26 +108,26 @@ Product
                                     <div class="row">
                                         <div class="mt-3">
                                             <label for="sku" class="form-label">SKU</label>
-                                            <input type="text" class="form-control" name="sku" id="sku"
+                                            <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku"
                                                    value="{{ strtoupper(\Str::random(8)) }}">
                                         </div>
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Screen size</label>
-                                            <input type="text" class="form-control" name="screen_size" id="screen_size">
+                                            <input type="text" class="form-control @error('screen_size') is-invalid @enderror" name="screen_size" id="screen_size">
                                             @error("screen_size")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="operating_system" class="form-label">Operating system</label>
-                                            <input type="text" class="form-control" name="operating_system" id="operating_system">
+                                            <input type="text" class="form-control @error('operating_system') is-invalid @enderror" name="operating_system" id="operating_system">
                                             @error("operating_system")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mt-3">
                                             <label for="battery_capacity" class="form-label">Battery capacity</label>
-                                            <input type="text" class="form-control" name="battery_capacity" id="battery_capacity">
+                                            <input type="text" class="form-control @error('battery_capacity') is-invalid @enderror" name="battery_capacity" id="battery_capacity">
                                             @error("battery_capacity")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -133,7 +135,7 @@ Product
 
                                         <div class="mt-3">
                                             <label for="camera_resolution" class="form-label">Camera resolution</label>
-                                            <input type="text" class="form-control" name="camera_resolution" id="camera_resolution">
+                                            <input type="text" class="form-control @error('camera_resolution') is-invalid @enderror" name="camera_resolution" id="camera_resolution">
                                             @error("camera_resolution")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -141,7 +143,7 @@ Product
 
                                         <div class="mt-3">
                                             <label for="network_connectivity" class="form-label">Network connectivity</label>
-                                            <input type="text" class="form-control" name="network_connectivity" id="network_connectivity">
+                                            <input type="text" class="form-control @error('network_connectivity') is-invalid @enderror" name="network_connectivity" id="network_connectivity">
                                             @error("network_connectivity")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -149,7 +151,7 @@ Product
 
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
-                                            <input type="text" class="form-control" name="storage" id="storage">
+                                            <input type="text" class="form-control @error('storage') is-invalid @enderror" name="storage" id="storage">
                                             @error("storage")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -192,7 +194,6 @@ Product
 
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">
@@ -201,7 +202,7 @@ Product
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
                         <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -258,7 +259,6 @@ Product
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
 
         <div class="row">
@@ -269,7 +269,7 @@ Product
                             <h4 class="card-title mb-0 flex-grow-1">Gallery</h4>
                             <button type="button" class="btn btn-primary" onclick="addImageGallery()"><i class="fa-solid fa-plus fa-lg"></i></button>
                         </div>
-                        <!-- end card header -->
+                       
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4" id="gallery_list">
@@ -283,45 +283,16 @@ Product
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
-        {{-- <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">More information</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="live-preview">
-                            <div class="row gy-4">
-                                <div class="col-md-12">
-                                    <div>
-                                        <label for="tags" class="form-label">Tags</label>
-                                        <select class="form-select" name="tags[]" id="tags" multiple>
-                                            @foreach($tags as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <button class="btn btn-primary">Product create <i class="fa-regular fa-plus"></i></button>
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success">Product list</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success" style="margin-left: 10px">Product list</a>
                     </div>
                 </div>
             </div>
@@ -387,17 +358,16 @@ Product
             row.remove();
         }
 
-        let variantCount = 0; // Để tạo id duy nhất cho các biến thể mới
-
+        let variantCount = 0;
         function addNewVariant() {
+
             const variantTable = document.querySelector('#variant-table');
             const newRow = document.createElement('tr');
             newRow.classList.add('text-center');
 
-            // Tạo sizeID và colorID tạm thời để giữ định dạng "product_variants[sizeID-colorID]"
             const sizeID = `newSize${variantCount}`;
             const colorID = `newColor${variantCount}`;
-            variantCount++; // Tăng biến đếm
+            variantCount++;
 
             newRow.innerHTML = `
         <td>

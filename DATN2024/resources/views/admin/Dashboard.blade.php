@@ -22,28 +22,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--end col-->
                                         <div class="col-auto">
                                             <button type="button" class="btn btn-soft-success"><i class="ri-add-circle-line align-middle me-1"></i> Add Product</button>
                                         </div>
-                                        <!--end col-->
                                         <div class="col-auto">
                                             <button type="button" class="btn btn-soft-info btn-icon waves-effect waves-light layout-rightside-btn"><i class="ri-pulse-line"></i></button>
                                         </div>
-                                        <!--end col-->
                                     </div>
-                                    <!--end row-->
                                 </form>
                             </div>
-                        </div><!-- end card header -->
+                        </div>
                     </div>
-                    <!--end col-->
                 </div>
-                <!--end row-->
 
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
-                        <!-- card -->
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -62,17 +55,16 @@
                                         <a href="" class="text-decoration-underline">View net earnings</a>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
-                                                                    <span class="avatar-title bg-success-subtle rounded fs-3">
-                                                                        <i class="bx bx-dollar-circle text-success"></i>
-                                                                    </span>
+                                        <span class="avatar-title bg-success-subtle rounded fs-3">
+                                            <i class="bx bx-dollar-circle text-success"></i>
+                                        </span>
                                     </div>
                                 </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-xl-3 col-md-6">
-                        <!-- card -->
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -96,8 +88,8 @@
                                                                     </span>
                                     </div>
                                 </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
+                            </div>
+                        </div>
                     </div><!-- end col -->
 
                     <div class="col-xl-3 col-md-6">
@@ -865,3 +857,5 @@
     <!--Swiper slider css-->
     <link href="{{ asset('theme/admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
+
+

@@ -15,7 +15,7 @@ class PaymentMethodController extends Controller
      */
     public function index()
     {
-        $listPaymentMethod = PaymentMethod::get();
+        $listPaymentMethod = PaymentMethod::paginate(5);
         // return response()->json( $listPaymentMethod, 201);
         return view("admin.paymentMethods.index", compact('listPaymentMethod'));
 

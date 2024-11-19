@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -19,21 +18,8 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-primary">
-            {{ session('success') }}
-        </div>
-    @endif
-
-
+    
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -57,7 +43,9 @@
 
                             <optgroup label="Catalogues">
                                 @foreach($catalogues as $item)
-                                    <option value="{{ $item->id }}" data-catalogue-id="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}" data-catalogue-id="{{ $item->id }}">
+                                        {{ \Illuminate\Support\Str::limit($item->name, 20, '...') }}
+                                    </option>
                                 @endforeach
                             </optgroup>
                             <!-- Giá -->
@@ -82,7 +70,20 @@
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
+                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
                             <tr>
@@ -93,9 +94,8 @@
                                 <th>Price</th>
                                 <th>Storage</th>
                                 <th>Battery capacity</th>
-                                <th>Operating system</th>
                                 <th>Active</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -113,18 +113,17 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.products.show', $item) }}">
-                                            {{ $item->name }}
+                                            {{ \Illuminate\Support\Str::limit($item->name, 10, '...') }}
                                         </a>
+                                        
                                     </td>
-                                    <td>{{ $item->catalogue ? $item->catalogue->name : 'No Catalogue' }}</td>
-                                    <td>{{ $item->price_regular }}</td>
+                                    <td>
+                                        {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'No Catalogue' }}
+                                    </td>                                    
+                                    <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
                                     <td>{{ $item->storage }}</td>
                                     <td>{{ $item->battery_capacity }}</td>
-                                    <td>{{ $item->operating_system }}</td>
                                     <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
-
-                                    {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td> --}}
                                     <td>
                                         <div class="d-flex gap-2  justify-content-center">
                                             <a href="{{ route('admin.products.show', $item) }}" class="btn btn-info btn-sm">
@@ -138,20 +137,25 @@
                                             <form action="{{ route('admin.products.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Are you sure?')" type="submit"
+                                                <button onclick="return confirm('Are you sure you want to delete?')" type="submit"
                                                         class="btn btn-danger btn-sm">Del <i
                                                         class="fa-solid fa-delete-left fa-sm"></i>
                                                 </button>
                                             </form>
-{{--                                            <a class="btn btn-danger btn-sm delete-product " data-id="{{ $item->id }}">Xóa <i class="fa-solid fa-delete-left fa-sm"></i>--}}
-{{--                                            </a>--}}
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $data->links() }}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} products</p>
+                            </div>
+                            <div>
+                                {{ $data->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,50 +174,31 @@
         });
 
         $(document).ready(function () {
-            $(document).on('click', '.pagination a', function (e) {
+
+            $('#search').on('keyup', function (e) {
                 e.preventDefault();
-                let page = $(this).attr('href').split('page=')[1]
-                product(page);
-            })
-
-
-            function product(page) {
-                $.ajax({
-                    url: "products/pagination/?page=" + page,
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    }
-                })
-            }
-
-            $(document).on('keyup', function (e) {
-                e.preventDefault();
-                let search_string = $('#search').val();
-                $.ajax({
-                    url: "{{ route('admin.products.search') }}",
-                    method: 'get',
-                    data: {search_string: search_string},
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    },
-                    error: function (res) {
-                        if (res.status === 404) {
-                            $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
-                        }
-                    }
-                })
-            })
-
+                let search_string = $(this).val();
+                let filter = $('#product-filter').val();
+                let categoryId = $('#product-filter').find('option:selected').data('catalogue-id');
+                loadProducts(1, search_string, filter, categoryId);
+            });
 
             $('#product-filter').change(function () {
                 let filter = $(this).val();
-                let categoryId = $(this).find('option:selected').data('catalogue-id'); // Lấy category_id
+                let categoryId = $(this).find('option:selected').data('catalogue-id');
+                let search_string = $('#search').val();
+                loadProducts(1, search_string, filter, categoryId);
+            });
+
+            function loadProducts(page = 1, search_string = '', filter = '', categoryId = '') {
                 $.ajax({
                     url: "{{ route('admin.products.filter') }}",
                     method: 'get',
                     data: {
+                        page: page,
+                        search_string: search_string,
                         filter: filter,
-                        category_id: categoryId // Gửi category_id lên server
+                        category_id: categoryId
                     },
                     success: function (res) {
                         $('.table-data').html(res);
@@ -222,47 +207,7 @@
                         $('.table-data').html('<p class="alert alert-primary">Có lỗi xảy ra!</p>');
                     }
                 });
-            });
-
-            {{--$(document).on('click', '.delete-product', function (e) {--}}
-            {{--    e.preventDefault();--}}
-            {{--    let productId = $(this).data('id');--}}
-
-            {{--    Swal.fire({--}}
-            {{--        title: 'Are you sure?',--}}
-            {{--        text: "You won't be able to revert this!",--}}
-            {{--        icon: 'warning',--}}
-            {{--        showCancelButton: true,--}}
-            {{--        confirmButtonColor: '#3085d6',--}}
-            {{--        cancelButtonColor: '#d33',--}}
-            {{--        confirmButtonText: 'Yes, delete it!'--}}
-            {{--    }).then((result) => {--}}
-            {{--        if (result.isConfirmed) {--}}
-            {{--            $.ajax({--}}
-            {{--                url: `/products/${productId}`,--}}
-            {{--                type: 'DELETE',--}}
-            {{--                data: {--}}
-            {{--                    _token: '{{ csrf_token() }}'--}}
-            {{--                },--}}
-            {{--                success: function (response) {--}}
-            {{--                    Swal.fire(--}}
-            {{--                        'Deleted!',--}}
-            {{--                        'Your product has been deleted.',--}}
-            {{--                        'success'--}}
-            {{--                    );--}}
-            {{--                    $(`tr[data-id="${productId}"]`).remove();--}}
-            {{--                },--}}
-            {{--                error: function (xhr) {--}}
-            {{--                    Swal.fire(--}}
-            {{--                        'Error!',--}}
-            {{--                        'Failed to delete product.',--}}
-            {{--                        'error'--}}
-            {{--                    );--}}
-            {{--                }--}}
-            {{--            });--}}
-            {{--        }--}}
-            {{--    });--}}
-            {{--});--}}
+            }
         });
 
     </script>

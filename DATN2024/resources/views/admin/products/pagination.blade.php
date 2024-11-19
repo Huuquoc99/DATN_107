@@ -38,8 +38,6 @@
             <td>{{ $item->battery_capacity }}</td>
             <td>{{ $item->operating_system }}</td>
             <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
-{{--            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>--}}
-{{--            <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d/m/Y') }}</td>--}}
             <td>
                 <div class="d-flex gap-2">
                     <a href="{{ route('admin.products.show', $item) }}"
@@ -56,8 +54,6 @@
                                 class="fa-solid fa-delete-left fa-sm"></i>
                         </button>
                     </form>
-{{--                    <a class="btn btn-danger btn-sm delete-product " data-id="{{ $item->id }}">Xóa <i class="fa-solid fa-delete-left fa-sm"></i>--}}
-{{--                    </a>--}}
                 </div>
             </td>
         </tr>

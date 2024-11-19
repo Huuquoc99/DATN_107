@@ -19,89 +19,289 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xl-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="mt-4 mt-xl-3">
-                                <h4 class="mt-1 mb-3">Order #{{ $order->code }}</h4>
-                                <table class="table table-bordered dt-responsive nowrap table-striped align-middle"
-                                    style="width:100%">
-                                    <tbody>
-                                        <tr>
-                                            <th>User name</th>
-                                            <td>{{ $order->user->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>User email</th>
-                                            <td>{{ $order->user->email }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>User phone</th>
-                                            <td>{{ $order->user->phone }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>User address</th>
-                                            <td>{{ $order->user->address }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>User note:</th>
-                                            <td>{{ $order->user_note }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+    <div >
+        <div class="row">
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">Customer Details</h5>
+                            <div class="flex-shrink-0">
+                                <a href="{{ route('admin.customers.show', $order->user->id) }}"
+                                    class="link-secondary">View
+                                    Profile</a>
                             </div>
                         </div>
-
-                        <div class="col-xl-6">
-                            <div class="mt-4 mt-xl-3">
-                                <h4 class="mt-1 mb-3">Shipping Information</h4>
-                                <table class="table table-bordered dt-responsive nowrap table-striped align-middle"
-                                    style="width:100%">
-                                    <tbody>
-                                        <tr>
-                                            <th>Ship user name</th>
-                                            <td>{{ $order->ship_user_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ship user email</th>
-                                            <td>{{ $order->ship_user_email }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ship user phone</th>
-                                            <td>{{ $order->ship_user_phone }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ship user address</th>
-                                            <td>{{ $order->ship_user_address }}</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th>Ship user note</th>
-                                            <td>{{ $order->ship_user_note }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0 vstack gap-3">
+                            <li>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ Storage::url($order->user->avatar) }}" alt=""
+                                            class="avatar-sm rounded">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="fs-14 mb-1">
+                                            {{ \Illuminate\Support\Str::limit($order->user->name, 20, '...') }}
+                                        </h6>
+                                        <p class="text-muted mb-0">
+                                            @if ($order->user->type == 1)
+                                                Admin
+                                            @elseif ($order->user->type == 0)
+                                                Client
+                                            @else
+                                                Unknown
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>
+                                {{ $order->user->email }}
+                            </li>
+                            <li>
+                                <i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>
+                                {{ $order->user->phone }}
+                            </li>
+                            <li>
+                                <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
+                                {{ \Illuminate\Support\Str::limit($order->user->address, 20, '...') }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i> Billing
+                            Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
+                            <li class="fw-medium fs-14">
+                                {{ \Illuminate\Support\Str::limit($order->user_name, 25, '...') }}
+                            </li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone }}</li>
+                            <li>
+                                <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
+                                {{ \Illuminate\Support\Str::limit($order->user_address, 20, '...') }}
+                            </li>
+                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?: 'No notes provided' }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i>
+                            Shipping
+                            Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled vstack gap-3 fs-13 mb-0">
+                            <li class="fw-medium fs-14">
+                                {{ \Illuminate\Support\Str::limit($order->ship_user_name, 25, '...') }}
+                            </li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_email }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_phone }}</li>
+                            <li>
+                                <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
+                                {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }}
+                            </li>
+                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'No notes provided' }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="ri-secure-payment-line align-bottom me-1 text-muted"></i> Order
+                            Details</h5>
+                    </div>
+                    <div class="card-body ">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <p class="text-muted mb-0">Status order:</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h6 class="mb-0">
+                                    {{ \Illuminate\Support\Str::limit($order->statusOrder->name, 25, '...') }}
+                                </h6>
                             </div>
                         </div>
-
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <p class="text-muted mb-0">Status payment:</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h6 class="mb-0">
+                                    {{ \Illuminate\Support\Str::limit($order->statusPayment->name, 20, '...') }}
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <p class="text-muted mb-0">Payment method:</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h6 class="mb-0">
+                                    {{ \Illuminate\Support\Str::limit($order->paymentMethod->name, 15, '...') }}
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <p class="text-muted mb-0">Created at: </p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h6 class="mb-0">
+                                    <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span> 
+                                    <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <p class="text-muted mb-0">Total Amount:</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h6 class="mb-0">{{ number_format($order->total_price, 0, ',', '.') }} VND</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-6">
-                            <div class="mt-4 mt-xl-3">
-                                <h4 class="mt-1 mb-3">Order Details</h4>
-
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h3 class="card-title flex-grow-1 mb-0"><b>#{{ $order->code }}</b></h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-card">
+                            <table class="table table-nowrap align-middle table-borderless mb-0">
+                                <thead class="table-light text-muted">
+                                    <tr>
+                                        <th scope="col">Product Details</th>
+                                        <th scope="col" class="text-center">Item Price</th>
+                                        <th scope="col" class="text-center">Quantity</th>
+                                        <th scope="col" class="text-center">SKU</th>
+                                        <th scope="col" class="text-end">Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($order->orderItems as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
+                                                        @php
+                                                            $url = $item->productVariant->image;
+                                                            if (!Str::contains($url, 'http')) {
+                                                                $url = \Illuminate\Support\Facades\Storage::url($url);
+                                                            }
+                                                        @endphp
+                                                        @if ($url)
+                                                            <img src="{{ $url }}" alt=""
+                                                                class="img-fluid d-block">
+                                                        @else
+                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="No image available"
+                                                                class="img-fluid d-block">
+                                                        @endif
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h5 class="fs-15">
+                                                            {{ \Illuminate\Support\Str::limit($item->product_name ?? 'N/A', 15, '...') }}
+                                                        </h5>
+                                                        <p class="text-muted mb-0">Color:
+                                                            <span class="fw-medium">
+                                                                @if ($item->product_color_id)
+                                                                    {{ $item->color->name ?? 'N/A' }}
+                                                                @endif
+                                                            </span>
+                                                        </p>
+                                                        <p class="text-muted mb-0">Capacity:
+                                                            <span class="fw-medium">
+                                                                @if ($item->product_capacity_id)
+                                                                    {{ $item->capacity->name ?? 'N/A' }}
+                                                                @endif
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">{{ number_format($item->productVariant->price, 0, '.', ',') }} VND</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
+                                            <td class="fw-medium text-end">
+                                                {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr class="border-top border-top-dashed">
+                                        <td colspan="3"></td>
+                                        <td colspan="2" class="fw-medium p-0">
+                                            <table class="table table-borderless mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Sub Total :</td>
+                                                        <td class="text-end">
+                                                            {{ number_format($item->order->total_price, 0, '.', ',') }} VND
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-top border-top-dashed">
+                                                        <th scope="row">Total:</th>
+                                                        <th class="text-end">
+                                                            {{ number_format($item->order->total_price, 0, '.', ',') }} VND
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="ri-bubble-chart-fill"></i> Order Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 ms-2">
+                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST"
+                                    class="d-flex flex-column align-items-start">
+                                    @csrf
+                                    <div class="form-group mb-3">
+                                        <select name="status_order_id" id="status_order_id" class="form-control"
+                                            style="width:245px">
+                                            @foreach ($statusOrders as $status)
+                                                <option value="{{ $status->id }}"
+                                                    {{ $order->status_order_id == $status->id ? 'selected' : '' }}
+                                                    {{ $status->id < $order->status_order_id ||
+                                                    (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
+                                                        ? 'disabled'
+                                                        : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update status</button>
+                                </form>
                                 @if (session('error'))
                                     <div class="alert alert-danger">
                                         {{ session('error') }}
@@ -113,417 +313,12 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
-
-                                <table class="table table-bordered dt-responsive nowrap table-striped align-middle"
-                                    style="width:100%">
-                                    <tbody>
-                                        <tr>
-                                            <th>Status order</th>
-                                            <td>
-                                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}"
-                                                    method="POST" class="d-flex align-items-center">
-                                                    @csrf
-                                                    <div class="form-group mb-0 mr-2">
-                                                        <select name="status_order_id" id="status_order_id"
-                                                            class="form-control me-3" style="width:150px">
-                                                            @foreach ($statusOrders as $status)
-                                                                <option value="{{ $status->id }}"
-                                                                    {{ $order->status_order_id == $status->id ? 'selected' : '' }}
-                                                                    {{ $status->id < $order->status_order_id ||
-                                                                    (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
-                                                                        ? 'disabled'
-                                                                        : '' }}>
-                                                                    {{ $status->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary ml-2">Update
-                                                        status</button>
-                                                </form>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Status payment</th>
-                                            <td>{{ $order->statusPayment->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Payment method</th>
-                                            <td>{{ $order->paymentMethod->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total price</th>
-                                            <td>{{ number_format($order->total_price, 2) }} đ</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Created at</th>
-                                            <td>{{ $order->created_at->format('d/m/Y H:i:s') }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive table-card">
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        <table class="table table-nowrap align-middle table-borderless mb-0">
-                            <thead class="table-light text-muted">
-                                <tr>
-                                    <th scope="col">Product Details</th>
-                                    <th scope="col">Item Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Rating</th>
-                                    <th scope="col" class="text-end">Total Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($order->orderItems as $item)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                    {{-- <img src="assets/images/products/img-8.png" alt="" class="img-fluid d-block"> --}}
-                                                    @php
-                                                        $url = $item->productVariant->image;
-                                                        if (!Str::contains($url, 'http')) {
-                                                            $url = \Illuminate\Support\Facades\Storage::url($url);
-                                                        }
-                                                    @endphp
-                                                    {{-- <img src="{{ $url }}" alt="" class="img-fluid d-block"> --}}
-                                                    @if ($url)
-                                                        <img src="{{ $url }}" alt="" class="img-fluid d-block">
-                                                    @else
-                                                        <img src="path/to/placeholder-image.png" alt="No image available" class="img-fluid d-block">
-                                                    @endif
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h5 class="fs-15">{{ $item->product->name ?? 'N/A' }}</h5>
-                                                    <p class="text-muted mb-0">Color: 
-                                                        <span class="fw-medium">
-                                                            @if ($item->product_color_id)
-                                                                {{ $item->color->name ?? 'N/A' }}
-                                                            @endif
-                                                        </span>
-                                                    </p>
-                                                    <p class="text-muted mb-0">Capacity: 
-                                                        <span class="fw-medium">
-                                                            @if ($item->product_capacity_id)
-                                                                {{ $item->capacity->name ?? 'N/A' }}
-                                                            @endif
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>{{ number_format($item->product_price_sale, 2) }} VND</td>
-                                        <td>{{ $item->quantity }}</td>
-                                        <td>{{ $item->product->sku ?? 'N/A' }}</td>
-                                        <td class="fw-medium text-end">
-                                            $239.98
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr class="border-top border-top-dashed">
-                                    <td colspan="3"></td>
-                                    <td colspan="2" class="fw-medium p-0">
-                                        <table class="table table-borderless mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Sub Total :</td>
-                                                    <td class="text-end">$359.96</td>
-                                                </tr>
-                                                <tr class="border-top border-top-dashed">
-                                                    <th scope="row">Total (USD) :</th>
-                                                    <th class="text-end">$415.96</th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
-            <!--end card-->
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-sm-flex align-items-center">
-                        <h5 class="card-title flex-grow-1 mb-0">Order Status</h5>
-                        <div class="flex-shrink-0 mt-2 mt-sm-0">
-                            <a href="javascript:void(0);" class="btn btn-soft-info btn-sm mt-2 mt-sm-0"><i class="ri-map-pin-line align-middle me-1"></i> Change Address</a>
-                            <a href="javascript:void(0);" class="btn btn-soft-danger btn-sm mt-2 mt-sm-0"><i class="mdi mdi-archive-remove-outline align-middle me-1"></i> Cancel Order</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="profile-timeline">
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            <div class="accordion-item border-0">
-                                <div class="accordion-header" id="headingOne">
-                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 avatar-xs">
-                                                <div class="avatar-title bg-success rounded-circle">
-                                                    <i class="ri-shopping-bag-line"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h6 class="fs-15 mb-0 fw-semibold">Order Placed - <span class="fw-normal">Wed, 15 Dec 2021</span></h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body ms-2 ps-5 pt-0">
-                                        <h6 class="mb-1">An order has been placed.</h6>
-                                        <p class="text-muted">Wed, 15 Dec 2021 - 05:34PM</p>
-
-                                        <h6 class="mb-1">Seller has processed your order.</h6>
-                                        <p class="text-muted mb-0">Thu, 16 Dec 2021 - 5:48AM</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0">
-                                <div class="accordion-header" id="headingTwo">
-                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 avatar-xs">
-                                                <div class="avatar-title bg-success rounded-circle">
-                                                    <i class="mdi mdi-gift-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h6 class="fs-15 mb-1 fw-semibold">Packed - <span class="fw-normal">Thu, 16 Dec 2021</span></h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body ms-2 ps-5 pt-0">
-                                        <h6 class="mb-1">Your Item has been picked up by courier partner</h6>
-                                        <p class="text-muted mb-0">Fri, 17 Dec 2021 - 9:45AM</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0">
-                                <div class="accordion-header" id="headingThree">
-                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 avatar-xs">
-                                                <div class="avatar-title bg-success rounded-circle">
-                                                    <i class="ri-truck-line"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h6 class="fs-15 mb-1 fw-semibold">Shipping - <span class="fw-normal">Thu, 16 Dec 2021</span></h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body ms-2 ps-5 pt-0">
-                                        <h6 class="fs-14">RQK Logistics - MFDS1400457854</h6>
-                                        <h6 class="mb-1">Your item has been shipped.</h6>
-                                        <p class="text-muted mb-0">Sat, 18 Dec 2021 - 4.54PM</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0">
-                                <div class="accordion-header" id="headingFour">
-                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseFour" aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 avatar-xs">
-                                                <div class="avatar-title bg-light text-success rounded-circle">
-                                                    <i class="ri-takeaway-fill"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h6 class="fs-14 mb-0 fw-semibold">Out For Delivery</h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0">
-                                <div class="accordion-header" id="headingFive">
-                                    <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseFile" aria-expanded="false">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 avatar-xs">
-                                                <div class="avatar-title bg-light text-success rounded-circle">
-                                                    <i class="mdi mdi-package-variant"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h6 class="fs-14 mb-0 fw-semibold">Delivered</h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end accordion-->
-                    </div>
-                </div>
-            </div>
-            <!--end card-->
         </div>
-        <!--end col-->
-        <div class="col-xl-3">
-            {{-- <div class="card">
-                <div class="card-header">
-                    <div class="d-flex">
-                        <h5 class="card-title flex-grow-1 mb-0"><i class="mdi mdi-truck-fast-outline align-middle me-1 text-muted"></i> Logistics Details</h5>
-                        <div class="flex-shrink-0">
-                            <a href="javascript:void(0);" class="badge bg-primary-subtle text-primary fs-11">Track Order</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <lord-icon src="https://cdn.lordicon.com/uetqnvvg.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style="width:80px;height:80px"></lord-icon>
-                        <h5 class="fs-16 mt-2">RQK Logistics</h5>
-                        <p class="text-muted mb-0">ID: MFDS1400457854</p>
-                        <p class="text-muted mb-0">Payment Mode : Debit Card</p>
-                    </div>
-                </div>
-            </div> --}}
-            <!--end card-->
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex">
-                        <h5 class="card-title flex-grow-1 mb-0">Customer Details</h5>
-                        <div class="flex-shrink-0">
-                            <a href="{{ route('admin.customers.show', $order->user->id) }}" class="link-secondary">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mb-0 vstack gap-3">
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <img src="{{ Storage::url($order->user->avatar)}}" alt="" class="avatar-sm rounded">
-                                    
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h6 class="fs-14 mb-1">{{ $order->user->name }}</h6>
-                                    <p class="text-muted mb-0">
-                                        @if ($order->user->type == 1)
-                                            Admin
-                                        @elseif ($order->user->type == 0)
-                                            Client
-                                        @else
-                                            Unknown
-                                        @endif
-                                    </p>                                    
-                                </div>
-                            </div>
-                        </li>
-                        <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user->email }}</li>
-                        <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user->phone }}</li>
-                        {{-- <li><i class="ri-map-pin-line align-middle me-1 text-muted"></i>{{ $order->user->address }}</li> --}}
-
-                    </ul>
-                </div>
-            </div>
-            <!--end card-->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i> Billing Address</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled vstack gap-2 fs-13 mb-0">
-                        <li class="fw-medium fs-14">{{ $order->user->name }}</li>
-                        <li>{{ $order->user->email }}</li>
-                        <li>{{ $order->user->phone }}</li>
-                        <li>{{ $order->user->address }}</li>
-                        <li>{{ $order->user_note }}</li>
-                        {{-- <li>United States</li> --}}
-                    </ul>
-                </div>
-            </div>
-            <!--end card-->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i> Shipping Address</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled vstack gap-2 fs-13 mb-0">
-                        <li class="fw-medium fs-14">{{ $order->ship_user_name }}</li>
-                        <li>{{ $order->ship_user_email }}</li>
-                        <li>{{ $order->ship_user_phone }}</li>
-                        <li>{{ $order->ship_user_address }}</li>
-                        <li>{{ $order->ship_user_note }}</li>
-                    </ul>
-                </div>
-            </div>
-            <!--end card-->
-
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0"><i class="ri-secure-payment-line align-bottom me-1 text-muted"></i> Order Details</h5>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="flex-shrink-0">
-                            <p class="text-muted mb-0">Status order:</p>
-                        </div>
-                        <div class="flex-grow-1 ms-2">
-                            <h6 class="mb-0">{{ $order->statusOrder->name }}</h6>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="flex-shrink-0">
-                            <p class="text-muted mb-0">Status payment:</p>
-                        </div>
-                        <div class="flex-grow-1 ms-2">
-                            <h6 class="mb-0">{{ $order->statusPayment->name }}</h6>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="flex-shrink-0">
-                            <p class="text-muted mb-0">Payment method:</p>
-                        </div>
-                        <div class="flex-grow-1 ms-2">
-                            <h6 class="mb-0">{{ $order->paymentMethod->name }}</h6>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="flex-shrink-0">
-                            <p class="text-muted mb-0">Created at: </p>
-                        </div>
-                        <div class="flex-grow-1 ms-2">
-                            <h6 class="mb-0">{{ $order->created_at->format('d/m/Y H:i:s') }}</h6>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0">
-                            <p class="text-muted mb-0">Total Amount:</p>
-                        </div>
-                        <div class="flex-grow-1 ms-2">
-                            <h6 class="mb-0">{{ number_format($order->total_price, 2) }} VND</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end card-->
-        </div>
-        <!--end col-->
+            
     </div>
-
 @endsection

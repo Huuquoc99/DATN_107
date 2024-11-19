@@ -13,8 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        // $users = User::paginate(7);
+        // $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->paginate(7);
         // return response()->json($users);
         return view("admin.customers.index", compact('users'));
 

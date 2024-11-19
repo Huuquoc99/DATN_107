@@ -6,20 +6,24 @@
         <section class="product-single container">
             <div class="row">
                 <div class="col-lg-7">
-                    <div class="product-single__media" data-media-type="vertical-thumbnail">
+                    <div class="" data-media-type="vertical-thumbnail">
                         <div class="product-single__image">
                             <div class="swiper-container">
-                                <div class="product-gallery-horizontal">
+                                <div class="d-flex justify-content-between mb-4 pb-md-2" style="padding-left: 55px">
+                                    <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
+                                        <a href="{{ route('home') }}" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
+                                        <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
+                                        <a href="{{ route('shop') }}" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
+                                    </div><!-- /.breadcrumb -->
+                                </div>
+                                <div class="product-gallery-horizontal d-flex justify-content-center" style="padding-left: 55px">
                                     <div class="main-image-container">
-                                        <img id="mainImage" src="{{ Storage::url($product->img_thumbnail) }}"
+                                        <img id="mainImage" style="height: 500px; width: 600px;" src="{{ Storage::url($product->img_thumbnail) }}"
                                             class="main-image" alt="{{ $product->name }}">
                                         <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn"
                                             data-fancybox="gallery">
                                             <i class="fas fa-search-plus"></i>
                                         </a>
-                                        <div class="swiper-button-next">
-                                            <i class="fa-solid fa-chevron-right"></i>
-                                        </div>
                                     </div>
                                     <div class="thumbnail-column">
                                         @foreach ($product->galleries as $image)
@@ -31,40 +35,20 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="swiper-button-prev">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <div class="d-flex justify-content-between mb-4 pb-md-2">
-                        <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
-                            <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
-                        </div><!-- /.breadcrumb -->
+                <div class="col-lg-5 mt-5">
+                    <h4 class="product"><b>{{ $product->name }}</b></h4>
 
-                    </div>
-                    <h4 class="product">{{ $product->name }}</h4>
-                    <div class="product-single__rating">
-                        <div class="reviews-group d-flex">
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                            <i class="fa-regular fa-star fa-sm" style="color: #c1e510;"></i>
-                        </div>
-                        <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
-                    </div>
-                    <h5 class="product-single__price" id="product-price">
+                    <h6 class="product-single__price mt-3" id="product-price" style="font-size: 30px">
                         <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
                         <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }}
                                     VND</del></i></span>
-                    </h5>
+                    </h6>
                     <div class="product-single__short-desc">
-                        <p>{{ $product->short_description }}</p>
+                        {{ \Illuminate\Support\Str::limit($product->short_description, 200) }}
                     </div>
                     <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post"
                         class="product-form">
@@ -158,62 +142,71 @@
                     <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
                         aria-labelledby="tab-description-tab">
                         <div class="product-single__description">
-                            <h3 class="block-title mb-4">Sed do eiusmod tempor incididunt ut labore</h3>
-                            <p class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
-                                quasi architecto beatae vitae dicta sunt explicabo.</p>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h3 class="block-title">Why choose product?</h3>
-                                    <ul class="list text-list">
-                                        <li>Creat by cotton fibric with soft and smooth</li>
-                                        <li>Simple, Configurable (e.g. size, color, etc.), bundled</li>
-                                        <li>Downloadable/Digital Products, Virtual Products</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h3 class="block-title">Sample Number List</h3>
-                                    <ol class="list text-list">
-                                        <li>Create Store-specific attrittbutes on the fly</li>
-                                        <li>Simple, Configurable (e.g. size, color, etc.), bundled</li>
-                                        <li>Downloadable/Digital Products, Virtual Products</li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <h3 class="block-title mb-0">Lining</h3>
-                            <p class="content">100% Polyester, Main: 100% Polyester.</p>
+                            <p class="content">{!! $product->description !!} ưdefrgthyju</p>
+
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tab-additional-info" role="tabpanel"
-                        aria-labelledby="tab-additional-info-tab">
-                        <div class="product-single__addtional-info">
-                            <div class="item">
-                                <label class="h6">Weight</label>
-                                <span>1.25 kg</span>
-                            </div>
-                            <div class="item">
-                                <label class="h6">Dimensions</label>
-                                <span>90 x 60 x 90 cm</span>
-                            </div>
-                            <div class="item">
-                                <label class="h6">Size</label>
-                                <span>XS, S, M, L, XL</span>
-                            </div>
-                            <div class="item">
-                                <label class="h6">Color</label>
-                                <span>Black, Orange, White</span>
-                            </div>
-                            <div class="item">
-                                <label class="h6">Storage</label>
-                                <span>Relaxed fit shirt-style dress with a rugged</span>
+                    <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">
+                        <div class="product-single__additional-info p-3">
+                            <div class="row gy-3">
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Screen Size</label>
+                                        <span>{{ $product->screen_size }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Battery Capacity</label>
+                                        <span>{{ $product->battery_capacity }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Camera Resolution</label>
+                                        <span>{{ $product->camera_resolution }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Operating System</label>
+                                        <span>{{ $product->operating_system }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Processor</label>
+                                        <span>{{ $product->processor }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">RAM</label>
+                                        <span>{{ $product->ram }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Storage</label>
+                                        <span>{{ $product->storage }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">SIM Type</label>
+                                        <span>{{ $product->sim_type }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Network Connectivity</label>
+                                        <span>{{ $product->network_connectivity }}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>
                         <div class="product-single__reviews-list">
@@ -298,7 +291,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
     </main>
 @endsection
