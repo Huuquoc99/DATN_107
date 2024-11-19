@@ -103,8 +103,8 @@
             </div>
         </div>
     </div> -->
-    <div class="header-desk_type_6 style2">
-        <div class="header-middle border-0 position-relative py-4">
+    <div class="header-desk_type_6 container style2">
+        <div class="header-middle  border-0 position-relative py-4">
             <div class="header-container mx-auto d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
@@ -136,14 +136,11 @@
                 </nav>
 
                 <div class="header-tools d-flex align-items-center me-0">
-                   
-
                     <div class="header-tools__item hover-container">
                         <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
                             <i class="fa-regular fa-user fa-xl text-white"></i>
                         </a>
                     </div>
-
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
                         <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
