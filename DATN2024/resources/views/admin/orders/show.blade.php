@@ -287,7 +287,7 @@
                                     @csrf
                                     <div class="form-group mb-3">
                                         <select name="status_order_id" id="status_order_id" class="form-control"
-                                            style="width:245px">
+                                            style="width:288px">
                                             @foreach ($statusOrders as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $order->status_order_id == $status->id ? 'selected' : '' }}

@@ -111,7 +111,7 @@
 
 @section('script-libs')
 
-    <script>
+    {{-- <script>
 
         $.ajaxSetup({
             headers: {
@@ -155,6 +155,6 @@
             })
         });
 
-    </script>
+    </script> --}}
 @endsection
 
