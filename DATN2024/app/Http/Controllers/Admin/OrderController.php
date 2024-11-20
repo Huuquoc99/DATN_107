@@ -31,6 +31,10 @@ class OrderController extends Controller
     {
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');;
 
+        // if ($request->has('status')) {
+        //     $orders->where('status_order_id', $request->input('status'));
+        // }
+
         if ($request->ajax()) {
             $status = $request->input('status');
             $search = $request->input('search');
@@ -57,10 +61,11 @@ class OrderController extends Controller
                 $orders->whereDate('created_at', $date);
             }
             $orders = $orders->paginate(10);
-            return view('admin.orders.data', compact('orders'));
+            return view('admin.orders.data', compact('orders', ));
         }
         $orderStatuses = StatusOrder::all();
         $orders = $orders->paginate(10);
+
         return view('admin.orders.index', compact('orders', 'orderStatuses'));
     }
 

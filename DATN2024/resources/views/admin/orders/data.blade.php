@@ -36,7 +36,6 @@
                     </td>
                     <td class="customer_name">
                         {{-- {{ \Illuminate\Support\Str::limit($order->user->name, 15, '...') }} --}}
-                        {{-- {{ $order->user->name ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'null' }} --}}
                         {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'null' }}
                     </td>
                     <td class="date">

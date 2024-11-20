@@ -1,8 +1,6 @@
 @extends('client.layouts.master')
 
 @section('content')
-
-
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="about-us container">
