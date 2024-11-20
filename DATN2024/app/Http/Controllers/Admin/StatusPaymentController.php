@@ -14,7 +14,7 @@ class StatusPaymentController extends Controller
      */
     public function index()
     {
-        $listStatusPayment = StatusPayment::get();
+        $listStatusPayment = StatusPayment::paginate(5);
         // return response()->json( $listStatusPayment, 201);
         return view("admin.statusPayments.index", compact('listStatusPayment'));
 

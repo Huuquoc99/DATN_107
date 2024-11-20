@@ -34,7 +34,7 @@ class AdminOrderCancelled extends Mailable
 
     public function build()
     {
-        return $this->subject("Đơn hàng của bạn đã bị hủy")
+        return $this->subject("Your order has been cancelled.")
             ->markdown("admin.orders.mailCancel")
             ->with("order", $this->order);
     }

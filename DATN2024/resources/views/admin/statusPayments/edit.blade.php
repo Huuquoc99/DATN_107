@@ -30,26 +30,30 @@ Status Payment
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Status Payment</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name"
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                                                value="{{ $statusPayment->name }}">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
                                             <label for="display_order" class="form-label">Display order</label>
-                                            <input type="number" class="form-control" name="display_order" id="display_order" value="{{$statusPayment->display_order }}">
+                                            <input type="number" class="form-control @error('name') is-invalid @enderror" name="display_order" id="display_order" value="{{$statusPayment->display_order }}">
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         
                                         <div class="mt-4">
@@ -74,18 +78,22 @@ Status Payment
                                 <div class="col-md-6 mt-2">
                                     <div class="mt-3">
                                         <label for="code" class="form-label">Code</label>
-                                        <input type="text" class="form-control" name="code" id="code"
+                                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" id="code"
                                                value="{{ $statusPayment->code }}">
-                                        @error("code") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        @error('code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" name="description" id="description" rows="2" >{{ $statusPayment->description }}</textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="2" >{{ $statusPayment->description }}</textarea>
+                                        @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +101,6 @@ Status Payment
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

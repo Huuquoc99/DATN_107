@@ -25,7 +25,7 @@ class StatusPaymentRequest extends FormRequest
             'code' => 'required|string|max:50',
             'name' => 'required|string|max:100',
             'description' => 'nullable|string|max:255',
-            'display_order' => 'nullable|integer|min:1',
+            'display_order' => 'required|integer|min:1',
         ];
     }
 
@@ -38,6 +38,8 @@ class StatusPaymentRequest extends FormRequest
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a string',
             'name.max' => 'The name cannot exceed 100 characters.',
+            'display_order.required' => 'The display order cannot exceed 100 characters.',
+
         ];
     }
 }

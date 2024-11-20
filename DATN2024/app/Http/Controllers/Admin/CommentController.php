@@ -13,7 +13,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::all();  
+        $comments = Comment::orderBy('created_at', 'desc')->paginate(7);  
         return view('admin.comments.index', compact('comments'));
     }
 

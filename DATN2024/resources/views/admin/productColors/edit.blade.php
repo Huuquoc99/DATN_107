@@ -30,20 +30,19 @@ Product color
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Product color edit</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name"
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                                                value="{{ $productColor->name }}">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="row">
@@ -70,8 +69,13 @@ Product color
                                 <div class="col-md-6 mt-2">
                                 
                                     <div class="mt-3">
-                                        <label for="color_code" class="form-label">Color code</label>
-                                        <input class="form-control" name="color_code" id="color_code" value="{{$productColor->color_code}}">
+                                        <label for="color_code" class="form-label ">Color code</label>
+                                        <input class="form-control @error('color_code') is-invalid @enderror" name="color_code" id="color_code" value="{{$productColor->color_code}}">
+                                        @error('color_code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +83,6 @@ Product color
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

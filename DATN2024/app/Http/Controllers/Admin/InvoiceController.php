@@ -12,7 +12,7 @@ class InvoiceController extends Controller
     {
         $invoices = Order::where('status_payment_id', 2)
             ->where('status_order_id', 3)
-            ->get([
+            ->paginate(5, [ 
                 'id', 
                 'code',
                 'ship_user_name', 
@@ -24,6 +24,7 @@ class InvoiceController extends Controller
 
         return view('admin.invoices.index', compact('invoices'));
     }
+
 
     public function showInvoice($id)
     {

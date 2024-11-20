@@ -35,7 +35,7 @@
                                 </td>
                                 <td>
                                     <div class="shopping-cart__product-item__detail">
-                                        <h4><a href="#">{{ $item['name'] }}</a></h4>
+                                        <h4><a href="#">{{ \Illuminate\Support\Str::limit($item['name'], 25    ) }}</a></h4>
                                         <ul class="shopping-cart__product-item__options">
                                             <li>{{ $item['color'] }}</li>
                                             <li>{{ $item['capacity'] }}</li>

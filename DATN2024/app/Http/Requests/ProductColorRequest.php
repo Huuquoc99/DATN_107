@@ -23,7 +23,7 @@ class ProductColorRequest extends FormRequest
     {
         return [
             "name" => "required|max:255",
-            // "color_code" => "required|max:7",
+            "color_code" => "required",
         ];
     }
 
@@ -32,7 +32,7 @@ class ProductColorRequest extends FormRequest
         return [
             "name.required" => "Product Color names cannot be left blank",
             "name.max" => "Product Color name must not exceed 255 characters",
-            // "color_code.required" => "Product Color code names cannot be left blank",
+            "color_code.required" => "Product Color codes cannot be left blank",
             // "color_code.max" => "Product Color code name must not exceed 7 characters",
         ];
     }

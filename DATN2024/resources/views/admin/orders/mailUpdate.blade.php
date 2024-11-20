@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông Báo Cập Nhật Trạng Thái Đơn Hàng</title>
+    <title>Order Status Update Notification</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,27 +75,27 @@
 
 <div class="container">
     <div class="header">
-        <h2 style="padding-left: 20px">Thông Báo Cập Nhật Trạng Thái Đơn Hàng</h2>
+        <h2 style="padding-left: 20px">Order Status Update Notification</h2>
     </div>
 
     <div class="content">
-        <p>Chào <strong>{{ $order->user->name }}</strong>,</p>
-        <p>Chúng tôi thông báo rằng đơn hàng của bạn với mã số <strong>{{ $order->code }}</strong> đã được admin cập nhật trạng thái: {{ $order->statusOrder->name }}</p>
+        <p>Hello <strong>{{ $order->user->name }}</strong>,</p>
+        <p>We would like to inform you that your order with code <strong>{{ $order->code }}</strong> has been updated by admin to status: {{ $order->statusOrder->name }}</p>
         
         <div class="order-details">
-            <p><strong>Chi tiết đơn hàng:</strong></p>
-            <p>Mã đơn hàng: <strong>{{ $order->code }}</strong></p>
-            <p>Trạng thái: <strong>{{ $order->statusOrder->name }}</strong></p>
+            <p><strong>Order details:</strong></p>
+            <p>Order code: <strong>{{ $order->code }}</strong></p>
+            <p>Status: <strong>{{ $order->statusOrder->name }}</strong></p>
         </div>
 
-        <p>Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ thêm, vui lòng liên hệ với chúng tôi qua email hoặc số điện thoại dưới đây.</p>
+        <p>If you have any questions or need further assistance, please contact us via email or phone number below.</p>
 
-        <p>Chân thành cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
+        <p>Thank you very much for using our service!</p>
     </div>
 
     <div class="footer">
-        <p><a href="mailto:techstore@gmail.com">Email hỗ trợ</a> | <a href="tel:0987654321">Liên hệ qua điện thoại</a></p>
-        <p>Trân trọng, TechStore</p>
+        <p><a href="mailto:techstore@gmail.com">Support Email</a> | <a href="tel:0987654321">Contact by phone</a></p>
+        <p>Best regards, TechStore</p>
     </div>
 </div>
 
