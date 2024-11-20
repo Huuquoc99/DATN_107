@@ -41,7 +41,7 @@
                             </div>
                             <div class="mt-5">
                                 <div class="product-content mt-5">
-                                    <h5 class="fs-14 mb-3">Product Description :</h5>
+                                    <h5 class="fs-15 mb-3">Product Description:</h5>
                                     <nav>
                                         <ul class="nav nav-tabs nav-tabs-custom nav-success" id="nav-tab" role="tablist">
                                             <li class="nav-item">
@@ -84,8 +84,11 @@
                                                     </tr>
                                                     <tr>
                                                         <th scope="row" style="width: 200px;">Brands</th>
-                                                        {{-- <td>{{ $product->catalogue->name }}</td> --}}
-                                                        <td>{{ $product->catalogue ? $product->catalogue->name : 'No Catalogue' }}</td>
+                                                        <td>
+                                                            {{ \Illuminate\Support\Str::limit($product->catalogue ? $product->catalogue->name : 'No Catalogue', 30, '...') }}
+                                                        </td>
+                                                        
+
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Screen Size</th>
@@ -146,78 +149,90 @@
                                     </div>
                                 </div>
 
-                                <div class="text-muted">Published : <span class="text-body fw-medium">{{ \Carbon\Carbon::parse($product->created_at)->format('d/m/Y') }}</span></div>
-                                <div class="text-muted">Update : <span class="text-body fw-medium">{{ \Carbon\Carbon::parse($product->updated_at)->format('d/m/Y') }}</span></div>
-
+                                <div class="text-muted">Published : 
+                                    <span class="text-body fw-medium">
+                                        <span id="invoice-date">{{ $product->created_at->format('d M, Y') }}</span> 
+                                        <small class="text-muted" id="invoice-time">{{ $product->created_at->format('h:iA') }}</small>
+                                    </span>
+                                </div>
+                                <div class="text-muted">Updated : 
+                                    <span class="text-body fw-medium">
+                                        <span id="invoice-date">{{ $product->updated_at->format('d M, Y') }}</span> 
+                                        <small class="text-muted" id="invoice-time">{{ $product->updated_at->format('h:iA') }}</small>
+                                    </span>
+                                </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="p-2 border border-dashed rounded">
                                             <div class="d-flex align-items-center">
                                                 <div class="avatar-sm me-2">
-                                                    <div class="avatar-title rounded bg-transparent text-success fs-24">
+                                                    <div class="avatar-title rounded bg-transparent text-primary fs-24">
                                                         <i class="ri-money-dollar-circle-fill"></i>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <p class="text-muted mb-1">Price :</p>
+                                                    <p class="text-muted mb-1">Price</p>
                                                     <h5 class="mb-0">{{ number_format($product->price_regular, 0, ',', '.') }} VND</h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end col -->
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="p-2 border border-dashed rounded">
                                             <div class="d-flex align-items-center">
                                                 <div class="avatar-sm me-2">
-                                                    <div class="avatar-title rounded bg-transparent text-success fs-24">
+                                                    <div class="avatar-title rounded bg-transparent text-primary fs-24">
                                                         <i class="ri-stack-fill"></i>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <p class="text-muted mb-1">Available Stocks :</p>
+                                                    <p class="text-muted mb-1">Available Stock </p>
                                                     <h5 class="mb-0">{{ $totalQuantity }}</h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end col -->
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="p-2 border border-dashed rounded">
                                             <div class="d-flex align-items-center">
                                                 <div class="avatar-sm me-2">
-                                                    <div class="avatar-title rounded bg-transparent text-success fs-24">
+                                                    <div class="avatar-title rounded bg-transparent text-primary fs-24">
                                                         <i class="ri-inbox-archive-fill"></i>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <p class="text-muted mb-1">Total Revenue :</p>
+                                                    <p class="text-muted mb-1">Total Revenue</p>
                                                     <h5 class="mb-0">$60,645</h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end col -->
                                 </div>
 
                                 <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div>
-                                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> SKU: {{ $product->sku }}</p>
-                                            <p class="text-muted"><i class="bx bx-shape-triangle font-size-16 align-middle text-primary me-1"></i> Catalogue: {{ $product->catalogue->name ?? 'N/A' }}</p>
+                                    <div>
+                                        <p class="text-muted">
+                                            <i class="bx bx-unlink font-size-20 align-middle text-primary me-1"></i> 
+                                            <b>SKU: </b>
+                                            {{ $product->sku }}
+                                        </p>
+                                        <p class="text-muted">
+                                            <i class="bx bx-shape-triangle font-size-20 align-middle text-primary me-1"></i> 
+                                            <b>Catalogue:</b>
+                                            {{ \Illuminate\Support\Str::limit($product->catalogue->name ?? 'N/A', 30, '...') }}
+                                        </p>
 
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="mt-2 text-muted">
                                     <h5 class="fs-14">Short description :</h5>
-                                    <p>Tommy Hilfiger men striped pink sweatshirt. Crafted with cotton. Material composition is 100% organic cotton. This is one of the world’s leading designer lifestyle brands and is internationally recognized for celebrating the essence of classic American cool style, featuring preppy with a twist designs.</p>
+                                    <p>{{$product->short_description}}</p>
                                 </div>
 
                                 <div class="product-color">
-                                    <h5 class="font-size-15">Variant:</h5>
-                                    <table class="table table-bordered">
+                                    <h5 class="fs-15">Product Variant:</h5>
+                                    <table class="table table-bordered text-center">
                                         <thead>
                                         <tr>
                                             <th>Capacity</th>
@@ -235,7 +250,7 @@
                                                 <td>{{ $variant->quantity }}</td>
                                                 <td>{{ number_format($variant->price, 0, ',', '.') }} VND</td>
                                                 <td>
-                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($variant->image) }}" style="width: 100px; height: 100px;">
+                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($variant->image) }}" style="width: 70px; height: 60px;">
                                                 </td>
                                             </tr>
                                         @endforeach

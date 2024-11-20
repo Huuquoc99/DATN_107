@@ -1,11 +1,6 @@
 <?php
 
-// use App\Http\Controllers\Admin\ProductController;
-// use App\Http\Controllers\Admin\CatalogueController;
-// use App\Http\Controllers\Admin\TagController;
-// use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -14,7 +9,6 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\AccountController;
-// use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
@@ -49,29 +43,27 @@ use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//
-//Route::get('/', function () {
-//    dd(\Illuminate\Support\Facades\Auth::check());
-//   return view('welcome');
-//});
+    //Route::get('/', function () {
+    //    dd(\Illuminate\Support\Facades\Auth::check());
+    //   return view('welcome');
+    //});
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+    Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
+    Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
+        ->name('product.detail');
+    Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
+        ->name('product.getVariantDetails');
+    Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
 
-Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
-    ->name('product.detail');
-Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
-    ->name('product.getVariantDetails');
-Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
-
-Route::get('notfound', [App\Http\Controllers\Client\HomeController::class, 'notfound'])->name('notfound');
-Route::get('about', [App\Http\Controllers\Client\HomeController::class, 'about'])->name('about');
-Route::get('contact', [App\Http\Controllers\Client\HomeController::class, 'contact'])->name('contact');
-Route::get('shop', [App\Http\Controllers\Client\HomeController::class, 'shop'])->name('shop');
+    Route::get('notfound',  [HomeController::class, 'notfound'])    ->name('notfound');
+    Route::get('about',     [HomeController::class, 'about'])       ->name('about');
+    Route::get('contact',   [HomeController::class, 'contact'])     ->name('contact');
+    Route::get('shop',      [HomeController::class, 'shop'])->name('shop');
 
 
 Route::prefix('cart')->name('cart.')->group(function () {
@@ -129,24 +121,17 @@ Route::middleware('auth')->group(function () {
 
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/login', [LoginController::class, 'showLogin']);
+Route::post("login",  [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Handle the form submission
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post("login",  [LoginController::class, 'login'])->name('login');
-
-
+// Forgot password
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-
-// Route để xử lý gửi link đặt lại mật khẩu qua email
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-// Route để hiển thị form đặt lại mật khẩu
-// Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+// Reset password
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('client.passwords.reset');
-
-// Route để xử lý đặt lại mật khẩu
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
@@ -214,10 +199,8 @@ Route::prefix('admin')
         Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
-
-
     });
-    // });
+
 
 
 

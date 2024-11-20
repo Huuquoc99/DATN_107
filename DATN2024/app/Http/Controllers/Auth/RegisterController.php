@@ -20,7 +20,16 @@ class RegisterController extends Controller
                 "name" => "required",
                 "email" => "required|email",
                 "password" => "required|min:8|max:20|confirmed",
+            ], [
+                "name.required" => "The name field is required.",
+                "email.required" => "The email field is required.",
+                "email.email" => "Please provide a valid email address.",
+                "password.required" => "The password field is required.",
+                "password.min" => "The password must be at least 8 characters.",
+                "password.max" => "The password may not be greater than 20 characters.",
+                "password.confirmed" => "The password confirmation does not match.",
             ]);
+            
 
             $user = User::create($data);
             $token = $user->createToken($user->id)->plainTextToken;

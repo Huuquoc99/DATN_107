@@ -36,18 +36,22 @@ Status order
                                 <div class="col-md-6">
                                     <div>
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
                                             <label for="display_order" class="form-label">Display order</label>
-                                            <input type="number" class="form-control" name="display_order" id="display_order">
+                                            <input type="number" class="form-control @error('display_order') is-invalid @enderror" name="display_order" id="display_order">
+                                            @error('display_order')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="mt-4">
                                             @php
@@ -68,26 +72,24 @@ Status order
                                         
                                     </div>
                                 </div>
-                                <div class="col-md-6 mt-2">
-                                    {{-- <div class="mt-3">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" class="form-control" name="image" id="image">
-                                    </div> --}}
-                                    
-                                    
+                                <div class="col-md-6 mt-2">  
                                     <div class="mt-3">
                                         <label for="code" class="form-label">Code</label>
-                                        <input type="text" class="form-control" name="code" id="code">
-                                        @error("code") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" id="code">
+                                        @error('code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" name="description" id="description" rows="2"></textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="2"></textarea>
+                                        @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +97,6 @@ Status order
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -112,32 +113,4 @@ Status order
 @section('script-libs')
     <script src="https:////cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 @endsection
-{{-- 
-@section('scripts')
-    <script>
-        CKEDITOR.replace('content');
 
-        function addImageGallery() {
-            let id = 'gen' + '_' + Math.random().toString(36).substring(2, 15).toLowerCase();
-            let html = `
-                <div class="col-md-4" id="${id}_item">
-                    <label for="${id}" class="form-label">Image</label>
-                    <div class="d-flex">
-                        <input type="file" class="form-control" name="product_galleries[]" id="${id}">
-                        <button type="button" class="btn btn-danger" onclick="removeImageGallery('${id}_item')">
-                            <span class="bx bx-trash"></span>
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            $('#gallery_list').append(html);
-        }
-
-        function removeImageGallery(id) {
-            if (confirm('Chắc chắn xóa không?')) {
-                $('#' + id).remove();
-            }
-        }
-    </script>
-@endsection --}}

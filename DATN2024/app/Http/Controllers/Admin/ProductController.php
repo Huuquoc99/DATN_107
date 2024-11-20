@@ -28,7 +28,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(12);
+        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
         $catalogues = Catalogue::all();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));

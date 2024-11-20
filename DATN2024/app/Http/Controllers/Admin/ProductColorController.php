@@ -15,7 +15,7 @@ class ProductColorController extends Controller
      */
     public function index()
     {
-        $listProductColor = ProductColor::all();
+        $listProductColor = ProductColor::paginate(5);
         // return response()->json($listProductColor, 200);
         return view("admin.productColors.index", compact('listProductColor'));
 

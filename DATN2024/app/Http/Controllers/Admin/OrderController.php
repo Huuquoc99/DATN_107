@@ -13,18 +13,60 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+    // public function index(Request $request)
+    // {
+    //     // $statusOrders = StatusOrder::all();
+    //     $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
+
+    //     if ($request->has('status')) {
+    //         $orders->where('status_order_id', $request->input('status'));
+    //     }
+
+    //     $orders = $orders->paginate(10);
+
+    //     return view('admin.orders.index', compact('orders'));
+    // }
+
     public function index(Request $request)
     {
-        // $statusOrders = StatusOrder::all();
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');;
 
-        if ($request->has('status')) {
-            $orders->where('status_order_id', $request->input('status'));
-        }
+        // if ($request->has('status')) {
+        //     $orders->where('status_order_id', $request->input('status'));
+        // }
 
+        if ($request->ajax()) {
+            $status = $request->input('status');
+            $search = $request->input('search');
+            $date = $request->input('date');
+
+            if (isset($status)) {
+                $orders->where('status_order_id', $status);
+            }
+            if (isset($search)) {
+                $orders->where(function ($query) use ($search) {
+                    $query->where('user_name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('code', 'LIKE', '%' . $search . '%')
+                        ->orWhere('user_email', 'LIKE', '%' . $search . '%')
+                        ->orWhereHas('statusOrder', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        })
+                        ->orWhereHas('statusPayment', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        });
+                });
+            }
+
+            if (isset($date)) {
+                $orders->whereDate('created_at', $date);
+            }
+            $orders = $orders->paginate(10);
+            return view('admin.orders.data', compact('orders', ));
+        }
+        $orderStatuses = StatusOrder::all();
         $orders = $orders->paginate(10);
 
-        return view('admin.orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders', 'orderStatuses'));
     }
 
     public function show(Order $order)
@@ -35,27 +77,6 @@ class OrderController extends Controller
     
         return view('admin.orders.show', compact('order', 'statusOrders'));
     }
-    
-
-
-    // public function updateStatus(Request $request, $id)
-    // {
-    //     $order = Order::findOrFail($id);
-
-    //     $newStatusId = $request->input('status_order_id');
-
-    //     if ($newStatusId > $order->status_order_id) {
-    //         $order->status_order_id = $newStatusId;
-    //         $order->save();
-
-    //         Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
-    //         return redirect()->route('admin.orders.show', $id)->with('success', 'Order status updated successfully.');
-    //     } else {
-    //         return redirect()->route('admin.orders.show', $id)->with('error', 'Cannot update to a lower status.');
-    //     }
-    // }
-
-
 
     public function updateStatus(Request $request, $id)
     {
@@ -82,6 +103,7 @@ class OrderController extends Controller
         }
     }
 
+    
     
     
 

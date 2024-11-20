@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -19,7 +18,6 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -61,17 +59,21 @@
                                         <td>{{ $item->id }}</td>
                                         <td>
                                             <a href="{{ route('admin.productCapacities.edit', $item) }}">
-                                                {{ $item->name }}
+                                                {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+
                                             </a>
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                        </td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                {{-- <a href="{{ route('admin.productCapacities.show', $item) }}" class="btn btn-info btn-sm">Show 
-                                                    <i class="fa-solid fa-circle-info fa-sm"></i>
-                                                </a> --}}
                                                 <a href="{{ route('admin.productCapacities.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
@@ -88,13 +90,19 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $listCatalogue->links() }} --}}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listProductCapacity->firstItem() }} to {{ $listProductCapacity->lastItem() }} of {{ $listProductCapacity->total() }} product capacities</p>
+                            </div>
+                            <div>
+                                {{ $listProductCapacity->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end row -->
 @endsection
 
 @section('style-libs')

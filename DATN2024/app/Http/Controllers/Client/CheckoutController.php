@@ -166,15 +166,15 @@ class CheckoutController extends Controller
 
     public function processCheckout(Request $request)
     {
-//        dd($request);
-
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
             'ship_user_email' => 'required|email|max:255',
             'ship_user_phone' => 'required|string|max:15',
             'ship_user_address' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'ward' => 'required|string|max:255',
         ]);
-
 
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->first();
@@ -222,7 +222,7 @@ class CheckoutController extends Controller
             ]);
         }
 
-        dd($order);
+//        dd($order);
 
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);
