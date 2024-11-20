@@ -14,3 +14,7 @@
 <script src="{{ asset('theme/client/Demo18/js/cart.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/product-detail.js') }}"></script>
 
+@yield('api-address')
+@yield('api-guest-address')
+
+

@@ -155,7 +155,9 @@
             </form>
         </section>
     </main>
+@endsection
 
+@section('api-address')
     <script>
         function fetchDistricts(provinceId) {
             if (!provinceId) {
@@ -185,7 +187,7 @@
                 .catch(error => {
                     console.error("Lỗi khi fetch dữ liệu:", error);
                 });
-            }
+        }
 
         function fetchWards(districtId) {
             if (!districtId) {
