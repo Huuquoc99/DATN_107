@@ -42,31 +42,36 @@
                                     <label for="ship_user_address">Address</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="province">Tỉnh/Thành phố</label>
-                                <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
-                                    <option value="">Chọn Tỉnh/Thành phố</option>
-                                    @foreach($provinces['results'] as $province)
-                                        <option value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
-                                    @endforeach
-                                </select>
+
+                            <div class="col-md-12">
+                                <div class="form-floating my-3">
+                                    <div class="row">
+                                        <div class="form-group col-12 col-md-4">
+                                            <label for="province">Province/City</label>
+                                            <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
+                                                <option value="">Select Province/City</option>
+                                                @foreach($provinces['results'] as $province)
+                                                    <option value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12 col-md-4">
+                                            <label for="district">District</label>
+                                            <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
+                                                <option value="">Select District</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12 col-md-4">
+                                            <label for="ward">Ward/Commune</label>
+                                            <select id="ward" name="ward" class="form-control">
+                                                <option value="">Select Ward/Commune</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="district">Quận/Huyện</label>
-                                <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
-                                    <option value="">Chọn Quận/Huyện</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ward">Phường/Xã</label>
-                                <select id="ward" name="ward" class="form-control">
-                                    <option value="">Chọn Phường/Xã</option>
-                                </select>
-                            </div>
-
-
                         </div>
                         <div class="col-md-12">
                             <div class="mt-3">
@@ -75,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="checkout__totals-wrapper">
+                    <div class="checkout__totals-wrapper mt-5">
                         <div class="sticky-content">
                             <div class="checkout__totals">
                                 <h3>Your Order</h3>
