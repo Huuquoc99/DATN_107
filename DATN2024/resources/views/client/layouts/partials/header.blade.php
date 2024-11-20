@@ -43,14 +43,14 @@
                             type="password" placeholder="********" required>
                     </div>
 
-                    <div class="d-flex align-items-center mb-3 pb-2">
-                        <div class="form-check mb-0">
-                            <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
-                                id="flexCheckDefault">
-                            <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
-                        </div>
-                        <a href="{{ route('forgot-password') }}" class="btn-text ms-auto">Quên mật khẩu?</a>
-                    </div>
+                    <!-- <div class="d-flex align-items-center mb-3 pb-2">
+                                                                    <div class="form-check mb-0">
+                                                                        <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
+                                                                            id="flexCheckDefault">
+                                                                        <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
+                                                                    </div>
+                                                                   
+                                                                </div> -->
 
                     <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>
 

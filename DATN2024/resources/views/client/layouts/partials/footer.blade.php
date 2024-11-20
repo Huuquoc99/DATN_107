@@ -1,18 +1,17 @@
   <!-- Footer Type 1 -->
   <footer class="footer footer_type_1">
-    <div class="footer-middle container">
+    <div class="footer-middle container" style="height: 250px;">
       <div class="row row-cols-lg-5 row-cols-2">
-        <div class="footer-column footer-store-info col-12 mb-4 mb-lg-0">
+        <div class="footer-column footer-store-info col-12 mb-lg-0">
           <div class="logo">
             <a href="index.html">
-              <img src="{{ asset('theme/client/images/techStore.png') }}" alt="Uomo" class="logo__image d-block">
+              <img src="{{ asset('theme/client/images/techStore.png') }}" alt="Uomo" class="logo__image1 d-block">
             </a>
-          </div><!-- /.logo -->
-          <p class="footer-address">1418 River Drive, Suite 35 Cottonhall, CA 9622 United States</p>
 
-          <p class="m-0">
-            <strong class="fw-medium">sale@uomo.com</strong>
-          </p>
+          </div><!-- /.logo -->
+          <p class="footer-address" style="margin-top: -25px;">1418 River Drive, Suite 35 Cottonhall, CA 9622 United States</p>
+
+      
           <p>
             <strong class="fw-medium">+1 246-345-0695</strong>
           </p>
@@ -26,8 +25,7 @@
             <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">About Us</a></li>
             <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Careers</a></li>
             <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Affiliates</a></li>
-            <li class="sub-menu__item"><a href="blog_list1.html" class="menu-link menu-link_us-s">Blog</a></li>
-            <li class="sub-menu__item"><a href="contact.html" class="menu-link menu-link_us-s">Contact Us</a></li>
+          
           </ul>
         </div><!-- /.footer-column -->
 
@@ -37,8 +35,7 @@
             <li class="sub-menu__item"><a href="shop2.html" class="menu-link menu-link_us-s">New Arrivals</a></li>
             <li class="sub-menu__item"><a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a></li>
             <li class="sub-menu__item"><a href="shop4.html" class="menu-link menu-link_us-s">Men</a></li>
-            <li class="sub-menu__item"><a href="shop5.html" class="menu-link menu-link_us-s">Women</a></li>
-            <li class="sub-menu__item"><a href="shop1.html" class="menu-link menu-link_us-s">Shop All</a></li>
+   
           </ul>
         </div><!-- /.footer-column -->
 
@@ -48,9 +45,8 @@
             <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Customer Service</a></li>
             <li class="sub-menu__item"><a href="account_dashboard.html" class="menu-link menu-link_us-s">My Account</a></li>
             <li class="sub-menu__item"><a href="store_location.html" class="menu-link menu-link_us-s">Find a Store</a></li>
-            <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Legal & Privacy</a></li>
-            <li class="sub-menu__item"><a href="contact.html" class="menu-link menu-link_us-s">Contact</a></li>
-            <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Gift Card</a></li>
+         
+           
           </ul>
         </div><!-- /.footer-column -->
 
