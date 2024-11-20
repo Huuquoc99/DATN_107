@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-lg-12">
             <div class="card" id="orderList">
                 <div class="card-header border-0">
@@ -88,9 +88,9 @@
             </div>
 
         </div>
-    </div> --}}
+    </div>
 @endsection
 
 @section('script-libs')
-   
+
 @endsection
