@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Client\ClientUserController;
@@ -28,8 +29,8 @@ use App\Http\Controllers\Payment\VnpayPaymentController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
 
@@ -144,12 +145,11 @@ Route::post('/search',  [HomeController::class, 'search'])->name('product.search
         ->middleware(['checkAdminMiddleware'])
         ->group(function () {
 
-            Route::get('/', function () {
-                return view('admin.dashboard');
-            })->name('dashboard');
+            // Dashboard
+            Route::get('/dashboard', [DashboardController::class, 'statistics'])->name('dashboard');
+            Route::get('/', [DashboardController::class, 'statistics'])->name('dashboard');
 
-
-            // Produc
+            // Product
             Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
             Route::resource('products', ProductController::class);
             
