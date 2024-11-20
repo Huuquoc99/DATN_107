@@ -8,6 +8,14 @@
         @endif
         
     </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            <p>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} orders</p>
+        </div>
+         <div>
+             {!! $orders->withQueryString()->links() !!}
+         </div>
+     </div>
 @else
     <div class="noresult">
         <div class="text-center">
