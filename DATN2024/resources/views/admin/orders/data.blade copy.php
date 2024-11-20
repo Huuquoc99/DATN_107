@@ -88,7 +88,6 @@
             {!! $orders->withQueryString()->links() !!}
         </div>
     </div>
-    {{-- ??? --}}
 @else
     <div class="noresult">
         <div class="text-center">
@@ -98,4 +97,3 @@
         </div>
     </div>
 @endif
-
