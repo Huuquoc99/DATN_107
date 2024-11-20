@@ -93,8 +93,10 @@ class DashboardController extends Controller
             ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email')  
             ->orderByDesc('total_spent') 
             ->get();
+        
+        $totalEarnings = Order::sum('total_price');
 
-        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers')); 
+        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings')); 
     }
 
 
@@ -107,4 +109,6 @@ class DashboardController extends Controller
 
         return view('admin.dashboard.sales', compact('salesData'));
     }
+
+
 }

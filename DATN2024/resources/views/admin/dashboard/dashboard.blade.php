@@ -1,5 +1,7 @@
 @extends('admin.layouts.master')
 
+@section('title', 'Dashboard')
+
 @section('content')
 <div class="row">
     <div class="col">
@@ -9,7 +11,20 @@
                 <div class="col-12">
                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                         <div class="flex-grow-1">
-                            <h4 class="fs-16 mb-1">Good Morning, Anna!</h4>
+                            @php
+                                $hour = now()->format('H'); // Lấy giờ hiện tại (24 giờ)
+                                if ($hour < 12) {
+                                    $greeting = 'Good Morning';
+                                } elseif ($hour < 18) {
+                                    $greeting = 'Good Afternoon';
+                                } else {
+                                    $greeting = 'Good Evening';
+                                }
+                            @endphp
+
+                            <h4 class="fs-16 mb-1">{{ $greeting }}, {{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}!</h4>
+
+                            {{-- <h4 class="fs-16 mb-1">Good Morning, Anna!</h4> --}}
                             <p class="text-muted mb-0">Here's what's happening with your store today.</p>
                         </div>
                     </div>
@@ -17,7 +32,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-3 col-md-6">
+                {{-- <div class="col-xl-3 col-md-6">
                     <div class="card card-animate">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -43,8 +58,37 @@
                             </div>
                         </div>
                     </div>
+                </div> --}}
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Earnings</p>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <h5 class="text-success fs-14 mb-0">
+                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +16.24 %
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        $<span class="counter-value">{{ number_format($totalEarnings, 2) }}</span>
+                                    </h4>
+                                    <a href="" class="text-decoration-underline">View net earnings</a>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-success-subtle rounded fs-3">
+                                        <i class="bx bx-dollar-circle text-success"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                
                 <div class="col-xl-3 col-md-6">
                     <div class="card card-animate">
                         <div class="card-body">
