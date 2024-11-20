@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody class="list form-check-all">
-                @foreach($orders as $order)
+            @foreach($orders as $order)
                 <tr>
                     <th scope="row">
                         <div class="form-check">
@@ -80,13 +80,13 @@
         </table>
     </div>
     <div class="d-flex justify-content-between">
+       <div>
+           <p>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} orders</p>
+       </div>
         <div>
-            <p>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} orders</p>
+            {!! $orders->withQueryString()->links() !!}
         </div>
-         <div>
-             {!! $orders->withQueryString()->links() !!}
-         </div>
-     </div>
+    </div>
 @else
     <div class="noresult">
         <div class="text-center">
