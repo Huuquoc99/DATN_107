@@ -166,6 +166,17 @@ class CheckoutController extends Controller
 
     public function processCheckout(Request $request)
     {
+
+        $province_code = $request->province;
+        $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
+
+        $district_code = $request->district;
+        $district_name = Http::get("https://provinces.open-api.vn/api/d/{$district_code}")->json();
+
+        $ward_code = $request->ward;
+        $ward_name = Http::get("https://provinces.open-api.vn/api/w/{$ward_code}")->json();
+
+
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
             'ship_user_email' => 'required|email|max:255',
@@ -193,6 +204,9 @@ class CheckoutController extends Controller
             'ship_user_phone' => $request->ship_user_phone,
             'ship_user_address' => $request->ship_user_address,
 
+            'shipping_province' => $province_name['name'],
+            'shipping_district' => $district_name['name'],
+            'shipping_ward' => $ward_name['name'],
 
 
             'payment_method_id' => $paymentMethodId,
@@ -222,7 +236,6 @@ class CheckoutController extends Controller
             ]);
         }
 
-//        dd($order);
 
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);
