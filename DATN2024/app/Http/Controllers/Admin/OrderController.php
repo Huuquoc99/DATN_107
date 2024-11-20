@@ -18,10 +18,39 @@ class OrderController extends Controller
         // $statusOrders = StatusOrder::all();
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
 
-        if ($request->has('status')) {
-            $orders->where('status_order_id', $request->input('status'));
-        }
+        // if ($request->has('status')) {
+        //     $orders->where('status_order_id', $request->input('status'));
+        // }
 
+        if ($request->ajax()) {
+            $status = $request->input('status');
+            $search = $request->input('search');
+            $date = $request->input('date');
+
+            if (isset($status)) {
+                $orders->where('status_order_id', $status);
+            }
+            if (isset($search)) {
+                $orders->where(function ($query) use ($search) {
+                    $query->where('user_name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('code', 'LIKE', '%' . $search . '%')
+                        ->orWhere('user_email', 'LIKE', '%' . $search . '%')
+                        ->orWhereHas('statusOrder', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        })
+                        ->orWhereHas('statusPayment', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        });
+                });
+            }
+
+            if (isset($date)) {
+                $orders->whereDate('created_at', $date);
+            }
+            $orders = $orders->paginate(10);
+            return view('admin.orders.data', compact('orders'));
+        }
+        $orderStatuses = StatusOrder::all();
         $orders = $orders->paginate(10);
 
         return view('admin.orders.index', compact('orders'));
