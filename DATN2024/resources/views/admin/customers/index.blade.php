@@ -50,7 +50,12 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->avatar)}}" alt="" width="70px" height="60px">
+                                            @if ($item->avatar)
+                                                <img src="{{ Storage::url($item->avatar) }}" alt="" width="70px" height="60px">
+                                            @else
+                                                <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="" width="70px" height="60px">
+                                            @endif
+
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.customers.show', $item) }}">

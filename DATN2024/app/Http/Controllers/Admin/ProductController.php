@@ -41,7 +41,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $catalogues = Catalogue::query()->pluck('name', 'id')->all();
+        $catalogues = Catalogue::query()
+            ->where('is_active', 1)
+            ->pluck('name', 'id')
+            ->all();
+            
         $colors = ProductColor::query()
             ->where('is_active', 1)
             ->pluck('name', 'id')
