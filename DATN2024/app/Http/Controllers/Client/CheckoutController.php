@@ -23,6 +23,7 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+        $provinces = Http::get('https://vapi.vnappmob.com/api/province/')->json();
 
         $paymentMethods = PaymentMethod::all();
 
@@ -71,7 +72,23 @@ class CheckoutController extends Controller
         }
     }
 
+    public function getDistricts($provinceId)
+    {
+        $res = Http::get("https://vapi.vnappmob.com/api/province/district/{$provinceId}")->json();
 
+        $districts = $res['results'] ?? [];
+
+        return response()->json($districts);
+    }
+
+    public function getWards($districtId)
+    {
+        $res = Http::get("https://vapi.vnappmob.com/api/province/ward/{$districtId}")->json();
+
+        $districts = $res['results'] ?? [];
+
+        return response()->json($districts);
+    }
 
     public function processCheckoutForGuests(Request $request) {
 

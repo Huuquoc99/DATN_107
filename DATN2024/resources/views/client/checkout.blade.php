@@ -156,5 +156,53 @@
         </section>
     </main>
 
+    <script>
+        function fetchDistricts(provinceId) {
+            if (!provinceId) {
+                document.getElementById('district').innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+                document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                return;
+            }
 
+            fetch(`/order/districts/${provinceId}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    let districtOptions = '<option value="">Chọn Quận/Huyện</option>';
+
+                    if (Array.isArray(data)) {
+                        console.log(data);
+                        data.forEach(district => {
+                            districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
+                        });
+                    } else {
+                        console.error("Dữ liệu không phải là mảng:", data);
+                    }
+
+                    document.getElementById('district').innerHTML = districtOptions;
+                    document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                })
+                .catch(error => {
+                    console.error("Lỗi khi fetch dữ liệu:", error);
+                });
+            }
+
+        function fetchWards(districtId) {
+            if (!districtId) {
+                document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                return;
+            }
+
+            fetch(`/order/wards/${districtId}`)
+                .then(response => response.json())
+                .then(data => {
+                    let wardOptions = '<option value="">Chọn Phường/Xã</option>';
+                    data.forEach(ward => {
+                        wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
+                    });
+                    document.getElementById('ward').innerHTML = wardOptions;
+                });
+        }
+
+    </script>
 @endsection

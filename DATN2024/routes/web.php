@@ -88,7 +88,8 @@ Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('ch
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
-
+Route::get('order/districts/{provinceId}', [CheckoutController::class, 'getDistricts']);
+Route::get('order/wards/{districtId}', [CheckoutController::class, 'getWards']);
 
 
 Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
