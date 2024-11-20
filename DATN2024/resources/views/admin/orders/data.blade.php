@@ -36,7 +36,7 @@
                     </td>
                     <td class="customer_name">
                         {{-- {{ \Illuminate\Support\Str::limit($order->user->name, 15, '...') }} --}}
-                        {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'null' }}
+                        {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'No customer' }}
                     </td>
                     <td class="date">
                         <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
