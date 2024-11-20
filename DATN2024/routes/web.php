@@ -87,6 +87,10 @@ Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('ch
 
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+
+
+
 Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
 Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
 Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
@@ -155,7 +159,7 @@ Route::prefix('admin')
         Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [AdminLoginController::class, 'login'])->name('login');
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
-        
+
         Route::get('password/reset', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
         Route::post('password/email', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
         Route::get('password/reset/{token}', [AdminForgotPasswordController::class, 'showResetForm'])->name('password.reset');

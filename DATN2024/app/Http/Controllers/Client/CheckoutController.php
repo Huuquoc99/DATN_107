@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\GuestOrderPlaced;
+use Illuminate\Support\Facades\Http;
 use Log;
 use App\Models\Cart;
 use App\Models\Order;
@@ -22,6 +23,7 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+
         $paymentMethods = PaymentMethod::all();
 
         if(Auth::check()) {
@@ -29,7 +31,7 @@ class CheckoutController extends Controller
             $cart = Cart::where('user_id', $user->id)->first();
 
             if (!$cart) {
-                return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
+                return redirect()->route('cart.list')->with('error', 'Your shopping cart is empty.');
             }
 
             $cartItems = CartItem::query()->with(['productVariant','product'])->where('cart_id', $cart->id)->with('product')->get();
@@ -47,11 +49,11 @@ class CheckoutController extends Controller
                 }
 
                 if ($cartItems->isEmpty()) {
-                    return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
+                    return redirect()->route('cart.list')->with('error', 'Your shopping cart is empty.');
                 }
             }
 
-            return view('client.checkout', compact('user', 'cartItems', 'paymentMethods'));
+            return view('client.checkout', compact('user', 'cartItems', 'paymentMethods', 'provinces'));
 
 
         } else {
@@ -61,15 +63,18 @@ class CheckoutController extends Controller
                 $productVariant = ProductVariant::find($item['product_variant_id']);
 
                 if ($productVariant->quantity < $item['quantity']) {
-                    return redirect()->route('cart.list')->with('error', 'The product has insufficient inventory.');
+                    return redirect()->route('cart.list')->with('error', 'The product " '.$item['name'].' / '.$item['color'].' / '.$item['capacity'].' " has insufficient inventory.');
                 }
             }
 
-            return view('client.guest.checkout', compact('guest_cart', 'paymentMethods'));
+            return view('client.guest.checkout', compact('guest_cart', 'paymentMethods','provinces'));
         }
     }
 
+
+
     public function processCheckoutForGuests(Request $request) {
+
         $guest_cart = session('cart', []);
 
         $request->validate([
@@ -81,7 +86,7 @@ class CheckoutController extends Controller
         ]);
 
         if (empty($guest_cart)) {
-            return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
+            return redirect()->route('cart.list')->with('error', 'Your shopping cart is empty.');
         }
 
         $paymentMethodId = $request->input('payment_method_id');
@@ -126,28 +131,17 @@ class CheckoutController extends Controller
         }
 
 
-//        dd($order);
         session(['order_code' => $order->code]);
 
         if ($paymentMethodId == 2) {
 
-            $paymentResult = $this->processVNPAY($order);
+            $this->processVNPAY($order);
 
-            dd($paymentResult['status']);
-
-            if ($paymentResult['status'] == 'success') {
-                dd($order);
-                GuestOrderPlaced::dispatch($order);
-                session()->forget('cart');
-                return redirect()->route('guest-checkout.success', compact('order'));
-            } else {
-                $order->update(['status_order_id' => 3]); // Assuming 3 is the 'failed' status
-                return redirect()->route('guest-checkout.failure');
-            }
         } else {
-
             GuestOrderPlaced::dispatch($order);
+
             session()->forget('cart');
+
             return redirect()->route('guest-checkout.success');
         }
     }
@@ -155,6 +149,7 @@ class CheckoutController extends Controller
 
     public function processCheckout(Request $request)
     {
+//        dd($request);
 
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
@@ -180,6 +175,9 @@ class CheckoutController extends Controller
             'ship_user_email' => $request->ship_user_email,
             'ship_user_phone' => $request->ship_user_phone,
             'ship_user_address' => $request->ship_user_address,
+
+
+
             'payment_method_id' => $paymentMethodId,
             'total_price' => $this->calculateTotal($cart->id),
             'status_order_id' => 1,
@@ -189,8 +187,6 @@ class CheckoutController extends Controller
 
 
         foreach ($cart->items as $item) {
-            // $capacity = ProductCapacity::where('id', $item->product_variant_id)->first();
-            // $color = ProductColor::where('id', $item->product_variant_id)->first();
             $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
             OrderItem::create([
                 'order_id' => $order->id,
@@ -208,6 +204,8 @@ class CheckoutController extends Controller
 
             ]);
         }
+
+        dd($order);
 
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);
@@ -319,6 +317,7 @@ class CheckoutController extends Controller
                 session()->forget('cart');
 
                 GuestOrderPlaced::dispatch($order);
+
                 return redirect()->route('guest-checkout.success', compact('order'));
             } else {
                 $order->status_payment_id = 3;

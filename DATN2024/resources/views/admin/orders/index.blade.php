@@ -165,7 +165,7 @@
                                             <td class="customer_name">{{ $order->user->name }}</td>
                                             {{-- <td class="product_name">{{ $order->product->name }}</td> --}}
                                             <td class="date">
-                                                <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span> 
+                                                <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
                                                 <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
                                             </td>
                                             <td class="amount">{{ $order->total_price }} VND</td>
@@ -216,7 +216,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            
+
                             <div class="noresult" style="display: none">
                                 <div class="text-center">
                                     <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style="width:75px;height:75px"></lord-icon>
@@ -302,26 +302,26 @@
                                     <h5 class="modal-title" id="exampleModalLabel">Update Order Status</h5> <!-- Tiêu đề cho modal -->
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                                 </div>
-                                
+
                                 <!-- Hiển thị thông báo nếu có lỗi hoặc thành công -->
                                 @if (session('error'))
                                     <div class="alert alert-danger">
                                         {{ session('error') }}
                                     </div>
                                 @endif
-                    
+
                                 @if (session('success'))
                                     <div class="alert alert-success">
                                         {{ session('success') }}
                                     </div>
                                 @endif
-                    
+
                                 <form class="tablelist-form" autocomplete="off" action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
                                         <!-- Bạn có thể loại bỏ input này nếu không dùng đến -->
                                         <input type="hidden" id="id-field" />
-                    
+
                                         <div>
                                             <label for="delivered-status" class="form-label">Delivery Status</label>
                                             <select class="form-control" data-trigger name="status_order_id" required id="status_order_id">
@@ -338,12 +338,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="modal-footer">
                                         <div class="hstack gap-2 justify-content-end">
                                             <!-- Nút đóng modal -->
                                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            
+
                                             <!-- Nút cập nhật trạng thái đơn hàng -->
                                             <button type="submit" class="btn btn-success" id="add-btn">Update Status</button>
                                         </div>
@@ -352,7 +352,7 @@
                             </div>
                         </div>
                     </div> --}}
-                    
+
                 </div>
             </div>
 

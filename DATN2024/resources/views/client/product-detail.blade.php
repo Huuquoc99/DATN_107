@@ -58,7 +58,7 @@
                         <div class="product-options">
                             <!-- Color Selection -->
                             <div class="option-group mb-4">
-                                <label class="option-label">Màu sắc:</label>
+                                <label class="option-label">Color:</label>
                                 <div class="option-selections">
                                     @foreach ($colors as $id => $color)
                                         <div class="option-item">
@@ -79,7 +79,7 @@
 
                             <!-- Capacity Selection -->
                             <div class="option-group mb-4">
-                                <label class="option-label">Dung lượng:</label>
+                                <label class="option-label">Capacity:</label>
                                 <div class="option-selections">
                                     @foreach ($capacities as $id => $name)
                                         <div class="option-item">
@@ -96,9 +96,9 @@
                             </div>
 
                             <!-- Quantity Control -->
-                            <span class="option-label">Tình trạng: <span id="stock-status"></span></span>
+                            <span class="option-label">Status: <span id="stock-status"></span></span>
                             <div class="quantity-control mb-4">
-                                <label class="option-label">Số lượng</label>
+                                <label class="option-label">Quantity</label>
                                 <div class="quantity-wrapper">
                                     <button type="button" class="quantity-btn minus">-</button>
                                     <input type="number" name="quantity" value="1"
@@ -114,7 +114,7 @@
                             <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
                                 data-aside="cartDrawer">
                                 <i class="ri-shopping-cart-line me-2"></i>
-                                Thêm vào giỏ hàng
+                                Add to cart
                             </button>
                         </div>
                     </form>
@@ -142,7 +142,7 @@
                     <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
                         aria-labelledby="tab-description-tab">
                         <div class="product-single__description">
-                            <p class="content">{!! $product->description !!} ưdefrgthyju</p>
+                            <p class="content">{!! $product->description !!}</p>
 
                         </div>
                     </div>

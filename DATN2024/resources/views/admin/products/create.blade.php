@@ -220,7 +220,7 @@ Product
                                             @foreach($colors as $colorID => $colorName)
                                                 <tr class="text-center" data-variant="{{ $sizeID . '-' . $colorID }}" data-size="{{ $sizeID }}">
                                                     @if($flagRowspan)
-                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $sizeID }}">{{ $sizeName }}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $sizeID }}"><b>{{ $sizeName }}</b></td>
                                                     @endif
                                                     @php($flagRowspan = false)
 
@@ -289,7 +289,7 @@ Product
         </div>
 
 
-        {{-- <div class="row">
+         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
@@ -314,7 +314,7 @@ Product
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         <div class="row">
             <div class="col-lg-12">

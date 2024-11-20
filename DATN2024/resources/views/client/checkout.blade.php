@@ -42,6 +42,31 @@
                                     <label for="ship_user_address">Address</label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="province">Tỉnh/Thành phố</label>
+                                <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
+                                    <option value="">Chọn Tỉnh/Thành phố</option>
+                                    @foreach($provinces['results'] as $province)
+                                        <option value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="district">Quận/Huyện</label>
+                                <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
+                                    <option value="">Chọn Quận/Huyện</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ward">Phường/Xã</label>
+                                <select id="ward" name="ward" class="form-control">
+                                    <option value="">Chọn Phường/Xã</option>
+                                </select>
+                            </div>
+
+
                         </div>
                         <div class="col-md-12">
                             <div class="mt-3">
@@ -130,4 +155,6 @@
             </form>
         </section>
     </main>
+
+
 @endsection

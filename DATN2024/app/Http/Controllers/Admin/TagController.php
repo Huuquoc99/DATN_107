@@ -33,7 +33,7 @@ class TagController extends Controller
      */
     public function store(TagRequest $request)
     {
-        $data = $request->except('description');
+        $data = $request->all();
         $data['status'] = $request->has('status') ? 1 : 0;
 
         Tag::query()->create($data);
