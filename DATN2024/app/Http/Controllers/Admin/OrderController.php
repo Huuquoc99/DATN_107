@@ -48,12 +48,12 @@ class OrderController extends Controller
                 $orders->whereDate('created_at', $date);
             }
             $orders = $orders->paginate(10);
-            return view('admin.orders.data', compact('orders'));
+            return view('admin.orders.data', compact('orders', ));
         }
         $orderStatuses = StatusOrder::all();
         $orders = $orders->paginate(10);
 
-        return view('admin.orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders', 'orderStatuses'));
     }
 
     public function show(Order $order)
