@@ -147,28 +147,49 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">
-                        <div class="product-single__additional-info p-3">
-                        <div class="product-gallery-horizontal d-flex justify-content-center" style="padding-left: 55px; position: relative;">
-    <div class="main-image-container" style="position: relative;">
-        <img id="mainImage" style="height: 500px; width: 600px; object-fit: cover;" src="{{ Storage::url($product->img_thumbnail) }}"
-             class="main-image" alt="{{ $product->name }}">
-        <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn" data-fancybox="gallery">
-            <i class="fas fa-search-plus"></i>
-        </a>
-    </div>
-    <div class="thumbnail-column" style="display: flex; flex-direction: column; margin-left: 20px; position: absolute; top: 0; left: 650px;">
-        @foreach ($product->galleries as $image)
-            <div class="thumb-item" style="margin-bottom: 10px;">
-                <img src="{{ Storage::url($image->image) }}"
-                     style="width: 100px; height: auto; cursor: pointer;"
-                     onclick="changeImage('{{ Storage::url($image->image) }}')"
-                     alt="{{ $product->name }}">
+    <div class="product-single__additional-info">
+        <div class="row gy-3">
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Screen Size</span>
+                <span class="info-value">{{ $product->screen_size }}</span>
             </div>
-        @endforeach
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Battery Capacity</span>
+                <span class="info-value">{{ $product->battery_capacity }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Camera Resolution</span>
+                <span class="info-value">{{ $product->camera_resolution }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Operating System</span>
+                <span class="info-value">{{ $product->operating_system }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Processor</span>
+                <span class="info-value">{{ $product->processor }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">RAM</span>
+                <span class="info-value">{{ $product->ram }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Storage</span>
+                <span class="info-value">{{ $product->storage }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">SIM Type</span>
+                <span class="info-value">{{ $product->sim_type }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Network Connectivity</span>
+                <span class="info-value">{{ $product->network_connectivity }}</span>
+            </div>
+        </div>
     </div>
 </div>
-                        </div>
-                    </div>
+
+
 
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>

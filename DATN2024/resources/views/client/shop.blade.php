@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('content')
-<main style="padding-top: 50px;">
+<main>
     <section class="shop-main container d-flex pt-1 pt-xl-5">
         <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
             <div class="aside-header d-flex d-lg-none align-items-center">
