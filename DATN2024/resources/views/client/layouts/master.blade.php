@@ -22,7 +22,7 @@
 
 
 @include('client.layouts.partials.js')
-
+@yield('script')
 </body>
 </html>
  {{-- <style>

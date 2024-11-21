@@ -196,7 +196,7 @@
                     </ul>
                 </div>
 
-                <form action="{{ route('product.search') }}" method="post"
+                {{-- <form action="{{ route('product.search') }}" method="post"
                     class="header-search search-field me-0 border-radius-10">
                     @csrf
                     <button class="btn header-search__btn" type="submit">
@@ -204,7 +204,16 @@
                     </button>
                     <input class="header-search__input w-100" type="text" name="search-keyword"
                         placeholder="Search products...">
-                </form><!-- /.header-search -->
+                </form><!-- /.header-search --> --}}
+
+                <form action="{{route('search')}}" method="GET"
+                    class="header-search search-field me-0 border-radius-10">
+                    <button class="btn header-search__btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                    </button>
+                    <input class="header-search__input w-100" type="text" name="k" value="{{request()->routeIs('search') ? request()->get('k') : '' }}"
+                        placeholder="Search products...">
+                </form>
             </div>
         </div><!-- /.header-bottom -->
     </div><!-- /.header-desk header-desk_type_6 -->
