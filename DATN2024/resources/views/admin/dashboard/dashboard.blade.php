@@ -227,9 +227,9 @@
                             </div>
                             <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
                                 <div class="col-sm">
-                                    <div class="text-muted">
+                                    {{-- <div class="text-muted">
                                         Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="col-sm-auto  mt-3 mt-sm-0">
                                     <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
@@ -256,7 +256,7 @@
                             <h4 class="card-title mb-0 flex-grow-1">Recent Orders</h4>
                         </div>
 
-                        <div class="card-body">
+                        {{-- <div class="card-body">
                             <div class="table-responsive table-card">
                                 <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
                                     <thead class="text-muted table-light">
@@ -265,9 +265,9 @@
                                         <th scope="col">Customer</th>
                                         <th scope="col">Product</th>
                                         <th scope="col">Amount</th>
-                                        <th scope="col">Vendor</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">Capacity</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Rating</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -291,110 +291,78 @@
                                         <td>
                                             <span class="badge bg-success-subtle text-success">Paid</span>
                                         </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">5.0<span class="text-muted fs-11 ms-1">(61 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2111</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Jansh Brown</div>
-                                            </div>
-                                        </td>
-                                        <td>Kitchen Storage</td>
-                                        <td>
-                                            <span class="text-success">$149.00</span>
-                                        </td>
-                                        <td>Micro Design</td>
-                                        <td>
-                                            <span class="badge bg-warning-subtle text-warning">Pending</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.5<span class="text-muted fs-11 ms-1">(61 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2109</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Ayaan Bowen</div>
-                                            </div>
-                                        </td>
-                                        <td>Bike Accessories</td>
-                                        <td>
-                                            <span class="text-success">$215.00</span>
-                                        </td>
-                                        <td>Nesta Technologies</td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success">Paid</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.9<span class="text-muted fs-11 ms-1">(89 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2108</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Prezy Mark</div>
-                                            </div>
-                                        </td>
-                                        <td>Furniture</td>
-                                        <td>
-                                            <span class="text-success">$199.00</span>
-                                        </td>
-                                        <td>Syntyce Solutions</td>
-                                        <td>
-                                            <span class="badge bg-danger-subtle text-danger">Unpaid</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.3<span class="text-muted fs-11 ms-1">(47 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2107</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Vihan Hudda</div>
-                                            </div>
-                                        </td>
-                                        <td>Bags and Wallets</td>
-                                        <td>
-                                            <span class="text-success">$330.00</span>
-                                        </td>
-                                        <td>iTest Factory</td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success">Paid</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.7<span class="text-muted fs-11 ms-1">(161 votes)</span></h5>
-                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
+                        </div> --}}
+
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                                    <thead class="text-muted table-light">
+                                        <tr>
+                                            <th scope="col">Order ID</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Color</th>
+                                            <th scope="col">Capacity</th>
+                                            <th scope="col">Status Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($topOrders as $order)
+                                            @foreach ($order->orderItems as $item)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('admin.orders.show', $order->id) }}" class="fw-medium link-primary">#{{ $order->code }}</a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0 me-2">
+                                                                <img src="{{ optional($order->user)->avatar ? '/storage/' . optional($order->user)->avatar : '/theme/admin/assets/images/default-avatar.png' }}" 
+                                                                     alt="Avatar" class="avatar-xs rounded-circle" />
+                                                            </div>
+                                                            <div class="flex-grow-1">{{ optional($order->user)->name ? Str::limit(optional($order->user)->name, 15) : 'N/A' }}</div>
+
+                                                        </div>
+                                                    </td>
+        
+                                                    <td>{{ optional($item->product)->name ? Str::limit(optional($item->product)->name, 15) : 'N/A' }}</td>
+
+                                                    <td>
+                                                        <span class="text-success">{{ number_format(optional($item->order)->total_price, 0, ',', '.') }} VND</span>
+                                                    </td>
+                                                    <td>{{ optional($item->productVariant->color)->name ?? 'N/A' }}</td>
+                                                    <td>{{ optional($item->productVariant->capacity)->name ?? 'N/A' }}</td>
+
+                                                    {{-- <td>
+                                                        <span class="badge bg-success-subtle text-success">{{ optional($order->status)->name }}</span>
+                                                    </td> --}}
+                                                    <td>
+                                                        @php
+                                                            $statusId = optional($order->statusOrder)->id; // Lấy id của status
+                                                        @endphp
+                                                        <span class="badge 
+                                                            @if ($statusId == 1) bg-warning-subtle text-warning
+                                                            @elseif ($statusId == 2) bg-secondary-subtle text-secondary
+                                                            @elseif ($statusId == 3) bg-success-subtle text-success
+                                                            @else bg-danger-subtle text-danger
+                                                            @endif">
+                                                            {{ optional($order->statusOrder)->name }}
+                                                        </span>
+                                                    </td>
+                                                    
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        
+                        
                     </div> 
                 </div>
             </div> 
@@ -529,6 +497,7 @@
             var btn_prev = document.getElementById("btn_prev");
             var page_span = document.getElementById("page");
             var listing_table_body = document.getElementById("productTableBody");
+            
 
             if (page < 1) page = 1;
             if (page > numPagesProduct()) page = numPagesProduct();
@@ -537,7 +506,10 @@
 
             for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < topProducts.length; i++) {
                 var product = topProducts[i];
-                var productImage = product.img_thumbnail ? product.img_thumbnail : '/theme/admin/assets/images/default-avatar.png';
+                // var productImage = product.img_thumbnail ? product.img_thumbnail : '/theme/admin/assets/images/default-avatar.png';
+                var productImage = product.img_thumbnail ? '/storage/' + product.img_thumbnail : '/theme/admin/assets/images/default-avatar.png';
+                var productPrice = product.price_regular ? new Intl.NumberFormat('vi-VN').format(product.price_regular) + " VND" : "0 VND";
+                var productDescription = product.short_description ? (product.short_description.length > 30 ? product.short_description.substring(0, 30) + "..." : product.short_description) : "No description available";
                 listing_table_body.innerHTML += `
                 <tr>
                     <td>
@@ -557,7 +529,7 @@
                         </div>
                     </td>
                     <td>
-                        <h5 class="fs-14 my-1 fw-normal">${product.price_regular}</h5>
+                        <h5 class="fs-14 my-1 fw-normal">${productPrice}</h5>
                         <span class="text-muted">Price</span>
                     </td>
                     <td>
@@ -565,7 +537,7 @@
                         <span class="text-muted">SKU</span>
                     </td>
                     <td>
-                        <h5 class="fs-14 my-1 fw-normal">${product.short_description}</h5>
+                        <h5 class="fs-14 my-1 fw-normal">${productDescription}</h5>
                         <span class="text-muted">Short Description</span>
                     </td>
                 </tr>
@@ -611,7 +583,9 @@
             // Hiển thị dữ liệu của từng khách hàng
             for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < topCustomers.length; i++) {
                 var customer = topCustomers[i];
-                var avatars = customer.avatar ? customer.avatar : '/theme/admin/assets/images/default-avatar.png';
+                // var avatars = customer.avatar ? customer.avatar : '/theme/admin/assets/images/default-avatar.png';
+                var avatars = customer.avatar ? '/storage/' + customer.avatar : '/theme/admin/assets/images/default-avatar.png';
+                // console.log("Customer Avatar: ", avatars);
                 listing_table_body.innerHTML += `
                 <tr>
                     <td>
