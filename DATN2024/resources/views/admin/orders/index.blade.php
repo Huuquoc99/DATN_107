@@ -99,6 +99,7 @@
                                         </th>
                                         <th class="sort" data-sort="id">Order ID</th>
                                         <th class="sort" data-sort="customer_name">Customer</th>
+                                        {{-- <th class="sort" data-sort="product_name">Product</th> --}}
                                         <th class="sort" data-sort="date">Order Date</th>
                                         <th class="sort" data-sort="amount">Amount</th>
                                         <th class="sort" data-sort="payment">Payment Method</th>
@@ -123,6 +124,7 @@
                                                 <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
                                             </td>
                                             <td class="amount">{{ $order->total_price }} VND</td>
+                                            {{-- <td class="payment">{{ $order->statusPayment->name }}</td> --}}
                                             <td class="payment">
                                                 @if ($order->statusPayment->id == 1)
                                                     <span class="badge bg-warning-subtle text-warning text-uppercase">{{ $order->statusPayment->name }}</span>
