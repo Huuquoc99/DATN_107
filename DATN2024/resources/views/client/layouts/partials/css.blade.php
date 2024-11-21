@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/plugins/swiper.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/cart.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/index.css') }}" type="text/css">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
