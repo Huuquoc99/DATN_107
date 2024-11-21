@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
@@ -94,9 +95,12 @@ class DashboardController extends Controller
             ->orderByDesc('total_spent') 
             ->get();
         
-        $totalEarnings = Order::sum('total_price');
-
-        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings')); 
+        $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
+        // dd($totalEarnings);
+        $totalOrders = Order::count(); 
+        $totalCustomers = User::count();
+        $totalProducts = Product::count();
+        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings', 'totalOrders', 'totalCustomers', 'totalProducts')); 
     }
 
 

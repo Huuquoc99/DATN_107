@@ -64,30 +64,6 @@ class HomeController extends Controller
     //     ]);
     // }
 
-    // public function search(Request $request)
-    // {
-    //     $keyword = $request->input('keyword');
-
-    //     $query = Product::query();
-
-    //     if (!empty($keyword)) {
-    //         $query->where('name', 'LIKE', '%' . $keyword . '%')
-    //             ->orWhereHas('catalogue', function ($q) use ($keyword) {
-    //                 $q->where('name', 'LIKE', '%' . $keyword . '%');
-    //             });
-    //     }
-
-    //     $products = $query->paginate(12);
-
-
-    //     return view('client.shop', [
-    //         'products' => $products,
-    //         'source' => 'search',
-    //         'keyword' => $keyword,
-    //         'title' => 'Search Results'
-    //     ]);
-    // }
-
     public function shop(Request $request)
     {
         $limit = 8;
@@ -162,9 +138,13 @@ class HomeController extends Controller
             'title' => 'All products'
         ]);
     }
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
 
-    public function search(Request $request)
-    {
+
+
+    public function search(Request $request) {
         $limit = 8;
         $search = $request->get('k');
         $products = Product::query()->active();
@@ -177,6 +157,7 @@ class HomeController extends Controller
             'products' => $products
         ]);
     }
+
 
     public function about()
     {

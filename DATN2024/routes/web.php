@@ -50,17 +50,17 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 //});
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/catalogue/{id}/product', [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+    // Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
+    Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
+        ->name('product.detail');
+    Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
+        ->name('product.getVariantDetails');
+    Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 // Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
-Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
-    ->name('product.detail');
-Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
-    ->name('product.getVariantDetails');
-Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
-// Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
-Route::get('/search', [HomeController::class, 'search'])->name('search');
 
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::get('notfound', [HomeController::class, 'notfound'])->name('notfound');
 Route::get('about', [HomeController::class, 'about'])->name('about');
