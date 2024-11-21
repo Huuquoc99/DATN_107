@@ -1,5 +1,5 @@
 <section class="banner collections-grid_masonry bg-white h-auto" style="margin-top: 85px;">
-  <div class="container pt-4">
+  <div class="container pt-3">
     <div class="row mt-lg-n2">
       <div class="col-lg-6 slideshow-boxed-right mb-4" style="width: 100%">
         <div class="slideshow swiper-container js-swiper-slider w-100 bg-white mx-0 mt-0"

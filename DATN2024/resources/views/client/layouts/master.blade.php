@@ -10,26 +10,26 @@
 
 </head>
 <body class="!overflow-x-hidden" style="overflow-x: hidden">
-<header>
-    <style>
-        header {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            z-index: 1000; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-            
-        }
+    <header>
+        <style>
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                height: 150px;
 
-     
-        body {
-            padding-top: 60px; 
-        }
-       
-    </style>
-    @include('client.layouts.partials.header')
-</header>
+            }
+
+
+            body {
+                padding-top: 60px;
+            }
+        </style>
+        @include('client.layouts.partials.header')
+    </header>
     <section>
         @yield('content')
     </section>

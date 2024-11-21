@@ -1,8 +1,8 @@
 @extends('client.layouts.master')
 
 @section('content')
-<main>
-    <section class="shop-main container d-flex pt-4 pt-xl-5">
+<main style="padding-top: 50px;">
+    <section class="shop-main container d-flex pt-1 pt-xl-5">
         <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
             <div class="aside-header d-flex d-lg-none align-items-center">
                 <h3 class="text-uppercase fs-6 mb-0">Filter By</h3>
@@ -220,9 +220,9 @@
         <div class="shop-list flex-grow-1">
             <div class="d-flex justify-content-between mb-4 pb-md-2">
                 <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                    <a href="{{route('home')}}" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
-                    <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                    <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium">The
+                    <a href="{{route('home')}}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color: black;">Home</a>
+                    <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1" style="color: black;">/</span>
+                    <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium"  style="color: black;">The
                         Shop</a>
                 </div><!-- /.breadcrumb -->
             </div><!-- /.d-flex justify-content-between -->
