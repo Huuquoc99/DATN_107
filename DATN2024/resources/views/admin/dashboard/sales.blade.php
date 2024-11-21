@@ -1,9 +1,9 @@
 <table>
     <thead>
     <tr>
-        <th>Tên Sản Phẩm</th>
-        <th>Số Lượng Bán</th>
-        <th>Tổng Doanh Thu</th>
+        <th>Product</th>
+        <th>Sales Quantity</th>
+        <th>Total Revenue</th>
     </tr>
     </thead>
     <tbody>

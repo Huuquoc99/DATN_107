@@ -1,4 +1,4 @@
-<!-- Form lọc -->
+
 <form action="{{ route('statistics') }}" method="GET">
     <label for="start_date">Start Date:</label>
     <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}">
@@ -9,15 +9,14 @@
     <button type="submit">Filter</button>
 </form>
 
-<!-- Biểu đồ -->
+
 <canvas id="myChart"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Dữ liệu từ controller (đã được chuyển sang JSON)
-    const labels = @json($statistics->pluck('month_year'));  // Lấy tháng/năm
-    const data = @json($statistics->pluck('total_quantity_sold'));  // Lấy số lượng bán ra
-    const revenueData = @json($statistics->pluck('total_revenue'));  // Lấy doanh thu
+    const labels = @json($statistics->pluck('month_year')); 
+    const data = @json($statistics->pluck('total_quantity_sold'));
+    const revenueData = @json($statistics->pluck('total_revenue'));
 
     const config = {
         type: 'line',
@@ -25,14 +24,14 @@
             labels: labels,
             datasets: [
                 {
-                    label: 'Số lượng sản phẩm đã bán',
+                    label: 'Number of products sold',
                     data: data,
                     borderColor: 'rgb(75, 192, 192)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: true,
                 },
                 {
-                    label: 'Doanh thu',
+                    label: 'Revenue',
                     data: revenueData,
                     borderColor: 'rgb(255, 99, 132)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
