@@ -47,7 +47,7 @@
                         placeholder="Password confirmation *"
                         required
                     />
-                    <label for="customerPasswodInput">Password *</label>
+                    <label for="customerPasswodInput"> Confirm Password *</label>
                 </div>
 
                 <div class="d-flex align-items-center mb-3 pb-2">

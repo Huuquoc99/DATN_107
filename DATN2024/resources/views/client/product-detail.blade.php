@@ -114,7 +114,7 @@
                             <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
                                 data-aside="cartDrawer">
                                 <i class="ri-shopping-cart-line me-2"></i>
-                                Thêm vào giỏ hàng
+                                Add to cart
                             </button>
                         </div>
                     </form>
@@ -142,7 +142,7 @@
                     <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
                         aria-labelledby="tab-description-tab">
                         <div class="product-single__description">
-                            <p class="content">{!! $product->description !!} ưdefrgthyju</p>
+                            <p class="content">{!! $product->description !!}</p>
 
                         </div>
                     </div>

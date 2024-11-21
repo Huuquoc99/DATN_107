@@ -56,6 +56,35 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <div class="form-floating my-3">
+                                <div class="row">
+                                    <div class="form-group col-12 col-md-4">
+                                        <label for="province">Province/City</label>
+                                        <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
+                                            <option value="">Select Province/City</option>
+                                            @foreach($provinces['results'] as $province)
+                                                <option value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-4">
+                                        <label for="district">District</label>
+                                        <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
+                                            <option value="">Select District</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-4">
+                                        <label for="ward">Ward/Commune</label>
+                                        <select id="ward" name="ward" class="form-control">
+                                            <option value="">Select Ward/Commune</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="mt-3">
                             <textarea class="form-control form-control_gray" placeholder="Order Notes (optional)" cols="30" rows="8"
                                       name="ship_user_note"></textarea>
@@ -120,4 +149,56 @@
             </form>
         </section>
     </main>
+@endsection
+
+@section('api-guest-address')
+    <script>
+        function fetchDistricts(provinceId) {
+            if (!provinceId) {
+                document.getElementById('district').innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+                document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                return;
+            }
+
+            fetch(`/order/districts/${provinceId}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    let districtOptions = '<option value="">Chọn Quận/Huyện</option>';
+
+                    if (Array.isArray(data)) {
+                        console.log(data);
+                        data.forEach(district => {
+                            districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
+                        });
+                    } else {
+                        console.error("Dữ liệu không phải là mảng:", data);
+                    }
+
+                    document.getElementById('district').innerHTML = districtOptions;
+                    document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                })
+                .catch(error => {
+                    console.error("Lỗi khi fetch dữ liệu:", error);
+                });
+        }
+
+        function fetchWards(districtId) {
+            if (!districtId) {
+                document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                return;
+            }
+
+            fetch(`/order/wards/${districtId}`)
+                .then(response => response.json())
+                .then(data => {
+                    let wardOptions = '<option value="">Chọn Phường/Xã</option>';
+                    data.forEach(ward => {
+                        wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
+                    });
+                    document.getElementById('ward').innerHTML = wardOptions;
+                });
+        }
+
+    </script>
 @endsection

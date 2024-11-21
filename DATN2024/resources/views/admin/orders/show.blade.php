@@ -27,28 +27,33 @@
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">Customer Details</h5>
                             <div class="flex-shrink-0">
-                                <a href="{{ route('admin.customers.show', $order->user->id) }}"
-                                    class="link-secondary">View
-                                    Profile</a>
+                                @if($order->user && $order->user->id)
+                                    <a href="{{ route('admin.customers.show', $order->user->id) }}" class="link-secondary">View Profile</a>
+                                @endif
                             </div>
                         </div>
                     </div>
+                    
                     <div class="card-body">
                         <ul class="list-unstyled mb-0 vstack gap-3">
                             <li>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
-                                        <img src="{{ Storage::url($order->user->avatar) }}" alt=""
-                                            class="avatar-sm rounded">
+                                        <!-- Check if user exists and has an avatar -->
+                                        @if($order->user && $order->user->avatar)
+                                            <img src="{{ Storage::url($order->user->avatar) }}" alt="" class="avatar-sm rounded">
+                                        @else
+                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="Default Avatar" class="avatar-sm rounded">
+                                        @endif
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h6 class="fs-14 mb-1">
-                                            {{ \Illuminate\Support\Str::limit($order->user->name, 20, '...') }}
+                                            {{ \Illuminate\Support\Str::limit($order->user->name ?? 'Unknown User', 20, '...') }}
                                         </h6>
                                         <p class="text-muted mb-0">
-                                            @if ($order->user->type == 1)
+                                            @if ($order->user && $order->user->type == 1)
                                                 Admin
-                                            @elseif ($order->user->type == 0)
+                                            @elseif ($order->user && $order->user->type == 0)
                                                 Client
                                             @else
                                                 Unknown
@@ -59,15 +64,15 @@
                             </li>
                             <li>
                                 <i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->email }}
+                                {{ $order->user->email ?? 'No email available' }}
                             </li>
                             <li>
                                 <i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->phone }}
+                                {{ $order->user->phone ?? 'No phone available' }}
                             </li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user->address, 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'No address available', 20, '...') }}
                             </li>
                         </ul>
                     </div>
@@ -82,19 +87,20 @@
                     <div class="card-body">
                         <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
                             <li class="fw-medium fs-14">
-                                {{ \Illuminate\Support\Str::limit($order->user_name, 25, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Unknown User', 25, '...') }}
                             </li>
-                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email }}</li>
-                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone }}</li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'No email available' }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'No phone available' }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user_address, 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'No address available', 20, '...') }}
                             </li>
-                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?: 'No notes provided' }}</li>
+                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'No notes provided' }}</li>
                         </ul>
                     </div>
                 </div>
             </div>
+            
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
@@ -287,7 +293,7 @@
                                     @csrf
                                     <div class="form-group mb-3">
                                         <select name="status_order_id" id="status_order_id" class="form-control"
-                                            style="width:245px">
+                                            style="width:288px">
                                             @foreach ($statusOrders as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $order->status_order_id == $status->id ? 'selected' : '' }}

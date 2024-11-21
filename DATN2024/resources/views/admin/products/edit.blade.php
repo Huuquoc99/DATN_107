@@ -301,7 +301,7 @@
                                                         <tr class="text-center" data-variant="{{ $capacityID . '-' . $colorID }}" data-size="{{ $capacityID }}">
                                                             @if($flagRowspan)
                                                                 <td style="vertical-align: middle;" rowspan="{{ count($visibleColorsInCapacity) }}" class="size-cell-{{ $capacityID }}">
-                                                                    {{ $capacityName }}
+                                                                   <b> {{ $capacityName }}</b>
                                                                 </td>
                                                             @endif
                                                             @php($flagRowspan = false)
@@ -467,6 +467,7 @@
             variantCount++;
 
             const newRow = `
+
             <tr class="text-center">
                 <td style="vertical-align: middle;">
                      <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
@@ -485,7 +486,7 @@
                 </td>
                 <td></td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Del</button>
                 </td>
             </tr>
                    `;
@@ -515,40 +516,10 @@
             }
         }
 
+
+
         function removeVariant(button) {
-            if(confirm('Bạn có chắc chắn muốn xóa biến thể này?')) {
-                button.closest('tr').remove();
-            }
-        }
-
-
-
-
-        function removeVariant(variantId) {
-            const row = document.querySelector(`tr[data-variant="${variantId}"]`);
-            if (!row) return;
-
-            const capacityID = row.getAttribute('data-size');
-            const sizeRows = document.querySelectorAll(`tr[data-size="${capacityID}"]`);
-            const totalRows = sizeRows.length;
-
-            if (totalRows === 1) {
-                row.remove();
-                return;
-            }
-
-            const currentIndex = Array.from(sizeRows).indexOf(row);
-            const sizeCell = document.querySelector(`.size-cell-${capacityID}`);
-
-            if (currentIndex === 0 && sizeCell) {
-                const nextRow = sizeRows[1];
-                sizeCell.setAttribute('rowspan', totalRows - 1);
-                nextRow.insertBefore(sizeCell, nextRow.firstChild);
-            } else if (sizeCell) {
-                sizeCell.setAttribute('rowspan', totalRows - 1);
-            }
-
-            row.remove();
+            button.closest('tr').remove();
         }
 
         function addImageGallery() {

@@ -221,7 +221,7 @@ Product
                                             @foreach($colors as $colorID => $colorName)
                                                 <tr class="text-center" data-variant="{{ $sizeID . '-' . $colorID }}" data-size="{{ $sizeID }}">
                                                     @if($flagRowspan)
-                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $sizeID }}">{{ $sizeName }}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{ count($colors) }}" class="size-cell-{{ $sizeID }}"><b>{{ $sizeName }}</b></td>
                                                     @endif
                                                     @php($flagRowspan = false)
 
@@ -287,6 +287,37 @@ Product
             </div>
         </div>
 
+<<<<<<< HEAD
+
+         <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">More information</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                    <div>
+                                        <label for="tags" class="form-label">Tags</label>
+                                        <select class="form-select" name="tags[]" id="tags" multiple>
+                                            @foreach($tags as $id => $name)
+                                                <option value="{{ $id }}">{{ $name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+=======
+>>>>>>> d67ad0431a632edd7011d4edbde42e24c38ea349
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">

@@ -58,7 +58,12 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px">
+                                            {{-- <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px"> --}}
+                                            @if ($item->image)
+                                                <img src="{{ Storage::url($item->image) }}" alt="" width="70px" height="60px">
+                                            @else
+                                                <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="" width="70px" height="60px">
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.paymentMethods.show', $item) }}">

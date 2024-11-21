@@ -52,7 +52,7 @@
                             @foreach($trashed as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>
+                                    {{-- <td>
                                         @php
                                             $url = $item->img_thumbnail;
                                             if (!Str::contains($url, 'http')) {
@@ -60,7 +60,24 @@
                                             }
                                         @endphp
                                         <img src="{{ $url }}" alt="" width="70px" height="60px">
+                                    </td> --}}
+                                    <td style="width: auto; height: 30px">
+                                        @php
+                                            $url = $item->img_thumbnail;
+                                            if (!$url || !Str::contains($url, 'http')) {
+                                                if ($url) {
+                                                    $url = \Illuminate\Support\Facades\Storage::exists($url) 
+                                                        ? \Illuminate\Support\Facades\Storage::url($url) 
+                                                        : null;
+                                                }
+                                            }
+                                            if (!$url) {
+                                                $url = asset('theme/admin/assets/images/default-avatar.png');
+                                            }
+                                        @endphp
+                                        <img src="{{ $url }}" alt="" width="70px" height="60px">
                                     </td>
+                                    
                                     <td>
                                         {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                     </td>
@@ -111,7 +128,7 @@
 
 @section('script-libs')
 
-    <script>
+    {{-- <script>
 
         $.ajaxSetup({
             headers: {
@@ -155,6 +172,6 @@
             })
         });
 
-    </script>
+    </script> --}}
 @endsection
 
