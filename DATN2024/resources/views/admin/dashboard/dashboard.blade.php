@@ -551,16 +551,20 @@
             // Hiển thị dữ liệu của từng sản phẩm
             for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < topProducts.length; i++) {
                 var product = topProducts[i];
+                var productImage = product.img_thumbnail ? product.img_thumbnail : '/theme/admin/assets/images/default-avatar.png';
                 listing_table_body.innerHTML += `
                 <tr>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="avatar-sm bg-light rounded p-1 me-2">
-                                <img src="${product.img_thumbnail}" alt="" class="img-fluid d-block" />
+                                <img src="${productImage}" alt="Product Image" class="img-fluid d-block" />
                             </div>
+                           
                             <div>
                                 <h5 class="fs-14 my-1">
-                                    <a href="apps-ecommerce-product-details.html" class="text-reset">${product.name}</a>
+                                    <a href="/admin/products/${product.id}" class="text-reset">
+                                        ${product.name.length > 15 ? product.name.substring(0, 15) + "..." : product.name}
+                                    </a>
                                 </h5>
                                 <span class="text-muted">${new Date(product.created_at).toLocaleDateString()}</span>
                             </div>
