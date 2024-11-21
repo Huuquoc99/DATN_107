@@ -4,15 +4,17 @@
     <title>@yield('title', 'Home - Shoppe')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('client.layouts.partials.css')
 
 </head>
 <body>
     @include('client.layouts.partials.header')
-    @include('client.layouts.partials.banner')
-
-    @yield('content')
+    <section>
+        @yield('content')
+    </section>
+    
 
     <footer class="site-footer border-top">
         @include('client.layouts.partials.footer')
@@ -23,3 +25,9 @@
 
 </body>
 </html>
+ {{-- <style>
+    body {
+        transform: scale(0.8); 
+        transform-origin: top center;
+}
+ </style> --}}
