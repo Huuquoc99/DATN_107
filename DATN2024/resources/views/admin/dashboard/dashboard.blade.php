@@ -32,33 +32,6 @@
             </div>
 
             <div class="row">
-                {{-- <div class="col-xl-3 col-md-6">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Earnings</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-success fs-14 mb-0">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +16.24 %
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k </h4>
-                                    <a href="" class="text-decoration-underline">View net earnings</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-success-subtle rounded fs-3">
-                                            <i class="bx bx-dollar-circle text-success"></i>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card card-animate">
                         <div class="card-body">
@@ -66,18 +39,12 @@
                                 <div class="flex-grow-1 overflow-hidden">
                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Earnings</p>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-success fs-14 mb-0">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +16.24 %
-                                    </h5>
-                                </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                        $<span class="counter-value">{{ number_format($totalEarnings, 2) }}</span>
+                                        <span>{{ number_format($totalEarnings, 0, ',', '.') }} VND</span>
                                     </h4>
-                                    <a href="" class="text-decoration-underline">View net earnings</a>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -96,21 +63,19 @@
                                 <div class="flex-grow-1 overflow-hidden">
                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Orders</p>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-danger fs-14 mb-0">
-                                        <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -3.57 %
-                                    </h5>
-                                </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="36894">0</span></h4>
-                                    <a href="" class="text-decoration-underline">View all orders</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>
+                                            {{ $totalOrders }}
+                                        </span>
+                                    </h4>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-info-subtle rounded fs-3">
-                                            <i class="bx bx-shopping-bag text-info"></i>
-                                        </span>
+                                    <span class="avatar-title bg-info-subtle rounded fs-3">
+                                        <i class="bx bx-shopping-bag text-info"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -124,16 +89,12 @@
                                 <div class="flex-grow-1 overflow-hidden">
                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Customers</p>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-success fs-14 mb-0">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +29.08 %
-                                    </h5>
-                                </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M </h4>
-                                    <a href="" class="text-decoration-underline">See details</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{$totalCustomers}}</span>
+                                    </h4>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title bg-warning-subtle rounded fs-3">
@@ -150,23 +111,19 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> My Balance</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-muted fs-14 mb-0">
-                                        +0.00 %
-                                    </h5>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Products</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="165.89">0</span>k </h4>
-                                    <a href="" class="text-decoration-underline">Withdraw money</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{$totalProducts}}</span>
+                                    </h4>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                            <i class="bx bx-wallet text-primary"></i>
-                                        </span>
+                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                        <i class="bx bx-wallet text-primary"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -179,46 +136,32 @@
                     <div class="card">
                         <div class="card-header border-0 align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Revenue</h4>
-                            <form action="{{ route('admin.dashboard') }}" method="GET">
-                                <label for="start_date">Start Date:</label>
-                                <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}">
-
-                                <label for="end_date">End Date:</label>
-                                <input type="date" id="end_date" name="end_date" value="{{ request('end_date') }}">
-
-                                <button type="submit">Filter</button>
-                            </form>
+                            
                         </div>
 
                         <div class="card-header p-0 border-0 bg-light-subtle">
-                            <div class="row g-0 text-center">
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1"><span class="counter-value" data-target="7585">0</span></h5>
-                                        <p class="text-muted mb-0">Orders</p>
+                            <div class="border border-dashed border-start-0">
+                            <div class="d-flex justify-content-center align-items-center" style="height: 100%; min-height: 100px;">
+                                <form action="{{ route('admin.dashboard') }}" method="GET" class="row g-3 align-items-center">
+                                    <div class="col-auto">
+                                        <label for="start_date" class="form-label mb-0">Start Date:</label>
+                                        <input type="date" id="start_date" name="start_date" 
+                                               class="form-control" style="width: 200px" value="{{ request('start_date') }}">
                                     </div>
-                                </div>
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1">$<span class="counter-value" data-target="22.89">0</span>k</h5>
-                                        <p class="text-muted mb-0">Earnings</p>
+                                    <div class="col-auto">
+                                        <label for="end_date" class="form-label mb-0">End Date:</label>
+                                        <input type="date" id="end_date" name="end_date" 
+                                               class="form-control" style="width: 200px" value="{{ request('end_date') }}">
                                     </div>
-                                </div>
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1"><span class="counter-value" data-target="367">0</span></h5>
-                                        <p class="text-muted mb-0">Refunds</p>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary mt-3" style="width: 100px">Filter</button>
                                     </div>
-                                </div>
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0 border-end-0">
-                                        <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">0</span>%</h5>
-                                        <p class="text-muted mb-0">Conversation Ratio</p>
-                                    </div>
-                                </div>
+                                </form>
+                            </div>
                             </div>
                         </div>
-
+                        
+                        
                         <div class="card-body p-0 pb-2">
                             <canvas id="myChart"></canvas>
                         </div>
