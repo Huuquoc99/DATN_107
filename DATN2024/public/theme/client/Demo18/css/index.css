@@ -589,3 +589,39 @@ h3 {
     color: #666;
     margin-top: 5px;
 }
+
+
+
+
+
+.nav-pills {
+    display: flex;
+    justify-content: flex-start; /* Căn các nút sang trái */
+    gap: 15px; /* Khoảng cách nhỏ giữa các nút */
+    padding: 0;
+    list-style-type: none;
+    flex-wrap: nowrap; /* Đảm bảo nằm trên một hàng */
+}
+
+.nav-pills .nav-item .btn {
+    flex: 0; /* Không cho các nút giãn ra */
+    padding: 5px 28.5px; /* Giảm kích thước padding */
+    text-align: center; /* Căn giữa nội dung */
+    border: none; /* Loại bỏ viền */
+    border-radius: 0; /* Không bo góc */
+    background-color: #f8f9fa; /* Màu nền mặc định */
+    color: #6c757d; /* Màu chữ mặc định */
+    font-size:15px; /* Giảm kích thước chữ */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng hover */
+    white-space: nowrap; /* Đảm bảo nội dung không bị xuống dòng */
+}
+
+.nav-pills .nav-item .btn.text-success {
+    background-color: #d1e7dd; /* Màu nền khi được chọn */
+    color: #0f5132; /* Màu chữ khi được chọn */
+}
+
+.nav-pills .nav-item .btn:hover {
+    background-color: #e9ecef; /* Màu nền khi hover */
+    color: #495057; /* Màu chữ khi hover */
+}
