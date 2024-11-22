@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function productDetail($slug)
     {
 
-        $product = Product::query()->with(['variants','galleries'])->where('slug', $slug)->first();
+        $product = Product::query()->with(['variants.capacity','variants.color','galleries'])->where('slug', $slug)->first();
 
         $colors = ProductColor::query()
             ->select('id', 'name', 'color_code')
@@ -28,7 +28,7 @@ class ProductController extends Controller
             ->all();
         $capacities = ProductCapacity::query()->pluck('name', 'id')->all();
 
-        return view('client.product-detail', compact('product','colors','capacities'));
+        return view('client.product-detail', compact('product','capacities','colors'));
     }
 
     public function getVariantDetails(Request $request)
