@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    // public function index()
     // {
 
     //     $orders = Auth::user()->orders->map(function ($order) {
@@ -36,14 +35,80 @@ class OrderController extends Controller
     //     return view('client.account.history', compact('orders'));
     // }
 
-    public function index()
-    {
-        // Không được xoá mặc dù nó đỏ
-        $orders = Auth::user()->orders()
-            ->with(['statusOrder', 'statusPayment'])
-            ->latest() 
-            ->paginate(7); 
+    // public function index()
+    // {
+    //     // Không được xoá mặc dù nó đỏ
+    //     $orders = Auth::user()->orders()
+    //         ->with(['statusOrder', 'statusPayment'])
+    //         ->latest() 
+    //         ->paginate(7); 
 
+    //     $mappedOrders = $orders->getCollection()->map(function ($order) {
+    //         return [
+    //             'id' => $order->id,
+    //             'code' => $order->code,
+    //             'created_at' => $order->created_at,
+    //             'status_order_id' => $order->statusOrder->id,
+    //             'status_order_name' => $order->statusOrder->name,
+    //             'status_payment' => $order->statusPayment->name,
+    //             'total_price' => $order->total_price,
+    //         ];
+    //     });
+
+    //     $orders->setCollection(collect($mappedOrders));
+
+    //     if ($orders->isEmpty()) {
+    //         $message = 'Bạn chưa có đơn hàng nào.';
+    //         return view('client.account.history', compact('message', 'orders'));
+    //     }
+
+    //     return view('client.account.history', compact('orders'));
+    // }
+
+//     public function index(Request $request)
+// {
+//     $statusFilter = $request->input('status_order', 'all');
+//     $query = Auth::user()->orders()->with(['statusOrder', 'statusPayment']);
+
+//     // Lọc theo trạng thái nếu không chọn "All"
+//     if ($statusFilter !== 'all') {
+//         $query->where('status_order_id', $statusFilter);
+//     }
+
+//     $orders = $query->latest()->paginate(7);
+
+//     $mappedOrders = $orders->getCollection()->map(function ($order) {
+//         return [
+//             'id' => $order->id,
+//             'code' => $order->code,
+//             'created_at' => $order->created_at,
+//             'status_order_id' => $order->statusOrder->id,
+//             'status_order_name' => $order->statusOrder->name,
+//             'status_payment' => $order->statusPayment->name,
+//             'total_price' => $order->total_price,
+//         ];
+//     });
+
+//     $orders->setCollection(collect($mappedOrders));
+
+//     // Lấy danh sách trạng thái đơn hàng
+//     $statusOrders = \App\Models\StatusOrder::all();
+
+//     $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
+
+//     return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
+// }
+
+    public function index(Request $request)
+    {
+        $statusFilter = $request->input('status_order', 'all');
+        $query = Auth::user()->orders()->with(['statusOrder', 'statusPayment']);
+
+        if ($statusFilter !== 'all') {
+            $query->where('status_order_id', $statusFilter);
+        }
+
+        $orders = $query->latest()->paginate(7);
         $mappedOrders = $orders->getCollection()->map(function ($order) {
             return [
                 'id' => $order->id,
@@ -57,14 +122,12 @@ class OrderController extends Controller
         });
 
         $orders->setCollection(collect($mappedOrders));
+        $statusOrders = StatusOrder::all();
+        $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
 
-        if ($orders->isEmpty()) {
-            $message = 'Bạn chưa có đơn hàng nào.';
-            return view('client.account.history', compact('message', 'orders'));
-        }
-
-        return view('client.account.history', compact('orders'));
+        return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
     }
+
 
     public function show(Order $order)
     {
