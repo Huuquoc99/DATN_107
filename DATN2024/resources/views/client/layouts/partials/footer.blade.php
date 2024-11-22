@@ -1,76 +1,71 @@
-<footer class="footer footer_type_1 dark theme-bg-color">
-    <div class="footer-top container">
-      <div class="block-newsletter mb-4">
-        <h3 class="block__title text-uppercase text-white fs-30 fw-semi-bold mb-2">Subscribe to our newsletter</h3>
-        <p class="mb-4">Be the first to get the latest news about trends, promotions, and much more!</p>
+  <!-- Footer Type 1 -->
+  <footer class="footer footer_type_1">
+    <div class="footer-middle container" style="height: 250px;">
+      <div class="row row-cols-lg-5 row-cols-2">
+        <div class="footer-column footer-store-info col-12 mb-lg-0">
+          <div class="logo">
+            <a href="index.html">
+              <img src="{{ asset('theme/client/images/techStore.png') }}" alt="Uomo" class="logo__image1 d-block">
+            </a>
 
-        <div class="mb-2 pb-1"></div>
-        <form action="https://uomo-html.flexkitux.com/Demo18/index.html" class="block-newsletter__form">
-          <input class="form-control border-radius-8" type="email" name="email" placeholder="Your email address">
-          <button class="btn btn-secondary fw-semi-bold fs-base theme-bg-color-secondary theme-color border-0 border-radius-8" type="submit">JOIN</button>
-        </form>
-      </div>
+          </div><!-- /.logo -->
+          <p class="footer-address" style="margin-top: -25px;">1418 River Drive, Suite 35 Cottonhall, CA 9622 United States</p>
 
-      <div class="mb-3 pb-2"></div>
-      <ul class="sub-menu__list list-unstyled d-flex gap-4 align-items-center justify-content-center">
-        <li class="sub-menu__item"><a href="terms.html" class="menu-link menu-link_us-s">Returns Policy</a></li>
-        <li class="sub-menu__item"><a href="shop_order_tracking.html" class="menu-link menu-link_us-s">Track Your Order</a></li>
-        <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Shipping & Delivery</a></li>
-      </ul>
+      
+          <p>
+            <strong class="fw-medium">+1 246-345-0695</strong>
+          </p>
 
-      <ul class="social-links list-unstyled d-flex flex-wrap mb-0 align-items-center justify-content-center">
-        <li>
-          <a href="https://www.facebook.com/" class="footer__social-link d-block">
-            <i class="fa-brands fa-facebook fa-xl"></i>          </a>
-        </li>
-        <li>
-          <a href="https://www.twitter.com/" class="footer__social-link d-block">
-            <i class="fa-brands fa-twitter fa-xl"></i>          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/" class="footer__social-link d-block">
-            <i class="fa-brands fa-instagram fa-xl"></i>          </a>
-        </li>
-        <li>
-          <a href="https://www.youtube.com/" class="footer__social-link d-block">
-            <i class="fa-brands fa-youtube fa-xl"></i>          </a>
-        </li>
-        <li>
-          <a href="https://www.pinterest.com/" class="footer__social-link d-block">
-            <i class="fa-brands fa-pinterest fa-xl"></i>          </a>
-        </li>
-      </ul>
+       
+        </div><!-- /.footer-column -->
 
-      <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-4"></div>
-    </div>
+        <div class="footer-column footer-menu mb-4 mb-lg-0">
+          <h6 class="sub-menu__title text-uppercase">Company</h6>
+          <ul class="sub-menu__list list-unstyled">
+            <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">About Us</a></li>
+            <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Careers</a></li>
+            <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Affiliates</a></li>
+          
+          </ul>
+        </div><!-- /.footer-column -->
 
-    <div class="footer-bottom">
-      <div class="d-block d-md-flex align-items-center container">
-        <span class="footer-copyright me-auto">©2023 Uomo</span>
-        <div class="footer-settings d-block d-md-flex align-items-center">
-          <div class="d-flex align-items-center">
-            <label for="footerSettingsLanguage" class="me-2 text-white">Language</label>
-            <select id="footerSettingsLanguage" class="form-select form-select-sm bg-transparent border-0" aria-label="Default select example" name="store-language">
-              <option class="footer-select__option" selected>United Kingdom | English</option>
-              <option class="footer-select__option" value="1">United States | English</option>
-              <option class="footer-select__option" value="2">German</option>
-              <option class="footer-select__option" value="3">French</option>
-              <option class="footer-select__option" value="4">Swedish</option>
-            </select>
-          </div>
+        <div class="footer-column footer-menu mb-4 mb-lg-0">
+          <h6 class="sub-menu__title text-uppercase">Shop</h6>
+          <ul class="sub-menu__list list-unstyled">
+            <li class="sub-menu__item"><a href="shop2.html" class="menu-link menu-link_us-s">New Arrivals</a></li>
+            <li class="sub-menu__item"><a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a></li>
+            <li class="sub-menu__item"><a href="shop4.html" class="menu-link menu-link_us-s">Men</a></li>
+   
+          </ul>
+        </div><!-- /.footer-column -->
 
-          <div class="d-flex align-items-center">
-            <label for="footerSettingsCurrency" class="ms-md-3 me-2 text-white">Currency</label>
-            <select id="footerSettingsCurrency" class="form-select form-select-sm bg-transparent border-0" aria-label="Default select example" name="store-language">
-              <option selected>$ USD</option>
-              <option value="1">£ GBP</option>
-              <option value="2">€ EURO</option>
-            </select>
-          </div>
-        </div><!-- /.footer-settings -->
-      </div><!-- /.d-flex -->
-    </div><!-- /.footer-bottom container -->
-  </footer>
+        <div class="footer-column footer-menu mb-4 mb-lg-0">
+          <h6 class="sub-menu__title text-uppercase">Help</h6>
+          <ul class="sub-menu__list list-unstyled">
+            <li class="sub-menu__item"><a href="about.html" class="menu-link menu-link_us-s">Customer Service</a></li>
+            <li class="sub-menu__item"><a href="account_dashboard.html" class="menu-link menu-link_us-s">My Account</a></li>
+            <li class="sub-menu__item"><a href="store_location.html" class="menu-link menu-link_us-s">Find a Store</a></li>
+         
+           
+          </ul>
+        </div><!-- /.footer-column -->
+
+        <div class="footer-column footer-newsletter col-12 mb-4 mb-lg-0">
+          <h6 class="sub-menu__title text-uppercase">Subscribe</h6>
+       
+          <form action="https://uomo-html.flexkitux.com/Demo18/index.html" class="footer-newsletter__form position-relative bg-body">
+            <input class="form-control border-white" type="email" name="email" placeholder="Your email address">
+            <input class="btn-link fw-medium bg-white position-absolute top-0 end-0 h-100" type="submit" value="JOIN">
+          </form>
+
+         
+        </div><!-- /.footer-column -->
+      </div><!-- /.row-cols-5 -->
+    </div><!-- /.footer-middle container -->
+
+ <!-- /.footer-bottom container -->
+  </footer><!-- /.footer footer_type_1 -->
+  <!-- End Footer Type 1 -->
 
   <!-- Mobile Fixed Footer -->
   <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
@@ -99,9 +94,4 @@
         </a>
       </div><!-- /.col-3 -->
     </div><!-- /.row -->
-  </footer>
-  
-  <div id="scrollTop" class="visually-hidden end-0"></div>
-
-<!-- Page Overlay -->
-<div class="page-overlay"></div>
+  </footer><!-- /.footer-mobile container position-fixed d-md-none bottom-0 -->

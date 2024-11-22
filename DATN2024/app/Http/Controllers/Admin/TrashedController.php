@@ -14,7 +14,7 @@ class TrashedController extends Controller
         $trashed = Product::onlyTrashed()->paginate(12);
         return view("admin.trashed.index", compact('trashed'));
 
-        return view("admin.trashed.index", compact('trashed'));
+        // return view("admin.trashed.index", compact('trashed'));
     }
 
     public function restore($id)

@@ -32,33 +32,6 @@
             </div>
 
             <div class="row">
-                {{-- <div class="col-xl-3 col-md-6">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Earnings</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-success fs-14 mb-0">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +16.24 %
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k </h4>
-                                    <a href="" class="text-decoration-underline">View net earnings</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-success-subtle rounded fs-3">
-                                            <i class="bx bx-dollar-circle text-success"></i>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card card-animate">
                         <div class="card-body">
@@ -66,18 +39,12 @@
                                 <div class="flex-grow-1 overflow-hidden">
                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Earnings</p>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-success fs-14 mb-0">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +16.24 %
-                                    </h5>
-                                </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                        $<span class="counter-value">{{ number_format($totalEarnings, 2) }}</span>
+                                        <span>{{ number_format($totalEarnings, 0, ',', '.') }} VND</span>
                                     </h4>
-                                    <a href="" class="text-decoration-underline">View net earnings</a>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -96,21 +63,19 @@
                                 <div class="flex-grow-1 overflow-hidden">
                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Orders</p>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-danger fs-14 mb-0">
-                                        <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -3.57 %
-                                    </h5>
-                                </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="36894">0</span></h4>
-                                    <a href="" class="text-decoration-underline">View all orders</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>
+                                            {{ $totalOrders }}
+                                        </span>
+                                    </h4>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-info-subtle rounded fs-3">
-                                            <i class="bx bx-shopping-bag text-info"></i>
-                                        </span>
+                                    <span class="avatar-title bg-info-subtle rounded fs-3">
+                                        <i class="bx bx-shopping-bag text-info"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -124,16 +89,12 @@
                                 <div class="flex-grow-1 overflow-hidden">
                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Customers</p>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-success fs-14 mb-0">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +29.08 %
-                                    </h5>
-                                </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M </h4>
-                                    <a href="" class="text-decoration-underline">See details</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{$totalCustomers}}</span>
+                                    </h4>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title bg-warning-subtle rounded fs-3">
@@ -150,23 +111,19 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> My Balance</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <h5 class="text-muted fs-14 mb-0">
-                                        +0.00 %
-                                    </h5>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Products</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="165.89">0</span>k </h4>
-                                    <a href="" class="text-decoration-underline">Withdraw money</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{$totalProducts}}</span>
+                                    </h4>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                            <i class="bx bx-wallet text-primary"></i>
-                                        </span>
+                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                        <i class="bx bx-wallet text-primary"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -179,135 +136,45 @@
                     <div class="card">
                         <div class="card-header border-0 align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Revenue</h4>
-                            <form action="{{ route('admin.dashboard') }}" method="GET">
-                                <label for="start_date">Start Date:</label>
-                                <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}">
-
-                                <label for="end_date">End Date:</label>
-                                <input type="date" id="end_date" name="end_date" value="{{ request('end_date') }}">
-
-                                <button type="submit">Filter</button>
-                            </form>
+                            
                         </div>
 
                         <div class="card-header p-0 border-0 bg-light-subtle">
-                            <div class="row g-0 text-center">
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1"><span class="counter-value" data-target="7585">0</span></h5>
-                                        <p class="text-muted mb-0">Orders</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1">$<span class="counter-value" data-target="22.89">0</span>k</h5>
-                                        <p class="text-muted mb-0">Earnings</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0">
-                                        <h5 class="mb-1"><span class="counter-value" data-target="367">0</span></h5>
-                                        <p class="text-muted mb-0">Refunds</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0 border-end-0">
-                                        <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">0</span>%</h5>
-                                        <p class="text-muted mb-0">Conversation Ratio</p>
-                                    </div>
+                            <div class="border border-dashed border-start-0">
+                                <div class="d-flex justify-content-center align-items-center" style="height: 100%; min-height: 100px;">
+                                    <form action="{{ route('admin.dashboard') }}" method="GET" class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label for="start_date" class="form-label mb-0">Start Date:</label>
+                                            <input type="date" id="start_date" name="start_date" 
+                                                class="form-control" style="width: 200px" value="{{ request('start_date') }}">
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="end_date" class="form-label mb-0">End Date:</label>
+                                            <input type="date" id="end_date" name="end_date" 
+                                                class="form-control" style="width: 200px" value="{{ request('end_date') }}">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-primary mt-3" style="width: 100px">Filter</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card-body p-0 pb-2">
-                            <canvas id="myChart"></canvas>
+                        
+                        
+                        <div class="card-body pt-3 pb-3 d-flex justify-content-center align-items-center">
+                            <div style="width:80%" >
+                                <canvas id="myChart"></canvas>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
 
                 <div class="col-xl-4">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Sales by Locations</h4>
-                            <div class="flex-shrink-0">
-                                <button type="button" class="btn btn-soft-primary btn-sm">
-                                    Export Report
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-
-                            <div id="sales-by-locations" data-colors='["--vz-light", "--vz-success", "--vz-primary"]' style="height: 269px" dir="ltr"></div>
-
-                            <div class="px-2 py-2 mt-1">
-                                <p class="mb-1">Canada <span class="float-end">75%</span></p>
-                                <div class="progress mt-2" style="height: 6px;">
-                                    <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="75"></div>
-                                </div>
-
-                                <p class="mt-3 mb-1">Greenland <span class="float-end">47%</span>
-                                </p>
-                                <div class="progress mt-2" style="height: 6px;">
-                                    <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="47"></div>
-                                </div>
-
-                                <p class="mt-3 mb-1">Russia <span class="float-end">82%</span></p>
-                                <div class="progress mt-2" style="height: 6px;">
-                                    <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="82"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xl-6">
-                    <div class="card">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Best Selling Products</h4>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="table-responsive table-card">
-                                <table class="table table-hover table-centered align-middle table-nowrap mb-0">
-                                    <tbody id="productTableBody">
-
-                                    </tbody>
-                                </table>
-
-
-                            </div>
-                            <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
-                                <div class="col-sm">
-                                    <div class="text-muted">
-                                        Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
-                                    </div>
-                                </div>
-                                <div class="col-sm-auto  mt-3 mt-sm-0">
-                                    <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
-                                        <li class="page-item">
-                                            <a href="javascript:prevPageProduct()" id="btn_prev" class="page-link">←</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <span id="page" class="page-link"></span>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:nextPageProduct()" id="btn_next" class="page-link">→</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-6">
-                    <div class="card card-height-100">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Top Sellers</h4>
+                            <h4 class="card-title mb-0 flex-grow-1"> Top Sellers</h4>
                         </div>
 
                         <div class="card-body">
@@ -335,49 +202,61 @@
                                     </ul>
                                 </div>
                             </div>
-
+                            
                         </div>
-                    </div> 
+                    </div>
                 </div>
-            </div> 
+            </div>
 
             <div class="row">
-                <div class="col-xl-4">
-                    <div class="card card-height-100">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Store Visits by Source</h4>
-                            <div class="flex-shrink-0">
-                                <div class="dropdown card-header-dropdown">
-                                    <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Download Report</a>
-                                        <a class="dropdown-item" href="#">Export</a>
-                                        <a class="dropdown-item" href="#">Import</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div id="store-visits-source" data-colors='["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-info"]' class="apex-charts" dir="ltr"></div>
-                        </div>
-                    </div> 
-                </div>
-
-                <div class="col-xl-8">
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Recent Orders</h4>
-                            <div class="flex-shrink-0">
-                                <button type="button" class="btn btn-soft-info btn-sm">
-                                    <i class="ri-file-list-3-line align-middle"></i> Generate Report
-                                </button>
-                            </div>
+                            <h4 class="card-title mb-0 flex-grow-1">Best Selling Products</h4>
                         </div>
 
                         <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                                    <tbody id="productTableBody">
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                            <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                <div class="col-sm">
+                                    {{-- <div class="text-muted">
+                                        Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
+                                    </div> --}}
+                                </div>
+                                <div class="col-sm-auto  mt-3 mt-sm-0">
+                                    <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                        <li class="page-item">
+                                            <a href="javascript:prevPageProduct()" id="btn_prev" class="page-link">←</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <span id="page" class="page-link"></span>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="javascript:nextPageProduct()" id="btn_next" class="page-link">→</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="card card-height-100">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Recent Orders</h4>
+                        </div>
+
+                        {{-- <div class="card-body">
                             <div class="table-responsive table-card">
                                 <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
                                     <thead class="text-muted table-light">
@@ -386,9 +265,9 @@
                                         <th scope="col">Customer</th>
                                         <th scope="col">Product</th>
                                         <th scope="col">Amount</th>
-                                        <th scope="col">Vendor</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">Capacity</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Rating</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -412,110 +291,78 @@
                                         <td>
                                             <span class="badge bg-success-subtle text-success">Paid</span>
                                         </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">5.0<span class="text-muted fs-11 ms-1">(61 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2111</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Jansh Brown</div>
-                                            </div>
-                                        </td>
-                                        <td>Kitchen Storage</td>
-                                        <td>
-                                            <span class="text-success">$149.00</span>
-                                        </td>
-                                        <td>Micro Design</td>
-                                        <td>
-                                            <span class="badge bg-warning-subtle text-warning">Pending</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.5<span class="text-muted fs-11 ms-1">(61 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2109</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Ayaan Bowen</div>
-                                            </div>
-                                        </td>
-                                        <td>Bike Accessories</td>
-                                        <td>
-                                            <span class="text-success">$215.00</span>
-                                        </td>
-                                        <td>Nesta Technologies</td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success">Paid</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.9<span class="text-muted fs-11 ms-1">(89 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2108</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Prezy Mark</div>
-                                            </div>
-                                        </td>
-                                        <td>Furniture</td>
-                                        <td>
-                                            <span class="text-success">$199.00</span>
-                                        </td>
-                                        <td>Syntyce Solutions</td>
-                                        <td>
-                                            <span class="badge bg-danger-subtle text-danger">Unpaid</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.3<span class="text-muted fs-11 ms-1">(47 votes)</span></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2107</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Vihan Hudda</div>
-                                            </div>
-                                        </td>
-                                        <td>Bags and Wallets</td>
-                                        <td>
-                                            <span class="text-success">$330.00</span>
-                                        </td>
-                                        <td>iTest Factory</td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success">Paid</span>
-                                        </td>
-                                        <td>
-                                            <h5 class="fs-14 fw-medium mb-0">4.7<span class="text-muted fs-11 ms-1">(161 votes)</span></h5>
-                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
+                        </div> --}}
+
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                                    <thead class="text-muted table-light">
+                                        <tr>
+                                            <th scope="col">Order ID</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Color</th>
+                                            <th scope="col">Capacity</th>
+                                            <th scope="col">Status Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($topOrders as $order)
+                                            @foreach ($order->orderItems as $item)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('admin.orders.show', $order->id) }}" class="fw-medium link-primary">#{{ $order->code }}</a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0 me-2">
+                                                                <img src="{{ optional($order->user)->avatar ? '/storage/' . optional($order->user)->avatar : '/theme/admin/assets/images/default-avatar.png' }}" 
+                                                                     alt="Avatar" class="avatar-xs rounded-circle" />
+                                                            </div>
+                                                            <div class="flex-grow-1">{{ optional($order->user)->name ? Str::limit(optional($order->user)->name, 15) : 'N/A' }}</div>
+
+                                                        </div>
+                                                    </td>
+        
+                                                    <td>{{ optional($item->product)->name ? Str::limit(optional($item->product)->name, 15) : 'N/A' }}</td>
+
+                                                    <td>
+                                                        <span class="text-success">{{ number_format(optional($item->order)->total_price, 0, ',', '.') }} VND</span>
+                                                    </td>
+                                                    <td>{{ optional($item->productVariant->color)->name ?? 'N/A' }}</td>
+                                                    <td>{{ optional($item->productVariant->capacity)->name ?? 'N/A' }}</td>
+
+                                                    {{-- <td>
+                                                        <span class="badge bg-success-subtle text-success">{{ optional($order->status)->name }}</span>
+                                                    </td> --}}
+                                                    <td>
+                                                        @php
+                                                            $statusId = optional($order->statusOrder)->id; // Lấy id của status
+                                                        @endphp
+                                                        <span class="badge 
+                                                            @if ($statusId == 1) bg-warning-subtle text-warning
+                                                            @elseif ($statusId == 2) bg-secondary-subtle text-secondary
+                                                            @elseif ($statusId == 3) bg-success-subtle text-success
+                                                            @else bg-danger-subtle text-danger
+                                                            @endif">
+                                                            {{ optional($order->statusOrder)->name }}
+                                                        </span>
+                                                    </td>
+                                                    
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        
+                        
                     </div> 
                 </div>
             </div> 
@@ -528,25 +375,24 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Dữ liệu từ controller (đã được chuyển sang JSON)
-        const labels = @json($statistics->pluck('month_year')); // Lấy tháng/năm
-        const data = @json($statistics->pluck('total_quantity_sold')); // Lấy số lượng bán ra
-        const revenueData = @json($statistics->pluck('total_revenue')); // Lấy doanh thu
+    {{-- <script>
+        const labels = @json($statistics->pluck('month_year')); 
+        const data = @json($statistics->pluck('total_quantity_sold')); 
+        const revenueData = @json($statistics->pluck('total_revenue')); 
 
         const config = {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                        label: 'Số lượng sản phẩm đã bán',
+                        label: 'Number of products sold',
                         data: data,
                         borderColor: 'rgb(75, 192, 192)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         fill: true,
                     },
                     {
-                        label: 'Doanh thu',
+                        label: 'Revenue',
                         data: revenueData,
                         borderColor: 'rgb(255, 99, 132)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -564,9 +410,61 @@
             },
         };
 
-        // Khởi tạo biểu đồ
+        new Chart(document.getElementById('myChart'), config);
+    </script> --}}
+
+    <script>
+        const labels = @json($statistics->pluck('month_year')); 
+        const data = @json($statistics->pluck('total_quantity_sold')); 
+        const revenueData = @json($statistics->pluck('total_revenue')); 
+
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Number of products sold',
+                        data: data,
+                        borderColor: '#9ba4c1', 
+                        backgroundColor: '#45558c', 
+                        borderWidth: 1,
+                        fill: false, 
+                        type: 'bar', 
+                    },
+                    {
+                        label: 'Revenue', 
+                        data: revenueData,
+                        borderColor: 'rgb(255, 99, 132)', 
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)', 
+                        fill: false, 
+                        type: 'line', 
+                        borderWidth: 2, 
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom', 
+                        labels: {
+                            padding: 50,
+                            boxWidth: 30, 
+                        },
+                    },
+                },
+            },
+        };
+
         new Chart(document.getElementById('myChart'), config);
     </script>
+
     <script>
         var topProducts = @json($topProducts);
         var topCustomers = @json($topCustomers);
@@ -599,32 +497,39 @@
             var btn_prev = document.getElementById("btn_prev");
             var page_span = document.getElementById("page");
             var listing_table_body = document.getElementById("productTableBody");
+            
 
             if (page < 1) page = 1;
             if (page > numPagesProduct()) page = numPagesProduct();
 
             listing_table_body.innerHTML = "";
 
-            // Hiển thị dữ liệu của từng sản phẩm
             for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < topProducts.length; i++) {
                 var product = topProducts[i];
+                // var productImage = product.img_thumbnail ? product.img_thumbnail : '/theme/admin/assets/images/default-avatar.png';
+                var productImage = product.img_thumbnail ? '/storage/' + product.img_thumbnail : '/theme/admin/assets/images/default-avatar.png';
+                var productPrice = product.price_regular ? new Intl.NumberFormat('vi-VN').format(product.price_regular) + " VND" : "0 VND";
+                var productDescription = product.short_description ? (product.short_description.length > 30 ? product.short_description.substring(0, 30) + "..." : product.short_description) : "No description available";
                 listing_table_body.innerHTML += `
                 <tr>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="avatar-sm bg-light rounded p-1 me-2">
-                                <img src="${product.img_thumbnail}" alt="" class="img-fluid d-block" />
+                                <img src="${productImage}" alt="Product Image" class="img-fluid d-block" />
                             </div>
+                           
                             <div>
                                 <h5 class="fs-14 my-1">
-                                    <a href="apps-ecommerce-product-details.html" class="text-reset">${product.name}</a>
+                                    <a href="/admin/products/${product.id}" class="text-reset">
+                                        ${product.name.length > 15 ? product.name.substring(0, 15) + "..." : product.name}
+                                    </a>
                                 </h5>
                                 <span class="text-muted">${new Date(product.created_at).toLocaleDateString()}</span>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <h5 class="fs-14 my-1 fw-normal">${product.price_regular}</h5>
+                        <h5 class="fs-14 my-1 fw-normal">${productPrice}</h5>
                         <span class="text-muted">Price</span>
                     </td>
                     <td>
@@ -632,7 +537,7 @@
                         <span class="text-muted">SKU</span>
                     </td>
                     <td>
-                        <h5 class="fs-14 my-1 fw-normal">${product.short_description}</h5>
+                        <h5 class="fs-14 my-1 fw-normal">${productDescription}</h5>
                         <span class="text-muted">Short Description</span>
                     </td>
                 </tr>
@@ -678,16 +583,21 @@
             // Hiển thị dữ liệu của từng khách hàng
             for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < topCustomers.length; i++) {
                 var customer = topCustomers[i];
+                // var avatars = customer.avatar ? customer.avatar : '/theme/admin/assets/images/default-avatar.png';
+                var avatars = customer.avatar ? '/storage/' + customer.avatar : '/theme/admin/assets/images/default-avatar.png';
+                // console.log("Customer Avatar: ", avatars);
                 listing_table_body.innerHTML += `
                 <tr>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-2">
-                                <img src="${customer.avatar}" alt="" class="avatar-sm p-2" />
+                                <img src="${avatars}" alt="" class="avatar-sm p-2" />
                             </div>
                             <div>
                                 <h5 class="fs-14 my-1">
-                                    <a href="apps-ecommerce-customer-details.html" class="text-reset">${customer.name}</a>
+                                    <a href="/admin/customers/${customer.id}" class="text-reset">
+                                        ${customer.name.length > 15 ? customer.name.substring(0, 20) + "..." : customer.name}
+                                    </a>
                                 </h5>
                                 <span class="text-muted">${customer.email}</span>
                             </div>

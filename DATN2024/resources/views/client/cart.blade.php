@@ -1,13 +1,12 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <div class="mb-4 pb-4"></div>
-    <section class="shop-checkout container" style="margin-bottom: 40px">
-        <h4 class="page-title">Cart</h4>
+    <div class="mb-4 mt-4 pb-4"></div>
+    <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
+        <h2 class="page-title">Giỏ hàng</h2>
         <a href="{{ route('cart.list') }}" class="checkout-steps__item active">
             <span class="checkout-steps__item-title">
-            <span>SHOPPING BAG</span>
-            <em>Manage your shopping bag</em>
+            <span style="margin-top:-20px">TÚI MUA SẮM</span>
           </span>
         </a>
         <div id="delete-success"></div>
@@ -72,38 +71,24 @@
                     </table>
                 </div>
 
-                <div class="shopping-cart__totals-wrapper">
-                    <div class="sticky-content">
-                        <div class="shopping-cart__totals">
-                            <h3>Cart Totals</h3>
-                            <table class="cart-totals">
-                                <tbody>
-                                <tr>
-                                    <th>Subtotal</th>
-                                    <td id="totalAmount">0 VND</td>
-                                </tr>
-                                <tr>
-                                    <th>Shipping</th>
-                                    <td>
-                                        <!-- Các lựa chọn shipping -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>VAT</th>
-                                    <td>$19</td>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <td id="finalTotal">0 VND</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
+                <div class="shopping-cart__totals-wrapper ">
+                    <div class="sticky-content">
+                    <div class="shopping-cart__totals" style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; background-color: #f9f9f9; max-width: 400px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h3 style="font-size: 24px; margin-bottom: 20px; text-align: center; color: #333;">Cart Totals</h3>
+    <div style="display: flex; justify-content: flex-start; padding: 10px 0; border-bottom: 1px solid #ddd;">
+        <span style="font-weight: normal; color: #555;">Subtotal :</span>
+        <span id="totalAmount" style="color: #333; padding-left: 10px;">11111111111111111111 VND</span>
+    </div>
+    <div style="display: flex;  justify-content: flex-start; padding: 10px 0; color: red;">
+        <span style="font-weight: normal;">Total :</span>
+        <span id="finalTotal" style="font-weight: bold;padding-left: 32px; color: red;">111111111111111111111 VND</span>
+    </div>
+</div>
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
                                 <a href="{{ route('checkout.index') }}">
-                                    <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
+                                    <button style="" class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
                                 </a>
                             </div>
                         </div>
