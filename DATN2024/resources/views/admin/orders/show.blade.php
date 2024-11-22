@@ -117,7 +117,12 @@
                             <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_phone }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_district, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_province, 20, '...') }},
+                                
+
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'No notes provided' }}</li>
                         </ul>
@@ -185,7 +190,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-9">
+            <div class="col-xl-6">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
@@ -280,6 +285,58 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i> Payment Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 ms-2">
+                                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST"
+                                    class="d-flex flex-column align-items-start">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group mb-3">
+                                        {{-- <select name="status_payment_id " id="status_payment_id " class="form-control"
+                                            style="width:288px">
+                                            @foreach ($statusPayment as $status)
+                                                <option value="{{ $status->id }}"
+                                                    {{ $order->status_payment_id  == $status->id ? 'selected' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                            
+                                        </select> --}}
+                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width:288px">
+                                            @foreach ($statusPayments as $status)
+                                                <option value="{{ $status->id }}"
+                                                    {{ $order->status_payment_id == $status->id ? 'selected' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update Payment Status</button>
+                                </form>
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+            
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">

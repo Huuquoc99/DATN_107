@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mail\AdminOrderUpdated;
 use App\Mail\AdminOrderCancelled;
 use App\Http\Controllers\Controller;
+use App\Models\StatusPayment;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -29,7 +30,7 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');;
+        $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
 
         // if ($request->has('status')) {
         //     $orders->where('status_order_id', $request->input('status'));
@@ -74,8 +75,9 @@ class OrderController extends Controller
 
         $order->load('orderItems.product', 'statusOrder', 'statusPayment'); 
         $statusOrders = StatusOrder::all(); 
+        $statusPayments = StatusPayment::all();
     
-        return view('admin.orders.show', compact('order', 'statusOrders'));
+        return view('admin.orders.show', compact('order', 'statusOrders', "statusPayments"));
     }
 
     public function updateStatus(Request $request, $id)
@@ -100,6 +102,28 @@ class OrderController extends Controller
         } else {
             return redirect()->route('admin.orders.show', $id)
                             ->with('info', 'No change in order status.');
+        }
+    }
+
+    public function updatePaymentStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Lấy trạng thái thanh toán mới từ yêu cầu
+        $newPaymentStatusId = $request->input('status_payment_id');
+
+        // Kiểm tra xem trạng thái thanh toán có thay đổi hay không
+        if ($newPaymentStatusId != $order->status_payment_id) {
+
+            // Cập nhật trạng thái thanh toán
+            $order->status_payment_id = $newPaymentStatusId;
+            $order->save();
+
+            return redirect()->route('admin.orders.show', $id)
+                            ->with('success', 'Payment status updated successfully.');
+        } else {
+            return redirect()->route('admin.orders.show', $id)
+                            ->with('info', 'No change in payment status.');
         }
     }
 

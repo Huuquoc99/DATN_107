@@ -80,4 +80,5 @@ class Product extends Model
             $query->where('quantity', '>', 0);
         });
     }
+
 }
