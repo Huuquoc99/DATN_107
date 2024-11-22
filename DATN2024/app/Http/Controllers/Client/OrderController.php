@@ -13,26 +13,56 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+    // public function index()
+    // {
+
+    //     $orders = Auth::user()->orders->map(function ($order) {
+    //         return [
+    //             'id' => $order->id,
+    //             'code' => $order->code,
+    //             'created_at' => $order->created_at,
+    //             'status_order_id' => $order->statusOrder->id, 
+    //             'status_order_name' => $order->statusOrder->name, 
+    //             'status_payment' => $order->statusPayment->name,
+    //             'total_price' => $order->total_price,
+    //         ];
+    //     });
+
+    //     if ($orders->isEmpty()) {
+    //         return response()->json(['message' => 'Bạn chưa có đơn hàng nào.'], 200);
+    //     }
+
+    //     // return response()->json($orders, 201);
+    //     return view('client.account.history', compact('orders'));
+    // }
+
     public function index()
     {
+        // Không được xoá mặc dù nó đỏ
+        $orders = Auth::user()->orders()
+            ->with(['statusOrder', 'statusPayment'])
+            ->latest() 
+            ->paginate(7); 
 
-        $orders = Auth::user()->orders->map(function ($order) {
+        $mappedOrders = $orders->getCollection()->map(function ($order) {
             return [
                 'id' => $order->id,
                 'code' => $order->code,
                 'created_at' => $order->created_at,
-                'status_order_id' => $order->statusOrder->id, 
-                'status_order_name' => $order->statusOrder->name, 
+                'status_order_id' => $order->statusOrder->id,
+                'status_order_name' => $order->statusOrder->name,
                 'status_payment' => $order->statusPayment->name,
                 'total_price' => $order->total_price,
             ];
         });
 
+        $orders->setCollection(collect($mappedOrders));
+
         if ($orders->isEmpty()) {
-            return response()->json(['message' => 'Bạn chưa có đơn hàng nào.'], 200);
+            $message = 'Bạn chưa có đơn hàng nào.';
+            return view('client.account.history', compact('message', 'orders'));
         }
 
-        // return response()->json($orders, 201);
         return view('client.account.history', compact('orders'));
     }
 

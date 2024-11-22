@@ -16,46 +16,53 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="page-content my-account__orders-list">
-                        <table class="orders-table">
-                            <thead>
-                                <tr>
-                                    <th>Order</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($orders as $order)
+                        @if (isset($message))
+                            <p class="text-center text-muted">{{ $message }}</p>
+                        @else
+                            <table class="orders-table">
+                                <thead>
                                     <tr>
-                                        <td>{{ $order['code'] }}</td>
-                                        <td>{{ $order['created_at']->format('F j, Y') }}</td>
-                                        
-                                        <td>
-                                            @if ($order['status_order_id'] == 1)
-                                                <span class="badge bg-warning text-dark">{{ $order['status_order_name'] }}</span>
-                                            @elseif ($order['status_order_id'] == 2)
-                                                <span class="badge bg-primary">{{ $order['status_order_name'] }}</span>
-                                            @elseif ($order['status_order_id'] == 3)
-                                                <span class="badge bg-success text-dark">{{ $order['status_order_name'] }}</span>
-                                            @else
-                                                <span class="badge bg-secondary text-dark">{{ $order['status_order_name'] }}</span>
-                                            @endif
-                                        </td>
-                                        
-                                        <td>{{ number_format($order['total_price'], 2) }} VND</td>
-                                        <td><a href="{{ route('account.orders.show', $order['id']) }}"
-                                                class="btn btn-primary">VIEW</a></td>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Actions</th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5">Bạn chưa có đơn hàng nào.</td>
-                                    </tr>
-                                @endforelse
+                                </thead>
+                                <tbody>
+                                    @forelse ($orders as $order)
+                                        <tr>
+                                            <td>{{ $order['code'] }}</td>
+                                            <td>{{ $order['created_at']->format('F j, Y') }}</td>
+                                            
+                                            <td>
+                                                @if ($order['status_order_id'] == 1)
+                                                    <span class="badge bg-warning text-dark">{{ $order['status_order_name'] }}</span>
+                                                @elseif ($order['status_order_id'] == 2)
+                                                    <span class="badge bg-primary">{{ $order['status_order_name'] }}</span>
+                                                @elseif ($order['status_order_id'] == 3)
+                                                    <span class="badge bg-success text-dark">{{ $order['status_order_name'] }}</span>
+                                                @else
+                                                    <span class="badge bg-secondary text-dark">{{ $order['status_order_name'] }}</span>
+                                                @endif
+                                            </td>
+                                            
+                                            <td>{{ number_format($order['total_price'], 2) }} VND</td>
+                                            <td><a href="{{ route('account.orders.show', $order['id']) }}"
+                                                    class="btn btn-primary">VIEW</a></td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">Bạn chưa có đơn hàng nào.</td>
+                                        </tr>
+                                    @endforelse
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                            <div>
+                                {{ $orders->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
