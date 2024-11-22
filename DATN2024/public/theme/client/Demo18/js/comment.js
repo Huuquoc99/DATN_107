@@ -64,7 +64,7 @@ $(document).ready(function () {
             return;
         }
         let currentCount = parseInt($('#review-count').text());
-        console.log(rating);
+        console.log(review);
 
         $.ajax({
             url: `/comments`,
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 const newReview = $(html);
                 $('#review-product-id').prepend(newReview);
 
-                // Reset form   
+                // Reset form
                 $('#form-input-review').val('');
                 $('.form-rating').removeClass('is-selected')
             },

@@ -1,4 +1,4 @@
-<form name="customer-review-form" id="create-review-form" >
+<form name="customer-review-form" id="create-review-form" action="{{ route('comments.store',  $product->id) }}" method="post">
     @csrf
     <h5>Be the first to review</h5>
     <p>Your email address will not be published. Required fields are marked *</p>

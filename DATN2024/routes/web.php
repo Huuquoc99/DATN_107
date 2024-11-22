@@ -113,7 +113,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
     Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
-    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'store']);
+    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
     Route::get('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
 
     // Account

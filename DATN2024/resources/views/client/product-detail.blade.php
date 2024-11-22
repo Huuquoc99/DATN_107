@@ -188,7 +188,7 @@
                     </div>
                 </div>
             </div>
-@include('client.modal-update-comment', [
+                @include('client.modal-update-comment', [
                             'comments' => $comments,
                             'product_id' => $product->id,
                         ])
