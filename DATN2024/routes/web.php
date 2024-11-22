@@ -111,8 +111,10 @@ Route::middleware('auth')->group(function () {
     // Route::delete('comments/{id}', [CommentController::class, 'destroy']);
     // Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
+    Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
+    Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
+    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'store']);
     Route::get('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
-    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
 
     // Account
     Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
