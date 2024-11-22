@@ -45,7 +45,17 @@ class HomeController extends Controller
 
         $catalogues = Catalogue::where('is_active', 1)->get();
         $products = Product::query()->active()->latest('id')->paginate(8);
-        return view('client.home', compact('products', 'catalogues'));
+        return view('client.home', compact(
+                "productActive",
+            "productHot",
+            "productGood",
+            "productNew",
+            "productHome",
+            "catalogues",
+            "banners",
+            "catalogues",
+            "products"
+        ));
 
     }
 

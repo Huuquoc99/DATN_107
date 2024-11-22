@@ -149,7 +149,7 @@
             </div>
         </div>
 
-        <div class="header-bottom pb-4 mb-2">
+        <div class="header-bottom pb-4">
             <div class="header-container mx-auto d-flex align-items-center ">
                 <div class="categories-nav position-relative">
                     <h3

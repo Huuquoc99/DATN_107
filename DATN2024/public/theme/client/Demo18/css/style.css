@@ -17630,7 +17630,7 @@ textarea.form-control.is-invalid {
 }
 
 .header-desk_type_6 {
-    border-bottom: 1px solid #e4e4e4;
+    /* border-bottom: 1px solid #e4e4e4; */
 }
 .header-desk_type_6 .header-middle {
     padding: 1.25rem 0;

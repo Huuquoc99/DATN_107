@@ -39,7 +39,8 @@
     <!--[if lt IE 9]>
       <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
-
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    
     <!-- Document Title -->
     <title>Home v18 | Uomo eCommerce HTML5 Template</title>
 

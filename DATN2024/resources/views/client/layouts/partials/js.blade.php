@@ -8,7 +8,7 @@
 
 <script src="{{ asset('theme/client/Demo18/js/plugins/swiper.min.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/plugins/countdown.js') }}"></script>
-
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <!-- Footer Scripts -->
 <script src="{{ asset('theme/client/Demo18/js/theme.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/cart.js') }}"></script>
