@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="col-lg-3">
                     <ul class="account-nav">
-                        <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s ">Dashboard</a></li>
-                        <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s">Orders</a></li>
-                        <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s menu-link_active">Account
+                        <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s " style="color: black">Dashboard</a></li>
+                        <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s" style="color: black">Orders</a></li>
+                        <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s menu-link_active" style="color: black">Account
                                 Details</a></li>
-                        <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s">Change
+                        <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s" style="color: black">Change
                                 password</a></li>
 
                     </ul>
