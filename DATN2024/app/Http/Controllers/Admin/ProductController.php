@@ -146,8 +146,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $catalogues = Catalogue::query()->pluck('name', 'id')->all();
-
+        $catalogues = Catalogue::query()
+            ->where('is_active', 1)
+            ->pluck('name', 'id')
+            ->all();
 
         $colors = ProductColor::query()
             ->where('is_active', 1)
@@ -281,47 +283,78 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+//    public function destroy(Product $product)
+//    {
+//
+//        try {
+//            $check_cartItem = $product->variants()->whereHas('cartItems')->exists();
+//
+//            if ($check_cartItem) {
+//                return back()->with('error', 'Sản phẩm này đang có trong giỏ hàng của người dùng và không thể xóa.');
+//            }
+//
+//            $dataHasImage = $product->galleries->toArray() + $product->variants->toArray();
+//
+//            DB::transaction(function () use ($product) {
+//                $product->tags()->sync([]);
+//                $product->galleries()->delete();
+//
+//                foreach ($product->variants as $variant) {
+//                    $variant->orderItems()->delete();
+//                }
+//                $product->variants()->delete();
+//                $product->delete();
+//            }, 3);
+//
+//            foreach ($dataHasImage as $item) {
+//                if (!empty($item->image) && Storage::exists($item->image)) {
+//                    Storage::delete($item->image);
+//                }
+//            }
+//
+//            return redirect()->route('admin.products.index')
+//                ->with('success', 'Product deleted successfully!');
+//        } catch (\Exception $exception) {
+//            dd($exception->getMessage());
+//            return back()->with('error', $exception->getMessage());
+//        }
+//    }
+
     public function destroy(Product $product)
     {
-
         try {
             $check_cartItem = $product->variants()->whereHas('cartItems')->exists();
 
-            if ($check_cartItem) {
-                return back()->with('error', 'Sản phẩm này đang có trong giỏ hàng của người dùng và không thể xóa.');
-            }
+            $check_orderItem = $product->variants()->whereHas('orderItems')->exists();
 
-            $dataHasImage = $product->galleries->toArray() + $product->variants->toArray();
+            if ($check_cartItem || $check_orderItem) {
+                return back()->with('error', 'This product is in the cart or already exists in the order and cannot be deleted.');
+            }
 
             DB::transaction(function () use ($product) {
                 $product->tags()->sync([]);
                 $product->galleries()->delete();
-
                 foreach ($product->variants as $variant) {
                     $variant->orderItems()->delete();
+                    $variant->delete();
                 }
-                $product->variants()->delete();
+
                 $product->delete();
             }, 3);
-
-            foreach ($dataHasImage as $item) {
-                if (!empty($item->image) && Storage::exists($item->image)) {
-                    Storage::delete($item->image);
-                }
-            }
 
             return redirect()->route('admin.products.index')
                 ->with('success', 'Product deleted successfully!');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             return back()->with('error', $exception->getMessage());
         }
     }
 
 
+
+
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['tags', 'product_galleries', 'new_product_variants']);
+        $dataProduct = $request->except(['tags','product_galleries','new_product_variants','product_variants']);
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
         $dataProduct['is_good_deal'] ??= 0;

@@ -150,7 +150,7 @@ Route::prefix('admin')
         Route::post('password/reset', [AdminForgotPasswordController::class, 'reset'])->name('password.update');
     })
 
-    ->middleware(['checkAdminMiddleware'])
+//    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         // Dashboard
