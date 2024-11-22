@@ -44,20 +44,20 @@
                                     
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="password" class="form-control" id="old_password" placeholder="Password" name="old_password">
-                                            <label for="old_password">Old Password</label>
+                                            <input type="password" class="input" id="old_password" placeholder="Password" name="old_password">
+                                            {{-- <label for="old_password">Old Password</label> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="password" class="form-control" id="new_password" placeholder="Phone" name="new_password">
-                                            <label for="new_password">New Password</label>
+                                            <input type="password" class="input" id="new_password" placeholder="Phone" name="new_password">
+                                            {{-- <label for="new_password">New Password</label> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="password" class="form-control" id="new_password_confirmation" placeholder="Email" name="new_password_confirmation">
-                                            <label for="new_password_confirmation">Confirm password</label>
+                                            <input type="password" class="input" id="new_password_confirmation" placeholder="Email" name="new_password_confirmation">
+                                            {{-- <label for="new_password_confirmation">Confirm password</label> --}}
                                         </div>
                                     </div>
 

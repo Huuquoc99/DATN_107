@@ -33,7 +33,7 @@
             </div>
             <div class="swiper-slide">
               <div class="overflow-hidden position-relative border-radius-10 h-100">
-                <img loading="lazy" src="{{asset('theme/client/images/home/demo18/banner-1.jpg')}}" class="position-absolute w-100 h-100 object-fit-cover" width="734" height="500" alt="Woman Fashion 1">
+                <img loading="lazy" src="{{asset('theme/client/images/home/demo18/banner-2.jpg')}}" class="position-absolute w-100 h-100 object-fit-cover" width="734" height="500" alt="Woman Fashion 1">
                 <div class="slideshow-text full-width_padding position-absolute start-50 top-50 translate-middle pb-4 pb-xl-5">
                   <p class="text_dash text-uppercase fs-base fw-medium animate animate_fade animate_btt animate_delay-3 text-white mb-2">Special Offer</p>
                   <h2 class="fs-45 fw-semi-bold animate animate_fade animate_btt animate_delay-5 mb-2 text-white text-uppercase lh-1">Save 20%</h2>
@@ -46,7 +46,7 @@
             </div>
             <div class="swiper-slide">
               <div class="overflow-hidden position-relative border-radius-10 h-100">
-                <img loading="lazy" src="{{asset('theme/client/images/home/demo18/banner-1.jpg')}}" class="position-absolute w-100 h-100 object-fit-cover" width="734" height="500" alt="Woman Fashion 1">
+                <img loading="lazy" src="{{asset('theme/client/images/home/demo18/banner-3.jpg')}}" class="position-absolute w-100 h-100 object-fit-cover" width="734" height="500" alt="Woman Fashion 1">
                 <div class="slideshow-text full-width_padding position-absolute start-50 top-50 translate-middle pb-4 pb-xl-5">
                   <p class="text_dash text-uppercase fs-base fw-medium animate animate_fade animate_btt animate_delay-3 text-white mb-2">Special Offer</p>
                   <h2 class="fs-45 fw-semi-bold animate animate_fade animate_btt animate_delay-5 mb-2 text-white text-uppercase lh-1">Save 20%</h2>

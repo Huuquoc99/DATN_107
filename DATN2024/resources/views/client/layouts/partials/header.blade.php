@@ -1,46 +1,46 @@
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
-    <div class="container mt-5" style="max-width: 400px;">
+    <div class="container9 mt-5" style="max-width: 400px;">
         @auth
-            <div class="card shadow-sm">
-                <div class="card-header text-center bg-primary text-white">
-                    <h4 class="mb-0">Thông tin người dùng</h4>
-                </div>
-                <div class="card-body text-center">
-                    <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
-                    <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
-                    {{-- Thêm các thông tin khác nếu cần --}}
-                    <form action="{{ route('logout') }}" method="POST" class="mt-3">
-                        @csrf
-                        <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
-                    </form>
-                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary">My Account</a>
-
-                </div>
+        <div class="card9 shadow-lg">
+            <div class="card9-header text-center bg-primary text-white">
+                <h4 class="mb-0">Thông tin người dùng</h4>
             </div>
+            <div class="card-body text-center">
+                <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
+                <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
+                {{-- Thêm các thông tin khác nếu cần --}}
+                <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                    @csrf
+                    <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
+                </form>
+                <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">My Account</a>
+            </div>
+        </div>
         @endauth
     </div>
+    
     @guest
         <div class="customer-forms__wrapper d-flex position-relative">
             <div class="customer__login">
                 <div class="aside-header d-flex align-items-center">
-                    <h3 class="text-uppercase fs-6 mb-0">Đăng nhập</h3>
+                    <h1 class="text-uppercase fs-6 mb-0">Đăng nhập</h1>
                     <button class="btn-close-lg js-close-aside ms-auto"></button>
                 </div><!-- /.aside-header -->
 
                 <form action="{{ route('login') }}" method="POST" class="aside-content">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input name="email" type="email" class="form-control form-control_gray"
-                            id="customerNameEmailInput" placeholder="name@example.com" required>
-                        <label for="customerNameEmailInput">Email *</label>
+                        <input name="email" type="email" class="input"
+                            id="customerNameEmailInput" placeholder="Email" required>
+                        {{-- <label for="customerNameEmailInput">Email *</label> --}}
                     </div>
 
                     <div class="pb-3"></div>
 
                     <div class="form-label-fixed mb-3">
-                        <label for="customerPasswordInput" class="form-label">Mật khẩu *</label>
-                        <input name="password" id="customerPasswordInput" class="form-control form-control_gray"
-                            type="password" placeholder="********" required>
+                        {{-- <label for="customerPasswordInput" class="form-label">Mật khẩu *</label> --}}
+                        <input name="password" id="customerPasswordInput" class="input"
+                            type="password" placeholder="Password" required>
                     </div>
 
                     <div class="d-flex align-items-center mb-3 pb-2">

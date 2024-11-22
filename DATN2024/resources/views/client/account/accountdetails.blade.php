@@ -23,28 +23,31 @@
                             enctype="multipart/form-data" class="text-center">
                             @csrf
                             @method('PUT')
-
                             <div class="form-group">
-                                <div class="profile-user position-relative d-inline-block mx-auto mb-4">
+                                <div class="user-avatar-container position-relative">
+                                    <!-- Ảnh đại diện -->
                                     @if ($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar) }}"
-                                            class="rounded-circle avatar-sm img-thumbnail user-profile-image"
-                                            alt="user-profile-image" style="width:25%">
+                                        <img src="{{ asset('storage/' . $user->avatar) }}" 
+                                             class="rounded-circle avatar-sm img-thumbnail user-profile-image" 
+                                             alt="user-profile-image" >
                                     @else
-                                        <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}"
-                                            class="rounded-circle avatar-sm img-thumbnail user-profile-image"
-                                            alt="user-profile-image">
+                                        <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" 
+                                             class="rounded-circle avatar-sm img-thumbnail user-profile-image" 
+                                             alt="user-profile-image" >
                                     @endif
-                                    <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
-                                        <input id="profile-img-file-input" type="file" name="avatar"
-                                            class="profile-img-file-input pt-3">
-                                        <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
-                                            <span class="avatar-title rounded-circle bg-light text-body">
+                                
+                                    <!-- Phần nút upload -->
+                                    <div class="profile-img-container position-absolute bottom-0 end-0">
+                                        <input id="profile-img-file-input" type="file" name="avatar" class="profile-img-input d-none">
+                                        <label for="profile-img-file-input" class="profile-img-label d-flex align-items-center justify-content-center">
+                                            <div class="profile-img-overlay">
                                                 <i class="ri-camera-fill"></i>
-                                            </span>
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
+                                
+                                
                             </div>
 
 
@@ -94,9 +97,9 @@
 
                                     <div class="col-md-6">
                                         <div class="form-floating my-3">
-                                            <input type="text" class="form-control" id="name" placeholder="Name"
+                                            <input type="text" class="input" id="name" placeholder="Name"
                                                 value="{{ old('name', $user->name) }}" name="name">
-                                            <label for="name"> Name</label>
+                                            {{-- <label for="name"> Name</label> --}}
                                             {{-- @error('name')
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4"
                                                     role="alert">
@@ -109,9 +112,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating my-3">
-                                            <input type="text" class="form-control" id="phone" placeholder="Phone"
+                                            <input type="text" class="input" id="phone" placeholder="Phone"
                                                 value="{{ old('phone', $user->phone) }}" name="phone">
-                                            <label for="phone">Phone</label>
+                                            {{-- <label for="phone">Phone</label> --}}
                                             {{-- @error('phone')
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
                                                     <p class="text-danger">{{ $message }}</p>
@@ -123,9 +126,9 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="email" class="form-control" id="email" placeholder="Email"
+                                            <input type="email" class="input" id="email" placeholder="Email"
                                                 value="{{ old('email', $user->email) }}" name="email">
-                                            <label for="email">Email</label>
+                                            {{-- <label for="email">Email</label> --}}
                                             {{-- @error('email')
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4"
                                                     role="alert">
@@ -138,9 +141,9 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating my-3">
-                                            <input type="text" class="form-control" id="address" placeholder="Address"
+                                            <input type="text" class="input" id="address" placeholder="Address"
                                                 value="{{ old('address', $user->address) }}" name="address">
-                                            <label for="address"> Address</label>
+                                            {{-- <label for="address"> Address</label> --}}
                                             {{-- @error('address')
                                                 <div class="alert alert-danger alert-dismissible fade show mt-4"
                                                     role="alert">
