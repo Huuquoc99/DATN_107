@@ -105,11 +105,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
 
-    // Comment
-    Route::get('comments', [CommentController::class, 'index']);
-    Route::put('comments/{id}', [CommentController::class, 'edit']);
-    Route::delete('comments/{id}', [CommentController::class, 'destroy']);
-    Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
+    // // Comment
+    // Route::get('comments', [CommentController::class, 'index']);
+    // Route::put('comments/{id}', [CommentController::class, 'edit']);
+    // Route::delete('comments/{id}', [CommentController::class, 'destroy']);
+    // Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+    Route::get('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
 
     // Account
     Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');

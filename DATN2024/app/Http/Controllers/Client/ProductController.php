@@ -8,6 +8,7 @@ use App\Models\ProductCapacity;
 use App\Models\ProductColor;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class ProductController extends Controller
 {
@@ -26,9 +27,15 @@ class ProductController extends Controller
                 ]];
             })
             ->all();
+            
+        $productId = $product->id;    
+        $comments = Comment::where('product_id', $productId)->paginate(5);
+
         $capacities = ProductCapacity::query()->pluck('name', 'id')->all();
 
-        return view('client.product-detail', compact('product','capacities','colors'));
+        // dd($comments);
+
+        return view('client.product-detail', compact('product','capacities','colors','comments'));
     }
 
     public function getVariantDetails(Request $request)
