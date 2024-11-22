@@ -144,7 +144,7 @@
                     </div>
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
+                        {{-- <span class="cart-amount d-block position-absolute js-cart-items-count">3</span> --}}
                     </a>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                     <h3
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
                     </h3>
                     <ul class="categories-nav__list list-unstyled border-radius-10">
