@@ -112,6 +112,7 @@ Route::middleware('auth')->group(function () {
     // Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     Route::get('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
+    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
 
     // Account
     Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
