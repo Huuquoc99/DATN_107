@@ -134,8 +134,8 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore" id="tab-reviews-tab" data-bs-toggle="tab"
-                            href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews
-                            (2)</a>
+                           href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews
+                            ( <span id="review-count">{{ $comments->total() }} </span>)</a>
                     </li>
                 </ul>
                 <div class="tab-content">

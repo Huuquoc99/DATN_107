@@ -14,7 +14,7 @@ class CommentController extends Controller
         $this->middleware('auth', ['only' => ['edit', 'destroy']]);
     }
 
-    public function store()
+    public function storeAjax()
     {
     //    dd(1);
         $data = request()->validate([
