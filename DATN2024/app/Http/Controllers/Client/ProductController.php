@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
 use App\Models\Product;
 use App\Models\ProductCapacity;
 use App\Models\ProductColor;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class ProductController extends Controller
 {
@@ -17,7 +17,6 @@ class ProductController extends Controller
 
         $product = Product::query()->with(['variants.capacity','variants.color','galleries'])->where('slug', $slug)->first();
 
-        $productId = $product->id;
         $colors = ProductColor::query()
             ->select('id', 'name', 'color_code')
             ->get()
@@ -29,10 +28,13 @@ class ProductController extends Controller
             })
             ->all();
 
+
+        $productId = $product->id;
         $comments = Comment::where('product_id', $productId)->paginate(5);
 
-
         $capacities = ProductCapacity::query()->pluck('name', 'id')->all();
+
+        // dd($comments);
 
         return view('client.product-detail', compact('product','capacities','colors','comments'));
     }

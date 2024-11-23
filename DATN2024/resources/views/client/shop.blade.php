@@ -27,7 +27,7 @@
                             </svg>
                         </button>
                     </h5>
-                    <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
+                    {{-- <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
                         aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
                         <div class="accordion-body px-0 pb-0 pt-3">
                             <ul class="list list-inline mb-0">
@@ -39,7 +39,20 @@
                                 @endforeach
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
+                    <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
+                             aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
+                            <div class="accordion-body px-0 pb-0 pt-3">
+                                <ul class="list list-inline mb-0">
+                                    @foreach($catalogues as $catalogue)
+                                        <li class="list-item">
+                                            <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                                               class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                 </div><!-- /.accordion-item -->
             </div><!-- /.accordion-item -->
 
@@ -64,36 +77,11 @@
                         aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
                         <div class="accordion-body px-0 pb-0">
                             <div class="d-flex flex-wrap">
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#0a2472' ? [] : ['color' => '#0a2472'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#0a2472' ? 'swatch_active' : '' }}"
-                                    style="color: #0a2472"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#d7bb4f' ? [] : ['color' => '#d7bb4f'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#d7bb4f' ? 'swatch_active' : '' }}"
-                                    style="color: #d7bb4f"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#282828' ? [] : ['color' => '#282828'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#282828' ? 'swatch_active' : '' }}"
-                                    style="color: #282828"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#b1d6e8' ? [] : ['color' => '#b1d6e8'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#b1d6e8' ? 'swatch_active' : '' }}"
-                                    style="color: #b1d6e8"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#9c7539' ? [] : ['color' => '#9c7539'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#9c7539' ? 'swatch_active' : '' }}"
-                                    style="color: #9c7539"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#d29b48' ? [] : ['color' => '#d29b48'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#d29b48' ? 'swatch_active' : '' }}"
-                                    style="color: #d29b48"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#e6ae95' ? [] : ['color' => '#e6ae95'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#e6ae95' ? 'swatch_active' : '' }}"
-                                    style="color: #e6ae95"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#d76b67' ? [] : ['color' => '#d76b67'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#d76b67' ? 'swatch_active' : '' }}"
-                                    style="color: #d76b67"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#bababa' ? [] : ['color' => '#bababa'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#bababa' ? 'swatch_active' : '' }}"
-                                    style="color: #bababa"></a>
-                                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == '#bfdcc4' ? [] : ['color' => '#bfdcc4'])) }}"
-                                    class="swatch-color {{ request()->get('color') == '#bfdcc4' ? 'swatch_active' : '' }}"
-                                    style="color: #bfdcc4"></a>
+                                @foreach($colors as $color)
+                                    <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
+                                        class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
+                                        style="color: {{$color}}"></a>
+                                @endforeach
                             </div>
                         </div>
                     </div>

@@ -44,10 +44,10 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//Route::get('/', function () {
-//    dd(\Illuminate\Support\Facades\Auth::check());
-//   return view('welcome');
-//});
+    Route::get('/', function () {
+       dd(\Illuminate\Support\Facades\Auth::check());
+      return view('welcome');
+    });
 
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -150,7 +150,7 @@ Route::prefix('admin')
         Route::post('password/reset', [AdminForgotPasswordController::class, 'reset'])->name('password.update');
     })
 
-//    ->middleware(['checkAdminMiddleware'])
+   ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         // Dashboard
@@ -186,6 +186,8 @@ Route::prefix('admin')
         Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        Route::put('orders/{id}/update-payment-status', [AdminOrderController::class, 'updatePaymentStatus'])
+        ->name('orders.updatePaymentStatus');
 
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
@@ -197,17 +199,3 @@ Route::prefix('admin')
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

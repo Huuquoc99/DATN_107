@@ -16,7 +16,7 @@
                 </li>
             </ul>
             <div class="login-form">
-                <form name="login-form" class="needs-validation" method="POST" action="{{ route('login') }}" novalidate>
+                <form name="login-form" action="{{ route('login') }}" class="needs-validation" method="POST">
                     @csrf
                     <div class="form-floating mb-3">
                         <input name="email" type="email" class="form-control form-control_gray" id=""

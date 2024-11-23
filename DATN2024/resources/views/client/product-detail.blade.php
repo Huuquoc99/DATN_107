@@ -15,16 +15,16 @@
                                         <a href="{{ route('shop') }}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color:black">The Shop</a>
                                     </div><!-- /.breadcrumb -->
                                 </div>
-                                <div class="product-gallery-horizontal d-flex justify-content-center" style="padding-left: 55px">
+                                <div class="product-gallery-horizontal d-flex justify-content-center">
                                     <div class="main-image-container">
-                                        <img id="mainImage" style="height: 500px; width: 600px;" src="{{ Storage::url($product->img_thumbnail) }}"
+                                        <img id="mainImage" style="height: 515px; width: 600px;" src="{{ Storage::url($product->img_thumbnail) }}"
                                             class="main-image" alt="{{ $product->name }}">
                                         <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn"
                                             data-fancybox="gallery">
                                             <i class="fas fa-search-plus"></i>
                                         </a>
                                     </div>
-                                    <div class="thumbnail-column">
+                                    <div class="thumbnail-column" style="padding-left: 30px">
                                         @foreach ($product->galleries as $image)
                                             <div class="thumb-item">
                                                 <img src="{{ Storage::url($image->image) }}"
@@ -188,7 +188,7 @@
                     </div>
                 </div>
             </div>
-            @include('client.modal-update-comment', [
+                @include('client.modal-update-comment', [
                             'comments' => $comments,
                             'product_id' => $product->id,
                         ])

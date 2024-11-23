@@ -15,6 +15,7 @@ class RegisterController extends Controller
     }
     public function register()
     {
+        // dd(1);
         try{
             $data = request()->validate([
                 "name" => "required",
@@ -34,7 +35,7 @@ class RegisterController extends Controller
             $user = User::create($data);
             $token = $user->createToken($user->id)->plainTextToken;
 
-            return view('client.auth.login');
+            return view('client.auth.register');
         }catch(\Throwable $th){
             if($th instanceof ValidationException){
                 return response()->json([

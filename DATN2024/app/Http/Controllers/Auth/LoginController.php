@@ -13,22 +13,25 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function showLogin(){
-        return view('client.auth.login');
+        return view('client.auth.register');
     }
 
     public function login(Request $request)
     {
-//        dd($request);
+    //    dd($request);
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+
+
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
 
             $this->mergeSessionCartToDbCart();
 
-            return redirect()->intended('/home');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
@@ -41,7 +44,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/home');
+        return redirect('/');
     }
 
     protected function mergeSessionCartToDbCart()

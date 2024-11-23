@@ -12,11 +12,10 @@ class TrashedController extends Controller
     public function trashed()
     {
 
-        $trashed = Product::onlyTrashed()
-            ->orderBy('deleted_at', 'desc')
-            ->paginate(5);
-
+        $trashed = Product::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate(12);
         return view("admin.trashed.index", compact('trashed'));
+
+        // return view("admin.trashed.index", compact('trashed'));
     }
 
     public function restore($id)
