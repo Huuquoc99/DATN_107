@@ -18,6 +18,7 @@
     <link href="{{ asset('theme/admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- custom Css-->
     <link href="{{ asset('theme/admin/assets/css/custom.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('theme/admin/assets/css/show-product.css') }}" rel="stylesheet" type="text/css"/>
 
     <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>
@@ -27,8 +28,10 @@
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -105,9 +108,9 @@
 <script src="{{ asset('theme/admin/assets/js/product-galleries.js') }}"></script>
 <script src="{{ asset('theme/admin/assets/js/product.js') }}"></script>
 
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+{{--<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>--}}
+{{--<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>--}}
+{{--<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>--}}
 
 @yield('script-libs')
 

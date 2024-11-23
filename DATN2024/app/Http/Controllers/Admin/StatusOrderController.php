@@ -14,7 +14,7 @@ class StatusOrderController extends Controller
      */
     public function index()
     {
-        $listStatusOrder = StatusOrder::get();
+        $listStatusOrder = StatusOrder::paginate(5);
         // return response()->json( $listStatusOrder, 201);
         return view("admin.statusOrders.index", compact('listStatusOrder'));
 
@@ -82,8 +82,6 @@ class StatusOrderController extends Controller
         
             $statusOrder->update($param);
             $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
-        
-            
         
             // return response()->json(['message' => 'Status order updated successfully']);
             return redirect()->route("admin.statusOrders.index")->with("success", "Status order updated successfully");

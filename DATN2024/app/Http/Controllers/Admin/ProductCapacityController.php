@@ -15,10 +15,9 @@ class ProductCapacityController extends Controller
      */
     public function index()
     {
-        $listProductCapacity = ProductCapacity::all();
+        $listProductCapacity = ProductCapacity::paginate(5);
         // return response()->json($listProductCapacity, 200);
         return view("admin.productCapacities.index", compact('listProductCapacity'));
-
     }
 
     /**
@@ -106,3 +105,4 @@ class ProductCapacityController extends Controller
 
     }
 }
+// sád

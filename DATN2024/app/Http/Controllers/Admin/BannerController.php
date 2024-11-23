@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BannerRequest;
 use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
@@ -14,8 +15,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $listBanner = Banner::all();
-        // return response()->json($listBanner, 201);
+        $listBanner = Banner::paginate(5);
         return view("admin.banners.index", compact('listBanner'));
     }
 
@@ -31,7 +31,7 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BannerRequest $request)
     {
         if($request->isMethod("POST"))
         {
@@ -82,29 +82,46 @@ class BannerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if($request->isMethod("PUT"))
-        {
+        if ($request->isMethod("PUT")) {
+            $request->validate([
+                'title'       => 'required|string|max:255',
+                'description' => 'nullable|string|max:500',
+                'link'        => 'required|url',
+                'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ], [
+                'title.required'       => 'The title field is required.',
+                'title.string'         => 'The title must be a string.',
+                'title.max'            => 'The title may not be greater than 255 characters.',
+                'description.string'   => 'The description must be a string.',
+                'description.max'      => 'The description may not be greater than 500 characters.',
+                'link.url'             => 'The link must be a valid URL.',
+                'image.image'          => 'The file must be an image.',
+                'image.mimes'          => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
+                'image.max'            => 'The image size may not be greater than 2MB.',
+            ]);
+
             $param = $request->except("_token", "_method");
             $banner = Banner::findOrFail($id);
-            if($request->hasFile("image")){
-                if($banner->image && Storage::disk("public")->exists($banner->image))
-                {
+
+            if ($request->hasFile("image")) {
+                if ($banner->image && Storage::disk("public")->exists($banner->image)) {
                     Storage::disk("public")->delete($banner->image);
                 }
                 $filepath = $request->file("image")->store("uploads/banners", "public");
-            }else{
+            } else {
                 $filepath = $banner->image;
             }
 
             $param["image"] = $filepath;
+
             $banner->is_active = $request->has('is_active') ? 1 : 0;
             $banner->update($param);
             $banner->is_active == 0 ? $banner->hide() : $banner->show();
 
-            // return response()->json(['message' => 'Banner updated successfully']);
             return redirect()->route("admin.banners.index")->with("success", "Banner updated successfully");
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

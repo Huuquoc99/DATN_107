@@ -3,74 +3,151 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Order;
+use App\Mail\OrderPlaced;
 use App\Models\StatusOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderCancelled;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    public function index()
-    {
+    // {
 
-        $orders = Auth::user()->orders->map(function ($order) {
+    //     $orders = Auth::user()->orders->map(function ($order) {
+    //         return [
+    //             'id' => $order->id,
+    //             'code' => $order->code,
+    //             'created_at' => $order->created_at,
+    //             'status_order_id' => $order->statusOrder->id, 
+    //             'status_order_name' => $order->statusOrder->name, 
+    //             'status_payment' => $order->statusPayment->name,
+    //             'total_price' => $order->total_price,
+    //         ];
+    //     });
+
+    //     if ($orders->isEmpty()) {
+    //         return response()->json(['message' => 'Bạn chưa có đơn hàng nào.'], 200);
+    //     }
+
+    //     // return response()->json($orders, 201);
+    //     return view('client.account.history', compact('orders'));
+    // }
+
+    // public function index()
+    // {
+    //     // Không được xoá mặc dù nó đỏ
+    //     $orders = Auth::user()->orders()
+    //         ->with(['statusOrder', 'statusPayment'])
+    //         ->latest() 
+    //         ->paginate(7); 
+
+    //     $mappedOrders = $orders->getCollection()->map(function ($order) {
+    //         return [
+    //             'id' => $order->id,
+    //             'code' => $order->code,
+    //             'created_at' => $order->created_at,
+    //             'status_order_id' => $order->statusOrder->id,
+    //             'status_order_name' => $order->statusOrder->name,
+    //             'status_payment' => $order->statusPayment->name,
+    //             'total_price' => $order->total_price,
+    //         ];
+    //     });
+
+    //     $orders->setCollection(collect($mappedOrders));
+
+    //     if ($orders->isEmpty()) {
+    //         $message = 'Bạn chưa có đơn hàng nào.';
+    //         return view('client.account.history', compact('message', 'orders'));
+    //     }
+
+    //     return view('client.account.history', compact('orders'));
+    // }
+
+//     public function index(Request $request)
+// {
+//     $statusFilter = $request->input('status_order', 'all');
+//     $query = Auth::user()->orders()->with(['statusOrder', 'statusPayment']);
+
+//     // Lọc theo trạng thái nếu không chọn "All"
+//     if ($statusFilter !== 'all') {
+//         $query->where('status_order_id', $statusFilter);
+//     }
+
+//     $orders = $query->latest()->paginate(7);
+
+//     $mappedOrders = $orders->getCollection()->map(function ($order) {
+//         return [
+//             'id' => $order->id,
+//             'code' => $order->code,
+//             'created_at' => $order->created_at,
+//             'status_order_id' => $order->statusOrder->id,
+//             'status_order_name' => $order->statusOrder->name,
+//             'status_payment' => $order->statusPayment->name,
+//             'total_price' => $order->total_price,
+//         ];
+//     });
+
+//     $orders->setCollection(collect($mappedOrders));
+
+//     // Lấy danh sách trạng thái đơn hàng
+//     $statusOrders = \App\Models\StatusOrder::all();
+
+//     $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
+
+//     return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
+// }
+
+    public function index(Request $request)
+    {
+        $statusFilter = $request->input('status_order', 'all');
+        $query = Auth::user()->orders()->with(['statusOrder', 'statusPayment']);
+
+        if ($statusFilter !== 'all') {
+            $query->where('status_order_id', $statusFilter);
+        }
+
+        $orders = $query->latest()->paginate(7);
+        $mappedOrders = $orders->getCollection()->map(function ($order) {
             return [
                 'id' => $order->id,
                 'code' => $order->code,
                 'created_at' => $order->created_at,
-                'status_order' => $order->statusOrder->name,
+                'status_order_id' => $order->statusOrder->id,
+                'status_order_name' => $order->statusOrder->name,
                 'status_payment' => $order->statusPayment->name,
                 'total_price' => $order->total_price,
             ];
         });
 
-        if ($orders->isEmpty()) {
-            return response()->json(['message' => 'Bạn chưa có đơn hàng nào.'], 200);
-        }
+        $orders->setCollection(collect($mappedOrders));
+        $statusOrders = StatusOrder::all();
+        $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
 
-        // return response()->json($orders, 201);
-        return view('client.history', compact('orders'));
+        return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
     }
+
 
     public function show(Order $order)
     {
-        // Kiểm tra quyền truy cập
         if ($order->user_id !== Auth::id()) {
             return redirect()->route('orders.index')->with('error', 'Unauthorized action.');
         }
 
-        // Tải thông tin đơn hàng và các sản phẩm trong đơn hàng
         $orderWithItems = $order->load([
             'orderItems',
             'statusOrder:id,name',
             'statusPayment:id,name',
-            'paymentMethod:id,name', // Nếu có bảng payment_method để lấy tên
+            'paymentMethod:id,name',
         ]);
         $statusOrders = StatusOrder::all();
-        // Truyền dữ liệu vào view
-        return view('client.orderdetails', [
+        return view('client.account.orderdetails', [
             'order' => $orderWithItems,
             'statusOrders' => $statusOrders,
         ]);
     }
 
-
-
-
-    // public function cancel(Order $order)
-    // {
-    //     if ($order->user_id !== Auth::id()) {
-    //         return response()->json(['error' => 'Unauthorized action.'], 403);
-    //     }
-
-    //     if ($order->status_order_id === 1) {
-    //         $order->status_order_id = 2; // sửa lại thành id của cancel
-    //         $order->save();
-    //         return response()->json(['success' => 'Order cancelled successfully.']);
-    //     }
-
-    //     return response()->json(['error' => 'Order cannot be cancelled.'], 400);
-    // }
 
     public function getStatusHistory($orderId)
     {
@@ -98,7 +175,6 @@ class OrderController extends Controller
             $order->status_order_id = $statusId;
             $order->save();
 
-            // Chuyển hướng về trang chi tiết đơn hàng với thông báo
             return redirect()->route('account.orders.show', $order->id)
                 ->with('success', 'Order status has been updated.');
         }
@@ -114,13 +190,13 @@ class OrderController extends Controller
         if ($order->status_order_id == 1) {
             $order->status_order_id = 4;
             $order->save();
+
+            Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
         }
 
         return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
     }
-
-
 
 
     public function markAsReceived(Order $order)
@@ -130,6 +206,7 @@ class OrderController extends Controller
             $order->status_order_id = 3;
             $order->save();
 
+            Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được cập nhật thành hoàn thành.');
         }
 

@@ -12,6 +12,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'is_guest',
         'code',
         'user_name',
         'user_email',
@@ -23,6 +24,9 @@ class Order extends Model
         'ship_user_email',
         'ship_user_phone',
         'ship_user_address',
+        'shipping_province',
+        'shipping_district',
+        'shipping_ward',
         'ship_user_note',
         'status_order_id',
         'status_payment_id',
@@ -37,7 +41,7 @@ class Order extends Model
 
     public function statusOrder()
     {
-        return $this->belongsTo(StatusOrder::class);
+        return $this->belongsTo(StatusOrder::class, 'status_order_id');
     }
 
     public function statusPayment()

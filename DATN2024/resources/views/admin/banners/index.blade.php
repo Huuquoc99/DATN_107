@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -19,7 +18,6 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -30,24 +28,6 @@
                         Create <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
-                {{-- <div class="card-header d-flex justify-content-between align-items-center ">
-                    <div class="search-wrapper">
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search...">
-                            <span class="input-group-text"><i class="ri-search-line"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="flex-shrink-0">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: 15px">
-                            <option selected="">Filter</option>
-                            <option value="1">Highest price</option>
-                            <option value="2">Lowest price</option>
-                            <option value="3">Today</option>
-                            <option value="4">Yesterday</option>
-                        </select>
-                    </div>
-                </div> --}}
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
@@ -78,16 +58,27 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($item->image)}}" alt="" width="100" height="120">
+                                            {{-- <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px"> --}}
+                                            @if ($item->image)
+                                                <img src="{{ Storage::url($item->image) }}" alt="" width="70px" height="60px">
+                                            @else
+                                                <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="" width="70px" height="60px">
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.banners.show', $item) }}">
-                                                {{ $item->title }}
+                                                {{ \Illuminate\Support\Str::limit($item->title, 15, '...') }}
                                             </a>
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                        </td>
+                                        <td>
+                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">Show 
@@ -109,6 +100,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Showing {{ $listBanner->firstItem() }} to {{ $listBanner->lastItem() }} of {{ $listBanner->total() }} banners</p>
+                            </div>
+                            <div>
+                                {{ $listBanner->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

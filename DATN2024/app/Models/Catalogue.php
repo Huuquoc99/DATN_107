@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Database\Eloquent\Builder;
 
 class Catalogue extends Model
 {
@@ -30,25 +32,30 @@ class Catalogue extends Model
         return $this->hasOne(Product::class);
     }
 
-    public function hide()
-    {
-        $this->is_active = 0;
-        $this->save();
-        
-        foreach ($this->products as $product)
-        {
-            $product->hide();
-        }
-    }
+    // public function hide()
+    // {
+    //     $this->is_active = 0;
+    //     $this->save();
 
-    public function show()
-    {
-        $this->is_active = 1;
-        $this->save();
+    //     foreach ($this->products as $product)
+    //     {
+    //         $product->hide();
+    //     }
+    // }
 
-        foreach ($this->products as $product)
-        {
-            $product->show();
-        }
+    // public function show()
+    // {
+    //     $this->is_active = 1;
+    //     $this->save();
+
+    //     foreach ($this->products as $product)
+    //     {
+    //         $product->show();
+    //     }
+    // }
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('is_active', 1);
     }
 }

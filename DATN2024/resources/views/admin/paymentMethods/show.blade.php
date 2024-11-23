@@ -37,11 +37,9 @@ Payment method detail: {{ $paymentMethod->name }}
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-6">
                             <div class="mt-4 mt-xl-3">
                                 <h4 class="mt-1 mb-3">{{ $paymentMethod->name }}</h4>

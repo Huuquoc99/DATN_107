@@ -16,18 +16,32 @@
                 </li>
             </ul>
             <div class="login-form">
-                <form name="login-form" class="needs-validation" method="POST" action="{{ route('login') }}" novalidate>
+                <form name="login-form" action="{{ route('login') }}" class="needs-validation" method="POST">
                     @csrf
                     <div class="form-floating mb-3">
                         <input name="email" type="email" class="form-control form-control_gray" id=""
                             placeholder="Email address *" />
                         <label for="">Email address *</label>
+                        @error('email')
+                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;"
+                                role="alert">
+                                <p class="text-danger">{{ $message }}</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="form-floating mb-3">
                         <input name="password" type="password" class="form-control form-control_gray"
                             id="customerPasswodInput" placeholder="Password *" required />
                         <label for="customerPasswodInput">Password *</label>
+                        @error('password')
+                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;"
+                                role="alert">
+                                <p class="text-danger">{{ $message }}</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="d-flex align-items-center mb-3 pb-2">

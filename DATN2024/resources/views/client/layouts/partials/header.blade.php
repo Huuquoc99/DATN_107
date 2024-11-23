@@ -1,54 +1,57 @@
+
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
-    <div class="container mt-5" style="max-width: 400px;">
+    <div class="container9 mt-5" style="max-width: 400px;">
         @auth
-            <div class="card shadow-sm">
-                <div class="card-header text-center bg-primary text-white">
-                    <h4 class="mb-0">Thông tin người dùng</h4>
-                </div>
-                <div class="card-body text-center">
-                    <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
-                    <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
-                    {{-- Thêm các thông tin khác nếu cần --}}
-                    <form action="{{ route('logout') }}" method="POST" class="mt-3">
-                        @csrf
-                        <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
-                    </form>
-                </div>
+        <div class="card9 shadow-lg">
+            <div class="card9-header text-center bg-primary text-white">
+                <h4 class="mb-0">Thông tin người dùng</h4>
             </div>
+            <div class="card-body text-center">
+                <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
+                <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
+                {{-- Thêm các thông tin khác nếu cần --}}
+                <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                    @csrf
+                    <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
+                </form>
+                <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">My Account</a>
+            </div>
+        </div>
         @endauth
     </div>
+    
     @guest
         <div class="customer-forms__wrapper d-flex position-relative">
             <div class="customer__login">
                 <div class="aside-header d-flex align-items-center">
-                    <h3 class="text-uppercase fs-6 mb-0">Đăng nhập</h3>
+                    <h1 class="text-uppercase fs-6 mb-0">Đăng nhập</h1>
                     <button class="btn-close-lg js-close-aside ms-auto"></button>
                 </div><!-- /.aside-header -->
 
                 <form action="{{ route('login') }}" method="POST" class="aside-content">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input name="email" type="email" class="form-control form-control_gray"
-                            id="customerNameEmailInput" placeholder="name@example.com" required>
-                        <label for="customerNameEmailInput">Email *</label>
+                        <input name="email" type="email" class="input"
+                            id="customerNameEmailInput" placeholder="Email" required>
+                        {{-- <label for="customerNameEmailInput">Email *</label> --}}
                     </div>
 
                     <div class="pb-3"></div>
 
                     <div class="form-label-fixed mb-3">
-                        <label for="customerPasswordInput" class="form-label">Mật khẩu *</label>
-                        <input name="password" id="customerPasswordInput" class="form-control form-control_gray"
-                            type="password" placeholder="********" required>
+                        {{-- <label for="customerPasswordInput" class="form-label">Mật khẩu *</label> --}}
+                        <input name="password" id="customerPasswordInput" class="input"
+                            type="password" placeholder="Password" required>
                     </div>
 
-                    <div class="d-flex align-items-center mb-3 pb-2">
-                        <div class="form-check mb-0">
-                            <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
-                                id="flexCheckDefault">
-                            <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
-                        </div>
-                        <a href="{{ route('forgot-password') }}" class="btn-text ms-auto">Quên mật khẩu?</a>
-                    </div>
+                    <!-- <div class="d-flex align-items-center mb-3 pb-2">
+                                                                    <div class="form-check mb-0">
+                                                                        <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
+                                                                            id="flexCheckDefault">
+                                                                        <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
+                                                                    </div>
+                                                                   
+                                                                </div> -->
 
                     <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>
 
@@ -65,162 +68,124 @@
 
 
 
-<header id="header" class="header sticky_disabled header_sticky-bg_dark w-100 theme-bg-color">
-    <div class="header-top bordered-20per">
-        <div class="container d-flex align-items-center">
+<header id="header" class="header w-100 theme-bg-color bg-dark">
+    <!-- <div class="header-top bordered-20per">
+        <div class="header-container mx-auto d-flex align-items-center">
             <ul class="list-unstyled d-flex flex-1 gap-3 m-0">
-                <li><a href="#" class="menu-link menu-link_us-s fs-13">Shipping</a></li>
-                <li><a href="#" class="menu-link menu-link_us-s fs-13">FAQ</a></li>
-                <li><a href="contact.html" class="menu-link menu-link_us-s fs-13">Contact</a></li>
-                <li><a href="#" class="menu-link menu-link_us-s fs-13">Track Order</a></li>
+                <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">Shipping</a></li>
+                <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">FAQ</a></li>
+                <li><a href="contact.html" class="menu-link menu-link_us-s fs-13 text-white">Contact</a></li>
+                <li><a href="#" class="menu-link menu-link_us-s fs-13 text-white">Track Order</a></li>
             </ul>
-            <div class="heeader-top__right flex-1 d-flex gap-1 justify-content-end">
+            <div class="header-top__right flex-1 d-flex gap-1 justify-content-end">
                 <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
                     <li>
-                        <a href="https://facebook.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-facebook fa-xl"></i> </a>
+                        <a href="https://facebook.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-facebook fa-xl"></i>
+                        </a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-twitter fa-xl"></i> </a>
+                        <a href="https://twitter.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-twitter fa-xl"></i>
+                        </a>
                     </li>
                     <li>
-                        <a href="https://instagram.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-instagram fa-xl"></i> </a>
+                        <a href="https://instagram.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-instagram fa-xl"></i>
+                        </a>
                     </li>
                     <li>
-                        <a href="https://pinterest.com/" class="footer__social-link d-block">
-                            <i class="fa-brands fa-pinterest fa-xl"></i> </a>
+                        <a href="https://pinterest.com/" class="footer__social-link d-block text-white">
+                            <i class="fa-brands fa-pinterest fa-xl"></i>
+                        </a>
                     </li>
                 </ul>
-                <select class="form-select form-select-sm bg-transparent color-white fs-13" name="store-language">
-                    <option value="english" selected>English</option>
-                    <option value="german">German</option>
-                    <option value="french">French</option>
-                    <option value="swedish">Swedish</option>
-                </select>
-                <select class="form-select form-select-sm bg-transparent color-white fs-13" name="store-currency">
-                    <option value="usd" selected>$ USD</option>
-                    <option value="gbp">£ GBP</option>
-                    <option value="eur">€ EURO</option>
-                </select>
+               
             </div>
         </div>
-    </div>
-    <div class="header-desk_type_6 style2">
-        <div class="header-middle border-0 position-relative py-4">
-            <div class="container d-flex align-items-center">
+    </div> -->
+    <div class="header-desk_type_6 container style2">
+        <div class="header-middle  border-0 position-relative py-2">
+            <div class="header-container mx-auto d-flex align-items-center">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('theme/client/images/logo-cars.png') }}" alt="Uomo" class="logo__image">
+                        <img src="{{ asset('theme/client/images/techStore.png') }}" alt="Uomo" class="logo__image">
                     </a>
-                </div><!-- /.logo -->
+                </div>
 
                 <nav class="navigation flex-grow-1 fs-15 fw-semi-bold">
                     <ul class="navigation__list list-unstyled d-flex">
                         <li class="navigation__item">
-                            <a href="{{ route('home') }}" class="navigation__link">Home</a>
+                            <a href="{{ route('home') }}" class="navigation__link text-white">Home</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="/shop" class="navigation__link">Shop</a>
-
+                            <a href="/shop" class="navigation__link text-white">Shop</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link">Blog</a>
+                            <a href="#" class="navigation__link text-white">Blog</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link">Pages</a>
+                            <a href="#" class="navigation__link text-white">Pages</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('about') }}" class="navigation__link">About</a>
+                            <a href="{{ route('about') }}" class="navigation__link text-white">About</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('contact') }}" class="navigation__link">Contact</a>
+                            <a href="{{ route('contact') }}" class="navigation__link text-white">Contact</a>
                         </li>
-                    </ul><!-- /.navigation__list -->
-                </nav><!-- /.navigation -->
+                    </ul>
+                </nav>
 
                 <div class="header-tools d-flex align-items-center me-0">
-                    <div class="header-tools__item text-white d-none d-xxl-block">
-                        <span class="fs-15 fw-semi-bold text-uppercase">Need Help? 0020 500</span>
-                    </div>
-
                     <div class="header-tools__item hover-container">
                         <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
-                            <i class="fa-regular fa-user fa-xl"></i>
+                            <i class="fa-regular fa-user fa-xl text-white"></i>
                         </a>
                     </div>
-
-                    <a class="header-tools__item" href="account_wishlist.html">
-                        <i class="fa-regular fa-heart fa-xl"></i>
-                    </a>
-
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
-                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
+                        <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
+                        {{-- <span class="cart-amount d-block position-absolute js-cart-items-count">3</span> --}}
                     </a>
-                </div><!-- /.header__tools -->
+                </div>
             </div>
-        </div><!-- /.header-middle -->
+        </div>
 
-        <div class="header-bottom pb-4 mb-2">
-            <div class="container d-flex align-items-center">
+        <div class="header-bottom pb-4">
+            <div class="header-container mx-auto d-flex align-items-center ">
                 <div class="categories-nav position-relative">
                     <h3
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <use href="#icon_nav" />
-                        </svg>
-                        <span class="fw-semi-bold lh-1">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
-                        <use href="#icon_down" />
-                        </svg>
                     </h3>
                     <ul class="categories-nav__list list-unstyled border-radius-10">
                         <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Mobiles & Tablets</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">TV & Audio</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Car & Motorbike</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Hmoe & Garden</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Toys & Kids</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Sporting Goods</a>
-                        </li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Pet Supplies</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li>
                     </ul>
                 </div>
 
-                <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
+                <!-- <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
                     class="header-search search-field me-0 border-radius-10">
                     <button class="btn header-search__btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     </button>
                     <input class="header-search__input w-100" type="text" name="search-keyword"
                         placeholder="Search products...">
-                    <div class="hover-container position-relative">
-                        <div class="js-hover__open">
-                            <input
-                                class="header-search__category search-field__actor border-0 bg-white w-100 fw-semi-bold"
-                                type="text" name="search-category" placeholder="ALL CATEGORY" readonly>
-                        </div>
-                        <div class="header-search__category-list js-hidden-content mt-2">
-                            <ul class="search-suggestion list-unstyled">
-                                <li class="search-suggestion__item js-search-select">All Category</li>
-                                <li class="search-suggestion__item js-search-select">Men</li>
-                                <li class="search-suggestion__item js-search-select">Women</li>
-                                <li class="search-suggestion__item js-search-select">Kids</li>
-                            </ul>
-                        </div>
-                    </div>
-                </form><!-- /.header-search -->
+                </form> -->
+
+                <form action="{{route('search')}}" method="GET"
+                    class="header-search search-field me-0 border-radius-10">
+                    <button class="btn header-search__btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                    </button>
+                    <input class="header-search__input w-100" type="text" name="k" value="{{request()->routeIs('search') ? request()->get('k') : '' }}"
+                        placeholder="Search products...">
+                </form>
             </div>
-        </div><!-- /.header-bottom -->
-    </div><!-- /.header-desk header-desk_type_6 -->
+        </div>
+    </div>
 </header>
 
 <!-- End Header Type 6 -->
@@ -232,7 +197,7 @@
     </div><!-- /.aside-header -->
 
     <div class="aside-content cart-drawer-items-list">
-        <div class="cart-drawer-item d-flex position-relative">gi
+        <div class="cart-drawer-item d-flex position-relative">
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"

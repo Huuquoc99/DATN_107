@@ -10,10 +10,10 @@ function checkStock() {
             const addToCartButton = document.querySelector('.btn-addtocart');
 
             if (data.quantity > 0) {
-                stockStatus.textContent = 'Còn hàng';
+                stockStatus.textContent = 'In stock.';
                 addToCartButton.disabled = false;
             } else {
-                stockStatus.textContent = 'Hết hàng';
+                stockStatus.textContent = 'Out of stock.';
                 addToCartButton.disabled = true;
             }
         })
@@ -25,7 +25,6 @@ document.querySelectorAll('input[name="product_color_id"], input[name="product_c
     input.addEventListener('change', checkStock);
 });
 
-// Gọi checkStock lần đầu để thiết lập tình trạng hàng khi tải trang
 document.addEventListener('DOMContentLoaded', checkStock);
 
 $(document).ready(function() {
@@ -64,13 +63,15 @@ $(document).ready(function() {
                 }
                 if (response.quantity !== undefined) {
                     if (response.quantity > 0) {
-                        $('#stock-status').text('Còn hàng');
+                        $('#stock-status').text('In stock.');
                     } else {
-                        $('#stock-status').text('Hết hàng');
+                        $('#stock-status').text('Out of stock.');
                     }
                 }
             }
         });
     });
+
+
 
 });

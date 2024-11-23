@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Builder;
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
@@ -68,4 +68,17 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'product_variant_id');
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('is_active', 1)->whereHas('variants', function ($query) {
+            $query->where('quantity', '>', 0);
+        });
+    }
+
 }

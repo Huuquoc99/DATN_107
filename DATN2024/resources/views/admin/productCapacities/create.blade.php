@@ -36,12 +36,11 @@ Product capacity
                                 <div class="col-md-6">
                                     <div>
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name">
-                                        @error("name") 
-                                            <div class="alert alert-danger alert-dismissible fade show mt-4" style="height: 45px;" role="alert">
-                                                <p class="text-danger">{{ $message }}</p>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                            </div>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="row">
@@ -72,7 +71,6 @@ Product capacity
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

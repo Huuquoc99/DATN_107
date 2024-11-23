@@ -4,125 +4,115 @@ namespace App\Http\Controllers\Client;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClientUserController extends Controller
 {
-    // Thay đổi thông tin người dùng
-    // public function updateUserInfo(Request $request, string $id)
-    // {
-    //     $validatedData = $request->validate([
-    //         "name" => "required|max:255",
-    //         "email" => "required|email|max:255|unique:users,email," . $id, 
-    //         "phone" => "required|max:255",
-    //         "address" => "required|max:255",
-    //         // "avatar" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048" 
-    //     ]);
 
-    //     if ($request->isMethod("PUT")) {
-    //         $param = $validatedData; 
-    //         $user = User::findOrFail($id);
-
-    //         if ($request->hasFile("avatar")) {
-    //             if ($user->avatar && Storage::disk("public")->exists($user->avatar)) 
-    //             {
-    //                 Storage::disk("public")->delete($user->avatar);
-    //             }
-                
-    //             $filepath = $request->file("avatar")->store("uploads/users", "public");
-    //             $param["avatar"] = $filepath;
-    //         } else {
-    //             $param["avatar"] = $user->avatar; 
-    //         }
-            
-    //         unset($param["password"]); 
-
-    //         $updated = $user->update($param); 
-
-    //         if ($updated) {
-    //             return response()->json(['message' => 'User updated info successfully']);
-    //         } else {
-    //             return response()->json(['message' => 'Failed to update user info'], 500);
-    //         }
-    //     }
-
-    //     return response()->json(['message' => 'Invalid request method'], 405);
-    // }
-
-
-
-    // Thay đổi từng trường thông tin của người dùng
-    public function updateUserInfo(Request $request, string $id)
+    public function accountDetail()
     {
-        $validatedData = $request->validate([
-            "name" => "nullable|max:255", 
-            "email" => "nullable|email|max:255|unique:users,email," . $id, 
-            "phone" => "nullable|max:255",
-            "address" => "nullable|max:255",
-            "avatar" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048" 
-        ]);
-    
-        if ($request->isMethod("PUT")) {
-            $user = User::findOrFail($id);
-            $param = []; 
-    
-            if (isset($validatedData['name'])) {
-                $param['name'] = $validatedData['name'];
-            }
-    
-            if (isset($validatedData['email'])) {
-                $param['email'] = $validatedData['email'];
-            }
-    
-            if (isset($validatedData['phone'])) {
-                $param['phone'] = $validatedData['phone'];
-            }
-    
-            if (isset($validatedData['address'])) {
-                $param['address'] = $validatedData['address'];
-            }
-    
-            if ($request->hasFile("avatar")) {
-                if ($user->avatar && Storage::disk("public")->exists($user->avatar)) {
-                    Storage::disk("public")->delete($user->avatar);
-                }
-    
-                $filepath = $request->file("avatar")->store("uploads/users", "public");
-                $param["avatar"] = $filepath; 
-            } else {
-                $param["avatar"] = $user->avatar; 
-            }
-    
-            $updated = $user->update($param); 
-    
-            if ($updated) {
-                return response()->json(['message' => 'User updated info successfully']);
-            } else {
-                return response()->json(['message' => 'Failed to update user info'], 500);
-            }
-        }
-    
-        return response()->json(['message' => 'Invalid request method'], 405);
+        $user = Auth::user();
+        return view('client.account.accountdetails', compact('user'));
     }
 
-    // Thay đổi mật khẩu
-    public function updatePassword(Request $request, string $id)
+    public function updateProfile(Request $request, string $id)
     {
-        $validatedData = $request->validate([
-            "password" => "required|string|min:8|confirmed", 
-        ]);
 
-        if ($request->isMethod("PUT")) {
-            $user = User::findOrFail($id);
-            $param['password'] = bcrypt($validatedData['password']); 
-
-            $user->update($param);
-
-            return response()->json(['message' => 'Password updated successfully']);
+        if (Auth::id() !== (int)$id || Auth::user()->type !== 0) {
+            return redirect()->route('home')->with('error', 'You do not have permission to edit this information!');
         }
 
-        return response()->json(['message' => 'Invalid request method'], 405);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'address' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:10|min:10',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+
+        if ($request->has('address')) {
+            $user->address = $request->address;
+        }
+
+        if ($request->has('phone')) {
+            $user->phone = $request->phone;
+        }
+
+        if ($user->isDirty()) {
+            $user->save();  
+        }
+
+        return redirect()->route('accountdetail', ['id' => $id])->with('success', 'Personal information has been updated!');
     }
+
+    public function showChangePasswordForm()
+    {
+        return view('client.account.changepass');
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed|different:old_password', 
+        ]);
+    
+        try {
+            $user = Auth::user();
+        
+            if (!Hash::check($request->old_password, $user->password)) {
+                return back()->with('error', 'Old password is incorrect!');
+            }
+    
+            $user->password = Hash::make($request->new_password);
+            // dd($user); 
+            // Lỗi thì cũng kệ nó k được xoá k được sửa
+            $user->save(); 
+        
+            return redirect()->route('account.changePassword', ['id' => $id])->with('success', 'Password has been changed successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An unexpected error occurred while updating the password!');
+        }
+    }
+
+    public function updateAvatar(Request $request, $id)
+    {
+        if (Auth::id() !== (int)$id || Auth::user()->type !== 0) {
+            return redirect()->route('accountdetail')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
+        }
+
+        $validated = $request->validate([
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar && Storage::exists('public/' . $user->avatar)) {
+                Storage::delete('public/' . $user->avatar);
+            }
+
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+        }
+
+        $user->save();
+        return redirect()->route('accountdetail', ['id' => $id])->with('success1', 'Cập nhật avatar thành công!');
+    }
+
+
     
 }

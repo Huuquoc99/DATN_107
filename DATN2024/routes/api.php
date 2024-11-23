@@ -46,10 +46,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post("register", [RegisterController::class, 'register']);
     Route::post("login", action: [LoginController::class, 'login']);
     Route::post("logout", [LogoutController::class, 'logout'])->middleware("auth:sanctum");
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
-    Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
-    Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
-        ->name('password.reset');
+    // Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
+    // Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+    // Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+    //     ->name('password.reset');
 
 // Admin
     Route::middleware(['auth:sanctum', 'checkAdminMiddleware'])->group(function () {
@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource("admin/banner", BannerController::class);
         Route::apiResource("admin/statusOrder", StatusOrderController::class);
         Route::apiResource("admin/statusPayment", StatusPaymentController::class);
-        Route::apiResource("admin/paymentMethod", PaymentMethodControlller::class);
+        // Route::apiResource("admin/paymentMethod", PaymentMethodControlller::class);
         // Route::apiResource('admin/products', ProductController::class);
 
 

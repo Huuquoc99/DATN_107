@@ -1,27 +1,39 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
+use App\Notifications\CustomResetPasswordNotification;
+use App\Notifications\CustomResetPasswordNotificationForClient;
 
 class ForgotPasswordController extends Controller
 {
-    public function forgotPassword(Request $request) {
+    public function showLinkRequestForm()
+    {
+        return view('client.auth.passwords.email');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
         $request->validate(['email' => 'required|email']);
-        
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-        
-        return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
 
+        $user = User::where('email', $request->email)->first();
 
+        if ($user) {
+            $token = Password::getRepository()->create($user);
 
+            $user->notify(new CustomResetPasswordNotificationForClient($token));
+            // dd(session()->all());
+            return view('client.auth.passwords.email')->with([
+                'email', $request->email,
+                'status' => 'We have emailed your password reset link!',
+            ]);
+        }
 
+        return back()->withErrors(['email' => 'No user found with this email address.']);
     }
 }
-// sdfs
