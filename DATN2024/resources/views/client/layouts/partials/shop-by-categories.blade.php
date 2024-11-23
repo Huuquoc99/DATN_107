@@ -9,16 +9,16 @@
 
         <div class="swiper-wrapper row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-start">
             @foreach($catalogues as $item)
-                <div class="col text-center d-flex flex-column align-items-center" style="width: 220px;">
-                    <a href="{{ route('catalogue.product', $item->id) }}">
-                        <div class="d-flex align-items-center justify-content-center" style="width: 100px; height: 100px; overflow: hidden;">
-                            <img class="h-auto" src="{{ \Illuminate\Support\Facades\Storage::url($item->cover) }}"
-                                 style="max-width: 100%; max-height: 100%;"
-                                 alt="{{ $item->name }}">
-                        </div>
-                        <p class="menu-link menu-link_us-s fw-semi-bold fs-15 theme-color text-uppercase mt-2">{{ $item->name }}</p>
-                    </a>
-                </div>
+            <div class="col text-center d-flex flex-column align-items-center" style="width: 220px;">
+    <a href="{{ route('catalogue.product', $item->id) }}">
+        <div class="d-flex align-items-center justify-content-center" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #ccc; overflow: hidden; position: relative;">
+            <img class="h-auto" src="{{ \Illuminate\Support\Facades\Storage::url($item->cover) }}"
+                 style="width: 70%; height: 70%; object-fit: cover; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                 alt="{{ $item->name }}">
+        </div>
+        <p class="menu-link menu-link_us-s fw-semi-bold fs-15 theme-color text-uppercase mt-2">{{ $item->name }}</p>
+    </a>
+</div>
             @endforeach
         </div>
     </section>

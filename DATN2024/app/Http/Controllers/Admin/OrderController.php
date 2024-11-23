@@ -72,9 +72,9 @@ class OrderController extends Controller
     public function show(Order $order)
     {
 
-        $order->load('orderItems.product', 'statusOrder', 'statusPayment'); 
-        $statusOrders = StatusOrder::all(); 
-    
+        $order->load('orderItems.product', 'statusOrder', 'statusPayment');
+        $statusOrders = StatusOrder::all();
+
         return view('admin.orders.show', compact('order', 'statusOrders'));
     }
 
@@ -85,11 +85,11 @@ class OrderController extends Controller
         $newStatusId = $request->input('status_order_id');
 
         if ($newStatusId != $order->status_order_id) {
-            
+
             $order->status_order_id = $newStatusId;
             $order->save();
 
-            if ($newStatusId == 4) { 
+            if ($newStatusId == 4) {
                 Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
             } else {
                 Mail::to($order->user->email)->send(new AdminOrderUpdated($order));
@@ -103,8 +103,8 @@ class OrderController extends Controller
         }
     }
 
-    
-    
-    
+
+
+
 
 }

@@ -72,7 +72,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-            ) = $this->handleData($request);
+        ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -138,7 +138,7 @@ class ProductController extends Controller
         $color = ProductColor::query()->pluck('name', 'id')->all();
         $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity','color','totalQuantity'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity', 'color', 'totalQuantity'));
     }
 
     /**
@@ -179,7 +179,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-            ) = $this->handleData($request);
+        ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -189,7 +189,7 @@ class ProductController extends Controller
             $product->update($dataProduct);
 
 
-            foreach ($dataProductVariants as  $item) {
+            foreach ($dataProductVariants as $item) {
                 $existingVariant = ProductVariant::query()->where([
                     'product_id' => $product->id,
                     'product_capacity_id' => $item['product_capacity_id'],
@@ -355,6 +355,7 @@ class ProductController extends Controller
     private function handleData(Request $request)
     {
         $dataProduct = $request->except(['tags','product_galleries','new_product_variants','product_variants']);
+
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
         $dataProduct['is_good_deal'] ??= 0;
@@ -414,7 +415,7 @@ class ProductController extends Controller
 
         $dataProductTags = $request->tags;
 
-        return [$dataProduct,$dataProductVariants, $dataNewProductVariants, $dataProductGalleries, $dataProductTags];
+        return [$dataProduct, $dataProductVariants, $dataNewProductVariants, $dataProductGalleries, $dataProductTags];
     }
 
 

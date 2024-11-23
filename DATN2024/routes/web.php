@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Admin\StatusOrderController;
 use App\Http\Controllers\Client\ClientUserController;
@@ -28,8 +29,8 @@ use App\Http\Controllers\Payment\VnpayPaymentController;
 use App\Http\Controllers\Admin\ProductCapacityController;
 use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
 
@@ -43,33 +44,34 @@ use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-    //Route::get('/', function () {
-    //    dd(\Illuminate\Support\Facades\Auth::check());
-    //   return view('welcome');
-    //});
+//Route::get('/', function () {
+//    dd(\Illuminate\Support\Facades\Auth::check());
+//   return view('welcome');
+//});
 
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
-    Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
+    // Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
     Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
         ->name('product.detail');
     Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
         ->name('product.getVariantDetails');
     Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
-Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
+// Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
 
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-    Route::get('notfound',  [HomeController::class, 'notfound'])    ->name('notfound');
-    Route::get('about',     [HomeController::class, 'about'])       ->name('about');
-    Route::get('contact',   [HomeController::class, 'contact'])     ->name('contact');
-    Route::get('shop',      [HomeController::class, 'shop'])->name('shop');
+Route::get('notfound', [HomeController::class, 'notfound'])->name('notfound');
+Route::get('about', [HomeController::class, 'about'])->name('about');
+Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('shop', [HomeController::class, 'shop'])->name('shop');
 
 
 Route::prefix('cart')->name('cart.')->group(function () {
-    Route::post('add-to-cart',  [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('list',          [CartController::class, 'cartList'])->name('list');
-    Route::post('delete',       [CartController::class, 'deleteCart'])->name('delete');
+    Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('list', [CartController::class, 'cartList'])->name('list');
+    Route::post('delete', [CartController::class, 'deleteCart'])->name('delete');
     Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
 
 });
@@ -103,11 +105,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
 
-    // Comment
-    Route::get('comments', [CommentController::class, 'index']);
-    Route::put('comments/{id}', [CommentController::class, 'edit']);
-    Route::delete('comments/{id}', [CommentController::class, 'destroy']);
-    Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
+    // Comments
+    Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
+    Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
+    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
+    Route::get('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
 
     // Account
     Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
@@ -123,7 +125,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/login', [LoginController::class, 'showLogin']);
-Route::post("login",  [LoginController::class, 'login'])->name('login');
+Route::post("login", [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Forgot password
@@ -133,10 +135,6 @@ Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkE
 // Reset password
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('client.passwords.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
-
-
-
-
 
 Route::prefix('admin')
     ->as('admin.')
@@ -155,10 +153,9 @@ Route::prefix('admin')
 //    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
-
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'statistics'])->name('dashboard');
+        Route::get('/', [DashboardController::class, 'statistics'])->name('dashboard');
 
         // Product
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
@@ -200,7 +197,6 @@ Route::prefix('admin')
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
     });
-
 
 
 

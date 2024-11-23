@@ -33,7 +33,6 @@ class HomeController extends Controller
             ->get();
 
 
-        $catalogues = Catalogue::where('is_active', 1)->get();
 
         $banners = Banner::where('is_active', 1)->get();
 
@@ -54,37 +53,107 @@ class HomeController extends Controller
         ]);
     }
 
-    public function shop()
+    // public function shop()
+    // {
+    //     $products = Product::query()->with(['catalogue'])->latest('id')->paginate(8);
+    //     return view('client.shop', [
+    //         'products' => $products,
+    //         'source' => 'shop',
+    //         'title' => 'All products'
+    //     ]);
+    // }
+
+    public function shop(Request $request)
     {
-        $products = Product::query()->with(['catalogue'])->latest('id')->paginate(8);
+        $limit = 8;
+        $params = $request->only(['c', 'prices', 'color', 'capacity']);
+        $products = Product::query()->active()->with(['catalogue']);
+        if (isset($params['c'])) {
+            $products = $products->where('catalogue_id', $params['c']);
+        }
+        if (isset($params['color'])) {
+            $products = $products->whereHas('variants.color', function ($query) use ($params) {
+                $query->where('color_code', $params['color']);
+            });
+        }
+        if (isset($params['prices'])) {
+            $selectedPrices = explode(',', $params['prices']);
+
+            $products = $products->where(function ($query) use ($selectedPrices) {
+                foreach ($selectedPrices as $priceKey) {
+                    switch ($priceKey) {
+                        case '1': // Dưới 1 triệu
+                            $query->orWhere('price_regular', '<', 1000000);
+                            break;
+
+                        case '2': // 1 đến 3 triệu
+                            $query->orWhereBetween('price_regular', [1000000, 3000000]);
+                            break;
+
+                        case '3': // 3 đến 5 triệu
+                            $query->orWhereBetween('price_regular', [3000000, 5000000]);
+                            break;
+
+                        case '4': // 5 đến 10 triệu
+                            $query->orWhereBetween('price_regular', [5000000, 10000000]);
+                            break;
+
+                        case '5': // 10 đến 15 triệu
+                            $query->orWhereBetween('price_regular', [10000000, 15000000]);
+                            break;
+
+                        case '6': // 15 đến 20 triệu
+                            $query->orWhereBetween('price_regular', [15000000, 20000000]);
+                            break;
+
+                        case '7': // 20 đến 30 triệu
+                            $query->orWhereBetween('price_regular', [20000000, 30000000]);
+                            break;
+
+                        case '8': // Trên 30 triệu
+                            $query->orWhere('price_regular', '>', 30000000);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+        if (isset($params['capacity'])) {
+            $products = $products->whereHas('variants.capacity', function ($query) use ($params) {
+                $query->where('name', $params['capacity']);
+            });
+        }
+        $products = $products->latest('id')->paginate($limit);
+        $catalogues = Catalogue::query()->active()->get();
+        $capacities = ['32gb', '64gb', '128gb', '256gb', '512gb', '1t'];
+
         return view('client.shop', [
             'products' => $products,
+            'catalogues' => $catalogues,
+            'capacities' => $capacities,
             'source' => 'shop',
             'title' => 'All products'
         ]);
     }
-
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-
-        $query = Product::query();
-
-        if (!empty($keyword)) {
-            $query->where('name', 'LIKE', '%' . $keyword . '%')
-                ->orWhereHas('catalogue', function ($q) use ($keyword) {
-                    $q->where('name', 'LIKE', '%' . $keyword . '%');
-                });
-        }
-
-        $products = $query->paginate(12);
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
 
 
-        return view('client.shop', [
-            'products' => $products,
-            'source' => 'search',
-            'keyword' => $keyword,
-            'title' => 'Search Results'
+
+    public function search(Request $request) {
+        $limit = 8;
+        $search = $request->get('k');
+        $products = Product::query()->active();
+        $products->where('name', 'LIKE', '%' . $search . '%')
+            ->orWhereHas('catalogue', function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%');
+            });
+        $products = $products->latest('id')->paginate($limit);
+        return view('client.search', [
+            'products' => $products
         ]);
     }
 
@@ -99,4 +168,3 @@ class HomeController extends Controller
         return view('client.contact');
     }
 }
-
