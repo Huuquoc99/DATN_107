@@ -592,3 +592,36 @@ h3 {
 
 
 
+
+
+.nav-pills {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px; 
+    padding: 0;
+    list-style-type: none;
+    flex-wrap: nowrap; 
+}
+
+.nav-pills .nav-item .btn {
+    flex: 0; 
+    padding: 5px 28.5px; 
+    text-align: center; 
+    border: none; 
+    border-radius: 0; 
+    background-color: #f8f9fa; 
+    color: #6c757d; 
+    font-size:15px; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    white-space: nowrap; 
+}
+
+.nav-pills .nav-item .btn.text-success {
+    background-color: #d1e7dd;
+    color: #0f5132; 
+}
+
+.nav-pills .nav-item .btn:hover {
+    background-color: #e9ecef;
+    color: #495057; 
+}

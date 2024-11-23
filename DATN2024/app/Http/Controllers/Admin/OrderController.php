@@ -101,7 +101,7 @@ class OrderController extends Controller
                             ->with('success', 'Order status updated successfully.');
         } else {
             return redirect()->route('admin.orders.show', $id)
-                            ->with('info', 'No change in order status.');
+                            ->with('error', 'No change in order status.');
         }
     }
 
@@ -109,26 +109,25 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        // Lấy trạng thái thanh toán mới từ yêu cầu
         $newPaymentStatusId = $request->input('status_payment_id');
+        $currentStatusId = $order->status_payment_id;
+        if ($currentStatusId == 2 && $newPaymentStatusId == 1) {
+            return redirect()->route('admin.orders.show', $id)
+                            ->with('error', 'Cannot revert to previous payment status.');
+        }
 
-        // Kiểm tra xem trạng thái thanh toán có thay đổi hay không
-        if ($newPaymentStatusId != $order->status_payment_id) {
-
-            // Cập nhật trạng thái thanh toán
+        if ($newPaymentStatusId != $currentStatusId) {
             $order->status_payment_id = $newPaymentStatusId;
             $order->save();
 
             return redirect()->route('admin.orders.show', $id)
-                            ->with('success', 'Payment status updated successfully.');
-        } else {
-            return redirect()->route('admin.orders.show', $id)
-                            ->with('info', 'No change in payment status.');
+                            ->with('success1', 'Payment status updated successfully.');
         }
+
+        return redirect()->route('admin.orders.show', $id)
+                        ->with('error1', 'No change in payment status.');
     }
 
-    
-    
     
 
 }
