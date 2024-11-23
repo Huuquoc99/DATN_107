@@ -1,3 +1,4 @@
+@if($comment->is_active)
 <div class="product-single__reviews-item review-item" data-id="{{ $comment->id }}">
     <div class="customer-avatar">
 
@@ -39,3 +40,4 @@
         @endif
     </div>
 </div>
+@endif
