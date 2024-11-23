@@ -67,9 +67,9 @@
                                         <td>
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($i <= $item->rate)
-                                                    <i class="fa fa-star text-warning"></i> {{-- Ngôi sao vàng --}}
+                                                    <i class="fa fa-star text-warning"></i> 
                                                 @else
-                                                    <i class="fa fa-star text-secondary"></i> {{-- Ngôi sao xám --}}
+                                                    <i class="fa fa-star text-light"></i>
                                                 @endif
                                             @endfor
                                         </td>
