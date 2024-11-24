@@ -43,7 +43,7 @@
                     <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
                              aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
                             <div class="accordion-body px-0 pb-0 pt-3">
-                                <ul class="list list-inline mb-0">
+                                <ul class="list list-inline mb-0 text-dask">
                                     @foreach($catalogues as $catalogue)
                                         <li class="list-item">
                                             <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
