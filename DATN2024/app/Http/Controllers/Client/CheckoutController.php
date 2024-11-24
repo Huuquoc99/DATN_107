@@ -155,6 +155,7 @@ class CheckoutController extends Controller
             $this->processVNPAY($order);
 
         } else {
+            $this->deductStockProduct();
             GuestOrderPlaced::dispatch($order);
 
             session()->forget('cart');
@@ -215,6 +216,7 @@ class CheckoutController extends Controller
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
         ]);
+        $this->deductStockProduct();
 
 
         foreach ($cart->items as $item) {
@@ -325,6 +327,7 @@ class CheckoutController extends Controller
             if ($vnpayData['vnp_ResponseCode'] == '00') {
                 $order->status_payment_id = 2;
                 $order->save();
+                $this->deductStockProduct();
 
                 $cart = Cart::where('user_id', $order->user_id)->first();
                 if ($cart) {
@@ -343,6 +346,7 @@ class CheckoutController extends Controller
             if ($vnpayData['vnp_ResponseCode'] == '00') {
                 $order->status_payment_id = 2;
                 $order->save();
+                $this->deductStockProduct();
 
                 session()->forget('cart');
 
@@ -354,6 +358,43 @@ class CheckoutController extends Controller
                 $order->save();
 
                 return redirect()->route('guest-checkout.failed')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
+            }
+        }
+    }
+
+    private function deductStockProduct()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $cart = Cart::where('user_id', $user->id)->first();
+            if ($cart) {
+                $cartItems = CartItem::where('cart_id', $cart->id)->get();
+
+                foreach ($cartItems as $cartItem) {
+                    $productVariant = ProductVariant::find($cartItem->product_variant_id);
+                    
+                    if ($productVariant && $productVariant->quantity >= $cartItem->quantity) {
+                        $productVariant->quantity -= $cartItem->quantity;
+                        $productVariant->save();
+                    } else {
+                        throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
+                    }
+                }
+            } else {
+                throw new \Exception("Giỏ hàng không tồn tại.");
+            }
+        } else {
+            $guest_cart = session('cart', []);
+            foreach ($guest_cart as $item) {
+                $productVariant = ProductVariant::find($item['product_variant_id']);
+                
+                if ($productVariant && $productVariant->quantity >= $item['quantity']) {
+                    $productVariant->quantity -= $item['quantity'];
+                    $productVariant->save();
+                } else {
+                    throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
+                }
             }
         }
     }
