@@ -12,7 +12,8 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        //
+        $listVoucher = Voucher::get();
+        return view("admin.vouchers.index", compact('listVoucher'));
     }
 
     /**
@@ -20,15 +21,18 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.vouchers.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VoucherRequest $request)
     {
-        //
+        if ($request->isMethod("POST")) {
+            Voucher::create($request->all());
+            return redirect()->route("admin.vouchers.index")->with("success", "Voucher created successfully");
+        }
     }
 
     /**
@@ -36,7 +40,8 @@ class VoucherController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $voucher = Voucher::findOrFail($id);
+        return view("admin.vouchers.edit", compact("voucher"));
     }
 
     /**
@@ -50,9 +55,13 @@ class VoucherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(VoucherRequest $request, string $id)
     {
-        //
+        if ($request->isMethod("PUT")) {
+            $voucher = Voucher::findOrFail($id);
+            $voucher->update($request->all());
+            return redirect()->route("admin.vouchers.index")->with("success", "Voucher updated successfully");
+        }
     }
 
     /**
@@ -60,6 +69,8 @@ class VoucherController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $voucher = Voucher::findOrFail($id);
+        $voucher->delete();
+        return redirect()->route("admin.vouchers.index")->with("success", "Voucher deleted successfully");
     }
 }
