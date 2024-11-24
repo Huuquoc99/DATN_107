@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Events\GuestOrderPlaced;
-use Illuminate\Support\Facades\Http;
 use Log;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\CartItem;
+use App\Mail\OrderPlaced;
 use App\Models\OrderItem;
 use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\ProductVariant;
 use App\Models\ProductCapacity;
+use App\Events\GuestOrderPlaced;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
@@ -218,6 +219,8 @@ class CheckoutController extends Controller
         ]);
         $this->deductStockProduct();
 
+        $this->deductStockProduct();
+
 
         foreach ($cart->items as $item) {
             $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
@@ -242,6 +245,8 @@ class CheckoutController extends Controller
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);
         }
+
+        Mail::to($user->email)->send(new OrderPlaced($order));
 
         // Xóa giỏ hàng sau khi thanh toán
         $cart->items()->delete();
@@ -362,42 +367,64 @@ class CheckoutController extends Controller
         }
     }
 
+    // private function deductStockProduct()
+    // {
+    //     $user = Auth::user();
+    //     if ($user) {
+    //         $cart = Cart::where('user_id', $user->id)->first();
+    //         $cartItems = CartItem::where('cart_id', $cart->id)->get();
+    //         foreach ($cartItems as $cartItem) {
+    //             $productVariant = ProductVariant::find($cartItem->product_variant_id);
+    //             $productVariant->quantity -= $cartItem->quantity;
+    //             $productVariant->save();
+    //         }
+    //     } else {
+    //         $guest_cart = session('cart', []);
+    //         foreach ($guest_cart as $item) {
+    //             $productVariant = ProductVariant::find($item['product_variant_id']);
+    //             $productVariant->quantity -= $item['quantity'];
+    //             $productVariant->save();
+    //         }
+    //     }
+    // }
+
     private function deductStockProduct()
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        if ($user) {
-            $cart = Cart::where('user_id', $user->id)->first();
-            if ($cart) {
-                $cartItems = CartItem::where('cart_id', $cart->id)->get();
+    if ($user) {
+        $cart = Cart::where('user_id', $user->id)->first();
+        if ($cart) {
+            $cartItems = CartItem::where('cart_id', $cart->id)->get();
 
-                foreach ($cartItems as $cartItem) {
-                    $productVariant = ProductVariant::find($cartItem->product_variant_id);
-                    
-                    if ($productVariant && $productVariant->quantity >= $cartItem->quantity) {
-                        $productVariant->quantity -= $cartItem->quantity;
-                        $productVariant->save();
-                    } else {
-                        throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
-                    }
-                }
-            } else {
-                throw new \Exception("Giỏ hàng không tồn tại.");
-            }
-        } else {
-            $guest_cart = session('cart', []);
-            foreach ($guest_cart as $item) {
-                $productVariant = ProductVariant::find($item['product_variant_id']);
+            foreach ($cartItems as $cartItem) {
+                $productVariant = ProductVariant::find($cartItem->product_variant_id);
                 
-                if ($productVariant && $productVariant->quantity >= $item['quantity']) {
-                    $productVariant->quantity -= $item['quantity'];
+                if ($productVariant && $productVariant->quantity >= $cartItem->quantity) {
+                    $productVariant->quantity -= $cartItem->quantity;
                     $productVariant->save();
                 } else {
                     throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
                 }
             }
+        } else {
+            throw new \Exception("Giỏ hàng không tồn tại.");
+        }
+    } else {
+        $guest_cart = session('cart', []);
+        foreach ($guest_cart as $item) {
+            $productVariant = ProductVariant::find($item['product_variant_id']);
+            
+            if ($productVariant && $productVariant->quantity >= $item['quantity']) {
+                $productVariant->quantity -= $item['quantity'];
+                $productVariant->save();
+            } else {
+                throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
+            }
         }
     }
+}
+
 
 
     protected function generateOrderCode()

@@ -14,7 +14,8 @@ class Comment extends Model
         'user_id', 
         'product_id', 
         'content',  
-        'is_active'
+        'is_active',
+        'rate',
     ];
 
     public function user()

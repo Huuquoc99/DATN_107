@@ -13773,10 +13773,10 @@ fieldset:disabled .btn {
 .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
     background-color: #dde0e3;
 }
-.form-control[type="password"] {
+/* .form-control[type="password"] {
     font-family: "Trebuchet MS", sans-serif;
     letter-spacing: 0.18em;
-}
+} */
 
 .form-control_gray {
     border-color: #e4e4e4;

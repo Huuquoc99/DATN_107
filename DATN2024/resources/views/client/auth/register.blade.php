@@ -96,18 +96,40 @@
         <div class="form-container1 register-container1">
             <form class="form" action="{{ route('register') }}" method="POST">
                 @csrf
-                <h2>Đăng ký</h2>
-                <input class="input" type="text" placeholder="Tên người dùng" name="name">
-                <input class="input" type="email" placeholder="Email"   name="email">
-                <input class="input" type="password" placeholder="Mật khẩu" name="password">
-                <input class="input" type="password" placeholder="Nhập lặp mật khẩu" name="password_confirmation">
-                <button class="button">Đăng ký</button>
-                <span class="span1">Đăng nhập bằng</span>
+                <h2>Sign up</h2>
+                {{-- <div> --}}
+                    <input class="input form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                {{-- </div> --}}
+                <input class="input form-control @error('email') is-invalid @enderror" type="email" placeholder="Email"   name="email">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                <input class="input form-control @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                <input class="input form-control @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Password confirm" name="password_confirmation">
+                    @error('password_confirmation')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                <button class="button" type="submit">Sign up</button>
+                {{-- <span class="span1">Đăng nhập bằng</span>
                 <div class="social-container1">
                     <a href="#" class="social1"><i class="lni lni-facebook"></i></a>
                     <a href="#" class="social1"><i class="lni lni-tiktok"></i></a>
                     <a href="#" class="social1"><i class="lni lni-google"></i></a>
-                </div>
+                </div> --}}
             </form>
         </div>
         <div class="form-container1 login-container1">
@@ -115,7 +137,7 @@
                 @csrf
                 <h2>Đăng nhập</h2>
                 <input class="input" type="email" placeholder="Email" name="email">
-                <input class="input" type="password" placeholder="Mật khẩu" name="password">
+                <input class="input form-control @error('password') is-invalid @enderror" type="password " placeholder="password" name="password">
                 <div class="content1">
                     <div class="checkbox1">
                         <input class="input" type="checkbox" name="checkbox" id="checkbox">

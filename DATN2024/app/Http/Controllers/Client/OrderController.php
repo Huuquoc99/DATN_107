@@ -191,11 +191,21 @@ class OrderController extends Controller
             $order->status_order_id = 4;
             $order->save();
 
+            $this->rollbackQuantity($order);
+
             Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
         }
 
         return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
+    }
+
+    private function rollbackQuantity($order)
+    {
+        foreach ($order->orderItems as $item) {
+            $item->productVariant->quantity += $item->quantity;
+            $item->productVariant->save();
+        }
     }
 
 

@@ -44,10 +44,10 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-    Route::get('/', function () {
-       dd(\Illuminate\Support\Facades\Auth::check());
-      return view('welcome');
-    });
+    // Route::get('/', function () {
+    //    dd(\Illuminate\Support\Facades\Auth::check());
+    //   return view('welcome');
+    // });
 
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
