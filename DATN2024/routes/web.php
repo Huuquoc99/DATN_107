@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Client\ContactController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Client\CheckoutController;
@@ -52,6 +53,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
     // Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
     Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
@@ -66,6 +68,8 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('notfound', [HomeController::class, 'notfound'])->name('notfound');
 Route::get('about', [HomeController::class, 'about'])->name('about');
 Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
 Route::get('shop', [HomeController::class, 'shop'])->name('shop');
 
 
@@ -105,6 +109,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
+    Route::post('/account/orders/{id}/repayment', [OrderController::class, 'repayment'])->name('account.orders.repayment');
 
     // // Comment
     // Route::get('comments', [CommentController::class, 'index']);

@@ -129,7 +129,17 @@
                         </tr>
                         <tr>
                             <td><strong>Status payment:</strong></td>
-                            <td>{{ $order->statusPayment->name ?? 'N/A' }}</td>
+                            <td>{{ $order->statusPayment->name ?? 'N/A' }}
+                            {{-- <td class="w-30"> --}}
+                                {{-- @if ($order->statusPayment->id == 3 && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2) --}}
+                                @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
+                                    <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" name="redirect" class="btn btn-success">Repayment</button>
+                                    </form>
+                                @endif
+                            </td>
+                            
                         </tr>
                         <tr>
                             <td><strong>Payment method:</strong></td>
@@ -194,4 +204,21 @@
         </div>
         </div>
     </section>
+    
+@endsection
+@section('script')
+    <script type="text/javascript">
+        const orderId = {{ $order->id }};
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+        });
+
+        var channel = pusher.subscribe('channel-notification');
+        channel.bind('update-order', function(data) {
+            if (data.orderId == orderId) {
+                location.reload();
+            }
+        });
+    </script>
 @endsection

@@ -96,7 +96,7 @@
         <div class="form-container1 register-container1">
             <form class="form" action="{{ route('register') }}" method="POST">
                 @csrf
-                <h2>Sign up</h2>
+                <h2><b>Sign up</b></h2>
                 {{-- <div> --}}
                     <input class="input form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
                     @error('name')
@@ -135,41 +135,45 @@
         <div class="form-container1 login-container1">
             <form class="form" action="{{ route('login') }}" method="POST">
                 @csrf
-                <h2>Đăng nhập</h2>
-                <input class="input" type="email" placeholder="Email" name="email">
-                <input class="input form-control @error('password') is-invalid @enderror" type="password " placeholder="password" name="password">
+                <h2><b>Sign In</b></h2>
+                <input class="input form-control @error('email') is-invalid @enderror" type="email" placeholder="Email" name="email">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                <input class="input form-control @error('password') is-invalid @enderror" type="password " placeholder="Password" name="password">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 <div class="content1">
                     <div class="checkbox1">
                         <input class="input" type="checkbox" name="checkbox" id="checkbox">
                         <label>Remember me</label>
                     </div>
                     <div class="pass-link1 m-3">
-                        <a href="{{ route('password.request') }}">Forgot password</a>
+                        <a href="{{ route('password.request') }}" style="text-decoration: underline;">Forgot password?</a>
                     </div>
                 </div>
-                <button class="button">Đăng nhập</button>
-                <span>Đăng nhập bằng</span>
-                <div class="social-container1">
-                    <a href="#" class="social1"><i class="lni lni-facebook"></i></a>
-                    <a href="#" class="social1"><i class="lni lni-tiktok"></i></a>
-                    <a href="#" class="social1"><i class="lni lni-google"></i></a>
-                </div>
+                <button class="button" type="submit">Sign In</button>
             </form>
         </div>
         <div class="overlay-container1">
             <div class="overlay1">
                 <div class="overlay-panel1 overlay-left1">
-                    <h1 class="title1">Xin Chào <br> Người Dùng Mới </h1>
-                    <p>Đã có tài khoản, vui lòng đăng nhập ở đây</p>
-                    <button  class="button" id="login1">Login
+                    <h1 class="title1">Sign In <br></h1>
+                    <p>If you already have an account, please login here.</p>
+                    <button  class="button" id="login1">Sign In 
                         <i class="lni lni-arrow-left"></i>
                     </button>
                 </div>
                 <div>
                     <div class="overlay-panel1 overlay-right1">
-                        <h1 class="title1">Đăng ký <br> Người Dùng Mới </h1>
-                        <p>Nếu chưa có tài khoản, vui lý đăng ký ở đây</p>
-                        <button class="button" id="register1">Đăng ký
+                        <h1 class="title1">Sign up <br> </h1>
+                        <p>If you do not have an account, please register here.</p>
+                        <button class="button" id="register1">Sign up
                             <i class="lni lni-arrow-right"></i>
                         </button>
                     </div>

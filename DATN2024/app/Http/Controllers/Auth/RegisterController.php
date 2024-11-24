@@ -55,7 +55,13 @@ class RegisterController extends Controller
         $data = request()->validate([
             "name" => "required",
             "email" => "required|email",
-            "password" => "required|min:8|max:20|confirmed",
+            'password' => [
+                'required', 
+                'min:8', 
+                'max:20', 
+                'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/',
+                'confirmed'
+            ],
         ], [
             "name.required" => "The name field is required.",
             "email.required" => "The email field is required.",
@@ -63,32 +69,26 @@ class RegisterController extends Controller
             "password.required" => "The password field is required.",
             "password.min" => "The password must be at least 8 characters.",
             "password.max" => "The password may not be greater than 20 characters.",
+            "password.regex" => "The password must contain at least one uppercase letter, one lowercase letter, and one number.",
             "password.confirmed" => "The password confirmation does not match.",
         ]);
 
-        // Tạo user mới
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']), // Mã hóa mật khẩu
+            'password' => bcrypt($data['password']),
         ]);
 
-        // Tạo token cho user
         $token = $user->createToken($user->id)->plainTextToken;
 
-        // Nếu thành công, chuyển về trang đăng ký với thông báo thành công
         return redirect()->route('client.auth.register')->with('success', 'User registered successfully.');
     } catch (\Throwable $th) {
-        // Kiểm tra lỗi ValidationException
         if ($th instanceof ValidationException) {
-            // Trả về với thông báo lỗi
             return redirect()->back()->withErrors($th->errors())->withInput();
         }
 
-        // Trả về lỗi hệ thống
         return redirect()->back()->withErrors(['error' => $th->getMessage()]);
     }
 }
 
 }
-// sdfs
