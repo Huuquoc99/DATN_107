@@ -247,6 +247,23 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarVoucher" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="fas fa-ticket-alt"></i> <span data-key="t-layouts">Voucher</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarVoucher">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.vouchers.index') }}" class="nav-link">Voucher list</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.vouchers.create') }}" class="nav-link">Voucher create</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts10" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
                        <i class="ri-delete-bin-line"></i> <span data-key="t-layouts">Trashed</span>
