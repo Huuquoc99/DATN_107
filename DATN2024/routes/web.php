@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -177,7 +178,7 @@ Route::prefix('admin')
         Route::resource('statusPayments', StatusPaymentController::class);
         Route::resource('customers', UserController::class);
         Route::resource('comments', CommentController::class);
-
+        Route::resource('vouchers', VoucherController::class);
 
         // Customer
         Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');

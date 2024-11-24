@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\VoucherRequest;
 
 class VoucherController extends Controller
 {
@@ -27,7 +29,7 @@ class VoucherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VoucherRequest $request)
+    public function store(VoucherRequest  $request)
     {
         if ($request->isMethod("POST")) {
             Voucher::create($request->all());
@@ -40,8 +42,7 @@ class VoucherController extends Controller
      */
     public function show(string $id)
     {
-        $voucher = Voucher::findOrFail($id);
-        return view("admin.vouchers.edit", compact("voucher"));
+        //
     }
 
     /**
@@ -49,13 +50,14 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $voucher = Voucher::findOrFail($id);
+        return view("admin.vouchers.edit", compact("voucher"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(VoucherRequest $request, string $id)
+    public function update(VoucherRequest  $request, string $id)
     {
         if ($request->isMethod("PUT")) {
             $voucher = Voucher::findOrFail($id);
