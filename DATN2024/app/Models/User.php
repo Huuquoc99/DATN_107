@@ -3,14 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\CustomResetPasswordLink;
+use App\Notifications\CustomResetPasswordNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Notifications\CustomResetPasswordLinkForClient;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,8 +24,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
+        'address',
+        'phone',
+        'type',
     ];
+
+    protected $guarded = ['id', 'password'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +52,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isAdmin()
+    {
+        return $this->type === 1;
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        if ($this->type == 1) {
+            $this->notify(new CustomResetPasswordNotification($token));  
+        } else {
+            $this->notify(new CustomResetPasswordLinkForClient($token)); 
+        }
+    }
 }
