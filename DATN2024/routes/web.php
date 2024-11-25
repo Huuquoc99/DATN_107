@@ -33,6 +33,7 @@ use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
 use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Client\VoucherController as ClientVoucherController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
 
@@ -71,7 +72,7 @@ Route::get('contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::get('shop', [HomeController::class, 'shop'])->name('shop');
-
+Route::get('vouchers', [ClientVoucherController::class, 'index'])->name('voucher');
 
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
@@ -129,7 +130,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
     Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
     Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
-
+    
 });
 
 // Auth

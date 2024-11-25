@@ -30,6 +30,6 @@ class Voucher extends Model
     ];
     public function scopeActive(Builder $query): void
     {
-        $query->where('is_active', true)->where('expiration_date', '<', now());
+        $query->where('is_active', true)->where('expiration_date', '>', now());
     }
 }
