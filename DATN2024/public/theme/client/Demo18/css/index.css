@@ -170,6 +170,12 @@ a:hover {
     margin: 8px 0;
     width: 100%;
 }
+.input::placeholder {
+    color: #6c757d !important;
+    font-style: italic;
+    opacity: 1; /* Đảm bảo placeholder không bị ẩn */
+}
+
 .h1{
     font-size: 60px;
 }
@@ -625,3 +631,69 @@ h3 {
     background-color: #e9ecef;
     color: #495057; 
 }
+
+
+::placeholder {
+    color: #6c757d; 
+    font-style: italic;
+}
+
+
+
+/* Hiệu ứng hover trên thẻ sản phẩm */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Hiệu ứng phóng to ảnh */
+.product-card .pc__img-wrapper img {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .pc__img-wrapper img {
+    transform: scale(1.05);
+}
+
+/* Bố cục thông tin sản phẩm */
+.product-card .pc__category {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.product-card__price {
+    font-size: 1rem;
+    color: #28a745;
+}
+
+.product-card-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hiệu ứng liên kết tiêu đề */
+.product-card .pc__title a {
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.product-card .pc__title a:hover {
+    color: #007bff;
+}
+
+/* Căn lề và làm nổi bật nút phân trang */
+.pagination .btn-link {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.pagination .btn-link_active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+

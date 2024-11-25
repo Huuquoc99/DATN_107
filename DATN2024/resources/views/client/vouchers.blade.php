@@ -1,6 +1,7 @@
 @extends('client.layouts.master')
 @section('content')
-    <main class="container">
+    <main >
+      <div class="container">
         <h1 style="text-transform: uppercase;
         font-weight: 900;
         border-left: 10px solid #fec500;
@@ -36,6 +37,7 @@
                 </div>
             @endforeach
         </div>
+      </div>
     </main>
     <style>
         .list-vouchers {

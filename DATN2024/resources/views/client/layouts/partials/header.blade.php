@@ -78,7 +78,7 @@
 
 
 
-<header id="header" class="header w-100 theme-bg-color bg-dark">
+<header id="header" class="fixed-top header w-100 theme-bg-color bg-dark">
     <!-- <div class="header-top bordered-20per">
         <div class="header-container mx-auto d-flex align-items-center">
             <ul class="list-unstyled d-flex flex-1 gap-3 m-0">
@@ -174,7 +174,7 @@
                             @foreach($catalogues as $catalogue)
                                 <li class="categories-nav__item">
                                     <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                        class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                                      style="color: black"   class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
                                 </li>
                             @endforeach
                         @endif
