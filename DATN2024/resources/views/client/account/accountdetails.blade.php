@@ -111,13 +111,19 @@
                                             {{ session('success1') }}
                                         </div>
                                     @endif
-                                    @if ($errors->any())
+                                    {{-- @if ($errors->any())
                                         <div class="alert alert-danger">
-                                            @foreach ($errors->all() as $error)
-                                                {{ $error }}
+                                            @foreach ($errors->all() as $error1)
+                                                {{ $error1 }}
                                             @endforeach
                                         </div>
+                                    @endif --}}
+                                    @if ($errors->has('avatar'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('avatar') }}
+                                        </div>
                                     @endif
+
                                 </form>
                                 
                                 <script>
@@ -150,13 +156,6 @@
                                             {{ session('success') }}
                                         </div>
                                     @endif
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            @foreach ($errors->all() as $error)
-                                                {{ $error }}
-                                            @endforeach
-                                        </div>
-                                    @endif
 
                                     <form name="account_edit_form" class="needs-validation" novalidate
                                         action="{{ route('account.updateProfile', ['id' => $user->id]) }}" method="POST">
@@ -166,8 +165,13 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-floating">
-                                                    <input type="text" class="input" id="name" placeholder="Name"
+                                                    <input type="text" class="input form-control @error('name') is-invalid @enderror" id="name" placeholder="Name"
                                                         value="{{ old('name', $user->name) }}" name="name">
+                                                        @error('name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     {{-- <label for="name"> Name</label> --}}
                                                     {{-- @error('name')
                                                         <div class="alert alert-danger alert-dismissible fade show mt-4"
@@ -180,23 +184,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <div class="form-floating">
-                                                    <input type="text" class="input" id="phone" placeholder="Phone"
-                                                        value="{{ old('phone', $user->phone) }}" name="phone">
-                                                    {{-- <label for="phone">Phone</label> --}}
-                                                    {{-- @error('phone')
-                                                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                    @enderror --}}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
                                                 <div class="form-floating ">
-                                                    <input type="email" class="input" id="email" placeholder="Email"
+                                                    <input type="email" class="input form-control @error('email') is-invalid @enderror" id="email" placeholder="Email"
                                                         value="{{ old('email', $user->email) }}" name="email">
+                                                        @error('email')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     {{-- <label for="email">Email</label> --}}
                                                     {{-- @error('email')
                                                         <div class="alert alert-danger alert-dismissible fade show mt-4"
@@ -210,9 +205,34 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-floating">
-                                                    <input type="text" class="input" id="address"
+                                                    <input type="text" class="input form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Phone"
+                                                        value="{{ old('phone', $user->phone) }}" name="phone">
+                                                        @error('phone')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    {{-- <label for="phone">Phone</label> --}}
+                                                    {{-- @error('phone')
+                                                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                    @enderror --}}
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="col-md-12">
+                                                <div class="form-floating">
+                                                    <input type="text" class="input form-control @error('address') is-invalid @enderror" id="address"
                                                         placeholder="Address" value="{{ old('address', $user->address) }}"
                                                         name="address">
+                                                        @error('address')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     {{-- <label for="address"> Address</label> --}}
                                                     {{-- @error('address')
                                                         <div class="alert alert-danger alert-dismissible fade show mt-4"

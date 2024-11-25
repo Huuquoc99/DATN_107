@@ -91,7 +91,7 @@ class ClientUserController extends Controller
     public function updateAvatar(Request $request, $id)
     {
         if (Auth::id() !== (int)$id || Auth::user()->type !== 0) {
-            return redirect()->route('accountdetail')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
+            return redirect()->route('accountdetail')->with('error1', 'Bạn không có quyền chỉnh sửa thông tin này!');
         }
 
         $validated = $request->validate([
