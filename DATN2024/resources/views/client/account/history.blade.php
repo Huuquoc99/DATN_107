@@ -66,7 +66,14 @@
                                     @forelse ($orders as $order)
                                         <tr>
                                             <td>{{ $order['code'] }}</td>
-                                            <td>{{ $order['created_at']->format('F j, Y') }}</td>
+                                            <td>
+                                                {{-- <span id="invoice-date">{{ $item->created_at ? $item->created_at->format('d M, Y') : 'N/A' }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->created_at ? $item->created_at->format('h:iA') : '' }}</small> --}}
+
+                                                <span id="invoice-date">{{ $order['created_at'] ? $order['created_at']->format('d M, Y') : 'N/A' }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $order['created_at'] ? $order['created_at']->format('h:iA') : '' }}</small>
+                                                
+                                            </td>
                                             <td>
                                                 @switch($order['status_order_id'])
                                                     @case(1)
