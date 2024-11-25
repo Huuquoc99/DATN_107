@@ -27,15 +27,22 @@ class ProductController extends Controller
                 ]];
             })
             ->all();
-            
+           
+         
+        
+        
         $productId = $product->id;    
         $comments = Comment::where('product_id', $productId)->paginate(5);
 
         $capacities = ProductCapacity::query()->pluck('name', 'id')->all();
 
+        $relatedProducts = Product::query()
+            ->where('catalogue_id', $product->catalogue_id) 
+            ->where('id', '!=', $product->id) 
+            ->get(); 
         // dd($comments);
 
-        return view('client.product-detail', compact('product','capacities','colors','comments'));
+        return view('client.product-detail', compact('product','capacities','colors','comments', 'relatedProducts'));
     }
 
     public function getVariantDetails(Request $request)
