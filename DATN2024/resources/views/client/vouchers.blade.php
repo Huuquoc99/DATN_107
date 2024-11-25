@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
+
 @section('content')
+
     <main >
       <div class="container">
         <h1 style="text-transform: uppercase;
@@ -286,4 +288,5 @@
             }
         }
     </style>
+
 @endsection
