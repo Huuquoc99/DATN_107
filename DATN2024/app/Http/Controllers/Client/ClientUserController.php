@@ -65,11 +65,28 @@ class ClientUserController extends Controller
 
     public function changePassword(Request $request, $id)
     {
+        // $validated = $request->validate([
+        //     'old_password' => 'required|string',
+        //     'new_password' => 'required|string|min:8|confirmed|different:old_password|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/', 
+        // ]);
+    
+
         $validated = $request->validate([
             'old_password' => 'required|string',
-            'new_password' => 'required|string|min:8|confirmed|different:old_password', 
+            'new_password' => 'required|string|min:8|confirmed|different:old_password|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/',
+        ], [
+            'old_password.required' => 'Old password is required.',
+            'old_password.string' => 'Old password must be a string.',
+            
+            'new_password.required' => 'New password is required.',
+            'new_password.string' => 'New password must be a string.',
+            'new_password.min' => 'New password must be at least 8 characters long.',
+            'new_password.confirmed' => 'New password confirmation does not match.',
+            'new_password.different' => 'New password must be different from old password.',
+            'new_password.regex' => 'New password must contain at least one uppercase letter, one lowercase letter, and one digit.',
         ]);
-    
+        
+        
         try {
             $user = Auth::user();
         
