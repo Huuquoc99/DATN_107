@@ -101,9 +101,14 @@ class ClientUserController extends Controller
         $user = User::findOrFail($id);
 
         if ($request->hasFile('avatar')) {
-            if ($user->avatar && Storage::exists('public/' . $user->avatar)) {
-                Storage::delete('public/' . $user->avatar);
+            // if ($user->avatar && Storage::exists('public/' . $user->avatar)) {
+            //     Storage::delete('public/' . $user->avatar);
+            // }
+
+            if ($user->avatar && Storage::exists($user->avatar)) {
+                Storage::delete($user->avatar);
             }
+            
 
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $avatarPath;
