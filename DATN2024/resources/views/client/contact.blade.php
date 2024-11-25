@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="contact-us__form">
-          <form name="contact-us-form" class="needs-validation" novalidate>
+          {{-- <form name="contact-us-form" class="needs-validation" novalidate>
             <h3 class="mb-5">Get In Touch</h3>
             <div class="form-floating my-4">
               <input type="text" class="form-control" id="contact_us_name" placeholder="Name *" required>
@@ -54,7 +54,37 @@
             <div class="my-4">
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-          </form>
+          </form> --}}
+
+          <form action="{{ route('contact.submit') }}" method="POST" name="contact-us-form" class="needs-validation" novalidate>
+            @csrf
+            <h3 class="mb-5">Get In Touch</h3>
+            <div class="form-floating my-4">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="contact_us_name" name="name" placeholder="Name *" required>
+                <label for="contact_us_name">Name *</label>
+                @error('name')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-floating my-4">
+                <input type="email" class="form-control @error('name') is-invalid @enderror" id="contact_us_email" name="email" placeholder="Email address *" required>
+                <label for="contact_us_email">Email address *</label>
+                @error('email')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        
+            <div class="my-4">
+                <textarea class="form-control form-control_gray @error('name') is-invalid @enderror" name="message" placeholder="Your Message" cols="30" rows="8" required></textarea>
+                @error('message')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="my-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        
         </div>
       </div>
     </section>

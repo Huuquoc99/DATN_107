@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Client\ContactController;
 use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Client\CheckoutController;
@@ -67,6 +68,8 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('notfound', [HomeController::class, 'notfound'])->name('notfound');
 Route::get('about', [HomeController::class, 'about'])->name('about');
 Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
 Route::get('shop', [HomeController::class, 'shop'])->name('shop');
 
 
