@@ -13,7 +13,7 @@ class ShopController extends Controller
     {
         // $product = Product::paginate(9);
         $product = Product::where('is_active', 1)->with("catalogue")->get();
-        $catalogue = Catalogue::all();
+        $catalogue = Catalogue::where('is_active', 1)->get();
 
         return response()->json([
             'data' => [
