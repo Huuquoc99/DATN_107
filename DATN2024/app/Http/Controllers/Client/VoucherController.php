@@ -13,6 +13,7 @@ class VoucherController extends Controller
     {
         $catalogues = Catalogue::where('is_active', 1)->get();
         $vouchers = Voucher::query()->active()->whereColumn('used_quantity', '<', 'quantity')->get();
+        // dd($vouchers);
         return view('client.vouchers', compact('catalogues','vouchers'));
     }
 }
