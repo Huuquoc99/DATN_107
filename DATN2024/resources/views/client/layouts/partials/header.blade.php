@@ -24,36 +24,46 @@
         <div class="customer-forms__wrapper d-flex position-relative">
             <div class="customer__login">
                 <div class="aside-header d-flex align-items-center">
-                    <h1 class="text-uppercase fs-6 mb-0">Đăng nhập</h1>
+                    <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
                     <button class="btn-close-lg js-close-aside ms-auto"></button>
                 </div><!-- /.aside-header -->
 
                 <form action="{{ route('login') }}" method="POST" class="aside-content">
                     @csrf
-                    <div class="form-floating mb-3">
-                        <input name="email" type="email" class="input"
-                            id="customerNameEmailInput" placeholder="Email" required>
+                    {{-- <div class="form-floating mb-3"> --}}
+                        <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
+                            id="customerNameEmailInput" placeholder="Email">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         {{-- <label for="customerNameEmailInput">Email *</label> --}}
-                    </div>
+                    {{-- </div> --}}
 
                     <div class="pb-3"></div>
 
-                    <div class="form-label-fixed mb-3">
+                    {{-- <div class="form-label-fixed mb-3"> --}}
                         {{-- <label for="customerPasswordInput" class="form-label">Mật khẩu *</label> --}}
-                        <input name="password" id="customerPasswordInput" class="input"
-                            type="password" placeholder="Password" required>
-                    </div>
+                        <input name="password" id="customerPasswordInput" class="input form-control @error('password') is-invalid @enderror"
+                            type="password" placeholder="Password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                    {{-- </div> --}}
 
                     <!-- <div class="d-flex align-items-center mb-3 pb-2">
-                                                                    <div class="form-check mb-0">
-                                                                        <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
-                                                                            id="flexCheckDefault">
-                                                                        <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
-                                                                    </div>
-                                                                   
-                                                                </div> -->
+                            <div class="form-check mb-0">
+                                <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
+                            </div>
+                            
+                        </div> -->
 
-                    <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>
+                    <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
                     <div class="customer-option mt-4 text-center">
                         <span class="text-secondary">Chưa có tài khoản?</span>
