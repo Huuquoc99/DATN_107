@@ -170,9 +170,15 @@
                         <i class="fa-solid fa-angle-down fa-xl"></i>
                     </h3>
                     <ul class="categories-nav__list list-unstyled border-radius-10">
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
+                        @foreach($catalogues as $catalogue)
+                            <li class="categories-nav__item">
+                                <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                                    class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                            </li>
+                        @endforeach
+                        {{-- <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li> --}}
                     </ul>
                 </div>
 
