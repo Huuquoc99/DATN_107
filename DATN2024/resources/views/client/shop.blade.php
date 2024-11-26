@@ -45,9 +45,9 @@
                             <div class="accordion-body px-0 pb-0 pt-3">
                                 <ul class="list list-inline mb-0 text-dask">
                                     @foreach($catalogues as $catalogue)
-                                        <li class="list-item">
+                                        <li class="list-item" >
                                             <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                               class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                                                style="color: black" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -208,97 +208,98 @@
         <div class="shop-list flex-grow-1">
             <div class="d-flex justify-content-between mb-4 pb-md-2">
                 <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                    <a href="{{route('home')}}" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
-                    <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                    <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium">The
+                    <a href="{{route('home')}}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color: black">Home</a>
+                    <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1" style="color: black">/</span>
+                    <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color: black">The
                         Shop</a>
                 </div><!-- /.breadcrumb -->
             </div><!-- /.d-flex justify-content-between -->
             @if(count($products))
-                <div class="products-grid row row-cols-2 row-cols-md-4 p-2" id="products-grid">
-                    @foreach($products as $product)
-                        <div class="product-card-wrapper col-6 col-md-4 col-lg-3 mb-3 mb-md-4 mb-xxl-5 border-1">
-                            <div class="product-card">
-                                <div class="pc__img-wrapper">
-                                    <div class="swiper-container background-img js-swiper-slider">
-                                        <div class="swiper-wrapper">
-                                            <div class="">
-                                                <a href="{{ route('product.detail', $product->slug) }}">
-                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($product->img_thumbnail) }}"
-                                                        alt="{{ $product->name }}" style="width: 100%; height: auto;">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="products-grid row g-4 p-2" id="products-grid">
+                @foreach($products as $product)
+                    <div class="product-card-wrapper col-12 col-md-6 col-lg-4">
+                        <div class="product-card h-100 border rounded overflow-hidden position-relative shadow-sm">
+                            <!-- Hình ảnh sản phẩm -->
+                            <div class="pc__img-wrapper">
+                                <a href="{{ route('product.detail', $product->slug) }}">
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($product->img_thumbnail) }}" 
+                                         alt="{{ $product->name }}" 
+                                         class="img-fluid w-100 product-img">
+                                </a>
+                            </div>
+                            <!-- Nội dung sản phẩm -->
+                            <div class="p-3">
+                                <p class="pc__category text-muted mb-2">
+                                    {{ $product->catalogue->name ?? 'Danh mục chưa xác định' }}
+                                </p>
+                                <h6 class="pc__title">
+                                    <a href="{{ route('product.detail', $product->slug) }}" class="text-dark text-decoration-none">
+                                        <b>{{ \Illuminate\Support\Str::limit($product->name, 30) }}</b>
+                                    </a>
+                                </h6>
+                                <div class="product-card__price mt-2">
+                                    <span class="money price text-success fw-bold">
+                                        {{ number_format($product->price_regular, 0, ',', '.') }} VND
+                                    </span>
                                 </div>
-                                <div class="position-relative">
-                                    {{-- <p class="pc__category">{{ $product->catalogue->name }}</p> --}}
-                                    <p class="pc__category">{{ $product->catalogue->name ?? 'null' }}</p>
-                                    <h6 class="pc__title">
-                                        <a href="{{ route('product.detail', $product->slug) }}">
-                                            <b>{{ \Illuminate\Support\Str::limit($product->name, 30) }}</b>
-                                        </a>
-                                    </h6>
-                                    <div class="product-card__price d-flex">
-                                        <span class="money price">{{ number_format($product->price_regular, 0, ',', '.') }}
-                                            VND</span>
-                                    </div>
-                                    <div class="product-card__review d-flex align-items-center">
-                                        <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
-                                    </div>
+                                <div class="product-card__review d-flex align-items-center mt-2">
+                                    <span class="reviews-note text-secondary ms-1 small">8k+ reviews</span>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                @endforeach
+            </div>
+            <!-- Phân trang -->
+            <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
+                <!-- Link trang trước -->
+                @if ($products->onFirstPage())
+                    <span class="btn-link d-inline-flex align-items-center text-muted">
+                        <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_prev_sm" />
+                        </svg>
+                        <span class="fw-medium">PREV</span>
+                    </span>
+                @else
+                    <a href="{{ $products->previousPageUrl() }}" class="btn-link d-inline-flex align-items-center">
+                        <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_prev_sm" />
+                        </svg>
+                        <span class="fw-medium">PREV</span>
+                    </a>
+                @endif
+        
+                <ul class="pagination mb-0">
+                    @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                        <li class="page-item{{ $page == $products->currentPage() ? ' active' : '' }}">
+                            <a class="btn-link px-1 mx-2{{ $page == $products->currentPage() ? ' btn-link_active' : '' }}"
+                               href="{{ $url }}">{{ $page }}</a>
+                        </li>
                     @endforeach
-                </div>
-                <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
-                    <!-- Link trang trước -->
-                    @if ($products->onFirstPage())
-                        <span class="btn-link d-inline-flex align-items-center text-muted">
-                            <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_prev_sm" />
-                            </svg>
-                            <span class="fw-medium">PREV</span>
-                        </span>
-                    @else
-                        <a href="{{ $products->previousPageUrl() }}" class="btn-link d-inline-flex align-items-center">
-                            <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_prev_sm" />
-                            </svg>
-                            <span class="fw-medium">PREV</span>
-                        </a>
-                    @endif
-
-                    <ul class="pagination mb-0">
-                        @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-                            <li class="page-item{{ $page == $products->currentPage() ? ' active' : '' }}">
-                                <a class="btn-link px-1 mx-2{{ $page == $products->currentPage() ? ' btn-link_active' : '' }}"
-                                    href="{{ $url }}">{{ $page }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-
-                    @if ($products->hasMorePages())
-                        <a href="{{ $products->nextPageUrl() }}" class="btn-link d-inline-flex align-items-center">
-                            <span class="fw-medium me-1">NEXT</span>
-                            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_next_sm" />
-                            </svg>
-                        </a>
-                    @else
-                        <span class="btn-link d-inline-flex align-items-center text-muted">
-                            <span class="fw-medium me-1">NEXT</span>
-                            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_next_sm" />
-                            </svg>
-                        </span>
-                    @endif
-                </nav>
-            @else
-                <div class="text-center">Không có sản phẩm nào</div>
-            @endif
+                </ul>
+        
+                @if ($products->hasMorePages())
+                    <a href="{{ $products->nextPageUrl() }}" class="btn-link d-inline-flex align-items-center">
+                        <span class="fw-medium me-1">NEXT</span>
+                        <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_next_sm" />
+                        </svg>
+                    </a>
+                @else
+                    <span class="btn-link d-inline-flex align-items-center text-muted">
+                        <span class="fw-medium me-1">NEXT</span>
+                        <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_next_sm" />
+                        </svg>
+                    </span>
+                @endif
+            </nav>
+        @else
+            <div class="text-center">Không có sản phẩm nào</div>
+        @endif
+        
         </div>
-    </section><!-- /.shop-main container -->
+    </section>
 </main>
 @endsection
 @section('script')

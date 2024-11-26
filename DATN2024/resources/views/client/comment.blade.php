@@ -1,9 +1,9 @@
 <form name="customer-review-form" id="create-review-form" action="{{ route('comments.store',  $product->id) }}" method="post">
     @csrf
     <h5>Be the first to review</h5>
-    <p>Your email address will not be published. Required fields are marked *</p>
+    <p style="color: black; font-weight: 400" >Your email address will not be published. Required fields are marked *</p>
     <div class="select-star-rating">
-        <label>Your rating *</label>
+        <label>Your rating :</label>
         <span class="star-rating">
             <svg class="star-rating__star-icon form-rating is-selected" width="12" height="12" fill="#ccc" viewBox="0 0 12 12"
                  xmlns="http://www.w3.org/2000/svg">

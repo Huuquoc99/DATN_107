@@ -86,7 +86,7 @@
 
                 <div class="shopping-cart__totals-wrapper ">
                     <div class="sticky-content">
-                        <div class="shopping-cart__totals"
+                        {{-- <div class="shopping-cart__totals"
                             style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; background-color: #f9f9f9; max-width: 400px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <h3 style="font-size: 24px; margin-bottom: 20px; text-align: center; color: #333;">Cart Totals
                             </h3>
@@ -102,17 +102,7 @@
                                     style="font-weight: bold;padding-left: 32px; color: red;">111111111111111111111
                                     VND</span>
                             </div>
-                        </div>
-                        <div class="mb-3 pb-3 border-bottom">
-                            <div class="fw-medium mb-2">VOUCHER</div>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
-                                <button class="btn btn-dark" id="apply-voucher">Apply</button>
-                            </div>
-                            <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                The voucher code is invalid or has expired.
-                            </div>
-                        </div>
+                        </div> --}}
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
                                 <a href="{{ route('checkout.index') }}">

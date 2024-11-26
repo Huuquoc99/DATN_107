@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="password" class="input form-control @error('new_password') is-invalid @enderror" id="new_password" placeholder="Phone" name="new_password">
+                                            <input type="password" class="input form-control @error('new_password') is-invalid @enderror" id="new_password" placeholder="new_password" name="new_password">
                                             @error('new_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="password" class="input form-control @error('new_password_confirmation') is-invalid @enderror" id="new_password_confirmation" placeholder="Email" name="new_password_confirmation">
+                                            <input type="password" class="input form-control @error('new_password_confirmation') is-invalid @enderror" id="new_password_confirmation" placeholder="new_password_confirmation" name="new_password_confirmation">
                                             @error('new_password_confirmation')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

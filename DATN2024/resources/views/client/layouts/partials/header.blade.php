@@ -1,15 +1,18 @@
 
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
+    
+    
     <div class="container9 mt-5" style="max-width: 400px;">
+        <button class="btn-close-lg js-close-aside position-absolute top-0 end-0 m-2" aria-label="Close">
+        </button>
         @auth
         <div class="card9 shadow-lg">
             <div class="card9-header text-center bg-primary text-white">
-                <h4 class="mb-0">Thông tin người dùng</h4>
+                <h4 class="mb-0" style="color: white">Thông tin người dùng</h4>
             </div>
             <div class="card-body text-center">
                 <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
                 <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
-                {{-- Thêm các thông tin khác nếu cần --}}
                 <form action="{{ route('logout') }}" method="POST" class="mt-3">
                     @csrf
                     <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
@@ -21,64 +24,49 @@
     </div>
     
     @guest
-        <div class="customer-forms__wrapper d-flex position-relative">
-            <div class="customer__login">
-                <div class="aside-header d-flex align-items-center">
-                    <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
-                    <button class="btn-close-lg js-close-aside ms-auto"></button>
-                </div><!-- /.aside-header -->
+    <div class="customer-forms__wrapper d-flex position-relative">
+        <div class="customer__login">
+            <div class="aside-header d-flex align-items-center">
+                <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
+            </div><!-- /.aside-header -->
 
-                <form action="{{ route('login') }}" method="POST" class="aside-content">
-                    @csrf
-                    {{-- <div class="form-floating mb-3"> --}}
-                        <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
-                            id="customerNameEmailInput" placeholder="Email">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        {{-- <label for="customerNameEmailInput">Email *</label> --}}
-                    {{-- </div> --}}
+            <form action="{{ route('login') }}" method="POST" class="aside-content">
+                @csrf
+                <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
+                    id="customerNameEmailInput" placeholder="Email">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
 
-                    <div class="pb-3"></div>
+                <div class="pb-3"></div>
 
-                    {{-- <div class="form-label-fixed mb-3"> --}}
-                        {{-- <label for="customerPasswordInput" class="form-label">Mật khẩu *</label> --}}
-                        <input name="password" id="customerPasswordInput" class="input form-control @error('password') is-invalid @enderror"
-                            type="password" placeholder="Password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                    {{-- </div> --}}
+                <input name="password" id="customerPasswordInput"
+                    class="input form-control @error('password') is-invalid @enderror" type="password" placeholder="Password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
 
-                    <!-- <div class="d-flex align-items-center mb-3 pb-2">
-                            <div class="form-check mb-0">
-                                <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
-                                    id="flexCheckDefault">
-                                <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
-                            </div>
-                            
-                        </div> -->
+                <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
-                    <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
-
-                    <div class="customer-option mt-4 text-center">
-                        <span class="text-secondary">Chưa có tài khoản?</span>
-                        <a href="{{ route('register') }}" class="btn-text js-show-register">Tạo tài khoản</a>
-                    </div>
-                </form>
-            </div>
+                <div class="customer-option mt-4 text-center">
+                    <span class="text-secondary">Chưa có tài khoản?</span>
+                    <a href="{{ route('register') }}" class="btn-text js-show-register">Tạo tài khoản</a>
+                </div>
+            </form>
         </div>
+    </div>
     @endguest
 </div>
 
 
 
 
-<header id="header" class="header w-100 theme-bg-color bg-dark">
+
+<header id="header" class="fixed-top header w-100 theme-bg-color bg-dark">
     <!-- <div class="header-top bordered-20per">
         <div class="header-container mx-auto d-flex align-items-center">
             <ul class="list-unstyled d-flex flex-1 gap-3 m-0">
@@ -174,7 +162,7 @@
                             @foreach($catalogues as $catalogue)
                                 <li class="categories-nav__item">
                                     <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                        class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                                      style="color: black"   class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
                                 </li>
                             @endforeach
                         @endif
