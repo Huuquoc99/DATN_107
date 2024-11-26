@@ -1,6 +1,8 @@
 @extends('client.layouts.master')
 
 @section('content')
+<div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
+
     <h2 class="page-title pt-5">Order detail - {{ $order->code }}</h2>
 
     <section class="my-account container">
@@ -108,7 +110,7 @@
                                 {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                                        <button type="submit" class="huy">Hủy đơn hàng</button>
                                     </form>
                                 @elseif ($order->status_order_id == 2)
                                 {{ $order->statusOrder->name ?? 'N/A' }}
@@ -135,7 +137,7 @@
                                 @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" name="redirect" class="btn btn-success">Repayment</button>
+                                        <button type="submit" name="redirect" class="huy1">Repayment</button>
                                     </form>
                                 @endif
                             </td>
