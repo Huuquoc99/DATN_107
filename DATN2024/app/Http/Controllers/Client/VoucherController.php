@@ -6,6 +6,7 @@ use App\Models\Voucher;
 use App\Models\Catalogue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApplyVoucherRequest;
 
 class VoucherController extends Controller
 {
