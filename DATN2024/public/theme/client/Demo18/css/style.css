@@ -17210,7 +17210,10 @@ textarea.form-control.is-invalid {
         left: 1rem;
     }
 }
-
+.payment-icon, .trust-seal {
+    width: 38px;
+    height: 24px;
+  }
 .sub-menu__title {
     display: block;
     margin-bottom: 0.75rem;
@@ -17223,7 +17226,8 @@ textarea.form-control.is-invalid {
     display: inline-block;
     position: relative;
     padding: 0.5em 0;
-    color: #ffffff;
+    
+    
     line-height: 1.5em;
 }
 
