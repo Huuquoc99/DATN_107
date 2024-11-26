@@ -99,9 +99,10 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div>
+                            <div class="pagination-container">
                                 {{ $orders->links() }}
                             </div>
+                            
                         @endif
                     </div>
                 </div>

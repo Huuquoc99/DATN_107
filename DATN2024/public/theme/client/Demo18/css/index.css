@@ -915,7 +915,59 @@ h3 {
 
 
 
+.pagination-container nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+    gap: 10px;
+}
 
+.pagination-container nav ul li {
+    display: flex;
+}
+
+.pagination-container nav ul li a, 
+.pagination-container nav ul li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #4a4a4a;
+    font-size: 16px;
+    text-decoration: none;
+    border: 2px solid #f0f0f0;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.pagination-container nav ul li a:hover {
+    background-color: #4bb6b7;
+    color: #fff;
+    border-color: #4bb6b7;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 10px rgba(0, 123, 255, 0.3);
+}
+
+.pagination-container nav ul li span.current {
+    background-color: #4bb6b7;
+    color: #fff;
+    border-color: #4bb6b7;
+    font-weight: bold;
+    box-shadow: 0 6px 8px rgba(0, 123, 255, 0.5);
+}
+
+.pagination-container nav ul li a.disabled, 
+.pagination-container nav ul li span.disabled {
+    color: #ccc;
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+    box-shadow: none;
+}
 
 
 
