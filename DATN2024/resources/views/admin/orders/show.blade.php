@@ -117,7 +117,12 @@
                             <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_phone }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_district, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_province, 20, '...') }},
+                                
+
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'No notes provided' }}</li>
                         </ul>
@@ -185,7 +190,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-9">
+            <div class="col-xl-6">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
@@ -283,17 +288,61 @@
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i> Payment Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 ms-3 me-3">
+                                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST"
+                                    class="d-flex flex-column align-items-start">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group mb-3">
+                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width:320px">
+                                            @foreach ($statusPayments as $status)
+                                                <option value="{{ $status->id }}" 
+                                                    {{ $order->status_payment_id == $status->id ? 'selected' : '' }}
+                                                    {{ $order->status_payment_id == 2 && $status->id == 1 ? 'disabled' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        
+                                        
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update Payment Status</button>
+                                </form>
+                                @if (session('error1'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error1') }}
+                                    </div>
+                                @endif
+            
+                                @if (session('success1'))
+                                    <div class="alert alert-success">
+                                        {{ session('success1') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
                         <h5 class="card-title mb-0"><i class="ri-bubble-chart-fill"></i> Order Status</h5>
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
-                            <div class="flex-grow-1 ms-2">
+                            <div class="flex-grow-1 ms-3 me-3">
                                 <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST"
                                     class="d-flex flex-column align-items-start">
                                     @csrf
                                     <div class="form-group mb-3">
                                         <select name="status_order_id" id="status_order_id" class="form-control"
-                                            style="width:288px">
+                                            style="width:320px">
                                             @foreach ($statusOrders as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $order->status_order_id == $status->id ? 'selected' : '' }}
@@ -306,7 +355,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update status</button>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update Order Status</button>
                                 </form>
                                 @if (session('error'))
                                     <div class="alert alert-danger">

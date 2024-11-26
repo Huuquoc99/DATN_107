@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
@@ -83,6 +84,7 @@ class DashboardController extends Controller
             users.id,
             users.name,  -- explicitly include name here
             users.email,  -- include other necessary fields
+            users.avatar,
             COUNT(orders.id) AS total_orders,
             SUM(order_items.quantity) AS total_quantity_bought,
             SUM(order_items.product_price_sale * order_items.quantity) AS total_spent
@@ -90,13 +92,27 @@ class DashboardController extends Controller
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->join('users', 'users.id', '=', 'orders.user_id')  
             ->where('orders.status_order_id', '1')
-            ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email')  
+            ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')  
             ->orderByDesc('total_spent') 
             ->get();
+    
         
-        $totalEarnings = Order::sum('total_price');
+        $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
+        // dd($totalEarnings);
+        $totalOrders = Order::count(); 
+        $totalCustomers = User::count();
+        $totalProducts = Product::count();
 
-        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings')); 
+        $topOrders = Order::with('orderItems.product')
+            ->get()
+            ->sortByDesc(function ($order) {
+                return $order->orderItems->sum(function ($item) {
+                    return $item->product_price_sale * $item->quantity;
+                });
+            })
+            ->take(4);
+        // $orders = Order::with('user', 'orderItems.product')->get();
+        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings', 'totalOrders', 'totalCustomers', 'totalProducts', 'topOrders')); 
     }
 
 

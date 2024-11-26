@@ -105,17 +105,18 @@
   box-sizing: border-box; }
 
 @media (prefers-reduced-motion: no-preference) {
-    :root {
-        scroll-behavior: smooth;
-    }
+  :root {
+    scroll-behavior: smooth; } }
+html{
+  
 }
-
-
 body {
-    /* overflow-x: hidden; */
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  
 }
+    
 
 [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important;
@@ -13800,10 +13801,10 @@ fieldset:disabled .btn {
 .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
     background-color: #dde0e3;
 }
-.form-control[type="password"] {
+/* .form-control[type="password"] {
     font-family: "Trebuchet MS", sans-serif;
     letter-spacing: 0.18em;
-}
+} */
 
 .form-control_gray {
     border-color: #e4e4e4;
@@ -17657,7 +17658,9 @@ textarea.form-control.is-invalid {
     margin-right: auto;
 }
 
-
+.header-desk_type_6 {
+    /* border-bottom: 1px solid #e4e4e4; */
+}
 .header-desk_type_6 .header-middle {
     padding: 1.25rem 0;
     padding-top:5px;
@@ -22070,3 +22073,11 @@ body.coming-soon-page .header {
 .testimonial-card:not(.swiper-slide-active) {
     opacity: 0.5;
 }
+
+.shop_active{
+    color: #009981 !important;
+    font-weight: bold;
+  }
+  .shop_bg_active{
+    background-color: #009981 !important;
+  }

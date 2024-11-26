@@ -15,16 +15,16 @@
                                         <a href="{{ route('shop') }}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color:black">The Shop</a>
                                     </div><!-- /.breadcrumb -->
                                 </div>
-                                <div class="product-gallery-horizontal d-flex justify-content-center" style="padding-left: 55px">
+                                <div class="product-gallery-horizontal d-flex justify-content-center">
                                     <div class="main-image-container">
-                                        <img id="mainImage" style="height: 500px; width: 600px;" src="{{ Storage::url($product->img_thumbnail) }}"
+                                        <img id="mainImage" style="height: 515px; width: 600px;" src="{{ Storage::url($product->img_thumbnail) }}"
                                             class="main-image" alt="{{ $product->name }}">
                                         <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn"
                                             data-fancybox="gallery">
                                             <i class="fas fa-search-plus"></i>
                                         </a>
                                     </div>
-                                    <div class="thumbnail-column">
+                                    <div class="thumbnail-column" style="padding-left: 30px">
                                         @foreach ($product->galleries as $image)
                                             <div class="thumb-item">
                                                 <img src="{{ Storage::url($image->image) }}"
@@ -134,8 +134,8 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore" id="tab-reviews-tab" data-bs-toggle="tab"
-                            href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews
-                            (2)</a>
+                           href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews
+                            ( <span id="review-count">{{ $comments->total() }} </span>)</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -193,86 +193,53 @@
 
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>
-                        <div class="product-single__reviews-list">
-                            <div class="product-single__reviews-item">
-                                <div class="customer-avatar">
-                                    <img loading="lazy" src="../images/avatar.jpg" alt="">
-                                </div>
-                                <div class="customer-review">
-                                    <div class="customer-name">
-                                        <h6>Janice Miller</h6>
-                                        <div class="reviews-group d-flex">
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="review-date">April 06, 2023</div>
-                                    <div class="review-text">
-                                        <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
-                                            minus id quod maxime placeat facere possimus, omnis voluptas assumenda est…</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-single__reviews-item">
-                                <div class="customer-avatar">
-                                    <img loading="lazy" src="../images/avatar.jpg" alt="">
-                                </div>
-                                <div class="customer-review">
-                                    <div class="customer-name">
-                                        <h6>Benjam Porter</h6>
-                                        <div class="reviews-group d-flex">
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                            <svg class="review-star" viewBox="0 0 9 9"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <use href="#icon_star" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="review-date">April 06, 2023</div>
-                                    <div class="review-text">
-                                        <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
-                                            minus id quod maxime placeat facere possimus, omnis voluptas assumenda est…</p>
-                                    </div>
-                                </div>
-                            </div>
+                        @include('client.list-comment', [
+                            'productId' => $product->id,
+                            'comments' => $comments,
+                        ])
+                        <div class="text-center load-more-container" style="display: {{ $comments->hasMorePages() ? 'block' : 'none' }}">
+                            <button id="load-more-reviews" class="btn btn-sm btn-primary load-more-reviews">Load More</button>
                         </div>
-                        <div class="product-single__review-form">
-                            @include('client.comment')
+                        <div class="product-single__review-form mt-4">
+                            @include('client.comment', [
+                                'comments' => $comments,
+                                'product_id' => $product->id,
+                            ])
                         </div>
                     </div>
+                </div>
+            </div>
+                @include('client.modal-update-comment', [
+                            'comments' => $comments,
+                            'product_id' => $product->id,
+                        ])
+
+            <div class="tab-pane fade" id="collections-tab-3" role="tabpanel" aria-labelledby="collections-tab-3-trigger">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-4">
+                    @foreach($relatedProducts as $item)
+                    <div class="product-card-wrapper mb-4">
+                        <div class="product-card product-card_style9 border rounded-3 bg-white h-100">
+                            <div class="position-relative">
+                                <a href="{{ route('product.detail', $item->slug) }}" class="">
+                                    <div class="pc__img-wrapper pc__img-wrapper_wide3 overflow-hidden ">
+                                        <img loading="lazy"
+                                            src="{{ \Illuminate\Support\Facades\Storage::url($item->img_thumbnail) }}"
+                                            alt="{{ $item->name }}"
+                                            class="pc__img img-fluid w-75 h-auto" style="margin-left: 25px; margin-top:20px;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="pc__info position-relative">
+                                <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
+                                <h6 class="pc__title fs-16 mb-2"><a href="">{{ \Illuminate\Support\Str::limit($item->name, 20) }}</a></h6>
+                                
+                                <div class="product-card__price d-flex">
+                                    <span class="money price fs-16 fw-semi-bold">{{ number_format($item->price_regular, 0, ',', '.') }} VND</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Client;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Catalogue;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
+use App\Models\ProductCapacity;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -13,22 +15,26 @@ class HomeController extends Controller
     public function index()
     {
         $productActive = Product::with(['variants', 'galleries'])
-            ->where('is_active', 1)
+            ->active()
             ->get();
 
         $productHot = Product::with(['variants', 'galleries'])
+            ->active()
             ->where('is_hot_deal', 1)
             ->get();
 
         $productGood = Product::with(['variants', 'galleries'])
+            ->active()
             ->where('is_good_deal', 1)
             ->get();
 
         $productNew = Product::with(['variants', 'galleries'])
+            ->active()
             ->where('is_new', 1)
             ->get();
 
         $productHome = Product::with(['variants', 'galleries'])
+            ->active()    
             ->where('is_show_home', 1)
             ->get();
 
@@ -37,16 +43,25 @@ class HomeController extends Controller
 
         $banners = Banner::where('is_active', 1)->get();
 
-        $catalogues = Catalogue::where('is_active', 1)->get();
-        $products = Product::query()->latest('id')->paginate(8);
-        return view('client.home', compact('products', 'catalogues'));
+        $products = Product::query()->active()->latest('id')->paginate(8);
+        return view('client.home', compact(
+                "productActive",
+            "productHot",
+            "productGood",
+            "productNew",
+            "productHome",
+            "catalogues",
+            "banners",
+            "catalogues",
+            "products"
+        ));
 
     }
 
 
     public function productByCatalogue($id)
     {
-        $products = Product::query()->where('catalogue_id', $id)->paginate(1);
+        $products = Product::query()->active()->where('catalogue_id', $id)->paginate(1);
         return view('client.shop', [
             'products' => $products,
             'source' => 'catalogue',
@@ -61,30 +76,6 @@ class HomeController extends Controller
     //         'products' => $products,
     //         'source' => 'shop',
     //         'title' => 'All products'
-    //     ]);
-    // }
-
-    // public function search(Request $request)
-    // {
-    //     $keyword = $request->input('keyword');
-
-    //     $query = Product::query();
-
-    //     if (!empty($keyword)) {
-    //         $query->where('name', 'LIKE', '%' . $keyword . '%')
-    //             ->orWhereHas('catalogue', function ($q) use ($keyword) {
-    //                 $q->where('name', 'LIKE', '%' . $keyword . '%');
-    //             });
-    //     }
-
-    //     $products = $query->paginate(12);
-
-
-    //     return view('client.shop', [
-    //         'products' => $products,
-    //         'source' => 'search',
-    //         'keyword' => $keyword,
-    //         'title' => 'Search Results'
     //     ]);
     // }
 
@@ -152,19 +143,25 @@ class HomeController extends Controller
         }
         $products = $products->latest('id')->paginate($limit);
         $catalogues = Catalogue::query()->active()->get();
-        $capacities = ['32gb', '64gb', '128gb', '256gb', '512gb', '1t'];
+        $colors = ProductColor::query()->active()->pluck('color_code');
+        $capacities = ProductCapacity::query()->active()->pluck('name');
 
         return view('client.shop', [
             'products' => $products,
             'catalogues' => $catalogues,
             'capacities' => $capacities,
+            'colors' => $colors,
             'source' => 'shop',
             'title' => 'All products'
         ]);
     }
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
 
-    public function search(Request $request)
-    {
+
+
+    public function search(Request $request) {
         $limit = 8;
         $search = $request->get('k');
         $products = Product::query()->active();
@@ -177,6 +174,7 @@ class HomeController extends Controller
             'products' => $products
         ]);
     }
+
 
     public function about()
     {

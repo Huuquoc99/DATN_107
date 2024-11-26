@@ -28,8 +28,10 @@
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

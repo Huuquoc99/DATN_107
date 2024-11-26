@@ -1,58 +1,69 @@
-<div class="aside aside_right overflow-hidden customer-forms" id="customerForms" style>
-    <div class="container mt-5" style="max-width: 400px;">
-        @auth
-            <div class="card shadow-sm">
-                <div class="card-header text-center bg-primary text-white">
-                    <h4 class="mb-0">Thông tin người dùng</h4>
-                </div>
-                <div class="card-body text-center">
-                    <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
-                    <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
-                    {{-- Thêm các thông tin khác nếu cần --}}
-                    <form action="{{ route('logout') }}" method="POST" class="mt-3">
-                        @csrf
-                        <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
-                    </form>
-                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary">My Account</a>
 
-                </div>
+<div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
+    <div class="container9 mt-5" style="max-width: 400px;">
+        @auth
+        <div class="card9 shadow-lg">
+            <div class="card9-header text-center bg-primary text-white">
+                <h4 class="mb-0">Thông tin người dùng</h4>
             </div>
+            <div class="card-body text-center">
+                <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
+                <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
+                {{-- Thêm các thông tin khác nếu cần --}}
+                <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                    @csrf
+                    <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
+                </form>
+                <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">My Account</a>
+            </div>
+        </div>
         @endauth
     </div>
+    
     @guest
         <div class="customer-forms__wrapper d-flex position-relative">
             <div class="customer__login">
                 <div class="aside-header d-flex align-items-center">
-                    <h3 class="text-uppercase fs-6 mb-0">Đăng nhập</h3>
+                    <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
                     <button class="btn-close-lg js-close-aside ms-auto"></button>
                 </div><!-- /.aside-header -->
 
                 <form action="{{ route('login') }}" method="POST" class="aside-content">
                     @csrf
-                    <div class="form-floating mb-3">
-                        <input name="email" type="email" class="form-control form-control_gray" id="customerNameEmailInput"
-                            placeholder="name@example.com" required>
-                        <label for="customerNameEmailInput">Email *</label>
-                    </div>
+                    {{-- <div class="form-floating mb-3"> --}}
+                        <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
+                            id="customerNameEmailInput" placeholder="Email">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        {{-- <label for="customerNameEmailInput">Email *</label> --}}
+                    {{-- </div> --}}
 
                     <div class="pb-3"></div>
 
-                    <div class="form-label-fixed mb-3">
-                        <label for="customerPasswordInput" class="form-label">Mật khẩu *</label>
-                        <input name="password" id="customerPasswordInput" class="form-control form-control_gray"
-                            type="password" placeholder="********" required>
-                    </div>
+                    {{-- <div class="form-label-fixed mb-3"> --}}
+                        {{-- <label for="customerPasswordInput" class="form-label">Mật khẩu *</label> --}}
+                        <input name="password" id="customerPasswordInput" class="input form-control @error('password') is-invalid @enderror"
+                            type="password" placeholder="Password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                    {{-- </div> --}}
 
                     <!-- <div class="d-flex align-items-center mb-3 pb-2">
-                                                                    <div class="form-check mb-0">
-                                                                        <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
-                                                                            id="flexCheckDefault">
-                                                                        <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
-                                                                    </div>
-                                                                   
-                                                                </div> -->
+                            <div class="form-check mb-0">
+                                <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label text-secondary" for="flexCheckDefault">Nhớ tài khoản</label>
+                            </div>
+                            
+                        </div> -->
 
-                    <button class="btn btn-primary w-100 text-uppercase" type="submit">Đăng nhập</button>
+                    <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
                     <div class="customer-option mt-4 text-center">
                         <span class="text-secondary">Chưa có tài khoản?</span>
@@ -124,7 +135,7 @@
                             <a href="#" class="navigation__link text-white">Blog</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link text-white">Pages</a>
+                            <a href="{{route("voucher")}}" class="navigation__link text-white">Voucher</a>
                         </li>
                         <li class="navigation__item">
                             <a href="{{ route('about') }}" class="navigation__link text-white">About</a>
@@ -143,25 +154,33 @@
                     </div>
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
+                        {{-- <span class="cart-amount d-block position-absolute js-cart-items-count">3</span> --}}
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="header-bottom pb-4 mb-2">
+        <div class="header-bottom pb-4">
             <div class="header-container mx-auto d-flex align-items-center ">
                 <div class="categories-nav position-relative">
                     <h3
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
                     </h3>
                     <ul class="categories-nav__list list-unstyled border-radius-10">
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
+                        @if(isset($catalogues) && $catalogues->isNotEmpty())
+                            @foreach($catalogues as $catalogue)
+                                <li class="categories-nav__item">
+                                    <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                                        class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                                </li>
+                            @endforeach
+                        @endif
+                        {{-- <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
                         <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li>
+                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li> --}}
                     </ul>
                 </div>
 
