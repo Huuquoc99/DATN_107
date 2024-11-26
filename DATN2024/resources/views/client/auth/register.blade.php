@@ -98,26 +98,26 @@
                 @csrf
                 <h2><b>Sign up</b></h2>
                 {{-- <div> --}}
-                    <input class="input form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
+                    <input class="input  @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 {{-- </div> --}}
-                <input class="input form-control @error('email') is-invalid @enderror" type="email" placeholder="Email"   name="email">
+                <input class="input  @error('email') is-invalid @enderror" type="email" placeholder="Email"   name="email">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <input class="input form-control @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
+                <input class="input  @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <input class="input form-control @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Password confirm" name="password_confirmation">
+                <input class="input  @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Password confirm" name="password_confirmation">
                     @error('password_confirmation')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -136,13 +136,13 @@
             <form class="form" action="{{ route('login') }}" method="POST">
                 @csrf
                 <h2><b>Sign In</b></h2>
-                <input class="input form-control @error('email') is-invalid @enderror" type="email" placeholder="Email" name="email">
+                <input class="input l @error('email') is-invalid @enderror" type="email" placeholder="Email" name="email">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <input class="input form-control @error('password') is-invalid @enderror" type="password " placeholder="Password" name="password">
+                <input class="input  @error('password') is-invalid @enderror" type="password " placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
