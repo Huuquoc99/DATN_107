@@ -1,43 +1,45 @@
 @extends('client.layouts.master')
+
 @section('content')
-    <main class="container">
-        <h1 style="text-transform: uppercase;
-        font-weight: 900;
-        border-left: 10px solid #fec500;
-        padding-left: 10px;
-        margin: 30px 0">Voucher</h1>
-        <div class="row list-vouchers">
-            @foreach($vouchers as $voucher)
-                <div class="col-6 col-md-6 col-lg-6 voucher">
-                    <div class="d-flex item">
-                        <div class="col-3 col-md-3 col-lg-3 col-sm-3 col-xs-3 head">
-                            <div class="left"></div>
-                            <div class="voucher-logo"> {{number_format($voucher['discount']/1000)}}K</div>
+<main class="container">
+    <h1 style="text-transform: uppercase;
+    font-weight: 900;
+    border-left: 10px solid #fec500;
+    padding-left: 10px;
+    margin: 30px 0">Voucher</h1>
+    <div class="row list-vouchers">
+        @foreach($vouchers as $voucher)
+            <div class="col-6 col-md-6 col-lg-6 voucher">
+                <div class="d-flex item">
+                    <div class="col-3 col-md-3 col-lg-3 col-sm-3 col-xs-3 head">
+                        <div class="left"></div>
+                        <div class="voucher-logo"> {{number_format($voucher['discount']/1000)}}K</div>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-9 content">
+                        <div class="redirect">
                         </div>
-                        <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-9 content">
-                            <div class="redirect">
-                            </div>
-                            <div class="item-name">{{ $voucher['code'] }}</div>
-                            <div>
-                                <div class="progress" style="height:10px; background-color: #e1e1e1; margin: 17px 0;">
-                                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                                        aria-valuenow="{{floor($voucher['used_quantity']/$voucher['quantity']*100)}}" aria-valuemin="1" aria-valuemax="100" style="width: {{floor($voucher['used_quantity']/$voucher['quantity']*100)}}%">
-                                    </div>
+                        <div class="item-name">{{ $voucher['code'] }}</div>
+                        <div>
+                            <div class="progress" style="height:10px; background-color: #e1e1e1; margin: 17px 0;">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                     aria-valuenow="{{floor($voucher['used_quantity']/$voucher['quantity']*100)}}" aria-valuemin="1" aria-valuemax="100" style="width: {{floor($voucher['used_quantity']/$voucher['quantity']*100)}}%">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-8  expire-date">
-                                    {{ (floor($voucher['used_quantity']/$voucher['quantity']*100) != 100) ? 'Đã dùng ' . floor($voucher['used_quantity']/$voucher['quantity']*100) . '%' : '' }}
-                                </div>
-                                <div class="expire-date">Hết hạn ngày: {{date('Y-m-d', strtotime($voucher['expiration_date']))}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-8  expire-date">
+                                {{ (floor($voucher['used_quantity']/$voucher['quantity']*100) != 100) ? 'Đã dùng ' . floor($voucher['used_quantity']/$voucher['quantity']*100) . '%' : '' }}
                             </div>
+                            <div class="expire-date">Hết hạn ngày: {{date('Y-m-d', strtotime($voucher['expiration_date']))}}</div>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </main>
+            </div>
+        @endforeach
+    </div>
+</main>
     <style>
+
         .list-vouchers {
             padding: 15px 0;
         }
@@ -147,11 +149,13 @@
         .list-vouchers .voucher .content .condition a {
             color: #00546f;
         }
+
         .voucher-wallet {
             max-width: 1000px;
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
         #voucher_detail .modal-dialog {
             width: 25rem;
             height: 40rem;
@@ -230,16 +234,20 @@
         #voucher_detail .modal-dialog .modal-content .modal-body .voucher-foot button:hover {
             background-color: #e7674d;
         }
+
         .cart-voucher {
             bottom: -45px !important;
         }
+
         .unica-about-block-5 .custom-text, .unica-about-block-6 .custom-text {
             line-height: 25px;
             text-align: justify;
         }
+
         .box-about-bot {
             min-height: 360px !important;
         }
+
         @keyframes myfirst {
             0% {
                 left: 10%;
