@@ -58,4 +58,9 @@ class Order extends Model
     {
         return $this->belongsTo(PaymentMethod::class);
     }
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
 }
