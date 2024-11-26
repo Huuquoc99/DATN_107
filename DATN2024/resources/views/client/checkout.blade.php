@@ -121,9 +121,15 @@
                                             <th>SUBTOTAL</th>
                                             <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
                                         </tr>
+                                        @if ($voucher)
+                                            <tr>
+                                                <th>DISCOUNT</th>
+                                                <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
+                                            <tr>
+                                        @endif
                                         <tr>
                                             <th>TOTAL</th>
-                                            <td>{{ number_format($item->price * $item->quantity, 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($item->price * $item->quantity - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                     @else
                                         <tr>

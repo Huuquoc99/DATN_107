@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Client;
 use Log;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Voucher;
 use App\Models\CartItem;
 use App\Mail\OrderPlaced;
 use App\Models\OrderItem;
+use App\Traits\VnPayTrait;
 use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
@@ -19,7 +21,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
-use App\Traits\VnPayTrait;
 
 class CheckoutController extends Controller
 {
@@ -31,6 +32,7 @@ class CheckoutController extends Controller
 
         $paymentMethods = PaymentMethod::all();
 
+        $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
         if(Auth::check()) {
             $user = Auth::user();
             $cart = Cart::where('user_id', $user->id)->first();
@@ -58,7 +60,7 @@ class CheckoutController extends Controller
                 }
             }
 
-            return view('client.checkout', compact('user', 'cartItems', 'paymentMethods', 'provinces'));
+            return view('client.checkout', compact('user', 'cartItems', 'paymentMethods', 'provinces', 'voucher'));
 
 
         } else {
@@ -72,7 +74,7 @@ class CheckoutController extends Controller
                 }
             }
 
-            return view('client.guest.checkout', compact('guest_cart', 'paymentMethods','provinces'));
+            return view('client.guest.checkout', compact('guest_cart', 'paymentMethods','provinces', 'voucher'));
         }
     }
 
@@ -97,7 +99,7 @@ class CheckoutController extends Controller
     public function processCheckoutForGuests(Request $request) {
 
         $guest_cart = session('cart', []);
-
+        $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
             'ship_user_email' => 'required|email|max:255',
@@ -125,11 +127,15 @@ class CheckoutController extends Controller
             'ship_user_phone' => $request->ship_user_phone,
             'ship_user_address' => $request->ship_user_address,
             'payment_method_id' => $paymentMethodId,
-            'total_price' => $this->calculateTotalGuests($guest_cart),
+            'total_price' => $this->calculateTotalGuests($guest_cart) - ($voucher ? $voucher->discount : 0),
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
+            'voucher_id' => $voucher ? $voucher->id : null,
         ]);
+
+        $voucher->used_quantity += 1;
+        $voucher->save();
 
 
         foreach ($guest_cart as $item) {
@@ -153,6 +159,8 @@ class CheckoutController extends Controller
 
 
         session(['order_code' => $order->code]);
+        session()->save();
+        session()->forget('voucher');
 
         if ($paymentMethodId == 2) {
 
@@ -195,6 +203,7 @@ class CheckoutController extends Controller
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->first();
         $paymentMethodId = $request->input('payment_method_id');
+        $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
 
         // Tạo đơn hàng
         $order = Order::create([
@@ -215,15 +224,17 @@ class CheckoutController extends Controller
 
 
             'payment_method_id' => $paymentMethodId,
-            'total_price' => $this->calculateTotal($cart->id),
+            'total_price' => $this->calculateTotal($cart->id) - ($voucher ? $voucher->discount : 0),
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
+            'voucher_id' => $voucher ? $voucher->id : null,
         ]);
-        $this->deductStockProduct();
 
         $this->deductStockProduct();
 
+        $voucher->used_quantity += 1;
+        $voucher->save();
 
         foreach ($cart->items as $item) {
             $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
@@ -244,6 +255,7 @@ class CheckoutController extends Controller
             ]);
         }
 
+        session()->forget('voucher');
 
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);

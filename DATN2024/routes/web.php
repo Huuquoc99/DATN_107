@@ -73,6 +73,7 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 Route::get('shop', [HomeController::class, 'shop'])->name('shop');
 Route::get('vouchers', [ClientVoucherController::class, 'index'])->name('voucher');
+Route::post('apply-voucher', [ClientVoucherController::class, 'applyVoucher']);
 
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
