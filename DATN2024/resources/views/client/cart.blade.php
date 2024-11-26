@@ -85,7 +85,7 @@
 
                 <div class="shopping-cart__totals-wrapper ">
                     <div class="sticky-content">
-                        <div class="shopping-cart__totals"
+                        {{-- <div class="shopping-cart__totals"
                             style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; background-color: #f9f9f9; max-width: 400px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <h3 style="font-size: 24px; margin-bottom: 20px; text-align: center; color: #333;">Cart Totals
                             </h3>
@@ -101,7 +101,7 @@
                                     style="font-weight: bold;padding-left: 32px; color: red;">111111111111111111111
                                     VND</span>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
                                 <a href="{{ route('checkout.index') }}">
