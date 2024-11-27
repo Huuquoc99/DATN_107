@@ -33,6 +33,7 @@ use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
 use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\VoucherController as ClientVoucherController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
@@ -72,6 +73,7 @@ Route::get('contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::get('shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('blog', [BlogController::class, 'index'])->name('blog');
 Route::get('vouchers', [ClientVoucherController::class, 'index'])->name('voucher');
 Route::post('apply-voucher', [ClientVoucherController::class, 'applyVoucher']);
 
