@@ -35,21 +35,19 @@ class CatalogueController extends Controller
      */
     public function store(CatalogueRequest $request)
     {
-        if($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             $param = $request->except("_token");
 
-            if($request->hasFile("cover"))
-            {
+            if ($request->hasFile("cover")) {
                 $filepath = $request->file("cover")->store("uploads/catalogues", "public");
-            }else{
+            } else {
                 $filepath = null;
             }
 
             $param["cover"] = $filepath;
             $param['is_active'] = $request->has('is_active') ? 1 : 0;
             $catalogue = Catalogue::create($param);
-            $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
+            // $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
             // return response()->json(['message' => 'Catalogue created successfully']);
             return redirect()->route("admin.catalogues.index")->with("success", "Catalogue created successfully");
@@ -81,17 +79,15 @@ class CatalogueController extends Controller
      */
     public function update(CatalogueRequest $request, string $id)
     {
-        if($request->isMethod("PUT"))
-        {
+        if ($request->isMethod("PUT")) {
             $param = $request->except("_token", "_method");
             $catalogue = Catalogue::findOrFail($id);
-            if($request->hasFile("cover")){
-                if($catalogue->cover && Storage::disk("public")->exists($catalogue->cover))
-                {
+            if ($request->hasFile("cover")) {
+                if ($catalogue->cover && Storage::disk("public")->exists($catalogue->cover)) {
                     Storage::disk("public")->delete($catalogue->cover);
                 }
                 $filepath = $request->file("cover")->store("uploads/catalogues", "public");
-            }else{
+            } else {
                 $filepath = $catalogue->cover;
             }
 
@@ -114,8 +110,7 @@ class CatalogueController extends Controller
     {
         $catalogue = Catalogue::findOrFail($id);
         $catalogue->delete();
-        if($catalogue->cover && Storage::disk("public")->exists($catalogue->cover))
-        {
+        if ($catalogue->cover && Storage::disk("public")->exists($catalogue->cover)) {
             Storage::disk("public")->delete($catalogue->cover);
         }
 
