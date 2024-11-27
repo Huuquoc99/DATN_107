@@ -239,12 +239,14 @@ class CheckoutController extends Controller
 
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);
+        } else {
+            // Xóa giỏ hàng sau khi thanh toán
+            $cart->items()->delete();
+
+            GuestOrderPlaced::dispatch($order);
+
+            return redirect()->route('checkout.success');
         }
-
-        // Xóa giỏ hàng sau khi thanh toán
-        $cart->items()->delete();
-
-        return redirect()->route('checkout.success');
     }
 
     protected function processVNPAY(Order $order) {

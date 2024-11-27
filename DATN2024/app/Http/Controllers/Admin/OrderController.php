@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\AdminNotification;
 use App\Models\Order;
 use App\Models\StatusOrder;
 use App\Mail\OrderCancelled;
@@ -65,19 +66,36 @@ class OrderController extends Controller
             return view('admin.orders.data', compact('orders', ));
         }
         $orderStatuses = StatusOrder::all();
+        $statusPayments  = StatusPayment::all();
         $orders = $orders->paginate(10);
 
-        return view('admin.orders.index', compact('orders', 'orderStatuses'));
+        return view('admin.orders.index', compact('orders', 'orderStatuses', 'statusPayments'));
     }
+
+//    public function show(Order $order)
+//    {
+//
+//        $order->load('orderItems.product', 'statusOrder', 'statusPayment');
+//        $statusOrders = StatusOrder::all();
+//        $statusPayments = StatusPayment::all();
+//
+//        return view('admin.orders.show', compact('order', 'statusOrders', "statusPayments"));
+//    }
 
     public function show(Order $order)
     {
+        if (!empty(request()->get('noti'))) {
+            $notification = AdminNotification::find(request()->get('noti'));
+            $notification->read_at = now();
+            $notification->save();
+            broadcast(new \App\Events\AdminNotification(\App\Models\AdminNotification::unread()->count()));
+        }
 
         $order->load('orderItems.product', 'statusOrder', 'statusPayment');
         $statusOrders = StatusOrder::all();
-        $statusPayments = StatusPayment::all();
+        $statusPayments  = StatusPayment::all();
 
-        return view('admin.orders.show', compact('order', 'statusOrders', "statusPayments"));
+        return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments'));
     }
 
     public function updateStatus(Request $request, $id)

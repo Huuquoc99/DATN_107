@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\GuestOrderPlaced;
+use App\Listeners\NotificationOrderPlaced;
 use App\Listeners\SendOrderConfirmationEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,8 +22,10 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         GuestOrderPlaced::class => [
-            SendOrderConfirmationEmail::class
+            NotificationOrderPlaced::class,
+            SendOrderConfirmationEmail::class,
         ]
+
     ];
 
     /**

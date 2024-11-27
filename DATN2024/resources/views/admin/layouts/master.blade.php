@@ -28,7 +28,7 @@
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -108,7 +108,7 @@
 <script src="{{ asset('theme/admin/assets/js/product-galleries.js') }}"></script>
 <script src="{{ asset('theme/admin/assets/js/product.js') }}"></script>
 
-{{--<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>--}}
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 {{--<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>--}}
 {{--<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>--}}
 
@@ -116,7 +116,39 @@
 
 <!-- App js -->
 <script src="{{ asset('theme/admin/assets/js/app.js') }}"></script>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
 
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('{{env('PUSHER_APP_KEY')}}', {
+        cluster: '{{env('PUSHER_APP_CLUSTER')}}'
+    });
+    console.log(123)
+    var channel = pusher.subscribe('channel-notification');
+    channel.bind('notification-admin', function(data) {
+        console.log(1)
+        console.log(data.count)
+        $('.count-noti').html(data.count)
+        getNoti()
+    });
+    $('#page-header-notifications-dropdown').click(function () {
+        getNoti()
+    })
+
+    function getNoti(){
+        console.log(12111)
+        $.ajax({
+            url: '{{route('admin.notification.index')}}',
+            type: "get",
+            datatype: "html",
+            success: function (data) {
+                $("#notification-content").html(data);
+            }
+        })
+    }
+</script>
 @yield('scripts')
 </body>
 
