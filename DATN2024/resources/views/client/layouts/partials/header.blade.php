@@ -120,7 +120,7 @@
                             <a href="/shop" class="navigation__link text-white">Shop</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link text-white">Blog</a>
+                            <a href="{{ route("blog")}}" class="navigation__link text-white">Blog</a>
                         </li>
                         <li class="navigation__item">
                             <a href="{{route("voucher")}}" class="navigation__link text-white">Voucher</a>
