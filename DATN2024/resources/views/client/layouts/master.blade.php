@@ -26,7 +26,11 @@
 
             body {
                 padding-top: 60px;
+                overflow-x: hidden;
             }
+            .site-footer {
+        
+        }
         </style>
         @include('client.layouts.partials.header')
     </header>
@@ -44,9 +48,3 @@
     @yield('script')
 </body>
 </html>
-{{-- <styl>
-    body {
-        transform: scale(0.8); 
-        transform-origin: top center;
-}
- </styl> --}}
