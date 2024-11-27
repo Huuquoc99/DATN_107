@@ -43,6 +43,10 @@ span {
     font-size: 14px;
     margin-top: 25px;
 }
+.input-custom {
+    border-radius: 20px;
+}
+
 .container2{
     display: flex;
     /* background-color: #f6f5f7; */
