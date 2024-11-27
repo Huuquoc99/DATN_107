@@ -7237,8 +7237,36 @@ progress {
         padding-top: 1.5rem !important;
     }
 
-    .pt-xl-5 {
+    /* .pt-xl-5 {
         padding-top: 3rem !important;
+    } */
+
+    
+    .product-single__additional-info {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .info-row:last-child {
+        border-bottom: none;
+    }
+    .info-label {
+        font-weight: bold;
+        color: #343a40;
+ 
+    }
+    .info-value {
+        color: #6c757d;
+        text-align: right;
+        flex-grow: 1;
+        margin-left: 20px; /* Một chút khoảng cách giữa nhãn và giá trị */
     }
 
     .pe-xl-0 {
@@ -17183,7 +17211,10 @@ textarea.form-control.is-invalid {
         left: 1rem;
     }
 }
-
+.payment-icon, .trust-seal {
+    width: 38px;
+    height: 24px;
+  }
 .sub-menu__title {
     display: block;
     margin-bottom: 0.75rem;
@@ -17196,7 +17227,8 @@ textarea.form-control.is-invalid {
     display: inline-block;
     position: relative;
     padding: 0.5em 0;
-    color: #ffffff;
+    
+    
     line-height: 1.5em;
 }
 
@@ -17903,7 +17935,6 @@ textarea.form-control.is-invalid {
 
 .header_sticky-active {
     position: fixed;
-    animation: moveDown 0.5s;
     background-color: #ffffff;
     box-shadow: 0 8px 25px 0 rgba(140, 152, 164, 0.15);
     z-index: 1020;

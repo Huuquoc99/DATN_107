@@ -149,6 +149,7 @@
                             <p class="content">{!! $product->description !!}</p>
                         </div>
                     </div>
+
                     <div class="tab-pane fade" id="tab-additional-info" role="tabpanel"
                         aria-labelledby="tab-additional-info-tab">
                         <div class="product-single__additional-info p-3">
@@ -177,6 +178,52 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">
+    <div class="product-single__additional-info">
+        <div class="row gy-3">
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Screen Size</span>
+                <span class="info-value">{{ $product->screen_size }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Battery Capacity</span>
+                <span class="info-value">{{ $product->battery_capacity }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Camera Resolution</span>
+                <span class="info-value">{{ $product->camera_resolution }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Operating System</span>
+                <span class="info-value">{{ $product->operating_system }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Processor</span>
+                <span class="info-value">{{ $product->processor }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">RAM</span>
+                <span class="info-value">{{ $product->ram }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Storage</span>
+                <span class="info-value">{{ $product->storage }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">SIM Type</span>
+                <span class="info-value">{{ $product->sim_type }}</span>
+            </div>
+            <div class="info-row d-flex justify-content-between">
+                <span class="info-label">Network Connectivity</span>
+                <span class="info-value">{{ $product->network_connectivity }}</span>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
 
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>

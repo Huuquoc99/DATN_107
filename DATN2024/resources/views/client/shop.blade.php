@@ -2,7 +2,7 @@
 
 @section('content')
 <main>
-    <section class="shop-main container d-flex pt-4 pt-xl-5">
+    <section class="shop-main container d-flex pt-1 pt-xl-5">
         <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
             <div class="aside-header d-flex d-lg-none align-items-center">
                 <h3 class="text-uppercase fs-6 mb-0">Filter By</h3>
