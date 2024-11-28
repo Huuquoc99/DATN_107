@@ -35,7 +35,6 @@ class ProductController extends Controller
     }
 
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -45,7 +44,7 @@ class ProductController extends Controller
             ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
-            
+
         $colors = ProductColor::query()
             ->where('is_active', 1)
             ->pluck('name', 'id')
@@ -58,7 +57,12 @@ class ProductController extends Controller
 
         $tags = Tag::query()->pluck('name', 'id')->all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('catalogues', 'colors', 'capacity', 'tags'));
+        return view(self::PATH_VIEW . __FUNCTION__,
+            compact(
+                'catalogues',
+                'colors',
+                'capacity',
+                'tags'));
     }
 
     /**
@@ -72,7 +76,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-        ) = $this->handleData($request);
+            ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -87,25 +91,51 @@ class ProductController extends Controller
             }
 
             foreach ($dataNewProductVariants as $item) {
-                if (!empty($item_update['size']) && !empty($item_update['color'])) {
-                    $size = ProductCapacity::query()->firstOrCreate(
-                        ['name' => $item['size']],
-                        ['is_active' => 1]
-                    );
-
-                    $color = ProductColor::query()->firstOrCreate(
-                        ['name' => $item['color']],
-                        ['is_active' => 1]
-                    );
-
-                    $item += [
-                        'product_id' => $product->id,
-                        'product_capacity_id' => $size->id,
-                        'product_color_id' => $color->id,
-                    ];
-
-                    ProductVariant::query()->create($item);
+                // Bỏ qua các item không có đầy đủ size và color
+                if (empty($item['size']) || empty($item['color'])) {
+                    continue;
                 }
+
+                // Kiểm tra variant đã tồn tại
+                $existingVariant = ProductVariant::query()
+                    ->whereHas('capacity', function ($query) use ($item) {
+                        $query->where('name', $item['size']);
+                    })
+                    ->whereHas('color', function ($query) use ($item) {
+                        $query->where('name', $item['color']);
+                    })
+                    ->where('product_id', $product->id)
+                    ->exists();
+
+                if ($existingVariant) {
+                    return redirect()->back()->withErrors([
+                        'duplicate_error' => sprintf(
+                            'Variant with size "%s" and color "%s" already exists for this product.',
+                            $item['size'],
+                            $item['color']
+                        )
+                    ])->withInput();
+                }
+
+                // Tìm hoặc tạo size
+                $size = ProductCapacity::firstOrCreate(
+                    ['name' => $item['size']],
+                    ['is_active' => 1]
+                );
+
+                // Tìm hoặc tạo color
+                $color = ProductColor::firstOrCreate(
+                    ['name' => $item['color']],
+                    ['is_active' => 1]
+                );
+
+                $item += [
+                    'product_id' => $product->id,
+                    'product_capacity_id' => $size->id,
+                    'product_color_id' => $color->id,
+                ];
+
+                ProductVariant::query()->create($item);
             }
 
 
@@ -116,6 +146,10 @@ class ProductController extends Controller
             }
 
             $product->tags()->attach($dataProductTags);
+
+            session()->forget('product_variants');
+            session()->forget('new_product_variants');
+            session()->forget('product_galleries');
 
             DB::commit();
             return redirect()->route('admin.products.index')->with("success", "Product created successfully");
@@ -179,7 +213,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-        ) = $this->handleData($request);
+            ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -225,7 +259,6 @@ class ProductController extends Controller
                     ProductVariant::query()->create($item_update);
                 }
             }
-
 
 
             if ($request->has('delete_galleries')) {
@@ -350,11 +383,10 @@ class ProductController extends Controller
     }
 
 
-
-
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['tags','product_galleries','new_product_variants','product_variants']);
+        $dataProduct = $request->except(['tags', 'product_galleries', 'new_product_variants', 'product_variants']);
+
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
         $dataProduct['is_good_deal'] ??= 0;
@@ -387,7 +419,6 @@ class ProductController extends Controller
         }
 
 
-
         $dataProductVariantsTmp = $request->product_variants;
         $dataProductVariants = [];
         foreach ($dataProductVariantsTmp as $key => $item) {
@@ -416,7 +447,6 @@ class ProductController extends Controller
 
         return [$dataProduct, $dataProductVariants, $dataNewProductVariants, $dataProductGalleries, $dataProductTags];
     }
-
 
 
     public function filter(Request $request)

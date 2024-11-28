@@ -11,7 +11,7 @@
         <form action="{{ route('forgot-password') }}" name="reset-form" method="POST" class="needs-validation" novalidate>
           @csrf
           <div class="form-floating mb-3">
-            <input name="email" type="email" class="form-control form-control_gray" id="customerNameEmailInput" placeholder="Email address *" required>
+            <input name="email" type="email" class="form-control form-control_gray " id="customerNameEmailInput" placeholder="Email address *" required>
             <label for="customerNameEmailInput">Email address *</label>
           </div>
 

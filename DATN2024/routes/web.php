@@ -33,6 +33,7 @@ use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
 use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\VoucherController as ClientVoucherController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
@@ -72,6 +73,7 @@ Route::get('contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::get('shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('blog', [BlogController::class, 'index'])->name('blog');
 Route::get('vouchers', [ClientVoucherController::class, 'index'])->name('voucher');
 Route::post('apply-voucher', [ClientVoucherController::class, 'applyVoucher']);
 
@@ -113,12 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
     Route::post('/account/orders/{id}/repayment', [OrderController::class, 'repayment'])->name('account.orders.repayment');
 
-    // // Comment
-    // Route::get('comments', [CommentController::class, 'index']);
-    // Route::put('comments/{id}', [CommentController::class, 'edit']);
-    // Route::delete('comments/{id}', [CommentController::class, 'destroy']);
-    // Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
-
+    // Comments
     Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
     Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
     Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
@@ -199,9 +196,7 @@ Route::prefix('admin')
         Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
-        Route::put('orders/{id}/update-payment-status', [AdminOrderController::class, 'updatePaymentStatus'])
-        ->name('orders.updatePaymentStatus');
-    
+
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
@@ -211,4 +206,6 @@ Route::prefix('admin')
         Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
+
+        Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notification.index');
     });

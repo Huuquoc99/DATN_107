@@ -3,14 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ValidateProductTrait;
 
 class ProductStoreRequest extends FormRequest
 {
+    use ValidateProductTrait;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
+        $this->saveSessionUI();
         return true;
     }
 
@@ -38,14 +41,26 @@ class ProductStoreRequest extends FormRequest
             'storage' => 'required|string|max:255',
             'sim_type' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
-//             Validate các biến thể
 
-//            'product_variants.*.quantity' => 'required|integer|min:0',
-//            'product_variants.*.price' => 'required|numeric|min:0',
-//            'product_variants.*.sku' => 'required|string|max:20',
-//            'product_variants.*.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-//            'tags' => 'nullable|array',
-//            'tags.*' => 'exists:tags,id',
+            // validate product_variants
+            'product_variants' => 'nullable|array',
+            'product_variants.*' => 'required_with:product_variants|array',
+            'product_variants.*.quantity' => 'required_with:product_variants.*|numeric|min:0',
+            'product_variants.*.price' => 'required_with:product_variants.*|numeric|min:0',
+            'product_variants.*.image' => 'required_with:product_variants.*|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            // validate new_product_variants
+            'new_product_variants' => 'nullable|array',
+            'new_product_variants.*' => 'required_with:new_product_variants|array',
+            'new_product_variants.*.size' => 'required_with:new_product_variants.*|string|max:255',
+            'new_product_variants.*.color' => 'required_with:new_product_variants.*|string|max:255',
+            'new_product_variants.*.quantity' => 'required_with:new_product_variants.*|numeric|min:0',
+            'new_product_variants.*.price' => 'required_with:new_product_variants.*|numeric|min:0',
+            'new_product_variants.*.image' => 'required_with:new_product_variants.*|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            // validate product_galleries
+            'product_galleries' => 'nullable|array',
+            'product_galleries.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 
@@ -84,15 +99,47 @@ class ProductStoreRequest extends FormRequest
             'network_connectivity.max' => 'Network connectivity may not exceed 255 characters.',
             'storage.max' => 'Storage may not exceed 255 characters.',
 
-//            'product_variants.*.quantity.required' => 'Số lượng là bắt buộc.',
-//            'product_variants.*.quantity.integer' => 'Số lượng phải là số nguyên.',
-//            'product_variants.*.quantity.min' => 'Số lượng phải lớn hơn 0.',
-//            'product_variants.*.price.required' => 'Giá là bắt buộc.',
-//            'product_variants.*.price.numeric' => 'Giá phải là số.',
-//            'product_variants.*.price.min' => 'Giá phải lớn hơn hoặc bằng 0.',
-//            'product_variants.*.image.image' => 'Hình ảnh phải là một file hình ảnh.',
-//            'product_variants.*.image.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg, gif.',
-//            'product_variants.*.image.max' => 'Hình ảnh không được vượt quá 2MB.',
+            'product_variants.array' => 'Product variants must be a valid array.',
+            'product_variants.*.quantity.required_with' => 'Quantity is required for each product variant.',
+            'product_variants.*.quantity.numeric' => 'Quantity must be a number.',
+            'product_variants.*.quantity.min' => 'Quantity cannot be negative.',
+
+            'product_variants.*.price.required_with' => 'Price is required for each product variant.',
+            'product_variants.*.price.numeric' => 'Price must be a number.',
+            'product_variants.*.price.min' => 'Price cannot be negative.',
+
+            'product_variants.*.image.required_with' => 'Image is required for each product variant.',
+            'product_variants.*.image.image' => 'Uploaded file must be an image.',
+            'product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
+            'product_variants.*.image.max' => 'Image cannot exceed 2MB.',
+
+            'new_product_variants.array' => 'New product variants must be a valid array.',
+            'new_product_variants.*.size.required_with' => 'Size is required for each new product variant.',
+            'new_product_variants.*.size.string' => 'Size must be a string.',
+            'new_product_variants.*.size.max' => 'Size cannot exceed 255 characters.',
+
+            'new_product_variants.*.color.required_with' => 'Color is required for each new product variant.',
+            'new_product_variants.*.color.string' => 'Color must be a string.',
+            'new_product_variants.*.color.max' => 'Color cannot exceed 255 characters.',
+
+            'new_product_variants.*.quantity.required_with' => 'Quantity is required for each new product variant.',
+            'new_product_variants.*.quantity.numeric' => 'Quantity must be a number.',
+            'new_product_variants.*.quantity.min' => 'Quantity cannot be negative.',
+
+            'new_product_variants.*.price.required_with' => 'Price is required for each new product variant.',
+            'new_product_variants.*.price.numeric' => 'Price must be a number.',
+            'new_product_variants.*.price.min' => 'Price cannot be negative.',
+
+            'new_product_variants.*.image.required_with' => 'Image is required for each new product variant.',
+            'new_product_variants.*.image.image' => 'Uploaded file must be an image.',
+            'new_product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
+            'new_product_variants.*.image.max' => 'Image cannot exceed 2MB.',
+
+            'product_galleries.array' => 'Product galleries must be a valid array.',
+            'product_galleries.*.required_with' => 'Image is required for each product gallery.',
+            'product_galleries.*.image' => 'Uploaded file must be an image.',
+            'product_galleries.*.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
+            'product_galleries.*.max' => 'Image cannot exceed 2MB.',
 
         ];
     }

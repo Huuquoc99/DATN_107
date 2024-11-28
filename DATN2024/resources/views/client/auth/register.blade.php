@@ -98,7 +98,7 @@
                 @csrf
                 <h2><b>Sign up</b></h2>
                 {{-- <div> --}}
-                    <input class="input form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
+                    <input class="input form-control  @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -142,7 +142,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <input class="input form-control @error('password') is-invalid @enderror" type="password " placeholder="Password" name="password">
+                <input class="input form-control  @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

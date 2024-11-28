@@ -27,11 +27,9 @@ class ProductController extends Controller
                 ]];
             })
             ->all();
-           
-         
-        
-        
-        $productId = $product->id;    
+
+
+        $productId = $product->id;
         $comments = Comment::where('product_id', $productId)->paginate(5);
 
         $capacities = ProductCapacity::query()->pluck('name', 'id')->all();

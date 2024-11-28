@@ -87,7 +87,7 @@
                                                         <td>
                                                             {{ \Illuminate\Support\Str::limit($product->catalogue ? $product->catalogue->name : 'No Catalogue', 30, '...') }}
                                                         </td>
-                                                        
+
 
                                                     </tr>
                                                     <tr>
@@ -149,15 +149,15 @@
                                     </div>
                                 </div>
 
-                                <div class="text-muted">Published : 
+                                <div class="text-muted">Published :
                                     <span class="text-body fw-medium">
-                                        <span id="invoice-date">{{ $product->created_at->format('d M, Y') }}</span> 
+                                        <span id="invoice-date">{{ $product->created_at->format('d M, Y') }}</span>
                                         <small class="text-muted" id="invoice-time">{{ $product->created_at->format('h:iA') }}</small>
                                     </span>
                                 </div>
-                                <div class="text-muted">Updated : 
+                                <div class="text-muted">Updated :
                                     <span class="text-body fw-medium">
-                                        <span id="invoice-date">{{ $product->updated_at->format('d M, Y') }}</span> 
+                                        <span id="invoice-date">{{ $product->updated_at->format('d M, Y') }}</span>
                                         <small class="text-muted" id="invoice-time">{{ $product->updated_at->format('h:iA') }}</small>
                                     </span>
                                 </div>
@@ -212,12 +212,12 @@
                                 <div class="row mt-3">
                                     <div>
                                         <p class="text-muted">
-                                            <i class="bx bx-unlink font-size-20 align-middle text-primary me-1"></i> 
+                                            <i class="bx bx-unlink font-size-20 align-middle text-primary me-1"></i>
                                             <b>SKU: </b>
                                             {{ $product->sku }}
                                         </p>
                                         <p class="text-muted">
-                                            <i class="bx bx-shape-triangle font-size-20 align-middle text-primary me-1"></i> 
+                                            <i class="bx bx-shape-triangle font-size-20 align-middle text-primary me-1"></i>
                                             <b>Catalogue:</b>
                                             {{ \Illuminate\Support\Str::limit($product->catalogue->name ?? 'N/A', 30, '...') }}
                                         </p>

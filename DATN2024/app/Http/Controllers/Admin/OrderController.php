@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\AdminNotification;
 use App\Models\Order;
 use App\Models\StatusOrder;
 use App\Mail\OrderCancelled;
@@ -65,19 +66,36 @@ class OrderController extends Controller
             return view('admin.orders.data', compact('orders', ));
         }
         $orderStatuses = StatusOrder::all();
+        $statusPayments  = StatusPayment::all();
         $orders = $orders->paginate(10);
 
-        return view('admin.orders.index', compact('orders', 'orderStatuses'));
+        return view('admin.orders.index', compact('orders', 'orderStatuses', 'statusPayments'));
     }
+
+//    public function show(Order $order)
+//    {
+//
+//        $order->load('orderItems.product', 'statusOrder', 'statusPayment');
+//        $statusOrders = StatusOrder::all();
+//        $statusPayments = StatusPayment::all();
+//
+//        return view('admin.orders.show', compact('order', 'statusOrders', "statusPayments"));
+//    }
 
     public function show(Order $order)
     {
+        if (!empty(request()->get('noti'))) {
+            $notification = AdminNotification::find(request()->get('noti'));
+            $notification->read_at = now();
+            $notification->save();
+            broadcast(new \App\Events\AdminNotification(\App\Models\AdminNotification::unread()->count()));
+        }
 
-        $order->load('orderItems.product', 'statusOrder', 'statusPayment'); 
-        $statusOrders = StatusOrder::all(); 
-        $statusPayments = StatusPayment::all();
-    
-        return view('admin.orders.show', compact('order', 'statusOrders', "statusPayments"));
+        $order->load('orderItems.product', 'statusOrder', 'statusPayment');
+        $statusOrders = StatusOrder::all();
+        $statusPayments  = StatusPayment::all();
+
+        return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -87,14 +105,19 @@ class OrderController extends Controller
         $newStatusId = $request->input('status_order_id');
 
         if ($newStatusId != $order->status_order_id) {
-            
+
             $order->status_order_id = $newStatusId;
             $order->save();
 
-            if ($newStatusId == 4) { 
-                Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
+//            dd($order);
+
+            $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
+
+            if ($newStatusId == 4) { // Trạng thái hủy đơn
+                $this->rollbackQuantity($order);
+                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
             } else {
-                Mail::to($order->user->email)->send(new AdminOrderUpdated($order));
+                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
             }
 
             return redirect()->route('admin.orders.show', $id)
@@ -104,6 +127,12 @@ class OrderController extends Controller
                             ->with('error', 'No change in order status.');
         }
     }
+    private function rollbackQuantity($order)
+    {
+        foreach ($order->orderItems as $item) {
+            $item->productVariant->quantity += $item->quantity;
+            $item->productVariant->save();
+    }}
 
     public function updatePaymentStatus(Request $request, $id)
     {
@@ -127,7 +156,5 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.show', $id)
                         ->with('error1', 'No change in payment status.');
     }
-
-    
 
 }

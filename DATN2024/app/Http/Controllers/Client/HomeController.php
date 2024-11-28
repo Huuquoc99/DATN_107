@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\AdminNotification;
 use App\Models\Banner;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Catalogue;
 use App\Models\ProductColor;
@@ -34,13 +36,12 @@ class HomeController extends Controller
             ->get();
 
         $productHome = Product::with(['variants', 'galleries'])
-            ->active()    
+            ->active()
             ->where('is_show_home', 1)
             ->get();
 
 
         $catalogues = Catalogue::where('is_active', 1)->get();
-
         $banners = Banner::where('is_active', 1)->get();
 
         $products = Product::query()->active()->latest('id')->paginate(8);
@@ -184,5 +185,19 @@ class HomeController extends Controller
     public function contact()
     {
         return view('client.contact');
+    }
+
+    public function test()
+    {
+        $order = Order::first();
+        \App\Models\AdminNotification::create([
+            'type' => 'Event\AdminNotification',
+            'data' => [
+                'order' => $order,
+                'message' => 'đã thanh toán thành công đơn hàng #<b>'. $order->code .'<b>'
+            ]
+        ]);
+        broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
+        return 'thong bao don thanh cong';
     }
 }

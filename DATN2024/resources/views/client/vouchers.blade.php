@@ -1,5 +1,4 @@
 @extends('client.layouts.master')
-
 @section('content')
 <main class="container">
     <h1 style="text-transform: uppercase;
@@ -39,7 +38,6 @@
     </div>
 </main>
     <style>
-
         .list-vouchers {
             padding: 15px 0;
         }
@@ -149,13 +147,11 @@
         .list-vouchers .voucher .content .condition a {
             color: #00546f;
         }
-
         .voucher-wallet {
             max-width: 1000px;
             margin-top: 20px;
             margin-bottom: 20px;
         }
-
         #voucher_detail .modal-dialog {
             width: 25rem;
             height: 40rem;
@@ -234,20 +230,16 @@
         #voucher_detail .modal-dialog .modal-content .modal-body .voucher-foot button:hover {
             background-color: #e7674d;
         }
-
         .cart-voucher {
             bottom: -45px !important;
         }
-
         .unica-about-block-5 .custom-text, .unica-about-block-6 .custom-text {
             line-height: 25px;
             text-align: justify;
         }
-
         .box-about-bot {
             min-height: 360px !important;
         }
-
         @keyframes myfirst {
             0% {
                 left: 10%;

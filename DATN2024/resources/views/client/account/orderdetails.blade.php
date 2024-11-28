@@ -1,182 +1,191 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <h2 class="page-title pt-5">Order detail - {{ $order->code }}</h2>
+    <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
+
+    <div class="my-account container">
+        <h2 class="page-title pt-5 ">Order detail - {{ $order->code }}</h2>
+    </div>
+
 
     <section class="my-account container">
-        <h2 class="page-title pt-5">User information</h2>
+        <h2 class="page-title pt-5">User Information</h2>
+        <div class=" mb-xl-2 pb-3 pt-1 pb-xl-5"></div>
         <div class="row">
+            <!-- User Information -->
             <div class="col-lg-6">
-                <div class="page-content my-account__orders-list">
-                    <table class="orders-table ">
+                <div class="info-box">
+                    <h4>User Information</h4>
+                    <table class="info-table">
                         <tr>
-                            <td><strong>User name:</strong></td>
+                            <td><strong>Name:</strong></td>
                             <td>{{ $order->user_name }}</td>
                         </tr>
                         <tr>
-                            <td><strong>User email:</strong></td>
+                            <td><strong>Email:</strong></td>
                             <td>{{ $order->user_email }}</td>
                         </tr>
                         <tr>
-                            <td><strong>User phone:</strong></td>
+                            <td><strong>Phone:</strong></td>
                             <td>{{ $order->user_phone }}</td>
                         </tr>
                         <tr>
-                            <td><strong>User address:</strong></td>
+                            <td><strong>Address:</strong></td>
                             <td>{{ $order->user_address }}</td>
                         </tr>
                         <tr>
-                            <td><strong>User note:</strong></td>
+                            <td><strong>Note:</strong></td>
                             <td>{{ $order->user_note }}</td>
                         </tr>
                     </table>
                 </div>
             </div>
+            <!-- Shipping Information -->
             <div class="col-lg-6">
-                <div class="page-content my-account__orders-list">
-                    <table class="orders-table ">
+                <div class="info-box">
+                    <h4>Shipping Information</h4>
+                    <table class="info-table">
                         <tr>
-                            <td><strong>Ship user name:</strong></td>
+                            <td><strong>Name:</strong></td>
                             <td>{{ $order->ship_user_name }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Ship user email:</strong></td>
+                            <td><strong>Email:</strong></td>
                             <td>{{ $order->ship_user_email }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Ship user phone:</strong></td>
+                            <td><strong>Phone:</strong></td>
                             <td>{{ $order->ship_user_phone }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Ship user address:</strong></td>
+                            <td><strong>Address:</strong></td>
                             <td>{{ $order->ship_user_address }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Ship user note:</strong></td>
+                            <td><strong>Note:</strong></td>
                             <td>{{ $order->ship_user_note }}</td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-        </div>
-
-        </div>
     </section>
     <section class="my-account container">
-        <h2 class="page-title pt-5">Order information</h2>
-        <div class="row d-flex justify-content-center">
-            <div class="col-lg-7 ">
-                <div class="page-content my-account__orders-list">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                    <table class="orders-table ">
-                        {{-- <form action="{{ route('account.orders.updateStatus', $order->id) }}" method="POST" id="update-status-form">
-                            @csrf
-                            <td>
-                                <select id="status" name="status_order_id" class="form-select"
-                                aria-label="Default select example">
-                                @foreach ($statusOrders as $status)
-                                    <option value="{{ $status->id }}"
-                                        {{ $order->status_order_id == $status->id ? 'selected' : '' }}>
-                                        {{ $status->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary mt-2">Update Status</button>
-                            </td>
-                        </form> --}}
-
-
-
-
+        <h2 class="page-title pt-5">Order Details</h2>
+        <div class="row">
+            <!-- Order Information (Chiếm 3 phần) -->
+            <div class="col-lg-4">
+                <div class="info-box">
+                    <h4>Order Information</h4>
+                    <table class="info-table">
                         <tr>
-                            <td class="w-50"><strong>Status order</strong></td>
-                            <td class="w-50">
+                            <td><strong>Status order:</strong></td>
+                            <td>
                                 @if ($order->status_order_id == 1)
-                                {{ $order->statusOrder->name ?? 'N/A' }}
+                                    {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
                                     </form>
                                 @elseif ($order->status_order_id == 2)
-                                {{ $order->statusOrder->name ?? 'N/A' }}
+                                    {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-success">Đã nhận được hàng</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Mark as Received</button>
                                     </form>
                                 @elseif ($order->status_order_id == 3)
-                                    <span class="text-success">Hoàn thành</span>
+                                    <span class="text-success">Completed</span>
                                 @elseif ($order->status_order_id == 4)
-                                    <span class="text-danger">Đã hủy</span>
+                                    <span class="text-danger">Canceled</span>
                                 @else
-                                    <span class="text-muted">Trạng thái không xác định</span>
-                                @endif
+                                    <span class="text-muted">Unknown</span>
+                                    {{-- <td class="w-50"><strong>Status order</strong></td>
+                            <td class="w-50">
+                                {{ $order->statusOrder->name ?? 'N/A' }}
                             </td>
-                            
-                            
+                            <td>
+                                @if ($order->statusOrder->name == 'Pending')
+                                    <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Cancelled</button>
+                                    </form>
+                                @elseif ($order->statusOrder->name == 'Shipped')
+                                    <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success">Received</button>
+                                    </form>
+                                @endif
+                            </td> --}}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Status payment:</strong></td>
-                            <td>{{ $order->statusPayment->name ?? 'N/A' }}
-                            {{-- <td class="w-30"> --}}
-                                {{-- @if ($order->statusPayment->id == 3 && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2) --}}
-                                @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
+                            <td>
+                                {{ $order->statusPayment->name ?? 'N/A' }}
+                                @if (
+                                    ($order->statusPayment->id == 1 || $order->statusPayment->id == 3) &&
+                                        $order->statusOrder->id == 1 &&
+                                        $order->paymentMethod->id == 2)
+                                    <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning btn-sm">Repayment</button>
+                                        {{-- <td>{{ $order->statusPayment->name ?? 'N/A' }}
+                            </td>
+                            <td class="w-30">
+                                @if (($order->statusPayment->name == 'Pending' || $order->statusPayment->name == 'Failed') && $order->statusOrder->name == 'Pending' && $order->paymentMethod->name == 'VN Pay')
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" name="redirect" class="btn btn-success">Repayment</button>
                                     </form>
                                 @endif
+                            </td> --}}
+                                    </form>
+                                @endif
                             </td>
-                            
                         </tr>
                         <tr>
                             <td><strong>Payment method:</strong></td>
                             <td>{{ $order->paymentMethod->name ?? 'N/A' }}</td>
+                            <td> </td>
                         </tr>
                         <tr>
                             <td><strong>Total price:</strong></td>
                             <td>{{ number_format($order->total_price, 2) }} VND</td>
+                            <td> </td>
                         </tr>
                         <tr>
                             <td><strong>Create at:</strong></td>
                             <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                            <td> </td>
                         </tr>
                     </table>
                 </div>
             </div>
-        </div>
-        </div>
 
-        </div>
-    </section>
-
-    <section class="my-account container">
-        <h2 class="page-title pt-5">Orders</h2>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="page-content my-account__orders-list">
+            <!-- Orders List (Chiếm 7 phần) -->
+            <div class="col-lg-8">
+                <div class="info-box">
+                    <h4>Order Items</h4>
                     <table class="orders-table">
                         <thead>
-                            <tr>
+                            <<<<<<< HEAD <tr>
                                 <th>Product</th>
                                 <th>SKU</th>
                                 <th>Quantity</th>
-                                <th>Price regular</th>
-                                <th>Price sale</th>
+                                <th>Price Regular</th>
+                                <th>Price Sale</th>
                                 <th>Variant</th>
-                            </tr>
+                                </tr>
+                                =======
+                                <tr>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Quantity</th>
+                                    <th>Price regular</th>
+                                    <th>Price sale</th>
+                                    <th>Variant</th>
+                                </tr>
+                                >>>>>>> dinh03
                         </thead>
                         <tbody>
                             @foreach ($order->orderItems as $item)
@@ -202,9 +211,24 @@
                 </div>
             </div>
         </div>
-        </div>
     </section>
-    
+    <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        const orderId = {{ $order->id }};
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+        });
+
+        var channel = pusher.subscribe('channel-notification');
+        channel.bind('update-order', function(data) {
+            if (data.orderId == orderId) {
+                location.reload();
+            }
+        });
+    </script>
 @endsection
 @section('script')
     <script type="text/javascript">

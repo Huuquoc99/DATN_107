@@ -13,8 +13,15 @@
 <script src="{{ asset('theme/client/Demo18/js/theme.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/cart.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/comment.js') }}"></script>
+
 <script src="{{ asset('theme/client/Demo18/js/index.js') }}"></script>
+
 <script src="{{ asset('theme/client/Demo18/js/product-detail.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{{--pusher--}}
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 @yield('api-address')
 @yield('api-guest-address')
