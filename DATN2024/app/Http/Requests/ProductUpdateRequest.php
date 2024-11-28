@@ -3,14 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ValidateProductTrait;
 
 class ProductUpdateRequest extends FormRequest
 {
+    use ValidateProductTrait;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
+        $this->saveSessionUI();
         return true;
     }
 
@@ -27,16 +30,16 @@ class ProductUpdateRequest extends FormRequest
             'price_sale' => 'nullable|numeric|min:0|lt:price_regular',
             'catalogue_id' => 'required|exists:catalogues,id',
             'img_thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'processor' => 'required|string|max:255',
-            'ram' => 'required|string|max:255',
-            'short_description' => 'required|string|max:500',
-            'screen_size' => 'required|string|max:255',
-            'operating_system' => 'required|string|max:255',
-            'battery_capacity' => 'required|string|max:255',
-            'camera_resolution' => 'required|string|max:255',
-            'network_connectivity' => 'required|string|max:255',
-            'storage' => 'required|string|max:255',
-            'sim_type' => 'required|string|max:255',
+            'processor' => 'nullable|string|max:255',
+            'ram' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string|max:500',
+            'screen_size' => 'nullable|string|max:255',
+            'operating_system' => 'nullable|string|max:255',
+            'battery_capacity' => 'nullable|string|max:255',
+            'camera_resolution' => 'nullable|string|max:255',
+            'network_connectivity' => 'nullable|string|max:255',
+            'storage' => 'nullable|string|max:255',
+            'sim_type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'is_active' => 'nullable|boolean',
             'is_hot_deal' => 'nullable|boolean',
@@ -44,9 +47,23 @@ class ProductUpdateRequest extends FormRequest
             'is_new' => 'nullable|boolean',
             'is_show_home' => 'nullable|boolean',
 
-            'product_galleries' => 'nullable|array|min:1',
-            'product_galleries.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // validate product_variants
+            'product_variants' => 'nullable|array',
+            'product_variants.*' => 'required_with:product_variants|array',
+            'product_variants.*.quantity' => 'required_with:product_variants.*|numeric|min:0',
+            'product_variants.*.price' => 'required_with:product_variants.*|numeric|min:0',
 
+            'new_product_variants' => 'nullable|array',
+            'new_product_variants.*' => 'required_with:new_product_variants|array',
+            'new_product_variants.*.size' => 'required_with:new_product_variants.*|string|max:255',
+            'new_product_variants.*.color' => 'required_with:new_product_variants.*|string|max:255',
+            'new_product_variants.*.quantity' => 'required_with:new_product_variants.*|numeric|min:0',
+            'new_product_variants.*.price' => 'required_with:new_product_variants.*|numeric|min:0',
+            'new_product_variants.*.image' => 'required_with:new_product_variants.*|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            // validate product_galleries
+            'product_galleries' => 'nullable|array',
+            'product_galleries.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
 
     }
@@ -54,78 +71,78 @@ class ProductUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The product name is required.',
-            'name.string' => 'The product name must be a string.',
-            'name.max' => 'The product name must not exceed 255 characters.',
-            
-            'price_regular.required' => 'The regular price is required.',
-            'price_regular.numeric' => 'The regular price must be a numeric value.',
-            'price_regular.min' => 'The regular price must be at least 0.',
+            'name.required' => 'Product name is required.',
+            'name.string' => 'Product name must be a string.',
+            'name.max' => 'Product name may not exceed 255 characters.',
 
-            'price_sale.numeric' => 'The sale price must be a numeric value.',
-            'price_sale.min' => 'The sale price must be at least 0.',
-            'price_sale.lt' => 'The sale price must be less than the regular price.',
+            'price_regular.required' => 'Regular price is required.',
+            'price_regular.numeric' => 'Regular price must be a number.',
 
-            'catalogue_id.required' => 'The catalogue is required.',
-            'catalogue_id.exists' => 'The selected catalogue is invalid.',
+            'price_sale.required' => 'Sale price is required.',
+            'price_sale.numeric' => 'Sale price must be a number.',
 
-            'img_thumbnail.image' => 'The thumbnail must be an image.',
-            'img_thumbnail.mimes' => 'The thumbnail must be a file of type: jpeg, png, jpg, gif, svg.',
-            'img_thumbnail.max' => 'The thumbnail size must not exceed 2MB.',
+            'catalogue_id.required' => 'Phone brand is required.',
+            'catalogue_id.exists' => 'Invalid phone brand.',
 
-            'processor.required' => 'The processor is required.',
-            'processor.string' => 'The processor must be a string.',
-            'processor.max' => 'The processor must not exceed 255 characters.',
+            'img_thumbnail.required' => 'Thumbnail image is required.',
+            'img_thumbnail.image' => 'Thumbnail image must be an image file.',
+            'img_thumbnail.mimes' => 'Thumbnail image must be in one of the following formats: jpeg, png, jpg, gif, svg.',
+            'img_thumbnail.max' => 'Thumbnail image may not exceed 2MB.',
 
-            'ram.required' => 'The RAM is required.',
-            'ram.string' => 'The RAM must be a string.',
-            'ram.max' => 'The RAM must not exceed 255 characters.',
+            'sku.required' => 'SKU is required.',
+            'sku.string' => 'SKU must be a string.',
+            'sku.max' => 'SKU may not exceed 20 characters.',
 
-            'short_description.required' => 'A short description is required.',
-            'short_description.string' => 'The short description must be a string.',
-            'short_description.max' => 'The short description must not exceed 500 characters.',
+            'processor.max' => 'Processor may not exceed 255 characters.',
+            'ram.max' => 'RAM may not exceed 255 characters.',
+            'screen_size.max' => 'Screen size may not exceed 255 characters.',
+            'operating_system.max' => 'Operating system may not exceed 255 characters.',
+            'battery_capacity.max' => 'Battery capacity may not exceed 255 characters.',
+            'camera_resolution.max' => 'Camera resolution may not exceed 255 characters.',
+            'network_connectivity.max' => 'Network connectivity may not exceed 255 characters.',
+            'storage.max' => 'Storage may not exceed 255 characters.',
 
-            'screen_size.required' => 'The screen size is required.',
-            'screen_size.string' => 'The screen size must be a string.',
-            'screen_size.max' => 'The screen size must not exceed 255 characters.',
+            'product_variants.array' => 'Product variants must be a valid array.',
+            'product_variants.*.quantity.required_with' => 'Quantity is required for product variant.',
+            'product_variants.*.quantity.numeric' => 'Quantity must be a number.',
+            'product_variants.*.quantity.min' => 'Quantity cannot be negative.',
 
-            'operating_system.required' => 'The operating system is required.',
-            'operating_system.string' => 'The operating system must be a string.',
-            'operating_system.max' => 'The operating system must not exceed 255 characters.',
+            'product_variants.*.price.required_with' => 'Price is required for product variant.',
+            'product_variants.*.price.numeric' => 'Price must be a number.',
+            'product_variants.*.price.min' => 'Price cannot be negative.',
 
-            'battery_capacity.required' => 'The battery capacity is required.',
-            'battery_capacity.string' => 'The battery capacity must be a string.',
-            'battery_capacity.max' => 'The battery capacity must not exceed 255 characters.',
+            'product_variants.*.image.required_with' => 'Image is required for product variant.',
+            'product_variants.*.image.image' => 'Uploaded file must be an image.',
+            'product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
+            'product_variants.*.image.max' => 'Image cannot exceed 2MB.',
 
-            'camera_resolution.required' => 'The camera resolution is required.',
-            'camera_resolution.string' => 'The camera resolution must be a string.',
-            'camera_resolution.max' => 'The camera resolution must not exceed 255 characters.',
+            'new_product_variants.array' => 'New product variants must be a valid array.',
+            'new_product_variants.*.size.required_with' => 'Size is required for new product variant.',
+            'new_product_variants.*.size.string' => 'Size must be a string.',
+            'new_product_variants.*.size.max' => 'Size cannot exceed 255 characters.',
 
-            'network_connectivity.required' => 'The network connectivity is required.',
-            'network_connectivity.string' => 'The network connectivity must be a string.',
-            'network_connectivity.max' => 'The network connectivity must not exceed 255 characters.',
+            'new_product_variants.*.color.required_with' => 'Color is required for new product variant.',
+            'new_product_variants.*.color.string' => 'Color must be a string.',
+            'new_product_variants.*.color.max' => 'Color cannot exceed 255 characters.',
 
-            'storage.required' => 'The storage capacity is required.',
-            'storage.string' => 'The storage capacity must be a string.',
-            'storage.max' => 'The storage capacity must not exceed 255 characters.',
+            'new_product_variants.*.quantity.required_with' => 'Quantity is required for new product variant.',
+            'new_product_variants.*.quantity.numeric' => 'Quantity must be a number.',
+            'new_product_variants.*.quantity.min' => 'Quantity cannot be negative.',
 
-            'sim_type.required' => 'The SIM type is required.',
-            'sim_type.string' => 'The SIM type must be a string.',
-            'sim_type.max' => 'The SIM type must not exceed 255 characters.',
+            'new_product_variants.*.price.required_with' => 'Price is required for new product variant.',
+            'new_product_variants.*.price.numeric' => 'Price must be a number.',
+            'new_product_variants.*.price.min' => 'Price cannot be negative.',
 
-            'description.string' => 'The description must be a string.',
+            'new_product_variants.*.image.required_with' => 'Image is required for new product variant.',
+            'new_product_variants.*.image.image' => 'Uploaded file must be an image.',
+            'new_product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
+            'new_product_variants.*.image.max' => 'Image cannot exceed 2MB.',
 
-            'is_active.boolean' => 'The active status must be true or false.',
-            'is_hot_deal.boolean' => 'The hot deal status must be true or false.',
-            'is_good_deal.boolean' => 'The good deal status must be true or false.',
-            'is_new.boolean' => 'The new product status must be true or false.',
-            'is_show_home.boolean' => 'The show on home status must be true or false.',
-
-            'product_galleries.array' => 'The product galleries must be an array.',
-            'product_galleries.min' => 'At least one product gallery image is required.',
-            'product_galleries.*.image' => 'Each product gallery image must be an image.',
-            'product_galleries.*.mimes' => 'Each product gallery image must be a file of type: jpeg, png, jpg, gif.',
-            'product_galleries.*.max' => 'Each product gallery image size must not exceed 2MB.',
+            'product_galleries.array' => 'Product galleries must be a valid array.',
+            'product_galleries.*.required_with' => 'Image is required for product gallery.',
+            'product_galleries.*.image' => 'Uploaded file must be an image.',
+            'product_galleries.*.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
+            'product_galleries.*.max' => 'Image cannot exceed 2MB.',
         ];
     }
 }

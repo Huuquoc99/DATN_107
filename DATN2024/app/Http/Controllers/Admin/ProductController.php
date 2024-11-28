@@ -31,6 +31,8 @@ class ProductController extends Controller
         $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
         $catalogues = Catalogue::all();
 
+        $this->destroySesstion();
+
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
     }
 
@@ -147,9 +149,7 @@ class ProductController extends Controller
 
             $product->tags()->attach($dataProductTags);
 
-            session()->forget('product_variants');
-            session()->forget('new_product_variants');
-            session()->forget('product_galleries');
+            $this->destroySesstion();
 
             DB::commit();
             return redirect()->route('admin.products.index')->with("success", "Product created successfully");
@@ -284,6 +284,8 @@ class ProductController extends Controller
 
             $product->tags()->sync($dataProductTags);
 
+            $this->destroySesstion();
+
             DB::commit();
 
             if (!empty($dataProduct['img_thumbnail']) && $dataProduct['img_thumbnail'] !== $productImgThumbnailCurrent) {
@@ -316,42 +318,6 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-//    public function destroy(Product $product)
-//    {
-//
-//        try {
-//            $check_cartItem = $product->variants()->whereHas('cartItems')->exists();
-//
-//            if ($check_cartItem) {
-//                return back()->with('error', 'Sản phẩm này đang có trong giỏ hàng của người dùng và không thể xóa.');
-//            }
-//
-//            $dataHasImage = $product->galleries->toArray() + $product->variants->toArray();
-//
-//            DB::transaction(function () use ($product) {
-//                $product->tags()->sync([]);
-//                $product->galleries()->delete();
-//
-//                foreach ($product->variants as $variant) {
-//                    $variant->orderItems()->delete();
-//                }
-//                $product->variants()->delete();
-//                $product->delete();
-//            }, 3);
-//
-//            foreach ($dataHasImage as $item) {
-//                if (!empty($item->image) && Storage::exists($item->image)) {
-//                    Storage::delete($item->image);
-//                }
-//            }
-//
-//            return redirect()->route('admin.products.index')
-//                ->with('success', 'Product deleted successfully!');
-//        } catch (\Exception $exception) {
-//            dd($exception->getMessage());
-//            return back()->with('error', $exception->getMessage());
-//        }
-//    }
 
     public function destroy(Product $product)
     {
@@ -385,7 +351,7 @@ class ProductController extends Controller
 
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['tags', 'product_galleries', 'new_product_variants', 'product_variants']);
+        $dataProduct = $request->except(['tags', 'new_product_variants', 'product_variants']);
 
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
@@ -528,5 +494,12 @@ class ProductController extends Controller
         $data = $query->paginate(12);
 
         return view('admin.products.filter', compact('data'))->render();
+    }
+
+    public function destroySesstion()
+    {
+        session()->forget('product_variants');
+        session()->forget('new_product_variants');
+        session()->forget('product_galleries');
     }
 }

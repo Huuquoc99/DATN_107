@@ -15,27 +15,10 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     // $statusOrders = StatusOrder::all();
-    //     $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
-
-    //     if ($request->has('status')) {
-    //         $orders->where('status_order_id', $request->input('status'));
-    //     }
-
-    //     $orders = $orders->paginate(10);
-
-    //     return view('admin.orders.index', compact('orders'));
-    // }
 
     public function index(Request $request)
     {
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
-
-        // if ($request->has('status')) {
-        //     $orders->where('status_order_id', $request->input('status'));
-        // }
 
         if ($request->ajax()) {
             $status = $request->input('status');
@@ -72,15 +55,6 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'orderStatuses', 'statusPayments'));
     }
 
-//    public function show(Order $order)
-//    {
-//
-//        $order->load('orderItems.product', 'statusOrder', 'statusPayment');
-//        $statusOrders = StatusOrder::all();
-//        $statusPayments = StatusPayment::all();
-//
-//        return view('admin.orders.show', compact('order', 'statusOrders', "statusPayments"));
-//    }
 
     public function show(Order $order)
     {
@@ -109,7 +83,6 @@ class OrderController extends Controller
             $order->status_order_id = $newStatusId;
             $order->save();
 
-//            dd($order);
 
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
 

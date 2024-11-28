@@ -312,11 +312,27 @@
                                                                 <input type="text" class="form-control"
                                                                        value="{{ isset($variants[$key]['quantity']) ? $variants[$key]['quantity'] : 0 }}"
                                                                        name="product_variants[{{ $key }}][quantity]">
+                                                                @error("product_variants.$key.quantity")
+                                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
+                                                                     style="height: 45px;" role="alert">
+                                                                    <p class="text-danger">{{ $message }}</p>
+                                                                    <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="alert" aria-label="Close"></button>
+                                                                </div>
+                                                                @enderror
                                                             </td>
                                                             <td>
                                                                 <input type="text" class="form-control"
                                                                        value="{{ isset($variants[$key]['price']) ? $variants[$key]['price'] : 0 }}"
                                                                        name="product_variants[{{ $key }}][price]">
+                                                                @error("product_variants.$key.price")
+                                                                <div class="alert alert-danger alert-dismissible fade show mt-4"
+                                                                     style="height: 45px;" role="alert">
+                                                                    <p class="text-danger">{{ $message }}</p>
+                                                                    <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="alert" aria-label="Close"></button>
+                                                                </div>
+                                                                @enderror
                                                             </td>
                                                             <td>
                                                                 <input type="file" class="form-control" name="product_variants[{{ $key }}][image]">
@@ -334,6 +350,61 @@
                                                 @endforeach
                                             @endif
                                         @endforeach
+
+                                        @php($new_product_variants = session('new_product_variants'))
+                                        @if ($new_product_variants)
+                                            @foreach ($new_product_variants as $key => $new_product_variant)
+                                                <tr class="text-center new_product_variants">
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                               name="new_product_variants[{{ $key }}][size]"
+                                                               placeholder="Capacity"
+                                                               value="{{ @$new_product_variant['size'] }}">
+                                                        @error("new_product_variants.$key.size")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                               name="new_product_variants[{{ $key }}][color]"
+                                                               placeholder="Color"
+                                                               value="{{ @$new_product_variant['color'] }}">
+                                                        @error("new_product_variants.$key.color")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control"
+                                                               name="new_product_variants[{{ $key }}][quantity]"
+                                                               placeholder="Quantity"
+                                                               value="{{ @$new_product_variant['quantity'] }}">
+                                                        @error("new_product_variants.$key.quantity")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control"
+                                                               name="new_product_variants[{{ $key }}][price]"
+                                                               placeholder="Price"
+                                                               value="{{ @$new_product_variant['price'] }}">
+                                                        @error("new_product_variants.$key.price")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" class="form-control"
+                                                               name="new_product_variants[{{ $key }}][image]">
+                                                        @error("new_product_variants.$key.image")
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="this.parentNode.parentNode.remove()">Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </table>
                                 </div>
                             </div>

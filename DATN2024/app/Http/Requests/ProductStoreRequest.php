@@ -59,7 +59,7 @@ class ProductStoreRequest extends FormRequest
             'new_product_variants.*.image' => 'required_with:new_product_variants.*|image|mimes:jpeg,png,jpg,gif|max:2048',
 
             // validate product_galleries
-            'product_galleries' => 'nullable|array',
+            'product_galleries' => 'required|array',
             'product_galleries.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
@@ -100,43 +100,43 @@ class ProductStoreRequest extends FormRequest
             'storage.max' => 'Storage may not exceed 255 characters.',
 
             'product_variants.array' => 'Product variants must be a valid array.',
-            'product_variants.*.quantity.required_with' => 'Quantity is required for each product variant.',
+            'product_variants.*.quantity.required_with' => 'Quantity is required for product variant.',
             'product_variants.*.quantity.numeric' => 'Quantity must be a number.',
             'product_variants.*.quantity.min' => 'Quantity cannot be negative.',
 
-            'product_variants.*.price.required_with' => 'Price is required for each product variant.',
+            'product_variants.*.price.required_with' => 'Price is required for product variant.',
             'product_variants.*.price.numeric' => 'Price must be a number.',
             'product_variants.*.price.min' => 'Price cannot be negative.',
 
-            'product_variants.*.image.required_with' => 'Image is required for each product variant.',
+            'product_variants.*.image.required_with' => 'Image is required for product variant.',
             'product_variants.*.image.image' => 'Uploaded file must be an image.',
             'product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
             'product_variants.*.image.max' => 'Image cannot exceed 2MB.',
 
             'new_product_variants.array' => 'New product variants must be a valid array.',
-            'new_product_variants.*.size.required_with' => 'Size is required for each new product variant.',
+            'new_product_variants.*.size.required_with' => 'Size is required for new product variant.',
             'new_product_variants.*.size.string' => 'Size must be a string.',
             'new_product_variants.*.size.max' => 'Size cannot exceed 255 characters.',
 
-            'new_product_variants.*.color.required_with' => 'Color is required for each new product variant.',
+            'new_product_variants.*.color.required_with' => 'Color is required for new product variant.',
             'new_product_variants.*.color.string' => 'Color must be a string.',
             'new_product_variants.*.color.max' => 'Color cannot exceed 255 characters.',
 
-            'new_product_variants.*.quantity.required_with' => 'Quantity is required for each new product variant.',
+            'new_product_variants.*.quantity.required_with' => 'Quantity is required for new product variant.',
             'new_product_variants.*.quantity.numeric' => 'Quantity must be a number.',
             'new_product_variants.*.quantity.min' => 'Quantity cannot be negative.',
 
-            'new_product_variants.*.price.required_with' => 'Price is required for each new product variant.',
+            'new_product_variants.*.price.required_with' => 'Price is required for new product variant.',
             'new_product_variants.*.price.numeric' => 'Price must be a number.',
             'new_product_variants.*.price.min' => 'Price cannot be negative.',
 
-            'new_product_variants.*.image.required_with' => 'Image is required for each new product variant.',
+            'new_product_variants.*.image.required_with' => 'Image is required for new product variant.',
             'new_product_variants.*.image.image' => 'Uploaded file must be an image.',
             'new_product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
             'new_product_variants.*.image.max' => 'Image cannot exceed 2MB.',
 
             'product_galleries.array' => 'Product galleries must be a valid array.',
-            'product_galleries.*.required_with' => 'Image is required for each product gallery.',
+            'product_galleries.*.required_with' => 'Image is required for product gallery.',
             'product_galleries.*.image' => 'Uploaded file must be an image.',
             'product_galleries.*.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
             'product_galleries.*.max' => 'Image cannot exceed 2MB.',
