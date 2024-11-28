@@ -35,7 +35,6 @@ class ProductController extends Controller
     }
 
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -58,7 +57,12 @@ class ProductController extends Controller
 
         $tags = Tag::query()->pluck('name', 'id')->all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('catalogues', 'colors', 'capacity', 'tags'));
+        return view(self::PATH_VIEW . __FUNCTION__,
+            compact(
+                'catalogues',
+                'colors',
+                'capacity',
+                'tags'));
     }
 
     /**
@@ -72,7 +76,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-        ) = $this->handleData($request);
+            ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -179,7 +183,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-        ) = $this->handleData($request);
+            ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -225,7 +229,6 @@ class ProductController extends Controller
                     ProductVariant::query()->create($item_update);
                 }
             }
-
 
 
             if ($request->has('delete_galleries')) {
@@ -350,11 +353,9 @@ class ProductController extends Controller
     }
 
 
-
-
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['tags','product_galleries','new_product_variants','product_variants']);
+        $dataProduct = $request->except(['tags', 'product_galleries', 'new_product_variants', 'product_variants']);
 
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
@@ -388,7 +389,6 @@ class ProductController extends Controller
         }
 
 
-
         $dataProductVariantsTmp = $request->product_variants;
         $dataProductVariants = [];
         foreach ($dataProductVariantsTmp as $key => $item) {
@@ -417,7 +417,6 @@ class ProductController extends Controller
 
         return [$dataProduct, $dataProductVariants, $dataNewProductVariants, $dataProductGalleries, $dataProductTags];
     }
-
 
 
     public function filter(Request $request)
