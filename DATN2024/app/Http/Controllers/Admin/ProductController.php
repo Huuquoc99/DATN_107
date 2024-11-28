@@ -91,25 +91,51 @@ class ProductController extends Controller
             }
 
             foreach ($dataNewProductVariants as $item) {
-                if (!empty($item_update['size']) && !empty($item_update['color'])) {
-                    $size = ProductCapacity::query()->firstOrCreate(
-                        ['name' => $item['size']],
-                        ['is_active' => 1]
-                    );
-
-                    $color = ProductColor::query()->firstOrCreate(
-                        ['name' => $item['color']],
-                        ['is_active' => 1]
-                    );
-
-                    $item += [
-                        'product_id' => $product->id,
-                        'product_capacity_id' => $size->id,
-                        'product_color_id' => $color->id,
-                    ];
-
-                    ProductVariant::query()->create($item);
+                // Bỏ qua các item không có đầy đủ size và color
+                if (empty($item['size']) || empty($item['color'])) {
+                    continue;
                 }
+
+                // Kiểm tra variant đã tồn tại
+                $existingVariant = ProductVariant::query()
+                    ->whereHas('capacity', function ($query) use ($item) {
+                        $query->where('name', $item['size']);
+                    })
+                    ->whereHas('color', function ($query) use ($item) {
+                        $query->where('name', $item['color']);
+                    })
+                    ->where('product_id', $product->id)
+                    ->exists();
+
+                if ($existingVariant) {
+                    return redirect()->back()->withErrors([
+                        'duplicate_error' => sprintf(
+                            'Variant with size "%s" and color "%s" already exists for this product.',
+                            $item['size'],
+                            $item['color']
+                        )
+                    ])->withInput();
+                }
+
+                // Tìm hoặc tạo size
+                $size = ProductCapacity::firstOrCreate(
+                    ['name' => $item['size']],
+                    ['is_active' => 1]
+                );
+
+                // Tìm hoặc tạo color
+                $color = ProductColor::firstOrCreate(
+                    ['name' => $item['color']],
+                    ['is_active' => 1]
+                );
+
+                $item += [
+                    'product_id' => $product->id,
+                    'product_capacity_id' => $size->id,
+                    'product_color_id' => $color->id,
+                ];
+
+                ProductVariant::query()->create($item);
             }
 
 
@@ -120,6 +146,10 @@ class ProductController extends Controller
             }
 
             $product->tags()->attach($dataProductTags);
+
+            session()->forget('product_variants');
+            session()->forget('new_product_variants');
+            session()->forget('product_galleries');
 
             DB::commit();
             return redirect()->route('admin.products.index')->with("success", "Product created successfully");
