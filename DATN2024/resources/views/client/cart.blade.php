@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="mb-3 pb-3 border-bottom">
-                            <div class="fw-medium mb-2">VOUCHER</div>
+                            <div class="fw-medium mb-2">VOUCHER</div>tyẻtye
                             <div class="input-group">
                                 <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
                                 <button class="btn btn-dark" id="apply-voucher">Apply</button>
@@ -118,7 +118,7 @@
                                 <a href="{{ route('checkout.index') }}">
                                     <button style="" class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
                                 </a>
-                            </div>
+                            </div> /rttyrty
                         </div>
                     </div>
                 @else
@@ -140,7 +140,7 @@
                 $.ajax({
                     url: '/apply-voucher',
                     method: 'POST',
-                    data: {
+                    data: {fgdfg
                         code: voucherCode
                     },
                     success: function(response) {
