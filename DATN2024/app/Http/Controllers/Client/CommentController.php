@@ -16,7 +16,7 @@ class CommentController extends Controller
 
     public function storeAjax()
     {
-    //    dd(1);
+        //    dd(1);
         $data = request()->validate([
             'content' => 'required|string',
             'rate' => 'required|integer|min:1|max:5',
@@ -182,5 +182,5 @@ class CommentController extends Controller
         ]);
     }
 
-    
+
 }

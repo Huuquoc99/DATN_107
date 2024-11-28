@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\AdminNotification;
+use App\Mail\AdminOrderCancelled;
+use App\Mail\AdminOrderUpdated;
 use App\Models\Order;
 use App\Mail\OrderPlaced;
 use App\Models\StatusOrder;
@@ -23,8 +26,8 @@ class OrderController extends Controller
     //             'id' => $order->id,
     //             'code' => $order->code,
     //             'created_at' => $order->created_at,
-    //             'status_order_id' => $order->statusOrder->id, 
-    //             'status_order_name' => $order->statusOrder->name, 
+    //             'status_order_id' => $order->statusOrder->id,
+    //             'status_order_name' => $order->statusOrder->name,
     //             'status_payment' => $order->statusPayment->name,
     //             'total_price' => $order->total_price,
     //         ];
@@ -43,8 +46,8 @@ class OrderController extends Controller
     //     // Không được xoá mặc dù nó đỏ
     //     $orders = Auth::user()->orders()
     //         ->with(['statusOrder', 'statusPayment'])
-    //         ->latest() 
-    //         ->paginate(7); 
+    //         ->latest()
+    //         ->paginate(7);
 
     //     $mappedOrders = $orders->getCollection()->map(function ($order) {
     //         return [
@@ -161,29 +164,29 @@ class OrderController extends Controller
         return response()->json(['message' => 'Không tìm thấy đơn hàng.'], 404);
     }
 
-    public function updateStatus(Request $request, $orderId)
-    {
-        $order = Order::find($orderId);
-        $statusId = $request->status_order_id;
-
-        $status = StatusOrder::find($statusId);
-        if ($order && $status) {
-            $history = json_decode($order->history, true) ?? [];
-            $history[] = [
-                'status_order_id' => $statusId,
-                'updated_at' => now()
-            ];
-            $order->history = json_encode($history);
-
-            $order->status_order_id = $statusId;
-            $order->save();
-
-            return redirect()->route('account.orders.show', $order->id)
-                ->with('success', 'Order status has been updated.');
-        }
-        return redirect()->route('account.orders.show', $order->id)
-            ->with('error', 'Order status is invalid or not found.');
-    }
+//    public function updateStatus(Request $request, $orderId)
+//    {
+//        $order = Order::find($orderId);
+//        $statusId = $request->status_order_id;
+//
+//        $status = StatusOrder::find($statusId);
+//        if ($order && $status) {
+//            $history = json_decode($order->history, true) ?? [];
+//            $history[] = [
+//                'status_order_id' => $statusId,
+//                'updated_at' => now()
+//            ];
+//            $order->history = json_encode($history);
+//
+//            $order->status_order_id = $statusId;
+//            $order->save();
+//
+//            return redirect()->route('account.orders.show', $order->id)
+//                ->with('success', 'Order status has been updated.');
+//        }
+//        return redirect()->route('account.orders.show', $order->id)
+//            ->with('error', 'Order status is invalid or not found.');
+//    }
 
 
     public function cancelOrder($id)
@@ -193,8 +196,17 @@ class OrderController extends Controller
         if ($order->status_order_id == 1) {
             $order->status_order_id = 4;
             $order->save();
+           $this->rollbackQuantity($order);
+            $no = \App\Models\AdminNotification::create([
+                'type' => 'Event\AdminNotification',
+                'data' => [
+                    'order' => $order,
+                    'message' => 'đã hủy thành công đơn hàng #<b>'. $order->code .'<b>'
+                ]
+            ]);
+            broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
 
-            $this->rollbackQuantity($order);
+            // $this->rollbackQuantity($order);
 
             Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
@@ -208,6 +220,29 @@ class OrderController extends Controller
         foreach ($order->orderItems as $item) {
             $item->productVariant->quantity += $item->quantity;
             $item->productVariant->save();
+    }}
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $newStatusId = $request->input('status_order_id');
+
+        if ($newStatusId != $order->status_order_id) {
+
+            $order->status_order_id = $newStatusId;
+            $order->save();
+
+            if ($newStatusId == 4) {
+                Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
+            } else {
+                Mail::to($order->user->email)->send(new AdminOrderUpdated($order));
+            }
+
+            return redirect()->route('admin.orders.show', $id)
+                ->with('success', 'Order status updated successfully.');
+        } else {
+            return redirect()->route('admin.orders.show', $id)
+                ->with('info', 'No change in order status.');
         }
     }
 

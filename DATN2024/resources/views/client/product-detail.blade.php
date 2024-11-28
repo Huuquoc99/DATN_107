@@ -178,10 +178,29 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
+{{--                    <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">--}}
+{{--                        <div class="product-single__additional-info p-3">--}}
+{{--                        <div class="product-gallery-horizontal d-flex justify-content-center" style="padding-left: 55px; position: relative;">--}}
+{{--                            <div class="main-image-container" style="position: relative;">--}}
+{{--                                <img id="mainImage" style="height: 500px; width: 600px; object-fit: cover;" src="{{ Storage::url($product->img_thumbnail) }}"--}}
+{{--                                     class="main-image" alt="{{ $product->name }}">--}}
+{{--                                <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn" data-fancybox="gallery">--}}
+{{--                                    <i class="fas fa-search-plus"></i>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <div class="thumbnail-column" style="display: flex; flex-direction: column; margin-left: 20px; position: absolute; top: 0; left: 650px;">--}}
+{{--                                @foreach ($product->galleries as $image)--}}
+{{--                                    <div class="thumb-item" style="margin-bottom: 10px;">--}}
+{{--                                        <img src="{{ Storage::url($image->image) }}"--}}
+{{--                                             style="width: 100px; height: auto; cursor: pointer;"--}}
+{{--                                             onclick="changeImage('{{ Storage::url($image->image) }}')"--}}
+{{--                                             alt="{{ $product->name }}">--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>
                         @include('client.list-comment', [

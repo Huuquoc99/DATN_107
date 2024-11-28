@@ -70,7 +70,7 @@
                                                 <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
                                                 @break
                                             @case(4)
-                                            <i class="ri-close-circle-line me-1 align-bottom"></i>
+                                                <i class="ri-close-circle-line me-1 align-bottom"></i>
                                                 @break
                                             @default
                                                 <i class="ri-store-2-fill me-1 align-bottom"></i>

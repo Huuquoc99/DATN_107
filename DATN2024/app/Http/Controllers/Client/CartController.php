@@ -81,27 +81,6 @@ class CartController extends Controller
                     // Xóa session sau khi đã lưu vào db
                     session()->forget('cart');
                 }
-            } else {
-                dd($sessionCart);
-                if (!empty($sessionCart)) {
-                    $dbCart = Cart::query()->create([
-                        'user_id' => Auth::id()
-                    ]);
-
-                    foreach ($sessionCart as $item) {
-                        CartItem::query()->create([
-                            'cart_id' => $dbCart->id,
-                            'product_variant_id' => $item['product_variant_id'],
-                            'quantity' => $item['quantity'],
-                            'price' => $item['price']
-                        ]);
-
-                        $unifiedCart[$item['product_variant_id']] = $item;
-                        $totalAmount = $item['quantity'] * $item['price'];
-                    }
-
-                    session()->forget('cart');
-                }
             }
         } else {
             if (!empty($sessionCart)) {
