@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\OrderChangeStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -57,5 +58,15 @@ class Order extends Model
     public function paymentMethod()
     {
         return $this->belongsTo(PaymentMethod::class);
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($order) {
+            if ($order->isDirty('status_order_id')) {
+                broadcast(new OrderChangeStatus($order->id, $order->status_order_id));
+            }
+        });
     }
 }

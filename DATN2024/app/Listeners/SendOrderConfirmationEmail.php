@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class SendOrderConfirmationEmail
+class SendOrderConfirmationEmail implements ShouldQueue
 {
     /**
      * Create the event listener.

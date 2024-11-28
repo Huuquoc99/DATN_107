@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\GuestOrderPlaced;
+use App\Events\OrderChangeStatus;
 use App\Listeners\NotificationOrderPlaced;
 use App\Listeners\SendOrderConfirmationEmail;
 use Illuminate\Auth\Events\Registered;

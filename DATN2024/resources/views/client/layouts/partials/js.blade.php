@@ -13,11 +13,12 @@
 <script src="{{ asset('theme/client/Demo18/js/theme.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/cart.js') }}"></script>
 <script src="{{ asset('theme/client/Demo18/js/comment.js') }}"></script>
-<<<<<<< HEAD
-=======
+
 <script src="{{ asset('theme/client/Demo18/js/index.js') }}"></script>
->>>>>>> c43104f6bce87bd738b5f4ae214242fded2f4dd5
+
 <script src="{{ asset('theme/client/Demo18/js/product-detail.js') }}"></script>
+{{--pusher--}}
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 @yield('api-address')
 @yield('api-guest-address')

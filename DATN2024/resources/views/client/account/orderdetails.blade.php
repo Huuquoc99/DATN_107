@@ -104,44 +104,49 @@
                         <tr>
                             <td class="w-50"><strong>Status order</strong></td>
                             <td class="w-50">
-                                @if ($order->status_order_id == 1)
                                 {{ $order->statusOrder->name ?? 'N/A' }}
+                            </td>
+                            <td>
+                                @if ($order->statusOrder->name == 'Pending')
                                     <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                                        <button type="submit" class="btn btn-danger">Cancelled</button>
                                     </form>
-                                @elseif ($order->status_order_id == 2)
-                                {{ $order->statusOrder->name ?? 'N/A' }}
+                                @elseif ($order->statusOrder->name == 'Shipped')
                                     <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-success">Đã nhận được hàng</button>
+                                        <button type="submit" class="btn btn-success">Received</button>
                                     </form>
-                                @elseif ($order->status_order_id == 3)
-                                    <span class="text-success">Hoàn thành</span>
-                                @elseif ($order->status_order_id == 4)
-                                    <span class="text-danger">Đã hủy</span>
-                                @else
-                                    <span class="text-muted">Trạng thái không xác định</span>
                                 @endif
                             </td>
-                            
-                            
                         </tr>
                         <tr>
                             <td><strong>Status payment:</strong></td>
-                            <td>{{ $order->statusPayment->name ?? 'N/A' }}</td>
+                            <td>{{ $order->statusPayment->name ?? 'N/A' }}
+                            </td>
+                            <td class="w-30">
+                                @if (($order->statusPayment->name == 'Pending' || $order->statusPayment->name == 'Failed') && $order->statusOrder->name == 'Pending' && $order->paymentMethod->name == 'VN Pay')
+                                    <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" name="redirect" class="btn btn-success">Repayment</button>
+                                    </form>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Payment method:</strong></td>
                             <td>{{ $order->paymentMethod->name ?? 'N/A' }}</td>
+                            <td> </td>
                         </tr>
                         <tr>
                             <td><strong>Total price:</strong></td>
                             <td>{{ number_format($order->total_price, 2) }} VND</td>
+                            <td> </td>
                         </tr>
                         <tr>
                             <td><strong>Create at:</strong></td>
                             <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                            <td> </td>
                         </tr>
                     </table>
                 </div>
@@ -159,33 +164,33 @@
                 <div class="page-content my-account__orders-list">
                     <table class="orders-table">
                         <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>SKU</th>
-                                <th>Quantity</th>
-                                <th>Price regular</th>
-                                <th>Price sale</th>
-                                <th>Variant</th>
-                            </tr>
+                        <tr>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>Quantity</th>
+                            <th>Price regular</th>
+                            <th>Price sale</th>
+                            <th>Variant</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($order->orderItems as $item)
-                                <tr>
-                                    <td>{{ $item->product_name }}</td>
-                                    <td>{{ $item->product_sku }}</td>
-                                    <td>{{ $item->quantity }}</td>
-                                    <td>{{ number_format($item->product_price_regular, 2) }} VND</td>
-                                    <td>{{ number_format($item->product_price_sale, 2) }} VND</td>
-                                    <td>
-                                        @if ($item->product_capacity_id)
-                                            {{ $item->capacity->name ?? 'N/A' }}
-                                        @endif
-                                        @if ($item->product_color_id)
-                                            - {{ $item->color->name ?? 'N/A' }}
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                        @foreach ($order->orderItems as $item)
+                            <tr>
+                                <td>{{ $item->product_name }}</td>
+                                <td>{{ $item->product_sku }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>{{ number_format($item->product_price_regular, 2) }} VND</td>
+                                <td>{{ number_format($item->product_price_sale, 2) }} VND</td>
+                                <td>
+                                    @if ($item->product_capacity_id)
+                                        {{ $item->capacity->name ?? 'N/A' }}
+                                    @endif
+                                    @if ($item->product_color_id)
+                                        - {{ $item->color->name ?? 'N/A' }}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <a href="{{ route('orders.index') }}" class="btn btn-primary mt-3 mb-3">Back</a>
@@ -194,4 +199,20 @@
         </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        const orderId = {{ $order->id }};
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+        });
+
+        var channel = pusher.subscribe('channel-notification');
+        channel.bind('update-order', function(data) {
+            if (data.orderId == orderId) {
+                location.reload();
+            }
+        });
+    </script>
 @endsection

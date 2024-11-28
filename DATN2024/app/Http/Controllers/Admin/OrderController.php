@@ -109,10 +109,14 @@ class OrderController extends Controller
             $order->status_order_id = $newStatusId;
             $order->save();
 
-            if ($newStatusId == 4) {
-                Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
+//            dd($order);
+
+            $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
+
+            if ($newStatusId == 4) { // Trạng thái hủy đơn
+                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
             } else {
-                Mail::to($order->user->email)->send(new AdminOrderUpdated($order));
+                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
             }
 
             return redirect()->route('admin.orders.show', $id)
