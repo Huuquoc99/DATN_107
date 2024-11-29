@@ -109,7 +109,7 @@
                                 @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-warning btn-sm">Repayment</button>
+                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">Repayment</button>
                                     </form>
                                 @endif
                             </td>
