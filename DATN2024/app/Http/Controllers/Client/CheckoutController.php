@@ -134,9 +134,12 @@ class CheckoutController extends Controller
             'voucher_id' => $voucher ? $voucher->id : null,
         ]);
 
-        $voucher->used_quantity += 1;
-        $voucher->save();
-
+        // $voucher->used_quantity += 1;
+        // $voucher->save();
+        if ($voucher) {
+            $voucher->used_quantity += 1;
+            $voucher->save();
+        }
 
         foreach ($guest_cart as $item) {
             $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item['product_variant_id']);
@@ -233,8 +236,13 @@ class CheckoutController extends Controller
 
         $this->deductStockProduct();
 
-        $voucher->used_quantity += 1;
-        $voucher->save();
+        // $voucher->used_quantity += 1;
+        // $voucher->save();
+        if ($voucher) {
+            $voucher->used_quantity += 1;
+            $voucher->save();
+        }
+        
 
         foreach ($cart->items as $item) {
             $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
