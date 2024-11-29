@@ -85,7 +85,7 @@
         <div class="order-details">
             <p><strong>Order details:</strong></p>
             <p>Order code: <strong>{{ $order->code }}</strong></p>
-            <p>Status: <strong>{{ $order->statusOrder-> }}</strong></p>
+            {{-- <p>Status: <strong>{{ $order->statusOrder-> }}</strong></p> --}}
         </div>
 
         <p>We apologize for any inconvenience. If you have any questions or need further assistance, please contact us via email or phone number below.</p>
