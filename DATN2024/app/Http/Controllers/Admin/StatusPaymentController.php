@@ -15,7 +15,6 @@ class StatusPaymentController extends Controller
     public function index()
     {
         $listStatusPayment = StatusPayment::paginate(5);
-        // return response()->json( $listStatusPayment, 201);
         return view("admin.statusPayments.index", compact('listStatusPayment'));
 
     }
@@ -25,7 +24,6 @@ class StatusPaymentController extends Controller
      */
     public function create()
     {
-        // return response()->json();
         return view("admin.statusPayments.create");
 
     }
@@ -42,7 +40,6 @@ class StatusPaymentController extends Controller
             $statusPayment = StatusPayment::create($param);
             $statusPayment->is_active == 0 ? $statusPayment->hide() : $statusPayment->show();
         
-            // return response()->json(['message' => 'Status payment created successfully']);
             return redirect()->route("admin.statusPayments.index")->with("success", "Status payment created successfully");
 
         }
@@ -54,7 +51,6 @@ class StatusPaymentController extends Controller
     public function show(string $id)
     {
         $statusPayment = StatusPayment::query()->findOrFail($id);
-        // return response()->json($statusPayment);
         return view("admin.statusPayments.show", compact('statusPayment'));
 
     }
@@ -65,7 +61,6 @@ class StatusPaymentController extends Controller
     public function edit(string $id)
     {
         $statusPayment = StatusPayment::findOrFail($id);
-        // return response()->json($statusPayment);
         return view("admin.statusPayments.edit", compact("statusPayment"));
 
     }
@@ -83,8 +78,6 @@ class StatusPaymentController extends Controller
             $statusPayment->update($param);
             $statusPayment->is_active == 0 ? $statusPayment->hide() : $statusPayment->show();
 
-        
-            // return response()->json(['message' => 'Status payment updated successfully']);
             return redirect()->route("admin.statusPayments.index")->with("success", "Status payment updated successfully");
 
         }
@@ -97,7 +90,6 @@ class StatusPaymentController extends Controller
     {
         $statusPayment = StatusPayment::findOrFail($id);
         $statusPayment->delete();
-        // return response()->json(['message' => 'Status payment deleted successfully']);
         return redirect()->route("admin.statusPayments.index")->with("success", "Status payment deleted successfully");
 
     }

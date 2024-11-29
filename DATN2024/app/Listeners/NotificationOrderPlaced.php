@@ -28,7 +28,7 @@ class NotificationOrderPlaced
             'type' => 'Event\AdminNotification',
             'data' => [
                 'order' => $order,
-                'message' => 'đã đặt hàng thành công đơn hàng #<b>'. $order->code .'<b>'
+                'message' => 'order placed successfully #<b>'. $order->code .'<b>'
             ]
         ]);
         broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));

@@ -16,7 +16,6 @@ class ProductColorController extends Controller
     public function index()
     {
         $listProductColor = ProductColor::paginate(5);
-        // return response()->json($listProductColor, 200);
         return view("admin.productColors.index", compact('listProductColor'));
 
     }
@@ -26,7 +25,6 @@ class ProductColorController extends Controller
      */
     public function create()
     {
-        // return response()->json();
         return view("admin.productColors.create");
 
     }
@@ -44,7 +42,6 @@ class ProductColorController extends Controller
             $productColor = ProductColor::create($param);
             $productColor->is_active == 0 ? $productColor->hide() : $productColor->show();
         
-            // return response()->json(['message' => 'Product Color created successfully']);
             return redirect()->route("admin.productColors.index")->with("success", "Product color created successfully");
 
         }
@@ -56,7 +53,7 @@ class ProductColorController extends Controller
     public function show(string $id)
     {
         $productColor = ProductColor::query()->findOrFail($id);
-        // return response()->json($productColor);
+        
         return view("admin.productColors.show", compact('productColor'));
 
     }
@@ -67,7 +64,6 @@ class ProductColorController extends Controller
     public function edit(string $id)
     {
         $productColor = ProductColor::findOrFail($id);
-        // return response()->json($productColor);
         return view("admin.productColors.edit", compact("productColor"));
 
     }
@@ -85,11 +81,6 @@ class ProductColorController extends Controller
         $productColor->update($param);
         $productColor->is_active == 0 ? $productColor->hide() : $productColor->show();
     
-        // return response()->json([
-        //     'message' => 'Product Color updated successfully',
-        //     'data' => $productColor
-        // ]);
-
         return redirect()->route("admin.productColors.index")->with("success", "Product Color updated successfully");
 
     }
@@ -102,7 +93,6 @@ class ProductColorController extends Controller
         ProductVariant::query()->where("product_color_id", $id)->delete();
         $productColor = ProductColor::query()->findOrFail($id);
         $productColor->delete();
-        // return response()->json(['message' => 'Product Color deleted successfully']);
         return redirect()->route("admin.productColors.index")->with("success", "Product Color deleted successfully");
 
     }

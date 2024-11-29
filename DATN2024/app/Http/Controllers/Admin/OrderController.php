@@ -15,20 +15,6 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     // $statusOrders = StatusOrder::all();
-    //     $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
-
-    //     if ($request->has('status')) {
-    //         $orders->where('status_order_id', $request->input('status'));
-    //     }
-
-    //     $orders = $orders->paginate(10);
-
-    //     return view('admin.orders.index', compact('orders'));
-    // }
-
     public function index(Request $request)
     {
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');

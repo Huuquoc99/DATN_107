@@ -17,7 +17,6 @@
                                 <div class="form-floating my-3">
                                     <input type="text" class="input" id="ship_user_name" placeholder="First Name"
                                            value="{{ old('ship_user_name', $user->name ?? '') }}" required name="ship_user_name">
-                                    {{-- <label for="ship_user_name"> Name</label> --}}
                                 </div>
                             </div>
 
@@ -25,21 +24,18 @@
                                 <div class="form-floating my-3">
                                     <input type="email" class="input" id="ship_user_email" placeholder="Email"
                                            value="{{ old('ship_user_email', $user->email ?? '') }}" required name="ship_user_email">
-                                    {{-- <label for="ship_user_email">Email</label> --}}
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="number" class="input" id="ship_user_phone" placeholder="Phone"
                                            value="{{ old('ship_user_phone', $user->phone ?? '') }}" required name="ship_user_phone">
-                                    {{-- <label for="ship_user_phone">Phone</label> --}}
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="text" class="input" id="ship_user_address" placeholder="Address"
                                            value="{{ old('ship_user_address', $user->address ?? '') }}" required name="ship_user_address">
-                                    {{-- <label for="ship_user_address">Address</label> --}}
                                 </div>
                             </div>
 
@@ -173,8 +169,8 @@
     <script>
         function fetchDistricts(provinceId) {
             if (!provinceId) {
-                document.getElementById('district').innerHTML = '<option value="">Chọn Quận/Huyện</option>';
-                document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                document.getElementById('district').innerHTML = '<option value="">Select District</option>';
+                document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
                 return;
             }
 
@@ -182,7 +178,7 @@
                 .then(response => response.json())
                 .then(data => {
 
-                    let districtOptions = '<option value="">Chọn Quận/Huyện</option>';
+                    let districtOptions = '<option value="">Select District</option>';
 
                     if (Array.isArray(data)) {
                         console.log(data);
@@ -190,27 +186,27 @@
                             districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
                         });
                     } else {
-                        console.error("Dữ liệu không phải là mảng:", data);
+                        console.error("Data is not an array:", data);
                     }
 
                     document.getElementById('district').innerHTML = districtOptions;
-                    document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                    document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
                 })
                 .catch(error => {
-                    console.error("Lỗi khi fetch dữ liệu:", error);
+                    console.error("Error while fetching data:", error);
                 });
         }
 
         function fetchWards(districtId) {
             if (!districtId) {
-                document.getElementById('ward').innerHTML = '<option value="">Chọn Phường/Xã</option>';
+                document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
                 return;
             }
 
             fetch(`/order/wards/${districtId}`)
                 .then(response => response.json())
                 .then(data => {
-                    let wardOptions = '<option value="">Chọn Phường/Xã</option>';
+                    let wardOptions = '<option value="">Select Ward/Commune</option>';
                     data.forEach(ward => {
                         wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
                     });

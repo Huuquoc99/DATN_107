@@ -196,7 +196,8 @@ Route::prefix('admin')
         Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
-
+        Route::put('orders/{id}/update-payment-status', [AdminOrderController::class, 'updatePaymentStatus'])
+        ->name('orders.updatePaymentStatus');
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');

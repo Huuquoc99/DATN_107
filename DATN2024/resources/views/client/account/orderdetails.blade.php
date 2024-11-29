@@ -8,72 +8,10 @@
     </div>
 
    
-    <section class="my-account container">
-        <h2 class="page-title pt-5">User Information</h2>
-        <div class=" mb-xl-2 pb-3 pt-1 pb-xl-5"></div>
-        <div class="row">
-            <!-- User Information -->
-            <div class="col-lg-6">
-                <div class="info-box">
-                    <h4>User Information</h4>
-                    <table class="info-table">
-                        <tr>
-                            <td><strong>Name:</strong></td>
-                            <td>{{ $order->user_name }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Email:</strong></td>
-                            <td>{{ $order->user_email }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Phone:</strong></td>
-                            <td>{{ $order->user_phone }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Address:</strong></td>
-                            <td>{{ $order->user_address }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Note:</strong></td>
-                            <td>{{ $order->user_note }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <!-- Shipping Information -->
-            <div class="col-lg-6">
-                <div class="info-box">
-                    <h4>Shipping Information</h4>
-                    <table class="info-table">
-                        <tr>
-                            <td><strong>Name:</strong></td>
-                            <td>{{ $order->ship_user_name }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Email:</strong></td>
-                            <td>{{ $order->ship_user_email }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Phone:</strong></td>
-                            <td>{{ $order->ship_user_phone }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Address:</strong></td>
-                            <td>{{ $order->ship_user_address }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Note:</strong></td>
-                            <td>{{ $order->ship_user_note }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>      
-        </div>
-    </section>
+   
     <section class="my-account container">
         <h2 class="page-title pt-5">Order Details</h2>
         <div class="row">
-            <!-- Order Information (Chiếm 3 phần) -->
             <div class="col-lg-4">
                 <div class="info-box">
                     <h4>Order Information</h4>
@@ -129,8 +67,6 @@
                     </table>
                 </div>
             </div>
-    
-            <!-- Orders List (Chiếm 7 phần) -->
             <div class="col-lg-8">
                 <div class="info-box">
                     <h4>Order Items</h4>
@@ -170,11 +106,67 @@
             </div>
         </div>
     </section>
+    <section class="my-account container">
+        <h2 class="page-title pt-5">User Information</h2>
+        <div class=" mb-xl-2 pb-3 pt-1 pb-xl-5"></div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="info-box">
+                    <h4>User Information</h4>
+                    <table class="info-table">
+                        <tr>
+                            <td><strong>Name:</strong></td>
+                            <td>{{ $order->user_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email:</strong></td>
+                            <td>{{ $order->user_email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phone:</strong></td>
+                            <td>{{ $order->user_phone }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address:</strong></td>
+                            <td>{{ $order->user_address }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Note:</strong></td>
+                            <td>{{ $order->user_note }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="info-box">
+                    <h4>Shipping Information</h4>
+                    <table class="info-table">
+                        <tr>
+                            <td><strong>Name:</strong></td>
+                            <td>{{ $order->ship_user_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email:</strong></td>
+                            <td>{{ $order->ship_user_email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phone:</strong></td>
+                            <td>{{ $order->ship_user_phone }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address:</strong></td>
+                            <td>{{ $order->ship_user_address }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Note:</strong></td>
+                            <td>{{ $order->ship_user_note }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>      
+        </div>
+    </section>
     <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
-
-
-
-
 @endsection
 @section('script')
     <script type="text/javascript">
