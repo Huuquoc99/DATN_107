@@ -70,9 +70,12 @@
                                                 {{ $loop->first ? 'checked' : '' }} required>
                                             <label class="btn btn-outline color-choice"
                                                 for="radio_color_{{ $id }}">
-                                                <span class="color-dot"
+                                                {{-- <span class="color-dot"
                                                     style="background-color: {{ $color['color_code'] }};"></span>
-                                                <span class="color-name">{{ $color['name'] }}</span>
+                                                <span class="color-name">{{ $color['name'] }}</span> --}}
+                                                <div class="color-dot"
+                                                    style="background-color: {{ $color['color_code'] }};"></div>
+                                                <div class="color-name">{{ $color['name'] }}</div>
                                             </label>
                                         </div>
                                     @endforeach

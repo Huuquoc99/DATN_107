@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+
     public function index(Request $request)
     {
         $orders = Order::with('user', 'statusOrder', 'statusPayment', 'orderItems')->orderBy('created_at', 'desc');
@@ -99,7 +100,7 @@ class OrderController extends Controller
 
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
 
-            if ($newStatusId == 4) { // Trạng thái hủy đơn
+            if ($newStatusId == 5) { // Trạng thái hủy đơn
                 $this->rollbackQuantity($order);
                 Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
             } else {

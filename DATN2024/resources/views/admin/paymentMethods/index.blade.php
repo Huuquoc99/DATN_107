@@ -74,14 +74,32 @@
                                             {{ \Illuminate\Support\Str::limit($item->display_order, 15, '...') }}
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        <td>
+                                        {{-- <td>
                                             <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
                                         </td>
                                         <td>
                                             <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                        </td> --}}
+                                        <td>
+                                            @if ($item->created_at)
+                                                <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                            @else
+                                                <span class="text-muted">N/A</span>
+                                            @endif
                                         </td>
+                                        
+                                        <td>
+                                            @if ($item->updated_at)
+                                                <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                            @else
+                                                <span class="text-muted">N/A</span>
+                                            @endif
+                                        </td>
+                                        
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.paymentMethods.show', $item) }}" class="btn btn-info btn-sm">Show 

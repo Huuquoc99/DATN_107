@@ -93,7 +93,7 @@ class CatalogueController extends Controller
             $catalogue->is_active = $request->has('is_active') ? 1 : 0;
             $catalogue->update($param);
 
-            $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
+            // $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
             return redirect()->route("admin.catalogues.index")->with("success", "Catalogue updated successfully");
 
         }

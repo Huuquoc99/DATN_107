@@ -19,21 +19,21 @@
                         <tr>
                             <td><strong>Status order:</strong></td>
                             <td>
-                                @if ($order->status_order_id == 1)
+                                @if ($order->status_order_id == 1 || $order->status_order_id == 2)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
                                     </form>
-                                @elseif ($order->status_order_id == 2)
+                                @elseif ($order->status_order_id == 3)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-sm">Mark as Received</button>
                                     </form>
-                                @elseif ($order->status_order_id == 3)
-                                    <span class="text-success">Completed</span>
                                 @elseif ($order->status_order_id == 4)
+                                    <span class="text-success">Completed</span>
+                                @elseif ($order->status_order_id == 5)
                                     <span class="text-danger">Canceled</span>
                                 @else
                                     <span class="text-muted">Unknown</span>
@@ -74,10 +74,10 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>SKU</th>
+                                {{-- <th>SKU</th> --}}
                                 <th>Quantity</th>
                                 <th>Price Regular</th>
-                                <th>Price Sale</th>
+                                {{-- <th>Price Sale</th> --}}
                                 <th>Variant</th>
                             </tr>
                         </thead>
@@ -85,10 +85,10 @@
                             @foreach ($order->orderItems as $item)
                                 <tr>
                                     <td>{{ $item->product_name }}</td>
-                                    <td>{{ $item->product_sku }}</td>
+                                    {{-- <td>{{ $item->product_sku }}</td> --}}
                                     <td>{{ $item->quantity }}</td>
-                                    <td>{{ number_format($item->product_price_regular, 2) }} VND</td>
-                                    <td>{{ number_format($item->product_price_sale, 2) }} VND</td>
+                                    <td>{{ number_format($item->product_price_regular, 0) }} VND</td>
+                                    {{-- <td>{{ number_format($item->product_price_sale, 2) }} VND</td> --}}
                                     <td>
                                         @if ($item->product_capacity_id)
                                             {{ $item->capacity->name ?? 'N/A' }}
