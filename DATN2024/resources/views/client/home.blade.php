@@ -138,6 +138,7 @@
                         favoriteButton.classList.add('text-red-500');
                         favoriteButton.innerHTML = '❤️ Đã thích';
                     } else {
+                        // Nếu không yêu thích, chuyển về màu trắng và hiển thị "Thích"
                         favoriteButton.classList.remove('text-red-500');
                         favoriteButton.innerHTML = '🤍 Thích';
                     }

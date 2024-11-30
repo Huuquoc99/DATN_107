@@ -45,4 +45,15 @@ class FavoriteController extends Controller
         }
     }
 
+
+    public function listFavorites()
+    {
+        $favorites = Auth::user()
+            ->favorites()
+            ->with('product')
+            ->latest()
+            ->paginate(10);
+
+        return view('client.favorites', compact('favorites'));
+    }
 }

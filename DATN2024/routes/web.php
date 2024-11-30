@@ -104,7 +104,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])
         ->name('favorite.toggle');
-
+    Route::get('/favorites', [FavoriteController::class, 'listFavorites'])
+        ->name('favorites.list');
 
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
