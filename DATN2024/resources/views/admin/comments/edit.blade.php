@@ -68,6 +68,17 @@ Comment
                                         <label for="product" class="form-label">Product</label>
                                         <input type="text" class="form-control" id="product" value="{{ $comment->product->name }}" disabled>
                                     </div>
+                                    <div class="mt-3">
+                                        <label for="rate" class="form-label">Rating</label>
+                                        <div id="rate" class="d-flex align-items-center gap-2">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <input type="radio" name="rate" id="rate-{{ $i }}" value="{{ $i }}" {{ $comment->rate == $i ? 'checked' : '' }} class="d-none">
+                                                <label for="rate-{{ $i }}" style="cursor: pointer;">
+                                                    <i class="fa fa-star {{ $comment->rate >= $i ? 'text-warning' : 'text-secondary' }}" id="star-{{ $i }}"></i>
+                                                </label>
+                                            @endfor
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

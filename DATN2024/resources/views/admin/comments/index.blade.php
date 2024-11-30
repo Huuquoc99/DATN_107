@@ -44,6 +44,7 @@
                                 <th>Name</th>
                                 <th>Product</th>
                                 <th>Content</th>
+                                <th>Rating</th>
                                 <th>Active</th>
                                 <th>Create at</th>
                                 <th>Update at</th>
@@ -63,6 +64,16 @@
                                         <td>
                                             {{ \Illuminate\Support\Str::limit($item->content, 15, '...') }}
                                         </td>
+                                        <td>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $item->rate)
+                                                    <i class="fa fa-star text-warning"></i> 
+                                                @else
+                                                    <i class="fa fa-star text-light"></i>
+                                                @endif
+                                            @endfor
+                                        </td>
+                                        
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                         <td>
                                             <span id="invoice-date">{{ $item->created_at ? $item->created_at->format('d M, Y') : 'N/A' }}</span>

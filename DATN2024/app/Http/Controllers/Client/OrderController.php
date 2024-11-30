@@ -13,9 +13,12 @@ use App\Http\Controllers\Controller;
 use App\Mail\OrderCancelled;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Traits\VnPayTrait;
 
 class OrderController extends Controller
 {
+
+    use VnPayTrait;
     // {
 
     //     $orders = Auth::user()->orders->map(function ($order) {
@@ -193,7 +196,7 @@ class OrderController extends Controller
         if ($order->status_order_id == 1) {
             $order->status_order_id = 4;
             $order->save();
-//            $this->rollbackQuantity($order);
+           $this->rollbackQuantity($order);
             $no = \App\Models\AdminNotification::create([
                 'type' => 'Event\AdminNotification',
                 'data' => [
@@ -203,6 +206,8 @@ class OrderController extends Controller
             ]);
             broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
 
+            // $this->rollbackQuantity($order);
+
             Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
             return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
         }
@@ -210,6 +215,12 @@ class OrderController extends Controller
         return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
     }
 
+    private function rollbackQuantity($order)
+    {
+        foreach ($order->orderItems as $item) {
+            $item->productVariant->quantity += $item->quantity;
+            $item->productVariant->save();
+    }}
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
@@ -248,5 +259,19 @@ class OrderController extends Controller
         }
 
         return redirect()->back()->with('error', 'Không thể cập nhật trạng thái đơn hàng.');
+    }
+
+    public function repayment($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        if (
+            ($order->status_payment_id == 1 || $order->status_payment_id == 3)
+            && $order->status_order_id == 1
+            && $order->payment_method_id == 2
+        ){
+            $this->processVNPAY($order);
+        } else {
+            return redirect()->back()->with('error', 'Không thể thanh toán đơn hàng.');
+        }
     }
 }

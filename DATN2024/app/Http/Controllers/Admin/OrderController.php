@@ -87,6 +87,7 @@ class OrderController extends Controller
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
 
             if ($newStatusId == 4) { // Trạng thái hủy đơn
+                $this->rollbackQuantity($order);
                 Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
             } else {
                 Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
@@ -99,7 +100,12 @@ class OrderController extends Controller
                             ->with('error', 'No change in order status.');
         }
     }
-
+    private function rollbackQuantity($order)
+    {
+        foreach ($order->orderItems as $item) {
+            $item->productVariant->quantity += $item->quantity;
+            $item->productVariant->save();
+    }}
 
     public function updatePaymentStatus(Request $request, $id)
     {

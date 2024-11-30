@@ -334,24 +334,24 @@
                         <th width="20%" style="text-align:right; padding: 0 2.5em; color: #000; padding-bottom: 20px">Price</th>
                     </tr>
                     @foreach ($items as $item)
-                    <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
-                        <td>
-                            <div class="product-entry">
-                                <div class="text">
-                                    <h3>{{ $item->product_name }}</h3>
-                                    <span>{{ $item->capacity_name }}</span>
-                                    <span>{{ $item->color_name }}</span>
+                        <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
+                            <td>
+                                <div class="product-entry">
+                                    <div class="text">
+                                        <h3>{{ $item->product_name }}</h3>
+                                        <span>{{ $item->capacity_name }}</span>
+                                        <span>{{ $item->color_name }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
-                            <span class="price" style="color: #000; font-size: 20px;">{{ $item->quantity }}</span>
-                        </td>
+                            </td>
+                            <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
+                                <span class="price" style="color: #000; font-size: 20px;">{{ $item->quantity }}</span>
+                            </td>
 
-                        <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
-                            <span class="price" style="color: #000; font-size: 20px;">{{ number_format($item->product_price_sale ?? $item->product_price_regular, 0, ',', '.') }} VND</span>
-                        </td>
-                    </tr>
+                            <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
+                                <span class="price" style="color: #000; font-size: 20px;">{{ number_format($item->product_price_sale ?? $item->product_price_regular, 0, ',', '.') }} VND</span>
+                            </td>
+                        </tr>
                     @endforeach
                     <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
                         <td valign="middle" width="80%" style="text-align:left; padding: 0 2.5em;">

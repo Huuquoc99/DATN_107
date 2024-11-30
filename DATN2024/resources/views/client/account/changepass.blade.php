@@ -30,40 +30,55 @@
                                 </div>
                             @endif
 
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
                                         {{ $error }}
                                     @endforeach
                                 </div>
-                            @endif
+                            @endif --}}
                             <form name="account_edit_form" class="needs-validation" novalidate action="{{ route('account.updatePassword', Auth::user()->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
                                     
                                     <div class="col-md-12">
-                                        <div class="form-floating my-3">
-                                            <input type="password" class="input" id="old_password" placeholder="Password" name="old_password">
+                                        <div class="form-floating">
+                                            <input type="password" class="input form-control @error('old_password') is-invalid @enderror" id="old_password" placeholder="Password" name="old_password">
+                                            @error('old_password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             {{-- <label for="old_password">Old Password</label> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="form-floating my-3">
-                                            <input type="password" class="input" id="new_password" placeholder="Phone" name="new_password">
+                                        <div class="form-floating">
+                                            <input type="password" class="input form-control @error('new_password') is-invalid @enderror" id="new_password" placeholder="new_password" name="new_password">
+                                            @error('new_password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             {{-- <label for="new_password">New Password</label> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="form-floating my-3">
-                                            <input type="password" class="input" id="new_password_confirmation" placeholder="Email" name="new_password_confirmation">
+                                        <div class="form-floating">
+                                            <input type="password" class="input form-control @error('new_password_confirmation') is-invalid @enderror" id="new_password_confirmation" placeholder="new_password_confirmation" name="new_password_confirmation">
+                                            @error('new_password_confirmation')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             {{-- <label for="new_password_confirmation">Confirm password</label> --}}
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="my-3">
-                                            <button class="btn btn-primary">Save Changes</button>
+                                            <button class="btn btn-primary" type="submit">Save Changes</button>
                                         </div>
                                     </div>
                                 </div>

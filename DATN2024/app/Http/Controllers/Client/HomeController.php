@@ -41,10 +41,9 @@ class HomeController extends Controller
             ->get();
 
 
-
+        $catalogues = Catalogue::where('is_active', 1)->get();
         $banners = Banner::where('is_active', 1)->get();
 
-        $catalogues = Catalogue::where('is_active', 1)->get();
         $products = Product::query()->active()->latest('id')->paginate(8);
         return view('client.home', compact(
                 "productActive",

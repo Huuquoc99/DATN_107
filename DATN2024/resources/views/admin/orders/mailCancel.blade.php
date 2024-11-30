@@ -79,7 +79,7 @@
     </div>
 
     <div class="content">
-        <p>Hello <strong>{{ $order->user->name }}</strong>,</p>
+        <p>Hello <strong>{{ $order->ship_user_name }}</strong>,</p>
         <p>We regret to inform you that your order with code <strong>{{ $order->code }}</strong> has been cancelled at the request of the administrator.</p>
 
         <div class="order-details">

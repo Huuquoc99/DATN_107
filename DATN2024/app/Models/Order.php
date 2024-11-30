@@ -33,6 +33,7 @@ class Order extends Model
         'status_payment_id',
         'payment_method_id',
         'total_price',
+        'voucher_id',
     ];
 
     public function user()
@@ -58,6 +59,11 @@ class Order extends Model
     public function paymentMethod()
     {
         return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
     }
     protected static function boot()
     {

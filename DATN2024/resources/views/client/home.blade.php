@@ -1,5 +1,9 @@
 @extends('client.layouts.master')
 
+@section('title')
+    Home
+@endsection
+
 @section('content')
     @include('client.layouts.partials.banner')
 
@@ -10,7 +14,7 @@
 
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
-                <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers on Car Parts</h2>
+                <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers</h2>
                 <ul class="nav nav-tabs justify-content-center" id="collections-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase theme-color fs-13 fw-semi-bold active"
@@ -49,7 +53,7 @@
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
                                     <h6 class="pc__title fs-16 mb-2"><a href="">{{ \Illuminate\Support\Str::limit($item->name, 20) }}</a></h6>
-                                    
+
                                     <div class="product-card__price d-flex">
                                         <span class="money price fs-16 fw-semi-bold">{{ number_format($item->price_regular, 0, ',', '.') }} VND</span>
                                     </div>
@@ -78,7 +82,7 @@
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
                                     <h6 class="pc__title fs-16 mb-2"><a href="">{{ \Illuminate\Support\Str::limit($item->name, 20) }}</a></h6>
-                                    
+
                                     <div class="product-card__price d-flex">
                                         <span class="money price fs-16 fw-semi-bold">{{ number_format($item->price_regular, 0, ',', '.') }} VND</span>
                                     </div>
@@ -107,7 +111,7 @@
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
                                     <h6 class="pc__title fs-16 mb-2"><a href="">{{ \Illuminate\Support\Str::limit($item->name, 20) }}</a></h6>
-                                    
+
                                     <div class="product-card__price d-flex">
                                         <span class="money price fs-16 fw-semi-bold">{{ number_format($item->price_regular, 0, ',', '.') }} VND</span>
                                     </div>
@@ -117,6 +121,8 @@
                         @endforeach
                     </div>
                 </div>
+
+
             </div>
         </section>
     </div>
