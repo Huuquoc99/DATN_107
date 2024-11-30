@@ -10,8 +10,6 @@
     @include('client.layouts.partials.shop-by-categories')
 
     <div class="bg-grey">
-        {{-- <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div> --}}
-
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
                 <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers</h2>
@@ -121,15 +119,7 @@
                         @endforeach
                     </div>
                 </div>
-
-
             </div>
         </section>
     </div>
-
-
-
-
-{{-- @include('client.layouts.partials.shop-brand') --}}
-
 @endsection

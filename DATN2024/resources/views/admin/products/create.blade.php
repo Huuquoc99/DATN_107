@@ -539,27 +539,27 @@
             variantCount++;
 
             newRow.innerHTML = `
-        <tr class="text-center">
-            <td>
-                <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
-            </td>
-            <td>
-                <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
-            </td>
-            <td>
-                <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
-            </td>
-            <td>
-                <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">Del</button>
-            </td>
-        </tr>
-    `;
+                <tr class="text-center">
+                    <td>
+                        <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
+                    </td>
+                    <td>
+                        <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">Xóa</button>
+                    </td>
+                </tr>
+            `;
 
             variantTable.appendChild(newRow);
         }

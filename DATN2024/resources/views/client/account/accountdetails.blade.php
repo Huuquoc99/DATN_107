@@ -25,55 +25,6 @@
                     <div class="page-content my-account__edit">
                         <div class="row">
                             <div class="col-md-5 d-flex align-items-center">
-                                {{-- <form action="{{ route('account.updateAvatar', $user->id) }}" method="POST"
-                                    enctype="multipart/form-data" class="text-center">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        <div class="user-avatar-container position-relative">
-                                            <!-- Ảnh đại diện -->
-                                            @if ($user->avatar)
-                                                <img src="{{ asset('storage/' . $user->avatar) }}"
-                                                    class="rounded-circle avatar-sm img-thumbnail user-profile-image"
-                                                    alt="user-profile-image">
-                                            @else
-                                                <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}"
-                                                    class="rounded-circle avatar-sm img-thumbnail user-profile-image"
-                                                    alt="user-profile-image">
-                                            @endif
-
-                                            <!-- Phần nút upload -->
-                                            <div class="profile-img-container position-absolute bottom-0 end-0">
-                                                <input id="profile-img-file-input" type="file" name="avatar"
-                                                    class="profile-img-input d-none">
-                                                <label for="profile-img-file-input"
-                                                    class="profile-img-label d-flex align-items-center justify-content-center">
-                                                    <div class="profile-img-overlay">
-                                                        <i class="ri-camera-fill"></i>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-
-                                    <button type="submit" class="btn btn-primary mb-3">Update avatar</button>
-                                    @if (session('success1'))
-                                        <div class="alert alert-success">
-                                            {{ session('success1') }}
-                                        </div>
-                                    @endif
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            @foreach ($errors->all() as $error)
-                                                {{ $error }}
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                </form> --}}
-
                                 <form action="{{ route('account.updateAvatar', $user->id) }}" method="POST" enctype="multipart/form-data" class="text-center">
                                     @csrf
                                     @method('PUT')
@@ -111,13 +62,6 @@
                                             {{ session('success1') }}
                                         </div>
                                     @endif
-                                    {{-- @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            @foreach ($errors->all() as $error1)
-                                                {{ $error1 }}
-                                            @endforeach
-                                        </div>
-                                    @endif --}}
                                     @if ($errors->has('avatar'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('avatar') }}
@@ -172,15 +116,6 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                                    {{-- <label for="name"> Name</label> --}}
-                                                    {{-- @error('name')
-                                                        <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                            role="alert">
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                    @enderror --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -192,15 +127,6 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                                    {{-- <label for="email">Email</label> --}}
-                                                    {{-- @error('email')
-                                                        <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                            role="alert">
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                    @enderror --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -212,14 +138,6 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                                    {{-- <label for="phone">Phone</label> --}}
-                                                    {{-- @error('phone')
-                                                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                    @enderror --}}
                                                 </div>
                                             </div>
                                            
@@ -233,15 +151,6 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                                    {{-- <label for="address"> Address</label> --}}
-                                                    {{-- @error('address')
-                                                        <div class="alert alert-danger alert-dismissible fade show mt-4"
-                                                            role="alert">
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                    @enderror --}}
                                                 </div>
                                             </div>
 
@@ -255,12 +164,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
                     </div>
                 </div>
             </div>

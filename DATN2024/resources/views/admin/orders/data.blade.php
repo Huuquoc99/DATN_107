@@ -37,7 +37,7 @@
                     <td class="customer_name">
                         {{-- {{ \Illuminate\Support\Str::limit($order->user->name, 15, '...') }} --}}
                         {{-- {{ $order->user->name ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'null' }} --}}
-                        {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'null' }}
+                        {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'Guest' }}
                     </td>
                     <td class="date">
                         <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
@@ -54,13 +54,13 @@
                         @endif
                     </td>
                     <td class="status">
-                        @if ($order->status_order_id == 1)
+                        @if ($order->status_order_id == 1 || $order->status_order_id == 2)
                             <span class="badge bg-warning-subtle text-warning text-uppercase">{{ $order->statusOrder?->name }}</span>
-                        @elseif ($order->status_order_id == 2)
-                            <span class="badge bg-secondary-subtle text-secondary text-uppercase">{{ $order->statusOrder?->name }}</span>
                         @elseif ($order->status_order_id == 3)
-                            <span class="badge bg-success-subtle text-success text-uppercase">{{ $order->statusOrder?->name }}</span>
+                            <span class="badge bg-secondary-subtle text-secondary text-uppercase">{{ $order->statusOrder?->name }}</span>
                         @elseif ($order->status_order_id == 4)
+                            <span class="badge bg-success-subtle text-success text-uppercase">{{ $order->statusOrder?->name }}</span>
+                        @elseif ($order->status_order_id == 5)
                             <span class="badge bg-danger-subtle text-danger text-uppercase"> {{ $order->statusOrder?->name }}</span>
                         @else
                             <span class="badge bg-info-subtle text-info text-uppercase">{{ $order->statusOrder?->name }}</span>

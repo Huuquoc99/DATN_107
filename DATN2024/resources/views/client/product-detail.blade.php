@@ -18,7 +18,7 @@
                                         <a href="{{ route('shop') }}"
                                             class="menu-link menu-link_us-s text-uppercase fw-medium"
                                             style="color:black">The Shop</a>
-                                    </div><!-- /.breadcrumb -->
+                                    </div>
                                 </div>
                                 <div class="product-gallery-horizontal d-flex justify-content-center">
                                     <div class="main-image-container">
@@ -60,9 +60,8 @@
                         <input type="hidden" name="product_id" data-product-id="{{ $product->id }}"
                             value="{{ $product->id }}">
                         <div class="product-options">
-                            <!-- Color Selection -->
                             <div class="option-group mb-2">
-                                <label class="option-label">Màu sắc:</label>
+                                <label class="option-label">Color:</label>
                                 <div class="option-selections">
                                     @foreach ($colors as $id => $color)
                                         <div class="option-item">
@@ -71,19 +70,20 @@
                                                 {{ $loop->first ? 'checked' : '' }} required>
                                             <label class="btn btn-outline color-choice"
                                                 for="radio_color_{{ $id }}">
-                                                <span class="color-dot"
+                                                {{-- <span class="color-dot"
                                                     style="background-color: {{ $color['color_code'] }};"></span>
-                                                <span class="color-name">{{ $color['name'] }}</span>
+                                                <span class="color-name">{{ $color['name'] }}</span> --}}
+                                                <div class="color-dot"
+                                                    style="background-color: {{ $color['color_code'] }};"></div>
+                                                <div class="color-name">{{ $color['name'] }}</div>
                                             </label>
                                         </div>
                                     @endforeach
 
                                 </div>
                             </div>
-
-                            <!-- Capacity Selection -->
                             <div class="option-group mb-3">
-                                <label class="option-label">Dung lượng:</label>
+                                <label class="option-label">Capacity:</label>
                                 <div class="option-selections">
                                     @foreach ($capacities as $id => $name)
                                         <div class="option-item">
@@ -98,10 +98,8 @@
                                 </div>
                             </div>
 
-                            <!-- Quantity Control -->
-
                             <div class="quantity-control d-flex align-items-center mb-4">
-                                <label class="option-label" style="padding-top: 9px;">Số lượng</label>
+                                <label class="option-label" style="padding-top: 9px;">Quantity</label>
                                 <div class="quantity-wrapper" style="margin-left: 35px;">
                                     <button type="button" class="quantity-btn minus">-</button>
                                     <input type="number" name="quantity" value="1"
@@ -113,7 +111,7 @@
                                     <div class="text-dark h6">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <span class="option-label">Tình trạng: <span id="stock-status"></span></span>
+                            <span class="option-label">Status: <span id="stock-status"></span></span>
 
                             <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
                                 data-aside="cartDrawer">
@@ -150,7 +148,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="tab-additional-info" role="tabpanel"
+                    {{-- <div class="tab-pane fade" id="tab-additional-info" role="tabpanel"
                         aria-labelledby="tab-additional-info-tab">
                         <div class="product-single__additional-info p-3">
                             <div class="product-gallery-horizontal d-flex justify-content-center"
@@ -177,30 +175,68 @@
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+
+                    <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">
+                        <div class="product-single__additional-info p-3">
+                            <div class="row gy-3">
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Screen Size</label>
+                                        <span>{{ $product->screen_size }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Battery Capacity</label>
+                                        <span>{{ $product->battery_capacity }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Camera Resolution</label>
+                                        <span>{{ $product->camera_resolution }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Operating System</label>
+                                        <span>{{ $product->operating_system }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Processor</label>
+                                        <span>{{ $product->processor }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">RAM</label>
+                                        <span>{{ $product->ram }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Storage</label>
+                                        <span>{{ $product->storage }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">SIM Type</label>
+                                        <span>{{ $product->sim_type }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="h6 mb-0">Network Connectivity</label>
+                                        <span>{{ $product->network_connectivity }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-{{--                    <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">--}}
-{{--                        <div class="product-single__additional-info p-3">--}}
-{{--                        <div class="product-gallery-horizontal d-flex justify-content-center" style="padding-left: 55px; position: relative;">--}}
-{{--                            <div class="main-image-container" style="position: relative;">--}}
-{{--                                <img id="mainImage" style="height: 500px; width: 600px; object-fit: cover;" src="{{ Storage::url($product->img_thumbnail) }}"--}}
-{{--                                     class="main-image" alt="{{ $product->name }}">--}}
-{{--                                <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn" data-fancybox="gallery">--}}
-{{--                                    <i class="fas fa-search-plus"></i>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="thumbnail-column" style="display: flex; flex-direction: column; margin-left: 20px; position: absolute; top: 0; left: 650px;">--}}
-{{--                                @foreach ($product->galleries as $image)--}}
-{{--                                    <div class="thumb-item" style="margin-bottom: 10px;">--}}
-{{--                                        <img src="{{ Storage::url($image->image) }}"--}}
-{{--                                             style="width: 100px; height: auto; cursor: pointer;"--}}
-{{--                                             onclick="changeImage('{{ Storage::url($image->image) }}')"--}}
-{{--                                             alt="{{ $product->name }}">--}}
-{{--                                    </div>--}}
-{{--                                @endforeach--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>
                         @include('client.list-comment', [

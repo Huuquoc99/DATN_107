@@ -39,7 +39,6 @@ class StatusPaymentRequest extends FormRequest
             'name.string' => 'The name must be a string',
             'name.max' => 'The name cannot exceed 100 characters.',
             'display_order.required' => 'The display order cannot exceed 100 characters.',
-
         ];
     }
 }

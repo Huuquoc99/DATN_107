@@ -67,7 +67,7 @@ class AccountController extends Controller
     public function updateAvatar(Request $request, $id)
     {
         if (Auth::id() !== (int)$id || Auth::user()->type !== 1) {
-            return redirect()->route('admin.dashboard')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
+            return redirect()->route('admin.dashboard')->with('error', 'You do not have permission to edit this information!');
         }
 
         $validated = $request->validate([

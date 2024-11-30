@@ -31,19 +31,6 @@
                             </svg>
                         </button>
                     </h5>
-                    {{-- <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
-                        aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
-                        <div class="accordion-body px-0 pb-0 pt-3">
-                            <ul class="list list-inline mb-0">
-                                @foreach($catalogues as $catalogue)
-                                    <li class="list-item">
-                                        <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') == $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                            class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div> --}}
                     <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
                              aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
                             <div class="accordion-body px-0 pb-0 pt-3">
@@ -57,8 +44,8 @@
                                 </ul>
                             </div>
                         </div>
-                </div><!-- /.accordion-item -->
-            </div><!-- /.accordion-item -->
+                </div>
+            </div>
 
 
             <div class="accordion" id="color-filters">
@@ -89,8 +76,8 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- /.accordion-item -->
-            </div><!-- /.accordion -->
+                </div>
+            </div>
             <div class="accordion" id="size-filters">
                 <div class="accordion-item mb-4 pb-3">
                     <h5 class="accordion-header" id="accordion-heading-size">
@@ -118,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- /.accordion-item -->
+                </div>
             </div>
             <div class="accordion" id="brand-filters">
                 <div class="accordion-item mb-4 pb-3">
@@ -205,9 +192,9 @@
                             </ul>
                         </div>
                     </div>
-                </div><!-- /.accordion-item -->
-            </div><!-- /.accordion -->
-        </div><!-- /.shop-sidebar -->
+                </div>
+            </div>
+        </div>
 
         <div class="shop-list flex-grow-1">
             <div class="d-flex justify-content-between mb-4 pb-md-2">
@@ -216,14 +203,13 @@
                     <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1" style="color: black">/</span>
                     <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color: black">The
                         Shop</a>
-                </div><!-- /.breadcrumb -->
-            </div><!-- /.d-flex justify-content-between -->
+                </div>
+            </div>
             @if(count($products))
             <div class="products-grid row g-4 p-2" id="products-grid">
                 @foreach($products as $product)
                     <div class="product-card-wrapper col-12 col-md-6 col-lg-4">
                         <div class="product-card h-100 border rounded overflow-hidden position-relative shadow-sm">
-                            <!-- Hình ảnh sản phẩm -->
                             <div class="pc__img-wrapper">
                                 <a href="{{ route('product.detail', $product->slug) }}">
                                     <img src="{{ \Illuminate\Support\Facades\Storage::url($product->img_thumbnail) }}"
@@ -231,7 +217,6 @@
                                          class="img-fluid w-100 product-img">
                                 </a>
                             </div>
-                            <!-- Nội dung sản phẩm -->
                             <div class="p-3">
                                 <p class="pc__category text-muted mb-2">
                                     {{ $product->catalogue->name ?? 'Danh mục chưa xác định' }}
@@ -254,9 +239,7 @@
                     </div>
                 @endforeach
             </div>
-            <!-- Phân trang -->
             <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
-                <!-- Link trang trước -->
                 @if ($products->onFirstPage())
                     <span class="btn-link d-inline-flex align-items-center text-muted">
                         <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
