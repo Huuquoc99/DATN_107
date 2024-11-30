@@ -47,6 +47,12 @@
                                                  class="pc__img img-fluid w-75 h-auto" style="margin-left: 25px; margin-top:20px;">
                                         </a>
                                     </div>
+                                <button
+                                    onclick="toggleFavorite({{ $item->id }})"
+                                    data-product-id="{{ $item->id }}"
+                                    class="favorite-btn {{ in_array($item->id, $favoriteProductIds) ? 'text-red-500' : '' }}">
+                                    {{ in_array($item->id, $favoriteProductIds) ? '❤️ Đã thích' : '🤍 Thích' }}
+                                </button>
                                 </div>
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
@@ -122,4 +128,56 @@
             </div>
         </section>
     </div>
+    <script>
+        function toggleFavorite(productId) {
+            axios.post('/toggle-favorite', { product_id: productId })
+                .then(response => {
+                    const favoriteButton = document.querySelector(`[data-product-id="${productId}"]`);
+
+                    if (response.data.is_favorite) {
+                        favoriteButton.classList.add('text-red-500');
+                        favoriteButton.innerHTML = '❤️ Đã thích';
+                    } else {
+                        favoriteButton.classList.remove('text-red-500');
+                        favoriteButton.innerHTML = '🤍 Thích';
+                    }
+
+                    // Hiển thị thông báo toast
+                    Toastify({
+                        text: response.data.message,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: response.data.is_favorite
+                            ? "linear-gradient(to right, #00b09b, #96c93d)"
+                            : "linear-gradient(to right, #ff5f6d, #ffc371)"
+                    }).showToast();
+                })
+                .catch(error => {
+                    if (error.response.status === 401) {
+                        // Hiển thị thông báo yêu cầu người dùng đăng nhập
+                        Toastify({
+                            text: 'You need to login to perform this action.. ' +
+                                '<a href="#" style="color: #fff; text-decoration: underline;">Login here.</a>',
+                            duration: 5000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)", // Màu nền
+                            escapeMarkup: false,
+                        }).showToast();
+
+                        document.querySelector("a[href='#']").addEventListener('click', function(e) {
+                            e.preventDefault();
+                            window.location.href = '/login';
+                        });
+
+                    }
+                });
+
+
+        }
+
+
+    </script>
 @endsection
+

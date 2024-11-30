@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
@@ -101,6 +102,10 @@ Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('g
 
 Route::middleware('auth')->group(function () {
 
+    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])
+        ->name('favorite.toggle');
+
+
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
@@ -128,7 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
     Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
     Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
-    
+
 });
 
 // Auth
