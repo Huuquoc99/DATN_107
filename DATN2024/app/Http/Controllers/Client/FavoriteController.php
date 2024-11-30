@@ -25,7 +25,14 @@ class FavoriteController extends Controller
             ->where('product_id', $productId)
             ->first();
 
+        if ($favorite) {
+            $favorite->delete();
 
+            return response()->json([
+                'is_favorite' => false,
+                'message' => 'The product has been removed from your wishlist.'
+            ]);
+        } else {
             Favorite::query()->create([
                 'user_id' => $user->id,
                 'product_id' => $productId
@@ -35,6 +42,7 @@ class FavoriteController extends Controller
                 'is_favorite' => true,
                 'message' => 'The product has been added to your wishlist.'
             ]);
+        }
     }
 
 }
