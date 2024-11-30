@@ -289,12 +289,28 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i> Payment Status</h5>
-
+                        
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <div class="flex-grow-1 ms-3 me-3">
-
+                                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST"
+                                    class="d-flex flex-column align-items-start">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group mb-3">
+                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width:320px">
+                                            @foreach ($statusPayments as $status)
+                                                <option value="{{ $status->id }}"
+                                                    {{ $order->status_payment_id == $status->id ? 'selected' : '' }}
+                                                    {{ $order->status_payment_id == 2 && $status->id == 1 ? 'disabled' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update Payment Status</button>
+                                </form>
                                 @if (session('error1'))
                                     <div class="alert alert-danger">
                                         {{ session('error1') }}
@@ -326,16 +342,31 @@
                                     <div class="form-group mb-3">
                                         <select name="status_order_id" id="status_order_id" class="form-control"
                                             style="width:320px">
-                                            @foreach ($statusOrders as $status)
+                                            {{-- @foreach ($statusOrders as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $order->status_order_id == $status->id ? 'selected' : '' }}
                                                     {{ $status->id < $order->status_order_id ||
-                                                    (($order->status_order_id == 2 || $order->status_order_id == 3) && $status->id == 4)
+                                                    (($order->status_order_id == 2 || $order->status_order_id == 3 || $order->status_order_id == 4) && $status->id == 5)
                                                         ? 'disabled'
                                                         : '' }}>
                                                     {{ $status->name }}
                                                 </option>
-                                            @endforeach
+                                            @endforeach --}}
+                                            @foreach ($statusOrders as $status)
+                                            <option value="{{ $status->id }}"
+                                                {{ $order->status_order_id == $status->id ? 'selected' : '' }}
+                                                {{ $status->id < $order->status_order_id || 
+                                                (($order->status_order_id == 1 && $status->id == 1) || 
+                                                ($order->status_order_id == 2 && ($status->id == 1 || $status->id == 5)) || 
+                                                ($order->status_order_id == 3 && ($status->id == 1 || $status->id == 2 || $status->id == 5)) || 
+                                                ($order->status_order_id == 4 && ($status->id == 1 || $status->id == 2 || $status->id == 3 || $status->id == 5)))
+                                                ? 'disabled' : '' }}>
+                                                {{ $status->name }}
+                                            </option>
+                                        @endforeach
+                                        
+
+
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100 mb-3">Update Order Status</button>

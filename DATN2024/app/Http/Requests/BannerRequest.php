@@ -43,7 +43,6 @@ class BannerRequest extends FormRequest
             'image.mimes'          => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
             'image.max'            => 'The image size may not be greater than 2MB.',
             'image.required'       => 'The image field is required.',
-            
         ];
     }
 }

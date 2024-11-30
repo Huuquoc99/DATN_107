@@ -24,7 +24,6 @@ class BannerController extends Controller
      */
     public function create()
     {
-        // return response()->json();
         return view("admin.banners.create");
     }
 
@@ -49,8 +48,6 @@ class BannerController extends Controller
             $param['is_active'] = $request->has('is_active') ? 1 : 0;
             $banner = Banner::create($param);
             $banner->is_active == 0 ? $banner->hide() : $banner->show();
-
-            // return response()->json(['message' => 'Banner created successfully']);
             return redirect()->route("admin.banners.index")->with("success", "Banner created successfully");
         }
     }
@@ -61,7 +58,6 @@ class BannerController extends Controller
     public function show(string $id)
     {
         $banner = Banner::query()->findOrFail($id);
-        // return response()->json($banner);
         return view("admin.banners.show", compact('banner'));
 
     }
@@ -72,7 +68,6 @@ class BannerController extends Controller
     public function edit(string $id)
     {
         $banner = Banner::findOrFail($id);
-        // return response()->json($banner);
         return view("admin.banners.edit", compact("banner"));
 
     }
@@ -135,7 +130,6 @@ class BannerController extends Controller
             Storage::disk("public")->delete($banner->image);
         }
 
-        // return response()->json(['message' => 'Banner deleted successfully']);
         return redirect()->route("admin.banners.index")->with("success", "Banner deleted successfully");
 
     }

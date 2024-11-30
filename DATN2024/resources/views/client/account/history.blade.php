@@ -67,9 +67,6 @@
                                         <tr>
                                             <td>{{ $order['code'] }}</td>
                                             <td>
-                                                {{-- <span id="invoice-date">{{ $item->created_at ? $item->created_at->format('d M, Y') : 'N/A' }}</span>
-                                                <small class="text-muted" id="invoice-time">{{ $item->created_at ? $item->created_at->format('h:iA') : '' }}</small> --}}
-
                                                 <span id="invoice-date">{{ $order['created_at'] ? $order['created_at']->format('d M, Y') : 'N/A' }}</span>
                                                 <small class="text-muted" id="invoice-time">{{ $order['created_at'] ? $order['created_at']->format('h:iA') : '' }}</small>
                                                 
@@ -94,7 +91,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5">Bạn chưa có đơn hàng nào.</td>
+                                            <td colspan="5">You have no orders yet.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -102,11 +99,9 @@
                             <div class="pagination-container">
                                 {{ $orders->links() }}
                             </div>
-                            
                         @endif
                     </div>
                 </div>
-                
             </div>
         </section>
     </main>

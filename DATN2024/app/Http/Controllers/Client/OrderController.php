@@ -19,91 +19,6 @@ class OrderController extends Controller
 {
 
     use VnPayTrait;
-    // {
-
-    //     $orders = Auth::user()->orders->map(function ($order) {
-    //         return [
-    //             'id' => $order->id,
-    //             'code' => $order->code,
-    //             'created_at' => $order->created_at,
-    //             'status_order_id' => $order->statusOrder->id,
-    //             'status_order_name' => $order->statusOrder->name,
-    //             'status_payment' => $order->statusPayment->name,
-    //             'total_price' => $order->total_price,
-    //         ];
-    //     });
-
-    //     if ($orders->isEmpty()) {
-    //         return response()->json(['message' => 'Bạn chưa có đơn hàng nào.'], 200);
-    //     }
-
-    //     // return response()->json($orders, 201);
-    //     return view('client.account.history', compact('orders'));
-    // }
-
-    // public function index()
-    // {
-    //     // Không được xoá mặc dù nó đỏ
-    //     $orders = Auth::user()->orders()
-    //         ->with(['statusOrder', 'statusPayment'])
-    //         ->latest()
-    //         ->paginate(7);
-
-    //     $mappedOrders = $orders->getCollection()->map(function ($order) {
-    //         return [
-    //             'id' => $order->id,
-    //             'code' => $order->code,
-    //             'created_at' => $order->created_at,
-    //             'status_order_id' => $order->statusOrder->id,
-    //             'status_order_name' => $order->statusOrder->name,
-    //             'status_payment' => $order->statusPayment->name,
-    //             'total_price' => $order->total_price,
-    //         ];
-    //     });
-
-    //     $orders->setCollection(collect($mappedOrders));
-
-    //     if ($orders->isEmpty()) {
-    //         $message = 'Bạn chưa có đơn hàng nào.';
-    //         return view('client.account.history', compact('message', 'orders'));
-    //     }
-
-    //     return view('client.account.history', compact('orders'));
-    // }
-
-//     public function index(Request $request)
-// {
-//     $statusFilter = $request->input('status_order', 'all');
-//     $query = Auth::user()->orders()->with(['statusOrder', 'statusPayment']);
-
-//     // Lọc theo trạng thái nếu không chọn "All"
-//     if ($statusFilter !== 'all') {
-//         $query->where('status_order_id', $statusFilter);
-//     }
-
-//     $orders = $query->latest()->paginate(7);
-
-//     $mappedOrders = $orders->getCollection()->map(function ($order) {
-//         return [
-//             'id' => $order->id,
-//             'code' => $order->code,
-//             'created_at' => $order->created_at,
-//             'status_order_id' => $order->statusOrder->id,
-//             'status_order_name' => $order->statusOrder->name,
-//             'status_payment' => $order->statusPayment->name,
-//             'total_price' => $order->total_price,
-//         ];
-//     });
-
-//     $orders->setCollection(collect($mappedOrders));
-
-//     // Lấy danh sách trạng thái đơn hàng
-//     $statusOrders = \App\Models\StatusOrder::all();
-
-//     $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
-
-//     return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
-// }
 
     public function index(Request $request)
     {
@@ -129,7 +44,7 @@ class OrderController extends Controller
 
         $orders->setCollection(collect($mappedOrders));
         $statusOrders = StatusOrder::all();
-        $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
+        $message = $orders->isEmpty() ? 'You have no orders yet.' : null;
 
         return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
     }
@@ -161,32 +76,8 @@ class OrderController extends Controller
         if ($order) {
             return response()->json(['history' => json_decode($order->history)]);
         }
-        return response()->json(['message' => 'Không tìm thấy đơn hàng.'], 404);
+        return response()->json(['message' => 'Order not found.'], 404);
     }
-
-//    public function updateStatus(Request $request, $orderId)
-//    {
-//        $order = Order::find($orderId);
-//        $statusId = $request->status_order_id;
-//
-//        $status = StatusOrder::find($statusId);
-//        if ($order && $status) {
-//            $history = json_decode($order->history, true) ?? [];
-//            $history[] = [
-//                'status_order_id' => $statusId,
-//                'updated_at' => now()
-//            ];
-//            $order->history = json_encode($history);
-//
-//            $order->status_order_id = $statusId;
-//            $order->save();
-//
-//            return redirect()->route('account.orders.show', $order->id)
-//                ->with('success', 'Order status has been updated.');
-//        }
-//        return redirect()->route('account.orders.show', $order->id)
-//            ->with('error', 'Order status is invalid or not found.');
-//    }
 
 
     public function cancelOrder($id)
@@ -201,7 +92,7 @@ class OrderController extends Controller
                 'type' => 'Event\AdminNotification',
                 'data' => [
                     'order' => $order,
-                    'message' => 'đã hủy thành công đơn hàng #<b>'. $order->code .'<b>'
+                    'message' => 'order successfully cancelled #<b>'. $order->code .'<b>'
                 ]
             ]);
             broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
@@ -209,10 +100,10 @@ class OrderController extends Controller
             // $this->rollbackQuantity($order);
 
             Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
-            return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
+            return redirect()->back()->with('success', 'Order has been cancelled.');
         }
 
-        return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
+        return redirect()->back()->with('error', 'Order cannot be cancelled..');
     }
 
     private function rollbackQuantity($order)
@@ -220,7 +111,9 @@ class OrderController extends Controller
         foreach ($order->orderItems as $item) {
             $item->productVariant->quantity += $item->quantity;
             $item->productVariant->save();
-    }}
+        }
+    }
+
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
@@ -255,10 +148,10 @@ class OrderController extends Controller
             $order->save();
 
             Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
-            return redirect()->back()->with('success', 'Đơn hàng đã được cập nhật thành hoàn thành.');
+            return redirect()->back()->with('success', 'The order has been updated to completed..');
         }
 
-        return redirect()->back()->with('error', 'Không thể cập nhật trạng thái đơn hàng.');
+        return redirect()->back()->with('error', 'Unable to update order status.');
     }
 
     public function repayment($orderId)
@@ -271,7 +164,7 @@ class OrderController extends Controller
         ){
             $this->processVNPAY($order);
         } else {
-            return redirect()->back()->with('error', 'Không thể thanh toán đơn hàng.');
+            return redirect()->back()->with('error', 'Unable to pay order.');
         }
     }
 }

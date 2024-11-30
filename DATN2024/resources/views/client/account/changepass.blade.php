@@ -30,13 +30,6 @@
                                 </div>
                             @endif
 
-                            {{-- @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                </div>
-                            @endif --}}
                             <form name="account_edit_form" class="needs-validation" novalidate action="{{ route('account.updatePassword', Auth::user()->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
@@ -50,7 +43,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            {{-- <label for="old_password">Old Password</label> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -61,7 +53,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            {{-- <label for="new_password">New Password</label> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -72,7 +63,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            {{-- <label for="new_password_confirmation">Confirm password</label> --}}
                                         </div>
                                     </div>
 

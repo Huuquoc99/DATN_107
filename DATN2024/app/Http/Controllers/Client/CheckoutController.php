@@ -98,6 +98,15 @@ class CheckoutController extends Controller
 
     public function processCheckoutForGuests(Request $request) {
 
+        $province_code = $request->province;
+        $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
+
+        $district_code = $request->district;
+        $district_name = Http::get("https://provinces.open-api.vn/api/d/{$district_code}")->json();
+
+        $ward_code = $request->ward;
+        $ward_name = Http::get("https://provinces.open-api.vn/api/w/{$ward_code}")->json();
+
         $guest_cart = session('cart', []);
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
         $request->validate([
@@ -121,6 +130,10 @@ class CheckoutController extends Controller
             'user_email' => $request->ship_user_email,
             'user_address' => $request->ship_user_address,
             'user_phone' => $request->ship_user_phone,
+
+            'shipping_province' => $province_name['name'],
+            'shipping_district' => $district_name['name'],
+            'shipping_ward' => $ward_name['name'],
 
             'ship_user_name' => $request->ship_user_name,
             'ship_user_email' => $request->ship_user_email,
@@ -152,9 +165,9 @@ class CheckoutController extends Controller
                 'price' => $item['price'],
                 'product_name' => $productVariant->product->name,
                 'product_sku' => $productVariant->product->sku,
-                'product_img_thumbnail' => $productVariant->product->img_thumbnail,
-                'product_price_regular' => $productVariant->product->price_regular,
-                'product_price_sale' => $productVariant->product->price_sale,
+                'product_img_thumbnail' => $productVariant->image,
+                'product_price_regular' => $productVariant->price,
+                'product_price_sale' => $productVariant->price,
                 'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null,
                 'product_color_id' => $productVariant->color ? $productVariant->color->id : null,
             ]);
@@ -208,7 +221,6 @@ class CheckoutController extends Controller
         $paymentMethodId = $request->input('payment_method_id');
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
 
-        // Tạo đơn hàng
         $order = Order::create([
             'user_id' => $user->id,
             'user_name' => $user->name,
@@ -257,8 +269,8 @@ class CheckoutController extends Controller
                 'product_img_thumbnail' => $item->productVariant->product->img_thumbnail,
                 'product_price_regular' => $item->productVariant->product->price_regular,
                 'product_price_sale' => $item->productVariant->product->price_sale,
-                'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null, // Kiểm tra capacity
-                'product_color_id' => $productVariant->color ? $productVariant->color->id : null, // Kiểm tra color
+                'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null, 
+                'product_color_id' => $productVariant->color ? $productVariant->color->id : null, 
 
             ]);
         }
@@ -268,7 +280,6 @@ class CheckoutController extends Controller
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);
         } else {
-            // Xóa giỏ hàng sau khi thanh toán
             $cart->items()->delete();
 
             GuestOrderPlaced::dispatch($order);
@@ -278,79 +289,12 @@ class CheckoutController extends Controller
 
         Mail::to($user->email)->send(new OrderPlaced($order));
 
-        // Xóa giỏ hàng sau khi thanh toán
         $cart->items()->delete();
 
         return redirect()->route('checkout.success');
     }
 
-    // protected function processVNPAY(Order $order) {
-
-    //     $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    //     $vnp_Returnurl = route('checkout.vnpayReturn');
-    //     $vnp_TmnCode = "PMEREN0U";
-    //     $vnp_HashSecret = "0NQH7VYE8X3CW9DI89Q82RVHH5VWONZ0";
-
-    //     $vnp_TxnRef = $order->code;
-    //     $vnp_OrderInfo = 'Payment for Order #' . $order->id;
-    //     $vnp_OrderType = 'OnlineShopping';
-    //     $vnp_Amount = $order->total_price * 100;
-    //     $vnp_Locale = 'vn';
-    //     $vnp_BankCode = 'NCB';
-    //     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-
-    //     $inputData = array(
-    //         "vnp_Version" => "2.1.0",
-    //         "vnp_TmnCode" => $vnp_TmnCode,
-    //         "vnp_Amount" => $vnp_Amount,
-    //         "vnp_Command" => "pay",
-    //         "vnp_CreateDate" => date('YmdHis'),
-    //         "vnp_CurrCode" => "VND",
-    //         "vnp_IpAddr" => $vnp_IpAddr,
-    //         "vnp_Locale" => $vnp_Locale,
-    //         "vnp_OrderInfo" => $vnp_OrderInfo,
-    //         "vnp_OrderType" => $vnp_OrderType,
-    //         "vnp_ReturnUrl" => $vnp_Returnurl,
-    //         "vnp_TxnRef" => $vnp_TxnRef,
-    //     );
-
-    //     if ($vnp_BankCode != "") {
-    //         $inputData['vnp_BankCode'] = $vnp_BankCode;
-    //     }
-    //     if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-    //         $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-    //     }
-
-    //     ksort($inputData);
-    //     $query = "";
-    //     $i = 0;
-    //     $hashdata = "";
-    //     foreach ($inputData as $key => $value) {
-    //         if ($i == 1) {
-    //             $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-    //         } else {
-    //             $hashdata .= urlencode($key) . "=" . urlencode($value);
-    //             $i = 1;
-    //         }
-    //         $query .= urlencode($key) . "=" . urlencode($value) . '&';
-    //     }
-
-    //     $vnp_Url = $vnp_Url . "?" . $query;
-    //     if (isset($vnp_HashSecret)) {
-    //         $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
-    //         $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-    //     }
-    //     $returnData = array('code' => '00'
-    //     , 'message' => 'success'
-    //     , 'data' => $vnp_Url);
-    //     if (isset($_POST['redirect'])) {
-    //         header('Location: ' . $vnp_Url);
-    //         die();
-    //     } else {
-    //         echo json_encode($returnData);
-    //     }
-    // }
-
+   
     public function vnpayReturn(Request $request)
     {
 
@@ -374,7 +318,7 @@ class CheckoutController extends Controller
                 $order->status_payment_id = 3;
                 $order->save();
 
-                return redirect()->route('checkout.failed')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
+                return redirect()->route('checkout.failed')->with('error', 'Payment failed, please try again.');
             }
         } else {
 
@@ -392,7 +336,7 @@ class CheckoutController extends Controller
                 $order->status_payment_id = 3;
                 $order->save();
 
-                return redirect()->route('guest-checkout.failed')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
+                return redirect()->route('guest-checkout.failed')->with('error', 'Payment failed, please try again.');
             }
         }
     }
@@ -419,41 +363,43 @@ class CheckoutController extends Controller
     // }
 
     private function deductStockProduct()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if ($user) {
-        $cart = Cart::where('user_id', $user->id)->first();
-        if ($cart) {
-            $cartItems = CartItem::where('cart_id', $cart->id)->get();
+        if ($user) {
+            $cart = Cart::where('user_id', $user->id)->first();
+            if ($cart) {
+                $cartItems = CartItem::where('cart_id', $cart->id)->get();
 
-            foreach ($cartItems as $cartItem) {
-                $productVariant = ProductVariant::find($cartItem->product_variant_id);
-                
-                if ($productVariant && $productVariant->quantity >= $cartItem->quantity) {
-                    $productVariant->quantity -= $cartItem->quantity;
-                    $productVariant->save();
-                } else {
-                    throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
+                foreach ($cartItems as $cartItem) {
+                    $productVariant = ProductVariant::find($cartItem->product_variant_id);
+                    
+                    if ($productVariant && $productVariant->quantity >= $cartItem->quantity) {
+                        $productVariant->quantity -= $cartItem->quantity;
+                        $productVariant->save();
+                    } else {
+                        // throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
+                        return back()->withErrors(['quantity' => 'Quantity exceeds inventory.']);
+                    }
                 }
+            } else {
+                throw new \Exception("Cart does not exist.");
             }
         } else {
-            throw new \Exception("Giỏ hàng không tồn tại.");
-        }
-    } else {
-        $guest_cart = session('cart', []);
-        foreach ($guest_cart as $item) {
-            $productVariant = ProductVariant::find($item['product_variant_id']);
-            
-            if ($productVariant && $productVariant->quantity >= $item['quantity']) {
-                $productVariant->quantity -= $item['quantity'];
-                $productVariant->save();
-            } else {
-                throw new \Exception("Sản phẩm: " . $productVariant->name . " không đủ số lượng trong kho.");
+            $guest_cart = session('cart', []);
+            foreach ($guest_cart as $item) {
+                $productVariant = ProductVariant::find($item['product_variant_id']);
+                
+                if ($productVariant && $productVariant->quantity >= $item['quantity']) {
+                    $productVariant->quantity -= $item['quantity'];
+                    $productVariant->save();
+                } else {
+                    // throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
+                    return back()->withErrors(['quantity' => 'Quantity exceeds inventory.']);
+                }
             }
         }
     }
-}
 
 
 
@@ -490,7 +436,7 @@ class CheckoutController extends Controller
                 ->first();
 
             if (!$order) {
-                return redirect()->route('checkout')->with('error', 'Không tìm thấy đơn hàng.');
+                return redirect()->route('checkout')->with('error', 'Order not found.');
             }
 
             return view('client.success', compact('order'));
@@ -510,7 +456,7 @@ class CheckoutController extends Controller
                 ->first();
 
             if (!$order) {
-                return redirect()->route('checkout')->with('error', 'Không tìm thấy đơn hàng.');
+                return redirect()->route('checkout')->with('error', 'Order not found.');
             }
 
             return view('client.fail', compact('order'));

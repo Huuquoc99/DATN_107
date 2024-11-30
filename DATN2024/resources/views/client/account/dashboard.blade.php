@@ -22,7 +22,7 @@
                             <p>Hello <strong>{{ Auth::user()->name }}</strong> (not <strong>{{ Auth::user()->name }}?</strong>)
                             <form action="{{ route('logout') }}" method="POST" class="mt-3">
                                 @csrf
-                                <button type="submit" class="button">Đăng xuất</button>
+                                <button type="submit" class="button">Log out</button>
                             </form>
                             </p>
                             <p>From your account dashboard you can view your <a class="unerline-link"

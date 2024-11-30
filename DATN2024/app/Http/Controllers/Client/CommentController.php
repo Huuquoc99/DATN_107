@@ -114,14 +114,9 @@ class CommentController extends Controller
 
     public function showAjax($id)
     {
-        // $comment = Comment::find($id);
-        // $comment = Comment::where('id', $id)
-        // ->where('is_active', 1) // Lọc chỉ comment active
-        // ->first();
-
         $comment = Comment::where('id', $id)
-    ->where('is_active', 1) // Lọc is_active = 1
-    ->first();
+            ->where('is_active', 1) 
+            ->first();
 
 
         if (!$comment) {
@@ -153,14 +148,9 @@ class CommentController extends Controller
 
     public function indexAjax(Request $request, $id)
     {
-        // $comments = Comment::with('user')->where('product_id', $id)
-        //     ->where('is_active', 1)
-        //     ->paginate(2);
-
         $comments = Comment::with('user')
             ->where('product_id', $id)
             ->where('is_active', 1) 
-            // ->where('deleted_at', null) 
             ->paginate(2);
 
         $html = '';

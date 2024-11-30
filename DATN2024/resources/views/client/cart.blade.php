@@ -3,10 +3,10 @@
 @section('content')
     <div class="mb-4 mt-4 pb-4"></div>
     <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
-        <h2 class="page-title">Giỏ hàng</h2>
+        <h2 class="page-title">Cart</h2>
         <a href="{{ route('cart.list') }}" class="checkout-steps__item active">
             <span class="checkout-steps__item-title">
-                <span style="margin-top:-20px">TÚI MUA SẮM</span>
+                <span style="margin-top:-20px">SHOPPING BAG</span>
             </span>
         </a>
         <div id="delete-success"></div>
@@ -21,7 +21,7 @@
                         @endif
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Image</th>
                                 <th>Product</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -86,7 +86,7 @@
 
                 <div class="shopping-cart__totals-wrapper ">
                     <div class="sticky-content">
-                        <div class="shopping-cart__totals"
+                        {{-- <div class="shopping-cart__totals"
                             style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; background-color: #f9f9f9; max-width: 400px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <h3 style="font-size: 24px; margin-bottom: 20px; text-align: center; color: #333;">Cart Totals
                             </h3>
@@ -102,7 +102,7 @@
                                     style="font-weight: bold;padding-left: 32px; color: red;">111111111111111111111
                                     VND</span>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 pb-3 border-bottom">
                             <div class="fw-medium mb-2">VOUCHER</div>
                             <div class="input-group">

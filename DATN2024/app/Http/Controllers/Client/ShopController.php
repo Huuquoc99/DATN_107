@@ -11,7 +11,6 @@ class ShopController extends Controller
 {
     public function listProduct()
     {
-        // $product = Product::paginate(9);
         $product = Product::where('is_active', 1)->with("catalogue")->get();
         $catalogue = Catalogue::where('is_active', 1)->get();
 
@@ -25,21 +24,20 @@ class ShopController extends Controller
     }
 
     public function listProductsByCategory($id)
-{
-    // Lấy danh mục theo ID
-    $catalogue = Catalogue::find($id);
+    {
+        $catalogue = Catalogue::find($id);
 
-    if (!$catalogue) {
-        return response()->json(['error' => 'Category does not exist.'], 404);
+        if (!$catalogue) {
+            return response()->json(['error' => 'Category does not exist.'], 404);
+        }
+
+        $product = Product::where('catalogue_id', $id)
+                        ->where('is_active', 1)
+                        ->paginate(9);
+
+        return response()->json([
+            'data' => $product,
+            'message' => 'List of products by category successfully.',
+        ]);
     }
-
-    $product = Product::where('catalogue_id', $id)
-                       ->where('is_active', 1)
-                       ->paginate(9);
-
-    return response()->json([
-        'data' => $product,
-        'message' => 'List of products by category successfully.',
-    ]);
-}
 }

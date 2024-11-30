@@ -13,9 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
         $users = User::orderBy('created_at', 'desc')->paginate(7);
-        // return response()->json($users);
         return view("admin.customers.index", compact('users'));
 
     }
@@ -43,7 +41,6 @@ class UserController extends Controller
     {
         $users = User::findOrFail($id);
         if($users) {
-            // return response()->json($users);
             return view("admin.customers.show", compact('users'));
 
         }else{
