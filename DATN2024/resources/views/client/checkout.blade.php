@@ -9,6 +9,11 @@
             <form action="{{ route('checkout.process') }}" method="POST">
                 @csrf
                 <div class="checkout-form">
+                    @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     <div class="billing-info__wrapper">
                         <h4>BILLING DETAILS</h4>
 

@@ -378,7 +378,8 @@ class CheckoutController extends Controller
                         $productVariant->quantity -= $cartItem->quantity;
                         $productVariant->save();
                     } else {
-                        throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
+                        // throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
+                        return back()->withErrors(['quantity' => 'Quantity exceeds inventory.']);
                     }
                 }
             } else {
@@ -393,7 +394,8 @@ class CheckoutController extends Controller
                     $productVariant->quantity -= $item['quantity'];
                     $productVariant->save();
                 } else {
-                    throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
+                    // throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
+                    return back()->withErrors(['quantity' => 'Quantity exceeds inventory.']);
                 }
             }
         }
