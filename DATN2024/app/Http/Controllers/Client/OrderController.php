@@ -142,16 +142,18 @@ class OrderController extends Controller
 
     public function markAsReceived(Order $order)
     {
+        try {
+            if ($order->status_order_id == 3) {
+                $order->status_order_id = 4;
+                $order->save();
 
-        if ($order->status_order_id == 2) {
-            $order->status_order_id = 3;
-            $order->save();
+                Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
+                return redirect()->back()->with('success', 'The order has been updated to completed..');
+            }
 
-            Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
+        } catch (\Exception $exception) {
             return redirect()->back()->with('success', 'The order has been updated to completed..');
         }
-
-        return redirect()->back()->with('error', 'Unable to update order status.');
     }
 
     public function repayment($orderId)

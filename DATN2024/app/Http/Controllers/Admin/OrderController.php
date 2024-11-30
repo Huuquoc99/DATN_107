@@ -12,6 +12,7 @@ use App\Mail\AdminOrderCancelled;
 use App\Http\Controllers\Controller;
 use App\Models\StatusPayment;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -101,8 +102,6 @@ class OrderController extends Controller
                 4, // Success
             ],
             4 => [ // Delivered
-                2,
-                3
                 //Không thể Canceled và các bước trước
             ],
             5 => [ // Canceled
@@ -127,39 +126,43 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'status_order_id' => [
                 'required',
                 'exists:status_orders,id',
                 function ($attribute, $value, $fail) use ($order) {
                     $currentStatus = $order->status_order_id;
 
+                    // Define allowed transitions
                     $allowedTransitions = [
-                        1 => [2, 5], // Pending: Chỉ được chuyển sang Confirmed hoặc Canceled
-                        2 => [3, 5], // Confirmed: Chỉ được chuyển sang Shipping hoặc Canceled
-                        3 => [4],    // Shipping: Chỉ được chuyển sang Success
-                        4 => [],     // Success: Không được phép thay đổi
-                        5 => [],     // Canceled: Không được phép thay đổi
+                        1 => [2, 5],    // Pending: Confirmed, Canceled
+                        2 => [3, 4, 5], // Confirmed: Shipping, Canceled
+                        3 => [4],       // Shipping: Delivered
+                        4 => [],        // Success: No changes allowed
+                        5 => [],        // Canceled: No changes allowed
                     ];
 
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
-                        $fail('The status transition is not allowed.'); // Trả về lỗi
+                        $fail('The status transition is not allowed.');
                     }
                 }
             ]
         ]);
 
-        // Xác nhận trạng thái hợp lệ
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->with('error', 'Order status update failed due to invalid data.');
+        }
+
         $newStatusId = $request->input('status_order_id');
 
-        // Kiểm tra xem trạng thái có thay đổi không
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
             $order->save();
 
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
 
-            // Gửi email thông báo trạng thái
             if ($newStatusId == 5) { // Trạng thái hủy đơn
                 $this->rollbackQuantity($order);
                 Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
@@ -188,9 +191,17 @@ class OrderController extends Controller
 
         $newPaymentStatusId = $request->input('status_payment_id');
         $currentStatusId = $order->status_payment_id;
-        if ($currentStatusId == 2 && $newPaymentStatusId == 1) {
+
+        // Quy tắc chuyển đổi trạng thái
+        $allowedTransitions = [
+            1 => [2, 3], // Pending -> Paid hoặc Failed
+            2 => [],     // Paid    -> Không thể thay đổi
+            3 => [2],    // Failed  -> Paid (repayment)
+        ];
+
+        if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {
             return redirect()->route('admin.orders.show', $id)
-                ->with('error', 'Cannot revert to previous payment status.');
+                ->with('error', 'Payment status transition is not allowed.');
         }
 
         if ($newPaymentStatusId != $currentStatusId) {
@@ -198,11 +209,11 @@ class OrderController extends Controller
             $order->save();
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success1', 'Payment status updated successfully.');
+                ->with('success', 'Payment status updated successfully.');
         }
 
         return redirect()->route('admin.orders.show', $id)
-            ->with('error1', 'No change in payment status.');
+            ->with('error', 'No change in payment status.');
     }
 
 }
