@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Contact Form Submission</title>
+    <title>Document</title>
     <link rel="stylesheet" href="mail.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <style>
+        /* General styles */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -135,6 +137,7 @@
             text-decoration: underline;
         }
 
+        /* Button styles (if needed) */
         .button {
             display: inline-block;
             padding: 12px 24px;
@@ -153,6 +156,7 @@
             cursor: pointer;
         }
 
+        /* Additional Hover Effects for Containers */
         .email-container:hover .header {
             background: linear-gradient(90deg, #3a9e9f, #4bb6b7);
         }
@@ -163,6 +167,7 @@
             transition: color 0.3s, border-color 0.3s;
         }
 
+        /* General layout for address section */
         .address-container {
             display: flex;
             justify-content: space-between;
@@ -171,7 +176,7 @@
         }
 
         .address {
-            flex: 1; 
+            flex: 1; /* Equal width for both sections */
             background: #f9fafa;
             padding: 20px;
             border: 1px solid #e0e0e0;
@@ -203,29 +208,77 @@
 </head>
 <body>
     <div class="email-container">
+        <!-- Header -->
         <div class="header">
-            <h1>You have received a new message</h1>
+            <h1>Thank you for ordering at TechStore!</h1>
         </div>
 
+        <!-- Order Information -->
+        <div class="section">
+            <h2>Order information</h2>
+            <p style="color: white;"><strong>Order code:</strong> ORDER-67457F27E2251</p>
+            <p style="color: white;"><strong>Order date:</strong> 26 Nov, 2024 07:56AM</p>
+            <p style="color: white;"><strong>Payment Status:</strong> Đang chờ xử lý</p>
+            <p style="color: white;"><strong>Total:</strong> 269.000 VND</p>
+        </div>
+
+        <!-- Delivery Information -->
         <div class="section">
             <h2>Delivery information</h2>
             <div class="address-container">
+                <!-- Billing Address -->
                 <div class="address">
-                    <h3>Information:</h3>
-                    <p><strong>Name:</strong> {{ $data['name'] }}</p>
-                    <p><strong>Email:</strong> {{ $data['email'] }}</p>
+                    <h3>Billing address:</h3>
+                    <p>Dương Hữu Quốc</p>
+                    <p>P. Trịnh Văn Bô</p>
+                    <p>duonghuuquoc99@gmail.com</p>
+                    <p>3453452345</p>
                 </div>
                 
-                <div class="address" style="margin-left: 35px">
+                <!-- Shipping Address -->
+                <div class="address">
                     <h3>Shipping address:</h3>
-                    <p><strong>Message:</strong>{{ $data['message'] }}</p>
+                    <p>Dương Hữu Quốc</p>
+                    <p>P. Trịnh Văn Bô</p>
+                    <p>duonghuuquoc99@gmail.com</p>
+                    <p>3453452345</p>
                 </div>
             </div>
         </div>
+        <!-- Order Details -->
+        <div class="section">
+            <h2>Order details</h2>
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>132</td>
+                        <td>20GB - 23</td>
+                        <td>12 VND</td>
+                        <td>36.000 VND</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
+        <!-- Payment Information -->
+        <div class="section">
+            <h2  style="color: white;">Payment information</h2>
+            <p  style="color: white;"><strong>Payment method:</strong> Tiền mặt :</p>
+            <p  style="color: white;">234234234234324</p>
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
-            <p><b>Thank you for shopping at TechStore!</b></p>
-            <p><b>If you have any questions, please contact us via email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></b></p>
+            <p>Cảm ơn bạn đã mua sắm tại TechStore!</p>
+            <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></p>
         </div>
     </div>
 </body>
