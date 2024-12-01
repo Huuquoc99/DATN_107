@@ -86,7 +86,7 @@
                                                         <span class="badge bg-secondary text-dark">{{ $order['status_order_name'] }}</span>
                                                 @endswitch
                                             </td>
-                                            <td>{{ number_format($order['total_price'], 2) }} VND</td>
+                                            <td>{{ number_format($order['total_price']) }} VND</td>
                                             <td><a href="{{ route('account.orders.show', $order['id']) }}" class="btn btn-primary">VIEW</a></td>
                                         </tr>
                                     @empty

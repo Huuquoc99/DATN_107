@@ -6,9 +6,6 @@
     <div class="my-account container">
         <h2 class="page-title pt-5 ">Order detail - {{ $order->code }}</h2>
     </div>
-
-   
-   
     <section class="my-account container">
         <h2 class="page-title pt-5">Order Details</h2>
         <div class="row">
@@ -58,11 +55,14 @@
                         </tr>
                         <tr>
                             <td><strong>Total price:</strong></td>
-                            <td>{{ number_format($order->total_price, 2) }} VND</td>
+                            <td>{{ number_format($order->total_price) }} VND</td>
                         </tr>
                         <tr>
                             <td><strong>Create at:</strong></td>
-                            <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                            <td>
+                                <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
+                                <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -155,7 +155,12 @@
                         </tr>
                         <tr>
                             <td><strong>Address:</strong></td>
-                            <td>{{ $order->ship_user_address }}</td>
+                            <td>
+                                {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_district, 20, '...') }},
+                                {{ \Illuminate\Support\Str::limit($order->shipping_province, 20, '...') }},
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Note:</strong></td>
