@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<main>
+<main >
     <section class="shop-main container d-flex pt-1 pt-xl-5">
         <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
             <div class="aside-header d-flex d-lg-none align-items-center">
@@ -33,10 +33,10 @@
                     </h5>
                     <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
                              aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
-                            <div class="accordion-body px-0 pb-0 pt-3">
+                            <div class="accordion-body px-0 pb-0 pt-3" style="margin-top: -10px;" >
                                 <ul class="list list-inline mb-0 text-dask">
                                     @foreach($catalogues as $catalogue)
-                                        <li class="list-item" >
+                                        <li class="list-item" style="height: 40px; transition: background-color 0.3s;font-size: 24px;">
                                             <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
                                                 style="color: black" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
                                         </li>
@@ -67,13 +67,14 @@
                     <div id="accordion-filter-2" class="accordion-collapse collapse show border-0"
                         aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
                         <div class="accordion-body px-0 pb-0">
-                            <div class="d-flex flex-wrap">
-                                @foreach($colors as $color)
-                                    <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
-                                        class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
-                                        style="color: {{$color}}"></a>
-                                @endforeach
-                            </div>
+                        <div class="d-flex flex-wrap">
+    @foreach($colors as $color)
+        <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
+           class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
+           style="color: {{$color}}; border: 1px solid black; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
+        </a>
+    @endforeach
+</div>
                         </div>
                     </div>
                 </div>
@@ -156,40 +157,32 @@
                                 </option>
                             </select>
 
-                            <ul class="multi-select__list list-unstyled">
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('1', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">Dưới 1 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('2', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">1 đến 3 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('3', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">3 đến 5 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('4', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">5 đến 10 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('5', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">10 đến 15 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('6', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">15 đến 20 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('7', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">20 đến 30 triệu</span>
-                                </li>
-                                <li
-                                    class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('8', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">trên 30 triệu</span>
-                                </li>
-                            </ul>
+                            <ul class="multi-select__list list-unstyled" style="display: flex; flex-direction: column; padding: 0; margin: 0;">
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('1', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">Dưới 1 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('2', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">1 đến 3 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('3', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">3 đến 5 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('4', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">5 đến 10 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('5', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">10 đến 15 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('6', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">15 đến 20 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('7', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">20 đến 30 triệu</span>
+    </li>
+    <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('8', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
+        <span class="me-auto">trên 30 triệu</span>
+    </li>
+</ul>
                         </div>
                     </div>
                 </div>
@@ -197,8 +190,8 @@
         </div>
 
         <div class="shop-list flex-grow-1">
-            <div class="d-flex justify-content-between mb-4 pb-md-2">
-                <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
+            <div class="d-flex justify-content-between mb-4 pb-md-2 ">
+                <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1" style="margin-top: -25px;">
                     <a href="{{route('home')}}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color: black">Home</a>
                     <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1" style="color: black">/</span>
                     <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium" style="color: black">The
@@ -206,7 +199,7 @@
                 </div>
             </div>
             @if(count($products))
-            <div class="products-grid row g-4 p-2" id="products-grid">
+            <div class="products-grid row g-4 p-2" style="margin-top: -65px;" id="products-grid">
                 @foreach($products as $product)
                     <div class="product-card-wrapper col-12 col-md-6 col-lg-4">
                         <div class="product-card h-100 border rounded overflow-hidden position-relative shadow-sm">
@@ -231,9 +224,7 @@
                                         {{ number_format($product->price_regular, 0, ',', '.') }} VND
                                     </span>
                                 </div>
-                                <div class="product-card__review d-flex align-items-center mt-2">
-                                    <span class="reviews-note text-secondary ms-1 small">8k+ reviews</span>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>

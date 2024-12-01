@@ -14697,7 +14697,7 @@ textarea.form-control.is-invalid {
 .pc__img-wrapper {
     display: block;
     position: relative;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
     overflow: hidden;
 }
