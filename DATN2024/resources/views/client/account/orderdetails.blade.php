@@ -24,13 +24,15 @@
                                     </form>
                                 @elseif ($order->status_order_id == 3)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
+                                @elseif ($order->status_order_id == 4)
+                                    {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-success btn-sm">Mark as Received</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Received</button>
                                     </form>
-                                @elseif ($order->status_order_id == 4)
-                                    <span class="text-success">Completed</span>
                                 @elseif ($order->status_order_id == 5)
+                                    <span class="text-success">Completed</span>
+                                @elseif ($order->status_order_id == 6)
                                     <span class="text-danger">Canceled</span>
                                 @else
                                     <span class="text-muted">Unknown</span>

@@ -84,8 +84,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        if ($order->status_order_id == 1) {
-            $order->status_order_id = 4;
+        if ($order->status_order_id == 1 || $order->status_order_id == 2) {
+            $order->status_order_id = 6;
             $order->save();
            $this->rollbackQuantity($order);
             $no = \App\Models\AdminNotification::create([
@@ -125,7 +125,7 @@ class OrderController extends Controller
             $order->status_order_id = $newStatusId;
             $order->save();
 
-            if ($newStatusId == 4) {
+            if ($newStatusId == 6) {
                 Mail::to($order->user->email)->send(new AdminOrderCancelled($order));
             } else {
                 Mail::to($order->user->email)->send(new AdminOrderUpdated($order));
@@ -143,8 +143,8 @@ class OrderController extends Controller
     public function markAsReceived(Order $order)
     {
 
-        if ($order->status_order_id == 2) {
-            $order->status_order_id = 3;
+        if ($order->status_order_id == 4) {
+            $order->status_order_id = 5;
             $order->save();
 
             Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
