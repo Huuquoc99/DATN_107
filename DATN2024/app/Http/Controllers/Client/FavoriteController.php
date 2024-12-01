@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Favorite;
 use App\Models\Product;
+use App\Traits\UserFavorites;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FavoriteController extends Controller
 {
+    use UserFavorites;
+
     public function toggleFavorite(Request $request)
     {
         if (!Auth::check()) {
@@ -45,6 +49,35 @@ class FavoriteController extends Controller
         }
     }
 
+    public function removeFavorite(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'The selected product id is invalid.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $favorite = Favorite::query()->where('product_id', $request->product_id)->first();
+
+        if ($favorite) {
+            $favorite->delete();
+
+            return response()->json([
+                'message' => 'Product removed from favorites.',
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Favorite not found.',
+        ], 404);
+    }
+
+
 
     public function listFavorites()
     {
@@ -54,6 +87,8 @@ class FavoriteController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('client.favorites', compact('favorites'));
+        $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
+
+        return view('client.account.list-favorites', compact('favorites','favoriteProductIds'));
     }
 }

@@ -10,6 +10,7 @@
                     <ul class="account-nav">
                         <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s "style="color: black">Dashboard</a></li>
                         <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s menu-link_active"style="color: black">Orders</a></li>
+                        <li><a href="{{ route('favorites.list') }}" class="menu-link menu-link_us-s"style="color: black">Wishlist</a></li>
                         <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s"style="color: black">Account Details</a></li>
                         <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s"style="color: black">Change password</a></li>
                     </ul>
@@ -69,7 +70,7 @@
                                             <td>
                                                 <span id="invoice-date">{{ $order['created_at'] ? $order['created_at']->format('d M, Y') : 'N/A' }}</span>
                                                 <small class="text-muted" id="invoice-time">{{ $order['created_at'] ? $order['created_at']->format('h:iA') : '' }}</small>
-                                                
+
                                             </td>
                                             <td>
                                                 @switch($order['status_order_id'])

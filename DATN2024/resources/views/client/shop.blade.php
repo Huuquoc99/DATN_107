@@ -216,6 +216,22 @@
                                          alt="{{ $product->name }}"
                                          class="img-fluid w-100 product-img">
                                 </a>
+
+                                <div class="product-card__overlay">
+                                    <button class="product-card__action-btn favorite-btn"
+                                            onclick="toggleFavorite({{ $product->id }})"
+                                            data-product-id="{{ $product->id }}">
+                                        {{ in_array($product->id, $favoriteProductIds) ? '❤️' : '🤍' }}
+                                    </button>
+
+                                    <button class="product-card-view quick-view-btn"
+                                            onclick="openQuickView({{ $product->id }})"
+                                            data-product-id="{{ $product->id }}"
+                                            title="Quick View">
+                                        👀
+                                    </button>
+                                </div>
+
                             </div>
                             <div class="p-3">
                                 <p class="pc__category text-muted mb-2">

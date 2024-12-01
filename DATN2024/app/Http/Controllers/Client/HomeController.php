@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Catalogue;
 use App\Models\ProductColor;
+use App\Traits\UserFavorites;
 use Illuminate\Http\Request;
 use App\Models\ProductCapacity;
 use App\Http\Controllers\Controller;
@@ -15,8 +16,12 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    use UserFavorites;
+
     public function index()
     {
+        $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
+
         $productActive = Product::with(['variants', 'galleries'])
             ->active()
             ->get();
@@ -40,10 +45,6 @@ class HomeController extends Controller
             ->active()
             ->where('is_show_home', 1)
             ->get();
-
-        $favoriteProductIds = Auth::check()
-            ? (array)Auth::user()->favorite_product_ids
-            : [];
 
 
         $catalogues = Catalogue::where('is_active', 1)->get();
@@ -78,6 +79,7 @@ class HomeController extends Controller
 
     public function shop(Request $request)
     {
+        $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
         $limit = 8;
         $params = $request->only(['c', 'prices', 'color', 'capacity']);
         $products = Product::query()->active()->with(['catalogue']);
@@ -143,13 +145,13 @@ class HomeController extends Controller
         $colors = ProductColor::query()->active()->pluck('color_code');
         $capacities = ProductCapacity::query()->active()->pluck('name');
 
-        return view('client.shop', [
+        return view('client.shop', compact('favoriteProductIds'),[
             'products' => $products,
             'catalogues' => $catalogues,
             'capacities' => $capacities,
             'colors' => $colors,
             'source' => 'shop',
-            'title' => 'All products'
+            'title' => 'All products',
         ]);
     }
 

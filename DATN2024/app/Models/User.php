@@ -76,9 +76,14 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         if ($this->type == 1) {
-            $this->notify(new CustomResetPasswordNotification($token));  
+            $this->notify(new CustomResetPasswordNotification($token));
         } else {
-            $this->notify(new CustomResetPasswordLinkForClient($token)); 
+            $this->notify(new CustomResetPasswordLinkForClient($token));
         }
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }
