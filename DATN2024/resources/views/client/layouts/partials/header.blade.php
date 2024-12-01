@@ -151,25 +151,31 @@
         <div class="header-bottom pb-4">
             <div class="header-container mx-auto d-flex align-items-center ">
                 <div class="categories-nav position-relative">
-                    <h3
-                        class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
+                    <h3  style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
+                        class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
                         <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
+                       
                     </h3>
-                    <ul class="categories-nav__list list-unstyled border-radius-10">
-                        @if(isset($catalogues) && $catalogues->isNotEmpty())
-                            @foreach($catalogues as $catalogue)
-                                <li class="categories-nav__item">
-                                    <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                      style="color: black"   class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
-                                </li>
-                            @endforeach
-                        @endif
-                        {{-- <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li> --}}
-                    </ul>
+                    <ul class="categories-nav__list list-unstyled">
+    @if(isset($catalogues) && $catalogues->isNotEmpty())
+        @foreach($catalogues as $catalogue)
+            <li class="categories-nav__item" style="height: 40px; transition: background-color 0.3s;">
+                <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                   style="color: black" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
+                   {{$catalogue->name}}
+                </a>
+            </li>
+        @endforeach
+    @endif
+</ul>
+
+<style>
+.categories-nav__item:hover {
+    background-color: #d3d3d3; /* Màu xám */
+}
+</style>
                 </div>
 
                 <!-- <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
@@ -187,7 +193,7 @@
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     </button>
                     <input class="header-search__input w-100" type="text" name="k" value="{{request()->routeIs('search') ? request()->get('k') : '' }}"
-                        placeholder="Search products...">
+                        placeholder="Search products..."style="">
                 </form>
             </div>
         </div>

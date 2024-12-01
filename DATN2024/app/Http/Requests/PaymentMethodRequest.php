@@ -37,7 +37,6 @@ class PaymentMethodRequest extends FormRequest
             'display_order.required' => 'The display order field is required.',
             'display_order.integer'  => 'The display order must be an integer.',
             'display_order.min'      => 'The display order must be at least 1.',
-
         ];
     }
 }

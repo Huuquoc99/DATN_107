@@ -24,4 +24,3 @@ class LogoutController extends Controller
         }
     }
 }
-// sdfsdf

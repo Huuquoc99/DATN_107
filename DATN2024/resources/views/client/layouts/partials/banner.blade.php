@@ -14,7 +14,7 @@
                                             alt="{{ $banner->title }}">
                                     </a>
 
-                                    <div
+                                    {{-- <div
                                         class="slideshow-text full-width_padding position-absolute start-50 top-50 translate-middle pb-4 pb-xl-5">
                                         <p
                                             class="text_dash text-uppercase fs-base fw-medium animate animate_fade animate_btt animate_delay-3 text-white mb-2">
@@ -29,7 +29,7 @@
                                                 class="btn btn-primary border-0 fw-semi-bold text-uppercase theme-bg-color-secondary border-radius-10 btn-50 fs-base text-primary">Shop
                                                 Now</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         @endforeach

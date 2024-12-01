@@ -1,6 +1,6 @@
 <!-- Footer Type 1 -->
 <footer class="footer footer_type_1">
-  <div class="footer-middle container" style="height: 250px;">
+  <div class="footer-middle container" style="height: 230px;">
     <div class="row row-cols-lg-5 row-cols-2">
       <div class="footer-column footer-store-info col-12 mb-lg-0">
         <div class="logo">
@@ -65,14 +65,14 @@
     </div><!-- /.row-cols-5 -->
   </div><!-- /.footer-middle container -->
 
-  <div class="footer-bottom container" style="padding: 20px 0; text-align: center; color: white">
+  <div class="footer-bottom container" style="padding: 5px 0; text-align: center; color: white">
     <div class="d-block d-md-flex flex-column align-items-center">
       <span class="footer-search" style="margin-bottom: 1rem;">
         People also search for: 
         iPhone 16 | iPhone 16 Pro Max | iPhone | Samsung | iPhone 15 | OPPO Find X8 | Xiaomi | iPhone 15 | iPhone 14 | iPhone 13 | iPhone 12 
       </span>
       
-      <div class="footer-copyright" style="margin-top: 1rem;">
+      <div class="footer-copyright" style="margin-top: ; margin-bottom: 20px;">
         © 2007 - 2024 Da Thuy Hoa Digital Retail Joint Stock Company • Address: 261 - 263 Khanh Hoi, P2, Q4, Ho Chi Minh City • Business Registration Number 0311609355 issued by Ho Chi Minh City Department of Planning and Investment on 08/03/2012. License No. 47/GP-TTDT issued by Ho Chi Minh City Department of Information and Communications on 02/07/2018. Phone: (028) 7302 3456 • Email: Hoadt12@fpt.com • Content responsible: Hoa DT.
       </div>
     </div><!-- /.d-flex -->

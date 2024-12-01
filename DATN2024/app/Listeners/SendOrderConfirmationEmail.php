@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class SendOrderConfirmationEmail
+class SendOrderConfirmationEmail implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -57,8 +57,8 @@ class SendOrderConfirmationEmail
 //            dd($data);
             Mail::send('client.mail.confirm-order', $data, function ($message) use ($order) {
                 $message->to($order->user_email, $order->user_name)
-                    ->subject('Xác nhận đơn hàng #' . $order->code);
-                $message->from('dinhpvph31545@fpt.edu.vn', 'Techstore');
+                    ->subject('order Confirmation #' . $order->code);
+                $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
 
             Log::info("Order confirmation email sent for Order #" . $order->code);

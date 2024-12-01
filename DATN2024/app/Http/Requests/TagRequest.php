@@ -31,8 +31,7 @@ class TagRequest extends FormRequest
     {
         return [
             "name.required" => "Tag names cannot be left blank",
-            "name.max" => "Tag name must not exceed 255 characters",
-            
+            "name.max" => "Tag name must not exceed 255 characters",  
         ];
     }
 }

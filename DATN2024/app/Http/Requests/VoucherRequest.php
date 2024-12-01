@@ -40,34 +40,34 @@ class VoucherRequest extends FormRequest
     }
 
     public function messages(): array
-{
-    return [
-        'name.required' => 'The name field is required.',
-        'name.string' => 'The name must be a valid string.',
-        'name.max' => 'The name may not be greater than 255 characters.',
+    {
+        return [
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a valid string.',
+            'name.max' => 'The name may not be greater than 255 characters.',
 
-        'code.required' => 'The code field is required.',
-        'code.string' => 'The code must be a valid string.',
-        'code.unique' => 'The code has already been taken.',
-        'code.max' => 'The code may not be greater than 10 characters.',
+            'code.required' => 'The code field is required.',
+            'code.string' => 'The code must be a valid string.',
+            'code.unique' => 'The code has already been taken.',
+            'code.max' => 'The code may not be greater than 10 characters.',
 
-        'description.string' => 'The description must be a valid string.',
-        'description.max' => 'The description may not be greater than 1000 characters.',
+            'description.string' => 'The description must be a valid string.',
+            'description.max' => 'The description may not be greater than 1000 characters.',
 
-        'quantity.required' => 'The quantity field is required.',
-        'quantity.integer' => 'The quantity must be an integer.',
-        'quantity.min' => 'The quantity must be at least 1.',
+            'quantity.required' => 'The quantity field is required.',
+            'quantity.integer' => 'The quantity must be an integer.',
+            'quantity.min' => 'The quantity must be at least 1.',
 
-        'discount.required' => 'The discount field is required.',
-        'discount.numeric' => 'The discount must be a number.',
-        'discount.min' => 'The discount must be at least 1.',
+            'discount.required' => 'The discount field is required.',
+            'discount.numeric' => 'The discount must be a number.',
+            'discount.min' => 'The discount must be at least 1.',
 
-        'expiration_date.required' => 'The expiration date field is required.',
-        'expiration_date.date' => 'The expiration date must be a valid date.',
+            'expiration_date.required' => 'The expiration date field is required.',
+            'expiration_date.date' => 'The expiration date must be a valid date.',
 
-        'is_active.required' => 'The is active field is required.',
-        'is_active.boolean' => 'The is active field must be true or false.',
-    ];
-}
+            'is_active.required' => 'The is active field is required.',
+            'is_active.boolean' => 'The is active field must be true or false.',
+        ];
+    }
 
 }

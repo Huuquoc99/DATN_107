@@ -31,9 +31,10 @@ class ProductController extends Controller
         $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
         $catalogues = Catalogue::all();
 
+        $this->destroySesstion();
+
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
     }
-
 
 
     /**
@@ -45,7 +46,7 @@ class ProductController extends Controller
             ->where('is_active', 1)
             ->pluck('name', 'id')
             ->all();
-            
+
         $colors = ProductColor::query()
             ->where('is_active', 1)
             ->pluck('name', 'id')
@@ -58,7 +59,12 @@ class ProductController extends Controller
 
         $tags = Tag::query()->pluck('name', 'id')->all();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('catalogues', 'colors', 'capacity', 'tags'));
+        return view(self::PATH_VIEW . __FUNCTION__,
+            compact(
+                'catalogues',
+                'colors',
+                'capacity',
+                'tags'));
     }
 
     /**
@@ -72,7 +78,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-        ) = $this->handleData($request);
+            ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -87,25 +93,51 @@ class ProductController extends Controller
             }
 
             foreach ($dataNewProductVariants as $item) {
-                if (!empty($item_update['size']) && !empty($item_update['color'])) {
-                    $size = ProductCapacity::query()->firstOrCreate(
-                        ['name' => $item['size']],
-                        ['is_active' => 1]
-                    );
-
-                    $color = ProductColor::query()->firstOrCreate(
-                        ['name' => $item['color']],
-                        ['is_active' => 1]
-                    );
-
-                    $item += [
-                        'product_id' => $product->id,
-                        'product_capacity_id' => $size->id,
-                        'product_color_id' => $color->id,
-                    ];
-
-                    ProductVariant::query()->create($item);
+                // Bỏ qua các item không có đầy đủ size và color
+                if (empty($item['size']) || empty($item['color'])) {
+                    continue;
                 }
+
+                // Kiểm tra variant đã tồn tại
+                $existingVariant = ProductVariant::query()
+                    ->whereHas('capacity', function ($query) use ($item) {
+                        $query->where('name', $item['size']);
+                    })
+                    ->whereHas('color', function ($query) use ($item) {
+                        $query->where('name', $item['color']);
+                    })
+                    ->where('product_id', $product->id)
+                    ->exists();
+
+                if ($existingVariant) {
+                    return redirect()->back()->withErrors([
+                        'duplicate_error' => sprintf(
+                            'Variant with size "%s" and color "%s" already exists for this product.',
+                            $item['size'],
+                            $item['color']
+                        )
+                    ])->withInput();
+                }
+
+                // Tìm hoặc tạo size
+                $size = ProductCapacity::firstOrCreate(
+                    ['name' => $item['size']],
+                    ['is_active' => 1]
+                );
+
+                // Tìm hoặc tạo color
+                $color = ProductColor::firstOrCreate(
+                    ['name' => $item['color']],
+                    ['is_active' => 1]
+                );
+
+                $item += [
+                    'product_id' => $product->id,
+                    'product_capacity_id' => $size->id,
+                    'product_color_id' => $color->id,
+                ];
+
+                ProductVariant::query()->create($item);
             }
 
 
@@ -116,6 +148,8 @@ class ProductController extends Controller
             }
 
             $product->tags()->attach($dataProductTags);
+
+            $this->destroySesstion();
 
             DB::commit();
             return redirect()->route('admin.products.index')->with("success", "Product created successfully");
@@ -179,7 +213,7 @@ class ProductController extends Controller
             $dataNewProductVariants,
             $dataProductGalleries,
             $dataProductTags
-        ) = $this->handleData($request);
+            ) = $this->handleData($request);
 
         try {
             DB::beginTransaction();
@@ -227,7 +261,6 @@ class ProductController extends Controller
             }
 
 
-
             if ($request->has('delete_galleries')) {
                 foreach ($request->delete_galleries as $galleryId) {
                     $gallery = ProductGallery::find($galleryId);
@@ -250,6 +283,8 @@ class ProductController extends Controller
             }
 
             $product->tags()->sync($dataProductTags);
+
+            $this->destroySesstion();
 
             DB::commit();
 
@@ -283,42 +318,6 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-//    public function destroy(Product $product)
-//    {
-//
-//        try {
-//            $check_cartItem = $product->variants()->whereHas('cartItems')->exists();
-//
-//            if ($check_cartItem) {
-//                return back()->with('error', 'Sản phẩm này đang có trong giỏ hàng của người dùng và không thể xóa.');
-//            }
-//
-//            $dataHasImage = $product->galleries->toArray() + $product->variants->toArray();
-//
-//            DB::transaction(function () use ($product) {
-//                $product->tags()->sync([]);
-//                $product->galleries()->delete();
-//
-//                foreach ($product->variants as $variant) {
-//                    $variant->orderItems()->delete();
-//                }
-//                $product->variants()->delete();
-//                $product->delete();
-//            }, 3);
-//
-//            foreach ($dataHasImage as $item) {
-//                if (!empty($item->image) && Storage::exists($item->image)) {
-//                    Storage::delete($item->image);
-//                }
-//            }
-//
-//            return redirect()->route('admin.products.index')
-//                ->with('success', 'Product deleted successfully!');
-//        } catch (\Exception $exception) {
-//            dd($exception->getMessage());
-//            return back()->with('error', $exception->getMessage());
-//        }
-//    }
 
     public function destroy(Product $product)
     {
@@ -350,11 +349,10 @@ class ProductController extends Controller
     }
 
 
-
-
     private function handleData(Request $request)
     {
-        $dataProduct = $request->except(['tags','product_galleries','new_product_variants','product_variants']);
+        $dataProduct = $request->except(['tags', 'new_product_variants', 'product_variants']);
+
         $dataProduct['is_active'] ??= 0;
         $dataProduct['is_hot_deal'] ??= 0;
         $dataProduct['is_good_deal'] ??= 0;
@@ -387,7 +385,6 @@ class ProductController extends Controller
         }
 
 
-
         $dataProductVariantsTmp = $request->product_variants;
         $dataProductVariants = [];
         foreach ($dataProductVariantsTmp as $key => $item) {
@@ -416,7 +413,6 @@ class ProductController extends Controller
 
         return [$dataProduct, $dataProductVariants, $dataNewProductVariants, $dataProductGalleries, $dataProductTags];
     }
-
 
 
     public function filter(Request $request)
@@ -498,5 +494,12 @@ class ProductController extends Controller
         $data = $query->paginate(12);
 
         return view('admin.products.filter', compact('data'))->render();
+    }
+
+    public function destroySesstion()
+    {
+        session()->forget('product_variants');
+        session()->forget('new_product_variants');
+        session()->forget('product_galleries');
     }
 }

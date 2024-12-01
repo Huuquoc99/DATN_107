@@ -64,13 +64,16 @@
                                                 <i class="ri-time-line"></i>
                                                 @break
                                             @case(2)
-                                                <i class="ri-truck-line me-1 align-bottom"></i>
+                                                <i class="ri-time-line"></i>
                                                 @break
                                             @case(3)
-                                                <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
+                                                <i class="ri-truck-line me-1 align-bottom"></i>
                                                 @break
                                             @case(4)
-                                            <i class="ri-close-circle-line me-1 align-bottom"></i>
+                                                <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
+                                                @break
+                                            @case(5)
+                                                <i class="ri-close-circle-line me-1 align-bottom"></i>
                                                 @break
                                             @default
                                                 <i class="ri-store-2-fill me-1 align-bottom"></i>

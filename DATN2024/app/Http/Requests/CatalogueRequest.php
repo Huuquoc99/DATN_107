@@ -36,7 +36,6 @@ class CatalogueRequest extends FormRequest
         return [
             "name.required" => "Category names cannot be left blank",
             "name.max" => "Category name must not exceed 255 characters",
-            
         ];
     }
 }

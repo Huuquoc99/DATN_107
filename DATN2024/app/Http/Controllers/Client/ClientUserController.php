@@ -108,7 +108,7 @@ class ClientUserController extends Controller
     public function updateAvatar(Request $request, $id)
     {
         if (Auth::id() !== (int)$id || Auth::user()->type !== 0) {
-            return redirect()->route('accountdetail')->with('error1', 'Bạn không có quyền chỉnh sửa thông tin này!');
+            return redirect()->route('accountdetail')->with('error1', 'You do not have permission to edit this information!');
         }
 
         $validated = $request->validate([
@@ -132,7 +132,7 @@ class ClientUserController extends Controller
         }
 
         $user->save();
-        return redirect()->route('accountdetail', ['id' => $id])->with('success1', 'Cập nhật avatar thành công!');
+        return redirect()->route('accountdetail', ['id' => $id])->with('success1', 'Avatar update successful!');
     }
 
 

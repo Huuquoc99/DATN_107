@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\AdminNotification;
 use App\Models\Banner;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Catalogue;
 use App\Models\ProductColor;
@@ -34,13 +36,12 @@ class HomeController extends Controller
             ->get();
 
         $productHome = Product::with(['variants', 'galleries'])
-            ->active()    
+            ->active()
             ->where('is_show_home', 1)
             ->get();
 
 
         $catalogues = Catalogue::where('is_active', 1)->get();
-
         $banners = Banner::where('is_active', 1)->get();
 
         $products = Product::query()->active()->latest('id')->paginate(8);
@@ -69,16 +70,6 @@ class HomeController extends Controller
         ]);
     }
 
-    // public function shop()
-    // {
-    //     $products = Product::query()->with(['catalogue'])->latest('id')->paginate(8);
-    //     return view('client.shop', [
-    //         'products' => $products,
-    //         'source' => 'shop',
-    //         'title' => 'All products'
-    //     ]);
-    // }
-
     public function shop(Request $request)
     {
         $limit = 8;
@@ -98,35 +89,35 @@ class HomeController extends Controller
             $products = $products->where(function ($query) use ($selectedPrices) {
                 foreach ($selectedPrices as $priceKey) {
                     switch ($priceKey) {
-                        case '1': // Dưới 1 triệu
+                        case '1': 
                             $query->orWhere('price_regular', '<', 1000000);
                             break;
 
-                        case '2': // 1 đến 3 triệu
+                        case '2': 
                             $query->orWhereBetween('price_regular', [1000000, 3000000]);
                             break;
 
-                        case '3': // 3 đến 5 triệu
+                        case '3': 
                             $query->orWhereBetween('price_regular', [3000000, 5000000]);
                             break;
 
-                        case '4': // 5 đến 10 triệu
+                        case '4': 
                             $query->orWhereBetween('price_regular', [5000000, 10000000]);
                             break;
 
-                        case '5': // 10 đến 15 triệu
+                        case '5': 
                             $query->orWhereBetween('price_regular', [10000000, 15000000]);
                             break;
 
-                        case '6': // 15 đến 20 triệu
+                        case '6': 
                             $query->orWhereBetween('price_regular', [15000000, 20000000]);
                             break;
 
-                        case '7': // 20 đến 30 triệu
+                        case '7': 
                             $query->orWhereBetween('price_regular', [20000000, 30000000]);
                             break;
 
-                        case '8': // Trên 30 triệu
+                        case '8': 
                             $query->orWhere('price_regular', '>', 30000000);
                             break;
 
@@ -155,10 +146,6 @@ class HomeController extends Controller
             'title' => 'All products'
         ]);
     }
-    // public function search(Request $request)
-    // {
-    //     $keyword = $request->input('keyword');
-
 
 
     public function search(Request $request) {
@@ -184,5 +171,19 @@ class HomeController extends Controller
     public function contact()
     {
         return view('client.contact');
+    }
+
+    public function test()
+    {
+        $order = Order::first();
+        \App\Models\AdminNotification::create([
+            'type' => 'Event\AdminNotification',
+            'data' => [
+                'order' => $order,
+                'message' => 'order paid successfully #<b>'. $order->code .'<b>'
+            ]
+        ]);
+        broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
+        return 'Successful order notification';
     }
 }

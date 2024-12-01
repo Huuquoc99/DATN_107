@@ -3,10 +3,10 @@
 @section('content')
     <div class="mb-4 mt-4 pb-4"></div>
     <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
-        <h2 class="page-title">Giỏ hàng</h2>
+        <h2 class="page-title">Cart</h2>
         <a href="{{ route('cart.list') }}" class="checkout-steps__item active">
             <span class="checkout-steps__item-title">
-                <span style="margin-top:-20px">TÚI MUA SẮM</span>
+                <span style="margin-top:-20px">SHOPPING BAG</span>
             </span>
         </a>
         <div id="delete-success"></div>
@@ -21,7 +21,7 @@
                         @endif
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Image</th>
                                 <th>Product</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -103,6 +103,16 @@
                                     VND</span>
                             </div>
                         </div> --}}
+                        <div class="mb-3 pb-3 border-bottom">
+                            <div class="fw-medium mb-2">VOUCHER</div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
+                                <button class="btn btn-dark" id="apply-voucher">Apply</button>
+                            </div>
+                            <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
+                                The voucher code is invalid or has expired.
+                            </div>
+                        </div>
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
                                 <a href="{{ route('checkout.index') }}">

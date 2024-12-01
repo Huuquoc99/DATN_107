@@ -79,16 +79,32 @@
     </div>
 
     <div class="content">
-        <p>Hello <strong>{{ $order->user->name }}</strong>,</p>
-        <p>We would like to inform you that your order with code <strong>{{ $order->code }}</strong> has been updated by admin to status: {{ $order->statusOrder->name }}</p>
-        
+        <p>
+            Hello
+            <strong>
+                {{ $order->user ? $order->user->name : 'Guest' }}
+            </strong>,
+        </p>
+        <p>
+            We would like to inform you that your order with code
+            <strong>{{ $order->code }}</strong>
+            has been updated by admin to status:
+            <strong>{{ $order->statusOrder->name }}</strong>
+        </p>
+
         <div class="order-details">
             <p><strong>Order details:</strong></p>
             <p>Order code: <strong>{{ $order->code }}</strong></p>
             <p>Status: <strong>{{ $order->statusOrder->name }}</strong></p>
         </div>
 
-        <p>If you have any questions or need further assistance, please contact us via email or phone number below.</p>
+        <p>
+            @if ($order->user)
+                If you have any questions or need further assistance, please contact us via email or phone number below.
+            @else
+                As you placed this order as a guest, if you have any questions or need support, please provide your order code when contacting us.
+            @endif
+        </p>
 
         <p>Thank you very much for using our service!</p>
     </div>
@@ -98,6 +114,7 @@
         <p>Best regards, TechStore</p>
     </div>
 </div>
+
 
 </body>
 </html>
