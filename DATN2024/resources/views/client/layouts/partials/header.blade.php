@@ -34,7 +34,7 @@
                 @csrf
                 <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
                     id="customerNameEmailInput" placeholder="Email">
-                @error('password')
+                @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
