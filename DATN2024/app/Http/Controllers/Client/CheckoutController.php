@@ -186,11 +186,10 @@ class CheckoutController extends Controller
             $this->processVNPAY($order);
 
         } else {
-
             $this->deductStockProduct();
-            dd($order);
+
             GuestOrderPlaced::dispatch($order);
-            dd($order);
+
             session()->forget('cart');
 
             return redirect()->route('guest-checkout.success');
@@ -347,27 +346,6 @@ class CheckoutController extends Controller
             }
         }
     }
-
-    // private function deductStockProduct()
-    // {
-    //     $user = Auth::user();
-    //     if ($user) {
-    //         $cart = Cart::where('user_id', $user->id)->first();
-    //         $cartItems = CartItem::where('cart_id', $cart->id)->get();
-    //         foreach ($cartItems as $cartItem) {
-    //             $productVariant = ProductVariant::find($cartItem->product_variant_id);
-    //             $productVariant->quantity -= $cartItem->quantity;
-    //             $productVariant->save();
-    //         }
-    //     } else {
-    //         $guest_cart = session('cart', []);
-    //         foreach ($guest_cart as $item) {
-    //             $productVariant = ProductVariant::find($item['product_variant_id']);
-    //             $productVariant->quantity -= $item['quantity'];
-    //             $productVariant->save();
-    //         }
-    //     }
-    // }
 
     private function deductStockProduct()
     {

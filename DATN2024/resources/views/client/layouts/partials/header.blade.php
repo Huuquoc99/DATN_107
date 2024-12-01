@@ -1,7 +1,7 @@
 
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
-    
-    
+
+
     <div class="container9 mt-5" style="max-width: 400px;">
         <button class="btn-close-lg js-close-aside position-absolute top-0 end-0 m-2" aria-label="Close">
         </button>
@@ -22,7 +22,7 @@
         </div>
         @endauth
     </div>
-    
+
     @guest
     <div class="customer-forms__wrapper d-flex position-relative">
         <div class="customer__login">
@@ -103,7 +103,7 @@
                         </a>
                     </li>
                 </ul>
-               
+
             </div>
         </div>
     </div> -->
@@ -143,6 +143,11 @@
                     <div class="header-tools__item hover-container">
                         <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
                             <i class="fa-regular fa-user fa-xl text-white"></i>
+                        </a>
+                    </div>
+                    <div class="header-tools__item hover-container">
+                        <a class="" href="{{ route('favorites.list') }}" data-aside="customerForms">
+                            <i class="fa-regular fa-heart fa-xl" style="color: #f2f2f2;"></i>
                         </a>
                     </div>
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">

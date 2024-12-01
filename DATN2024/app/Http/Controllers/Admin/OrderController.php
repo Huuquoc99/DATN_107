@@ -12,6 +12,7 @@ use App\Mail\AdminOrderCancelled;
 use App\Http\Controllers\Controller;
 use App\Models\StatusPayment;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -117,13 +118,14 @@ protected function checkStatusSelectable($status, $order)
     {
         $order = Order::findOrFail($id);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'status_order_id' => [
                 'required',
                 'exists:status_orders,id',
                 function ($attribute, $value, $fail) use ($order) {
                     $currentStatus = $order->status_order_id;
 
+                    // Define allowed transitions
                     $allowedTransitions = [
                         1 => [2, 6], 
                         2 => [3, 6], 
@@ -181,7 +183,9 @@ protected function checkStatusSelectable($status, $order)
         foreach ($order->orderItems as $item) {
             $item->productVariant->quantity += $item->quantity;
             $item->productVariant->save();
-        }}
+        }
+    }
+
 
     public function updatePaymentStatus(Request $request, $id)
     {
@@ -189,9 +193,17 @@ protected function checkStatusSelectable($status, $order)
 
         $newPaymentStatusId = $request->input('status_payment_id');
         $currentStatusId = $order->status_payment_id;
-        if ($currentStatusId == 2 && $newPaymentStatusId == 1) {
+
+        // Quy tắc chuyển đổi trạng thái
+        $allowedTransitions = [
+            1 => [2, 3], // Pending -> Paid hoặc Failed
+            2 => [],     // Paid    -> Không thể thay đổi
+            3 => [2],    // Failed  -> Paid (repayment)
+        ];
+
+        if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {
             return redirect()->route('admin.orders.show', $id)
-                ->with('error', 'Cannot revert to previous payment status.');
+                ->with('error', 'Payment status transition is not allowed.');
         }
 
         if ($newPaymentStatusId != $currentStatusId) {
@@ -199,11 +211,11 @@ protected function checkStatusSelectable($status, $order)
             $order->save();
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success1', 'Payment status updated successfully.');
+                ->with('success', 'Payment status updated successfully.');
         }
 
         return redirect()->route('admin.orders.show', $id)
-            ->with('error1', 'No change in payment status.');
+            ->with('error', 'No change in payment status.');
     }
 
 }

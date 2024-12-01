@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
@@ -103,6 +104,14 @@ Route::middleware('auth', 'checkUserMiddleware')->group(function () {
     // Route::middleware('auth')->group(function () {
 
     // Route::post("login", [LoginController::class, 'login'])->name('login');
+    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])
+        ->name('favorite.toggle');
+    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])
+        ->name('favorites.list');
+    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])
+        ->name('favorites.remove');
+
+
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
@@ -130,7 +139,7 @@ Route::middleware('auth', 'checkUserMiddleware')->group(function () {
     Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
     Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
     Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
-    
+
 });
 
 // Auth

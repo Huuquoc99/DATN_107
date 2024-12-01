@@ -118,6 +118,12 @@
                                 <i class="ri-shopping-cart-line me-2"></i>
                                 Add to cart
                             </button>
+
+                            <a class="mt-5 fs-15" type="submit"
+                                onclick="toggleFavorite({{ $product->id }})"
+                                data-product-id="{{ $product->id }}">
+                                ADD TO WISHLIST
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -147,35 +153,6 @@
                             <p class="content">{!! $product->description !!}</p>
                         </div>
                     </div>
-
-                    {{-- <div class="tab-pane fade" id="tab-additional-info" role="tabpanel"
-                        aria-labelledby="tab-additional-info-tab">
-                        <div class="product-single__additional-info p-3">
-                            <div class="product-gallery-horizontal d-flex justify-content-center"
-                                style="padding-left: 55px; position: relative;">
-                                <div class="main-image-container" style="position: relative;">
-                                    <img id="mainImage" style="height: 500px; width: 600px; object-fit: cover;"
-                                        src="{{ Storage::url($product->img_thumbnail) }}" class="main-image"
-                                        alt="{{ $product->name }}">
-                                    <a href="{{ Storage::url($product->img_thumbnail) }}" class="zoom-btn"
-                                        data-fancybox="gallery">
-                                        <i class="fas fa-search-plus"></i>
-                                    </a>
-                                </div>
-                                <div class="thumbnail-column"
-                                    style="display: flex; flex-direction: column; margin-left: 20px; position: absolute; top: 0; left: 650px;">
-                                    @foreach ($product->galleries as $image)
-                                        <div class="thumb-item" style="margin-bottom: 10px;">
-                                            <img src="{{ Storage::url($image->image) }}"
-                                                style="width: 100px; height: auto; cursor: pointer;"
-                                                onclick="changeImage('{{ Storage::url($image->image) }}')"
-                                                alt="{{ $product->name }}">
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
 
                     <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">
                         <div class="product-single__additional-info p-3">
@@ -277,6 +254,21 @@
                                                 style="margin-left: 25px; margin-top:20px;">
                                         </div>
                                     </a>
+                                    <div class="product-card__overlay">
+                                        <button class="product-card__action-btn favorite-btn"
+                                                onclick="toggleFavorite({{ $item->id }})"
+                                                data-product-id="{{ $item->id }}">
+                                            {{ in_array($item->id, $favoriteProductIds) ? '❤️' : '🤍' }}
+                                        </button>
+
+                                        <button class="product-card-view quick-view-btn"
+                                                onclick="openQuickView({{ $item->id }})"
+                                                data-product-id="{{ $item->id }}"
+                                                title="Quick View">
+                                            👀
+                                        </button>
+                                    </div>
+
                                 </div>
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">
