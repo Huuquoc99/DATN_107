@@ -29,7 +29,7 @@
             <div class="aside-header d-flex align-items-center">
                 <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
             </div><!-- /.aside-header -->
-
+            
             <form action="{{ route('login') }}" method="POST" class="aside-content">
                 @csrf
                 <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
@@ -50,6 +50,11 @@
                     </span>
                 @enderror
 
+                @if (session('error'))
+                    <div class="text-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif 
                 <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
                 <div class="customer-option mt-4 text-center">

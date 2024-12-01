@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->type === 1;
     }
 
+    public function isUser()
+    {
+        return $this->type === 0;
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);

@@ -99,8 +99,10 @@ Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGu
 Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
 Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'checkUserMiddleware')->group(function () {
+    // Route::middleware('auth')->group(function () {
 
+    // Route::post("login", [LoginController::class, 'login'])->name('login');
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
@@ -134,8 +136,9 @@ Route::middleware('auth')->group(function () {
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::get('/login', [LoginController::class, 'showLogin']);
 Route::post("login", [LoginController::class, 'login'])->name('login');
+Route::get('/login', [LoginController::class, 'showLogin']);
+
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Forgot password
