@@ -18,9 +18,13 @@
                             <td>
                                 @if ($order->status_order_id == 1 || $order->status_order_id == 2)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
-                                    <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
+                                    {{-- <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                    </form> --}}
+                                    <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST" id="cancelOrderForm">
+                                        @csrf
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmCancel()">Cancel</button>
                                     </form>
                                 @elseif ($order->status_order_id == 3)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
@@ -28,7 +32,7 @@
                                     {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-success btn-sm">Received</button>
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="confirmReceived()">Received</button>
                                     </form>
                                 @elseif ($order->status_order_id == 5)
                                     <span class="text-success">Completed</span>
@@ -189,5 +193,21 @@
                 location.reload();
             }
         });
+    </script>
+    <script>
+        // Cancel
+        function confirmCancel() {
+            if (confirm('Are you sure you want to cancel this order?')) {
+                document.getElementById('cancelOrderForm').submit();
+            }
+        }
+
+        // Received
+        function confirmReceived() {
+            if (confirm('Are you sure you want to mark this order as received?')) {
+                document.getElementById('markAsReceivedForm').submit();
+            }
+        }
+
     </script>
 @endsection
