@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="flex-shrink-0">
-                        <select id="product-filter" class="form-select " >
+                        <select id="product-filter" class="form-select ">
                             <option value="">All products</option>
 
                             <optgroup label="Catalogues">
@@ -83,7 +83,8 @@
                         @endif
 
 
-                        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
+                        <table id="example"
+                               class="table table-bordered dt-responsive nowrap table-striped align-middle text-center"
                                style="width:100%">
                             <thead>
                             <tr>
@@ -102,15 +103,6 @@
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    {{-- <td style="width: auto; height: 30px">
-                                        @php
-                                            $url = $item->img_thumbnail;
-                                            if (!Str::contains($url, 'http')) {
-                                                $url = \Illuminate\Support\Facades\Storage::url($url);
-                                            }
-                                        @endphp
-                                        <img src="{{ $url }}" alt="" width="70px" height="60px">
-                                    </td> --}}
                                     <td style="width: auto; height: 30px">
                                         @php
                                             $url = $item->img_thumbnail;
@@ -145,24 +137,29 @@
                                         <div class="dropdown">
                                             <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                    class="ri-more-fill"></i></button>
+                                                    class="ri-more-fill"></i>
+                                            </button>
                                             <ul class="dropdown-menu dropdown-menu-end" style="">
-                                                <li><a class="dropdown-item" href="{{ route('admin.products.show', $item) }}"><i
-                                                            class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                        View</a>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       href="{{ route('admin.products.show', $item) }}"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                        View
+                                                    </a>
                                                 </li>
-                                                <li><a class="dropdown-item edit-list" data-edit-id="1"
-                                                       href="{{ route('admin.products.edit', $item) }}"><i
-                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                        Edit</a>
+                                                <li>
+                                                    <a class="dropdown-item edit-list" data-edit-id="1"
+                                                       href="{{ route('admin.products.edit', $item) }}"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                        Edit
+                                                    </a>
                                                 </li>
                                                 <li class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item remove-list" href="#" data-id="1"
-                                                       data-bs-toggle="modal" data-bs-target="#removeItemModal"><i
-                                                            class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                        Delete</a>
+                                                <li>
+                                                    <a class="dropdown-item remove-list" href="#" data-id="{{ $item->id }}" data-product-name="{{ $item->name }}" data-bs-toggle="modal" data-bs-target="#removeItemModal">
+                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
+                                                    </a>
                                                 </li>
                                             </ul>
+                                            <!-- Modal -->
                                             <div id="removeItemModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
@@ -171,12 +168,8 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mt-2 text-center">
-                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json"
-                                                                           trigger="loop"
-                                                                           colors="primary:#f7b84b,secondary:#f06548"
-                                                                           style="width:100px;height:100px">
-                                                                </lord-icon>
-                                                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                                                <div class="mt-4 pt-2 fs-15 mx-sm-5">
                                                                     <h4>Are you sure ?</h4>
                                                                     <p class="text-muted mx-4 mb-0">Do you want to delete <strong id="product-name"></strong>?</p>
                                                                 </div>
@@ -188,7 +181,6 @@
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn w-sm btn-danger">Yes, Delete It!</button>
                                                                 </form>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,12 +192,30 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} products</p>
-                            </div>
-                            <div>
-                                {{ $data->links() }}
+                        <div class="gridjs-footer">
+                            <div class="gridjs-pagination">
+                                <div class="gridjs-pages">
+                                    <button tabindex="0" role="button" title="Previous" aria-label="Previous"
+                                            class="{{ $data->onFirstPage() ? 'disabled' : '' }}"
+                                            onclick="navigateToPage({{ $data->currentPage() - 1 }})">
+                                        Previous
+                                    </button>
+
+                                    @foreach(range(1, $data->lastPage()) as $page)
+                                        <button tabindex="0" role="button"
+                                                class="{{ $data->currentPage() == $page ? 'gridjs-currentPage' : '' }}"
+                                                title="Page {{ $page }}" aria-label="Page {{ $page }}"
+                                                onclick="navigateToPage({{ $page }})">
+                                            {{ $page }}
+                                        </button>
+                                    @endforeach
+
+                                    <button tabindex="0" role="button" title="Next" aria-label="Next"
+                                            class="{{ $data->hasMorePages() ? '' : 'disabled' }}"
+                                            onclick="navigateToPage({{ $data->currentPage() + 1 }})">
+                                        Next
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -213,11 +223,29 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('script-libs')
 
     <script>
+        document.querySelectorAll('.gridjs-pages button').forEach(button => {
+            button.addEventListener('click', function () {
+                if (!button.classList.contains('disabled')) {
+                    let page = parseInt(button.innerText);
+                    if (!isNaN(page)) {
+                        window.location.href = `?page=${page}`;
+                    }
+                }
+            });
+        });
+
+        function navigateToPage(page) {
+            if (page < 1 || page > {{ $data->lastPage() }}) return;
+
+            window.location.href = `?page=${page}`;
+        }
+
 
         $.ajaxSetup({
             headers: {
@@ -256,56 +284,11 @@
                         $('.table-data').html(res);
                     },
                     error: function (res) {
-                        $('.table-data').html('<p class="alert alert-primary">Có lỗi xảy ra!</p>');
+                        $('.table-data').html('<p class="alert alert-primary">Errors</p>');
                     }
                 });
             }
         });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            let productId, productName;
-
-            document.querySelectorAll('.remove-list').forEach(button => {
-                button.addEventListener('click', function () {
-                    productId = this.getAttribute('data-id');
-                    productName = this.getAttribute('data-name');
-                    document.getElementById('product-name').innerText = productName; // Hiển thị tên sản phẩm trong modal
-                });
-            });
-
-            document.getElementById('delete-product').addEventListener('click', function () {
-                axios.post(`/admin/products/${productId}/delete`, {
-                    _token: "{{ csrf_token() }}" // Token xác thực CSRF
-                })
-                    .then(response => {
-                        const productRow = document.querySelector(`.remove-list[data-id="${productId}"]`).closest('.product-card-wrapper');
-                        if (productRow) productRow.remove();
-
-                        Toastify({
-                            text: response.data.message || "Product deleted successfully!",
-                            duration: 3000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)"
-                        }).showToast();
-
-                        const modal = bootstrap.Modal.getInstance(document.getElementById('removeItemModal'));
-                        modal.hide();
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        Toastify({
-                            text: error.response?.data?.message || "Failed to delete the product.",
-                            duration: 3000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
-                        }).showToast();
-                    });
-            });
-        });
-
-
     </script>
 @endsection
 
