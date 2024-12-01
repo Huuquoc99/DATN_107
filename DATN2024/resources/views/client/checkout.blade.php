@@ -10,7 +10,7 @@
                 @csrf
                 <div class="checkout-form">
                     @if (session('error'))
-                            <div class="alert alert-danger">
+                            <div class="" style="color: #EA5651;">
                                 {{ session('error') }}
                             </div>
                         @endif
@@ -21,27 +21,39 @@
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="text" class="input" id="ship_user_name" placeholder="First Name"
-                                           value="{{ old('ship_user_name', $user->name ?? '') }}" required name="ship_user_name">
+                                           value="{{ old('ship_user_name', $user->name ?? '') }}" name="ship_user_name">
                                 </div>
+                                @error('ship_user_name')
+                                <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="email" class="input" id="ship_user_email" placeholder="Email"
-                                           value="{{ old('ship_user_email', $user->email ?? '') }}" required name="ship_user_email">
+                                           value="{{ old('ship_user_email', $user->email ?? '') }}" name="ship_user_email">
                                 </div>
+                                @error('ship_user_email')
+                                <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="number" class="input" id="ship_user_phone" placeholder="Phone"
-                                           value="{{ old('ship_user_phone', $user->phone ?? '') }}" required name="ship_user_phone">
+                                           value="{{ old('ship_user_phone', $user->phone ?? '') }}" name="ship_user_phone">
                                 </div>
+                                @error('ship_user_phone')
+                                <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="text" class="input" id="ship_user_address" placeholder="Address"
-                                           value="{{ old('ship_user_address', $user->address ?? '') }}" required name="ship_user_address">
+                                           value="{{ old('ship_user_address', $user->address ?? '') }}" name="ship_user_address">
                                 </div>
+                                @error('ship_user_address')
+                                <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-12">
@@ -55,6 +67,9 @@
                                                     <option  value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('province')
+                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
@@ -62,6 +77,9 @@
                                             <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
                                                 <option value="">Select District</option>
                                             </select>
+                                            @error('district')
+                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
@@ -69,6 +87,9 @@
                                             <select id="ward" name="ward" class="form-control">
                                                 <option value="">Select Ward/Commune</option>
                                             </select>
+                                            @error('ward')
+                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
