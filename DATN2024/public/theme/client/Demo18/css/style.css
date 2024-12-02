@@ -4166,7 +4166,7 @@ progress {
 }
 
 .mb-3 {
-    margin-bottom: 1rem !important;
+    margin-bottom:0rem !important;
 }
 
 .mb-4 {
@@ -9758,8 +9758,8 @@ svg.flaticon {
 }
 body {
     color: #222222;
-    font-family: "Exo 2", sans-serif;
-    font-size: 0.875rem;
+   /* font-family: "Exo 2", sans-serif; */
+    font-size: 0.975rem;
     font-weight: 400;
     line-height: 1.7143;
     margin: 0;
@@ -11827,7 +11827,7 @@ img {
     width: 100%;
     height: 100vh;
     transition: all 0.32s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-    background-color: rgba(34, 34, 34, 0.4);
+    /* background-color: rgba(34, 34, 34, 0.4); */
     opacity: 0;
     visibility: hidden;
     z-index: 1040;
@@ -12019,6 +12019,7 @@ img {
     font-weight: 500;
     line-height: 1.375;
     outline: none;
+    margin-top: -10px;
 }
 .accordion-button::after {
     content: none;
@@ -13659,6 +13660,7 @@ fieldset:disabled .btn {
     background-color: currentColor;
     color: inherit;
     content: "";
+    border: 1px solid black;
 }
 .swatch-color.swatch_active {
     border: 2px solid #222222;
@@ -14640,7 +14642,7 @@ textarea.form-control.is-invalid {
 }
 
 .categories-nav__list {
-    border: 1px solid black;
+    border: 1px solid var(--bs-gray);
     border-top: 0;
     border-radius: 0 0 4px 4px;
     text-align: center;
@@ -19046,6 +19048,7 @@ textarea.form-control.is-invalid {
 .shop-sidebar .accordion-button__icon {
     width: 0.625rem;
     height: 0.625rem;
+    
 }
 
 .shop-list {

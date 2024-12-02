@@ -154,16 +154,16 @@
                     <h3  style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-3">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
                        
                     </h3>
                     <ul class="categories-nav__list list-unstyled">
     @if(isset($catalogues) && $catalogues->isNotEmpty())
         @foreach($catalogues as $catalogue)
-            <li class="categories-nav__item" style="height: 40px; transition: background-color 0.3s;">
+            <li class="categories-nav__item" style="height: 40px;  display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
                 <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                   style="color: black" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
+                   style="color: black; text-align: center; display: block; width: 100%;" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
                    {{$catalogue->name}}
                 </a>
             </li>
