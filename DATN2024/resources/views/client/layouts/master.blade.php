@@ -26,7 +26,11 @@
 
             body {
                 padding-top: 60px;
+                overflow-x: hidden;
             }
+            .site-footer {
+        
+        }
         </style>
         @include('client.layouts.partials.header')
     </header>

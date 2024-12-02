@@ -66,6 +66,9 @@
                                                 <option value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                             @endforeach
                                         </select>
+                                        @error('province')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-12 col-md-4">
@@ -73,6 +76,9 @@
                                         <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
                                             <option value="">Select District</option>
                                         </select>
+                                        @error('district')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-12 col-md-4">
@@ -80,6 +86,9 @@
                                         <select id="ward" name="ward" class="form-control">
                                             <option value="">Select Ward/Commune</option>
                                         </select>
+                                        @error('ward')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
