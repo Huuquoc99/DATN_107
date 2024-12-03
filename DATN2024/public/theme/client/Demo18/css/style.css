@@ -3040,6 +3040,17 @@ progress {
         transition: none;
     }
 }
+#productRow {
+    display: flex; /* Hiển thị các sản phẩm theo hàng ngang */
+    gap: 1/2rem; /* Khoảng cách giữa các sản phẩm */
+    overflow: hidden; /* Ẩn các sản phẩm không thuộc viewport */
+    transition: transform 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+}
+
+.product-card-wrapper {
+    flex: 0 0 calc(100% / 4); /* Mỗi sản phẩm chiếm 1/4 viewport */
+    max-width: calc(100% / 4); /* Đảm bảo kích thước không vượt quá giới hạn */
+}
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -3050,11 +3061,37 @@ progress {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 15%;
+    width: 5%;
     color: #fff;
     text-align: center;
     opacity: 0.5;
     transition: opacity 0.15s ease;
+    background-color: transparent; /* Nền trong suốt */
+    border: none; /* Không viền */
+    box-shadow: none;
+}
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+    width: 2rem; /* Kích thước mũi tên */
+    height: 2rem;
+    background-color: black; /* Nền trong suốt */
+    background-size: 100%; /* Mũi tên đầy đủ */
+    background-repeat: no-repeat;
+}
+
+/* Tùy chỉnh vị trí của mũi tên */
+.carousel-control-prev {
+    left: -20px; /* Khoảng cách bên trái */
+}
+
+.carousel-control-next {
+    right: -10px; /* Khoảng cách bên phải */
+}
+
+/* Tùy chỉnh hiệu ứng hover */
+.carousel-control-prev:hover, 
+.carousel-control-next:hover {
+    opacity: 0.8; /* Nhẹ hơn khi hover */
 }
 @media (prefers-reduced-motion: reduce) {
     .carousel-control-prev,
@@ -3080,7 +3117,7 @@ progress {
     right: 0;
 }
 
-.carousel-control-prev-icon,
+/* .carousel-control-prev-icon,
 .carousel-control-next-icon {
     display: inline-block;
     width: 2rem;
@@ -3088,7 +3125,7 @@ progress {
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: 100% 100%;
-}
+} */
 
 /* rtl:options: {
   "autoRename": true,
