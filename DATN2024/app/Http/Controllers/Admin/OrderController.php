@@ -81,51 +81,46 @@ class OrderController extends Controller
         return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments'));
     }
 
-
-protected function checkStatusSelectable($status, $order)
-{
-    $currentStatus = $order->status_order_id;
-    $allowedTransitions = [
-        1 => [3, 4, 5],
-        2 => [1, 4, 5],
-        3 => [1, 2, 5, 6],
-        4 => [1, 2, 3, 6], 
-        5 => [1, 2, 3, 4, 6],
-        6 => [1, 2, 3, 4, 5],
-    ];
-
-    if ($status->id == $currentStatus) {
-        return false;
-    }
-
-    if ($currentStatus == 4 && $status->id == 5) {
-        $lastUpdated = $order->updated_at;
-        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+    protected function checkStatusSelectable($status, $order)
+    {
+        $currentStatus = $order->status_order_id;
     
-        if ($timeElapsed !== null && $timeElapsed <= 1) {
-            return false; 
+        $allowedTransitions = [
+            1 => [3, 4, 5],
+            2 => [1, 4, 5],
+            3 => [1, 2, 5, 6],
+            4 => [1, 2, 3, 6],
+            5 => [1, 2, 3, 4, 6],
+            6 => [1, 2, 3, 4, 5],
+        ];
+    
+        if ($status->id == $currentStatus) {
+            return false;
         }
+    
+        if ($currentStatus == 4 && $status->id == 5) {
+            $lastUpdated = $order->updated_at;
+            $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+    
+            if ($timeElapsed !== null && $timeElapsed <= 10) {
+                return false; 
+            }
+        }
+    
+        return in_array($status->id, $allowedTransitions[$currentStatus] ?? []);
     }
     
-    
-
-
-    return in_array($status->id, $allowedTransitions[$currentStatus] ?? []);
-}
-
-
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
-
+    
         $validator = Validator::make($request->all(), [
             'status_order_id' => [
                 'required',
                 'exists:status_orders,id',
                 function ($attribute, $value, $fail) use ($order) {
                     $currentStatus = $order->status_order_id;
-
-                    // Define allowed transitions
+    
                     $allowedTransitions = [
                         1 => [2, 6], 
                         2 => [3, 6], 
@@ -134,42 +129,44 @@ protected function checkStatusSelectable($status, $order)
                         5 => [],     
                         6 => [],
                     ];
-
+    
                     if ($currentStatus == 4 && $value == 5) {
                         $lastUpdated = $order->updated_at;
                         $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
-
-                        if ($timeElapsed !== null && $timeElapsed <= 1) {
+    
+                        if ($timeElapsed !== null && $timeElapsed <= 10) {
                             $fail('Cannot change status to Canceled within 10 minutes of success.');
                         }
                     }
-
-
+    
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
                         $fail('The status transition is not allowed.');
                     }
-
-                
-                    
                 }
             ]
         ]);
+    
+        if ($validator->fails()) {
+            return redirect()->route('admin.orders.show', $id)
+                ->withErrors($validator)
+                ->withInput();
+        }
+    
         $newStatusId = $request->input('status_order_id');
-
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
             $order->touch(); 
             $order->save();
-
+    
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
-
-            if ($newStatusId == 6) {
+    
+            if ($newStatusId == 6) { 
                 $this->rollbackQuantity($order);
                 Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
             } else {
                 Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
             }
-
+    
             return redirect()->route('admin.orders.show', $id)
                 ->with('success', 'Order status updated successfully.');
         } else {
@@ -177,6 +174,7 @@ protected function checkStatusSelectable($status, $order)
                 ->with('error', 'No change in order status.');
         }
     }
+    
 
     private function rollbackQuantity($order)
     {

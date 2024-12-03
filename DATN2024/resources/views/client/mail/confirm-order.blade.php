@@ -211,45 +211,48 @@
             <h1>Thank you for ordering at TechStore!</h1>
         </div>
 
-        <div class="section">
-            <h2>Order information</h2>
-            <p style="color: white;"><strong>Order code:</strong> {{ $order_code }}</p>
-            <p style="color: white;">
-                <strong>Order date:</strong> 
-                <span id="invoice-date">{{ $created_at->format('d M, Y') }}</span>
-                <small class="text-muted" id="invoice-time">{{ $created_at->format('h:iA') }}</small>
-            </p>
-            <p style="color: white;"><strong>Order Status:</strong> {{ $status_order }}</p>
-            <p style="color: white;"><strong>Payment Status:</strong> {{ $status_payment }}</p>
-            <p style="color: white;"><strong>Total:</strong> {{ number_format($total_price, 0, ',', '.') }} VND</p>
-        </div>
-
-        <div class="section">
-            <h2>Delivery information</h2>
-            <div class="address-container">
-
-                <div class="address">
-                    <h3>Billing address:</h3>
-                    <p>{{ $customer_name }}</p>
-                    <p>{{ $customer_email }}</p>
-                    <p>{{ $customer_phone }}</p>
-                    <p>{{ $customer_address}}</p>
-                </div>
-                
-                <div class="address">
-                    <h3>Shipping address:</h3>
-                    <p>{{ $shipping_name }}</p>
-                    <p>{{ $shipping_email }}</p>
-                    <p>{{ $shipping_phone }}</p>
-                    <p>
-                        {{ \Illuminate\Support\Str::limit($shipping_address, 20, '...') }},
-                        {{ \Illuminate\Support\Str::limit($shipping_ward, 20, '...') }},
-                        {{ \Illuminate\Support\Str::limit($shipping_district, 20, '...') }},
-                        {{ \Illuminate\Support\Str::limit($shipping_province, 20, '...') }},
-                    </p>
+        <div class="row">
+            <div class="section">
+                <h2>Order information</h2>
+                <p style="color: white;"><strong>Order code:</strong> {{ $order_code }}</p>
+                <p style="color: white;">
+                    <strong>Order date:</strong> 
+                    <span id="invoice-date">{{ $created_at->format('d M, Y') }}</span>
+                    <small class="text-muted" id="invoice-time">{{ $created_at->format('h:iA') }}</small>
+                </p>
+                <p style="color: white;"><strong>Order Status:</strong> {{ $status_order }}</p>
+                <p style="color: white;"><strong>Payment Status:</strong> {{ $status_payment }}</p>
+                <p style="color: white;"><strong>Total:</strong> {{ number_format($total_price, 0, ',', '.') }} VND</p>
+            </div>
+    
+            <div class="section">
+                <h2>Delivery information</h2>
+                <div class="address-container">
+    
+                    <div class="address">
+                        <h3>Billing address:</h3>
+                        <p>{{ $customer_name }}</p>
+                        <p>{{ $customer_email }}</p>
+                        <p>{{ $customer_phone }}</p>
+                        <p>{{ $customer_address}}</p>
+                    </div>
+                    
+                    <div class="address">
+                        <h3>Shipping address:</h3>
+                        <p>{{ $shipping_name }}</p>
+                        <p>{{ $shipping_email }}</p>
+                        <p>{{ $shipping_phone }}</p>
+                        <p>
+                            {{ \Illuminate\Support\Str::limit($shipping_address, 20, '...') }},
+                            {{ \Illuminate\Support\Str::limit($shipping_ward, 20, '...') }},
+                            {{ \Illuminate\Support\Str::limit($shipping_district, 20, '...') }},
+                            {{ \Illuminate\Support\Str::limit($shipping_province, 20, '...') }},
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+       
 
         <div class="section">
             <h2>Order details</h2>
