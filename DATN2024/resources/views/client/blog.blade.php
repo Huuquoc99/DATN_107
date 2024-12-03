@@ -3,9 +3,9 @@
 @section('content')
 <main>
     <div class="mb-4 pb-4"></div>
-    <section class="blog-page blog-single container">
+    <section class="blog-page blog-single container" style="margin-top:-85px">
       <div class="mw-930">
-        <h2 class="page-title">Top 5 Smartphones for 2023</h2>
+        <h2 class="page-title">Top 5 Smartphones for 2024</h2>
         <div class="blog-single__item-meta">
           <span class="blog-single__item-meta__author">By TechExpert</span>
           <span class="blog-single__item-meta__date">December 03, 2024</span>

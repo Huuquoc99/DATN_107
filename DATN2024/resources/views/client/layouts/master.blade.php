@@ -13,7 +13,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh; /* Đảm bảo body chiếm ít nhất 100% chiều cao của cửa sổ trình duyệt */
-            padding-top: 150px; /* Để tránh nội dung bị che bởi header */
+            padding-top: 15px; /* Để tránh nội dung bị che bởi header */
             overflow-x: hidden; /* Ẩn thanh cuộn ngang */
         }
 

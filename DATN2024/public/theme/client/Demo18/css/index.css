@@ -607,7 +607,7 @@ h3 {
 .nav-pills {
     display: flex;
     justify-content: flex-start;
-    gap: 15px; 
+    gap: 5px; 
     padding: 0;
     list-style-type: none;
     flex-wrap: nowrap; 
