@@ -95,6 +95,8 @@ class OrderController extends Controller
 
             $order->cancel_reason = $cancelReason;
 
+            $order->canceled_by = 'user';
+
             $order->save();
 
            $this->rollbackQuantity($order);

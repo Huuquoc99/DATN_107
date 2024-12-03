@@ -85,6 +85,7 @@ class OrderController extends Controller
     protected function checkStatusSelectable($status, $order)
     {
         $currentStatus = $order->status_order_id;
+
         $allowedTransitions = [
             1 => [3, 4, 5],
             2 => [1, 4, 5],
@@ -94,6 +95,7 @@ class OrderController extends Controller
             6 => [1, 2, 3, 4, 5],
         ];
 
+
         if ($status->id == $currentStatus) {
             return false;
         }
@@ -102,14 +104,13 @@ class OrderController extends Controller
             $lastUpdated = $order->updated_at;
             $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
-            if ($timeElapsed !== null && $timeElapsed <= 1) {
+            if ($timeElapsed !== null && $timeElapsed <= 10) {
                 return false;
             }
         }
 
         return in_array($status->id, $allowedTransitions[$currentStatus] ?? []);
     }
-
 
     public function updateStatus(Request $request, $id)
     {
@@ -122,7 +123,6 @@ class OrderController extends Controller
                 function ($attribute, $value, $fail) use ($order) {
                     $currentStatus = $order->status_order_id;
 
-                    // Define allowed transitions
                     $allowedTransitions = [
                         1 => [2, 6],
                         2 => [3, 6],
@@ -136,7 +136,7 @@ class OrderController extends Controller
                         $lastUpdated = $order->updated_at;
                         $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
-                        if ($timeElapsed !== null && $timeElapsed <= 1) {
+                        if ($timeElapsed !== null && $timeElapsed <= 10) {
                             $fail('Cannot change status to Canceled within 10 minutes of success.');
                         }
                     }
@@ -147,8 +147,14 @@ class OrderController extends Controller
                 }
             ]
         ]);
-        $newStatusId = $request->input('status_order_id');
 
+        if ($validator->fails()) {
+            return redirect()->route('admin.orders.show', $id)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $newStatusId = $request->input('status_order_id');
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
             $order->touch();
@@ -157,6 +163,16 @@ class OrderController extends Controller
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
 
             if ($newStatusId == 6) {
+                $cancelReason = $request->input('cancel_reason');
+
+                if ($request->input('cancel_reason') == 'other') {
+                    $order->other_reason = $request->input('other_reason');
+                }
+
+                $order->cancel_reason = $cancelReason;
+                $order->canceled_by = 'admin';
+                $order->save();
+
                 $this->rollbackQuantity($order);
 //                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
 
@@ -175,6 +191,7 @@ class OrderController extends Controller
                 ->with('error', 'No change in order status.');
         }
     }
+
 
 
 

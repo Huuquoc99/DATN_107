@@ -334,46 +334,64 @@
                         <h5 class="card-title mb-0"><i class="ri-bubble-chart-fill"></i> Order Status</h5>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="flex-grow-1 ms-3 me-3">
-                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST"
-                                    class="d-flex flex-column align-items-start" id="updateStatusForm">
-                                    @csrf
-                                    <div class="form-group mb-3">
-                                        <select name="status_order_id" id="status_order_id" class="form-control"
-                                            style="width:230px">
-                                            @foreach ($statusOrders as $status)
-                                                <option value="{{ $status->id }}"
-                                                    {{ $status->is_disabled ? 'disabled' : '' }}
-                                                    {{ $order->status_order_id == $status->id ? 'selected' : '' }}>
-                                                    {{ $status->name }}
-                                                </option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100 mb-3" onclick="confirmUpdateStatus()">Update Order Status</button>
-                                </form>
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
+                        <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" id="updateStatusForm">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <select name="status_order_id" id="status_order_id" class="form-control" style="width: 230px;" onchange="checkStatus()">
+                                    @foreach ($statusOrders as $status)
+                                        <option value="{{ $status->id }}" {{ $status->is_disabled ? 'disabled' : '' }}
+                                            {{ $order->status_order_id == $status->id ? 'selected' : '' }}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
-                        </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="cancelOrderModalLabel">Cancel Order</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Lý do hủy đơn -->
+                                            <div class="list-group">
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind">
+                                                    Changed my mind
+                                                </label>
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
+                                                    Found a cheaper option
+                                                </label>
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
+                                                    Other
+                                                </label>
+                                                <div class="mb-3" id="otherReasonContainer" style="display: none;">
+                                                    <label for="otherReason" class="form-label">Please specify your reason</label>
+                                                    <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal">
+                                                <i class="ri-close-line me-1 align-middle"></i> Close
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" id="updateStatusButton" class="btn btn-primary w-100 mb-3" onclick="handleSubmit()">Update Order Status</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
-    </div>
     <script>
 
         @if (session('success'))
@@ -408,11 +426,27 @@
             }
         });
     </script>
+
     <script>
-        function confirmUpdateStatus() {
-            if (confirm('Are you sure you want to update the order status?')) {
-                document.getElementById('updateStatusForm').submit();
+        function checkStatus() {
+            const statusSelect = document.getElementById("status_order_id");
+            const updateButton = document.getElementById("updateStatusButton");
+
+            updateButton.dataset.statusId = statusSelect.value;
+        }
+
+        function handleSubmit() {
+            const updateButton = document.getElementById("updateStatusButton");
+
+            if (updateButton.dataset.statusId === "6") {
+                const modal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
+                modal.show();
+            } else {
+                document.getElementById("updateStatusForm").submit();
             }
         }
+
+        document.addEventListener("DOMContentLoaded", checkStatus);
     </script>
+
 @endsection
