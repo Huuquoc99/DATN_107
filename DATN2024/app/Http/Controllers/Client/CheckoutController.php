@@ -310,6 +310,8 @@ class CheckoutController extends Controller
                 $order->save();
                 $this->deductStockProduct();
 
+                GuestOrderPlaced::dispatch($order);
+
                 $cart = Cart::where('user_id', $order->user_id)->first();
                 if ($cart) {
                     $cart->items()->delete();
