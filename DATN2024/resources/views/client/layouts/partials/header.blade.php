@@ -164,7 +164,7 @@
                     <h3  style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-1">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
                        
                     </h3>
