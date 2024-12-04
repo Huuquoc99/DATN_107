@@ -59,10 +59,6 @@ $(document).ready(function () {
         var rating = $('#form-input-rating').val();
         var review = $('#form-input-review').val();
 
-        if (rating === '' || review === '') {
-            alert('Vui lòng điền đầy đủ thông tin.');
-            return;
-        }
         let currentCount = parseInt($('#review-count').text());
         console.log(review);
 
@@ -70,7 +66,7 @@ $(document).ready(function () {
             url: `/comments`,
             method: 'POST',
             data: {
-                rate: rating,
+                rate: rating || null,
                 content: review,
                 product_id: productId
             },
@@ -154,24 +150,53 @@ $('#review-product-id').on('click', '.delete-review', function (e) {
     var reviewId = $(this).data('id');
     var reviewItem = $(this).closest('.review-item');
 
-    if (confirm('Are you sure you want to delete this review?')) {
-        let currentCount = parseInt($('#review-count').text());
-        $.ajax({
-            url: '/comments/' + reviewId,
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                reviewItem.remove();
-                $('#review-count').text(currentCount - 1);
-            },
-            error: function (error) {
-                console.error('Error:', error);
-                alert('Could not delete review');
-            }
-        });
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let currentCount = parseInt($('#review-count').text());
+
+            $.ajax({
+                url: '/comments/' + reviewId,
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    reviewItem.remove();
+                    $('#review-count').text(currentCount - 1);
+
+                    // Hiển thị thông báo thành công bằng Toastify
+                    Toastify({
+                        text: "Review deleted successfully!",
+                        duration: 3000,
+                        gravity: "top", // Hiển thị ở đầu
+                        position: "right", // Hiển thị bên phải
+                        backgroundColor: "#4caf50", // Màu nền thành công
+                        close: true
+                    }).showToast();
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+
+                    Toastify({
+                        text: "Could not delete review. Please try again.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#f44336", // Màu nền lỗi
+                        close: true
+                    }).showToast();
+                }
+            });
+        }
+    });
 });
 
 // detail review

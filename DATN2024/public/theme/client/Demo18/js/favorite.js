@@ -20,7 +20,8 @@ function toggleFavorite(productId) {
                 escapeMarkup: false,
                 backgroundColor: response.data.is_favorite
                     ? "linear-gradient(to right, #00b09b, #96c93d)"
-                    : "linear-gradient(to right, #ff5f6d, #ffc371)"
+                    : "linear-gradient(to right, #ff5f6d, #ffc371)",
+                close: true
             }).showToast();
 
             document.querySelector("a[href='#']").addEventListener('click', function(e) {
@@ -38,6 +39,7 @@ function toggleFavorite(productId) {
                     position: "right",
                     backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)", // Màu nền
                     escapeMarkup: false,
+                    close: true
                 }).showToast();
 
                 document.querySelector("a[href='#']").addEventListener('click', function(e) {
@@ -77,6 +79,7 @@ function removeFavorite(productId) {
                         gravity: "top",
                         position: "right",
                         backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                        close: true
                     }).showToast();
                 })
                 .catch(error => {

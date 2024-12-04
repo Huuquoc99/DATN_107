@@ -154,7 +154,9 @@ class OrderController extends Controller
                 ->withInput();
         }
 
+
         $newStatusId = $request->input('status_order_id');
+
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
             $order->touch();
