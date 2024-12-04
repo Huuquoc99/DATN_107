@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation</title>
+    <title>Document</title>
     <link rel="stylesheet" href="mail.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -207,50 +208,44 @@
 </head>
 <body>
     <div class="email-container">
+        <!-- Header -->
         <div class="header">
             <h1>Thank you for ordering at TechStore!</h1>
         </div>
 
+        <!-- Order Information -->
         <div class="section">
             <h2>Order information</h2>
-            <p style="color: white;"><strong>Order code:</strong> {{ $order->code }}</p>
-            <p style="color: white;">
-                <strong>Order date:</strong> 
-                <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
-                <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
-            </p>
-            <p style="color: white;"><strong>Order Status:</strong> {{ $order->statusOrder->name }}</p>
-            <p style="color: white;"><strong>Payment Status:</strong> {{ $order->statusPayment->name }}</p>
-            <p style="color: white;"><strong>Total:</strong> {{ number_format($order->total_price, 0, ',', '.') }} VND</p>
+            <p style="color: white;"><strong>Order code:</strong> ORDER-67457F27E2251</p>
+            <p style="color: white;"><strong>Order date:</strong> 26 Nov, 2024 07:56AM</p>
+            <p style="color: white;"><strong>Payment Status:</strong> Đang chờ xử lý</p>
+            <p style="color: white;"><strong>Total:</strong> 269.000 VND</p>
         </div>
 
+        <!-- Delivery Information -->
         <div class="section">
             <h2>Delivery information</h2>
             <div class="address-container">
-
+                <!-- Billing Address -->
                 <div class="address">
                     <h3>Billing address:</h3>
-                    <p>{{ $order->user_name }}</p>
-                    <p>{{ $order->user_email }}</p>
-                    <p>{{ $order->user_phone }}</p>
-                    <p>{{ $order->user_address}}</p>
+                    <p>Dương Hữu Quốc</p>
+                    <p>P. Trịnh Văn Bô</p>
+                    <p>duonghuuquoc99@gmail.com</p>
+                    <p>3453452345</p>
                 </div>
                 
+                <!-- Shipping Address -->
                 <div class="address">
                     <h3>Shipping address:</h3>
-                    <p>{{ $order->ship_user_name }}</p>
-                    <p>{{ $order->ship_user_email }}</p>
-                    <p>{{ $order->ship_user_phone }}</p>
-                    <p>
-                        {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }},
-                        {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
-                        {{ \Illuminate\Support\Str::limit($order->shipping_district, 20, '...') }},
-                        {{ \Illuminate\Support\Str::limit($order->shipping_province, 20, '...') }},
-                    </p>
+                    <p>Dương Hữu Quốc</p>
+                    <p>P. Trịnh Văn Bô</p>
+                    <p>duonghuuquoc99@gmail.com</p>
+                    <p>3453452345</p>
                 </div>
             </div>
         </div>
-
+        <!-- Order Details -->
         <div class="section">
             <h2>Order details</h2>
             <table class="details-table">
@@ -263,29 +258,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($order->orderItems as $item)
-                        <tr>
-                            <td>
-                                {{ $item->product_name }}
-                                <span style="font-size: 12px; color: #666;">{{ $item->capacity->name ?? 'N/A' }} - {{ $item->color->name ?? 'N/A' }}</span>
-                            </td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
-                            <td>{{ number_format($item->product_price_sale * $item->quantity, 0, ',', '.') }} VND</td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td>132</td>
+                        <td>20GB - 23</td>
+                        <td>12 VND</td>
+                        <td>36.000 VND</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
+        <!-- Payment Information -->
         <div class="section">
             <h2  style="color: white;">Payment information</h2>
-            <p  style="color: white;"><strong>Payment method:</strong> {{ $order->paymentMethod->name }}</p>
+            <p  style="color: white;"><strong>Payment method:</strong> Tiền mặt :</p>
+            <p  style="color: white;">234234234234324</p>
         </div>
 
+        <!-- Footer -->
         <div class="footer">
-            <p><b>Thank you for shopping at TechStore!</b></p>
-            <p><b>If you have any questions, please contact us via email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></b></p>
+            <p>Cảm ơn bạn đã mua sắm tại TechStore!</p>
+            <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></p>
         </div>
     </div>
 </body>

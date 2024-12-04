@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
@@ -99,7 +100,17 @@ Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGu
 Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
 Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'checkUserMiddleware')->group(function () {
+    // Route::middleware('auth')->group(function () {
+
+    // Route::post("login", [LoginController::class, 'login'])->name('login');
+    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])
+        ->name('favorite.toggle');
+    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])
+        ->name('favorites.list');
+    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])
+        ->name('favorites.remove');
+
 
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -128,14 +139,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
     Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
     Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
-    
+
 });
 
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::get('/login', [LoginController::class, 'showLogin']);
 Route::post("login", [LoginController::class, 'login'])->name('login');
+Route::get('/login', [LoginController::class, 'showLogin']);
+
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Forgot password
@@ -198,6 +210,7 @@ Route::prefix('admin')
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
         Route::put('orders/{id}/update-payment-status', [AdminOrderController::class, 'updatePaymentStatus'])
         ->name('orders.updatePaymentStatus');
+        
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');

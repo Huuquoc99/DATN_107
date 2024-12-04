@@ -12,6 +12,7 @@ use App\Mail\AdminOrderCancelled;
 use App\Http\Controllers\Controller;
 use App\Models\StatusPayment;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -58,7 +59,6 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        // Xử lý notification (nếu có)
         if (!empty(request()->get('noti'))) {
             $notification = AdminNotification::find(request()->get('noti'));
             $notification->read_at = now();
@@ -69,7 +69,6 @@ class OrderController extends Controller
             ));
         }
 
-        // Nạp các mối quan hệ
         $order->load('orderItems.product', 'statusOrder', 'statusPayment');
 
         $statusOrders = StatusOrder::all()->map(function ($status) use ($order) {
@@ -79,55 +78,45 @@ class OrderController extends Controller
 
         $statusPayments = StatusPayment::all();
 
-        // Trả về view
         return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments'));
     }
+
 
     protected function checkStatusSelectable($status, $order)
     {
         $currentStatus = $order->status_order_id;
 
         $allowedTransitions = [
-            1 => [ // Pending
-                2, // Confirmed
-                5,
-            ],
-            2 => [ // Confirmed
-                3, // Shipping
-                4,
-                5,
-            ],
-            3 => [ // Shipping
-                4, // Success
-            ],
-            4 => [ // Delivered
-                2,
-                3
-                //Không thể Canceled và các bước trước
-            ],
-            5 => [ // Canceled
-                // Không chuyển được nữa
-            ],
-//            6 => [ // Nếu success ở đây thì sẽ cũng không chuyển được
-//                // Không chuyển được nữa
-//            ]
+            1 => [3, 4, 5],
+            2 => [1, 4, 5],
+            3 => [1, 2, 5, 6],
+            4 => [1, 2, 3, 6],
+            5 => [1, 2, 3, 4, 6],
+            6 => [1, 2, 3, 4, 5],
         ];
 
-        // Trạng thái hiện tại luôn được chọn
+
         if ($status->id == $currentStatus) {
             return false;
         }
 
-        // Kiểm tra xem trạng thái có được phép chuyển không
-        return !in_array($status->id, $allowedTransitions[$currentStatus] ?? []);
-    }
+        if ($currentStatus == 4 && $status->id == 5) {
+            $lastUpdated = $order->updated_at;
+            $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
+            if ($timeElapsed !== null && $timeElapsed <= 10) {
+                return false;
+            }
+        }
+
+        return in_array($status->id, $allowedTransitions[$currentStatus] ?? []);
+    }
 
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'status_order_id' => [
                 'required',
                 'exists:status_orders,id',
@@ -135,36 +124,64 @@ class OrderController extends Controller
                     $currentStatus = $order->status_order_id;
 
                     $allowedTransitions = [
-                        1 => [2, 5], // Pending: Chỉ được chuyển sang Confirmed hoặc Canceled
-                        2 => [3, 5], // Confirmed: Chỉ được chuyển sang Shipping hoặc Canceled
-                        3 => [4],    // Shipping: Chỉ được chuyển sang Success
-                        4 => [],     // Success: Không được phép thay đổi
-                        5 => [],     // Canceled: Không được phép thay đổi
+                        1 => [2, 6],
+                        2 => [3, 6],
+                        3 => [3,4],
+                        4 => [5],
+                        5 => [],
+                        6 => [],
                     ];
 
+                    if ($currentStatus == 4 && $value == 5) {
+                        $lastUpdated = $order->updated_at;
+                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+
+                        if ($timeElapsed !== null && $timeElapsed <= 10) {
+                            $fail('Cannot change status to Canceled within 10 minutes of success.');
+                        }
+                    }
+
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
-                        $fail('The status transition is not allowed.'); // Trả về lỗi
+                        $fail('The status transition is not allowed.');
                     }
                 }
             ]
         ]);
 
-        // Xác nhận trạng thái hợp lệ
-        $newStatusId = $request->input('status_order_id');
+        if ($validator->fails()) {
+            return redirect()->route('admin.orders.show', $id)
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        // Kiểm tra xem trạng thái có thay đổi không
+        $newStatusId = $request->input('status_order_id');
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
+            $order->touch();
             $order->save();
 
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
 
-            // Gửi email thông báo trạng thái
-            if ($newStatusId == 5) { // Trạng thái hủy đơn
+            if ($newStatusId == 6) {
+                $cancelReason = $request->input('cancel_reason');
+
+                if ($request->input('cancel_reason') == 'other') {
+                    $order->other_reason = $request->input('other_reason');
+                }
+
+                $order->cancel_reason = $cancelReason;
+                $order->canceled_by = 'admin';
+                $order->save();
+
                 $this->rollbackQuantity($order);
-                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
+//                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
+
+                \App\Events\OrderPlaced::dispatch($order, 'admin_cancel');
+
             } else {
-                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
+//                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
+
+                \App\Events\OrderPlaced::dispatch($order, 'update');
             }
 
             return redirect()->route('admin.orders.show', $id)
@@ -175,12 +192,17 @@ class OrderController extends Controller
         }
     }
 
+
+
+
     private function rollbackQuantity($order)
     {
         foreach ($order->orderItems as $item) {
             $item->productVariant->quantity += $item->quantity;
             $item->productVariant->save();
-        }}
+        }
+    }
+
 
     public function updatePaymentStatus(Request $request, $id)
     {
@@ -188,9 +210,17 @@ class OrderController extends Controller
 
         $newPaymentStatusId = $request->input('status_payment_id');
         $currentStatusId = $order->status_payment_id;
-        if ($currentStatusId == 2 && $newPaymentStatusId == 1) {
+
+        // Quy tắc chuyển đổi trạng thái
+        $allowedTransitions = [
+            1 => [2, 3], // Pending -> Paid hoặc Failed
+            2 => [],     // Paid    -> Không thể thay đổi
+            3 => [2],    // Failed  -> Paid (repayment)
+        ];
+
+        if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {
             return redirect()->route('admin.orders.show', $id)
-                ->with('error', 'Cannot revert to previous payment status.');
+                ->with('error', 'Payment status transition is not allowed.');
         }
 
         if ($newPaymentStatusId != $currentStatusId) {
@@ -198,12 +228,82 @@ class OrderController extends Controller
             $order->save();
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success1', 'Payment status updated successfully.');
+                ->with('success', 'Payment status updated successfully.');
         }
 
         return redirect()->route('admin.orders.show', $id)
-            ->with('error1', 'No change in payment status.');
+            ->with('error', 'No change in payment status.');
     }
+
+//    public function updateStatus(Request $request, $id)
+//    {
+//        $order = Order::findOrFail($id);
+//
+//        $validator = Validator::make($request->all(), [
+//            'status_order_id' => [
+//                'required',
+//                'exists:status_orders,id',
+//                function ($attribute, $value, $fail) use ($order) {
+//                    $currentStatus = $order->status_order_id;
+//
+//                    $allowedTransitions = [
+//                        1 => [2, 6],
+//                        2 => [3, 6],
+//                        3 => [4],
+//                        4 => [5],
+//                        5 => [],
+//                        6 => [],
+//                    ];
+//
+//                    if ($currentStatus == 4 && $value == 5) {
+//                        $lastUpdated = $order->updated_at;
+//                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+//
+//                        if ($timeElapsed !== null && $timeElapsed < 10) {
+//                            $fail('Cannot change status to Canceled within 10 minutes of success.');
+//                        }
+//                    }
+//
+//                    if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
+//                        $fail('The status transition is not allowed.');
+//                    }
+//                }
+//            ]
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()->route('admin.orders.show', $id)
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+//        $newStatusId = $request->input('status_order_id');
+//
+//        if ($newStatusId != $order->status_order_id) {
+//            $order->status_order_id = $newStatusId;
+//            $order->save();
+//
+//            $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
+//
+//            try {
+//                if ($newStatusId == 6) {
+//                    $this->rollbackQuantity($order);
+//                    Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
+//                } else {
+//                    Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
+//                }
+//
+//                return redirect()->route('admin.orders.show', $id)
+//                    ->with('success', 'Order status updated successfully.');
+//            } catch (\Exception $e) {
+//                return redirect()->route('admin.orders.show', $id)
+//                    ->with('error', 'Order status updated, but failed to send email.');
+//            }
+//        } else {
+//            return redirect()->route('admin.orders.show', $id)
+//                ->with('error', 'No change in order status.');
+//        }
+//    }
 
 }
 

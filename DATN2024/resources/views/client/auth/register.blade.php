@@ -37,6 +37,7 @@
             </form>
         </div>
         <div class="form-container1 login-container1">
+            
             <form class="form" action="{{ route('login') }}" method="POST">
                 @csrf
                 <h2><b>Sign In</b></h2>
@@ -46,12 +47,18 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                   
                 <input class="input form-control  @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    {{-- @if (session('error'))
+                        <div class="text-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif --}}
                 <div class="content1">
                     <div class="checkbox1">
                         <input class="input" type="checkbox" name="checkbox" id="checkbox">
@@ -61,8 +68,10 @@
                         <a href="{{ route('password.request') }}" style="text-decoration: underline;">Forgot password?</a>
                     </div>
                 </div>
+                
                 <button class="button" type="submit">Sign In</button>
             </form>
+            
         </div>
         <div class="overlay-container1">
             <div class="overlay1">

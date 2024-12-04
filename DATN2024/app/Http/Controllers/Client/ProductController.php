@@ -7,15 +7,24 @@ use App\Models\Product;
 use App\Models\ProductCapacity;
 use App\Models\ProductColor;
 use App\Models\ProductVariant;
+use App\Traits\UserFavorites;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 
 class ProductController extends Controller
 {
+    use UserFavorites;
+
     public function productDetail($slug)
     {
         $product = Product::query()
-            ->with(['variants.capacity', 'variants.color', 'galleries'])
+            ->with([
+                'variants.capacity',
+                'variants.color',
+                'galleries' => function ($query) {
+                    $query->take(4);
+                },
+            ])
             ->where('slug', $slug)
             ->first();
 
@@ -38,6 +47,7 @@ class ProductController extends Controller
                 ];
             });
         $productId = $product->id;
+        $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
         $comments = Comment::where('product_id', $productId)->paginate(5);
 
         $relatedProducts = Product::query()
@@ -50,7 +60,8 @@ class ProductController extends Controller
                 'capacities',
                 'colors',
                 'comments',
-                'relatedProducts'));
+                'relatedProducts',
+                'favoriteProductIds'));
     }
 
     public function getVariantDetails(Request $request)

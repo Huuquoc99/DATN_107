@@ -32,48 +32,53 @@
                         <p class="mb-4">sale@uomo.com<br>+90 212 555 1212</p>
                     </div>
                 </div>
-                <div class="contact-us__form">
 
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-                    <form action="{{ route('contact.submit') }}" method="POST" name="contact-us-form"
-                        class="needs-validation" novalidate>
+                <div class="contact-us__form">
+                    
+                    <form action="{{ route('contact.submit') }}" method="POST" name="contact-us-form" class="needs-validation">
                         @csrf
                         <h3 class="mb-5">Get In Touch</h3>
+                    
                         <div class="form-floating my-4">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                id="contact_us_name" name="name" placeholder="Name *" required>
-                            <label for="contact_us_name">Name *</label>
+                            <input type="text" class="input form-control @error('name') is-invalid @enderror" id="contact_us_name" name="name" placeholder="Name *">
                             @error('name')
-                                <div class="text-danger">{{ $message }}</div>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
+                        
                         <div class="form-floating my-4">
-                            <input type="email" class="form-control @error('name') is-invalid @enderror"
-                                id="contact_us_email" name="email" placeholder="Email address *" required>
-                            <label for="contact_us_email">Email address *</label>
+                            <input type="email" class="input form-control @error('email') is-invalid @enderror" id="contact_us_email" name="email" placeholder="Email address *">
                             @error('email')
-                                <div class="text-danger">{{ $message }}</div>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+        
+                        <div class="my-4">
+                            <textarea class="input form-control form-control_gray @error('message') is-invalid @enderror" name="message" placeholder="Your Message" cols="30" rows="8"></textarea>
+                            @error('message')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
 
-                        <div class="my-4">
-                            <textarea class="form-control form-control_gray @error('name') is-invalid @enderror" name="message"
-                                placeholder="Your Message" cols="30" rows="8" required></textarea>
-                            @error('message')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                
                         <div class="my-4">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
-
                 </div>
+                
             </div>
         </section>
     </main>

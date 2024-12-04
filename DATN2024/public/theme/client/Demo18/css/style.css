@@ -17399,28 +17399,10 @@ textarea.form-control.is-invalid {
 }
 
 .header {
-    display: none;
-   
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    /* display: none; */
     background-color: #ffffff;
     z-index: 2;
+    height: 154px;
 }
 .header .form-select {
     border: 0;

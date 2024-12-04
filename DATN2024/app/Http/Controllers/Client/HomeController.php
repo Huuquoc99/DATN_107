@@ -8,14 +8,20 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Catalogue;
 use App\Models\ProductColor;
+use App\Traits\UserFavorites;
 use Illuminate\Http\Request;
 use App\Models\ProductCapacity;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    use UserFavorites;
+
     public function index()
     {
+        $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
+
         $productActive = Product::with(['variants', 'galleries'])
             ->active()
             ->get();
@@ -54,7 +60,8 @@ class HomeController extends Controller
             "catalogues",
             "banners",
             "catalogues",
-            "products"
+            "products",
+            "favoriteProductIds"
         ));
 
     }
@@ -72,6 +79,7 @@ class HomeController extends Controller
 
     public function shop(Request $request)
     {
+        $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
         $limit = 8;
         $params = $request->only(['c', 'prices', 'color', 'capacity']);
         $products = Product::query()->active()->with(['catalogue']);
@@ -89,35 +97,35 @@ class HomeController extends Controller
             $products = $products->where(function ($query) use ($selectedPrices) {
                 foreach ($selectedPrices as $priceKey) {
                     switch ($priceKey) {
-                        case '1': 
+                        case '1':
                             $query->orWhere('price_regular', '<', 1000000);
                             break;
 
-                        case '2': 
+                        case '2':
                             $query->orWhereBetween('price_regular', [1000000, 3000000]);
                             break;
 
-                        case '3': 
+                        case '3':
                             $query->orWhereBetween('price_regular', [3000000, 5000000]);
                             break;
 
-                        case '4': 
+                        case '4':
                             $query->orWhereBetween('price_regular', [5000000, 10000000]);
                             break;
 
-                        case '5': 
+                        case '5':
                             $query->orWhereBetween('price_regular', [10000000, 15000000]);
                             break;
 
-                        case '6': 
+                        case '6':
                             $query->orWhereBetween('price_regular', [15000000, 20000000]);
                             break;
 
-                        case '7': 
+                        case '7':
                             $query->orWhereBetween('price_regular', [20000000, 30000000]);
                             break;
 
-                        case '8': 
+                        case '8':
                             $query->orWhere('price_regular', '>', 30000000);
                             break;
 
@@ -137,13 +145,13 @@ class HomeController extends Controller
         $colors = ProductColor::query()->active()->pluck('color_code');
         $capacities = ProductCapacity::query()->active()->pluck('name');
 
-        return view('client.shop', [
+        return view('client.shop', compact('favoriteProductIds'),[
             'products' => $products,
             'catalogues' => $catalogues,
             'capacities' => $capacities,
             'colors' => $colors,
             'source' => 'shop',
-            'title' => 'All products'
+            'title' => 'All products',
         ]);
     }
 

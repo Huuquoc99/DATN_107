@@ -41,6 +41,7 @@ class SendOrderConfirmationEmail implements ShouldQueue
 
             $data = [
                 'order_code' => $order->code,
+                'created_at' => $order->created_at,
                 'customer_name' => $order->user_name,
                 'customer_email' => $order->user_email,
                 'customer_phone' => $order->user_phone,
@@ -49,7 +50,13 @@ class SendOrderConfirmationEmail implements ShouldQueue
                 'shipping_email' => $order->ship_user_email,
                 'shipping_phone' => $order->ship_user_phone,
                 'shipping_address' => $order->ship_user_address,
-                'payment_method_id' => $order->payment_method_id,
+                'shipping_ward' => $order->shipping_ward,
+                'shipping_district' => $order->shipping_district,
+                'shipping_province' => $order->shipping_province,
+                // 'payment_method_id' => $order->payment_method_id,
+                'payment_method' => $order->paymentMethod->name ?? 'N/A',
+                'status_order' => $order->statusOrder->name ?? 'N/A',
+                'status_payment' => $order->statusPayment->name ?? 'N/A',  
                 'total_price' => $order->total_price,
                 'items' => $orderItems,
             ];
@@ -57,7 +64,7 @@ class SendOrderConfirmationEmail implements ShouldQueue
 //            dd($data);
             Mail::send('client.mail.confirm-order', $data, function ($message) use ($order) {
                 $message->to($order->user_email, $order->user_name)
-                    ->subject('order Confirmation #' . $order->code);
+                    ->subject('Order Confirmation #' . $order->code);
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
 

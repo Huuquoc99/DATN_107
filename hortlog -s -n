@@ -1,0 +1,303 @@
+[33mcommit b4c8be833c86636363d7732f64590942e9168801[m[33m ([m[1;36mHEAD -> [m[1;32mdinh03[m[33m, [m[1;31morigin/dinh03[m[33m)[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Mon Nov 4 01:17:32 2024 +0700
+
+    Validate add to cart, create AddToCartRequest
+
+[33mcommit 3921b31782678180c69f7523206c6bfe851a9ee0[m[33m ([m[1;31morigin/develop[m[33m)[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Sun Nov 3 15:09:17 2024 +0700
+
+    Filter product
+
+[33mcommit d8a2ce2dc1f0eae061d368cffe0bec16a944c12c[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Sun Nov 3 13:51:29 2024 +0700
+
+    Fix update cart
+
+[33mcommit 8d6a280d4c4b91979aa6663127cb6ed5135feeaa[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Sun Nov 3 02:12:10 2024 +0700
+
+    fix
+
+[33mcommit 12201ba43ede65b7b66bc034bc6b9490ee04df09[m
+Merge: ce0b301 13b0e64
+Author: Phuong Van Dinh <you@example.com>
+Date:   Sun Nov 3 01:57:44 2024 +0700
+
+    Fix conflict code
+
+[33mcommit ce0b301df1ef2fc369a1ae59fcb6d7666065a393[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Sun Nov 3 00:22:37 2024 +0700
+
+    Update cart
+
+[33mcommit 13b0e643edf91c8628d4104bcaaecdf64d8a1e03[m[33m ([m[1;31morigin/quoc99[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: kk <>
+Date:   Sat Nov 2 13:17:33 2024 +0700
+
+    dk,dn,dx
+
+[33mcommit 2b1447a9f89aa79a9dd1886b73b275469f8542ab[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 23:51:41 2024 +0700
+
+    Delete cart live with ajax
+
+[33mcommit 18b87ba036ce492d76804d6f412510e440efe284[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 23:07:44 2024 +0700
+
+    Add/list cart, fix edit product
+
+[33mcommit 243a4f52882022a1add79ab52f39366a6c5e86ef[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 17:58:47 2024 +0700
+
+    Product detail, add cart.css, cart,js
+
+[33mcommit ed3461b82b20fd0b6851260a6308154511c3748a[m
+Merge: 767b5b2 e99d376
+Author: kk <>
+Date:   Fri Nov 1 15:38:38 2024 +0700
+
+    Merge branch 'dinh03' into develop
+
+[33mcommit e99d376bffbf0b7f33e94b8253a89eae8af48f68[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 15:37:04 2024 +0700
+
+    Fix target link product
+
+[33mcommit 767b5b21238ca7ba1e609a8900ca985bfb1b51c2[m
+Merge: 09cf38f 53505cf
+Author: kk <>
+Date:   Fri Nov 1 14:34:08 2024 +0700
+
+    Merge branch 'dinh03' into develop
+
+[33mcommit 18217593d61c90c1c572d59b74bc09e812e64949[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 14:33:25 2024 +0700
+
+    show edit product update
+
+[33mcommit 53505cf404d4e94b4f5472e46251442b1154c8b1[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 07:23:33 2024 +0700
+
+    Search products live with Ajax
+
+[33mcommit 96596ea5c704cce64368fe4fa1463b90a1a51d9b[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 07:21:41 2024 +0700
+
+    Paginatio live with Ajax
+
+[33mcommit f9c814827102471e83986adbac9ec4ab86a8c101[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Fri Nov 1 07:17:52 2024 +0700
+
+    Delete html file template admin
+
+[33mcommit 09cf38f432bce8b00b210636deedcc10166df6a2[m
+Merge: 494b322 ebfb57f
+Author: kk <>
+Date:   Thu Oct 31 23:02:22 2024 +0700
+
+    fix conflict
+
+[33mcommit ebfb57ff9a85b365bccddfb8055742e6e2c93bc4[m[33m ([m[1;31morigin/tung04[m[33m)[m
+Merge: 162ba1d 36df97d
+Author: NguyenQuangTung1001 <tunglm100@gmail.com>
+Date:   Thu Oct 31 22:56:17 2024 +0700
+
+    Merge branch 'tung04' of https://github.com/Huuquoc99/DATN_107 into tung04
+
+[33mcommit 162ba1d168f5f6b37e294518465c997a4567969c[m
+Author: NguyenQuangTung1001 <tunglm100@gmail.com>
+Date:   Thu Oct 31 22:51:17 2024 +0700
+
+    view checkout
+
+[33mcommit 5cade7cb9ff50cd5a7632177b5c9e0194cd245ab[m
+Merge: d512d11 494b322
+Author: Phuong Van Dinh <you@example.com>
+Date:   Thu Oct 31 22:42:54 2024 +0700
+
+    Fix confict after pull develop
+
+[33mcommit d512d11de1f5bd1456e48ad4e523ba7dca7c9eb7[m
+Author: Phuong Van Dinh <you@example.com>
+Date:   Thu Oct 31 22:38:42 2024 +0700
+
+    Cart status
+
+[33mcommit 36df97dcc6c7be8a8b173a6861fc26310e5c1c29[m
+Author: kk <>
+Date:   Thu Oct 31 22:36:41 2024 +0700
+
+    fisc
+
+[33mcommit 494b3221808695d2ee494655b03d7f0f15d5f351[m
+Author: kk <>
+Date:   Thu Oct 31 22:26:52 2024 +0700
+
+    fix
+
+[33mcommit 460e9fccd77f554dfccedc240e2e57a5c9b626b1[m
+Merge: 8d54628 ead1d7e
+Author: kk <>
+Date:   Thu Oct 31 22:24:39 2024 +0700
+
+    fix conflict
+
+[33mcommit ead1d7e5367a1f631ce51d19d5b5174fad50efb8[m[33m ([m[1;31morigin/phu04[m[33m)[m
+Author: kk <>
+Date:   Thu Oct 31 22:19:17 2024 +0700
+
+    gg
+
+[33mcommit 8d54628bb601810ced28835b23a80458307c99bd[m
+Merge: 6546213 13659ad
+Author: kk <>
+Date:   Thu Oct 31 22:15:53 2024 +0700
+
+    fix conflict
+
+[33mcommit 13659ad8cec3e3b19665888920f867fdd59cb1e9[m
+Author: kk <>
+Date:   Thu Oct 31 21:54:40 2024 +0700
+
+    as
+
+[33mcommit 6546213dfd921959eee633a0f9b5bdb310f92994[m
+Merge: aa2b0b5 ac8644a
+Author: kk <>
+Date:   Thu Oct 31 21:50:53 2024 +0700
+
+    fix conflict
+
+[33mcommit aa2b0b51c8f5b4f13f4f5d4a6f5549788005eef1[m
+Merge: 08f52da 2703d2f
+Author: kk <>
+Date:   Thu Oct 31 21:48:04 2024 +0700
+
+    fix conflict
+
+[33mcommit 2703d2faa8c0fdb03d6f01142f34513b66f51d37[m
+Author: kk <>
+Date:   Thu Oct 31 21:44:18 2024 +0700
+
+    fix
+
+[33mcommit 08f52dad1ed7b2c008862e500584a624e6be51cc[m
+Merge: 2bc1db6 5f79f60
+Author: kk <>
+Date:   Thu Oct 31 21:42:25 2024 +0700
+
+    fix conflict
+
+[33mcommit 2bc1db660f6e11ff34fc414faa5315952472aa25[m
+Merge: 393354d d5ef773
+Author: Huuquoc99 <141638838+Huuquoc99@users.noreply.github.com>
+Date:   Thu Oct 31 21:31:37 2024 +0700
+
+    Merge pull request #2 from Huuquoc99/quoc99
+    
+    layout
+
+[33mcommit d5ef7736ac9bdef194ea1b0975fe4cd99281c816[m
+Author: kk <>
+Date:   Thu Oct 31 21:30:07 2024 +0700
+
+    layout
+
+[33mcommit c421d166ee5fc35f512dba47b0fcd08af57c6cbc[m
+Author: PhuHT <phuhtph31051@fpt.edu.vn>
+Date:   Thu Oct 31 20:31:17 2024 +0700
+
+    GD
+
+[33mcommit ac8644aca9e64349484e21a87c3bbd4d887340db[m[33m ([m[1;31morigin/cao03[m[33m)[m
+Author: [cao nguyen] <[caonguyengithub@gmail.com-email]>
+Date:   Thu Oct 31 19:34:31 2024 +0700
+
+    hehe
+
+[33mcommit d5a9fafa5661e6dad5bad7f327c9027bde38a20f[m
+Author: [cao nguyen] <[caonguyengithub@gmail.com-email]>
+Date:   Thu Oct 31 19:32:26 2024 +0700
+
+    interface cart
+
+[33mcommit 73e585fcf8446673c6ee2ab0be3d1d27eb0c6e87[m
+Author: [cao nguyen] <[caonguyengithub@gmail.com-email]>
+Date:   Thu Oct 31 17:40:13 2024 +0700
+
+    inteface product-detail
+
+[33mcommit 5f79f608103ddacf542d1ebd04b32ba6158f9761[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:13:11 2024 +0700
+
+    route payment method
+
+[33mcommit 6c11b5f4c69a6289b595d7de4fa52368b8b65b0d[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:11:44 2024 +0700
+
+    Destroy payment method
+
+[33mcommit 687d802956fa5b35dc4c555a4c5d892e37413cd3[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:10:51 2024 +0700
+
+    Update payment method
+
+[33mcommit 7b3934dfc71caf85815db485de87633f114a5453[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:09:06 2024 +0700
+
+    Edit payment method
+
+[33mcommit 77113bca1acd1d698b668df5df7d918b6101b756[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:08:15 2024 +0700
+
+    Show payment method
+
+[33mcommit a9b0530a7ef8f2d7001ce03966692e3a74af3c46[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:07:09 2024 +0700
+
+    Store payment method
+
+[33mcommit 62a4e1b638a9b8b71c761609852d944577931ece[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:05:32 2024 +0700
+
+    create payment method
+
+[33mcommit 17e05a8ca68e29ffab820ef162c271c0085b392e[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:03:13 2024 +0700
+
+    list payment method
+
+[33mcommit 133f297181794f85ff42d8682ea27537ded6e0e1[m
+Author: hoadtph31026 <hoadtph31026.fpt.edu.vn>
+Date:   Thu Oct 31 17:01:57 2024 +0700
+
+    controller payment method
+
+[33mcommit 139ed5ba01c5c318d59b30df3b9dc480a52dd5fa[m
+Author: [cao nguyen] <[caonguyengithub@gmail.com-email]>
+Date:   Thu Oct 31 17:01:14 2024 +0700
+
+    interface shop
+
+[33mcommit c11ae319f7a31e6b34248f5f8cebdf0bd61b

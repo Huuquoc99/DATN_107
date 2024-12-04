@@ -24,9 +24,17 @@ class LoginController extends Controller
             'password' => ['required', 'min:8', 'max:20', 'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/'],
         ]);
 
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !$user->isUser()) {
+            Auth::logout();
+            return back()
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => 'Only regular users can make purchases.']);
+        }
+
 
         if (Auth::attempt($credentials)) {
-
             $request->session()->regenerate();
 
             $this->mergeSessionCartToDbCart();

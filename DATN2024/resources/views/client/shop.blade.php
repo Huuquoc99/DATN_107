@@ -212,14 +212,40 @@ Shop
                 </div>
             </div>
             @if(count($products))
-                <div class="products-grid row g-4 p-2" style="margin-top: -65px;" id="products-grid">
-                    @foreach($products as $product)
-                        <div class="product-card-wrapper col-12 col-md-6 col-lg-4">
-                            <div class="product-card h-100 border rounded overflow-hidden position-relative shadow-sm">
-                                <div class="pc__img-wrapper">
-                                    <a href="{{ route('product.detail', $product->slug) }}">
-                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($product->img_thumbnail) }}"
-                                            alt="{{ $product->name }}" class="img-fluid w-100 product-img">
+            <div class="products-grid row g-4 p-2" style="margin-top: -65px;" id="products-grid">
+                @foreach($products as $product)
+                    <div class="product-card-wrapper col-12 col-md-6 col-lg-4">
+                        <div class="product-card h-100 border rounded overflow-hidden position-relative shadow-sm">
+                            <div class="pc__img-wrapper">
+                                <a href="{{ route('product.detail', $product->slug) }}">
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($product->img_thumbnail) }}"
+                                         alt="{{ $product->name }}"
+                                         class="img-fluid w-100 product-img">
+                                </a>
+
+                                <div class="product-card__overlay">
+                                    <button class="product-card__action-btn favorite-btn"
+                                            onclick="toggleFavorite({{ $product->id }})"
+                                            data-product-id="{{ $product->id }}">
+                                        {{ in_array($product->id, $favoriteProductIds) ? '❤️' : '🤍' }}
+                                    </button>
+
+                                    <button class="product-card-view quick-view-btn"
+                                            onclick="openQuickView({{ $product->id }})"
+                                            data-product-id="{{ $product->id }}"
+                                            title="Quick View">
+                                        👀
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="p-3">
+                                <p class="pc__category text-muted mb-2">
+                                    {{ $product->catalogue->name ?? 'Danh mục chưa xác định' }}
+                                </p>
+                                <h6 class="pc__title">
+                                    <a href="{{ route('product.detail', $product->slug) }}" class="text-dark text-decoration-none">
+                                        <b>{{ \Illuminate\Support\Str::limit($product->name, 30) }}</b>
                                     </a>
                                 </div>
                                 <div class="p-3">

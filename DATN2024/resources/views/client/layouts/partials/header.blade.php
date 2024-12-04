@@ -1,8 +1,8 @@
 
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
-    
-    
-    <div class="container9 mt-5" style="max-width: 400px;">
+
+
+    <div class="container9 mt-5" style="max-width: 400px; margin-top: 200px;">
         <button class="btn-close-lg js-close-aside position-absolute top-0 end-0 m-2" aria-label="Close">
         </button>
         @auth
@@ -22,19 +22,19 @@
         </div>
         @endauth
     </div>
-    
+
     @guest
     <div class="customer-forms__wrapper d-flex position-relative">
         <div class="customer__login">
             <div class="aside-header d-flex align-items-center">
                 <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
             </div><!-- /.aside-header -->
-
+            
             <form action="{{ route('login') }}" method="POST" class="aside-content">
                 @csrf
                 <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
                     id="customerNameEmailInput" placeholder="Email">
-                @error('password')
+                @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -50,6 +50,11 @@
                     </span>
                 @enderror
 
+                @if (session('error'))
+                    <div class="text-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif 
                 <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
                 <div class="customer-option mt-4 text-center">
@@ -98,7 +103,7 @@
                         </a>
                     </li>
                 </ul>
-               
+
             </div>
         </div>
     </div> -->
@@ -140,6 +145,11 @@
                             <i class="fa-regular fa-user fa-xl text-white"></i>
                         </a>
                     </div>
+                    <div class="header-tools__item hover-container">
+                        <a class="" href="{{ route('favorites.list') }}" data-aside="customerForms">
+                            <i class="fa-regular fa-heart fa-xl" style="color: #f2f2f2;"></i>
+                        </a>
+                    </div>
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
                         {{-- <span class="cart-amount d-block position-absolute js-cart-items-count">3</span> --}}
@@ -154,7 +164,7 @@
                     <h3  style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1 mb-3">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-1">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
                        
                     </h3>

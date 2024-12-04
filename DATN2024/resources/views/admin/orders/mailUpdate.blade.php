@@ -82,7 +82,7 @@
         <p>
             Hello
             <strong>
-                {{ $order->user ? $order->user->name : 'Guest' }}
+                {{ $order->user ? $order->user->name : $order->ship_user_name }}
             </strong>,
         </p>
         <p>
