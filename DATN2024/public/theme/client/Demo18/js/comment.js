@@ -1,3 +1,51 @@
+function checkContentLength(content, minLength = 1, maxLength = 500) {
+    return content.trim().length >= minLength && content.trim().length <= maxLength;
+}
+
+function containsSpamKeywords(content) {
+    const spamKeywords = [
+        'viagra',
+        'buy now',
+        'click here',
+        'http://',
+        'https://',
+        'cmn',
+        'dm',
+        'quá rẻ',
+        'cheap',
+        'earn money',
+        'make money fast'
+    ];
+
+    const lowercaseContent = content.toLowerCase();
+    return spamKeywords.some(keyword => lowercaseContent.includes(keyword));
+}
+
+let reviewSubmitCount = 0;
+const MAX_SUBMIT_LIMIT = 3;
+const RESET_TIME = 60000; // 1 phút
+
+function canSubmitReview() {
+    if (reviewSubmitCount >= MAX_SUBMIT_LIMIT) {
+        Toastify({
+            text: "Too many reviews. Please wait before submitting again.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#f44336",
+            close: true
+        }).showToast();
+        return false;
+    }
+    reviewSubmitCount++;
+
+    setTimeout(() => {
+        reviewSubmitCount = 0;
+    }, RESET_TIME);
+
+    return true;
+}
+
 
 $(document).ready(function () {
     $.ajaxSetup({
@@ -59,8 +107,38 @@ $(document).ready(function () {
         var rating = $('#form-input-rating').val();
         var review = $('#form-input-review').val();
 
+        // Kiểm tra độ dài nội dung
+        if (!checkContentLength(review)) {
+            Toastify({
+                text: "Review must be between 5 and 50 characters",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#f44336",
+                close: true
+            }).showToast();
+            return;
+        }
+
+        // Kiểm tra từ khóa spam
+        if (containsSpamKeywords(review)) {
+            Toastify({
+                text: "Your review contains inappropriate content",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#f44336",
+                close: true
+            }).showToast();
+            return;
+        }
+
+        // Kiểm tra số lần submit
+        if (!canSubmitReview()) {
+            return;
+        }
+
         let currentCount = parseInt($('#review-count').text());
-        console.log(review);
 
         $.ajax({
             url: `/comments`,
@@ -73,7 +151,7 @@ $(document).ready(function () {
             success: function (response) {
                 $('#review-count').text(currentCount + 1);
                 console.log('New review:', response);
-                const { html }  = response;
+                const {html} = response;
                 const newReview = $(html);
                 $('#review-product-id').prepend(newReview);
 
@@ -210,7 +288,7 @@ $('#review-product-id').on('click', '.edit-review', function (e) {
         url: '/comments/' + reviewId,
         method: 'GET',
         success: function (response) {
-            var { comment } = response;
+            var {comment} = response;
             $('#form-input-rating-update').val(comment.rate);
             $('#form-input-review-update').val(comment.content);
             $('#modal-update-review').attr('data-id', comment.id);
