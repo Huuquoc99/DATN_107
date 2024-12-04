@@ -15,7 +15,7 @@ class ProductController extends Controller
 {
     use UserFavorites;
 
-    public function productDetail($slug)
+    public function productDetail(Request $request, $slug)
     {
         $product = Product::query()
             ->with([
@@ -54,6 +54,11 @@ class ProductController extends Controller
             ->where('catalogue_id', $product->catalogue_id)
             ->where('id', '!=', $product->id)
             ->get();
+
+        if (!$request->session()->has('viewed_article_'.$product->id)) {
+            $product->increment('views');
+            $request->session()->put('viewed_article_'.$product->id, true);
+        }
 
         return view('client.product-detail',
             compact('product',

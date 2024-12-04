@@ -56,14 +56,13 @@ class SendOrderConfirmationEmail implements ShouldQueue
                 // 'payment_method_id' => $order->payment_method_id,
                 'payment_method' => $order->paymentMethod->name ?? 'N/A',
                 'status_order' => $order->statusOrder->name ?? 'N/A',
-                'status_payment' => $order->statusPayment->name ?? 'N/A',  
+                'status_payment' => $order->statusPayment->name ?? 'N/A',
                 'total_price' => $order->total_price,
                 'items' => $orderItems,
             ];
 
-//            dd($data);
             Mail::send('client.mail.confirm-order', $data, function ($message) use ($order) {
-                $message->to($order->user_email, $order->user_name)
+                $message->to($order->user_email, $order->ship_user_email)
                     ->subject('Order Confirmation #' . $order->code);
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });

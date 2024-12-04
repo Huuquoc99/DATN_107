@@ -176,6 +176,7 @@ class OrderController extends Controller
                 $this->rollbackQuantity($order);
 //                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
 
+//                dd(1);
                 \App\Events\OrderPlaced::dispatch($order, 'admin_cancel');
 
             } else {
