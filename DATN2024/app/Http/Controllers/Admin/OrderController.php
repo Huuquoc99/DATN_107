@@ -81,10 +81,11 @@ class OrderController extends Controller
         return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments'));
     }
 
+
     protected function checkStatusSelectable($status, $order)
     {
         $currentStatus = $order->status_order_id;
-    
+
         $allowedTransitions = [
             1 => [3, 4, 5],
             2 => [1, 4, 5],
@@ -93,80 +94,96 @@ class OrderController extends Controller
             5 => [1, 2, 3, 4, 6],
             6 => [1, 2, 3, 4, 5],
         ];
-    
+
+
         if ($status->id == $currentStatus) {
             return false;
         }
-    
+
         if ($currentStatus == 4 && $status->id == 5) {
             $lastUpdated = $order->updated_at;
             $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
-    
+
             if ($timeElapsed !== null && $timeElapsed <= 10) {
-                return false; 
+                return false;
             }
         }
-    
+
         return in_array($status->id, $allowedTransitions[$currentStatus] ?? []);
     }
-    
+
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
-    
+
         $validator = Validator::make($request->all(), [
             'status_order_id' => [
                 'required',
                 'exists:status_orders,id',
                 function ($attribute, $value, $fail) use ($order) {
                     $currentStatus = $order->status_order_id;
-    
+
                     $allowedTransitions = [
-                        1 => [2, 6], 
-                        2 => [3, 6], 
-                        3 => [4],    
-                        4 => [5],     
-                        5 => [],     
+                        1 => [2, 6],
+                        2 => [3, 6],
+                        3 => [3,4],
+                        4 => [5],
+                        5 => [],
                         6 => [],
                     ];
-    
+
                     if ($currentStatus == 4 && $value == 5) {
                         $lastUpdated = $order->updated_at;
                         $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
-    
+
                         if ($timeElapsed !== null && $timeElapsed <= 10) {
                             $fail('Cannot change status to Canceled within 10 minutes of success.');
                         }
                     }
-    
+
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
                         $fail('The status transition is not allowed.');
                     }
                 }
             ]
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->route('admin.orders.show', $id)
                 ->withErrors($validator)
                 ->withInput();
         }
-    
+
         $newStatusId = $request->input('status_order_id');
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
-            $order->touch(); 
+            $order->touch();
             $order->save();
-    
+
             $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
-    
-            if ($newStatusId == 6) { 
+
+            if ($newStatusId == 6) {
+                $cancelReason = $request->input('cancel_reason');
+
+                if ($request->input('cancel_reason') == 'other') {
+                    $order->other_reason = $request->input('other_reason');
+                }
+
+                $order->cancel_reason = $cancelReason;
+                $order->canceled_by = 'admin';
+                $order->save();
+
                 $this->rollbackQuantity($order);
-                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
+//                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
+
+                \App\Events\OrderPlaced::dispatch($order, 'admin_cancel');
+
             } else {
-                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
+//                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
+
+                \App\Events\OrderPlaced::dispatch($order, 'update');
             }
-    
+
             return redirect()->route('admin.orders.show', $id)
                 ->with('success', 'Order status updated successfully.');
         } else {
@@ -174,7 +191,9 @@ class OrderController extends Controller
                 ->with('error', 'No change in order status.');
         }
     }
-    
+
+
+
 
     private function rollbackQuantity($order)
     {
@@ -215,6 +234,76 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.show', $id)
             ->with('error', 'No change in payment status.');
     }
+
+//    public function updateStatus(Request $request, $id)
+//    {
+//        $order = Order::findOrFail($id);
+//
+//        $validator = Validator::make($request->all(), [
+//            'status_order_id' => [
+//                'required',
+//                'exists:status_orders,id',
+//                function ($attribute, $value, $fail) use ($order) {
+//                    $currentStatus = $order->status_order_id;
+//
+//                    $allowedTransitions = [
+//                        1 => [2, 6],
+//                        2 => [3, 6],
+//                        3 => [4],
+//                        4 => [5],
+//                        5 => [],
+//                        6 => [],
+//                    ];
+//
+//                    if ($currentStatus == 4 && $value == 5) {
+//                        $lastUpdated = $order->updated_at;
+//                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+//
+//                        if ($timeElapsed !== null && $timeElapsed < 10) {
+//                            $fail('Cannot change status to Canceled within 10 minutes of success.');
+//                        }
+//                    }
+//
+//                    if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
+//                        $fail('The status transition is not allowed.');
+//                    }
+//                }
+//            ]
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()->route('admin.orders.show', $id)
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+//        $newStatusId = $request->input('status_order_id');
+//
+//        if ($newStatusId != $order->status_order_id) {
+//            $order->status_order_id = $newStatusId;
+//            $order->save();
+//
+//            $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
+//
+//            try {
+//                if ($newStatusId == 6) {
+//                    $this->rollbackQuantity($order);
+//                    Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
+//                } else {
+//                    Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
+//                }
+//
+//                return redirect()->route('admin.orders.show', $id)
+//                    ->with('success', 'Order status updated successfully.');
+//            } catch (\Exception $e) {
+//                return redirect()->route('admin.orders.show', $id)
+//                    ->with('error', 'Order status updated, but failed to send email.');
+//            }
+//        } else {
+//            return redirect()->route('admin.orders.show', $id)
+//                ->with('error', 'No change in order status.');
+//        }
+//    }
 
 }
 

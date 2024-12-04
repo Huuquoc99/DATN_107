@@ -18,7 +18,13 @@ class ProductController extends Controller
     public function productDetail($slug)
     {
         $product = Product::query()
-            ->with(['variants.capacity', 'variants.color', 'galleries'])
+            ->with([
+                'variants.capacity',
+                'variants.color',
+                'galleries' => function ($query) {
+                    $query->take(4);
+                },
+            ])
             ->where('slug', $slug)
             ->first();
 

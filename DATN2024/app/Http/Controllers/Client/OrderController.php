@@ -80,14 +80,27 @@ class OrderController extends Controller
     }
 
 
-    public function cancelOrder($id)
+    public function cancelOrder(Request $request, $id)
     {
         $order = Order::findOrFail($id);
 
+        $cancelReason = $request->input('cancel_reason');
+
         if ($order->status_order_id == 1 || $order->status_order_id == 2) {
             $order->status_order_id = 6;
+
+            if ($request->input('cancel_reason') == 'other') {
+                $order->other_reason = $request->input('other_reason');
+            }
+
+            $order->cancel_reason = $cancelReason;
+
+            $order->canceled_by = 'user';
+
             $order->save();
+
            $this->rollbackQuantity($order);
+
             $no = \App\Models\AdminNotification::create([
                 'type' => 'Event\AdminNotification',
                 'data' => [
@@ -97,9 +110,10 @@ class OrderController extends Controller
             ]);
             broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
 
-            // $this->rollbackQuantity($order);
+//            Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
 
-            Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
+            \App\Events\OrderPlaced::dispatch($order, 'client_cancel');
+
             return redirect()->back()->with('success', 'Order has been cancelled.');
         }
 
@@ -116,6 +130,7 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
+        dd($request->all());
         $order = Order::findOrFail($id);
 
         $newStatusId = $request->input('status_order_id');
