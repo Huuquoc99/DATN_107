@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Comment;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,26 +15,40 @@ class CommentController extends Controller
         $this->middleware('auth', ['only' => ['edit', 'destroy']]);
     }
 
+    public function canRateProduct($productVariantId, $userId) {
+        $orderItem = OrderItem::where('product_variant_id', $productVariantId)
+            ->whereHas('order', function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->where('status_order_id', 5);
+            })
+            ->exists();
+
+        return $orderItem;
+    }
+
     public function storeAjax()
     {
-        //    dd(1);
         $data = request()->validate([
             'content' => 'required|string',
-            'rate' => 'required|integer|min:1|max:5',
+            'rate' => 'nullable|integer|min:1|max:5',
             'product_id' => 'required|exists:products,id',
         ]);
 
-        if ($data['rate'] == 0) {
-            return response()->json([
-                'error' => 'Rating cannot be zero. Please provide a rating between 1 and 5.',
-            ], 422);
+        $user = auth()->user();
+        $canRate = false;
+
+        $product = Product::find($data['product_id']);
+
+        if ($user) {
+            $firstVariant = $product->variants->first();
+            $canRate = $this->canRateProduct($firstVariant->id, $user->id);
         }
 
         $comment = new Comment();
         $comment->content = $data['content'];
         $comment->product_id = $data['product_id'];
         $comment->user_id = auth()->id();
-        $comment->rate = $data['rate'];
+        $comment->rate = $data['rate'] ?? null;
         $comment->is_active = true;
 
         $comment->save();
@@ -41,6 +56,7 @@ class CommentController extends Controller
 
         $html = view('client.comment-detail', [
             'comment' => $comment,
+            'canRate' => $canRate
         ])->render();
 
         return response()->json([
@@ -52,7 +68,7 @@ class CommentController extends Controller
     {
         $data = request()->validate([
             'content' => 'required|string',
-            'rate' => 'required|integer|min:1|max:5',
+            'rate' => 'nullable|integer|min:1|max:5',
         ]);
 
         $comment = Comment::find($id);
@@ -68,6 +84,18 @@ class CommentController extends Controller
                 'message' => 'You do not have permission to update this comment',
             ], 403);
         }
+        $canRate = false;
+
+        if (isset($data['product_id'])) {
+            $product = Product::find($data['product_id']);
+            if ($product) {
+                $user = auth()->user();
+                if ($user) {
+                    $firstVariant = $product->variants->first();
+                    $canRate = $this->canRateProduct($firstVariant->id, $user->id);
+                }
+            }
+        }
 
         $comment->content = $data['content'];
         $comment->rate = $data['rate'];
@@ -76,6 +104,7 @@ class CommentController extends Controller
 
         $html = view('client.comment-detail', [
             'comment' => $comment,
+            'canRate' => $canRate
         ])->render();
 
         return response()->json([
@@ -115,7 +144,7 @@ class CommentController extends Controller
     public function showAjax($id)
     {
         $comment = Comment::where('id', $id)
-            ->where('is_active', 1) 
+            ->where('is_active', 1)
             ->first();
 
 
@@ -150,7 +179,7 @@ class CommentController extends Controller
     {
         $comments = Comment::with('user')
             ->where('product_id', $id)
-            ->where('is_active', 1) 
+            ->where('is_active', 1)
             ->paginate(2);
 
         $html = '';
