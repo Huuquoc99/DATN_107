@@ -48,9 +48,9 @@
                     <h4 class="product"><b>{{ $product->name }}</b></h4>
 
                     <h6 class="product-single__price mt-3" id="product-price" style="font-size: 30px">
-                        <span>{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
-                        <span style=" font-size: 20px; color: red"><i><del>{{ number_format($product->price_sale, 0, ',', '.') }}
-                                    VND</del></i></span>
+                        <span style=" font-size: 20px; color: red">{{ number_format($product->price_sale, 0, ',', '.') }}
+                                    VND</span>
+                        <span><i><del>{{ number_format($product->price_regular, 0, ',', '.') }} VND</del></i></span>
                     </h6>
                     <div class="product-single__short-desc">
                         {{ \Illuminate\Support\Str::limit($product->short_description, 200) }}

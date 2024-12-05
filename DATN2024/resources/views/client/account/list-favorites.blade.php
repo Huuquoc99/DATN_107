@@ -54,7 +54,7 @@
                                                     {{ $item->product->catalogue ? $item->product->catalogue->name : 'No category' }}
                                                 </p>
                                                     <a href="{{ route('product.detail', $item->product->slug) }}">
-                                                        {{ \Illuminate\Support\Str::limit($item->product->name, 20) }}
+                                                        {{ \Illuminate\Support\Str::limit($item->product->name, 18) }}
                                                     </a>
                                                 <div class="product-card__price d-flex">
                                                     <span class="money price fs-16 fw-semi-bold">

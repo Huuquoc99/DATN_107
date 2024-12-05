@@ -29,7 +29,7 @@
             <div class="aside-header d-flex align-items-center">
                 <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
             </div><!-- /.aside-header -->
-            
+
             <form action="{{ route('login') }}" method="POST" class="aside-content">
                 @csrf
                 <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
@@ -54,7 +54,7 @@
                     <div class="text-danger">
                         {{ session('error') }}
                     </div>
-                @endif 
+                @endif
                 <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
                 <div class="customer-option mt-4 text-center">
@@ -164,21 +164,21 @@
                     <h3  style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-4 mt-4">Browse Categories</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
-                       
+
                     </h3>
                     <ul class="categories-nav__list list-unstyled">
-    @if(isset($catalogues) && $catalogues->isNotEmpty())
-        @foreach($catalogues as $catalogue)
-            <li class="categories-nav__item" style="height: 40px; transition: background-color 0.3s;">
-                <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                   style="color: black" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
-                   {{$catalogue->name}}
-                </a>
-            </li>
-        @endforeach
-    @endif
+                    @if(isset($catalogues) && $catalogues->isNotEmpty())
+                        @foreach($catalogues as $catalogue)
+                            <li class="categories-nav__item" style="height: 40px; transition: background-color 0.3s;">
+                                <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                                   style="color: black" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
+                                   {{$catalogue->name}}
+                                </a>
+                            </li>
+                        @endforeach
+                    @endif
 </ul>
 
 <style>

@@ -337,6 +337,10 @@ class CheckoutController extends Controller
 
                 return redirect()->route('guest-checkout.success', compact('order'));
             } else {
+
+//                dd('fail');
+                \App\Events\OrderPlaced::dispatch($order, 'order_fail_guest');
+
                 $order->status_payment_id = 3;
                 $order->save();
 

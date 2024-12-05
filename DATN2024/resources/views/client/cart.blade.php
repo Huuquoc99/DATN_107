@@ -3,16 +3,15 @@
 @section('content')
     <div class="mb-4 mt-4 pb-4"></div>
     <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
-        <h2 class="page-title">Cart</h2>
-        <a href="{{ route('cart.list') }}" class="checkout-steps__item active">
-            <span class="checkout-steps__item-title">
-                <span style="margin-top:-20px">SHOPPING BAG</span>
-            </span>
-        </a>
         <div id="delete-success"></div>
         <div class="shopping-cart">
             @if (count($unifiedCart) > 0)
                 <div class="cart-table__wrapper">
+                    @include('client.components.breadcrumb', [
+                    'breadcrumbs' => [
+                        ['label' => 'Giỏ hàng', 'url' => '/cart/list']
+                    ]
+                ])
                     <table class="cart-table">
                         @if (session('error'))
                             <div class="alert alert-danger">
