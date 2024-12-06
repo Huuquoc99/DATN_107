@@ -101,10 +101,13 @@ function updateQuantity(input, newQuantity) {
         error: function(xhr) {
             console.error('Error:', xhr);
             Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'The quantity of products in stock is insufficient.!',
-                confirmButtonText: 'OK'
+                icon: 'info',
+                title: 'Lỗi!',
+                text: 'Số lượng sản phẩm trong kho không đủ!',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'swal2-popup',
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     location.reload();
@@ -236,14 +239,14 @@ $(document).on('click', '.cart-table .remove-cart-v2', function(e) {
     let deleteId = $(this).data('id');
 
     Swal.fire({
-        title: 'Are you sure you want to delete this product?',
-        text: 'This action cannot be reversed!',
+        title: 'Bạn chắc chứ?',
+        text: 'Hành động này không thể khôi phục!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, keep it!'
+        confirmButtonText: 'Vâng, xóa nó!',
+        cancelButtonText: 'Không, Giữ lại!'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -254,21 +257,37 @@ $(document).on('click', '.cart-table .remove-cart-v2', function(e) {
                 method: 'POST',
                 data: { deleteId: deleteId },
                 success: function(res) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Product has been successfully removed from cart!',
-                        'success'
-                    );
+                    Toastify({
+                        text: "Sản phẩm đã được xóa khỏi giỏ hàng thành công!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+
                     $('.table-data').html(res);
                 },
                 error: function(res) {
                     if (res.status === 404) {
                         $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
                     } else {
+                        Toastify({
+                            text: "An error occurred! Please try again.",
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "bottom",
+                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            stopOnFocus: true,
+                        }).showToast();
+
                         $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
                     }
                 }
             });
+
 
             let parentEl = $(this).closest('tr');
             $(parentEl).addClass('_removed');

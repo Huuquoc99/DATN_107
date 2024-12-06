@@ -18,7 +18,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-    //    dd($request);
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'min:8', 'max:20', 'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/'],
@@ -28,9 +27,9 @@ class LoginController extends Controller
 
         if (!$user || !$user->isUser()) {
             Auth::logout();
-            return back()
+            return redirect()->back()
                 ->withInput($request->only('email'))
-                ->withErrors(['email' => 'Only regular users can make purchases.']);
+                ->with('error', 'Bạn không có quyền truy cập trang này!');
         }
 
 
@@ -39,21 +38,31 @@ class LoginController extends Controller
 
             $this->mergeSessionCartToDbCart();
 
+            session()->flash('success', 'Đăng nhập thành công! Chào mừng trở lại: , ' . Auth::user()->name . '.');
+
             return redirect()->intended('/');
         }
 
+        session()->flash('error', 'Thông tin xác thực được cung cấp không khớp với hồ sơ của chúng tôi.');
+
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Thông tin xác thực được cung cấp không khớp với hồ sơ của chúng tôi.',
         ])->onlyInput('email');
     }
+
 
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        session()->flash('success', 'Đăng xuất thành công!.');
+
         return redirect('/');
     }
+
 
     protected function mergeSessionCartToDbCart()
     {

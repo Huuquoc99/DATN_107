@@ -119,6 +119,7 @@ class CheckoutController extends Controller
             'ward' => 'required|string|max:255',
         ]);
 
+
         if (empty($guest_cart)) {
             return redirect()->route('cart.list')->with('error', 'Your shopping cart is empty.');
         }

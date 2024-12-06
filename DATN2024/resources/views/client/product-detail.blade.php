@@ -8,18 +8,19 @@
                     <div class="" data-media-type="vertical-thumbnail">
                         <div class="product-single__image">
                             <div class="swiper-container">
-                                <div class="d-flex justify-content-between mb-4 pb-md-2" style="padding-left: 55px">
-                                    <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                                        <a href="{{ route('home') }}"
-                                            class="menu-link menu-link_us-s text-uppercase fw-medium"
-                                            style="color:black">Home</a>
-                                        <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1"
-                                            style="color:black">/</span>
-                                        <a href="{{ route('shop') }}"
-                                            class="menu-link menu-link_us-s text-uppercase fw-medium"
-                                            style="color:black">The Shop</a>
-                                    </div>
-                                </div>
+                                @include('client.components.breadcrumb', [
+                                    'breadcrumbs' => [
+                                        [
+                                            'label' => 'Điện thoại ' . $product->catalogue->name,
+                                            'url' => route('shop', array_merge(request()->except('c'),
+                                                request()->get('c') == $product->catalogue->id
+                                                    ? []
+                                                    : ['c' => $product->catalogue->id])
+                                            )
+                                        ]
+                                    ]
+                                ])
+
                                 <div class="product-gallery-horizontal d-flex justify-content-center">
                                     <div class="main-image-container">
                                         <img id="mainImage" style="height: 515px; width: 600px;"

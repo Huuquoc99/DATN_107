@@ -5,13 +5,13 @@
     <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
         <div id="delete-success"></div>
         <div class="shopping-cart">
+            @include('client.components.breadcrumb', [
+                        'breadcrumbs' => [
+                            ['label' => 'Giỏ hàng', 'url' => '/cart/list']
+                        ]
+                    ])
             @if (count($unifiedCart) > 0)
                 <div class="cart-table__wrapper">
-                    @include('client.components.breadcrumb', [
-                    'breadcrumbs' => [
-                        ['label' => 'Giỏ hàng', 'url' => '/cart/list']
-                    ]
-                ])
                     <table class="cart-table">
                         @if (session('error'))
                             <div class="alert alert-danger">

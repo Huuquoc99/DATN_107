@@ -29,7 +29,6 @@
                 overflow-x: hidden;
             }
             .site-footer {
-        
         }
         </style>
         @include('client.layouts.partials.header')
