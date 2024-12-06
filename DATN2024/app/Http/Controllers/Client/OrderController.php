@@ -57,7 +57,7 @@ class OrderController extends Controller
         }
 
         $orderWithItems = $order->load([
-            'orderItems',
+            'orderItems.productVariant.product',
             'statusOrder:id,name',
             'statusPayment:id,name',
             'paymentMethod:id,name',
@@ -130,7 +130,6 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        dd($request->all());
         $order = Order::findOrFail($id);
 
         $newStatusId = $request->input('status_order_id');
@@ -158,26 +157,19 @@ class OrderController extends Controller
     public function markAsReceived(Order $order)
     {
         try {
-            // Kiểm tra xem trạng thái đơn hàng có phải là 'Đã giao' (status_order_id = 4)
             if ($order->status_order_id == 4) {
-                // Cập nhật trạng thái đơn hàng thành 'Hoàn thành' (status_order_id = 5)
                 $order->status_order_id = 5;
 
-                // Cập nhật trạng thái thanh toán thành 'Đã thanh toán' (payment_status_id = 2)
                 $order->status_payment_id = 2;
 
-                // Lưu thay đổi vào cơ sở dữ liệu
                 $order->save();
 
-                // Gửi email cho người dùng sau khi cập nhật trạng thái
                 Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
 
-                // Quay lại trang trước với thông báo thành công
                 return redirect()->back()->with('success', 'The order has been updated to completed.');
             }
 
         } catch (\Exception $exception) {
-            // Trường hợp có lỗi, quay lại trang trước với thông báo lỗi
             return redirect()->back()->with('error', 'There was an error updating the order.');
         }
     }

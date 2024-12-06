@@ -160,7 +160,11 @@
                         <tbody>
                             @foreach ($order->orderItems as $item)
                                 <tr>
-                                    <td>{{ $item->product_name }}</td>
+                                    <td>
+                                        <a href="{{ route('product.detail', $item->productVariant->product->slug) }}">
+                                            {{ $item->product_name }}
+                                        </a>
+                                    </td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ number_format($item->productVariant->price, 0) }} VND</td>
                                     <td>

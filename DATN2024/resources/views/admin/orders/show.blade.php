@@ -231,7 +231,9 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h5 class="fs-15">
-                                                            {{ \Illuminate\Support\Str::limit($item->product_name ?? 'N/A', 15, '...') }}
+                                                            <a href="{{ route('admin.products.show', $item->productVariant->product->id) }}">
+                                                                {{ \Illuminate\Support\Str::limit($item->product_name ?? 'N/A', 15, '...') }}
+                                                            </a>
                                                         </h5>
                                                         <p class="text-muted mb-0">Color:
                                                             <span class="fw-medium">
