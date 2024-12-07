@@ -10,18 +10,9 @@ class InvoiceController extends Controller
 {
     public function getInvoices(Request $request)
     {
-        // $invoices = Order::where('status_payment_id', 2)
-        //     ->where('status_order_id', 3)
-        //     ->paginate(5, [ 
-        //         'id', 
-        //         'code',
-        //         'ship_user_name', 
-        //         'ship_user_phone',
-        //         'total_price', 
-        //         'created_at',
-        //         'status_payment_id',
-        //     ]);
-            $invoices = Order::paginate(5, [ 
+        $invoices = Order::where('status_payment_id', 2)
+            ->where('status_order_id', 5)
+            ->paginate(5, [ 
                 'id', 
                 'code',
                 'ship_user_name', 
@@ -30,6 +21,15 @@ class InvoiceController extends Controller
                 'created_at',
                 'status_payment_id',
             ]);
+            // $invoices = Order::paginate(5, [ 
+            //     'id', 
+            //     'code',
+            //     'ship_user_name', 
+            //     'ship_user_phone',
+            //     'total_price', 
+            //     'created_at',
+            //     'status_payment_id',
+            // ]);
         return view('admin.invoices.index', compact('invoices'));
     }
 

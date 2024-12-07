@@ -14,11 +14,11 @@
                             @php
                                 $hour = now()->format('H'); // Lấy giờ hiện tại (24 giờ)
                                 if ($hour < 12) {
-                                    $greeting = 'Good Morning';
+                                    $greeting = 'Chào buổi sáng';
                                 } elseif ($hour < 18) {
-                                    $greeting = 'Good Afternoon';
+                                    $greeting = 'Chào buổi chiều';
                                 } else {
-                                    $greeting = 'Good Evening';
+                                    $greeting = 'Chào buổi tối';
                                 }
                             @endphp
 

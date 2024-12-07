@@ -28,13 +28,18 @@
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap&subset=vietnamese" rel="stylesheet">
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
     @yield('styles')
 
 </head>

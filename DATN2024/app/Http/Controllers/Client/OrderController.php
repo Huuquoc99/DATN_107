@@ -158,8 +158,8 @@ class OrderController extends Controller
     public function markAsReceived(Order $order)
     {
         try {
-            if ($order->status_order_id == 3) {
-                $order->status_order_id = 4;
+            if ($order->status_order_id == 4) {
+                $order->status_order_id = 5;
                 $order->save();
 
                 Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
