@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Customer detail: {{ $users->name }}
+TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Customer</h4>
+                <h4 class="mb-sm-0">Người dùng</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.customers.index') }}">Customer</a></li>
-                        <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.customers.index') }}">Người dùng</a></li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
                     </ol>
                 </div>
             </div>
@@ -68,9 +68,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-start align-items-center">
                         <a href="{{ route('admin.customers.edit', $users->id) }}" class="btn btn-primary me-2">
-                            <i class="bx bx-edit me-1"></i> Customer edit
+                            <i class="bx bx-edit me-1"></i> Chỉnh sửa người dùng
                         </a>
-                        <a href="{{ route('admin.customers.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('admin.customers.index') }}" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
             </div>

@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    #{{ $order->code }}
+    TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Order</h4>
+                <h4 class="mb-sm-0">Đơn hàng</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">Table</a></li>
-                        <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">Bảng</a></li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
                     </ol>
                 </div>
             </div>
@@ -25,10 +25,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">Customer Details</h5>
+                            <h5 class="card-title flex-grow-1 mb-0">Chi tiết người dùng</h5>
                             <div class="flex-shrink-0">
                                 @if($order->user && $order->user->id)
-                                    <a href="{{ route('admin.customers.show', $order->user->id) }}" class="link-secondary">View Profile</a>
+                                    <a href="{{ route('admin.customers.show', $order->user->id) }}" class="link-secondary">Xem thông tin</a>
                                 @endif
                             </div>
                         </div>
@@ -81,21 +81,20 @@
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i> Billing
-                            Address</h5>
+                        <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i> Địa chỉ đặt hàng</h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
                             <li class="fw-medium fs-14">
-                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Unknown User', 25, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Người dùng không xác định', 25, '...') }}
                             </li>
-                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'No email available' }}</li>
-                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'No phone available' }}</li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Không có email nào khả dụng' }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Không có điện thoại nào có sẵn' }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'No address available', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Không có địa chỉ nào có sẵn', 20, '...') }}
                             </li>
-                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'No notes provided' }}</li>
+                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -105,8 +104,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i>
-                            Shipping
-                            Address</h5>
+                            Địa chỉ nhận hàng</h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled vstack gap-3 fs-13 mb-0">
@@ -124,7 +122,7 @@
 
 
                             </li>
-                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'No notes provided' }}</li>
+                            <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -132,13 +130,12 @@
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="ri-secure-payment-line align-bottom me-1 text-muted"></i> Order
-                            Details</h5>
+                        <h5 class="card-title mb-0"><i class="ri-secure-payment-line align-bottom me-1 text-muted"></i> Chi tiết đơn hàng</h5>
                     </div>
                     <div class="card-body ">
                         <div class="d-flex align-items-center mb-3">
                             <div class="flex-shrink-0">
-                                <p class="text-muted mb-0">Status order:</p>
+                                <p class="text-muted mb-0">Trạng thái đơn hàng:</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
@@ -148,7 +145,7 @@
                         </div>
                         <div class="d-flex align-items-center mb-3">
                             <div class="flex-shrink-0">
-                                <p class="text-muted mb-0">Status payment:</p>
+                                <p class="text-muted mb-0">Trạng thái thanh toán:</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
@@ -158,7 +155,7 @@
                         </div>
                         <div class="d-flex align-items-center mb-3">
                             <div class="flex-shrink-0">
-                                <p class="text-muted mb-0">Payment method:</p>
+                                <p class="text-muted mb-0">Phương thức thanh toán:</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
@@ -168,7 +165,7 @@
                         </div>
                         <div class="d-flex align-items-center mb-3">
                             <div class="flex-shrink-0">
-                                <p class="text-muted mb-0">Created at: </p>
+                                <p class="text-muted mb-0">Ngày tạo: </p>
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
@@ -179,7 +176,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
-                                <p class="text-muted mb-0">Total Amount:</p>
+                                <p class="text-muted mb-0">Tổng tiền:</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">{{ number_format($order->total_price, 0, ',', '.') }} VND</h6>
@@ -202,16 +199,17 @@
                             <table class="table table-nowrap align-middle table-borderless mb-0">
                                 <thead class="table-light text-muted">
                                     <tr>
-                                        <th scope="col">Product Details</th>
-                                        <th scope="col" class="text-center">Item Price</th>
-                                        <th scope="col" class="text-center">Quantity</th>
                                         <th scope="col" class="text-center">SKU</th>
+                                        <th scope="col">Sản phẩm</th>
+                                        <th scope="col" class="text-center">Giá</th>
+                                        <th scope="col" class="text-center">Số lượng</th>
                                         <th scope="col" class="text-end">Total Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($order->orderItems as $item)
                                         <tr>
+                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
                                             <td>
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
@@ -225,7 +223,7 @@
                                                             <img src="{{ $url }}" alt=""
                                                                 class="img-fluid d-block">
                                                         @else
-                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="No image available"
+                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="Không có hình ảnh nào có sẵn"
                                                                 class="img-fluid d-block">
                                                         @endif
                                                     </div>
@@ -235,14 +233,14 @@
                                                                 {{ \Illuminate\Support\Str::limit($item->product_name ?? 'N/A', 15, '...') }}
                                                             </a>
                                                         </h5>
-                                                        <p class="text-muted mb-0">Color:
+                                                        <p class="text-muted mb-0">Màu sắc:
                                                             <span class="fw-medium">
                                                                 @if ($item->product_color_id)
                                                                     {{ $item->color->name ?? 'N/A' }}
                                                                 @endif
                                                             </span>
                                                         </p>
-                                                        <p class="text-muted mb-0">Capacity:
+                                                        <p class="text-muted mb-0">Dung lượng:
                                                             <span class="fw-medium">
                                                                 @if ($item->product_capacity_id)
                                                                     {{ $item->capacity->name ?? 'N/A' }}
@@ -254,7 +252,7 @@
                                             </td>
                                             <td class="text-center">{{ number_format($item->productVariant->price, 0, '.', ',') }} VND</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
+                                           
                                             <td class="fw-medium text-end">
                                                 {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
                                             </td>
@@ -272,7 +270,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
-                                                        <th scope="row">Total:</th>
+                                                        <th scope="row">Tổng tiền:</th>
                                                         <th class="text-end">
                                                             {{ number_format($item->order->total_price, 0, '.', ',') }} VND
                                                         </th>
@@ -290,7 +288,7 @@
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i> Payment Status</h5>
+                        <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i>Trạng thái thanh toán</h5>
 
                     </div>
                     <div class="card-body">
@@ -311,7 +309,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100 mb-3">Update Payment Status</button>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3">Cập nhật trạng thái thanh toán</button>
                                 </form>
                                 @if (session('error1'))
                                     <div class="alert alert-danger">
@@ -333,7 +331,7 @@
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="ri-bubble-chart-fill"></i> Order Status</h5>
+                        <h5 class="card-title mb-0"><i class="ri-bubble-chart-fill"></i> Trạng thái đơn hàng</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" id="updateStatusForm">
@@ -354,7 +352,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="cancelOrderModalLabel">Cancel Order</h5>
+                                            <h5 class="modal-title" id="cancelOrderModalLabel">Hủy đơn hàng</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -362,33 +360,33 @@
                                             <div class="list-group">
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind">
-                                                    Changed my mind
+                                                    Đã thay đổi suy nghĩ của tôi
                                                 </label>
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
-                                                    Found a cheaper option
+                                                    Đã tìm thấy một lựa chọn rẻ hơn
                                                 </label>
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
-                                                    Other
+                                                    Khác
                                                 </label>
                                                 <div class="mb-3" id="otherReasonContainer" style="display: none;">
-                                                    <label for="otherReason" class="form-label">Please specify your reason</label>
+                                                    <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
                                                     <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal">
-                                                <i class="ri-close-line me-1 align-middle"></i> Close
+                                                <i class="ri-close-line me-1 align-middle"></i> Đóng
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Gửi</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="button" id="updateStatusButton" class="btn btn-primary w-100 mb-3" onclick="handleSubmit()">Update Order Status</button>
+                            <button type="button" id="updateStatusButton" class="btn btn-primary w-100 mb-3" onclick="handleSubmit()">Cập nhật trạng thái đơn hàng</button>
                         </form>
                     </div>
                 </div>

@@ -34,6 +34,7 @@ class Product extends Model
         "is_good_deal",
         "is_new",
         "is_show_home",
+        "views",
     ];
 
     protected $casts = [

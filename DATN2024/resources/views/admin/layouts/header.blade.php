@@ -119,11 +119,11 @@
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-end">
-                            <h6 class="dropdown-header">Welcome, {{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}!</h6>
+                            <h6 class="dropdown-header">Xin chào, {{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}!</h6>
                             <a class="dropdown-item"
                                href="{{ route('admin.account.edit', ['id' => Auth::user()->id]) }}">
                                 <i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
-                                <span class="align-middle">Profile</span>
+                                <span class="align-middle">Hồ sơ</span>
                             </a>
 
                             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
@@ -134,7 +134,7 @@
                             <a class="dropdown-item" href="#"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
-                                <span class="align-middle" data-key="t-logout">Logout</span>
+                                <span class="align-middle" data-key="t-logout">Đăng xuất</span>
                             </a>
 
                         </div>

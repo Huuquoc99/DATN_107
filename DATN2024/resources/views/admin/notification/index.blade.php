@@ -2,10 +2,10 @@
     <div class="p-3">
         <div class="row align-items-center">
             <div class="col">
-                <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
+                <h6 class="m-0 fs-16 fw-semibold text-white"> Thông báo </h6>
             </div>
             <div class="col-auto dropdown-tabs">
-                <span class="badge bg-light-subtle text-body fs-13 count-noti"> {{\App\Models\AdminNotification::unread()->count()}} New</span>
+                <span class="badge bg-light-subtle text-body fs-13 count-noti"> {{\App\Models\AdminNotification::unread()->count()}} mới</span>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <li class="nav-item waves-effect waves-light">
                 <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab"
                    role="tab" aria-selected="true">
-                    All
+                    Tất cả
                 </a>
             </li>
         </ul>
@@ -43,8 +43,7 @@
             </div>
             <div class="my-3 text-center view-all">
                 <button type="button"
-                        class="btn btn-soft-success waves-effect waves-light load-more-noti" data-type="1">View
-                    Next Notifications <i class="ri-arrow-right-line align-middle"></i></button>
+                        class="btn btn-soft-success waves-effect waves-light load-more-noti" data-type="1">Xem thông báo tiếp theo <i class="ri-arrow-right-line align-middle"></i></button>
             </div>
         </div>
     </div>

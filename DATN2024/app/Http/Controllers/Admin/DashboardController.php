@@ -75,6 +75,7 @@ class DashboardController extends Controller
                 'products.updated_at',
                 'products.created_at',
                 'products.deleted_at',
+                'products.views'
             )
             ->orderByDesc('total_quantity_sold')
             ->get();
