@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Account
+    TechStore
 @endsection
 
 @section('content')
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update avatar</button>
+                            <button type="submit" class="btn btn-primary">Chỉnh sửa hình ảnh</button>
                         </form>
 
                         <h5 class="fs-16 mb-3 mt-3">{{ Auth::user()->name }}</h5>
@@ -64,12 +64,12 @@
                     <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab">
-                                <i class="fas fa-home"></i> Personal Details
+                                <i class="fas fa-home"></i> Thông tin cá nhân
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
-                                <i class="far fa-user"></i> Change Password
+                                <i class="far fa-user"></i> Thay đổi mật khẩu
                             </a>
                         </li>
                     </ul>
@@ -89,7 +89,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
+                                            <label for="name" class="form-label">Họ tên</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                                 value="{{ old('name', $user->name) }}" name="name">
                                             @error('name')
@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label for="phone" class="form-label">Phone</label>
+                                            <label for="phone" class="form-label">Điện thoại</label>
                                             <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
                                                 value="{{ old('phone', $user->phone) }}" name="phone">
                                             @error('phone')
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label for="address" class="form-label">Address</label>
+                                            <label for="address" class="form-label">Địa chỉ</label>
                                             <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                                                 value="{{ old('address', $user->address) }}" name="address">
                                             @error('address')
@@ -138,7 +138,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
-                                            <button type="submit" class="btn btn-primary">Updates</button>
+                                            <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
                                         </div>
                                     </div>
                                 </div>
@@ -159,9 +159,9 @@
                                 <div class="row g-2">
                                     <div class="col-lg-4">
                                         <div>
-                                            <label for="oldpasswordInput" class="form-label">Old Password*</label>
+                                            <label for="oldpasswordInput" class="form-label">Mật khẩu cũ*</label>
                                             <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror"
-                                                id="oldpasswordInput" placeholder="Enter current password">
+                                                id="oldpasswordInput" placeholder="Mật khẩu cũ">
                                             @error('old_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -171,9 +171,9 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div>
-                                            <label for="newpasswordInput" class="form-label">New Password*</label>
+                                            <label for="newpasswordInput" class="form-label">Mật khẩu mới*</label>
                                             <input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror"
-                                                id="newpasswordInput" placeholder="Enter new password">
+                                                id="newpasswordInput" placeholder="Mật khẩu mới">
                                             @error('new_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -183,15 +183,14 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div>
-                                            <label for="new_password_confirmation" class="form-label">Confirm
-                                                Password*</label>
+                                            <label for="new_password_confirmation" class="form-label">Nhập lại mật khẩu*</label>
                                             <input type="password" name="new_password_confirmation" class="form-control @error('new_password_confirmation') is-invalid @enderror"
-                                                id="new_password_confirmation" placeholder="Confirm password">
+                                                id="new_password_confirmation" placeholder="Nhập lại mật khẩu">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="text-end">
-                                            <button type="submit" class="btn btn-success">Change Password</button>
+                                            <button type="submit" class="btn btn-success">Thay đổi mật khẩu</button>
                                         </div>
                                     </div>
                                 </div>

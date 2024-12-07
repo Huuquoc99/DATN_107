@@ -37,7 +37,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Earnings</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng doanh thu</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Orders</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng đơn hàng</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
@@ -87,7 +87,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Customers</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng người dùng</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
@@ -111,7 +111,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Products</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Tổng sản phẩm</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
@@ -135,7 +135,7 @@
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-header border-0 align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Revenue</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">Doanh thu</h4>
                             
                         </div>
 
@@ -144,17 +144,17 @@
                                 <div class="d-flex justify-content-center align-items-center" style="height: 100%; min-height: 100px;">
                                     <form action="{{ route('admin.dashboard') }}" method="GET" class="row g-3 align-items-center">
                                         <div class="col-auto">
-                                            <label for="start_date" class="form-label mb-0">Start Date:</label>
+                                            <label for="start_date" class="form-label mb-0">Ngày bắt đầu:</label>
                                             <input type="date" id="start_date" name="start_date" 
                                                 class="form-control" style="width: 200px" value="{{ request('start_date') }}">
                                         </div>
                                         <div class="col-auto">
-                                            <label for="end_date" class="form-label mb-0">End Date:</label>
+                                            <label for="end_date" class="form-label mb-0">Ngày kết thúc:</label>
                                             <input type="date" id="end_date" name="end_date" 
                                                 class="form-control" style="width: 200px" value="{{ request('end_date') }}">
                                         </div>
                                         <div class="col-auto">
-                                            <button type="submit" class="btn btn-primary mt-3" style="width: 100px">Filter</button>
+                                            <button type="submit" class="btn btn-primary mt-3" style="width: 100px">Lọc</button>
                                         </div>
                                     </form>
                                 </div>
@@ -174,7 +174,7 @@
                 <div class="col-xl-4">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1"> Top Sellers</h4>
+                            <h4 class="card-title mb-0 flex-grow-1"> Khách hàng thân thiết</h4>
                         </div>
 
                         <div class="card-body">
@@ -212,7 +212,7 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Best Selling Products</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">Sản phẩm bán chạy nhất</h4>
                         </div>
 
                         <div class="card-body">
@@ -253,7 +253,7 @@
                 <div class="col-xl-6">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Recent Orders</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">Đơn hàng gần đây</h4>
                         </div>
 
                         {{-- <div class="card-body">
@@ -299,16 +299,17 @@
 
                         <div class="card-body">
                             <div class="table-responsive table-card">
-                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0 text-center">
                                     <thead class="text-muted table-light">
                                         <tr>
-                                            <th scope="col">Order ID</th>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Color</th>
-                                            <th scope="col">Capacity</th>
-                                            <th scope="col">Status Order</th>
+                                            <th scope="col">Order code</th>
+                                            <th scope="col">Khách hàng</th>
+                                            <th scope="col">Sản phẩm</th>
+                                            <th scope="col">Màu sắc</th>
+                                            <th scope="col">Dung lượng</th>
+                                            <th scope="col">Trạng thái đơn hàng</th>
+                                            <th scope="col">Trạng thái thanh toán</th>
+                                            <th scope="col">Tổng tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -324,18 +325,16 @@
                                                                 <img src="{{ optional($order->user)->avatar ? '/storage/' . optional($order->user)->avatar : '/theme/admin/assets/images/default-avatar.png' }}" 
                                                                      alt="Avatar" class="avatar-xs rounded-circle" />
                                                             </div>
-                                                            <div class="flex-grow-1">{{ optional($order->user)->name ? Str::limit(optional($order->user)->name, 15) : 'N/A' }}</div>
+                                                            <div class="flex-grow-1">{{ optional($order->user)->name ? Str::limit(optional($order->user)->name, 15) : 'Not Available' }}</div>
 
                                                         </div>
                                                     </td>
         
-                                                    <td>{{ optional($item->product)->name ? Str::limit(optional($item->product)->name, 15) : 'N/A' }}</td>
+                                                    <td>{{ optional($item->product)->name ? Str::limit(optional($item->product)->name, 15) : 'Not Available' }}</td>
 
-                                                    <td>
-                                                        <span class="text-success">{{ number_format(optional($item->order)->total_price, 0, ',', '.') }} VND</span>
-                                                    </td>
-                                                    <td>{{ optional($item->productVariant->color)->name ?? 'N/A' }}</td>
-                                                    <td>{{ optional($item->productVariant->capacity)->name ?? 'N/A' }}</td>
+                                                    
+                                                    <td>{{ optional($item->productVariant->color)->name ?? 'Not Available' }}</td>
+                                                    <td>{{ optional($item->productVariant->capacity)->name ?? 'Not Available' }}</td>
 
                                                     {{-- <td>
                                                         <span class="badge bg-success-subtle text-success">{{ optional($order->status)->name }}</span>
@@ -347,11 +346,28 @@
                                                         <span class="badge 
                                                             @if ($statusId == 1) bg-warning-subtle text-warning
                                                             @elseif ($statusId == 2) bg-secondary-subtle text-secondary
-                                                            @elseif ($statusId == 3) bg-success-subtle text-success
+                                                            @elseif ($statusId == 3) bg-success-subtle text-primary
+                                                            @elseif ($statusId == 4) bg-success-subtle text-info
+                                                            @elseif ($statusId == 5) bg-success-subtle text-success
                                                             @else bg-danger-subtle text-danger
                                                             @endif">
                                                             {{ optional($order->statusOrder)->name }}
                                                         </span>
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                            $statusId = optional($order->statusPayment)->id; // Lấy id của status
+                                                        @endphp
+                                                        <span class="badge 
+                                                            @if ($statusId == 1) bg-warning-subtle text-warning
+                                                            @elseif ($statusId == 2) bg-secondary-subtle text-success
+                                                            @else bg-danger-subtle text-danger
+                                                            @endif">
+                                                            {{ optional($order->statusPayment)->name }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success">{{ number_format(optional($item->order)->total_price, 0, ',', '.') }} VND</span>
                                                     </td>
                                                     
                                                 </tr>
@@ -512,6 +528,10 @@
                 var productDescription = product.short_description ? (product.short_description.length > 30 ? product.short_description.substring(0, 30) + "..." : product.short_description) : "No description available";
                 listing_table_body.innerHTML += `
                 <tr>
+                     <td>
+                        <h5 class="fs-14 my-1 fw-normal">${product.sku}</h5>
+                        <span class="text-muted">SKU</span>
+                    </td>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="avatar-sm bg-light rounded p-1 me-2">
@@ -530,15 +550,12 @@
                     </td>
                     <td>
                         <h5 class="fs-14 my-1 fw-normal">${productPrice}</h5>
-                        <span class="text-muted">Price</span>
+                        <span class="text-muted">Giá</span>
                     </td>
+                   
                     <td>
-                        <h5 class="fs-14 my-1 fw-normal">${product.sku}</h5>
-                        <span class="text-muted">SKU</span>
-                    </td>
-                    <td>
-                        <h5 class="fs-14 my-1 fw-normal">${productDescription}</h5>
-                        <span class="text-muted">Short Description</span>
+                        <h5 class="fs-14 my-1 fw-normal">${product.total_quantity_sold}</h5>
+                        <span class="text-muted">Số lượng sản phẩm đã bán</span>
                     </td>
                 </tr>
             `;
@@ -652,6 +669,14 @@
 @endsection
 
 @section('style_libs')
+    <style>
+        body {
+            font-family: 'Roboto', 'Open Sans', sans-serif;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese" rel="stylesheet">
+
     <link href="{{ asset('theme/admin/assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet"
         type="text/css" />
 

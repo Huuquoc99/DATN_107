@@ -20,6 +20,7 @@ class InvoiceController extends Controller
                 'total_price', 
                 'created_at',
                 'status_payment_id',
+                'status_order_id',
             ]);
             // $invoices = Order::paginate(5, [ 
             //     'id', 
