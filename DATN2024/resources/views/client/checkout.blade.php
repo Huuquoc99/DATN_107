@@ -1,11 +1,14 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <main>
-        <div class="mb-4 pb-4"></div>
-        <section class="shop-checkout container">
-            <h2 class="page-title">Shipping and Checkout</h2>
-
+    <div class="breadcrumb">
+        <div class="shop-checkout container">
+            @include('client.components.breadcrumb', [
+                   'breadcrumbs' => [
+                       ['label' => 'Giỏ hàng', 'url' => null],
+                       ['label' => 'Thanh toán', 'url' => null],
+                   ]
+               ])
             <form action="{{ route('checkout.process') }}" method="POST">
                 @csrf
                 <div class="checkout-form">
@@ -188,7 +191,7 @@
                 </div>
             </form>
         </section>
-    </main>
+        </div>
 @endsection
 
 @section('api-address')

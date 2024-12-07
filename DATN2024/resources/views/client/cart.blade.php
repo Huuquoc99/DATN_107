@@ -1,15 +1,14 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <div class="mb-4 mt-4 pb-4"></div>
-    <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
-        <div id="delete-success"></div>
-        <div class="shopping-cart">
-            @include('client.components.breadcrumb', [
+    <div class="breadcrumb">
+    <section class="shop-checkout container">
+        @include('client.components.breadcrumb', [
                         'breadcrumbs' => [
                             ['label' => 'Giỏ hàng', 'url' => '/cart/list']
                         ]
                     ])
+        <div class="shopping-cart">
             @if (count($unifiedCart) > 0)
                 <div class="cart-table__wrapper">
                     <table class="cart-table">
@@ -128,6 +127,7 @@
             @endif
         </div>
     </section>
+    </div>
 
 @endsection
 @section('script')

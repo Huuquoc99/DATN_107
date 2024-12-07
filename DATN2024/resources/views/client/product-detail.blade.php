@@ -1,26 +1,25 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <div style="padding-top: 110px;">
+    <div class="breadcrumb">
         <section class="product-single container">
+            @include('client.components.breadcrumb', [
+                    'breadcrumbs' => [
+                        [
+                            'label' => 'Điện thoại ' . $product->catalogue->name,
+                            'url' => route('shop', array_merge(request()->except('c'),
+                                request()->get('c') == $product->catalogue->id
+                                    ? []
+                                    : ['c' => $product->catalogue->id])
+                            )
+                        ]
+                    ]
+                ])
             <div class="row">
                 <div class="col-lg-7">
                     <div class="" data-media-type="vertical-thumbnail">
                         <div class="product-single__image">
                             <div class="swiper-container">
-                                @include('client.components.breadcrumb', [
-                                    'breadcrumbs' => [
-                                        [
-                                            'label' => 'Điện thoại ' . $product->catalogue->name,
-                                            'url' => route('shop', array_merge(request()->except('c'),
-                                                request()->get('c') == $product->catalogue->id
-                                                    ? []
-                                                    : ['c' => $product->catalogue->id])
-                                            )
-                                        ]
-                                    ]
-                                ])
-
                                 <div class="product-gallery-horizontal d-flex justify-content-center">
                                     <div class="main-image-container">
                                         <img id="mainImage" style="height: 515px; width: 600px;"
@@ -45,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 mt-5">
+                <div class="col-lg-5">
                     <h4 class="product"><b>{{ $product->name }}</b></h4>
 
                     <h6 class="product-single__price mt-3" id="product-price" style="font-size: 30px">

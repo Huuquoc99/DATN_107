@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Mail\EmailVerificationMail;
+use Illuminate\Support\Facades\Validator;
 use Log;
 use App\Models\Cart;
 use App\Models\Order;
@@ -98,6 +100,20 @@ class CheckoutController extends Controller
 
     public function processCheckoutForGuests(Request $request) {
 
+        $request->validate([
+            'ship_user_name' => 'required|string|max:255',
+            'ship_user_email' => 'required|email|max:255',
+            'ship_user_phone' => 'required|string|max:15',
+            'ship_user_address' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'ward' => 'required|string|max:255',
+        ]);
+
+        if (!session('email_verified')) {
+            return redirect()->back()->with('error', 'Vui lòng xác thực email trước khi đặt hàng');
+        }
+
         $province_code = $request->province;
         $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
 
@@ -109,15 +125,6 @@ class CheckoutController extends Controller
 
         $guest_cart = session('cart', []);
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
-        $request->validate([
-            'ship_user_name' => 'required|string|max:255',
-            'ship_user_email' => 'required|email|max:255',
-            'ship_user_phone' => 'required|string|max:15',
-            'ship_user_address' => 'required|string|max:255',
-            'province' => 'required|string|max:255',
-            'district' => 'required|string|max:255',
-            'ward' => 'required|string|max:255',
-        ]);
 
 
         if (empty($guest_cart)) {
@@ -191,9 +198,59 @@ class CheckoutController extends Controller
             GuestOrderPlaced::dispatch($order);
 
             session()->forget('cart');
+            session(['order_code' => $order->code]);
 
             return redirect()->route('guest-checkout.success');
         }
+    }
+
+    public function sendVerificationCode(Request $request)
+    {
+
+        $email = $request->email;
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $verificationCode = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        session([
+            'email_verification_code' => $verificationCode,
+            'email_to_verify' => $email
+        ]);
+
+        try {
+            Mail::to($email)->send(new EmailVerificationMail($verificationCode));
+
+            return response()->json(['success' => 'Mã xác thực đã được gửi']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Lỗi gửi email'], 500);
+        }
+    }
+
+    public function verifyEmailCode(Request $request)
+    {
+        $inputCode = $request->verification_code;
+        $email = $request->email;
+
+        $sessionCode = session('email_verification_code');
+        $sessionEmail = session('email_to_verify');
+
+        if ($inputCode === $sessionCode && $email === $sessionEmail) {
+            session()->forget('email_verification_code');
+            session()->forget('email_to_verify');
+
+            session(['email_verified' => true]);
+
+            return response()->json(['verified' => true]);
+        }
+
+        return response()->json(['verified' => false], 400);
     }
 
 
@@ -454,6 +511,24 @@ class CheckoutController extends Controller
             return view('client.guest.fail');
         }
     }
+
+    public function repaymentForGuest()
+    {
+        $order_code_session = session('order_code');
+
+        $order = Order::query()->where('code', $order_code_session)->first();
+
+        if (
+            ($order->status_payment_id == 1 || $order->status_payment_id == 3)
+            && $order->status_order_id == 1
+            && $order->payment_method_id == 2
+        ){
+            $this->processVNPAY($order);
+        } else {
+            return redirect()->back()->with('error', 'Unable to pay order.');
+        }
+    }
+
 }
 
 
