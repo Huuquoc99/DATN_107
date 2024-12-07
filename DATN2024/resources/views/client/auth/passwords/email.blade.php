@@ -6,7 +6,7 @@
             
             <form class="form" action="{{ route('password.email') }} " method="POST">
                 @csrf
-                <h2 style="font-size: 50px"><b>Forgot password</b></h2>
+                <h2 style="font-size: 50px"><b>Quên mật khẩu</b></h2>
                 @if (session("status"))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session("status")}}
@@ -19,7 +19,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <button class="button">Send Password Reset Link</button>
+                <button class="button">Gửi liên kết đặt lại mật khẩu</button>
             </form>
         </div>
     </div>

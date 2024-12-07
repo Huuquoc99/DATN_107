@@ -975,3 +975,18 @@ h3 {
 
 
 
+.content1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkbox1 {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* khoảng cách giữa checkbox và label */
+}
+
+.pass-link1 {
+    margin: 0; /* loại bỏ khoảng cách không cần thiết */
+}

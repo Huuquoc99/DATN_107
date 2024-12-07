@@ -62,7 +62,7 @@
                             value="{{ $product->id }}">
                         <div class="product-options">
                             <div class="option-group mb-2">
-                                <label class="option-label">Color:</label>
+                                <label class="option-label">Màu sắc:</label>
                                 <div class="option-selections">
                                     @foreach ($colors as $id => $color)
                                         <div class="option-item">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="option-group mb-3">
-                                <label class="option-label">Capacity:</label>
+                                <label class="option-label">Dung lượng:</label>
                                 <div class="option-selections">
                                     @foreach ($capacities as $id => $name)
                                         <div class="option-item">
@@ -100,7 +100,7 @@
                             </div>
 
                             <div class="quantity-control d-flex align-items-center mb-4">
-                                <label class="option-label" style="padding-top: 9px;">Quantity</label>
+                                <label class="option-label" style="padding-top: 9px;">Số lượng:</label>
                                 <div class="quantity-wrapper" style="margin-left: 35px;">
                                     <button type="button" class="quantity-btn minus">-</button>
                                     <input type="number" name="quantity" value="1"
@@ -112,18 +112,18 @@
                                     <div class="text-dark h6">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <span class="option-label">Status: <span id="stock-status"></span></span>
+                            <span class="option-label">Trạng thái: <span id="stock-status"></span></span>
 
                             <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
                                 data-aside="cartDrawer">
                                 <i class="ri-shopping-cart-line me-2"></i>
-                                Add to cart
+                                Thêm giỏ hàng
                             </button>
 
                             <a class="mt-5 fs-15" type="submit"
                                 onclick="toggleFavorite({{ $product->id }})"
                                 data-product-id="{{ $product->id }}">
-                                ADD TO WISHLIST
+                                THÊM VÀO DANH SÁCH YÊU THÍCH
                             </a>
                         </div>
                     </form>
@@ -134,16 +134,16 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore active" id="tab-description-tab" data-bs-toggle="tab"
                             href="#tab-description" role="tab" aria-controls="tab-description"
-                            aria-selected="true">Description</a>
+                            aria-selected="true">Mô tả</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore" id="tab-additional-info-tab" data-bs-toggle="tab"
                             href="#tab-additional-info" role="tab" aria-controls="tab-additional-info"
-                            aria-selected="false">Additional Information</a>
+                            aria-selected="false">Thông tin bổ sung</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore" id="tab-reviews-tab" data-bs-toggle="tab"
-                            href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews
+                            href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Đánh giá
                             ( <span id="review-count">{{ $comments->total() }} </span>)</a>
                     </li>
                 </ul>

@@ -12,22 +12,22 @@
     <div class="bg-grey">
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
-                <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers</h2>
+                <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Ưu Đãi Đặc Biệt</h2>
                 <ul class="nav nav-tabs justify-content-center" id="collections-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase theme-color fs-13 fw-semi-bold active"
                            id="collections-tab-1-trigger" data-bs-toggle="tab" href="#collections-tab-1" role="tab"
-                           aria-controls="collections-tab-1" aria-selected="true">New Arrivals</a>
+                           aria-controls="collections-tab-1" aria-selected="true">Sản Phẩm Mới</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase fs-13 fw-semi-bold theme-color"
                            id="collections-tab-2-trigger" data-bs-toggle="tab" href="#collections-tab-2" role="tab"
-                           aria-controls="collections-tab-2" aria-selected="true">Bestsellers</a>
+                           aria-controls="collections-tab-2" aria-selected="true">Bán Chạy Nhất</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase fs-13 fw-semi-bold theme-color"
                            id="collections-tab-3-trigger" data-bs-toggle="tab" href="#collections-tab-3" role="tab"
-                           aria-controls="collections-tab-3" aria-selected="true">Most Views</a>
+                           aria-controls="collections-tab-3" aria-selected="true">Xem Nhiều Nhất</a>
                     </li>
                 </ul>
             </div>

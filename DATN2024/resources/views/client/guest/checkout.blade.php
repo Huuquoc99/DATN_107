@@ -4,20 +4,20 @@
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
-            <h2 class="">Shipping and Checkout</h2>
+            <h2 class="">Vận chuyển và Thanh toán</h2>
 
             <form action="{{ route('guest-checkout.process') }}" method="POST">
                 @csrf
                 <div class="checkout-form mb-5">
                     <div class="billing-info__wrapper">
-                        <h4>BILLING DETAILS</h4>
+                        <h4>CHI TIẾT THANH TOÁN</h4>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="form-control" id="ship_user_name" placeholder="First Name"
+                                    <input type="text" class="form-control" id="ship_user_name" placeholder="Họ và tên"
                                            name="ship_user_name" @error('ship_user_name') is-invalid @enderror">
-                                    <label for="ship_user_name"> Name</label>
+                                    <label for="ship_user_name"> Tên</label>
                                     @error('ship_user_name')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -36,9 +36,9 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="number" class="form-control" id="ship_user_phone" placeholder="Phone"
+                                    <input type="number" class="form-control" id="ship_user_phone" placeholder="Số điện thoại"
                                            name="ship_user_phone">
-                                    <label for="ship_user_phone">Phone</label>
+                                    <label for="ship_user_phone">Số điện thoại</label>
                                     @error('ship_user_phone')
                                     <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -46,9 +46,9 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="form-control" id="ship_user_address" placeholder="Address"
+                                    <input type="text" class="form-control" id="ship_user_address" placeholder="Địa chỉ"
                                            name="ship_user_address">
-                                    <label for="ship_user_address">Address</label>
+                                    <label for="ship_user_address">Địa chỉ</label>
                                     @error('ship_user_address')
                                     <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -59,9 +59,9 @@
                             <div class="form-floating my-3">
                                 <div class="row">
                                     <div class="form-group col-12 col-md-4">
-                                        <label for="province">Province/City</label>
+                                        <label for="province">Tỉnh/Thành phố</label>
                                         <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
-                                            <option value="">Select Province/City</option>
+                                            <option value="">Chọn Tỉnh/Thành Phố</option>
                                             @foreach($provinces['results'] as $province)
                                                 <option value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                             @endforeach
@@ -72,9 +72,9 @@
                                     </div>
 
                                     <div class="form-group col-12 col-md-4">
-                                        <label for="district">District</label>
+                                        <label for="district">Huyện</label>
                                         <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
-                                            <option value="">Select District</option>
+                                            <option value="">Chọn Quận</option>
                                         </select>
                                         @error('district')
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -82,9 +82,9 @@
                                     </div>
 
                                     <div class="form-group col-12 col-md-4">
-                                        <label for="ward">Ward/Commune</label>
+                                        <label for="ward">Phường/Xã</label>
                                         <select id="ward" name="ward" class="form-control">
-                                            <option value="">Select Ward/Commune</option>
+                                            <option value="">Chọn Phường/Xã</option>
                                         </select>
                                         @error('ward')
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -103,13 +103,13 @@
                     <div class="checkout__totals-wrapper mt-5">
                         <div class="sticky-content">
                             <div class="checkout__totals">
-                                <h3>Your Order</h3>
+                                <h3>Đơn hàng của bạn</h3>
                                 <table class="checkout-cart-items">
                                     <thead>
-                                    <th>PRODUCT</th>
-                                    <th>CAPACITY</th>
-                                    <th>COLOR</th>
-                                    <th>PRICE</th>
+                                        <th>SẢN PHẨM</th>
+                                        <th>DUNG LƯỢNG</th>
+                                        <th>MÀU SẮC</th>
+                                        <th>GIÁ</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($guest_cart as $item)
@@ -125,17 +125,17 @@
                                 <table class="checkout-totals">
                                     <tbody>
                                         <tr>
-                                            <th>SUBTOTAL</th>
+                                            <th>TỔNG CỘNG</th>
                                             <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                         @if ($voucher)
                                             <tr>
-                                                <th>VOUCHER</th>
+                                                <th>MÃ giảm giá</th>
                                                 <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
                                             </tr>
                                         @endif
                                         <tr>
-                                            <th>TOTAL</th>
+                                            <th>Tổng</th>
                                             <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                     </tbody>

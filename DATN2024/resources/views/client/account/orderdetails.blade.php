@@ -4,17 +4,17 @@
 <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
 
     <div class="my-account container">
-        <h2 class="page-title pt-5 ">Order detail: {{ $order->code }}</h2>
+        <h2 class="page-title pt-5 ">Chi tiết đơn hàng: {{ $order->code }}</h2>
     </div>
     <section class="my-account container">
-        <h2 class="page-title pt-5">Order Details</h2>
+        <h2 class="page-title pt-5">Chi tiết đơn hàng</h2>
         <div class="row">
             <div class="col-lg-4">
                 <div class="info-box">
-                    <h4>Order Information</h4>
+                    <h4>Thông tin đặt hàng</h4>
                     <table class="info-table">
                         <tr>
-                            <td><strong>Status order:</strong></td>
+                            <td><strong> Trạng thái đơn hàng:</strong></td>
                             <td>
                                 @if ($order->status_order_id == 1 || $order->status_order_id == 2)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
@@ -24,48 +24,48 @@
 {{--                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmCancel()">Cancel</button>--}}
 {{--                                    </form>--}}
 
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Cancel</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy bỏ</button>
 
                                     <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="cancelOrderModalLabel">Cancel Order</h5>
+                                                    <h5 class="modal-title" id="cancelOrderModalLabel">Hủy đơn hàng</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form id="cancelOrderReasonForm" action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
                                                         @csrf
                                                         <div class="mb-3">
-                                                            <label class="form-label">Reason for cancellation:</label>
+                                                            <label class="form-label">Lý do hủy bỏ:</label>
                                                             <div class="list-group">
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind" required>
-                                                                    Changed my mind
+                                                                    Tôi đã thay đổi ý định
                                                                 </label>
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
-                                                                    Found a cheaper option
+                                                                    Đã tìm thấy một lựa chọn rẻ hơn
                                                                 </label>
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="delivery_delay">
-                                                                    Delivery is taking too long
+                                                                    Giao hàng mất quá nhiều thời gian
                                                                 </label>
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="incorrect_item">
-                                                                    Incorrect item details
+                                                                    Chi tiết mặt hàng sai
                                                                 </label>
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="no_confirmation_email">
-                                                                    Didn't receive a confirmation email
+                                                                    Không nhận được email xác nhận
                                                                 </label>
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="cost_high">
-                                                                    Shipping cost is too high
+                                                                    Chi phí vận chuyển quá cao
                                                                 </label>
                                                                 <label class="list-group-item">
                                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
-                                                                    Other
+                                                                    Khác
                                                                 </label>
                                                                 <div class="text-primary mt-2" id="error_cancel_reason"></div>
                                                                 @error('cancel_reason')
@@ -77,7 +77,7 @@
                                                         </div>
 
                                                         <div class="mb-3" id="otherReasonContainer" style="display: none;">
-                                                            <label for="otherReason" class="form-label">Please specify your reason</label>
+                                                            <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
                                                             <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
                                                             @error('other_reason')
                                                             <div class="text-danger" id="error_other_reason">
@@ -89,8 +89,8 @@
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer mb-3 mx-4">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Confirm Cancel</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Xác nhận Hủy bỏ</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,39 +103,39 @@
                                     {{ $order->statusOrder->name ?? 'N/A' }}
                                     <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-success btn-sm" onclick="confirmReceived()">Received</button>
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="confirmReceived()">Đã nhận</button>
                                     </form>
                                 @elseif ($order->status_order_id == 5)
-                                    <span class="text-success">Completed</span>
+                                    <span class="text-success">Hoàn thành</span>
                                 @elseif ($order->status_order_id == 6)
-                                    <span class="text-danger">Canceled</span>
+                                    <span class="text-danger">Đã hủy</span>
                                 @else
-                                    <span class="text-muted">Unknown</span>
+                                    <span class="text-muted">Không rõ</span>
                                 @endif
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Status payment:</strong></td>
+                            <td><strong>Trạng thái thanh toán:</strong></td>
                             <td>
                                 {{ $order->statusPayment->name ?? 'N/A' }}
                                 @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">Repayment</button>
+                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">hoàn trả</button>
                                     </form>
                                 @endif
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Payment method:</strong></td>
+                            <td><strong>Phương thức thanh toán:</strong></td>
                             <td>{{ $order->paymentMethod->name ?? 'N/A' }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Total price:</strong></td>
+                            <td><strong>Tổng giá:</strong></td>
                             <td>{{ number_format($order->total_price) }} VND</td>
                         </tr>
                         <tr>
-                            <td><strong>Create at:</strong></td>
+                            <td><strong>Tạo vào lúc:</strong></td>
                             <td>
                                 <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
                                 <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
@@ -146,15 +146,15 @@
             </div>
             <div class="col-lg-8">
                 <div class="info-box">
-                    <h4>Order Items</h4>
+                    <h4>Đặt hàng</h4>
                     <table class="orders-table">
                         <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Capacity</th>
-                                <th>Color</th>
+                                <th>Sản phân</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Dung lượng</th>
+                                <th>Màu sắc</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -181,21 +181,21 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <a href="{{ route('orders.index') }}" class="btn btn-primary mt-3 mb-3">Back</a>
+                    <a href="{{ route('orders.index') }}" class="btn btn-primary mt-3 mb-3">Quay lại</a>
                 </div>
             </div>
         </div>
     </section>
     <section class="my-account container">
-        <h2 class="page-title pt-5">User Information</h2>
+        <h2 class="page-title pt-5">Thông tin người dùng</h2>
         <div class=" mb-xl-2 pb-3 pt-1 pb-xl-5"></div>
         <div class="row">
             <div class="col-lg-6">
                 <div class="info-box">
-                    <h4>User Information</h4>
+                    <h4>Thông tin người dùng</h4>
                     <table class="info-table">
                         <tr>
-                            <td><strong>Name:</strong></td>
+                            <td><strong>Tên:</strong></td>
                             <td>{{ $order->user_name }}</td>
                         </tr>
                         <tr>
@@ -203,15 +203,15 @@
                             <td>{{ $order->user_email }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Phone:</strong></td>
+                            <td><strong>Số điện thoại:</strong></td>
                             <td>{{ $order->user_phone }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Address:</strong></td>
+                            <td><strong>Địa chỉ:</strong></td>
                             <td>{{ $order->user_address }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Note:</strong></td>
+                            <td><strong>Ghi chú:</strong></td>
                             <td>{{ $order->user_note }}</td>
                         </tr>
                     </table>
@@ -219,10 +219,10 @@
             </div>
             <div class="col-lg-6">
                 <div class="info-box">
-                    <h4>Shipping Information</h4>
+                    <h4>Thông tin vận chuyển</h4>
                     <table class="info-table">
                         <tr>
-                            <td><strong>Name:</strong></td>
+                            <td><strong>Tên:</strong></td>
                             <td>{{ $order->ship_user_name }}</td>
                         </tr>
                         <tr>
@@ -230,11 +230,11 @@
                             <td>{{ $order->ship_user_email }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Phone:</strong></td>
+                            <td><strong>Số điện thoại:</strong></td>
                             <td>{{ $order->ship_user_phone }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Address:</strong></td>
+                            <td><strong>Địa chỉ:</strong></td>
                             <td>
                                 {{ \Illuminate\Support\Str::limit($order->ship_user_address, 20, '...') }},
                                 {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
@@ -243,7 +243,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Note:</strong></td>
+                            <td><strong>Ghi chú:</strong></td>
                             <td>{{ $order->ship_user_note }}</td>
                         </tr>
                     </table>

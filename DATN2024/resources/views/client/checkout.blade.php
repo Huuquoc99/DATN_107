@@ -4,7 +4,7 @@
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
-            <h2 class="page-title">Shipping and Checkout</h2>
+            <h2 class="page-title">Vận chuyển và Thanh toán</h2>
 
             <form action="{{ route('checkout.process') }}" method="POST">
                 @csrf
@@ -15,12 +15,12 @@
                             </div>
                         @endif
                     <div class="billing-info__wrapper">
-                        <h4>BILLING DETAILS</h4>
+                        <h4>CHI TIẾT THANH TOÁN</h4>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_name" placeholder="First Name"
+                                    <input type="text" class="input" id="ship_user_name" placeholder="Họ và tên"
                                            value="{{ old('ship_user_name', $user->name ?? '') }}" name="ship_user_name">
                                 </div>
                                 @error('ship_user_name')
@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="number" class="input" id="ship_user_phone" placeholder="Phone"
+                                    <input type="number" class="input" id="ship_user_phone" placeholder="Số điện thoại"
                                            value="{{ old('ship_user_phone', $user->phone ?? '') }}" name="ship_user_phone">
                                 </div>
                                 @error('ship_user_phone')
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_address" placeholder="Address"
+                                    <input type="text" class="input" id="ship_user_address" placeholder="Địa chỉ"
                                            value="{{ old('ship_user_address', $user->address ?? '') }}" name="ship_user_address">
                                 </div>
                                 @error('ship_user_address')
@@ -60,9 +60,9 @@
                                 <div class="form-floating my-3">
                                     <div class="row">
                                         <div class="form-group col-12 col-md-4 ">
-                                            <label for="province">Province/City</label>
+                                            <label for="province">Tỉnh/Thành phố</label>
                                             <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
-                                                <option value="">Select Province/City</option>
+                                                <option value="">Chọn Tỉnh/Thành Phố</option>
                                                 @foreach($provinces['results'] as $province)
                                                     <option  value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                                 @endforeach
@@ -73,9 +73,9 @@
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
-                                            <label for="district">District</label>
+                                            <label for="district">Huyện</label>
                                             <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
-                                                <option value="">Select District</option>
+                                                <option value="">Chọn Huyện</option>
                                             </select>
                                             @error('district')
                                             <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -83,9 +83,9 @@
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
-                                            <label for="ward">Ward/Commune</label>
+                                            <label for="ward">Phường/Xã</label>
                                             <select id="ward" name="ward" class="form-control">
-                                                <option value="">Select Ward/Commune</option>
+                                                <option value=""> ChọnPhường/Xã</option>
                                             </select>
                                             @error('ward')
                                             <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="mt-3">
-                            <textarea class="form-control form-control_gray input" placeholder="Order Notes (optional)" cols="30" rows="8"
+                            <textarea class="form-control form-control_gray input" placeholder="Ghi chú đơn hàng (tùy chọn)" cols="30" rows="8"
                                       name="ship_user_note"></textarea>
                             </div>
                         </div>
@@ -109,10 +109,10 @@
                                 <h3>Your Order</h3>
                                 <table class="checkout-cart-items">
                                     <thead>
-                                    <th>PRODUCT</th>
-                                    <th>CAPACITY</th>
-                                    <th>COLOR</th>
-                                    <th>PRICE</th>
+                                        <th>SẢN PHẨM</th>
+                                        <th>DUNG LƯỢNG</th>
+                                        <th>MÀU SẮC</th>
+                                        <th>GIÁ</th>
                                     </thead>
                                     <tbody>
                                     @if(Auth::check())
@@ -140,26 +140,26 @@
                                     <tbody>
                                     @if(Auth::check())
                                         <tr>
-                                            <th>SUBTOTAL</th>
+                                            <th>TỔNG CỘNG</th>
                                             <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                         @if ($voucher)
                                             <tr>
-                                                <th>DISCOUNT</th>
+                                                <th>GIẢM GIÁ</th>
                                                 <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
                                             <tr>
                                         @endif
                                         <tr>
-                                            <th>TOTAL</th>
+                                            <th>TỔNG</th>
                                             <td>{{ number_format($item->price * $item->quantity - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                     @else
                                         <tr>
-                                            <th>SUBTOTAL</th>
+                                            <th>TỔNG CỘNG</th>
                                             <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                         <tr>
-                                            <th>TOTAL</th>
+                                            <th>TỔNG</th>
                                             <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                     @endif
@@ -182,9 +182,9 @@
                                 @endforeach
 
                             </div>
-                            <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">PLACE ORDER</button>
+                            <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">ĐẶT HÀNG</button>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </form>
         </section>

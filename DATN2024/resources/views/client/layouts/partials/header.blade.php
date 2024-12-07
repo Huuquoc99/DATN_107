@@ -16,7 +16,7 @@
                         @csrf
                         <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
                     </form>
-                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">My Account</a>
+                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">Quản lý tài khoản</a>
                 </div>
             </div>
         @endauth
@@ -26,7 +26,7 @@
         <div class="customer-forms__wrapper d-flex position-relative">
             <div class="customer__login">
                 <div class="aside-header d-flex align-items-center">
-                    <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
+                    <h1 class="text-uppercase fs-6 mb-0">Đăng nhập</h1>
                 </div><!-- /.aside-header -->
 
                 <form action="{{ route('login') }}" method="POST" class="aside-content">
@@ -43,7 +43,7 @@
 
                     <input name="password" id="customerPasswordInput"
                            class="input form-control @error('password') is-invalid @enderror" type="password"
-                           placeholder="Password">
+                           placeholder="Mật khẩu">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -116,22 +116,22 @@
                 <nav class="navigation flex-grow-1 fs-15 fw-semi-bold">
                     <ul class="navigation__list list-unstyled d-flex">
                         <li class="navigation__item">
-                            <a href="{{ route('home') }}" class="navigation__link text-white">Home</a>
+                            <a href="{{ route('home') }}" class="navigation__link text-white">Trang chủ</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="/shop" class="navigation__link text-white">Shop</a>
+                            <a href="/shop" class="navigation__link text-white">Cửa hàng</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route("blog")}}" class="navigation__link text-white">Blog</a>
+                            <a href="{{ route("blog")}}" class="navigation__link text-white">Tin Tức</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{route("voucher")}}" class="navigation__link text-white">Voucher</a>
+                            <a href="{{route("voucher")}}" class="navigation__link text-white">Mã Giảm Giá</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('about') }}" class="navigation__link text-white">About</a>
+                            <a href="{{ route('about') }}" class="navigation__link text-white">Giới thiệu</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('contact') }}" class="navigation__link text-white">Contact</a>
+                            <a href="{{ route('contact') }}" class="navigation__link text-white">Liên hệ</a>
                         </li>
                     </ul>
                 </nav>
@@ -161,7 +161,7 @@
                     <h3 style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
                         class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1 mb-1">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-1">Danh mục</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
 
                     </h3>
@@ -203,7 +203,7 @@
                     </button>
                     <input class="header-search__input w-100" type="text" name="k"
                            value="{{request()->routeIs('search') ? request()->get('k') : '' }}"
-                           placeholder="Search products..." style="">
+                           placeholder="Tìm kiếm sản phẩm ..." style="">
                 </form>
             </div>
         </div>
@@ -211,9 +211,9 @@
 </header>
 
 <!-- End Header Type 6 -->
-<div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
+{{-- <div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
     <div class="aside-header d-flex align-items-center">
-        <h3 class="text-uppercase fs-6 mb-0">SHOPPING BAG ( <span class="cart-amount js-cart-items-count">1</span> )
+        <h3 class="text-uppercase fs-6 mb-0">Giỏ hàng ( <span class="cart-amount js-cart-items-count">1</span> )
         </h3>
         <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
     </div><!-- /.aside-header -->
@@ -309,4 +309,4 @@
         <a href="shop_cart.html" class="btn btn-light mt-3 d-block">View Cart</a>
         <a href="shop_checkout.html" class="btn btn-primary mt-3 d-block">Checkout</a>
     </div>
-</div>
+</div> --}}

@@ -20,11 +20,11 @@
                         @endif
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th>Ảnh</th>
+                                <th>Sản phẩm</th>
+                                <th>GIá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng tiền</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -103,27 +103,27 @@
                             </div>
                         </div> --}}
                         <div class="mb-3 pb-3 border-bottom">
-                            <div class="fw-medium mb-2">VOUCHER</div>
+                            <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
-                                <button class="btn btn-dark" id="apply-voucher">Apply</button>
+                                <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
+                                <button class="btn btn-dark" id="apply-voucher">Sử dụng</button>
                             </div>
                             <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                The voucher code is invalid or has expired.
+                                Mã phiếu giảm giá không hợp lệ hoặc đã hết hạn.
                             </div>
                         </div>
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
                                 <a href="{{ route('checkout.index') }}">
-                                    <button style="" class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
+                                    <button style="" class="btn btn-primary btn-checkout">TIẾN HÀNH THANH TOÁN</button>
                                 </a>
                             </div>
                         </div>
                     </div>
                 @else
                     <div class="empty-cart">
-                        <p>You have no products in your shopping cart.</p>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Continue shopping.</a>
+                        <p>Bạn không có sản phẩm nào trong giỏ hàng.</p>
+                        <a href="{{ route('home') }}" class="btn btn-primary">Tiếp tục mua sắm.</a>
                     </div>
             @endif
         </div>

@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="col-lg-3">
                     <ul class="account-nav">
-                        <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s "style="color: black">Dashboard</a></li>
-                        <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s menu-link_active"style="color: black">Orders</a></li>
-                        <li><a href="{{ route('favorites.list') }}" class="menu-link menu-link_us-s"style="color: black">Wishlist</a></li>
-                        <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s"style="color: black">Account Details</a></li>
-                        <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s"style="color: black">Change password</a></li>
+                        <li><a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s "style="color: black">Bảng điều khiển</a></li>
+                        <li><a href="{{ route('history') }}" class="menu-link menu-link_us-s menu-link_active"style="color: black">Đơn hàng</a></li>
+                        <li><a href="{{ route('favorites.list') }}" class="menu-link menu-link_us-s"style="color: black">Danh sách yêu thích</a></li>
+                        <li><a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s"style="color: black">Chi tiết tài khoản</a></li>
+                        <li><a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s"style="color: black">Thay đổi mật khẩu</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-9">
@@ -21,7 +21,7 @@
                             <li class="nav-item">
                                 <button class="btn py-3 filter-status {{ request()->status_order == 'all' ? 'text-success' : '' }}" data-status="all">
                                     <i class="ri-store-2-fill me-1 align-bottom"></i>
-                                    All
+                                    Tất cả
                                 </button>
                             </li>
                             @foreach($statusOrders as $orderStatus)
@@ -56,11 +56,11 @@
                             <table class="orders-table">
                                 <thead>
                                     <tr>
-                                        <th>Order</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                        <th>Actions</th>
+                                        <th>Đơn hàng</th>
+                                        <th>Ngày</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tổng cộng</th>
+                                        <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,11 +88,11 @@
                                                 @endswitch
                                             </td>
                                             <td>{{ number_format($order['total_price']) }} VND</td>
-                                            <td><a href="{{ route('account.orders.show', $order['id']) }}" class="btn btn-primary">VIEW</a></td>
+                                            <td><a href="{{ route('account.orders.show', $order['id']) }}" class="btn btn-primary">XEM</a></td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5">You have no orders yet.</td>
+                                            <td colspan="5">YBạn chưa có đơn hàng nào.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

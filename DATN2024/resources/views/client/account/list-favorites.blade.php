@@ -4,15 +4,15 @@
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="my-account container">
-            <h2 class="page-title">My Wishlist</h2>
+            <h2 class="page-title">Danh sách yêu thích</h2>
             <div class="row">
                 <div class="col-lg-3">
                     <ul class="account-nav">
-                        <li><a href="{{ route('account.dashboard') }}" class="menu-link">Dashboard</a></li>
-                        <li><a href="{{ route('history') }}" class="menu-link">Orders</a></li>
-                        <li><a href="{{ route('favorites.list') }}" class="menu-link menu-link_active">Wishlist</a></li>
-                        <li><a href="{{ route('accountdetail') }}" class="menu-link">Account Details</a></li>
-                        <li><a href="{{ route('account.changePassword') }}" class="menu-link">Change password</a></li>
+                        <li><a href="{{ route('account.dashboard') }}" class="menu-link">Bảng điều khiển</a></li>
+                        <li><a href="{{ route('history') }}" class="menu-link">Đơn hàng</a></li>
+                        <li><a href="{{ route('favorites.list') }}" class="menu-link menu-link_active">Danh sách yêu thích</a></li>
+                        <li><a href="{{ route('accountdetail') }}" class="menu-link">Chi tiết tài khoản</a></li>
+                        <li><a href="{{ route('account.changePassword') }}" class="menu-link">Thay đổi mật khẩu</a></li>
                     </ul>
                 </div>
 

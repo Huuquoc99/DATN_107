@@ -3,7 +3,7 @@
 @section('content')
 <main>
     <section class="login-register container">
-        <h2 class="d-none">Change password</h2>
+        <h2 class="d-none">Đổi mật khẩu</h2>
         <ul
                     class="nav nav-tabs mb-5"
                     id="login_register"
@@ -18,7 +18,7 @@
                             role="tab"
                             aria-controls="tab-item-login"
                             aria-selected="true"
-                            >Change password</a
+                            >Đổi mật khẩu</a
                         >
                     </li>
                 </ul>
@@ -32,7 +32,7 @@
                         type="password"
                         class="form-control form-control_gray"
                         id="customerPasswodInput"
-                        placeholder="Password *"
+                        placeholder="Mật khẩu *"
                         required
                     />
                     <label for="customerPasswodInput">Password *</label>
@@ -44,10 +44,10 @@
                         type="password"
                         class="form-control form-control_gray"
                         id="customerPasswodInput"
-                        placeholder="Password confirmation *"
+                        placeholder="Nhập lại mật khẩu *"
                         required
                     />
-                    <label for="customerPasswodInput"> Confirm Password *</label>
+                    <label for="customerPasswodInput"> Xác nhận mật khẩu *</label>
                 </div>
 
                 <div class="d-flex align-items-center mb-3 pb-2">
@@ -58,9 +58,9 @@
                             type="checkbox"
                             id="flexCheckDefault1"
                         />
-                        <label class="form-check-label text-secondary" for="flexCheckDefault1">Remember me</label>
+                        <label class="form-check-label text-secondary" for="flexCheckDefault1">Nhớ đăng nhập</label>
                     </div>
-                    <a href="/reset_password" class="btn-text ms-auto">Lost password?</a>
+                    <a href="/reset_password" class="btn-text ms-auto">Quên mậyt khẩu?</a>
                 </div>
 
                 <button class="btn btn-primary w-100 text-uppercase" type="submit">
@@ -68,8 +68,8 @@
                 </button>
 
                 <div class="customer-option mt-4 text-center">
-                    <span class="text-secondary">No account yet?</span>
-                    <a href="/register" class="btn-text">Create Account</a>
+                    <span class="text-secondary">Chưa có tài khoản?</span>
+                    <a href="/register" class="btn-text">Tạo tài khoản</a>
                 </div>
             </form>
         </div>
