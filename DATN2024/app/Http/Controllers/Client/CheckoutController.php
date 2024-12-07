@@ -110,6 +110,7 @@ class CheckoutController extends Controller
             'ward' => 'required|string|max:255',
         ]);
 
+
         if (!session('email_verified')) {
             return redirect()->back()->with('error', 'Vui lòng xác thực email trước khi đặt hàng');
         }
@@ -257,6 +258,8 @@ class CheckoutController extends Controller
     public function processCheckout(Request $request)
     {
 
+//        dd(session('voucher'));
+
         $province_code = $request->province;
         $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
 
@@ -334,6 +337,8 @@ class CheckoutController extends Controller
         }
 
         session()->forget('voucher');
+
+//        dd(session('voucher'));
 
         if ($paymentMethodId == 2) {
             return $this->processVNPAY($order);

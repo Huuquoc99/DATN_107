@@ -119,7 +119,13 @@
                                     <th>PRICE</th>
                                     </thead>
                                     <tbody>
+                                    @php
+                                        $subtotal = 0;
+                                    @endphp
                                     @foreach ($guest_cart as $item)
+                                        @php
+                                            $subtotal += $item['price'] * $item['quantity'];
+                                        @endphp
                                         <tr>
                                             <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
                                             <td>{{ $item['capacity'] }}</td>
@@ -128,24 +134,33 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <div class="mb-3 pb-3 border-bottom">
+                                        <div class="fw-medium mb-2">VOUCHER</div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
+                                            <button type="button" class="btn btn-dark" id="apply-voucher">Apply</button>
+                                        </div>
+                                        <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
+                                            The voucher code is invalid or has expired.
+                                        </div>
+                                    </div>
                                 </table>
                                 <table class="checkout-totals">
                                     <tbody>
-                                    <tr>
-                                        <th>SUBTOTAL</th>
-                                        <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
-                                    </tr>
-                                    @if ($voucher)
                                         <tr>
-                                            <th>VOUCHER</th>
-                                            <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
+                                            <th>SUBTOTAL</th>
+                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
                                         </tr>
-                                    @endif
-                                    <tr>
-                                        <th>TOTAL</th>
-                                        <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}VNĐ
-                                        </td>
-                                    </tr>
+                                        @if ($voucher)
+                                            <tr>
+                                                <th>DISCOUNT</th>
+                                                <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
+                                            </tr>
+                                        @endif
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -207,21 +222,137 @@
         @endsection
 
         @section('api-guest-address')
-            <script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#apply-voucher').on('click', function(event) {
+                        event.preventDefault();
+                        var voucherCode = $('#voucher-code-input').val();
 
+                        $.ajax({
+                            url: '/apply-voucher',
+                            method: 'POST',
+                            data: {
+                                code: voucherCode,
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                window.location.reload();
+                            },
+                            error: function(xhr) {
+                                $('#error-message-add-voucher')
+                                    .removeClass('d-none')
+                                    .addClass('d-block')
+                                    .removeClass('valid-feedback')
+                                    .addClass('invalid-feedback')
+                                    .text(xhr.responseJSON.message);
+                            }
+                        });
+                    });
+                });
+
+            </script>
+            <script>
                 $(document).ready(function () {
                     var emailVerificationModal = new bootstrap.Modal(document.getElementById('emailVerificationModal'));
+
+                    function validateFields() {
+                        let isValid = true;
+
+                        const name = $('#ship_user_name').val().trim();
+                        if (name === '') {
+                            $('#ship_user_name').addClass('is-invalid');
+                            $('#ship_user_name').next('.invalid-feedback').remove();
+                            $('#ship_user_name').after('<div class="invalid-feedback" style="display:block;">Vui lòng nhập tên</div>');
+                            isValid = false;
+                        } else {
+                            $('#ship_user_name').removeClass('is-invalid');
+                            $('#ship_user_name').next('.invalid-feedback').remove();
+                        }
+
+                        const email = $('#ship_user_email').val().trim();
+                        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                        if (email === '' || !emailRegex.test(email)) {
+                            $('#ship_user_email').addClass('is-invalid');
+                            $('#ship_user_email').next('.invalid-feedback').remove();
+                            $('#ship_user_email').after('<div class="invalid-feedback" style="display:block;">Vui lòng nhập email hợp lệ</div>');
+                            isValid = false;
+                        } else {
+                            $('#ship_user_email').removeClass('is-invalid');
+                            $('#ship_user_email').next('.invalid-feedback').remove();
+                        }
+
+                        const phone = $('#ship_user_phone').val().trim();
+                        const phoneRegex = /^(0[1-9][0-9]{8,9})$/;
+                        if (phone === '' || !phoneRegex.test(phone)) {
+                            $('#ship_user_phone').addClass('is-invalid');
+                            $('#ship_user_phone').next('.invalid-feedback').remove();
+                            $('#ship_user_phone').after('<div class="invalid-feedback" style="display:block;">Vui lòng nhập số điện thoại hợp lệ</div>');
+                            isValid = false;
+                        } else {
+                            $('#ship_user_phone').removeClass('is-invalid');
+                            $('#ship_user_phone').next('.invalid-feedback').remove();
+                        }
+
+                        const address = $('#ship_user_address').val().trim();
+                        if (address === '') {
+                            $('#ship_user_address').addClass('is-invalid');
+                            $('#ship_user_address').next('.invalid-feedback').remove();
+                            $('#ship_user_address').after('<div class="invalid-feedback" style="display:block;">Vui lòng nhập địa chỉ</div>');
+                            isValid = false;
+                        } else {
+                            $('#ship_user_address').removeClass('is-invalid');
+                            $('#ship_user_address').next('.invalid-feedback').remove();
+                        }
+
+                        const province = $('#province').val();
+                        if (province === '') {
+                            $('#province').addClass('is-invalid');
+                            $('#province').next('.invalid-feedback').remove();
+                            $('#province').after('<div class="invalid-feedback" style="display:block;">Vui lòng chọn Tỉnh/Thành phố</div>');
+                            isValid = false;
+                        } else {
+                            $('#province').removeClass('is-invalid');
+                            $('#province').next('.invalid-feedback').remove();
+                        }
+
+                        const district = $('#district').val();
+                        if (district === '') {
+                            $('#district').addClass('is-invalid');
+                            $('#district').next('.invalid-feedback').remove();
+                            $('#district').after('<div class="invalid-feedback" style="display:block;">Vui lòng chọn Quận/Huyện</div>');
+                            isValid = false;
+                        } else {
+                            $('#district').removeClass('is-invalid');
+                            $('#district').next('.invalid-feedback').remove();
+                        }
+
+                        const ward = $('#ward').val();
+                        if (ward === '') {
+                            $('#ward').addClass('is-invalid');
+                            $('#ward').next('.invalid-feedback').remove();
+                            $('#ward').after('<div class="invalid-feedback" style="display:block;">Vui lòng chọn Phường/Xã</div>');
+                            isValid = false;
+                        } else {
+                            $('#ward').removeClass('is-invalid');
+                            $('#ward').next('.invalid-feedback').remove();
+                        }
+
+                        return isValid;
+                    }
+
+                    $('#ship_user_name, #ship_user_email, #ship_user_phone, #ship_user_address, #province, #district, #ward')
+                        .on('input change', function() {
+                            validateFields();
+                        });
 
                     $('#checkoutForm').on('submit', function (e) {
                         e.preventDefault();
 
-                        var email = $('#ship_user_email').val();
-
-                        if (!validateEmail(email)) {
-                            alert('Vui lòng nhập email hợp lệ');
+                        if (!validateFields()) {
                             return false;
                         }
 
+                        var email = $('#ship_user_email').val();
                         $('.modal-backdrop').remove();
 
                         $.ajax({
@@ -236,7 +367,15 @@
                                 emailVerificationModal.show();
                             },
                             error: function (xhr) {
-                                alert('Có lỗi xảy ra khi gửi mã xác thực');
+                                Toastify({
+                                    text: "Có lỗi xảy ra khi gửi mã xác thực!",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "#405189",
+                                    stopOnFocus: true
+                                }).showToast();
                             }
                         });
                     });
@@ -284,17 +423,34 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function (response) {
-                                alert('Mã xác thực mới đã được gửi');
+                                Toastify({
+                                    text: "Mã xác thực mới đã được gửi",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "#405189",
+                                    stopOnFocus: true
+                                }).showToast();
                             },
+
                             error: function (xhr) {
-                                alert('Có lỗi xảy ra khi gửi lại mã');
+                                Toastify({
+                                    text: "Có lỗi xảy ra khi gửi mã xác thực!",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "#405189",
+                                    stopOnFocus: true
+                                }).showToast();
                             }
                         });
                     });
                 });
 
                 $('#emailVerificationModal').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove(); // Xóa backdrop nếu có
+                    $('.modal-backdrop').remove();
                 });
 
             </script>
