@@ -333,8 +333,13 @@
                                                     <td>{{ optional($item->product)->name ? Str::limit(optional($item->product)->name, 15) : 'Not Available' }}</td>
 
                                                     
-                                                    <td>{{ optional($item->productVariant->color)->name ?? 'Not Available' }}</td>
-                                                    <td>{{ optional($item->productVariant->capacity)->name ?? 'Not Available' }}</td>
+                                                    <td>
+                                                        {{ $item->productVariant && $item->productVariant->color ? $item->productVariant->color->name : 'Not Available' }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->productVariant && $item->productVariant->capacity ? $item->productVariant->capacity->name : 'Not Available' }}
+                                                    </td>
+                                                    
 
                                                     {{-- <td>
                                                         <span class="badge bg-success-subtle text-success">{{ optional($order->status)->name }}</span>

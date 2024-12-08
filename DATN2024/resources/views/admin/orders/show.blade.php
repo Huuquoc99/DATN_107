@@ -207,7 +207,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($order->orderItems as $item)
+                                    {{-- @foreach ($order->orderItems as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
                                             <td>
@@ -257,7 +257,42 @@
                                                 {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
                                             </td>
                                         </tr>
+                                    @endforeach --}}
+
+                                    @foreach ($order->orderItems as $item)
+                                        <tr>
+                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
+                                                        @php
+                                                            $url = null;
+                                                            if (isset($item->productVariant)) {
+                                                                $url = $item->productVariant->image;
+                                                                if ($url && !Str::contains($url, 'http')) {
+                                                                    $url = \Illuminate\Support\Facades\Storage::url($url);
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        @if ($url)
+                                                            <img src="{{ $url }}" alt="Product Image" class="img-fluid d-block">
+                                                        @else
+                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" 
+                                                                alt="Không có hình ảnh nào có sẵn" 
+                                                                class="img-fluid d-block">
+                                                        @endif
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <!-- Other product details -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">{{ number_format($item->price, 0, ',', '.') }} VND</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-end">{{ number_format($item->total, 0, ',', '.') }} VND</td>
+                                        </tr>
                                     @endforeach
+
                                     <tr class="border-top border-top-dashed">
                                         <td colspan="3"></td>
                                         <td colspan="2" class="fw-medium p-0">

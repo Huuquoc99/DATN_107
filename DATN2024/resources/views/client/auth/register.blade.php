@@ -48,7 +48,7 @@
                         </span>
                     @enderror
                    
-                <input class="input form-control  @error('password') is-invalid @enderror" type="password" placeholder="Password" name="Mật  khẩu">
+                <input class="input form-control  @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
