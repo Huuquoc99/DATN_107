@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Product detail: {{ $product->name }}
+    TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Product detail</h4>
+                <h4 class="mb-sm-0">Chi tiết</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Table</a></li>
-                        <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Bảng</a></li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
                     </ol>
                 </div>
             </div>
@@ -41,14 +41,14 @@
                             </div>
                             <div class="mt-5">
                                 <div class="product-content mt-5">
-                                    <h5 class="fs-15 mb-3">Product Description:</h5>
+                                    <h5 class="fs-15 mb-3">Mô tả sản phẩm:</h5>
                                     <nav>
                                         <ul class="nav nav-tabs nav-tabs-custom nav-success" id="nav-tab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="nav-speci-tab" data-bs-toggle="tab" href="#nav-speci" role="tab" aria-controls="nav-speci" aria-selected="true">Specification</a>
+                                                <a class="nav-link active" id="nav-speci-tab" data-bs-toggle="tab" href="#nav-speci" role="tab" aria-controls="nav-speci" aria-selected="true">Đặc điểm kỹ thuật</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="nav-detail-tab" data-bs-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="false">Details</a>
+                                                <a class="nav-link" id="nav-detail-tab" data-bs-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="false">Chi tiết</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="nav-tag-tab" data-bs-toggle="tab" href="#nav-tag" role="tab" aria-controls="nav-tag" aria-selected="false">Tags</a>
@@ -61,29 +61,29 @@
                                                 <table class="table mb-0">
                                                     <tbody>
                                                     <tr>
-                                                        <th scope="row">Status</th>
+                                                        <th scope="row">Trạng thái</th>
                                                         <td>
                                                             <div>
                                                                 @if($product->is_active)
-                                                                    <span class="badge bg-primary">Active</span>
+                                                                    <span class="badge bg-primary">Hoạt động</span>
                                                                 @endif
                                                                 @if($product->is_hot_deal)
-                                                                    <span class="badge bg-danger">Hot deal</span>
+                                                                    <span class="badge bg-danger">Khuyến mãi hấp dẫn</span>
                                                                 @endif
                                                                 @if($product->is_good_deal)
-                                                                    <span class="badge bg-warning">Good deal</span>
+                                                                    <span class="badge bg-warning">Thỏa thuận tốt</span>
                                                                 @endif
                                                                 @if($product->is_new)
-                                                                    <span class="badge bg-success">New</span>
+                                                                    <span class="badge bg-success">Mới</span>
                                                                 @endif
                                                                 @if($product->is_show_home)
-                                                                    <span class="badge bg-info">Show home</span>
+                                                                    <span class="badge bg-info">Hiển thị Trang chủ</span>
                                                                 @endif
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row" style="width: 200px;">Brands</th>
+                                                        <th scope="row" style="width: 200px;">Danh mục</th>
                                                         <td>
                                                             {{ \Illuminate\Support\Str::limit($product->catalogue ? $product->catalogue->name : 'No Catalogue', 30, '...') }}
                                                         </td>
@@ -91,29 +91,29 @@
 
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Screen Size</th>
+                                                        <th scope="row">Kích thước màn hình</th>
                                                         <td>{{ $product->screen_size }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Battery</th>
+                                                        <th scope="row">Dung lượng pin</th>
                                                         <td>{{ $product->battery_capacity }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Camera</th>
+                                                        <th scope="row">Độ phân giải máy ảnh</th>
                                                         <td>{{ $product->camera_resolution }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Processor</th>
+                                                        <th scope="row">Bộ xử lý</th>
                                                         <td>{{ $product->processor }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Ram</th>
                                                         <td>{{ $product->ram }}</td>
                                                     </tr>
-                                                    <tr>
+                                                    {{-- <tr>
                                                         <th scope="row">Storage</th>
                                                         <td>{{ $product->storage }}</td>
-                                                    </tr>
+                                                    </tr> --}}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -149,13 +149,13 @@
                                     </div>
                                 </div>
 
-                                <div class="text-muted">Published :
+                                <div class="text-muted">Đã xuất bản :
                                     <span class="text-body fw-medium">
                                         <span id="invoice-date">{{ $product->created_at->format('d M, Y') }}</span>
                                         <small class="text-muted" id="invoice-time">{{ $product->created_at->format('h:iA') }}</small>
                                     </span>
                                 </div>
-                                <div class="text-muted">Updated :
+                                <div class="text-muted">Đã cập nhật :
                                     <span class="text-body fw-medium">
                                         <span id="invoice-date">{{ $product->updated_at->format('d M, Y') }}</span>
                                         <small class="text-muted" id="invoice-time">{{ $product->updated_at->format('h:iA') }}</small>
@@ -171,7 +171,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <p class="text-muted mb-1">Price</p>
+                                                    <p class="text-muted mb-1">Giá</p>
                                                     <h5 class="mb-0">{{ number_format($product->price_regular, 0, ',', '.') }} VND</h5>
                                                 </div>
                                             </div>
@@ -186,7 +186,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <p class="text-muted mb-1">Available Stock </p>
+                                                    <p class="text-muted mb-1">Hàng có sẵn </p>
                                                     <h5 class="mb-0">{{ $totalQuantity }}</h5>
                                                 </div>
                                             </div>
@@ -201,7 +201,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <p class="text-muted mb-1">Total Revenue</p>
+                                                    <p class="text-muted mb-1">Tổng doanh thu</p>
                                                     <h5 class="mb-0">$60,645</h5>
                                                 </div>
                                             </div>
@@ -218,7 +218,7 @@
                                         </p>
                                         <p class="text-muted">
                                             <i class="bx bx-shape-triangle font-size-20 align-middle text-primary me-1"></i>
-                                            <b>Catalogue:</b>
+                                            <b>Danh mục:</b>
                                             {{ \Illuminate\Support\Str::limit($product->catalogue->name ?? 'N/A', 30, '...') }}
                                         </p>
 
@@ -226,20 +226,20 @@
                                 </div>
 
                                 <div class="mt-2 text-muted">
-                                    <h5 class="fs-14">Short description :</h5>
+                                    <h5 class="fs-14">Mô tả ngắn gọn :</h5>
                                     <p>{{$product->short_description}}</p>
                                 </div>
 
                                 <div class="product-color">
-                                    <h5 class="fs-15">Product Variant:</h5>
+                                    <h5 class="fs-15">Biến thể sản phẩm:</h5>
                                     <table class="table table-bordered text-center">
                                         <thead>
                                         <tr>
-                                            <th>Capacity</th>
-                                            <th>Color</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Image</th>
+                                            <th>Dung lượng</th>
+                                            <th>Màu sắc</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Hình ảnh</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -271,16 +271,16 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-start align-items-center">
                         <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary me-2">
-                            <i class="bx bx-edit me-1"></i> Product edit
+                            <i class="bx bx-edit me-1"></i> Chỉnh sửa
                         </a>
                         <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">
-                                <i class="bx bx-trash me-1"></i> Product delete
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                                <i class="bx bx-trash me-1"></i> Xoá
                             </button>
                         </form>
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
             </div>

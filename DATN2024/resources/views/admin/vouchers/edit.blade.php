@@ -9,8 +9,8 @@ Voucher
                 <h4 class="mb-sm-0">Voucher </h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Chỉnh sửa</li>
                     </ol>
                 </div>
             </div>
@@ -23,28 +23,28 @@ Voucher
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Voucher edit</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Tên</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{$voucher->name}}">
                                         @error('name')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div>
-                                        <label for="quantity" class="form-label">Quantity</label>
+                                        <label for="quantity" class="form-label">Số lượng</label>
                                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" id="quantity" value="{{$voucher->quantity}}">
                                         @error('quantity')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="date-datepicker" class="form-label">Expiration Date</label>
+                                        <label for="date-datepicker" class="form-label">Ngày hết hạn</label>
                                         <input type="date" id="date-datepicker" class="form-control @error('expiration_date') is-invalid @enderror" name="expiration_date" placeholder="Select date" value="{{\Carbon\Carbon::parse($voucher->expiration_date)->format('Y-m-d')}}">
                                         @error('expiration_date')
                                             <p class="text-danger">{{ $message }}</p>
@@ -53,7 +53,7 @@ Voucher
                                     <div class="mt-4">
                                         @php
                                             $is = [
-                                                'is_active' => ['name' => 'Active', 'color' => 'primary'],
+                                                'is_active' => ['name' => 'Hoạt động', 'color' => 'primary'],
                                             ];
                                         @endphp
                                         @foreach($is as $key => $value)
@@ -78,14 +78,14 @@ Voucher
                                         @enderror
                                     </div>
                                     <div>
-                                        <label for="discount" class="form-label">Discount</label>
+                                        <label for="discount" class="form-label">Giảm giá</label>
                                         <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" id="discount" value="{{$voucher->discount}}">
                                         @error('discount')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="description" class="form-label">Description</label>
+                                        <label for="description" class="form-label">Mô tả</label>
                                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="2">{{$voucher->description}}</textarea>
                                         @error('description')
                                             <p class="text-danger">{{ $message }}</p>
@@ -103,7 +103,7 @@ Voucher
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Voucher edit 
+                        <button class="btn btn-primary">Chỉnh sửa
                             <i class="fa-regular fa-pen-to-square fa-sm"></i>
                         </button>
                     </div>

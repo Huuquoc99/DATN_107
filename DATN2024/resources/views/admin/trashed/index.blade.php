@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Trashed')
+@section('title', 'TechStore')
 
 @section('content')
 
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Trashed</h4>
+                <h4 class="mb-sm-0">Thùng rác</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Trashed list</h5>
+                    <h5 class="card-title mb-0">Thùng rác</h5>
                 </div>
 
                 <div class="card-body">
@@ -42,10 +42,10 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Delete at</th>
-                                <th>Action</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên</th>
+                                <th>Ngày xoá</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -95,8 +95,8 @@
                                          
                                             <form action="{{ route('admin.restore', $item) }}" method="post">
                                                 @csrf
-                                                <button onclick="return confirm('Are you sure you want to restore?')" type="submit" class="btn btn-danger btn-sm">
-                                                    Restore 
+                                                <button onclick="return confirm('Bạn có chắc chắn muốn khôi phục không?')" type="submit" class="btn btn-danger btn-sm">
+                                                    Khôi phục 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </button>
                                             </form>
@@ -109,7 +109,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $trashed->firstItem() }} to {{ $trashed->lastItem() }} of {{ $trashed->total() }} trashed</p>
+                                <p>Hiển thị từ {{ $trashed->firstItem() }} đến {{ $trashed->lastItem() }} trong tổng số {{ $trashed->total() }} sản phẩm</p>
                             </div>
                             <div>
                                 {{ $trashed->links() }}

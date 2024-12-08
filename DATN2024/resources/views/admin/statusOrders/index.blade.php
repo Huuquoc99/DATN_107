@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Status order ')
+@section('title', 'TechStore')
 
 @section('content')
 
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Status order </h4>
+                <h4 class="mb-sm-0">Trạng thái đơn hàng</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">List  </li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -23,9 +23,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Status Order list</h5>
+                    <h5 class="card-title mb-0">Danh sách </h5>
                     <a href="{{ route('admin.statusOrders.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
                 
@@ -47,12 +47,12 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Code</th>
-                                <th>Name</th>
-                                <th>Display order</th>
-                                <th>Active</th>
-                                <th>Create at</th>
-                                <th>Update at</th>
-                                <th>Action</th>
+                                <th>Tên</th>
+                                <th>Thứ tự hiển thị</th>
+                                <th>Hoạt động</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -105,7 +105,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $listStatusOrder->firstItem() }} to {{ $listStatusOrder->lastItem() }} of {{ $listStatusOrder->total() }} status orders</p>
+                                <p>Hiển thị từ {{ $listStatusOrder->firstItem() }} đến {{ $listStatusOrder->lastItem() }} trong tổng số {{ $listStatusOrder->total() }} trạng thái đơn hàng</p>
                             </div>
                             <div>
                                 {{ $listStatusOrder->links() }}

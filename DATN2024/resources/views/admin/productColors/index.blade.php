@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Product color ')
+@section('title', 'TechStore ')
 
 @section('content')
 
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Product color </h4>
+                <h4 class="mb-sm-0">Màu sắc </h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">  List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">  Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -23,9 +23,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Product color list</h5>
+                    <h5 class="card-title mb-0">Màu sắc</h5>
                     <a href="{{ route('admin.productColors.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
                 <div class="card-body">
@@ -44,12 +44,12 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Color code</th>
-                                <th>Status</th>
-                                <th>Create at</th>
-                                <th>Update at</th>
-                                <th>Action</th>
+                                <th>Tên</th>
+                                <th>Mã màu</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -73,13 +73,13 @@
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.productColors.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
+                                                <a href="{{ route('admin.productColors.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                                 <form action="{{ route('admin.productColors.destroy', $item) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Delete 
+                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Xoá 
                                                         <i class="fa-solid fa-delete-left fa-sm"></i>
                                                     </button>
                                                 </form>
@@ -91,7 +91,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $listProductColor->firstItem() }} to {{ $listProductColor->lastItem() }} of {{ $listProductColor->total() }} product colors</p>
+                                <p>Hiển thị từ {{ $listProductColor->firstItem() }} đến {{ $listProductColor->lastItem() }} trong tổng số {{ $listProductColor->total() }} màu sắc</p>
                             </div>
                             <div>
                                 {{ $listProductColor->links() }}

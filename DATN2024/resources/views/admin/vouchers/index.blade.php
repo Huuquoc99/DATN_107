@@ -20,9 +20,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Voucher list</h5>
+                    <h5 class="card-title mb-0">Danh sách </h5>
                     <a href="{{ route('admin.vouchers.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
                 
@@ -40,14 +40,14 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Code</th>
-                                <th>Name</th>
-                                <th>Discount</th>
-                                <th>Active</th>
-                                <th>Used Quantity/Quantity</th>
-                                <th>Expiration Date</th>
-                                <th>Create at</th>
-                                <th>Update at</th>
-                                <th>Action</th>
+                                <th>Tên</th>
+                                <th>Giảm giá</th>
+                                <th>Hoạt động</th>
+                                <th>Số lượng đã sử dụng/Số lượng</th>
+                                <th>Ngày hết hạn</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -64,20 +64,35 @@
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                         <td>{{ $item->used_quantity }} / {{ $item->quantity }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->expiration_date)->format('Y-m-d') }}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        <td>
+                                            @if($item->created_at)
+                                                <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                            @else
+                                                <span class="text-muted">N/A</span>
+                                            @endif
+                                        </td>
+                                        
+                                        <td>
+                                            @if($item->updated_at)
+                                                <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                            @else
+                                                <span class="text-muted">N/A</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
                                                 {{-- <a href="{{ route('admin.vouchers.show', $item) }}" class="btn btn-info btn-sm">Show 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a> --}}
-                                                <a href="{{ route('admin.vouchers.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
+                                                <a href="{{ route('admin.vouchers.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                                 <form action="{{ route('admin.vouchers.destroy', $item) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Delete 
+                                                    <button onclick="return confirm('Bạn có chắn chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Xoá 
                                                         <i class="fa-solid fa-delete-left fa-sm"></i>
                                                     </button>
                                                 </form>
