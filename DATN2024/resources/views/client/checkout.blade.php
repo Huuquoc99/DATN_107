@@ -148,16 +148,19 @@
                                     <tbody>
                                     @if(Auth::check())
                                         <tr>
+                                            <input type="hidden" name="subtotal" value="{{$subtotal}}">
                                             <th>SUBTOTAL</th>
                                             <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                         @if ($voucher)
                                             <tr>
+                                                <input type="hidden" name="voucher" value="{{$voucher->discount}}">
                                                 <th>GIẢM GIÁ</th>
                                                 <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
                                             </tr>
                                         @endif
                                         <tr>
+                                            <input type="hidden" name="total" value="{{$subtotal - ($voucher ? $voucher->discount : 0)}}">
                                             <th>TOTAL</th>
                                             <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
                                         </tr>

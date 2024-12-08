@@ -207,7 +207,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($order->orderItems as $item)
+                                    @foreach ($order->orderItems as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
                                             <td>
@@ -257,9 +257,9 @@
                                                 {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
 
-                                    @foreach ($order->orderItems as $item)
+                                    {{-- @foreach ($order->orderItems as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
                                             <td>
@@ -287,11 +287,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center">{{ number_format($item->price, 0, ',', '.') }} VND</td>
+                                            <td class="text-center">{{ number_format($item->product_price_regular, 0, ',', '.') }} VND</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
                                             <td class="text-end">{{ number_format($item->total, 0, ',', '.') }} VND</td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
 
                                     <tr class="border-top border-top-dashed">
                                         <td colspan="3"></td>
@@ -299,7 +299,7 @@
                                             <table class="table table-borderless mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <td>Sub Total :</td>
+                                                        <td>Tổng cộng :</td>
                                                         <td class="text-end">
                                                             {{ number_format($item->order->total_price, 0, '.', ',') }} VND
                                                         </td>

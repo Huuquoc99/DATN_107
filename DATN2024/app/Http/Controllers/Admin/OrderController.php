@@ -104,7 +104,7 @@ class OrderController extends Controller
             $lastUpdated = $order->updated_at;
             $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
-            if ($timeElapsed !== null && $timeElapsed <= 10) {
+            if ($timeElapsed !== null && $timeElapsed <= 1) {
                 return false;
             }
         }
@@ -137,26 +137,20 @@ class OrderController extends Controller
                     }
 
                     // Bổ sung quy tắc hủy đơn hàng trong vòng 10 phút kể từ khi thành công
-//                    if ($currentStatus == 4 && $value == 5) {
-//                        $lastUpdated = $order->updated_at;
-//                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
-//
-//                        if ($timeElapsed !== null && $timeElapsed <= 10) {
-//                            $fail('Cannot change status to Canceled within 10 minutes of success.');
-//                        }
-//                    }
+                   if ($currentStatus == 4 && $value == 5) {
+                       $lastUpdated = $order->updated_at;
+                       $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+
+                       if ($timeElapsed !== null && $timeElapsed <= 1) {
+                           $fail('Cannot change status to Canceled within 10 minutes of success.');
+                       }
+                   }
 
                     // Kiểm tra xem thanh toán có thất bại hay không: Chỉ cho phép hủy
                     if ($order->status_payment_id == '3' && !in_array($value, [6])) { // 6 = Canceled
                         $fail('Không thể cập nhật đơn hàng vì thanh toán không thành công. Chỉ được phép hủy bỏ.');
                     }
 
-                    // Kiểm tra xem đơn hàng có phải là COD hay không và người dùng xác nhận đã nhận là đã thanh toán
-                    if ($order->payment_method_id == '1' && $value == 5) {
-                        if ($order->status_order_id != '5') {
-                            $fail('Không thể xác nhận đơn là "Hoàn thành" khi người dùng chưa xác nhận đơn hàng!');
-                        }
-                    }
                 }
             ]
         ]);

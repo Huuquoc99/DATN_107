@@ -258,7 +258,8 @@ class CheckoutController extends Controller
     public function processCheckout(Request $request)
     {
 
-//        dd(session('voucher'));
+    //    dd(session('voucher'));
+    // dd($request->all());
 
         $province_code = $request->province;
         $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
