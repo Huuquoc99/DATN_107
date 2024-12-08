@@ -1,15 +1,14 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <div class="mb-4 mt-4 pb-4"></div>
-    <section class="shop-checkout container" style="margin-bottom: 40px;margin-top:55px;">
-        <div id="delete-success"></div>
-        <div class="shopping-cart">
-            @include('client.components.breadcrumb', [
+    <div class="breadcrumb">
+    <section class="shop-checkout container">
+        @include('client.components.breadcrumb', [
                         'breadcrumbs' => [
                             ['label' => 'Giỏ hàng', 'url' => '/cart/list']
                         ]
                     ])
+        <div class="shopping-cart">
             @if (count($unifiedCart) > 0)
                 <div class="cart-table__wrapper">
                     <table class="cart-table">
@@ -81,27 +80,8 @@
                     </table>
                 </div>
 
-
-
                 <div class="shopping-cart__totals-wrapper ">
                     <div class="sticky-content">
-                        {{-- <div class="shopping-cart__totals"
-                            style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; background-color: #f9f9f9; max-width: 400px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                            <h3 style="font-size: 24px; margin-bottom: 20px; text-align: center; color: #333;">Cart Totals
-                            </h3>
-                            <div
-                                style="display: flex; justify-content: flex-start; padding: 10px 0; border-bottom: 1px solid #ddd;">
-                                <span style="font-weight: normal; color: #555;">Subtotal :</span>
-                                <span id="totalAmount" style="color: #333; padding-left: 10px;">11111111111111111111
-                                    VND</span>
-                            </div>
-                            <div style="display: flex;  justify-content: flex-start; padding: 10px 0; color: red;">
-                                <span style="font-weight: normal;">Total :</span>
-                                <span id="finalTotal"
-                                    style="font-weight: bold;padding-left: 32px; color: red;">111111111111111111111
-                                    VND</span>
-                            </div>
-                        </div> --}}
                         <div class="mb-3 pb-3 border-bottom">
                             <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
                             <div class="input-group">
@@ -128,31 +108,49 @@
             @endif
         </div>
     </section>
+    </div>
 
 @endsection
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#apply-voucher').on('click', function() {
+            $('#apply-voucher').on('click', function(e) {
+                e.preventDefault(); // Ngăn form submit mặc định
+
                 var voucherCode = $('#voucher-code-input').val();
-                console.log('Voucher Code:', voucherCode);
+                $('#error-message-add-voucher').removeClass('d-block').addClass('d-none'); // Ẩn thông báo cũ
+                if (!voucherCode) {
+                    $('#error-message-add-voucher').removeClass('d-none').addClass('d-block');
+                    $('#error-message-add-voucher').text('Please enter a voucher code.');
+                    return;
+                }
+
                 $.ajax({
                     url: '/apply-voucher',
                     method: 'POST',
                     data: {
-                        code: voucherCode
+                        code: voucherCode,
+                        _token: '{{ csrf_token() }}' // Gửi CSRF token để bảo mật
                     },
                     success: function(response) {
-                        $('#error-message-add-voucher').removeClass('d-none').addClass('d-block');
-                        $('#error-message-add-voucher').removeClass('invalid-feedback').addClass('valid-feedback');
-                        $('#error-message-add-voucher').text('add voucher successfully');
+                        $('#error-message-add-voucher').removeClass('d-none invalid-feedback').addClass('d-block valid-feedback');
+                        $('#error-message-add-voucher').text('Voucher applied successfully!');
+                        // Cập nhật lại giao diện (tổng tiền, chiết khấu, v.v.)
+                        location.reload(); // Tải lại trang để áp dụng thay đổi
                     },
                     error: function(error) {
-                        $('#error-message-add-voucher').removeClass('d-none').addClass('d-block');
-                        $('#error-message-add-voucher').text(error.responseJSON.message);
+                        $('#error-message-add-voucher').removeClass('d-none').addClass('d-block invalid-feedback');
+                        if (error.responseJSON && error.responseJSON.message) {
+                            $('#error-message-add-voucher').text(error.responseJSON.message);
+                        } else {
+                            $('#error-message-add-voucher').text('An error occurred. Please try again.');
+                        }
                     }
                 });
             });
         });
     </script>
+
+
+
 @endsection

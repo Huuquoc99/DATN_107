@@ -1,11 +1,14 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <main>
-        <div class="mb-4 pb-4"></div>
-        <section class="shop-checkout container">
-            <h2 class="page-title">Vận chuyển và Thanh toán</h2>
-
+    <div class="breadcrumb">
+        <div class="shop-checkout container">
+            @include('client.components.breadcrumb', [
+                   'breadcrumbs' => [
+                       ['label' => 'Giỏ hàng', 'url' => null],
+                       ['label' => 'Thanh toán', 'url' => null],
+                   ]
+               ])
             <form action="{{ route('checkout.process') }}" method="POST">
                 @csrf
                 <div class="checkout-form">
@@ -115,56 +118,53 @@
                                         <th>GIÁ</th>
                                     </thead>
                                     <tbody>
-                                    @if(Auth::check())
-                                        @foreach ($cartItems as $item)
-                                            <tr>
-                                                <td>{{ $item->productVariant->product->name }} x {{ $item->quantity }}</td>
-                                                <td>{{ $item->productVariant->capacity->name }}</td>
-                                                <td>{{ $item->productVariant->color->name }}</td>
-                                                <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        @foreach ($guest_cart as $item)
-                                                <tr>
-                                                <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
-                                                <td>{{ $item['capacity'] }}</td>
-                                                <td>{{ $item['color'] }}</td>
-                                                <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                    @php
+                                        $subtotal = 0;
+                                    @endphp
+                                    @foreach ($cartItems as $item)
+                                        @php
+                                            $subtotal += $item->price * $item->quantity;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $item->productVariant->product->name }} x {{ $item->quantity }}</td>
+                                            <td>{{ $item->productVariant->capacity->name }}</td>
+                                            <td>{{ $item->productVariant->color->name }}</td>
+                                            <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
+                                    <div class="mb-3 pb-3 border-bottom">
+                                        <div class="fw-medium mb-2">VOUCHER</div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
+                                            <button type="button" class="btn btn-dark" id="apply-voucher">Apply</button>
+                                        </div>
+                                        <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
+                                            The voucher code is invalid or has expired.
+                                        </div>
+                                    </div>
                                 </table>
                                 <table class="checkout-totals">
                                     <tbody>
                                     @if(Auth::check())
                                         <tr>
-                                            <th>TỔNG CỘNG</th>
-                                            <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
+                                            <th>SUBTOTAL</th>
+                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                         @if ($voucher)
                                             <tr>
                                                 <th>GIẢM GIÁ</th>
                                                 <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
-                                            <tr>
+                                            </tr>
                                         @endif
                                         <tr>
-                                            <th>TỔNG</th>
-                                            <td>{{ number_format($item->price * $item->quantity - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <th>TỔNG CỘNG</th>
-                                            <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
-                                        </tr>
-                                        <tr>
-                                            <th>TỔNG</th>
-                                            <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VNĐ</td>
+                                            <th>TOTAL</th>
+                                            <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                     @endif
                                     </tbody>
                                 </table>
+
                             </div>
                             <div class="checkout__payment-methods">
                                 @foreach ($paymentMethods as $method)
@@ -188,10 +188,39 @@
                 </div>
             </form>
         </section>
-    </main>
+        </div>
 @endsection
 
 @section('api-address')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#apply-voucher').on('click', function(event) {
+                event.preventDefault();
+                var voucherCode = $('#voucher-code-input').val();
+
+                $.ajax({
+                    url: '/apply-voucher',
+                    method: 'POST',
+                    data: {
+                        code: voucherCode,
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        $('#error-message-add-voucher')
+                            .removeClass('d-none')
+                            .addClass('d-block')
+                            .removeClass('valid-feedback')
+                            .addClass('invalid-feedback')
+                            .text(xhr.responseJSON.message);
+                    }
+                });
+            });
+        });
+
+    </script>
     <script>
         function fetchDistricts(provinceId) {
             if (!provinceId) {
@@ -240,5 +269,5 @@
                 });
         }
 
-    </script>
+            </script>
 @endsection

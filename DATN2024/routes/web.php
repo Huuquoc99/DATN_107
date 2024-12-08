@@ -99,6 +99,12 @@ Route::get('order/wards/{districtId}', [CheckoutController::class, 'getWards']);
 Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
 Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
 Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
+Route::post('/guest-checkout/repayment', [CheckoutController::class, 'repaymentForGuest'])->name('guest.repayment');
+Route::post('/send-verification-code', [CheckoutController::class, 'sendVerificationCode'])
+    ->name('send-verification-code');
+Route::post('/verify-email-code', [CheckoutController::class, 'verifyEmailCode'])
+    ->name('verify-email-code');
+
 
 Route::middleware('auth', 'checkUserMiddleware')->group(function () {
     // Route::middleware('auth')->group(function () {

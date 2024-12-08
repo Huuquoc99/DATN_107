@@ -188,4 +188,5 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Unable to pay order.');
         }
     }
+
 }
