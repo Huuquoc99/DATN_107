@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Banner')
+@section('title', 'TechStore')
 
 @section('content')
 
@@ -11,8 +11,8 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active"> List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active"> Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -23,9 +23,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Banner list</h5>
+                    <h5 class="card-title mb-0">Danh sách banner</h5>
                     <a href="{{ route('admin.banners.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
 
@@ -45,12 +45,12 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Active</th>
-                                <th>Create at</th>
-                                <th>Update at</th>
-                                <th>Action</th>
+                                <th>Hình ảnh</th>
+                                <th>Tiêu đề</th>
+                                <th>Hoạt động</th>
+                                <th> Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -70,7 +70,7 @@
                                                 {{ \Illuminate\Support\Str::limit($item->title, 15, '...') }}
                                             </a>
                                         </td>
-                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
+                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">Hoạt động</span>' : '<span class="badge bg-danger">Không hoạt động</span>' !!}</td>
                                         <td>
                                             <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
@@ -81,16 +81,16 @@
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">Show 
+                                                <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">Chi tiết 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>
-                                                <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
+                                                <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                                 <form action="{{ route('admin.banners.destroy', $item) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Delete 
+                                                    <button onclick="return confirm('Bạn có chắc chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Xoá 
                                                         <i class="fa-solid fa-delete-left fa-sm"></i>
                                                     </button>
                                                 </form>
@@ -102,7 +102,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $listBanner->firstItem() }} to {{ $listBanner->lastItem() }} of {{ $listBanner->total() }} banners</p>
+                                <p>Hiển thị từ {{ $listBanner->firstItem() }} đến {{ $listBanner->lastItem() }} trong tổng số {{ $listBanner->total() }} baner</p>
                             </div>
                             <div>
                                 {{ $listBanner->links() }}

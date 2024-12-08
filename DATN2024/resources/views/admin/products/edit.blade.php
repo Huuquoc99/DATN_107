@@ -2,19 +2,19 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Product
+    TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Product</h4>
+                <h4 class="mb-sm-0">Sản phẩm</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);"> Table</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);"> Bảng</a></li>
+                        <li class="breadcrumb-item active">Chỉnh sửa</li>
                     </ol>
                 </div>
 
@@ -29,14 +29,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Product edit</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-5">
                                     <div>
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Tên</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ $product->name }}">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="mt-3">
-                                        <label for="price_regular" class="form-label">Price Regular</label>
+                                        <label for="price_regular" class="form-label">Giá thường</label>
                                         <input type="number" value="{{ $product->price_regular }}" class="form-control @error('price_regular') is-invalid @enderror" name="price_regular" id="price_regular">
                                         @error('price_regular')
                                             <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="price_sale" class="form-label">Price Sale</label>
+                                        <label for="price_sale" class="form-label">Giá khuyến mãi</label>
                                         <input type="number" value="{{ $product->price_sale }}" class="form-control @error('price_sale') is-invalid @enderror" name="price_sale" id="price_sale">
                                         @error('price_sale')
                                             <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="catalogue_id " class="form-label">Catalogues</label>
+                                        <label for="catalogue_id " class="form-label">Danh mục</label>
                                         <select type="text" class="form-select @error('catalogue_id') is-invalid @enderror" name="catalogue_id" id="catalogue_id">
                                             @foreach($catalogues as $id => $name)
                                                 <option
@@ -81,7 +81,7 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="img_thumbnail" class="form-label">Image</label>
+                                        <label for="img_thumbnail" class="form-label">Hình ảnh</label>
 
                                         <input type="file" class="form-control mb-3 @error('img_thumbnail') is-invalid @enderror" name="img_thumbnail" id="img_thumbnail">
                                         @if($product->img_thumbnail)
@@ -96,7 +96,7 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3">
-                                        <label for="processor" class="form-label">Processor</label>
+                                        <label for="processor" class="form-label">Bộ xử lý</label>
                                         <input type="text" class="form-control @error('processor') is-invalid @enderror" name="processor" id="processor" value="{{ $product->processor }}">
                                         @error('processor')
                                             <span class="invalid-feedback" role="alert">
@@ -115,7 +115,7 @@
                                     </div>
 
                                     <div class="mt-3">
-                                        <label for="short_description" class="form-label">Short description</label>
+                                        <label for="short_description" class="form-label">Mô tả ngắn gọn</label>
                                         <textarea class="form-control" name="short_description" id="short_description" rows="2">{{ $product->short_description }}</textarea>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                             @enderror
                                         </div>
                                         <div class="mt-3">
-                                            <label for="screen_size" class="form-label">Screen size</label>
+                                            <label for="screen_size" class="form-label">Kích thước màn hình</label>
                                             <input type="text" class="form-control @error('screen_size') is-invalid @enderror" name="screen_size" id="screen_size" value="{{ $product->screen_size }}">
                                             @error('screen_size')
                                                 <span class="invalid-feedback" role="alert">
@@ -140,7 +140,7 @@
                                             @enderror
                                         </div>
                                         <div class="mt-3">
-                                            <label for="operating_system" class="form-label">Operating system</label>
+                                            <label for="operating_system" class="form-label">Hệ điều hành</label>
                                             <input type="text" class="form-control @error('operating_system') is-invalid @enderror" name="operating_system" id="operating_system" value="{{ $product->operating_system }}">
                                             @error('operating_system')
                                                 <span class="invalid-feedback" role="alert">
@@ -149,7 +149,7 @@
                                             @enderror
                                         </div>
                                         <div class="mt-3">
-                                            <label for="battery_capacity" class="form-label">Battery capacity</label>
+                                            <label for="battery_capacity" class="form-label">Dung lượng pin</label>
                                             <input type="text" class="form-control @error('battery_capacity') is-invalid @enderror" name="battery_capacity" id="battery_capacity" value="{{ $product->battery_capacity }}">
                                             @error('battery_capacity')
                                                 <span class="invalid-feedback" role="alert">
@@ -159,7 +159,7 @@
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="camera_resolution" class="form-label">Camera resolution</label>
+                                            <label for="camera_resolution" class="form-label">Độ phân giải của máy ảnh</label>
                                             <input type="text" class="form-control @error('camera_resolution') is-invalid @enderror" name="camera_resolution" id="camera_resolution" value="{{ $product->camera_resolution }}">
                                             @error('camera_resolution')
                                                 <span class="invalid-feedback" role="alert">
@@ -169,7 +169,7 @@
                                         </div>
 
                                         <div class="mt-3">
-                                            <label for="network_connectivity" class="form-label">Network connectivity</label>
+                                            <label for="network_connectivity" class="form-label">Kết nối mạng</label>
                                             <input type="text" class="form-control @error('network_connectivity') is-invalid @enderror" name="network_connectivity" id="network_connectivity" value="{{ $product->network_connectivity }}">
                                             @error('network_connectivity')
                                                 <span class="invalid-feedback" role="alert">
@@ -178,7 +178,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="mt-3">
+                                        {{-- <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
                                             <input type="text" class="form-control @error('storage') is-invalid @enderror" name="storage" id="storage" value="{{ $product->storage }}">
                                             @error('storage')
@@ -186,9 +186,9 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
                                         <div class="mt-3">
-                                            <label for="sim_type" class="form-label">Sim type</label>
+                                            <label for="sim_type" class="form-label">Loại sim</label>
                                             <input type="text" class="form-control @error('sim_type') is-invalid @enderror" name="sim_type" id="sim_type" value="{{ $product->sim_type }}">
                                             @error('sim_type')
                                                 <span class="invalid-feedback" role="alert">
@@ -200,11 +200,11 @@
                                             <div class="row">
                                                 @php
                                                     $is = [
-                                                        'is_active' => ['name' => 'Active', 'color' => 'primary'],
-                                                        'is_hot_deal' => ['name' => 'Hot deal', 'color' => 'danger'],
-                                                        'is_good_deal' => ['name' => 'Good deal', 'color' => 'warning'],
-                                                        'is_new' => ['name' => 'New', 'color' => 'success'],
-                                                        'is_show_home' => ['name' => 'Show home', 'color' => 'info'],
+                                                        'is_active' => ['name' => 'Hoạt động', 'color' => 'primary'],
+                                                        'is_hot_deal' => ['name' => 'Khuyến mãi hấp dẫn', 'color' => 'danger'],
+                                                        'is_good_deal' => ['name' => 'Thỏa thuận tốt', 'color' => 'warning'],
+                                                        'is_new' => ['name' => 'Mới', 'color' => 'success'],
+                                                        'is_show_home' => ['name' => 'Hiển thị Trang chủ', 'color' => 'info'],
                                                     ];
                                                 @endphp
 
@@ -225,7 +225,7 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <label for="description" class="form-label">Description</label>
+                                <label for="description" class="form-label">Mô tả</label>
                                 <textarea class="form-control" name="description" id="content"
                                           rows="2">{!! $product->description !!}</textarea>
                             </div>
@@ -241,7 +241,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Variant</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Biến thể</h4>
                         <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
 
                     </div><!-- end card header -->
@@ -251,12 +251,12 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="variant-table">
                                         <tr class="text-center">
-                                            <th>Capacity</th>
-                                            <th>Color</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Image</th>
-                                            <th></th>
+                                            <th>Dung lượng</th>
+                                            <th>Màu sắc</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Hành động</th>
                                         </tr>
 
                                         @php
@@ -420,8 +420,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Gallery</h4>
-                        <button type="button" class="btn btn-primary" onclick="addImageGallery()">Create</button>
+                        <h4 class="card-title mb-0 flex-grow-1">Bộ sưu tập</h4>
+                        <button type="button" class="btn btn-primary" onclick="addImageGallery()">Thêm mới</button>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
@@ -429,7 +429,7 @@
                                 @if(count($product->galleries) > 0)
                                     @foreach($product->galleries as $item)
                                         <div class="col-md-4" id="storage_{{ $item->id }}_item">
-                                            <label for="gallery_default" class="form-label">Image</label>
+                                            <label for="gallery_default" class="form-label">Hình ảnh</label>
                                             <div>
                                                 <div class="d-flex">
                                                     <input type="file" class="form-control me-3" name="product_galleries[]" id="gallery_default">
@@ -444,7 +444,7 @@
                                     @endforeach
                                 @else
                                     <div class="col-md-4" id="gallery_default_item">
-                                        <label for="gallery_default" class="form-label">Image</label>
+                                        <label for="gallery_default" class="form-label">Hình ảnh</label>
                                         <div class="d-flex">
                                             <input type="file" class="form-control" name="product_galleries[]"
                                                    id="gallery_default">
@@ -466,7 +466,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">More information</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Thông tin thêm</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
@@ -495,7 +495,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Product edit
+                        <button class="btn btn-primary">Chỉnh sửa
                             <i class="fa-regular fa-pen-to-square fa-sm"></i>
                         </button>
                     </div>

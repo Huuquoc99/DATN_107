@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Tag')
+@section('title', 'TechStore')
 
 @section('content')
     <div class="row">
@@ -10,8 +10,8 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -22,9 +22,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Tag list</h5>
+                    <h5 class="card-title mb-0">Danh sách</h5>
                     <a href="{{ route('admin.tags.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
 
@@ -43,12 +43,12 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th>Created at</th>
-                                <th>Updated at</th>
-                                <th>Action</th>
+                                <th>Tên</th>
+                                <th>Mô tả</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -73,13 +73,13 @@
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
                                             <a href="{{ route('admin.tags.edit', $item) }}"
-                                               class="btn btn-primary btn-sm">Edit <i
+                                               class="btn btn-primary btn-sm">Chỉnh sửa <i
                                                     class="fa-regular fa-pen-to-square fa-sm"></i></a>
                                             <form action="{{ route('admin.tags.destroy', $item) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Are you sure you want to delete?')" type="submit"
-                                                        class="btn btn-danger btn-sm">Delete <i
+                                                <button onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" type="submit"
+                                                        class="btn btn-danger btn-sm">Xoá <i
                                                         class="fa-solid fa-delete-left fa-sm"></i>
                                                 </button>
                                             </form>
@@ -91,7 +91,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} tags</p>
+                                <p>Hiển thị từ {{ $data->firstItem() }} đến {{ $data->lastItem() }} trong tổng số {{ $data->total() }} tag</p>
                             </div>
                             <div>
                                 {{ $data->links() }}

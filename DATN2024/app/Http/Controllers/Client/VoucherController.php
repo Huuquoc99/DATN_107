@@ -25,7 +25,7 @@ class VoucherController extends Controller
         if (!$voucher) {
             return response()->json(['message' => 'Coupon code does not exist'], 404);
         }
-        
+
         if ($voucher->used_quantity >= $voucher->quantity) {
             return response()->json(['message' => 'Coupon code has expired'], 404);
         }

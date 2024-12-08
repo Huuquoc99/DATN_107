@@ -4520,7 +4520,7 @@ progress {
 }
 
 .text-success {
-    color: #def2d7 !important;
+    color: #86bc42 !important;
 }
 
 .text-info {
@@ -17191,11 +17191,49 @@ textarea.form-control.is-invalid {
 
 .navigation__list {
     margin-bottom: 0;
+   
+    
+}
+.swatch-color {
+    border: 1px solid black; /* Viền bình thường */
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
 }
 
+.swatch_color:hover {
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.5); /* Hiệu ứng viền lớn hơn khi hover */
+}
+
+.swatch_active {
+    border: 3px solid black; /* Viền lớn hơn khi đã được chọn */
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.5); /* Hiệu ứng viền lớn hơn khi đã chọn */
+}
+
+.card0 {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card0:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card0 h4 {
+    font-size: 20px;
+    color: #333;
+}
+
+.card0 a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.card0 a:hover {
+    text-decoration: underline;
+}
 @media (min-width: 992px) {
     .navigation__item {
-        margin: 0 5px;
+       
     }
     .navigation__item:hover::before {
         display: block;
@@ -17209,7 +17247,7 @@ textarea.form-control.is-invalid {
 }
 
 .navigation__link {
-    display: inline-block;
+    display: flex;
     position: relative;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -17402,7 +17440,7 @@ textarea.form-control.is-invalid {
     /* display: none; */
     background-color: #ffffff;
     z-index: 2;
-    height: 154px;
+    height: 171px;
 }
 .header .form-select {
     border: 0;

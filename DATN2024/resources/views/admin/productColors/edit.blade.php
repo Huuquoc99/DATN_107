@@ -2,19 +2,19 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Product color 
+TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Product color </h4>
+                <h4 class="mb-sm-0">Màu sắc</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table </a></li>
-                        <li class="breadcrumb-item active">Edit  </li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng </a></li>
+                        <li class="breadcrumb-item active">Chỉnh sửa  </li>
                     </ol>
                 </div>
 
@@ -29,14 +29,14 @@ Product color
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Product color edit</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Tên</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                                                value="{{ $productColor->name }}">
                                         @error('name')
@@ -50,7 +50,7 @@ Product color
                                         <div class="mt-4">
                                             @php
                                                 $is = [
-                                                    'is_active' => ['name' => 'Active ', 'color' => 'primary'],
+                                                    'is_active' => ['name' => 'Hoạt động ', 'color' => 'primary'],
                                                 ];
                                             @endphp
                                             @foreach($is as $key => $value)
@@ -69,7 +69,7 @@ Product color
                                 <div class="col-md-6 mt-2">
                                 
                                     <div class="mt-3">
-                                        <label for="color_code" class="form-label ">Color code</label>
+                                        <label for="color_code" class="form-label ">Mã màu</label>
                                         <input class="form-control @error('color_code') is-invalid @enderror" name="color_code" id="color_code" value="{{$productColor->color_code}}">
                                         @error('color_code')
                                             <span class="invalid-feedback" role="alert">
@@ -88,7 +88,7 @@ Product color
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Product color edit 
+                        <button class="btn btn-primary">Chỉnh sửa
                             <i class="fa-regular fa-pen-to-square fa-sm"></i>
                         </button>
                     </div>

@@ -1,11 +1,14 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <main>
-        <div class="mb-4 pb-4"></div>
-        <section class="shop-checkout container">
-            <h2 class="page-title">Shipping and Checkout</h2>
-
+    <div class="breadcrumb">
+        <div class="shop-checkout container">
+            @include('client.components.breadcrumb', [
+                   'breadcrumbs' => [
+                       ['label' => 'Giỏ hàng', 'url' => null],
+                       ['label' => 'Thanh toán', 'url' => null],
+                   ]
+               ])
             <form action="{{ route('checkout.process') }}" method="POST">
                 @csrf
                 <div class="checkout-form">
@@ -15,12 +18,12 @@
                             </div>
                         @endif
                     <div class="billing-info__wrapper">
-                        <h4>BILLING DETAILS</h4>
+                        <h4>CHI TIẾT THANH TOÁN</h4>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_name" placeholder="First Name"
+                                    <input type="text" class="input" id="ship_user_name" placeholder="Họ và tên"
                                            value="{{ old('ship_user_name', $user->name ?? '') }}" name="ship_user_name">
                                 </div>
                                 @error('ship_user_name')
@@ -39,7 +42,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="number" class="input" id="ship_user_phone" placeholder="Phone"
+                                    <input type="number" class="input" id="ship_user_phone" placeholder="Số điện thoại"
                                            value="{{ old('ship_user_phone', $user->phone ?? '') }}" name="ship_user_phone">
                                 </div>
                                 @error('ship_user_phone')
@@ -48,7 +51,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_address" placeholder="Address"
+                                    <input type="text" class="input" id="ship_user_address" placeholder="Địa chỉ"
                                            value="{{ old('ship_user_address', $user->address ?? '') }}" name="ship_user_address">
                                 </div>
                                 @error('ship_user_address')
@@ -60,9 +63,9 @@
                                 <div class="form-floating my-3">
                                     <div class="row">
                                         <div class="form-group col-12 col-md-4 ">
-                                            <label for="province">Province/City</label>
+                                            <label for="province">Tỉnh/Thành phố</label>
                                             <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
-                                                <option value="">Select Province/City</option>
+                                                <option value="">Chọn Tỉnh/Thành Phố</option>
                                                 @foreach($provinces['results'] as $province)
                                                     <option  value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                                 @endforeach
@@ -73,9 +76,9 @@
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
-                                            <label for="district">District</label>
+                                            <label for="district">Huyện</label>
                                             <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
-                                                <option value="">Select District</option>
+                                                <option value="">Chọn Huyện</option>
                                             </select>
                                             @error('district')
                                             <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -83,9 +86,9 @@
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
-                                            <label for="ward">Ward/Commune</label>
+                                            <label for="ward">Phường/Xã</label>
                                             <select id="ward" name="ward" class="form-control">
-                                                <option value="">Select Ward/Commune</option>
+                                                <option value=""> ChọnPhường/Xã</option>
                                             </select>
                                             @error('ward')
                                             <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -98,7 +101,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="mt-3">
-                            <textarea class="form-control form-control_gray input" placeholder="Order Notes (optional)" cols="30" rows="8"
+                            <textarea class="form-control form-control_gray input" placeholder="Ghi chú đơn hàng (tùy chọn)" cols="30" rows="8"
                                       name="ship_user_note"></textarea>
                             </div>
                         </div>
@@ -109,62 +112,59 @@
                                 <h3>Your Order</h3>
                                 <table class="checkout-cart-items">
                                     <thead>
-                                    <th>PRODUCT</th>
-                                    <th>CAPACITY</th>
-                                    <th>COLOR</th>
-                                    <th>PRICE</th>
+                                        <th>SẢN PHẨM</th>
+                                        <th>DUNG LƯỢNG</th>
+                                        <th>MÀU SẮC</th>
+                                        <th>GIÁ</th>
                                     </thead>
                                     <tbody>
-                                    @if(Auth::check())
-                                        @foreach ($cartItems as $item)
-                                            <tr>
-                                                <td>{{ $item->productVariant->product->name }} x {{ $item->quantity }}</td>
-                                                <td>{{ $item->productVariant->capacity->name }}</td>
-                                                <td>{{ $item->productVariant->color->name }}</td>
-                                                <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        @foreach ($guest_cart as $item)
-                                                <tr>
-                                                <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
-                                                <td>{{ $item['capacity'] }}</td>
-                                                <td>{{ $item['color'] }}</td>
-                                                <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                    @php
+                                        $subtotal = 0;
+                                    @endphp
+                                    @foreach ($cartItems as $item)
+                                        @php
+                                            $subtotal += $item->price * $item->quantity;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $item->productVariant->product->name }} x {{ $item->quantity }}</td>
+                                            <td>{{ $item->productVariant->capacity->name }}</td>
+                                            <td>{{ $item->productVariant->color->name }}</td>
+                                            <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
+                                    <div class="mb-3 pb-3 border-bottom">
+                                        <div class="fw-medium mb-2">VOUCHER</div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
+                                            <button type="button" class="btn btn-dark" id="apply-voucher">Apply</button>
+                                        </div>
+                                        <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
+                                            The voucher code is invalid or has expired.
+                                        </div>
+                                    </div>
                                 </table>
                                 <table class="checkout-totals">
                                     <tbody>
                                     @if(Auth::check())
                                         <tr>
                                             <th>SUBTOTAL</th>
-                                            <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                         @if ($voucher)
                                             <tr>
-                                                <th>DISCOUNT</th>
+                                                <th>GIẢM GIÁ</th>
                                                 <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
-                                            <tr>
+                                            </tr>
                                         @endif
                                         <tr>
                                             <th>TOTAL</th>
-                                            <td>{{ number_format($item->price * $item->quantity - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <th>SUBTOTAL</th>
-                                            <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
-                                        </tr>
-                                        <tr>
-                                            <th>TOTAL</th>
-                                            <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
                                         </tr>
                                     @endif
                                     </tbody>
                                 </table>
+
                             </div>
                             <div class="checkout__payment-methods">
                                 @foreach ($paymentMethods as $method)
@@ -182,16 +182,45 @@
                                 @endforeach
 
                             </div>
-                            <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">PLACE ORDER</button>
+                            <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">ĐẶT HÀNG</button>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </form>
         </section>
-    </main>
+        </div>
 @endsection
 
 @section('api-address')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#apply-voucher').on('click', function(event) {
+                event.preventDefault();
+                var voucherCode = $('#voucher-code-input').val();
+
+                $.ajax({
+                    url: '/apply-voucher',
+                    method: 'POST',
+                    data: {
+                        code: voucherCode,
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        $('#error-message-add-voucher')
+                            .removeClass('d-none')
+                            .addClass('d-block')
+                            .removeClass('valid-feedback')
+                            .addClass('invalid-feedback')
+                            .text(xhr.responseJSON.message);
+                    }
+                });
+            });
+        });
+
+    </script>
     <script>
         function fetchDistricts(provinceId) {
             if (!provinceId) {
@@ -240,5 +269,5 @@
                 });
         }
 
-    </script>
+            </script>
 @endsection

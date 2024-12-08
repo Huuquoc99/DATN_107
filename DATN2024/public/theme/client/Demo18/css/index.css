@@ -40,8 +40,13 @@ p {
 }
 
 span {
+<<<<<<< HEAD
     font-size: 16px;
    
+=======
+    font-size: 14px;
+
+>>>>>>> d242ea64d15f892f4b3053386b4ee8ae881d2f53
 }
 .input-custom {
     border-radius: 20px;
@@ -128,7 +133,7 @@ a:hover {
     /* background-color: rgba(225,225,225,0.2); */
     border: 2px solid #fff;
     color: #fff;
-    
+
 }
 
 .button.ghost1 i {
@@ -230,7 +235,7 @@ a:hover {
 
 .container1.right-panel-active1 .login-container1 {
     transform: translateX(100%);
-    
+
 }
 
 .register-container1 {
@@ -461,7 +466,7 @@ a:hover {
     border-radius: 50%;
     border: 3px solid #f3f3f3;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    
+
 }
 
 /* Nút upload */
@@ -471,8 +476,8 @@ a:hover {
     border-radius: 50%;
     /* background: linear-gradient(135deg, #4bb6b7, #389ea1); */
     background-image: url('https://png.pngtree.com/png-vector/20221102/ourlarge/pngtree-camera-icon-design-png-image_6408764.png');
-    background-size: cover; 
-    background-position: center center; 
+    background-size: cover;
+    background-position: center center;
     background-repeat: no-repeat; /* Đảm bảo ảnh không bị lặp lại */
     border: 2px solid #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -514,9 +519,9 @@ a:hover {
 
 /* Đặt border cho các ô select */
 .form-control {
-    border: 1px solid #ccc; 
-    border-radius: 0.375rem; 
-    padding: 0.5rem; 
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
     /* background-color: #eee; */
 }
 
@@ -607,38 +612,42 @@ h3 {
 .nav-pills {
     display: flex;
     justify-content: flex-start;
+<<<<<<< HEAD
     gap: 5px; 
+=======
+    gap: 15px;
+>>>>>>> d242ea64d15f892f4b3053386b4ee8ae881d2f53
     padding: 0;
     list-style-type: none;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
 }
 
 .nav-pills .nav-item .btn {
-    flex: 0; 
-    padding: 5px 28.5px; 
-    text-align: center; 
-    border: none; 
-    border-radius: 0; 
-    background-color: #f8f9fa; 
-    color: #6c757d; 
-    font-size:15px; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
-    white-space: nowrap; 
+    flex: 0;
+    padding: 5px 28.5px;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-size:15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
 }
 
 .nav-pills .nav-item .btn.text-success {
     background-color: #d1e7dd;
-    color: #0f5132; 
+    color: #0f5132;
 }
 
 .nav-pills .nav-item .btn:hover {
     background-color: #e9ecef;
-    color: #495057; 
+    color: #495057;
 }
 
 
 ::placeholder {
-    color: #6c757d; 
+    color: #6c757d;
     font-style: italic;
 }
 
@@ -816,12 +825,12 @@ h3 {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Đổ bóng */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển đổi */
   }
-  
+
   .huy:hover {
     background-color: darkred; /* Màu khi hover */
-    
+
   }
-  
+
   .huy1 {
     background-color: #4bb6b7; /* Màu nền chính */
     color: white; /* Màu chữ */
@@ -830,13 +839,13 @@ h3 {
     border-radius: 30px; /* Bo tròn nút */
     font-size: 16px; /* Kích thước chữ */
     cursor: pointer; /* Thay đổi con trỏ khi hover */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease; /* Hiệu ứng chuyển đổi */
 }
 
 .huy1:hover {
     background-color: #3a999a; /* Màu nền tối hơn khi hover */
-   
+
 }
 
 
@@ -931,7 +940,7 @@ h3 {
     display: flex;
 }
 
-.pagination-container nav ul li a, 
+.pagination-container nav ul li a,
 .pagination-container nav ul li span {
     display: inline-flex;
     align-items: center;
@@ -964,7 +973,7 @@ h3 {
     box-shadow: 0 6px 8px rgba(0, 123, 255, 0.5);
 }
 
-.pagination-container nav ul li a.disabled, 
+.pagination-container nav ul li a.disabled,
 .pagination-container nav ul li span.disabled {
     color: #ccc;
     background-color: #f9f9f9;
@@ -975,3 +984,18 @@ h3 {
 
 
 
+.content1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkbox1 {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* khoảng cách giữa checkbox và label */
+}
+
+.pass-link1 {
+    margin: 0; /* loại bỏ khoảng cách không cần thiết */
+}

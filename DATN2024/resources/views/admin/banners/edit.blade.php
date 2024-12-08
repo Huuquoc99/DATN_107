@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Banner
+TechStore
 @endsection
 
 @section('content')
@@ -13,8 +13,8 @@ Banner
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Banner</a></li>
-                        <li class="breadcrumb-item active"> Edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active"> Chỉnh sửa</li>
                     </ol>
                 </div>
 
@@ -29,14 +29,14 @@ Banner
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Banner edit</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
-                                        <label for="title" class="form-label">Title</label>
+                                        <label for="title" class="form-label">Tiêu đề</label>
                                         <input type="text" class="form-control  @error('title') is-invalid @enderror" name="title" id="title"
                                                value="{{ $banner->title }}">
                                         @error('title')
@@ -47,7 +47,7 @@ Banner
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="description" class="form-label">Description</label>
+                                            <label for="description" class="form-label">Mô tả</label>
                                             <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="2" >{{ $banner->description }}</textarea>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
@@ -67,7 +67,7 @@ Banner
                                         <div class="mt-4">
                                             @php
                                                 $is = [
-                                                    'is_active' => ['name' => 'Active', 'color' => 'primary'],
+                                                    'is_active' => ['name' => 'Hoạt động', 'color' => 'primary'],
                                                 ];
                                             @endphp
                                             @foreach($is as $key => $value)
@@ -86,7 +86,7 @@ Banner
                                 <div class="col-md-6 mt-2">
                                     
                                     <div class="mt-3">
-                                        <label for="image" class="form-label">Image</label>
+                                        <label for="image" class="form-label">Hình ảnh</label>
                                         <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image">
                                         @if($banner->image)
                                             <img src="{{ \Storage::url($banner->image) }}"
@@ -111,7 +111,7 @@ Banner
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Banner edit 
+                        <button class="btn btn-primary">Chỉnh sửa
                             <i class="fa-regular fa-pen-to-square fa-sm"></i>
                         </button>
                     </div>

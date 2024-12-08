@@ -28,7 +28,10 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::query()->with(['catalogue'])->latest('id')->paginate(5);
+        $data = Product::query()->with(['variants.capacity','variants.color', 'catalogue'])
+                                ->latest('id')
+                                ->paginate(12);
+
         $catalogues = Catalogue::all();
 
         $this->destroySesstion();

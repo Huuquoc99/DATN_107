@@ -12,22 +12,22 @@
     <div class="bg-grey">
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
-                <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Special Offers</h2>
+                <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Ưu Đãi Đặc Biệt</h2>
                 <ul class="nav nav-tabs justify-content-center" id="collections-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase theme-color fs-13 fw-semi-bold active"
                            id="collections-tab-1-trigger" data-bs-toggle="tab" href="#collections-tab-1" role="tab"
-                           aria-controls="collections-tab-1" aria-selected="true">New Arrivals</a>
+                           aria-controls="collections-tab-1" aria-selected="true">Sản Phẩm Mới</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase fs-13 fw-semi-bold theme-color"
                            id="collections-tab-2-trigger" data-bs-toggle="tab" href="#collections-tab-2" role="tab"
-                           aria-controls="collections-tab-2" aria-selected="true">Bestsellers</a>
+                           aria-controls="collections-tab-2" aria-selected="true">Bán Chạy Nhất</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore underscore-md text-uppercase fs-13 fw-semi-bold theme-color"
                            id="collections-tab-3-trigger" data-bs-toggle="tab" href="#collections-tab-3" role="tab"
-                           aria-controls="collections-tab-3" aria-selected="true">Most Views</a>
+                           aria-controls="collections-tab-3" aria-selected="true">Xem Nhiều Nhất</a>
                     </li>
                 </ul>
             </div>
@@ -177,8 +177,110 @@
                     </div>
                     @endforeach
                 </div>
+
+                
             </div>
     </div>
+    </section>
+    <div class="container py-5">
+    <div class="row g-4">
+        <!-- Banner 1 -->
+        <div class="col-md-4">
+            <div class="card0 shadow-sm p-4 text-center" style="background-color: #fff7ed; border: none;">
+                <h4 class="fw-bold">Yêu thích hãng điện thoại</h4>
+                <p>Điện thoại mơ ước trong lòng tay bạn</p>
+                <a href="#" class="text-uppercase fw-bold text-dark">Mua ngay</a>
+                <div class="mt-3">
+                    <img src="https://img.pikbest.com/01/14/08/029888piCW3M.jpg!f305cw" style="width: 200px;height: 150px;" alt="Earbuds" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner 2 -->
+        <div class="col-md-4">
+            <div class="card0 shadow-sm p-4 text-center" style="background-color: #fff7ed; border: none;">
+                <h4 class="fw-bold">Giá cả trong lòng tay</h4>
+                <p>Mua sắm ngay chứ chờ chi</p>
+                <a href="#" class="text-uppercase fw-bold text-dark">Mua ngay</a>
+                <div class="mt-3">
+                    <img src="https://img.pikbest.com/01/55/46/50kpIkbEsTfdI.jpg!f305cw" style="width: 200px;height: 150px;" alt="Earbuds" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner 3 -->
+        <div class="col-md-4">
+            <div class="card0 shadow-sm p-4 text-center" style="background-color: #fff7ed; border: none;">
+                <h4 class="fw-bold">Màu sắc đa dạng, phong phú</h4>
+                <p>Bạn sẽ lời u ú khi sắm mua hàng</p>
+                <a href="#" class="text-uppercase fw-bold text-dark">Mua ngay</a>
+                <div class="mt-3">
+                    <img src="https://i.pinimg.com/736x/f9/1c/3a/f91c3a9be28b0c467b50baa3672011ad.jpg" style="width: 200px;height: 150px;" alt="Earbuds" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="bg-grey py-5">
+    <section class="featured-products container">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Ưu Đãi Đặc Biệt</h2>
+            <div>
+                <button class="btn btn-outline-secondary me-2" data-bs-target="#productCarousel" data-bs-slide="prev">❮</button>
+                <button class="btn btn-outline-secondary" data-bs-target="#productCarousel" data-bs-slide="next">❯</button>
+            </div>
+        </div>
+
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        @foreach($productNew as $key => $item)
+                            @if($key % 4 == 0 && $key != 0)
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                            @endif
+                            <div class="col-6 col-md-3">
+                                <div class="product-card border rounded-3 bg-white h-100 position-relative">
+                                    <a href="{{ route('product.detail', $item->slug) }}">
+                                        <div class="pc__img-wrapper overflow-hidden">
+                                            <img loading="lazy"
+                                                 src="{{ \Illuminate\Support\Facades\Storage::url($item->img_thumbnail) }}"
+                                                 alt="{{ $item->name }}"
+                                                 class="pc__img img-fluid w-75 h-auto"
+                                                     style="margin-left: 25px; margin-top:20px;">
+                                        </div>
+                                    </a>
+                                    <div class="pc__info mt-3 text-center">
+                                        <p class="pc__category fs-13 fw-medium">
+                                            {{ $item->catalogue ? $item->catalogue->name : 'No category' }}
+                                        </p>
+                                        <h6 class="pc__title fs-16 mb-2">
+                                            <a href="{{ route('product.detail', $item->slug) }}">
+                                                {{ \Illuminate\Support\Str::limit($item->name, 20) }}
+                                            </a>
+                                        </h6>
+                                        <div class="product-card__price">
+                                            <span class="money price fs-16 fw-semi-bold">
+                                                {{ number_format($item->price_regular, 0, ',', '.') }} VND
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
     </section>
     </div>
 

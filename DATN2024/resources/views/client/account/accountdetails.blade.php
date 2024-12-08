@@ -4,29 +4,29 @@
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="my-account container">
-            <h2 class="page-title">Account Details</h2>
+            <h2 class="page-title">Chi tiết tài khoản</h2>
             <div class="row">
                 <div class="col-lg-3">
                     <ul class="account-nav">
                         <li>
                             <a href="{{ route('account.dashboard') }}" class="menu-link menu-link_us-s "
-                               style="color: black">Dashboard</a>
+                               style="color: black">Bảng điều khiển</a>
                         </li>
                         <li>
-                            <a href="{{ route('history') }}" class="menu-link menu-link_us-s" style="color: black">Orders</a>
+                            <a href="{{ route('history') }}" class="menu-link menu-link_us-s" style="color: black">Đơn hàng</a>
                         </li>
                         <li>
                             <a href="{{ route('favorites.list') }}" class="menu-link menu-link_us-s"
-                               style="color: black">Wishlist</a>
+                               style="color: black">Danh sách yêu thích</a>
                         </li>
 
                         <li>
                             <a href="{{ route('accountdetail') }}" class="menu-link menu-link_us-s menu-link_active"
-                               style="color: black">Account Details</a>
+                               style="color: black">Chi tiết tài khoản</a>
                         </li>
                         <li>
                             <a href="{{ route('account.changePassword') }}" class="menu-link menu-link_us-s"
-                               style="color: black">Change password</a>
+                               style="color: black">Thay đổi mật khẩu</a>
                         </li>
                     </ul>
                 </div>
@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary mb-3">Update avatar</button>
+                                    <button type="submit" class="btn btn-primary mb-3">Cập nhật hình đại diện</button>
                                     @if (session('success1'))
                                         <div class="alert alert-success">
                                             {{ session('success1') }}
@@ -102,7 +102,7 @@
 
                                     <div class="col-md-12">
                                         <div class="my-3">
-                                            <h5 class="text-uppercase mb-0">User Information</h5>
+                                            <h5 class="text-uppercase mb-0">Thông tin người dùng</h5>
                                         </div>
                                     </div>
                                     @if (session('success'))
@@ -122,7 +122,7 @@
                                                 <div class="form-floating">
                                                     <input type="text"
                                                            class="input form-control @error('name') is-invalid @enderror"
-                                                           id="name" placeholder="Name"
+                                                           id="name" placeholder="Tên"
                                                            value="{{ old('name', $user->name) }}" name="name">
                                                     @error('name')
                                                     <span class="invalid-feedback" role="alert">
@@ -148,7 +148,7 @@
                                                 <div class="form-floating">
                                                     <input type="text"
                                                            class="input form-control @error('phone') is-invalid @enderror"
-                                                           id="phone" placeholder="Phone"
+                                                           id="phone" placeholder="Số điện thoại"
                                                            value="{{ old('phone', $user->phone) }}" name="phone">
                                                     @error('phone')
                                                     <span class="invalid-feedback" role="alert">
@@ -163,7 +163,7 @@
                                                     <input type="text"
                                                            class="input form-control @error('address') is-invalid @enderror"
                                                            id="address"
-                                                           placeholder="Address"
+                                                           placeholder="Địa chỉ"
                                                            value="{{ old('address', $user->address) }}"
                                                            name="address">
                                                     @error('address')
@@ -176,7 +176,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="my-3 text-center">
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                                                 </div>
                                             </div>
                                         </div>

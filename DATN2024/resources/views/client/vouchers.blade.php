@@ -11,7 +11,7 @@
     font-weight: 900;
     border-left: 10px solid #fec500;
     padding-left: 10px;
-    margin: 30px 0">Voucher</h1>
+    margin: 30px 0">Mã giảm giá</h1>
     <div class="row list-vouchers">
         @foreach($vouchers as $voucher)
             <div class="col-6 col-md-6 col-lg-6 voucher">

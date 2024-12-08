@@ -124,36 +124,52 @@ class OrderController extends Controller
                     $currentStatus = $order->status_order_id;
 
                     $allowedTransitions = [
-                        1 => [2, 6],
-                        2 => [3, 6],
-                        3 => [3,4],
-                        4 => [5],
-                        5 => [],
-                        6 => [],
+                        1 => [2, 6],     // Pending      -> Processing, Cancelled
+                        2 => [3, 6],     // Processing   -> Shipped, Cancelled
+                        3 => [3, 4],     // Shipped      -> Delivered, Canceled
+                        4 => [5],        // Delivered    -> Success
+                        5 => [5],        // Completed has no further transitions
+                        6 => [6],        // Canceled has no further transitions
                     ];
-
-                    if ($currentStatus == 4 && $value == 5) {
-                        $lastUpdated = $order->updated_at;
-                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
-
-                        if ($timeElapsed !== null && $timeElapsed <= 10) {
-                            $fail('Cannot change status to Canceled within 10 minutes of success.');
-                        }
-                    }
 
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
                         $fail('The status transition is not allowed.');
+                    }
+
+                    // Bổ sung quy tắc hủy đơn hàng trong vòng 10 phút kể từ khi thành công
+//                    if ($currentStatus == 4 && $value == 5) {
+//                        $lastUpdated = $order->updated_at;
+//                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+//
+//                        if ($timeElapsed !== null && $timeElapsed <= 10) {
+//                            $fail('Cannot change status to Canceled within 10 minutes of success.');
+//                        }
+//                    }
+
+                    // Kiểm tra xem thanh toán có thất bại hay không: Chỉ cho phép hủy
+                    if ($order->status_payment_id == '3' && !in_array($value, [6])) { // 6 = Canceled
+                        $fail('Không thể cập nhật đơn hàng vì thanh toán không thành công. Chỉ được phép hủy bỏ.');
+                    }
+
+                    // Kiểm tra xem đơn hàng có phải là COD hay không và người dùng xác nhận đã nhận là đã thanh toán
+                    if ($order->payment_method_id == '1' && $value == 5) {
+                        if ($order->status_order_id != '5') {
+                            $fail('Không thể xác nhận đơn là "Hoàn thành" khi người dùng chưa xác nhận đơn hàng!');
+                        }
                     }
                 }
             ]
         ]);
 
         if ($validator->fails()) {
+            $errors = $validator->errors();
+            foreach ($errors->all() as $error) {
+                toastr()->error($error);
+            }
+
             return redirect()->route('admin.orders.show', $id)
-                ->withErrors($validator)
                 ->withInput();
         }
-
 
         $newStatusId = $request->input('status_order_id');
 
@@ -162,11 +178,14 @@ class OrderController extends Controller
             $order->touch();
             $order->save();
 
-            $recipientEmail = $order->user ? $order->user->email : $order->ship_user_email;
+            // Khi trạng thái đơn hàng chuyển về "Success" (5) đối với đơn hàng COD,cập nhật trạng thái thanh toán thành "Paid"
+            if ($order->payment_method_id == '1' && in_array($newStatusId, [5])) {
+                $order->status_payment_id = '2';
+                $order->save();
+            }
 
-            if ($newStatusId == 6) {
+            if ($newStatusId == 6) { // 6 = Cancelled
                 $cancelReason = $request->input('cancel_reason');
-
                 if ($request->input('cancel_reason') == 'other') {
                     $order->other_reason = $request->input('other_reason');
                 }
@@ -176,22 +195,16 @@ class OrderController extends Controller
                 $order->save();
 
                 $this->rollbackQuantity($order);
-//                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
-
-//                dd(1);
                 \App\Events\OrderPlaced::dispatch($order, 'admin_cancel');
-
             } else {
-//                Mail::to($recipientEmail)->send(new AdminOrderUpdated($order));
-
                 \App\Events\OrderPlaced::dispatch($order, 'update');
             }
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success', 'Order status updated successfully.');
+                ->with('success', 'Trạng thái đơn hàng được cập nhật thành công!');
         } else {
             return redirect()->route('admin.orders.show', $id)
-                ->with('error', 'No change in order status.');
+                ->with('error', 'Không có thay đổi về trạng thái đơn hàng.');
         }
     }
 

@@ -57,7 +57,7 @@ class OrderController extends Controller
         }
 
         $orderWithItems = $order->load([
-            'orderItems',
+            'orderItems.productVariant.product',
             'statusOrder:id,name',
             'statusPayment:id,name',
             'paymentMethod:id,name',
@@ -130,7 +130,6 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        dd($request->all());
         $order = Order::findOrFail($id);
 
         $newStatusId = $request->input('status_order_id');
@@ -158,18 +157,23 @@ class OrderController extends Controller
     public function markAsReceived(Order $order)
     {
         try {
-            if ($order->status_order_id == 3) {
-                $order->status_order_id = 4;
+            if ($order->status_order_id == 4) {
+                $order->status_order_id = 5;
+
+                $order->status_payment_id = 2;
+
                 $order->save();
 
                 Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
-                return redirect()->back()->with('success', 'The order has been updated to completed..');
+
+                return redirect()->back()->with('success', 'The order has been updated to completed.');
             }
 
         } catch (\Exception $exception) {
-            return redirect()->back()->with('success', 'The order has been updated to completed..');
+            return redirect()->back()->with('error', 'There was an error updating the order.');
         }
     }
+
 
     public function repayment($orderId)
     {
@@ -184,4 +188,5 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Unable to pay order.');
         }
     }
+
 }

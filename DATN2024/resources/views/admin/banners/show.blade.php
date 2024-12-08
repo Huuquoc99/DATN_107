@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Banner detail: {{ $banner->title }}
+    TechStore
 @endsection
 
 @section('content')
@@ -11,8 +11,8 @@
                 <h4 class="mb-sm-0">Banner</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.banners.index') }}">Banner</a></li>
-                        <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.banners.index') }}">Bảng</a></li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
                     </ol>
                 </div>
             </div>
@@ -46,9 +46,9 @@
 
                                 <div class="mt-4">
                                     @if($banner->is_active == 1)
-                                        <span class="badge bg-primary">Active</span>
+                                        <span class="badge bg-primary">Hoạt động</span>
                                     @elseif($banner->is_active == 0)
-                                        <span class="badge bg-danger">No active</span>
+                                        <span class="badge bg-danger">Không hoạt động</span>
                                     @endif
                                     
                                 </div>
@@ -68,16 +68,16 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-start align-items-center">
                         <a href="{{ route('admin.banners.edit', $banner->id) }}" class="btn btn-primary me-2">
-                            <i class="bx bx-edit me-1"></i> Banner edit
+                            <i class="bx bx-edit me-1"></i> Chỉnh sửa
                         </a>
                         <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST" class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">
-                                <i class="bx bx-trash me-1"></i> Banner delete
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắn chắn muốn xoá không?')">
+                                <i class="bx bx-trash me-1"></i> Xoá
                             </button>
                         </form>
-                        <a href="{{ route('admin.banners.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('admin.banners.index') }}" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
             </div>

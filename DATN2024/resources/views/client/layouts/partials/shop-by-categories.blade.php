@@ -2,9 +2,9 @@
     {{-- <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div> --}}
     <section class="category-carousel container">
         <div class="d-flex align-items-center justify-content-md-between flex-wrap mb-3 mb-xl-4">
-            <h4 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Shop by categories</h4>
-            <a class="btn-link default-underline text-uppercase fs-13 fw-semi-bold theme-color" href="{{ route('shop') }}">Shop
-                All Products</a>
+            <h4 class="section-title fw-semi-bold fs-30 theme-color text-uppercase"> Mua sắm theo danh mục </h4>
+            <a class="btn-link default-underline text-uppercase fs-13 fw-semi-bold theme-color"
+                href="{{ route('shop') }}">Mua tất cả sản phẩm</a>
         </div>
 
         <div class="swiper-wrapper row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-start">
