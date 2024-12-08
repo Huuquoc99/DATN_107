@@ -449,4 +449,52 @@
         document.addEventListener("DOMContentLoaded", checkStatus);
     </script>
 
+            <script>
+                function confirmReceived() {
+                    if (confirm('Are you sure you want to mark this order as received?')) {
+                        document.getElementById('markAsReceivedForm').submit();
+                    }
+                }
+
+                function confirmCancel() {
+                    var cancelOrderModal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
+                    cancelOrderModal.show();
+                }
+
+                document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
+                    radio.addEventListener('change', function() {
+                        var otherReasonContainer = document.getElementById('otherReasonContainer');
+                        otherReasonContainer.style.display = (this.value === 'other') ? 'block' : 'none';
+                    });
+                });
+
+                document.getElementById('confirmCancelBtn').addEventListener('click', function() {
+                    var form = document.getElementById('cancelOrderReasonForm');
+                    var errorCancelReason = document.getElementById('error_cancel_reason');
+                    var errorOtherReason = document.getElementById('error_other_reason');
+                    var selectedReason = document.querySelector('input[name="cancel_reason"]:checked');
+
+                    if (!selectedReason) {
+                        errorCancelReason.innerHTML = 'Please select a reason for cancellation';
+                        errorCancelReason.style.display = 'block';
+                        return;
+                    } else {
+                        errorCancelReason.innerHTML = '';
+                        errorCancelReason.style.display = 'none';
+                    }
+
+                    if (selectedReason.value === 'other') {
+                        var otherReasonText = document.getElementById('otherReason').value.trim();
+
+                        if (!otherReasonText) {
+                            errorOtherReason.innerHTML = 'Please enter reason for cancellation!';
+                            errorOtherReason.style.display = 'block';
+                            return;
+                        }
+                    }
+                    form.submit();
+                });
+
+            </script>
+
 @endsection

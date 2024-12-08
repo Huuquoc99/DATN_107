@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductCapacity;
 use App\Models\ProductColor;
@@ -15,7 +17,7 @@ class ProductController extends Controller
 {
     use UserFavorites;
 
-    public function productDetail($slug)
+    public function productDetail(Request $request, $slug)
     {
         $product = Product::query()
             ->with([
@@ -50,10 +52,25 @@ class ProductController extends Controller
         $favoriteProductIds = $this->getUserFavorites()['favoriteProductIds'];
         $comments = Comment::where('product_id', $productId)->paginate(5);
 
+        $user = auth()->user();
+        $canRate = false;
+
+        if ($user) {
+            $firstVariant = $product->variants->first();
+
+            $canRate = $this->canRateProduct($firstVariant->id, $user->id);
+        }
+
         $relatedProducts = Product::query()
             ->where('catalogue_id', $product->catalogue_id)
             ->where('id', '!=', $product->id)
             ->get();
+
+        if (!$request->session()->has('viewed_article_'.$product->id)) {
+            $product->increment('views');
+            $request->session()->put('viewed_article_'.$product->id, true);
+        }
+
 
         return view('client.product-detail',
             compact('product',
@@ -61,8 +78,29 @@ class ProductController extends Controller
                 'colors',
                 'comments',
                 'relatedProducts',
-                'favoriteProductIds'));
+                'favoriteProductIds',
+                'canRate'));
     }
+
+    public function canRateProduct($productVariantId, $userId) {
+
+        $orderItemQuery = OrderItem::query()->where('product_variant_id', $productVariantId)
+            ->get();
+
+        $ordersWithUser = Order::query()->where('user_id', $userId)
+            ->where('status_order_id', 5)
+            ->get();
+
+        $orderItem = OrderItem::where('product_variant_id', $productVariantId)
+            ->whereHas('order', function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->where('status_order_id', 5);
+            })
+            ->exists();
+
+        return $orderItem;
+    }
+
 
     public function getVariantDetails(Request $request)
     {

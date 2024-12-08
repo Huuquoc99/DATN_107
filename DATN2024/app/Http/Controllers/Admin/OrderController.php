@@ -154,7 +154,9 @@ class OrderController extends Controller
                 ->withInput();
         }
 
+
         $newStatusId = $request->input('status_order_id');
+
         if ($newStatusId != $order->status_order_id) {
             $order->status_order_id = $newStatusId;
             $order->touch();
@@ -176,6 +178,7 @@ class OrderController extends Controller
                 $this->rollbackQuantity($order);
 //                Mail::to($recipientEmail)->send(new AdminOrderCancelled($order));
 
+//                dd(1);
                 \App\Events\OrderPlaced::dispatch($order, 'admin_cancel');
 
             } else {
