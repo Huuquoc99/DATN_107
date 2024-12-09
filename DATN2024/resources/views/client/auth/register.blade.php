@@ -8,7 +8,7 @@
                 @csrf
                 <h2><b>Đăng ký</b></h2>
                 {{-- <div> --}}
-                    <input class="input form-control  @error('name') is-invalid @enderror" type="text" placeholder="Name" name="Tên">
+                    <input class="input form-control  @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -21,13 +21,13 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <input class="input form-control @error('password') is-invalid @enderror" type="password" placeholder="Password" name="Mật khẩu">
+                <input class="input form-control @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <input class="input form-control @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Password confirm" name="Nhập lại mật khẩu">
+                <input class="input form-control @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Password confirm" name="password_confirmation">
                     @error('password_confirmation')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -37,7 +37,7 @@
             </form>
         </div>
         <div class="form-container1 login-container1">
-            
+
             <form class="form" action="{{ route('login') }}" method="POST">
                 @csrf
                 <h2><b>Đăng nhập</b></h2>
@@ -47,7 +47,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                   
+
                 <input class="input form-control  @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -68,11 +68,11 @@
                             <a href="{{ route('password.request') }}" style="text-decoration: underline;">Quên mật khẩu?</a>
                         </div>
                     </div>
-                    
-                
+
+
                 <button class="button" type="submit">Đăng nhập</button>
             </form>
-            
+
         </div>
         <div class="overlay-container1">
             <div class="overlay1">

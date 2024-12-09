@@ -27,12 +27,12 @@
             overflow: hidden;
             padding: 20px;
             transition: all 0.3s ease-in-out;
-            
-        
+
+
             background-image: url('https://www.bing.com/th/id/OGC.0dcee7f6333565ad73e68c69df4bddf6?pid=1.7&rurl=https%3a%2f%2fkhoinguonsangtao.vn%2fwp-content%2fuploads%2f2022%2f08%2fanh-dong-3d.gif&ehk=Ma5H3gplCsdEaq%2fd%2fwSbqdgcT80xnTAyuyoP7YHcsIk%3d');
-            
+
             background-size: cover;
-            background-position: center center; 
+            background-position: center center;
             /* background-attachment: fixed; */
         }
 
@@ -206,98 +206,86 @@
     </style>
 </head>
 <body>
-    <div class="email-container">
-        <div class="header">
-            <h1>Thank you for ordering at TechStore!</h1>
+<div class="email-container">
+    <div class="header">
+        <h4>Cảm ơn! Đơn hàng của bạn đã hoàn tất.</h4>
+    </div>
+
+    <div class="row">
+        <div class="section">
+            <h2>Thông tin đơn hàng</h2>
+            <p style="color: white;"><strong>Mã đơn hàng:</strong> {{ $order_code }}</p>
+            <p style="color: white;">
+                <strong>Ngày:</strong>
+                <span id="invoice-date">{{ $created_at->format('d M, Y') }}</span>
+                <small class="text-muted" id="invoice-time">{{ $created_at->format('h:iA') }}</small>
+            </p>
+            <p style="color: white;"><strong>Trạng thái:</strong> {{ $status_order }}</p>
+            <p style="color: white;"><strong>Thanh toán:</strong> {{ $status_payment }}</p>
+            <p  style="color: white;"><strong>Phương thức thanh toán:</strong> {{ $payment_method }}</p>
+            <p style="color: white;"><strong>Tổng:</strong> {{ number_format($total_price, 0, ',', '.') }} VND</p>
         </div>
 
-        <div class="row">
-            <div class="section">
-                <h2>Order information</h2>
-                <p style="color: white;"><strong>Order code:</strong> {{ $order_code }}</p>
-                <p style="color: white;">
-                    <strong>Order date:</strong> 
-                    <span id="invoice-date">{{ $created_at->format('d M, Y') }}</span>
-                    <small class="text-muted" id="invoice-time">{{ $created_at->format('h:iA') }}</small>
-                </p>
-                <p style="color: white;"><strong>Order Status:</strong> {{ $status_order }}</p>
-                <p style="color: white;"><strong>Payment Status:</strong> {{ $status_payment }}</p>
-                <p style="color: white;"><strong>Total:</strong> {{ number_format($total_price, 0, ',', '.') }} VND</p>
-            </div>
-    
-            <div class="section">
-                <h2>Delivery information</h2>
-                <div class="address-container">
-    
-                    <div class="address">
-                        <h3>Billing address:</h3>
-                        <p>{{ $customer_name }}</p>
-                        <p>{{ $customer_email }}</p>
-                        <p>{{ $customer_phone }}</p>
-                        <p>{{ $customer_address}}</p>
-                    </div>
-                    
-                    <div class="address">
-                        <h3>Shipping address:</h3>
-                        <p>{{ $shipping_name }}</p>
-                        <p>{{ $shipping_email }}</p>
-                        <p>{{ $shipping_phone }}</p>
-                        <p>
-                            {{ \Illuminate\Support\Str::limit($shipping_address, 20, '...') }},
-                            {{ \Illuminate\Support\Str::limit($shipping_ward, 20, '...') }},
-                            {{ \Illuminate\Support\Str::limit($shipping_district, 20, '...') }},
-                            {{ \Illuminate\Support\Str::limit($shipping_province, 20, '...') }},
-                        </p>
-                    </div>
+        <div class="section">
+            <h2>Thông tin giao hàng</h2>
+            <div class="address-container">
+
+                <div class="address">
+                    <h3>Thông tin người dùng:</h3>
+                    <p>{{ $customer_name }}</p>
+                    <p>{{ $customer_email }}</p>
+                    <p>{{ $customer_phone }}</p>
+                    <p>{{ $customer_address}}</p>
+                </div>
+
+                <div class="address">
+                    <h3>Địa chỉ giao hàng:</h3>
+                    <p>{{ $shipping_name }}</p>
+                    <p>{{ $shipping_email }}</p>
+                    <p>{{ $shipping_phone }}</p>
+                    <p>
+                        {{ \Illuminate\Support\Str::limit($shipping_address, 20, '...') }},
+                        {{ \Illuminate\Support\Str::limit($shipping_ward, 20, '...') }},
+                        {{ \Illuminate\Support\Str::limit($shipping_district, 20, '...') }},
+                        {{ \Illuminate\Support\Str::limit($shipping_province, 20, '...') }},
+                    </p>
                 </div>
             </div>
         </div>
-       
-
-        <div class="section">
-            <h2>Order details</h2>
-            <table class="details-table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($items as $item)
-                        <tr>
-                            <td>
-                                @if ($item->product_img_thumnail)
-                                    <img src="{{ Storage::url($item->product_img_thumnail) }}" alt="" width="70px" height="60px">
-                                @else
-                                    <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="" width="70px" height="60px">
-                                @endif
-                            </td>
-                            <td>
-                                {{ $item->product_name }}
-                                <span style="font-size: 12px; color: #666;">{{ $item->capacity->name ?? 'N/A' }} - {{ $item->color->name ?? 'N/A' }}</span>
-                            </td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
-                            <td>{{ number_format($item->product_price_sale ?? $item->product_price_regular, 0, ',', '.') }} VND</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2  style="color: white;">Payment information</h2>
-            <p  style="color: white;"><strong>Payment method:</strong> {{ $payment_method }}</p>
-        </div>
-
-        <div class="footer">
-            <p><b>Thank you for shopping at TechStore!</b></p>
-            <p><b>If you have any questions, please contact us via email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></b></p>
-        </div>
     </div>
+
+
+    <div class="section">
+        <h2>Chi tiết đơn hàng</h2>
+        <table class="details-table">
+            <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Tổng</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($items as $item)
+                <tr>
+                    <td>
+                        {{ $item->product_name }}
+                        <span style="font-size: 12px; color: #666;">{{ $item->capacity->name ?? 'N/A' }} - {{ $item->color->name ?? 'N/A' }}</span>
+                    </td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
+                    <td>{{ number_format($item->product_price_sale ?? $item->product_price_regular, 0, ',', '.') }} VND</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p><b>Thank you for shopping at TechStore!</b></p>
+        <p><b>If you have any questions, please contact us via email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></b></p>
+    </div>
+</div>
 </body>
 </html>

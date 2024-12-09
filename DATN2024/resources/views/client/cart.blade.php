@@ -2,22 +2,22 @@
 
 @section('content')
     <div class="breadcrumb">
-    <section class="shop-checkout container">
-        @include('client.components.breadcrumb', [
-                        'breadcrumbs' => [
-                            ['label' => 'Giỏ hàng', 'url' => '/cart/list']
-                        ]
-                    ])
-        <div class="shopping-cart">
-            @if (count($unifiedCart) > 0)
-                <div class="cart-table__wrapper">
-                    <table class="cart-table">
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <thead>
+        <section class="shop-checkout container">
+            @include('client.components.breadcrumb', [
+                'breadcrumbs' => [
+                    ['label' => 'Giỏ hàng', 'url' => '/cart/list']
+                ]
+            ])
+            <div class="shopping-cart" style="margin-bottom: 200px">
+                @if (count($unifiedCart) > 0)
+                    <div class="cart-table__wrapper">
+                        <table class="cart-table">
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <thead>
                             <tr>
                                 <th>Ảnh</th>
                                 <th>Sản phẩm</th>
@@ -26,16 +26,16 @@
                                 <th>Tổng tiền</th>
                                 <th></th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             @foreach ($unifiedCart as $item)
                                 <tr>
 
                                     <td>
                                         <div class="shopping-cart__product-item">
                                             <img loading="lazy"
-                                                src="{{ \Illuminate\Support\Facades\Storage::url($item['image'] ?? 'default-image.jpg') }}"
-                                                width="120" height="120" alt="">
+                                                 src="{{ \Illuminate\Support\Facades\Storage::url($item['image'] ?? 'default-image.jpg') }}"
+                                                 width="120" height="120" alt="">
                                         </div>
                                     </td>
                                     <td>
@@ -57,68 +57,77 @@
                                     <td>
                                         <div class="qty-control position-relative">
                                             <input type="number" data-id="{{ $item['product_variant_id'] }}"
-                                                name="quantity" value="{{ $item['quantity'] }}"
-                                                class="qty-control__number text-center">
+                                                   name="quantity" value="{{ $item['quantity'] }}"
+                                                   class="qty-control__number text-center">
                                             <div class="qty-control__reduce" id="new_quantity">-</div>
                                             <div class="qty-control__increase" id="new_quantity">+</div>
                                         </div>
                                     </td>
                                     <td>
                                         <span class="shopping-cart__subtotal"
-                                            id="total">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}
+                                              id="total">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}
                                             VND</span>
                                     </td>
                                     <td>
                                         <a href="#" class="remove-cart-v2"
-                                            data-id="{{ $item['product_variant_id'] }}">
+                                           data-id="{{ $item['product_variant_id'] }}">
                                             <i class="fa-solid fa-trash-can fa-lg"></i>
                                         </a>
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div class="shopping-cart__totals-wrapper ">
-                    <div class="sticky-content">
-                        <div class="mb-3 pb-3 border-bottom">
-                            <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
-                                <button class="btn btn-dark" id="apply-voucher">Sử dụng</button>
+                    <div class="shopping-cart__totals-wrapper ">
+                        <div class="sticky-content">
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="voucher-code-input"
+                                           value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
+                                    <button class="btn btn-dark" id="apply-voucher">Sử dụng</button>
+                                </div>
+                                <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
+                                    Mã phiếu giảm giá không hợp lệ hoặc đã hết hạn.
+                                </div>
                             </div>
-                            <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                Mã phiếu giảm giá không hợp lệ hoặc đã hết hạn.
+                            <div class="mobile_fixed-btn_wrapper">
+                                <div class="button-wrapper container">
+                                    <a href="{{ route('checkout.index') }}">
+                                        <button style="" class="btn btn-primary btn-checkout">TIẾN HÀNH THANH TOÁN
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="mobile_fixed-btn_wrapper">
-                            <div class="button-wrapper container">
-                                <a href="{{ route('checkout.index') }}">
-                                    <button style="" class="btn btn-primary btn-checkout">TIẾN HÀNH THANH TOÁN</button>
-                                </a>
+                        @else
+                            <div class="row">
+                                <div class="col-6 empty-cart mt-5">
+                                    <h6>Chưa có sản phẩm nào trong giỏ hàng!</h6>
+                                    <label class="mt-2">Cùng mua sắm hàng ngàn sản phẩm tại TechStore nhé!</label>
+                                    <a href="{{ route('home') }}" class="btn btn-primary mt-3">Tiếp tục mua sắm.</a>
+                                </div>
+
+                                <div class="col-6">
+                                    <img src="{{ asset('theme/client/images/empty_cart.png') }}">
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
-                @else
-                    <div class="empty-cart">
-                        <p>Bạn không có sản phẩm nào trong giỏ hàng.</p>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Tiếp tục mua sắm.</a>
-                    </div>
-            @endif
-        </div>
-    </section>
+        </section>
     </div>
 
 @endsection
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#apply-voucher').on('click', function(e) {
-                e.preventDefault(); // Ngăn form submit mặc định
+        $(document).ready(function () {
+            $('#apply-voucher').on('click', function (e) {
+                e.preventDefault();
 
                 var voucherCode = $('#voucher-code-input').val();
-                $('#error-message-add-voucher').removeClass('d-block').addClass('d-none'); // Ẩn thông báo cũ
+                $('#error-message-add-voucher').removeClass('d-block').addClass('d-none');
                 if (!voucherCode) {
                     $('#error-message-add-voucher').removeClass('d-none').addClass('d-block');
                     $('#error-message-add-voucher').text('Please enter a voucher code.');
@@ -130,15 +139,14 @@
                     method: 'POST',
                     data: {
                         code: voucherCode,
-                        _token: '{{ csrf_token() }}' // Gửi CSRF token để bảo mật
+                        _token: '{{ csrf_token() }}'
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $('#error-message-add-voucher').removeClass('d-none invalid-feedback').addClass('d-block valid-feedback');
                         $('#error-message-add-voucher').text('Voucher applied successfully!');
-                        // Cập nhật lại giao diện (tổng tiền, chiết khấu, v.v.)
-                        location.reload(); // Tải lại trang để áp dụng thay đổi
+                        location.reload();
                     },
-                    error: function(error) {
+                    error: function (error) {
                         $('#error-message-add-voucher').removeClass('d-none').addClass('d-block invalid-feedback');
                         if (error.responseJSON && error.responseJSON.message) {
                             $('#error-message-add-voucher').text(error.responseJSON.message);
@@ -150,7 +158,4 @@
             });
         });
     </script>
-
-
-
 @endsection

@@ -150,6 +150,7 @@
                                         <tr>
                                             <th>SUBTOTAL</th>
                                             <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
+                                            <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
                                         @if ($voucher)
                                             <tr>

@@ -150,6 +150,7 @@
                                         <tr>
                                             <th>SUBTOTAL</th>
                                             <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
+                                            <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
                                         @if ($voucher)
                                             <tr>
@@ -184,7 +185,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">ĐẶT HÀNG</button>
                         </div>
-                    </div>  
+                    </div>
                 </div>
             </form>
         </section>

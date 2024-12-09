@@ -2,9 +2,12 @@
 
 @section('content')
     <main>
-        <div class="mb-4 pb-4"></div>
         <section class="my-account container">
-            <h2 class="page-title">Orders</h2>
+            @include('client.components.breadcrumb', [
+              'breadcrumbs' => [
+                  ['label' => 'Đơn hàng', 'url' => null]
+              ]
+          ])
             <div class="row">
                 <div class="col-lg-3">
                     <ul class="account-nav">

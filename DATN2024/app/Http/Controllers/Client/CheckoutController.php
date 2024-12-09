@@ -30,7 +30,18 @@ class CheckoutController extends Controller
     use VnPayTrait;
     public function index()
     {
-        $provinces = Http::get('https://vapi.vnappmob.com/api/province/')->json();
+        try {
+            $response = Http::get('https://vapi.vnappmob.com/api/province/');
+
+            if ($response->successful()) {
+                $provinces = $response->json();
+            } else {
+                abort(403, 'Mạng không ổn định, vui lòng tải lại trang!');
+            }
+        } catch (\Exception $e) {
+            abort(403, 'Có lỗi xay ra, vui lòng tải lại trang!');
+        }
+
 
         $paymentMethods = PaymentMethod::all();
 
@@ -151,6 +162,7 @@ class CheckoutController extends Controller
             'ship_user_phone' => $request->ship_user_phone,
             'ship_user_address' => $request->ship_user_address,
             'payment_method_id' => $paymentMethodId,
+            'subtotal' => $request->subtotal,
             'total_price' => $this->calculateTotalGuests($guest_cart) - ($voucher ? $voucher->discount : 0),
             'status_order_id' => 1,
             'status_payment_id' => 1,
@@ -258,8 +270,6 @@ class CheckoutController extends Controller
     public function processCheckout(Request $request)
     {
 
-//        dd(session('voucher'));
-
         $province_code = $request->province;
         $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
 
@@ -303,12 +313,14 @@ class CheckoutController extends Controller
 
 
             'payment_method_id' => $paymentMethodId,
+            'subtotal' => $request->subtotal,
             'total_price' => $this->calculateTotal($cart->id) - ($voucher ? $voucher->discount : 0),
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
             'voucher_id' => $voucher ? $voucher->id : null,
         ]);
+
 
         $this->deductStockProduct();
 
@@ -338,10 +350,11 @@ class CheckoutController extends Controller
 
         session()->forget('voucher');
 
-//        dd(session('voucher'));
 
         if ($paymentMethodId == 2) {
+
             return $this->processVNPAY($order);
+
         } else {
 
             $cart->items()->delete();
@@ -350,19 +363,11 @@ class CheckoutController extends Controller
 
             return redirect()->route('checkout.success');
         }
-
-//        Mail::to($user->email)->send(new OrderPlaced($order));
-
-
-        $cart->items()->delete();
-
-        return redirect()->route('checkout.success');
     }
 
 
     public function vnpayReturn(Request $request)
     {
-
         $vnpayData = $request->all();
         $orderId = $vnpayData['vnp_TxnRef'];
         $order = Order::where('code', $orderId)->first();
@@ -385,6 +390,8 @@ class CheckoutController extends Controller
                 $order->status_payment_id = 3;
                 $order->save();
 
+                \App\Events\OrderPlaced::dispatch($order, 'order_fail_user');
+
                 return redirect()->route('checkout.failed')->with('error', 'Payment failed, please try again.');
             }
         } else {
@@ -401,7 +408,6 @@ class CheckoutController extends Controller
                 return redirect()->route('guest-checkout.success', compact('order'));
             } else {
 
-//                dd('fail');
                 \App\Events\OrderPlaced::dispatch($order, 'order_fail_guest');
 
                 $order->status_payment_id = 3;

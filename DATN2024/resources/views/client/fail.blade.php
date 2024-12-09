@@ -2,51 +2,55 @@
 
 @section('content')
     <main>
-        <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
-            <h2 class="page-title">Order Failed</h2>
             <div class="order-complete">
                 <div class="order-complete__message">
-                    <i class="fa-solid fa-circle-exclamation fa-xl"></i>
-                    <h3>Payment Failed</h3>
-                    <p>Unfortunately, your payment was not successful. Please try again or contact support.</p>
+                    <h3> <i class="fa-solid fa-triangle-exclamation fa-lg"></i>Thanh toán thất bại </h3>
+                    <label>Thật không may, thanh toán của bạn không thành công. Vui lòng thử lại hoặc liên hệ với bộ phận hỗ trợ.</label>
+
+                    <div class="m-4 text-center d-flex justify-content-center">
+                        <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" name="redirect" class="btn btn-primary mt-3">Thanh toán lại</button>
+                        </form>
+                        <a href="/home" class="btn btn-secondary" style="margin-left: 20px">Về trang chủ</a>
+                    </div>
+
                 </div>
                 <div class="order-info">
                     <div class="order-info__item">
-                        <label>Order Number</label>
+                        <label>Mã đơn hàng</label>
                         <span>{{ $order->code }}</span>
                     </div>
                     <div class="order-info__item">
-                        <label>Date</label>
+                        <label>Ngày</label>
                         <span>{{ $order->created_at->format('d/m/Y') }}</span>
                     </div>
                     <div class="order-info__item">
-                        <label>Total</label>
+                        <label>Tổng</label>
                         <span>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</span>
                     </div>
                     <div class="order-info__item">
-                        <label>Payment Method</label>
+                        <label>Phương thức thanh toán</label>
                         <span>{{ $order->paymentMethod->name }}</span>
                     </div>
                 </div>
                 <div class="checkout__totals-wrapper">
                     <div class="checkout__totals">
-                        <h3>Order Details</h3>
+                        <h3>Chi tiết đơn hàng</h3>
                         <table class="checkout-cart-items">
                             <thead>
                             <tr>
-                                <th>PRODUCT</th>
-                                <th>COLOR</th>
-                                <th>CAPACITY</th>
+                                <th>Sản phẩm</th>
+                                <th>Màu</th>
+                                <th>Dung lượng</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($order->orderItems as $item)
                                 <tr>
-                                    <td>
-                                        {{ $item->product_name }} x {{ $item->quantity }}
-                                    </td>
+                                    <td>{{ $item->product_name }} x {{ $item->quantity }}</td>
                                     <td>
                                         @if ($item->product_capacity_id)
                                             {{ $item->capacity->name }}
@@ -64,12 +68,18 @@
                         <table class="checkout-totals">
                             <tbody>
                             <tr>
-                                <th>SUBTOTAL</th>
-                                <td>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
+                                <th class="align-left">Tổng</th>
+                                <td class="align-right">{{ number_format($order->subtotal, 0, ',', '.') }} VNĐ</td>
                             </tr>
+                            @if ($order->voucher)
+                                <tr>
+                                    <th class="align-left">Giảm giá</th>
+                                    <td class="align-right">-{{ number_format($order->voucher->discount, 0, ',', '.') }} VNĐ</td>
+                                </tr>
+                            @endif
                             <tr>
-                                <th>TOTAL</th>
-                                <td>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
+                                <th class="align-left">Tổng thanh toán</th>
+                                <td class="align-right">{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
                             </tr>
                             </tbody>
                         </table>
@@ -78,5 +88,32 @@
             </div>
         </section>
     </main>
+
+    <style>
+        .checkout-totals th.align-left {
+            text-align: left;
+        }
+
+        .checkout-totals td.align-right {
+            text-align: right;
+        }
+
+        .checkout-totals {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .checkout-totals th, .checkout-totals td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .checkout-totals tr:last-child td, .checkout-totals tr:last-child th {
+            font-weight: bold;
+            border-bottom: none;
+        }
+
+    </style>
 
 @endsection

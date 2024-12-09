@@ -1,11 +1,11 @@
 @extends('client.layouts.master')
 @section('content')
 <main class="container">
-    <h1 style="text-transform: uppercase;
+    <h4 style="text-transform: uppercase;
     font-weight: 900;
     border-left: 10px solid #fec500;
     padding-left: 10px;
-    margin: 30px 0">Mã giảm giá</h1>
+    margin: 30px 0">Mã giảm giá</h4>
     <div class="row list-vouchers">
         @foreach($vouchers as $voucher)
             <div class="col-6 col-md-6 col-lg-6 voucher">
@@ -47,7 +47,7 @@
         .list-vouchers .voucher {
             height: 120px;
             padding-right: 0;
-            margin-bottom: 15px;
+            margin-bottom: 150px;
         }
         .list-vouchers .voucher .item {
             height: 100%;
