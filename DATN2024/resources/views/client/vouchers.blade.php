@@ -1,4 +1,10 @@
+
 @extends('client.layouts.master')
+
+@section('title')
+    Voucher
+@endsection
+
 @section('content')
 <main class="container">
     <h4 style="text-transform: uppercase;
@@ -284,4 +290,6 @@
             }
         }
     </style>
+
+    
 @endsection

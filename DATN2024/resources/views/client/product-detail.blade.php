@@ -82,7 +82,7 @@
 
                                 </div>
                             </div>
-                            <div class="option-group mb-3">
+                            <div class="option-group" style="margin-bottom:10px;">
                                 <label class="option-label">Dung lượng:</label>
                                 <div class="option-selections">
                                     @foreach ($capacities as $id => $name)

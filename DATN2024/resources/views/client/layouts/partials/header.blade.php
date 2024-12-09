@@ -1,7 +1,7 @@
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
 
 
-    <div class="container9 mt-5" style="max-width: 400px;">
+    <div class="container9 mt-5" style="max-width: 400px; margin-top: 200px;">
         <button class="btn-close-lg js-close-aside position-absolute top-0 end-0 m-2" aria-label="Close">
         </button>
         @auth
@@ -113,28 +113,28 @@
                     </a>
                 </div>
 
-                <nav class="navigation flex-grow-1 fs-15 fw-semi-bold">
-                    <ul class="navigation__list list-unstyled d-flex">
-                        <li class="navigation__item">
-                            <a href="{{ route('home') }}" class="navigation__link text-white">Trang chủ</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="/shop" class="navigation__link text-white">Cửa hàng</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{ route("blog")}}" class="navigation__link text-white">Tin Tức</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{route("voucher")}}" class="navigation__link text-white">Mã Giảm Giá</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{ route('about') }}" class="navigation__link text-white">Giới thiệu</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{ route('contact') }}" class="navigation__link text-white">Liên hệ</a>
-                        </li>
-                    </ul>
-                </nav>
+                <nav class="navigation flex-grow-1 fs-15" style="display: flex; padding: 0; margin: 0; align-items: center; margin-top:10px;">
+    <ul class="navigation__list list-unstyled d-flex" style="display: flex; padding: 0; margin: 0;">
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="{{ route('home') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Trang chủ</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="/shop" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Cửa hàng</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left:10px;">
+            <a href="{{ route('blog') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Tin Tức</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="{{ route('voucher') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Mã Giảm Giá</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="{{ route('about') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Giới thiệu</a>
+        </li>
+        <li class="navigation__item" style="margin-left: 15px;">
+            <a href="{{ route('contact') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Liên hệ</a>
+        </li>
+    </ul>
+</nav>
 
                 <div class="header-tools d-flex align-items-center me-0">
                     <div class="header-tools__item hover-container">
@@ -166,19 +166,17 @@
 
                     </h3>
                     <ul class="categories-nav__list list-unstyled">
-                        @if(isset($catalogues) && $catalogues->isNotEmpty())
-                            @foreach($catalogues as $catalogue)
-                                <li class="categories-nav__item"
-                                    style="height: 40px; transition: background-color 0.3s;">
-                                    <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                       style="color: black"
-                                       class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
-                                        {{$catalogue->name}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
+    @if(isset($catalogues) && $catalogues->isNotEmpty())
+        @foreach($catalogues as $catalogue)
+            <li class="categories-nav__item" style="height: 40px;  display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
+                <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                   style="color: black; text-align: center; display: block; width: 100%;" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
+                   {{$catalogue->name}}
+                </a>
+            </li>
+        @endforeach
+    @endif
+</ul>
 
                     <style>
                         .categories-nav__item:hover {
