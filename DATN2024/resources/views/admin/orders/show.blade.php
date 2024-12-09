@@ -316,9 +316,14 @@
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
                                                         <th scope="row">Tổng tiền:</th>
-                                                        <th class="text-end">
-                                                            {{ number_format($item->order->total_price, 0, '.', ',') }} VND
-                                                        </th>
+                                                        {{-- @if ($order->total_price) --}}
+                                                            <th class="text-end">
+                                                                {{ number_format($order->total_price, 0, '.', ',') }} VND
+                                                            </th>
+                                                        {{-- @endif --}}
+
+
+
                                                     </tr>
                                                 </tbody>
                                             </table>
