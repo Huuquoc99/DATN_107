@@ -133,7 +133,7 @@ class OrderController extends Controller
                     ];
 
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
-                        $fail('The status transition is not allowed.');
+                        $fail('Không được phép chuyển đổi trạng thái.');
                     }
 
                     // Bổ sung quy tắc hủy đơn hàng trong vòng 10 phút kể từ khi thành công
@@ -142,7 +142,7 @@ class OrderController extends Controller
                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
                        if ($timeElapsed !== null && $timeElapsed <= 1) {
-                           $fail('Cannot change status to Canceled within 10 minutes of success.');
+                           $fail('Không thể thay đổi trạng thái thành Đã hủy trong vòng 10 phút sau khi thành công.');
                        }
                    }
 
@@ -230,7 +230,7 @@ class OrderController extends Controller
 
         if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {
             return redirect()->route('admin.orders.show', $id)
-                ->with('error', 'Payment status transition is not allowed.');
+                ->with('error', 'Không được phép chuyển đổi trạng thái thanh toán.');
         }
 
         if ($newPaymentStatusId != $currentStatusId) {
@@ -238,11 +238,11 @@ class OrderController extends Controller
             $order->save();
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success', 'Payment status updated successfully.');
+                ->with('success', 'Trạng thái thanh toán đã được cập nhật thành công.');
         }
 
         return redirect()->route('admin.orders.show', $id)
-            ->with('error', 'No change in payment status.');
+            ->with('error', 'Không có thay đổi về trạng thái thanh toán.');
     }
 
 //    public function updateStatus(Request $request, $id)

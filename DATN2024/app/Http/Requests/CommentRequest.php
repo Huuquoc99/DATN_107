@@ -31,12 +31,12 @@ class CommentRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'User ID is required.',
-            'user_id.exists' => 'User ID does not exist.',
-            'product_id.required' => 'Product ID is required.',
-            'product_id.exists' => 'Product ID does not exist.',
-            'content.required' => 'Comment content is required.',
-            'content.string' => 'Comment content must be a string.',
+            'user_id.required' => 'Yêu cầu nhập ID người dùng.',
+            'user_id.exists' => 'Không có ID người dùng.',
+            'product_id.required' => 'Yêu cầu nhập ID sản phẩm.',
+            'product_id.exists' => 'Không có ID sản phẩm.',
+            'content.required' => 'Yêu cầu nhập nội dung bình luận.',
+            'content.string' => 'Nội dung bình luận phải là chuỗi.',
         ];
     }
 }

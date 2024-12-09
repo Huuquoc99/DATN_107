@@ -29,7 +29,7 @@ class AdminLoginController extends Controller
             Auth::logout();
             return back()
                 ->withInput($request->only('email'))
-                ->withErrors(['email' => 'Invalid admin credentials or you are not authorized to access admin area.']);
+                ->withErrors(['email' => 'Thông tin đăng nhập quản trị không hợp lệ hoặc bạn không được phép truy cập vào khu vực quản trị.']);
         }
 
         if (Auth::attempt($credentials)) {
@@ -40,7 +40,7 @@ class AdminLoginController extends Controller
 
         return back()
             ->withInput($request->only('email'))
-            ->withErrors(['email' => 'Invalid admin credentials.']);
+            ->withErrors(['email' => 'Thông tin đăng nhập quản trị không hợp lệ.']);
     }
 
     public function logout(Request $request)

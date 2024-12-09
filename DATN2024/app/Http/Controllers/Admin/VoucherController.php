@@ -89,12 +89,12 @@ class VoucherController extends Controller
     {
         if ($request->isMethod("PUT")) {
 
-            if ($request->discount_type === 'percent' && $request->discount > 40) {
-                return redirect()->back()->withErrors(['discount' => 'The discount may not be greater than 40 when using percent.'])->withInput();
+            if ($request->discount_type === 'percent' && ($request->discount < 0 || $request->discount > 5)) {
+                return redirect()->back()->withErrors(['discount' => 'Mức chiết khấu không được lớn hơn 5 khi sử dụng phần trăm.'])->withInput();
             }
             $voucher = Voucher::findOrFail($id);
             $voucher->update($request->all());
-            return redirect()->route("admin.vouchers.index")->with("success", "Voucher updated successfully");
+            return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được cập nhật thành công");
         }
     }
 
@@ -105,6 +105,6 @@ class VoucherController extends Controller
     {
         $voucher = Voucher::findOrFail($id);
         $voucher->delete();
-        return redirect()->route("admin.vouchers.index")->with("success", "Voucher deleted successfully");
+        return redirect()->route("admin.vouchers.index")->with("success", "Phiếu giảm giá đã xóa thành công");
     }
 }

@@ -23,11 +23,11 @@ class VoucherController extends Controller
         session()->forget('voucher');
         $voucher = Voucher::query()->active()->where('code', $request->code)->first();
         if (!$voucher) {
-            return response()->json(['message' => 'Coupon code does not exist'], 404);
+            return response()->json(['message' => 'Mã giảm giá không tồn tại'], 404);
         }
 
         if ($voucher->used_quantity >= $voucher->quantity) {
-            return response()->json(['message' => 'Coupon code has expired'], 404);
+            return response()->json(['message' => 'Mã giảm giá đã hết hạn'], 404);
         }
         session()->put('voucher', $voucher->code);
         return response()->json($voucher);

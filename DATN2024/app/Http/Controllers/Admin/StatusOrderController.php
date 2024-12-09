@@ -40,7 +40,7 @@ class StatusOrderController extends Controller
             $statusOrder = StatusOrder::create($param);
             $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
         
-            return redirect()->route("admin.statusOrders.index")->with("success", "Status order created successfully");
+            return redirect()->route("admin.statusOrders.index")->with("success", "Trạng thái đơn hàng đã được tạo thành công");
 
         }
     }
@@ -78,7 +78,7 @@ class StatusOrderController extends Controller
             $statusOrder->update($param);
             $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
         
-            return redirect()->route("admin.statusOrders.index")->with("success", "Status order updated successfully");
+            return redirect()->route("admin.statusOrders.index")->with("success", "Trạng thái đơn hàng đã được cập nhật thành công");
 
         }
     }
@@ -90,7 +90,7 @@ class StatusOrderController extends Controller
     {
         $statusOrder = StatusOrder::findOrFail($id);
         $statusOrder->delete();
-        return redirect()->route("admin.statusOrders.index")->with("success", "Status order deleted successfully");
+        return redirect()->route("admin.statusOrders.index")->with("success", "Trạng thái đơn hàng đã xóa thành công");
 
     }
 }

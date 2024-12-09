@@ -28,10 +28,10 @@ class ForgotPasswordController extends Controller
 
             $user->notify(new CustomResetPasswordNotificationForClient($token));
 
-            return back()->with('status', 'We have emailed your password reset link!');
+            return back()->with('status', 'Chúng tôi đã gửi email liên kết đặt lại mật khẩu của bạn!');
         }
 
-        return back()->withErrors(['email' => 'No user found with this email address.']);
+        return back()->withErrors(['email' => 'Không tìm thấy người dùng nào có địa chỉ email này.']);
     }
 
 }

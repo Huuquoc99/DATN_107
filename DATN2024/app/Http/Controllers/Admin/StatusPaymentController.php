@@ -40,7 +40,7 @@ class StatusPaymentController extends Controller
             $statusPayment = StatusPayment::create($param);
             $statusPayment->is_active == 0 ? $statusPayment->hide() : $statusPayment->show();
         
-            return redirect()->route("admin.statusPayments.index")->with("success", "Status payment created successfully");
+            return redirect()->route("admin.statusPayments.index")->with("success", "Trạng thái thanh toán đã được tạo thành công");
 
         }
     }
@@ -78,7 +78,7 @@ class StatusPaymentController extends Controller
             $statusPayment->update($param);
             $statusPayment->is_active == 0 ? $statusPayment->hide() : $statusPayment->show();
 
-            return redirect()->route("admin.statusPayments.index")->with("success", "Status payment updated successfully");
+            return redirect()->route("admin.statusPayments.index")->with("success", "Trạng thái thanh toán đã được cập nhật thành công");
 
         }
     }
@@ -90,7 +90,7 @@ class StatusPaymentController extends Controller
     {
         $statusPayment = StatusPayment::findOrFail($id);
         $statusPayment->delete();
-        return redirect()->route("admin.statusPayments.index")->with("success", "Status payment deleted successfully");
+        return redirect()->route("admin.statusPayments.index")->with("success", "Trạng thái thanh toán đã xóa thành công");
 
     }
 }
