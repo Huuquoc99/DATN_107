@@ -104,7 +104,7 @@ class OrderController extends Controller
             $lastUpdated = $order->updated_at;
             $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
-            if ($timeElapsed !== null && $timeElapsed <= 10) {
+            if ($timeElapsed !== null && $timeElapsed <= 1) {
                 return false;
             }
         }
@@ -133,30 +133,24 @@ class OrderController extends Controller
                     ];
 
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
-                        $fail('The status transition is not allowed.');
+                        $fail('Không được phép chuyển đổi trạng thái.');
                     }
 
                     // Bổ sung quy tắc hủy đơn hàng trong vòng 10 phút kể từ khi thành công
-//                    if ($currentStatus == 4 && $value == 5) {
-//                        $lastUpdated = $order->updated_at;
-//                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
-//
-//                        if ($timeElapsed !== null && $timeElapsed <= 10) {
-//                            $fail('Cannot change status to Canceled within 10 minutes of success.');
-//                        }
-//                    }
+                   if ($currentStatus == 4 && $value == 5) {
+                       $lastUpdated = $order->updated_at;
+                       $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
+
+                       if ($timeElapsed !== null && $timeElapsed <= 1) {
+                           $fail('Không thể thay đổi trạng thái thành Đã hủy trong vòng 10 phút sau khi thành công.');
+                       }
+                   }
 
                     // Kiểm tra xem thanh toán có thất bại hay không: Chỉ cho phép hủy
                     if ($order->status_payment_id == '3' && !in_array($value, [6])) { // 6 = Canceled
                         $fail('Không thể cập nhật đơn hàng vì thanh toán không thành công. Chỉ được phép hủy bỏ.');
                     }
 
-                    // Kiểm tra xem đơn hàng có phải là COD hay không và người dùng xác nhận đã nhận là đã thanh toán
-                    if ($order->payment_method_id == '1' && $value == 5) {
-                        if ($order->status_order_id != '5') {
-                            $fail('Không thể xác nhận đơn là "Hoàn thành" khi người dùng chưa xác nhận đơn hàng!');
-                        }
-                    }
                 }
             ]
         ]);
@@ -236,7 +230,7 @@ class OrderController extends Controller
 
         if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {
             return redirect()->route('admin.orders.show', $id)
-                ->with('error', 'Payment status transition is not allowed.');
+                ->with('error', 'Không được phép chuyển đổi trạng thái thanh toán.');
         }
 
         if ($newPaymentStatusId != $currentStatusId) {
@@ -244,11 +238,11 @@ class OrderController extends Controller
             $order->save();
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success', 'Payment status updated successfully.');
+                ->with('success', 'Trạng thái thanh toán đã được cập nhật thành công.');
         }
 
         return redirect()->route('admin.orders.show', $id)
-            ->with('error', 'No change in payment status.');
+            ->with('error', 'Không có thay đổi về trạng thái thanh toán.');
     }
 
 //    public function updateStatus(Request $request, $id)

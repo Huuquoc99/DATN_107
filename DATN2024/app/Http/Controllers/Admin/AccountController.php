@@ -16,7 +16,7 @@ class AccountController extends Controller
     public function edit($id)
     {
         if (Auth::id() !== (int)$id || Auth::user()->type !== 1) {
-            return redirect()->route('admin.dashboard')->with('error', 'You do not have permission to edit this information!');
+            return redirect()->route('admin.dashboard')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
         }
 
         $user = User::findOrFail($id);
@@ -27,7 +27,7 @@ class AccountController extends Controller
     public function updateProfile(Request $request, $id)
     {
         if (Auth::id() !== (int)$id || Auth::user()->type !== 1) {
-            return redirect()->route('admin.dashboard')->with('error', 'You do not have permission to edit this information!');
+            return redirect()->route('admin.dashboard')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
         }
 
         $validated = $request->validate([
@@ -59,7 +59,7 @@ class AccountController extends Controller
             $user->save();  
         }
 
-        return redirect()->route('admin.account.edit', ['id' => $id])->with('success', 'Personal information has been updated!');
+        return redirect()->route('admin.account.edit', ['id' => $id])->with('success', 'Thông tin cá nhân đã được cập nhật!');
     }
 
 
@@ -67,7 +67,7 @@ class AccountController extends Controller
     public function updateAvatar(Request $request, $id)
     {
         if (Auth::id() !== (int)$id || Auth::user()->type !== 1) {
-            return redirect()->route('admin.dashboard')->with('error', 'You do not have permission to edit this information!');
+            return redirect()->route('admin.dashboard')->with('error', 'Bạn không có quyền chỉnh sửa thông tin này!');
         }
 
         $validated = $request->validate([
@@ -102,7 +102,7 @@ class AccountController extends Controller
             $user = Auth::user();
         
             if (!Hash::check($request->old_password, $user->password)) {
-                return back()->with('error1', 'Old password is incorrect!');
+                return back()->with('error1', 'Mật khẩu cũ không đúng!');
             }
     
             $user->password = Hash::make($request->new_password);
@@ -110,9 +110,9 @@ class AccountController extends Controller
             // Lỗi thì cũng kệ nó k được xoá k được sửa
             $user->save(); 
         
-            return redirect()->route('admin.account.edit', ['id' => $id])->with('success1', 'Password has been changed successfully!');
+            return redirect()->route('admin.account.edit', ['id' => $id])->with('success1', 'Mật khẩu đã được thay đổi thành công!');
         } catch (\Exception $e) {
-            return back()->with('error1', 'An unexpected error occurred while updating the password!');
+            return back()->with('error1', 'Đã xảy ra lỗi không mong muốn khi cập nhật mật khẩu!');
         }
     }
     

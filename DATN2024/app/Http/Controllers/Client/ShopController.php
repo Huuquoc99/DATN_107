@@ -19,7 +19,7 @@ class ShopController extends Controller
                 'product' => $product,
                 'catalogue' => $catalogue,
             ],
-            'message' => 'List of successful products.',
+            'message' => 'Danh sách các sản phẩm thành công.',
         ]);
     }
 
@@ -28,7 +28,7 @@ class ShopController extends Controller
         $catalogue = Catalogue::find($id);
 
         if (!$catalogue) {
-            return response()->json(['error' => 'Category does not exist.'], 404);
+            return response()->json(['error' => 'Danh mục không tồn tại.'], 404);
         }
 
         $product = Product::where('catalogue_id', $id)
@@ -37,7 +37,7 @@ class ShopController extends Controller
 
         return response()->json([
             'data' => $product,
-            'message' => 'List of products by category successfully.',
+            'message' => 'Danh sách sản phẩm theo danh mục thành công.',
         ]);
     }
 }

@@ -17,16 +17,16 @@ class ContactController extends Controller
             'email' => 'required|email|max:255',
             'message' => 'required|string',
         ], [
-            'name.required' => 'Please provide your name.',
-            'name.string' => 'The name must be a valid string.',
-            'name.max' => 'The name cannot exceed 255 characters.',
-            
-            'email.required' => 'Please provide your email address.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.max' => 'The email cannot exceed 255 characters.',
-            
-            'message.required' => 'Please write a message.',
-            'message.string' => 'The message must be a valid string.',
+            'name.required' => 'Vui lòng cung cấp tên của bạn.',
+            'name.string' => 'Tên phải là một chuỗi hợp lệ.',
+            'name.max' => 'Tên không được vượt quá 255 ký tự.',
+
+            'email.required' => 'Vui lòng cung cấp địa chỉ email của bạn.',
+            'email.email' => 'Vui lòng nhập địa chỉ email hợp lệ.',
+            'email.max' => 'Email không được vượt quá 255 ký tự.',
+
+            'message.required' => 'Vui lòng viết tin nhắn.',
+            'message.string' => 'Tin nhắn phải là một chuỗi hợp lệ.',
         ]);
 
         $catalogues = Catalogue::where('is_active', 1)->get();
@@ -34,7 +34,7 @@ class ContactController extends Controller
         Mail::to('hoadtph31026@fpt.edu.vn')->send(new ContactFormMail($validated));
         Mail::to($validated['email'])->send(new ContactFormMail($validated, true));
 
-        return back()->with('success', 'Your message has been sent!')->with(compact('catalogues'));
+        return back()->with('success', 'Tin nhắn của bạn đã được gửi!')->with(compact('catalogues'));
     }
 
 }

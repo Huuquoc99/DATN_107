@@ -38,7 +38,7 @@ class LoginController extends Controller
 
             $this->mergeSessionCartToDbCart();
 
-            session()->flash('success', 'Đăng nhập thành công! Chào mừng trở lại: , ' . Auth::user()->name . '.');
+            session()->flash('success', 'Đăng nhập thành công! Chào mừng trở lại: ' . Auth::user()->name . '.');
 
             return redirect()->intended('/');
         }

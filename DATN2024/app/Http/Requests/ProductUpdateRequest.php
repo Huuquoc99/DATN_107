@@ -71,78 +71,79 @@ class ProductUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Product name is required.',
-            'name.string' => 'Product name must be a string.',
-            'name.max' => 'Product name may not exceed 255 characters.',
-
-            'price_regular.required' => 'Regular price is required.',
-            'price_regular.numeric' => 'Regular price must be a number.',
-
-            'price_sale.required' => 'Sale price is required.',
-            'price_sale.numeric' => 'Sale price must be a number.',
-
-            'catalogue_id.required' => 'Phone brand is required.',
-            'catalogue_id.exists' => 'Invalid phone brand.',
-
-            'img_thumbnail.required' => 'Thumbnail image is required.',
-            'img_thumbnail.image' => 'Thumbnail image must be an image file.',
-            'img_thumbnail.mimes' => 'Thumbnail image must be in one of the following formats: jpeg, png, jpg, gif, svg.',
-            'img_thumbnail.max' => 'Thumbnail image may not exceed 2MB.',
-
-            'sku.required' => 'SKU is required.',
-            'sku.string' => 'SKU must be a string.',
-            'sku.max' => 'SKU may not exceed 20 characters.',
-
-            'processor.max' => 'Processor may not exceed 255 characters.',
-            'ram.max' => 'RAM may not exceed 255 characters.',
-            'screen_size.max' => 'Screen size may not exceed 255 characters.',
-            'operating_system.max' => 'Operating system may not exceed 255 characters.',
-            'battery_capacity.max' => 'Battery capacity may not exceed 255 characters.',
-            'camera_resolution.max' => 'Camera resolution may not exceed 255 characters.',
-            'network_connectivity.max' => 'Network connectivity may not exceed 255 characters.',
-            'storage.max' => 'Storage may not exceed 255 characters.',
-
-            'product_variants.array' => 'Product variants must be a valid array.',
-            'product_variants.*.quantity.required_with' => 'Quantity is required for product variant.',
-            'product_variants.*.quantity.numeric' => 'Quantity must be a number.',
-            'product_variants.*.quantity.min' => 'Quantity cannot be negative.',
-
-            'product_variants.*.price.required_with' => 'Price is required for product variant.',
-            'product_variants.*.price.numeric' => 'Price must be a number.',
-            'product_variants.*.price.min' => 'Price cannot be negative.',
-
-            'product_variants.*.image.required_with' => 'Image is required for product variant.',
-            'product_variants.*.image.image' => 'Uploaded file must be an image.',
-            'product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
-            'product_variants.*.image.max' => 'Image cannot exceed 2MB.',
-
-            'new_product_variants.array' => 'New product variants must be a valid array.',
-            'new_product_variants.*.size.required_with' => 'Size is required for new product variant.',
-            'new_product_variants.*.size.string' => 'Size must be a string.',
-            'new_product_variants.*.size.max' => 'Size cannot exceed 255 characters.',
-
-            'new_product_variants.*.color.required_with' => 'Color is required for new product variant.',
-            'new_product_variants.*.color.string' => 'Color must be a string.',
-            'new_product_variants.*.color.max' => 'Color cannot exceed 255 characters.',
-
-            'new_product_variants.*.quantity.required_with' => 'Quantity is required for new product variant.',
-            'new_product_variants.*.quantity.numeric' => 'Quantity must be a number.',
-            'new_product_variants.*.quantity.min' => 'Quantity cannot be negative.',
-
-            'new_product_variants.*.price.required_with' => 'Price is required for new product variant.',
-            'new_product_variants.*.price.numeric' => 'Price must be a number.',
-            'new_product_variants.*.price.min' => 'Price cannot be negative.',
-
-            'new_product_variants.*.image.required_with' => 'Image is required for new product variant.',
-            'new_product_variants.*.image.image' => 'Uploaded file must be an image.',
-            'new_product_variants.*.image.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
-            'new_product_variants.*.image.max' => 'Image cannot exceed 2MB.',
-
-            'product_galleries.array' => 'Product galleries must be a valid array.',
-            'product_galleries.*.required_with' => 'Image is required for product gallery.',
-            'product_galleries.*.image' => 'Uploaded file must be an image.',
-            'product_galleries.*.mimes' => 'Image must be a JPEG, PNG, JPG, or GIF.',
-            'product_galleries.*.max' => 'Image cannot exceed 2MB.',
-        ];
+            'name.required' => 'Tên sản phẩm là bắt buộc.',
+            'name.string' => 'Tên sản phẩm phải là một chuỗi.',
+            'name.max' => 'Tên sản phẩm không được vượt quá 255 ký tự.',
+            
+            'price_regular.required' => 'Giá thông thường là bắt buộc.',
+            'price_regular.numeric' => 'Giá thông thường phải là một số.',
+            
+            'price_sale.required' => 'Giá bán là bắt buộc.',
+            'price_sale.numeric' => 'Giá bán phải là một số.',
+            
+            'catalogue_id.required' => 'Nhãn hiệu điện thoại là bắt buộc.',
+            'catalogue_id.exists' => 'Nhãn hiệu điện thoại không hợp lệ.',
+            
+            'img_thumbnail.required' => 'Hình ảnh thu nhỏ là bắt buộc.',
+            'img_thumbnail.image' => 'Hình ảnh thu nhỏ phải là một tệp hình ảnh.',
+            'img_thumbnail.mimes' => 'Hình thu nhỏ phải có một trong các định dạng sau: jpeg, png, jpg, gif, svg.',
+            'img_thumbnail.max' => 'Hình thu nhỏ không được vượt quá 2MB.',
+            
+            'sku.required' => 'SKU là bắt buộc.',
+            'sku.string' => 'SKU phải là một chuỗi.',
+            'sku.max' => 'SKU không được vượt quá 20 ký tự.',
+            
+            'processor.max' => 'Bộ xử lý không được vượt quá 255 ký tự.',
+            'ram.max' => 'RAM không được vượt quá 255 ký tự.',
+            'screen_size.max' => 'Kích thước màn hình không được vượt quá 255 ký tự.',
+            'operating_system.max' => 'Hệ điều hành không được vượt quá 255 ký tự.',
+            'battery_capacity.max' => 'Dung lượng pin không được vượt quá 255 ký tự.',
+            'camera_resolution.max' => 'Độ phân giải camera không được vượt quá 255 ký tự.',
+            'network_connectivity.max' => 'Kết nối mạng không được vượt quá 255 ký tự.',
+            'storage.max' => 'Lưu trữ không được vượt quá 255 ký tự.',
+            
+            'product_variants.array' => 'Các biến thể sản phẩm phải là một mảng hợp lệ.',
+            'product_variants.*.quantity.required_with' => 'Số lượng là bắt buộc đối với biến thể sản phẩm.',
+            'product_variants.*.quantity.numeric' => 'Số lượng phải là một số.',
+            'product_variants.*.quantity.min' => 'Số lượng không được là số âm.',
+            
+            'product_variants.*.price.required_with' => 'Giá là bắt buộc đối với biến thể sản phẩm.',
+            'product_variants.*.price.numeric' => 'Giá phải là một số.',
+            'product_variants.*.price.min' => 'Giá không được là negative.',
+            
+            'product_variants.*.image.required_with' => 'Bắt ​​buộc phải có hình ảnh cho biến thể sản phẩm.',
+            'product_variants.*.image.image' => 'Tệp đã tải lên phải là hình ảnh.',
+            'product_variants.*.image.mimes' => 'Hình ảnh phải là JPEG, PNG, JPG hoặc GIF.',
+            'product_variants.*.image.max' => 'Hình ảnh không được vượt quá 2MB.',
+            
+            'new_product_variants.array' => 'Biến thể sản phẩm mới phải là một mảng hợp lệ.',
+            'new_product_variants.*.size.required_with' => 'Bắt ​​buộc phải có kích thước cho biến thể sản phẩm mới.',
+            'new_product_variants.*.size.string' => 'Kích thước phải là chuỗi.',
+            'new_product_variants.*.size.max' => 'Kích thước không được vượt quá 255 ký tự.',
+            
+            'new_product_variants.*.color.required_with' => 'Màu sắc là bắt buộc đối với biến thể sản phẩm mới.',
+            'new_product_variants.*.color.string' => 'Màu sắc phải là một chuỗi.',
+            'new_product_variants.*.color.max' => 'Màu sắc không được vượt quá 255 ký tự.',
+            
+            'new_product_variants.*.quantity.required_with' => 'Số lượng là bắt buộc đối với biến thể sản phẩm mới.',
+            'new_product_variants.*.quantity.numeric' => 'Số lượng phải là một số.',
+            'new_product_variants.*.quantity.min' => 'Số lượng không được là số âm.',
+            
+            'new_product_variants.*.price.required_with' => 'Giá là bắt buộc đối với biến thể sản phẩm mới.',
+            'new_product_variants.*.price.numeric' => 'Giá phải là một số.',
+            'new_product_variants.*.price.min' => 'Giá không được là số âm.',
+            
+            'new_product_variants.*.image.required_with' => 'Bắt ​​buộc phải có hình ảnh cho biến thể sản phẩm mới.',
+            'new_product_variants.*.image.image' => 'Tệp đã tải lên phải là hình ảnh.',
+            'new_product_variants.*.image.mimes' => 'Hình ảnh phải là JPEG, PNG, JPG hoặc GIF.',
+            'new_product_variants.*.image.max' => 'Hình ảnh không được vượt quá 2MB.',
+            
+            'product_galleries.array' => 'Thư viện sản phẩm phải là một mảng hợp lệ.',
+            'product_galleries.*.required_with' => 'Bắt ​​buộc phải có hình ảnh cho thư viện sản phẩm.',
+            'product_galleries.*.image' => 'Tệp đã tải lên phải là hình ảnh.',
+            'product_galleries.*.mimes' => 'Hình ảnh phải là JPEG, PNG, JPG hoặc GIF.',
+            'product_galleries.*.max' => 'Hình ảnh không được vượt quá 2MB.',
+            
+            ];
     }
 }

@@ -14,7 +14,7 @@ class LogoutController extends Controller
             request()->user()->currentAccessToken()->delete();
 
             return response()->json([
-                "message" => "Logout success"
+                "message" => "Đăng xuất thành công"
             ]);
 
         }catch(\Throwable $th){

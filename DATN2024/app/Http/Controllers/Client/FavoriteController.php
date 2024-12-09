@@ -18,7 +18,7 @@ class FavoriteController extends Controller
     {
         if (!Auth::check()) {
             return response()->json([
-                'message' => 'You need to login to perform this action.'
+                'message' => 'Bạn cần phải đăng nhập để thực hiện hành động này.'
             ], 401);
         }
 
@@ -34,7 +34,7 @@ class FavoriteController extends Controller
 
             return response()->json([
                 'is_favorite' => false,
-                'message' => 'The product has been removed from your wishlist.'
+                'message' => 'Sản phẩm đã bị xóa khỏi danh sách mong muốn của bạn.'
             ]);
         } else {
             Favorite::query()->create([
@@ -44,7 +44,7 @@ class FavoriteController extends Controller
 
             return response()->json([
                 'is_favorite' => true,
-                'message' => 'The product has been added to your wishlist.'
+                'message' => 'Sản phẩm đã được thêm vào danh sách mong muốn của bạn.'
             ]);
         }
     }
@@ -57,7 +57,7 @@ class FavoriteController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'The selected product id is invalid.',
+                'message' => 'Mã sản phẩm đã chọn không hợp lệ.',
                 'errors' => $validator->errors()
             ], 422);
         }
@@ -68,12 +68,12 @@ class FavoriteController extends Controller
             $favorite->delete();
 
             return response()->json([
-                'message' => 'Product removed from favorites.',
+                'message' => 'Sản phẩm đã bị xóa khỏi mục yêu thích.',
             ]);
         }
 
         return response()->json([
-            'message' => 'Favorite not found.',
+            'message' => 'Không tìm thấy mục yêu thích.',
         ], 404);
     }
 

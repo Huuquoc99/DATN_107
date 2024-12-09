@@ -28,8 +28,8 @@ class AddToCartRequest extends FormRequest
     public function messages()
     {
         return [
-            'quantity.required' => 'Quantity cannot be left blank.',
-            'quantity.min' => 'Quantity must be greater than or equal to 1.',
+            'quantity.required' => 'Số lượng không được để trống.',
+            'quantity.min' => 'Số lượng phải lớn hơn hoặc bằng 1.',
         ];
     }
 }

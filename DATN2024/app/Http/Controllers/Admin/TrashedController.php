@@ -32,7 +32,7 @@ class TrashedController extends Controller
             }, 3);
 
             return redirect()->route('admin.products.index')
-                ->with('success', 'Product restored successfully!');
+                ->with('success', 'Sản phẩm đã được khôi phục thành công!');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }

@@ -81,7 +81,7 @@ class CommentController extends Controller
 
         if ($comment->user_id !== auth()->id()) {
             return response()->json([
-                'message' => 'You do not have permission to update this comment',
+                'message' => 'Bạn không có quyền cập nhật bình luận này',
             ], 403);
         }
         $canRate = false;
@@ -124,7 +124,7 @@ class CommentController extends Controller
 
         if ($comment->user_id !== auth()->id()) {
             return response()->json([
-                'message' => 'You do not have permission to delete this comment',
+                'message' => 'Bạn không có quyền xóa bình luận này',
             ], 403);
         }
 
@@ -132,11 +132,11 @@ class CommentController extends Controller
             $comment->delete();
 
             return response()->json([
-                'message' => 'Comment deleted successfully',
+                'message' => 'Bình luận đã được xóa thành công',
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'An error occurred, unable to delete comment',
+                'message' => 'Đã xảy ra lỗi, không thể xóa bình luận',
             ], 500);
         }
     }
@@ -150,13 +150,13 @@ class CommentController extends Controller
 
         if (!$comment) {
             return response()->json([
-                'message' => 'Comment not found',
+                'message' => 'Không tìm thấy bình luận',
             ], 404);
         }
 
         if ($comment->user_id !== auth()->id()) {
             return response()->json([
-                'message' => 'You do not have permission to delete this comment',
+                'message' => 'Bạn không có quyền xóa bình luận này',
             ], 403);
         }
 
