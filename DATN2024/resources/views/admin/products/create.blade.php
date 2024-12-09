@@ -30,6 +30,16 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Thêm mới</h4>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -61,6 +71,9 @@
                                         <label for="price_sale" class="form-label">Giá khuyến mãi</label>
                                         <input type="number" class="form-control" name="price_sale" id="price_sale"
                                                value="{{ old('price_sale') }}">
+                                        @error("price_sale")
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <!-- Catalogues -->
@@ -114,7 +127,7 @@
                                         @enderror
                                     </div>
 
-                                    
+
 
                                     <!-- Short Description -->
                                     <div class="mt-3">
@@ -197,7 +210,7 @@
                                             @enderror
                                         </div>
 
-                                        {{-- <!-- Storage -->
+                                         <!-- Storage -->
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
                                             <input type="text"
@@ -206,7 +219,7 @@
                                             @error("storage")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
-                                        </div> --}}
+                                        </div>
 
                                         <!-- SIM Type -->
                                         <div class="mt-3">
@@ -259,17 +272,11 @@
                                         <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i
                                                 class="fa-solid fa-plus fa-xl"></i></button>
                                     </div>
-
                                     <div class="card-body" style="height: 450px; overflow: scroll">
                                         <div class="live-preview">
                                             <div class="row gy-4">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered" id="variant-table">
-                                                        @if ($errors->has('duplicate_error'))
-                                                            <div class="alert alert-danger">
-                                                                {{ $errors->first('duplicate_error') }}
-                                                            </div>
-                                                        @endif
                                                         <tbody>
                                                         <tr class="text-center">
                                                             <th>Dung lượng</th>

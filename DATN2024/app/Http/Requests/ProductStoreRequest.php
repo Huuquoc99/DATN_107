@@ -27,7 +27,7 @@ class ProductStoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'price_regular' => 'required|numeric',
-            'price_sale' => 'required|numeric',
+            'price_sale' => 'required|numeric|lte:price_regular',
             'catalogue_id' => 'required|exists:catalogues,id',
             'img_thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'processor' => 'required|string|max:255',
@@ -74,6 +74,7 @@ class ProductStoreRequest extends FormRequest
             'price_regular.required' => 'Regular price is required.',
             'price_regular.numeric' => 'Regular price must be a number.',
             'price_regular.min' => 'Regular price must be at least 0.',
+            'price_sale.lte' => 'The sale price must be less than or equal to the regular price.',
 
             'price_sale.numeric' => 'Sale price must be a number.',
             'price_sale.min' => 'Sale price must be at least 0.',
