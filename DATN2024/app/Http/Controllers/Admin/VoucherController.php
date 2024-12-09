@@ -32,6 +32,9 @@ class VoucherController extends Controller
     public function store(VoucherRequest  $request)
     {
         if ($request->isMethod("POST")) {
+            if ($request->discount_type === 'percent' && $request->discount > 40) {
+                return redirect()->back()->withErrors(['discount' => 'The discount may not be greater than 40 when using percent.'])->withInput();
+            }
             Voucher::create($request->all());
             return redirect()->route("admin.vouchers.index")->with("success", "Voucher created successfully");
         }
@@ -60,6 +63,10 @@ class VoucherController extends Controller
     public function update(VoucherRequest  $request, string $id)
     {
         if ($request->isMethod("PUT")) {
+
+            if ($request->discount_type === 'percent' && $request->discount > 40) {
+                return redirect()->back()->withErrors(['discount' => 'The discount may not be greater than 40 when using percent.'])->withInput();
+            }
             $voucher = Voucher::findOrFail($id);
             $voucher->update($request->all());
             return redirect()->route("admin.vouchers.index")->with("success", "Voucher updated successfully");

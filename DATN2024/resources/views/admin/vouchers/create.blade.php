@@ -47,6 +47,15 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3">
+                                        <label for="date-datepicker" class="form-label">Ngày bắt đầu</label>
+                                        <input type="date" id="date-datepicker"
+                                            class="form-control @error('start_date') is-invalid @enderror"
+                                            name="start_date" placeholder="Select date">
+                                        @error('start_date')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3">
                                         <label for="date-datepicker" class="form-label">Ngày hết hạn</label>
                                         <input type="date" id="date-datepicker"
                                             class="form-control @error('expiration_date') is-invalid @enderror"
@@ -86,6 +95,13 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    <div class="form-group mt-3">
+                                        <label for="discount_type">Loại giảm giá</label>
+                                        <select name="discount_type" id="discount_type" class="form-control">
+                                            <option value="amount" {{ old('discount_type', $voucher->discount_type ?? '') == 'amount' ? 'selected' : '' }}>Theo số tiền</option>
+                                            <option value="percent" {{ old('discount_type', $voucher->discount_type ?? '') == 'percent' ? 'selected' : '' }}>Theo tỷ lệ phần trăm</option>
+                                        </select>
+                                    </div>
                                     <div class="mt-3">
                                         <label for="discount" class="form-label">Giảm giá</label>
                                         <input type="number"
@@ -95,6 +111,7 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                   
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Mô tả</label>
                                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
