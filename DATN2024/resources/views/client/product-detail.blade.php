@@ -216,15 +216,14 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
-                        <h2 class="product-single__reviews-title">Reviews</h2>
+                        <h2 class="product-single__reviews-title">Đánh giá</h2>
                         @include('client.list-comment', [
                             'productId' => $product->id,
                             'comments' => $comments,
                         ])
                         <div class="text-center load-more-container"
                             style="display: {{ $comments->hasMorePages() ? 'block' : 'none' }}">
-                            <button id="load-more-reviews" class="btn btn-sm btn-primary load-more-reviews">Load
-                                More</button>
+                            <button id="load-more-reviews" class="btn btn-sm btn-primary load-more-reviews">Tải nhiều hơn</button>
                         </div>
                         <div class="product-single__review-form mt-4">
                             @include('client.comment', [

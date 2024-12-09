@@ -38,10 +38,10 @@
         @if (Auth::user() && Auth::user()->id == $comment->user_id)
         <div class="review-action">
             <a href="#" data-id="{{ $comment->id }}" style="color: #4bb6b7" class="action-review edit-review">
-                <i class="fas fa-edit"></i> Edit
+                <i class="fas fa-edit"></i> Sửa
             </a>
             <a href="#" data-id="{{ $comment->id }}" style="color: red" class="action-review delete-review">
-                <i class="fas fa-trash-alt"></i> Delete
+                <i class="fas fa-trash-alt"></i> Xóa
             </a>
         </div>
         @endif
