@@ -14,7 +14,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $listVoucher = Voucher::get();
+        // $listVoucher = Voucher::get();
+        $listVoucher = Voucher::orderBy('id', 'desc')->get();
+        // dd($listVoucher);
         return view("admin.vouchers.index", compact('listVoucher'));
     }
 
@@ -29,16 +31,39 @@ class VoucherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VoucherRequest  $request)
+    // public function store(VoucherRequest  $request)
+    // {
+    //     if ($request->isMethod("POST")) {
+    //         if ($request->discount_type === 'percent' && $request->discount > 40) {
+    //             return redirect()->back()->withErrors(['discount' => 'The discount may not be greater than 40 when using percent.'])->withInput();
+    //         }
+    //         Voucher::create($request->all());
+    //         return redirect()->route("admin.vouchers.index")->with("success", "Voucher created successfully");
+    //     }
+    // }
+
+    public function store(VoucherRequest $request)
     {
         if ($request->isMethod("POST")) {
-            if ($request->discount_type === 'percent' && $request->discount > 40) {
-                return redirect()->back()->withErrors(['discount' => 'The discount may not be greater than 40 when using percent.'])->withInput();
+            if ($request->discount_type === 'percent') {
+                if ($request->discount < 0 || $request->discount > 5) {
+                    return redirect()->back()
+                        ->withErrors(['discount' => 'Mức chiết khấu phải nằm trong khoảng từ 0 đến 5 khi sử dụng phần trăm.'])
+                        ->withInput();
+                }
+            } elseif ($request->discount_type === 'amount') {
+                if ($request->discount < 0 || $request->discount > 1000000) {
+                    return redirect()->back()
+                        ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
+                        ->withInput();
+                }
             }
+
             Voucher::create($request->all());
-            return redirect()->route("admin.vouchers.index")->with("success", "Voucher created successfully");
+            return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được tạo thành công");
         }
     }
+
 
     /**
      * Display the specified resource.

@@ -12,7 +12,15 @@
                 <div class="d-flex item">
                     <div class="col-3 col-md-3 col-lg-3 col-sm-3 col-xs-3 head">
                         <div class="left"></div>
-                        <div class="voucher-logo"> {{number_format($voucher['discount']/1000)}}K</div>
+                        {{-- <div class="voucher-logo"> {{number_format($voucher['discount']/1000)}}K</div> --}}
+                        <div class="voucher-logo">
+                            @if($voucher['discount_type'] == 'amount')
+                                {{ number_format($voucher['discount'] / 1000) }}K
+                            @elseif($voucher['discount_type'] == 'percent')
+                                {{ $voucher['discount'] }}%
+                            @endif
+                        </div>
+                        
                     </div>
                     <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-9 content">
                         <div class="redirect">

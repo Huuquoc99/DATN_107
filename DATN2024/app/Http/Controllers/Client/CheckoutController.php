@@ -100,6 +100,9 @@ class CheckoutController extends Controller
 
     public function processCheckoutForGuests(Request $request) {
 
+
+        // dd($request);
+
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
             'ship_user_email' => 'required|email|max:255',
@@ -134,6 +137,16 @@ class CheckoutController extends Controller
 
         $paymentMethodId = $request->input('payment_method_id');
 
+        $total_guest = $this->calculateTotalGuests($guest_cart);
+
+        // Tính toán tổng giá trị đơn hàng sau khi áp dụng voucher
+        $total_price = $total_guest - ($voucher ? 
+            ($voucher->discount_type == 'percent' 
+                ? $total_guest * $voucher->discount / 100 
+                : $voucher->discount) 
+            : 0
+        );
+
         $order = Order::query()->create([
             'user_id' => null,
             'is_guest' => 1,
@@ -151,12 +164,17 @@ class CheckoutController extends Controller
             'ship_user_phone' => $request->ship_user_phone,
             'ship_user_address' => $request->ship_user_address,
             'payment_method_id' => $paymentMethodId,
-            'total_price' => $this->calculateTotalGuests($guest_cart) - ($voucher ? $voucher->discount : 0),
+            'total_price' => $total_price,
+            // 'total_price' => $this->calculateTotalGuests($guest_cart) - ($voucher ? ($voucher->discount_type == 'percent' 
+            // ? $this->calculateTotalGuests($guest_cart) * $voucher->discount / 100 : $voucher->discount) : 0),
+
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
             'voucher_id' => $voucher ? $voucher->id : null,
         ]);
+
+        // dd($order);
 
 
         if ($voucher) {
@@ -304,7 +322,9 @@ class CheckoutController extends Controller
 
 
             'payment_method_id' => $paymentMethodId,
-            'total_price' => $this->calculateTotal($cart->id) - ($voucher ? $voucher->discount : 0),
+            // 'total_price' => $this->calculateTotal($cart->id) - ($voucher ? $voucher->discount : 0),
+            'total_price' => $this->calculateTotal($cart->id) - ($voucher ? ($voucher->discount_type == 'percent' ? $this->calculateTotal($cart->id) * $voucher->discount / 100 : $voucher->discount) : 0),
+
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),

@@ -156,13 +156,34 @@
                                             <tr>
                                                 <input type="hidden" name="voucher" value="{{$voucher->discount}}">
                                                 <th>GIẢM GIÁ</th>
-                                                <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td>
+                                                {{-- <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td> --}}
+                                                <td>
+                                                    @if($voucher->discount_type == 'amount')
+                                                        -{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ
+                                                    @elseif($voucher->discount_type == 'percent')
+                                                        {{-- -{{ $voucher->discount }}% --}}
+                                                        -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
+                                                    @endif
+                                                </td>
+                                                
                                             </tr>
                                         @endif
                                         <tr>
                                             <input type="hidden" name="total" value="{{$subtotal - ($voucher ? $voucher->discount : 0)}}">
                                             <th>TOTAL</th>
-                                            <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td>
+                                            {{-- <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td> --}}
+                                            <td>
+                                                @if($voucher)
+                                                    @if($voucher->discount_type == 'percent')
+                                                        {{ number_format($subtotal - ($subtotal * $voucher->discount / 100), 0, ',', '.') }} VNĐ
+                                                    @else
+                                                        {{ number_format($subtotal - $voucher->discount, 0, ',', '.') }} VNĐ
+                                                    @endif
+                                                @else
+                                                    {{ number_format($subtotal, 0, ',', '.') }} VNĐ
+                                                @endif
+                                            </td>
+                                            
                                         </tr>
                                     @endif
                                     </tbody>

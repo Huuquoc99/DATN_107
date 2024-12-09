@@ -95,7 +95,7 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    <div class="form-group mt-3">
+                                    {{-- <div class="form-group mt-3">
                                         <label for="discount_type">Loại giảm giá</label>
                                         <select name="discount_type" id="discount_type" class="form-control">
                                             <option value="amount" {{ old('discount_type', $voucher->discount_type ?? '') == 'amount' ? 'selected' : '' }}>Theo số tiền</option>
@@ -110,8 +110,24 @@
                                         @error('discount')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
+                                    </div> --}}
+                                    <div class="form-group mt-3">
+                                        <label for="discount_type">Loại giảm giá</label>
+                                        <select name="discount_type" id="discount_type" class="form-control">
+                                            <option value="amount" {{ old('discount_type', $voucher->discount_type ?? '') == 'amount' ? 'selected' : '' }}>Theo số tiền</option>
+                                            <option value="percent" {{ old('discount_type', $voucher->discount_type ?? '') == 'percent' ? 'selected' : '' }}>Theo tỷ lệ phần trăm</option>
+                                        </select>
                                     </div>
-                                   
+                                    <div class="mt-3">
+                                        <label for="discount" class="form-label">Giảm giá</label>
+                                        <input type="number"
+                                            class="form-control @error('discount') is-invalid @enderror"
+                                            name="discount" id="discount" value="{{ old('discount', $voucher->discount ?? '') }}">
+                                        @error('discount')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Mô tả</label>
                                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
