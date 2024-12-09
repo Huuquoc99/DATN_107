@@ -189,4 +189,52 @@ class OrderController extends Controller
         }
     }
 
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('k');
+
+        $query = Auth::user()->orders()
+            ->where(function ($q) use ($searchTerm) {
+                $q->where('code', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('id', 'LIKE', "%{$searchTerm}%")
+                    ->orWhereHas('orderItems.productVariant.product', function ($q) use ($searchTerm) {
+                        $q->where('name', 'LIKE', "%{$searchTerm}%");
+                    })
+                    ->orWhereHas('orderItems.productVariant.product.catalogue', function ($q) use ($searchTerm) {
+                        $q->where('name', 'LIKE', "%{$searchTerm}%");
+                    });
+            })
+            ->with(['statusOrder', 'statusPayment', 'orderItems.productVariant.product.catalogue']);
+
+
+        $orders = $query->latest()->paginate(7);
+
+        $mappedOrders = $orders->getCollection()->map(function ($order) {
+            return [
+                'id' => $order->id,
+                'code' => $order->code,
+                'created_at' => $order->created_at,
+                'status_order_id' => $order->statusOrder->id,
+                'status_order_name' => $order->statusOrder->name,
+                'status_payment' => $order->statusPayment->name,
+                'total_price' => $order->total_price,
+            ];
+        });
+
+        $orders->setCollection(collect($mappedOrders));
+        $statusOrders = StatusOrder::all();
+        $message = $orders->isEmpty() ? 'Không tìm thấy đơn hàng.' : null;
+
+        if ($request->ajax()) {
+            $html = view('client.account.orders_table', compact('orders', 'statusOrders', 'message'))->render();
+            return response()->json([
+                'html' => $html,
+                'total' => $orders->total()
+            ]);
+        }
+
+        return view('client.account.history', compact('orders', 'statusOrders', 'message'));
+    }
+
 }
