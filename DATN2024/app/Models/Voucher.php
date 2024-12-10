@@ -18,6 +18,8 @@ class Voucher extends Model
         'quantity',
         'used_quantity',
         'discount',
+        'discount_type',
+        'start_date',
         'expiration_date',
         'is_active',
     ];
@@ -28,8 +30,16 @@ class Voucher extends Model
         'expiration_date' => 'date',
         'is_active' => 'boolean',
     ];
+    // public function scopeActive(Builder $query): void
+    // {
+    //     $query->where('is_active', true)->where('expiration_date', '>', now());
+    // }
+
     public function scopeActive(Builder $query): void
     {
-        $query->where('is_active', true)->where('expiration_date', '>', now());
+        $query->where('is_active', true)
+            ->where('expiration_date', '>', now())
+            ->where('start_date', '<=', now());
     }
+
 }

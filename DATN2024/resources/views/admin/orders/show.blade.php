@@ -206,16 +206,60 @@
                                         <th scope="col" class="text-end">Tổng</th>
                                     </tr>
                                 </thead>
-
-                                @php
-                                    $grandTotal = 0; // Tổng tiền của tất cả sản phẩm trong đơn hàng
-                                @endphp
-
                                 <tbody>
                                     @foreach ($order->orderItems as $item)
-                                        @php
-                                            $totalItems = $item->product_price_regular * $item->quantity;
-                                        @endphp
+                                        <tr>
+                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
+                                                        @php
+                                                            $url = $item->productVariant->image;
+                                                            if (!Str::contains($url, 'http')) {
+                                                                $url = \Illuminate\Support\Facades\Storage::url($url);
+                                                            }
+                                                        @endphp
+                                                        @if ($url)
+                                                            <img src="{{ $url }}" alt=""
+                                                                class="img-fluid d-block">
+                                                        @else
+                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" alt="Không có hình ảnh nào có sẵn"
+                                                                class="img-fluid d-block">
+                                                        @endif
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h5 class="fs-15">
+                                                            <a href="{{ route('admin.products.show', $item->productVariant->product->id) }}">
+                                                                {{ \Illuminate\Support\Str::limit($item->product_name ?? 'N/A', 15, '...') }}
+                                                            </a>
+                                                        </h5>
+                                                        <p class="text-muted mb-0">Màu sắc:
+                                                            <span class="fw-medium">
+                                                                @if ($item->product_color_id)
+                                                                    {{ $item->color->name ?? 'N/A' }}
+                                                                @endif
+                                                            </span>
+                                                        </p>
+                                                        <p class="text-muted mb-0">Dung lượng:
+                                                            <span class="fw-medium">
+                                                                @if ($item->product_capacity_id)
+                                                                    {{ $item->capacity->name ?? 'N/A' }}
+                                                                @endif
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">{{ number_format($item->productVariant->price, 0, '.', ',') }} VND</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                           
+                                            <td class="fw-medium text-end">
+                                                {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                    {{-- @foreach ($order->orderItems as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
                                             <td>
@@ -247,7 +291,7 @@
                                             <td class="text-center">{{ $item->quantity }}</td>
                                             <td class="text-end">{{ number_format($totalItems, 0, ',', '.') }} VND</td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
 
                                     <tr class="border-top border-top-dashed">
                                         <td colspan="3"></td>
@@ -255,22 +299,26 @@
                                             <table class="table table-borderless mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <td></td>
+                                                        <td>Tổng cộng :</td>
                                                         <td class="text-end">
                                                             {{ number_format($order->subtotal, 0, '.', ',') }} VND
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Giảm giá :</td>
+                                                       @if ($order->voucher)
                                                         <td class="text-end">
-                                                            -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
+                                                            -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
                                                         </td>
+                                                       @endif
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
                                                         <th scope="row">Tổng tiền:</th>
-                                                        <th class="text-end">
-                                                            {{ number_format($item->order->total_price, 0, '.', ',') }} VND
-                                                        </th>
+                                                        {{-- @if ($order->total_price) --}}
+                                                            <th class="text-end">
+                                                                {{ number_format($order->total_price, 0, '.', ',') }} VND
+                                                            </th>
+                                                        {{-- @endif --}}
                                                     </tr>
                                                 </tbody>
                                             </table>

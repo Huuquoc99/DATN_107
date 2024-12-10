@@ -73,7 +73,7 @@ class HomeController extends Controller
         return view('client.shop', [
             'products' => $products,
             'source' => 'catalogue',
-            'title' => 'Products by category'
+            'title' => 'Sản phẩm theo danh mục'
         ]);
     }
 
@@ -192,6 +192,6 @@ class HomeController extends Controller
             ]
         ]);
         broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
-        return 'Successful order notification';
+        return 'Thông báo đơn hàng thành công';
     }
 }

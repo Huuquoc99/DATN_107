@@ -44,7 +44,7 @@ class OrderController extends Controller
 
         $orders->setCollection(collect($mappedOrders));
         $statusOrders = StatusOrder::all();
-        $message = $orders->isEmpty() ? 'You have no orders yet.' : null;
+        $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
 
         return view('client.account.history', compact('orders', 'statusOrders', 'statusFilter', 'message'));
     }
@@ -53,7 +53,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         if ($order->user_id !== Auth::id()) {
-            return redirect()->route('orders.index')->with('error', 'Unauthorized action.');
+            return redirect()->route('orders.index')->with('error', 'Hành động trái phép.');
         }
 
         $orderWithItems = $order->load([
@@ -76,7 +76,7 @@ class OrderController extends Controller
         if ($order) {
             return response()->json(['history' => json_decode($order->history)]);
         }
-        return response()->json(['message' => 'Order not found.'], 404);
+        return response()->json(['message' => 'Không tìm thấy đơn hàng.'], 404);
     }
 
 
@@ -114,10 +114,10 @@ class OrderController extends Controller
 
             \App\Events\OrderPlaced::dispatch($order, 'client_cancel');
 
-            return redirect()->back()->with('success', 'Order has been cancelled.');
+            return redirect()->back()->with('success', 'Đơn hàng đã bị hủy.');
         }
 
-        return redirect()->back()->with('error', 'Order cannot be cancelled..');
+        return redirect()->back()->with('error', 'Không thể hủy đơn hàng.');
     }
 
     private function rollbackQuantity($order)
@@ -146,10 +146,10 @@ class OrderController extends Controller
             }
 
             return redirect()->route('admin.orders.show', $id)
-                ->with('success', 'Order status updated successfully.');
+                ->with('success', 'Trạng thái đơn hàng đã được cập nhật thành công.');
         } else {
             return redirect()->route('admin.orders.show', $id)
-                ->with('info', 'No change in order status.');
+                ->with('info', 'Không có thay đổi về trạng thái đơn hàng.');
         }
     }
 

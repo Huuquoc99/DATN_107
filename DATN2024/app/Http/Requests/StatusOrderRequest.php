@@ -32,13 +32,13 @@ class StatusOrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.required' => 'The code field is required.',
-            // 'code.unique' => 'The code must be unique.',
-            'code.max' => 'The code cannot exceed 50 characters.',
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a string',
-            'name.max' => 'The name cannot exceed 100 characters.',
-            'display_order.required' => 'The display order field is required.',
+            'code.required' => 'Trường mã là bắt buộc.',
+            // 'code.unique' => 'Mã phải là duy nhất.',
+            'code.max' => 'Mã không được vượt quá 50 ký tự.',
+            'name.required' => 'Trường tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi',
+            'name.max' => 'Tên không được vượt quá 100 ký tự.',
+            'display_order.required' => 'Trường thứ tự hiển thị là bắt buộc.',
         ];
     }
 }

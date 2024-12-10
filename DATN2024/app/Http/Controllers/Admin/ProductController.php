@@ -115,7 +115,7 @@ class ProductController extends Controller
                 if ($existingVariant) {
                     return redirect()->back()->withErrors([
                         'duplicate_error' => sprintf(
-                            'Variant with size "%s" and color "%s" already exists for this product.',
+                            'Biến thể có kích thước "%s" và màu "%s" đã tồn tại cho sản phẩm này.',
                             $item['size'],
                             $item['color']
                         )
@@ -155,7 +155,7 @@ class ProductController extends Controller
             $this->destroySesstion();
 
             DB::commit();
-            return redirect()->route('admin.products.index')->with("success", "Product created successfully");
+            return redirect()->route('admin.products.index')->with("success", "Sản phẩm đã được tạo thành công");
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollBack();
@@ -296,7 +296,7 @@ class ProductController extends Controller
                     Storage::delete($productImgThumbnailCurrent);
                 }
             }
-            return redirect()->route('admin.products.index')->with("success", "Product updated successfully");
+            return redirect()->route('admin.products.index')->with("success", "Sản phẩm đã được cập nhật thành công");
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             DB::rollBack();
@@ -330,7 +330,7 @@ class ProductController extends Controller
             $check_orderItem = $product->variants()->whereHas('orderItems')->exists();
 
             if ($check_cartItem || $check_orderItem) {
-                return back()->with('error', 'This product is in the cart or already exists in the order and cannot be deleted.');
+                return back()->with('error', 'Sản phẩm này đang có trong giỏ hàng hoặc đã có trong đơn hàng và không thể xóa.');
             }
 
             DB::transaction(function () use ($product) {
@@ -345,7 +345,7 @@ class ProductController extends Controller
             }, 3);
 
             return redirect()->route('admin.products.index')
-                ->with('success', 'Product deleted successfully!');
+                ->with('success', 'Sản phẩm đã được xóa thành công!');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }

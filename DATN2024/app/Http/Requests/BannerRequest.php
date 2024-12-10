@@ -32,17 +32,17 @@ class BannerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required'       => 'The title field is required.',
-            'title.string'         => 'The title must be a string.',
-            'title.max'            => 'The title may not be greater than 255 characters.',
-            'description.string'   => 'The description must be a string.',
-            'description.max'      => 'The description may not be greater than 500 characters.',
-            'link.url'             => 'The link must be a valid URL.',
-            'link.required'        => 'The link field is required.',
-            'image.image'          => 'The file must be an image.',
-            'image.mimes'          => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
-            'image.max'            => 'The image size may not be greater than 2MB.',
-            'image.required'       => 'The image field is required.',
+            'title.required' => 'Trường tiêu đề là bắt buộc.',
+            'title.string' => 'Tiêu đề phải là một chuỗi.',
+            'title.max' => 'Tiêu đề không được dài hơn 255 ký tự.',
+            'description.string' => 'Mô tả phải là một chuỗi.',
+            'description.max' => 'Mô tả không được dài hơn 500 ký tự.',
+            'link.url' => 'Liên kết phải là một URL hợp lệ.',
+            'link.required' => 'Trường liên kết là bắt buộc.',
+            'image.image' => 'Tệp phải là hình ảnh.',
+            'image.mimes' => 'Hình ảnh phải là tệp có loại: jpeg, png, jpg, gif, svg.',
+            'image.max' => 'Kích thước hình ảnh không được lớn hơn 2MB.',
+            'image.required' => 'Trường hình ảnh là bắt buộc.',
         ];
     }
 }

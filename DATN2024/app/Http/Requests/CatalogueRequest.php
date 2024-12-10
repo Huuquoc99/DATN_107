@@ -34,8 +34,8 @@ class CatalogueRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "Category names cannot be left blank",
-            "name.max" => "Category name must not exceed 255 characters",
+            "name.required" => "Tên danh mục không được để trống",
+            "name.max" => "Tên danh mục không được vượt quá 255 ký tự",
         ];
     }
 }

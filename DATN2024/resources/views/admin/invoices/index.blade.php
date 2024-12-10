@@ -42,7 +42,6 @@
                             </div>
                         </div>
                     </div>
-                  
                 </form>
             </div>
             <div class="card-body">
@@ -83,7 +82,7 @@
                                             <span id="invoice-date">{{ $invoice->created_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $invoice->created_at->format('h:iA') }}</small>
                                         </td>
-                                        <td>{{ $invoice->total_price }}</td>
+                                        <td>{{ number_format($invoice->total_price, 0, ',', '.') }} VND</td>
                                         <td>
                                             @switch($invoice->statusPayment->id)
                                                 @case(1)
