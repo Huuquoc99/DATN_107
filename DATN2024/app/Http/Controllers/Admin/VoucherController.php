@@ -87,14 +87,34 @@ class VoucherController extends Controller
      */
     public function update(VoucherRequest  $request, string $id)
     {
-        if ($request->isMethod("PUT")) {
+        // if ($request->isMethod("PUT")) {
 
+        //     if ($request->discount_type === 'percent' && ($request->discount < 0 || $request->discount > 5)) {
+        //         return redirect()->back()->withErrors(['discount' => 'Mức chiết khấu không được lớn hơn 5 khi sử dụng phần trăm.'])->withInput();
+        //     }
+        //     $voucher = Voucher::findOrFail($id);
+        //     $voucher->update($request->all());
+        //     return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được cập nhật thành công");
+        // }
+
+        if ($request->isMethod("PUT")) {
+            // Kiểm tra dữ liệu chiết khấu
             if ($request->discount_type === 'percent' && ($request->discount < 0 || $request->discount > 5)) {
-                return redirect()->back()->withErrors(['discount' => 'Mức chiết khấu không được lớn hơn 5 khi sử dụng phần trăm.'])->withInput();
+                return redirect()->back()
+                    ->withErrors(['discount' => 'Mức chiết khấu không được lớn hơn 5 khi sử dụng phần trăm.'])
+                    ->withInput();
+            } elseif ($request->discount_type === 'amount' && ($request->discount < 0 || $request->discount > 1000000)) {
+                return redirect()->back()
+                    ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
+                    ->withInput();
             }
+    
+            // Tìm voucher và cập nhật
             $voucher = Voucher::findOrFail($id);
-            $voucher->update($request->all());
-            return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được cập nhật thành công");
+            $voucher->update($request->validated()); // Sử dụng validated() từ form request để đảm bảo dữ liệu an toàn.
+    
+            return redirect()->route("admin.vouchers.index")
+                ->with("success", "Phiếu mua hàng đã được cập nhật thành công");
         }
     }
 

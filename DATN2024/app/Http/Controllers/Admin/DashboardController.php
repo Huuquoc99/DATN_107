@@ -18,6 +18,7 @@ class DashboardController extends Controller
         $start_date = $request->start_date ? Carbon::parse($request->start_date)->startOfDay() : Carbon::now()->startOfYear();
         $end_date = $request->end_date ? Carbon::parse($request->end_date)->endOfDay() : Carbon::now()->endOfDay();
 
+
         $statistics = OrderItem::selectRaw('
             GROUP_CONCAT(DISTINCT products.name) AS product_name,
             order_items.product_name AS order_product_name,
@@ -33,6 +34,9 @@ class DashboardController extends Controller
             ->groupBy('order_items.product_variant_id', 'order_items.product_name', 'order_items.product_price_sale', 'month_year', 'products.name')  
             ->orderByDesc('total_revenue')
             ->get(); 
+        
+            // dd($statistics);
+
 
         $topProducts = Product::select(
             'products.*',

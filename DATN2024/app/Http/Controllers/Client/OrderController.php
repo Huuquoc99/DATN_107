@@ -190,7 +190,7 @@ class OrderController extends Controller
     }
 
 
-    public function search(Request $request)
+    public function search_order(Request $request)
     {
         $searchTerm = $request->input('k');
 
