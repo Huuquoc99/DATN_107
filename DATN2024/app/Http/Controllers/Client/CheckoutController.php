@@ -409,6 +409,8 @@ class CheckoutController extends Controller
                     $cart->items()->delete();
                 }
 
+                session()->forget('voucher');
+
                 return redirect()->route('checkout.success');
             } else {
                 $order->status_payment_id = 3;
