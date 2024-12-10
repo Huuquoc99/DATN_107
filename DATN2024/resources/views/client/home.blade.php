@@ -73,8 +73,8 @@
                                             {{ $item->catalogue ? $item->catalogue->name : 'No category' }}
                                         </p>
                                         <h6 class="pc__title fs-16 mb-2">
-                                            <a href="{{ route('product.detail', $item->slug) }}" class="">
-                                                {{ \Illuminate\Support\Str::limit($item->name, 20) }}
+                                            <a
+                                                href="{{ route('product.detail', $item->slug) }}" title="{{ $item->name }}">{{ \Illuminate\Support\Str::limit($item->name, 20) }}
                                             </a>
                                         </h6>
                                         <div class="product-card__price d-flex">
@@ -131,8 +131,8 @@
                                             {{ $item->catalogue ? $item->catalogue->name : 'No category' }}
                                         </p>
                                         <h6 class="pc__title fs-16 mb-2">
-                                            <a href="{{ route('product.detail', $item->slug) }}" class="">
-                                                {{ \Illuminate\Support\Str::limit($item->name, 20) }}
+                                            <a
+                                                href="{{ route('product.detail', $item->slug) }}" title="{{ $item->name }}">{{ \Illuminate\Support\Str::limit($item->name, 20) }}
                                             </a>
                                         </h6>
                                         <div class="product-card__price d-flex">
@@ -166,8 +166,11 @@
                                 </div>
                                 <div class="pc__info position-relative">
                                     <p class="pc__category fs-13 fw-medium">{{ $item->catalogue ? $item->catalogue->name : 'No category' }}</p>
-                                    <h6 class="pc__title fs-16 mb-2"><a
-                                            href="">{{ \Illuminate\Support\Str::limit($item->name, 20) }}</a></h6>
+                                    <h6 class="pc__title fs-16 mb-2">
+                                        <a
+                                            href="{{ route('product.detail', $item->slug) }}" title="{{ $item->name }}">{{ \Illuminate\Support\Str::limit($item->name, 20) }}
+                                        </a>
+                                    </h6>
 
                                     <div class="product-card__price d-flex">
                                         <span class="money price fs-16 fw-semi-bold">{{ number_format($item->price_regular, 0, ',', '.') }} VND</span>

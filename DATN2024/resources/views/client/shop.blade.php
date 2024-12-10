@@ -246,8 +246,9 @@
                                         </p>
                                         <h6 class="pc__title">
                                             <a href="{{ route('product.detail', $product->slug) }}"
-                                                class="text-dark text-decoration-none">
-                                                <b>{{ \Illuminate\Support\Str::limit($product->name, 30) }}</b>
+                                               class="text-dark text-decoration-none"
+                                               title="{{ $product->name }}">
+                                                <b>{{ \Illuminate\Support\Str::limit($product->name, 20) }}</b>
                                             </a>
                                         </h6>
                                         <div class="product-card__price mt-2">

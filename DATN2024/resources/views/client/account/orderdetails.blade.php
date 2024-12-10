@@ -96,10 +96,11 @@
                                     {{ $order->statusOrder->name ?? 'N/A' }}
                                 @elseif ($order->status_order_id == 4)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
-                                    <form action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
+                                    <form id="markAsReceivedForm" action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-success btn-sm" onclick="confirmReceived()">Đã nhận</button>
+                                        <button type="button" class="btn btn-success btn-sm" onclick="confirmReceived(event)">Đã nhận</button>
                                     </form>
+
                                 @elseif ($order->status_order_id == 5)
                                     <span class="text-success">Hoàn thành</span>
                                 @elseif ($order->status_order_id == 6)
@@ -268,17 +269,22 @@
         });
     </script>
     <script>
-        function confirmReceived() {
-            if (confirm('Are you sure you want to mark this order as received?')) {
-                document.getElementById('markAsReceivedForm').submit();
-            }
+        function confirmReceived(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Bạn chắc chắn chứ ?',
+                text: 'Bạn có muốn xác nhận đã nhận đơn hàng này không ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Vâng, tôi đã nhận!',
+                cancelButtonText: 'Chưa, tôi vẫn chưa nhận!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('markAsReceivedForm').submit();
+                }
+            });
         }
-
-        function confirmCancel() {
-            var cancelOrderModal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
-            cancelOrderModal.show();
-        }
-
         document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
                 var otherReasonContainer = document.getElementById('otherReasonContainer');

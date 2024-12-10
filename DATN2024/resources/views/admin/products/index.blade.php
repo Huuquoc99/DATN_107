@@ -129,8 +129,8 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('admin.products.show', $item) }}">
-                                                {{ \Illuminate\Support\Str::limit($item->name, 10, '...') }}
+                                            <a href="{{ route('admin.products.show', $item) }}" title="{{ $item->name }}">
+                                                {{ \Illuminate\Support\Str::limit($item->name, 20, '...') }}
                                             </a>
 
                                         </td>
