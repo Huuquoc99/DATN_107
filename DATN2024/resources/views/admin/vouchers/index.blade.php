@@ -161,6 +161,7 @@
                                     <th>Số lượng đã sử dụng/Số lượng</th>
                                     <th>Ngày bắt đầu</th>
                                     <th>Ngày hết hạn</th>
+                                    <th>Giá trị tối thiểu</th>
                                     <th>Ngày tạo</th>
                                     {{-- <th>Ngày cập nhật</th> --}}
                                     <th>Hành động</th>
@@ -196,6 +197,7 @@
                                                 @endif
                                             </td>
                                             {{-- <td>{{ $item->created_at ? $item->created_at->format('d M, Y h:iA') : 'N/A' }}</td> --}}
+                                            <td>{{ number_format($item->min_order_value) }} VND</td>
                                             <td>
                                                 @if ($item->created_at)
                                                     <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
@@ -254,6 +256,7 @@
                                     <th>Số lượng đã sử dụng/Số lượng</th>
                                     <th>Ngày bắt đầu</th>
                                     <th>Ngày hết hạn</th>
+                                    <th>Giá trị tối thiểu</th>
                                     <th>Ngày tạo</th>
                                     {{-- <th>Ngày cập nhật</th> --}}
                                     <th>Hành động</th>
@@ -288,6 +291,7 @@
                                                     <span class="text-muted">N/A</span>
                                                 @endif
                                             </td>
+                                            <td>{{ number_format($item->min_order_value) }} VND</td>
                                             <td>
                                                 @if ($item->created_at)
                                                     <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
@@ -297,6 +301,7 @@
                                                 @endif
                                             </td>
                                             {{-- <td>{{ $item->updated_at ? $item->updated_at->format('d M, Y h:iA') : 'N/A' }}</td> --}}
+                                            
                                             <td>
                                                 <div class="d-flex gap-2 justify-content-center">
                                                     <a href="{{ route('admin.vouchers.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 

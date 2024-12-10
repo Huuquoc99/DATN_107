@@ -42,9 +42,31 @@ class VoucherController extends Controller
     //     }
     // }
 
+    // public function store(VoucherRequest $request)
+    // {
+    //     if ($request->isMethod("POST")) {
+    //         if ($request->discount_type === 'percent') {
+    //             if ($request->discount < 0 || $request->discount > 5) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức chiết khấu phải nằm trong khoảng từ 0 đến 5 khi sử dụng phần trăm.'])
+    //                     ->withInput();
+    //             }
+    //         } elseif ($request->discount_type === 'amount') {
+    //             if ($request->discount < 0 || $request->discount > 1000000) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
+    //                     ->withInput();
+    //             }
+    //         }
+
+    //         Voucher::create($request->all());
+    //         return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được tạo thành công");
+    //     }
+    // }
     public function store(VoucherRequest $request)
     {
         if ($request->isMethod("POST")) {
+            // Kiểm tra chiết khấu
             if ($request->discount_type === 'percent') {
                 if ($request->discount < 0 || $request->discount > 5) {
                     return redirect()->back()
@@ -58,12 +80,19 @@ class VoucherController extends Controller
                         ->withInput();
                 }
             }
-
-            Voucher::create($request->all());
-            return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được tạo thành công");
+    
+            // Tạo voucher
+            $voucher = Voucher::create($request->all());
+    
+            // Gắn voucher cho danh mục nếu có
+            if ($request->has('catalogue_ids')) {
+                $voucher->catalogues()->attach($request->catalogue_ids);
+            }
+    
+            return redirect()->route("admin.vouchers.index")->with("success", "Voucher đã được tạo thành công");
         }
     }
-
+    
 
     /**
      * Display the specified resource.

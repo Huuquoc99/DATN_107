@@ -105,6 +105,14 @@ Voucher
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
+                                    <div class="mt-3">
+                                        <label for="min_order_value" class="form-label">Giá trị đơn hàng tối thiểu</label>
+                                        <input type="number" name="min_order_value" class="form-control @error('min_order_value') is-invalid @enderror" id="min_order_value" value="{{$voucher->min_order_value}}">
+                                        @error('min_order_value')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>

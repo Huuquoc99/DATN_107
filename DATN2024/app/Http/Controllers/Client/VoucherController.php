@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Cart;
 use App\Models\Voucher;
+use App\Models\CartItem;
 use App\Models\Catalogue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,10 +20,27 @@ class VoucherController extends Controller
         return view('client.vouchers', compact('catalogues','vouchers'));
     }
 
+    // public function applyVoucher(ApplyVoucherRequest $request)
+    // {
+    //     session()->forget('voucher');
+    //     $voucher = Voucher::query()->active()->where('code', $request->code)->first();
+    //     if (!$voucher) {
+    //         return response()->json(['message' => 'Mã giảm giá không tồn tại'], 404);
+    //     }
+
+    //     if ($voucher->used_quantity >= $voucher->quantity) {
+    //         return response()->json(['message' => 'Mã giảm giá đã hết hạn'], 404);
+    //     }
+    //     session()->put('voucher', $voucher->code);
+    //     return response()->json($voucher);
+    // }
+
     public function applyVoucher(ApplyVoucherRequest $request)
     {
         session()->forget('voucher');
+
         $voucher = Voucher::query()->active()->where('code', $request->code)->first();
+
         if (!$voucher) {
             return response()->json(['message' => 'Mã giảm giá không tồn tại'], 404);
         }
@@ -29,7 +48,34 @@ class VoucherController extends Controller
         if ($voucher->used_quantity >= $voucher->quantity) {
             return response()->json(['message' => 'Mã giảm giá đã hết hạn'], 404);
         }
+
+        $totalOrderValue = 0;
+
+        if (auth()->check()) {
+            $cart = Cart::where('user_id', auth()->id())->first();
+            if ($cart) {
+                $cartItems = $cart->items; 
+            } else {
+                $cartItems = [];
+            }
+        } else {
+            $cartItems = session()->get('cart', []);
+        }
+
+        foreach ($cartItems as $cartItem) {
+            if (isset($cartItem['price']) && isset($cartItem['quantity'])) {
+                $totalOrderValue += $cartItem['price'] * $cartItem['quantity'];
+            }
+        }
+
+        if ($totalOrderValue < $voucher->min_order_value) {
+            return response()->json(['message' => 'Giá trị đơn hàng không đủ để áp dụng mã giảm giá'], 400);
+        }
+
         session()->put('voucher', $voucher->code);
+
         return response()->json($voucher);
     }
+
+
 }
