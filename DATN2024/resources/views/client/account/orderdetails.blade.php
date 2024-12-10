@@ -146,10 +146,11 @@
                         <thead>
                             <tr>
                                 <th>Sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Giá</th>
                                 <th>Dung lượng</th>
                                 <th>Màu sắc</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng cộng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,12 +161,6 @@
                                             {{ $item->product_name }}
                                         </a>
                                     </td>
-                                    <td>{{ $item->quantity }}</td>
-
-                                    @php
-                                        $subTotal = $item->quantity * $item->productVariant->price
-                                    @endphp
-                                    <td>{{ number_format($subTotal, 0) }} VND</td>
                                     <td>
                                         @if ($item->product_capacity_id)
                                             {{ $item->capacity->name ?? 'N/A' }}
@@ -176,10 +171,52 @@
                                             {{ $item->color->name ?? 'N/A' }}
                                         @endif
                                     </td>
+                                    
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
+
+                                    @php
+                                        $subTotal = $item->quantity * $item->productVariant->price
+                                    @endphp
+                                    <td>{{ number_format($subTotal, 0, ',', '.') }} VND</td>
+                                    
+                                    
                                 </tr>
+                                
                             @endforeach
                         </tbody>
                     </table>
+                    <tr class="border-top border-top-dashed">
+                        <td colspan="3"></td>
+                        <td colspan="2" class="fw-medium p-0">
+                            <table class="table table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td>Tổng cộng :</td>
+                                        <td class="text-end">
+                                            {{ number_format($order->subtotal, 0, '.', ',') }} VND
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giảm giá :</td>
+                                       @if ($order->voucher)
+                                        <td class="text-end">
+                                            -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
+                                        </td>
+                                       @endif
+                                    </tr>
+                                    <tr class="border-top border-top-dashed">
+                                        <th scope="row">Tổng tiền:</th>
+                                        {{-- @if ($order->total_price) --}}
+                                            <th class="text-end">
+                                                {{ number_format($order->total_price, 0, '.', ',') }} VND
+                                            </th>
+                                        {{-- @endif --}}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
                     <a href="{{ route('orders.index') }}" class="btn btn-primary mt-3 mb-3">Quay lại</a>
                 </div>
             </div>

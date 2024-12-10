@@ -223,9 +223,9 @@ class OrderController extends Controller
 
         // Quy tắc chuyển đổi trạng thái
         $allowedTransitions = [
-            1 => [2, 3], // Pending -> Paid hoặc Failed
+            1 => [],      // Pending -> Paid hoặc Failed
             2 => [],     // Paid    -> Không thể thay đổi
-            3 => [2],    // Failed  -> Paid (repayment)
+            3 => [],    // Failed  -> Paid (repayment)
         ];
 
         if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {

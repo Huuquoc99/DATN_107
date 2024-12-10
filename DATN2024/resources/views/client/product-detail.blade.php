@@ -3,18 +3,18 @@
 @section('content')
     <div class="breadcrumb">
         <section class="product-single container">
-            {{-- @include('client.components.breadcrumb', [
-                    'breadcrumbs' => [
-                        [
-                            'label' => 'Điện thoại ' . $product->catalogue->name,
-                            'url' => route('shop', array_merge(request()->except('c'),
-                                request()->get('c') == $product->catalogue->id
-                                    ? []
-                                    : ['c' => $product->catalogue->id])
-                            )
-                        ]
-                    ]        
-                ]) --}}
+            @include('client.components.breadcrumb', [
+                'breadcrumbs' => [
+                    [
+                        'label' => 'Điện thoại ' . $product->catalogue->name,
+                        'url' => route('shop', array_merge(request()->except('c'),
+                            request()->get('c') == $product->catalogue->id
+                                ? []
+                                : ['c' => $product->catalogue->id])
+                        )
+                    ]
+                ]
+            ])
                 
             <div class="row">
                 <div class="col-lg-7">

@@ -63,14 +63,13 @@
                         </ul>
                     </div>
 
-                    <form id="searchForm" action="{{route('search')}}" method="post"
+                    <form id="searchFormOrder" action="{{route('search_order')}}" method="post"
                           class="header-search search-field me-0 border-radius-10 mt-4">
                         @csrf
-                        <button class="btn header-search__btn" type="submit" id="searchButton">
+                        <button class="btn header-search__btn" type="submit">
                             <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                         </button>
-                        <input id="searchInput" class="header-search__input w-100" type="text" name="k"
-                               value="{{ request()->routeIs('search') ? request()->get('k') : '' }}"
+                        <input id="searchInputOrder" class="header-search__input w-100" type="text" name="k"
                                placeholder="Tìm kiếm đơn hàng..." style="">
                     </form>
 
@@ -151,12 +150,12 @@
 
     <script>
         $(document).ready(function () {
-            $('#searchForm').on('submit', function (e) {
-                e.preventDefault();
-                const searchTerm = $('#searchInput').val();
+            $('#searchFormOrder').on('submit', function (a) {
+                a.preventDefault();
+                const searchTerm = $('#searchInputOrder').val();
 
                 $.ajax({
-                    url: "{{ route('search') }}",
+                    url: "{{ route('search_order') }}",
                     method: 'POST',
                     data: {
                         k: searchTerm,

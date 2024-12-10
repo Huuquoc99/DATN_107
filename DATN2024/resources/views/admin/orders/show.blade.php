@@ -310,8 +310,6 @@
                                                         <td class="text-end">
                                                             -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
                                                         </td>
-                                                       
-                                        
                                                        @endif
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
@@ -321,9 +319,6 @@
                                                                 {{ number_format($order->total_price, 0, '.', ',') }} VND
                                                             </th>
                                                         {{-- @endif --}}
-
-
-
                                                     </tr>
                                                 </tbody>
                                             </table>
