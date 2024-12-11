@@ -43,4 +43,11 @@ class Voucher extends Model
             ->where('start_date', '<=', now());
     }
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'voucher_product', 'voucher_id', 'product_id');
+    }
+
+
+
 }

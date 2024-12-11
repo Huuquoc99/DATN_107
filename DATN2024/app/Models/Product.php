@@ -83,4 +83,11 @@ class Product extends Model
         });
     }
 
+    public function vouchers()
+    {
+        return $this->belongsToMany(Voucher::class, 'voucher_product', 'product_id', 'voucher_id');
+    }
+
+
+
 }

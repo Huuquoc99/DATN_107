@@ -163,6 +163,7 @@
                                     <th>Ngày hết hạn</th>
                                     <th>Giá trị tối thiểu</th>
                                     <th>Ngày tạo</th>
+                                    <th>Sản phẩm</th>
                                     {{-- <th>Ngày cập nhật</th> --}}
                                     <th>Hành động</th>
                                 </tr>
@@ -204,6 +205,15 @@
                                                     <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
                                                 @else
                                                     <span class="text-muted">N/A</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($item->products->count())
+                                                <ul class="color-list">
+                                                    @foreach($item->products as $product)
+                                                        <li>- {{ $product->name }}</li>
+                                                    @endforeach
+                                                </ul>
                                                 @endif
                                             </td>
                                             {{-- <td>{{ $item->updated_at ? $item->updated_at->format('d M, Y h:iA') : 'N/A' }}</td> --}}
@@ -258,6 +268,7 @@
                                     <th>Ngày hết hạn</th>
                                     <th>Giá trị tối thiểu</th>
                                     <th>Ngày tạo</th>
+                                    <th>Sản phẩm</th>
                                     {{-- <th>Ngày cập nhật</th> --}}
                                     <th>Hành động</th>
                                 </tr>
@@ -300,6 +311,15 @@
                                                     <span class="text-muted">N/A</span>
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if($item->products->count())
+                                                <ul class="color-list">
+                                                    @foreach($item->products as $product)
+                                                        <li>- {{ $product->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                                @endif
+                                            </td>
                                             {{-- <td>{{ $item->updated_at ? $item->updated_at->format('d M, Y h:iA') : 'N/A' }}</td> --}}
                                             
                                             <td>
@@ -327,6 +347,19 @@
             </div>
         </div>
     </div>
+    <style>
+        .color-list {
+            list-style-type: none; /* Xóa ký hiệu mặc định của danh sách */
+            padding: 0;            /* Xóa khoảng cách padding mặc định */
+            margin: 0;             /* Xóa khoảng cách margin mặc định */
+            text-align: left;      /* Căn trái các mục */
+        }
+
+        .color-list li {
+            margin-bottom: 15px;    /* Khoảng cách giữa các mục */
+        }
+
+    </style>
     <!-- end row -->
 @endsection
 @section('style-libs')

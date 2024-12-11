@@ -113,6 +113,18 @@ Voucher
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    
+                                    <div class="mt-3">
+                                        <label for="product_ids" class="form-label">Chọn sản phẩm áp dụng:</label>
+                                        <select name="product_ids[]" id="product_ids" multiple class="form-control">
+                                            @foreach($products as $product)
+                                                <option value="{{ $product->id }}"
+                                                    @if($voucher->products->contains($product->id)) selected @endif>
+                                                    {{ $product->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
