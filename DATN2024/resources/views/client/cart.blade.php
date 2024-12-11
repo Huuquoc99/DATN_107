@@ -83,6 +83,7 @@
                     <div class="shopping-cart__totals-wrapper ">
                         <div class="sticky-content">
                             <div class="mb-3 pb-3 border-bottom">
+                                Tổng tiền: <span id="cart-total"></span>
                                 {{-- <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="voucher-code-input"
@@ -116,9 +117,9 @@
                             </div>
                         @endif
                     </div>
+            </div>
         </section>
     </div>
-
 @endsection
 @section('script')
     <script type="text/javascript">

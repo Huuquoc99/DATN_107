@@ -15,7 +15,7 @@
                     ]
                 ]
             ])
-                
+
             <div class="row">
                 <div class="col-lg-7">
                     <div class="" data-media-type="vertical-thumbnail">
@@ -56,7 +56,7 @@
                     <div class="product-single__short-desc">
                         {{ \Illuminate\Support\Str::limit($product->short_description, 200) }}
                     </div>
-                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="">
+                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="ajax-add-to-cart">
                         @csrf
                         <input type="hidden" name="product_id" data-product-id="{{ $product->id }}"
                             value="{{ $product->id }}">
@@ -114,8 +114,7 @@
                             </div>
                             <span class="option-label">Trạng thái: <span id="stock-status"></span></span>
 
-                            <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
-                                data-aside="cartDrawer">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart">
                                 <i class="ri-shopping-cart-line me-2"></i>
                                 Thêm giỏ hàng
                             </button>
@@ -290,4 +289,5 @@
 
         </section>
     </div>
+
 @endsection

@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Payment method')
+@section('title', 'TechStore')
 
 @section('content')
 
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Payment method</h4>
+                <h4 class="mb-sm-0">Phương thức thanh toán </h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -23,9 +23,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Payment method list</h5>
+                    <h5 class="card-title mb-0">Danh sách</h5>
                     <a href="{{ route('admin.paymentMethods.create') }}" class="btn btn-primary mb-3">
-                        Create <i class="fa-regular fa-plus"></i>
+                        Thêm mới <i class="fa-regular fa-plus"></i>
                     </a>
                 </div>
                 <div class="card-body">
@@ -44,13 +44,13 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Display order</th>
-                                <th>Active</th>
-                                <th>Create at</th>
-                                <th>Update at</th>
-                                <th>Action</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên</th>
+                                <th>Thứ tự hiển thị</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -100,7 +100,7 @@
                                             @endif
                                         </td>
                                         
-                                        <td>
+                                        {{-- <td>
                                             <div class="d-flex gap-2 justify-content-center">
                                                 <a href="{{ route('admin.paymentMethods.show', $item) }}" class="btn btn-info btn-sm">Show 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
@@ -116,14 +116,66 @@
                                                     </button>
                                                 </form>
                                             </div>
+                                        </td> --}}
+
+                                        <td>
+                                            <div class="d-flex gap-2 justify-content-center">
+                                                <!-- Show Button -->
+                                                <a href="{{ route('admin.paymentMethods.show', $item) }}" class="btn btn-info btn-sm">
+                                                    Chi tiết 
+                                                    <i class="fa-solid fa-circle-info fa-sm"></i>
+                                                </a>
+                                        
+                                                <!-- Edit Button -->
+                                                <a href="{{ route('admin.paymentMethods.edit', $item) }}" class="btn btn-primary btn-sm">
+                                                    Chỉnh sửa 
+                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>
+                                                </a>
+                                        
+                                                <!-- Delete Button - Trigger Modal -->
+                                                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                                                    Xoá 
+                                                    <i class="fa-solid fa-delete-left fa-sm"></i>
+                                                </a>
+                                            </div>
+                                        
+                                            <!-- Modal for Delete Confirmation -->
+                                            <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mt-2 text-center">
+                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                                                <div class="mt-4 pt-2 fs-15 mx-sm-5">
+                                                                    <h4>Bạn có chắc chắn không?</h4>
+                                                                    <p class="text-muted mx-4 mb-0">Bạn có muốn xóa phương thức thanh toán này không?</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
+                                                                <form id="delete-form{{ $item->id }}" action="{{ route('admin.paymentMethods.destroy', $item) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn w-sm btn-danger">Có, Xoá nó!</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
+                                        
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $listPaymentMethod->firstItem() }} to {{ $listPaymentMethod->lastItem() }} of {{ $listPaymentMethod->total() }} Payment methods</p>
+                                <p>Hiển thị từ {{ $listPaymentMethod->firstItem() }} đến {{ $listPaymentMethod->lastItem() }} trong tổng số {{ $listPaymentMethod->total() }} phương thức thanh toán</p>
                             </div>
                             <div>
                                 {{ $listPaymentMethod->links() }}

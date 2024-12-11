@@ -55,67 +55,58 @@ use App\Http\Controllers\Client\VoucherController as ClientVoucherController;
     // });
 
 
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
-    // Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
-    Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
-        ->name('product.detail');
-    Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
-        ->name('product.getVariantDetails');
-    Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
-// Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
+    ->name('product.detail');
+Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
+    ->name('product.getVariantDetails');
+Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
-Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/search',           [HomeController::class, 'search'])->name('search');
 
-Route::get('notfound', [HomeController::class, 'notfound'])->name('notfound');
-Route::get('about', [HomeController::class, 'about'])->name('about');
-Route::get('contact', [HomeController::class, 'contact'])->name('contact');
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::get('notfound',          [HomeController::class, 'notfound'])->name('notfound');
+Route::get('about',             [HomeController::class, 'about'])->name('about');
+Route::get('contact',           [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact',         [ContactController::class, 'submit'])->name('contact.submit');
 
-Route::get('shop', [HomeController::class, 'shop'])->name('shop');
-Route::get('blog', [BlogController::class, 'index'])->name('blog');
-Route::get('vouchers', [ClientVoucherController::class, 'index'])->name('voucher');
-Route::post('apply-voucher', [ClientVoucherController::class, 'applyVoucher']);
+Route::get('shop',              [HomeController::class, 'shop'])->name('shop');
+Route::get('blog',              [BlogController::class, 'index'])->name('blog');
+Route::get('vouchers',          [ClientVoucherController::class, 'index'])->name('voucher');
+Route::post('apply-voucher',    [ClientVoucherController::class, 'applyVoucher']);
 
 Route::prefix('cart')->name('cart.')->group(function () {
-    Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('list', [CartController::class, 'cartList'])->name('list');
-    Route::post('delete', [CartController::class, 'deleteCart'])->name('delete');
+    Route::post('add-to-cart',          [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('list',                  [CartController::class, 'cartList'])->name('list');
+    Route::post('delete',               [CartController::class, 'deleteCart'])->name('delete');
     Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
-
+    Route::get('count',                 [CartController::class, 'getCart'])->name('count');
 });
+
 
 // VnPay Payment
 Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
 
+Route::get('/checkout',    [CheckoutController::class, 'index'])->name('checkout.index');
 
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-
-Route::get('order/districts/{provinceId}', [CheckoutController::class, 'getDistricts']);
-Route::get('order/wards/{districtId}', [CheckoutController::class, 'getWards']);
+Route::get('order/districts/{provinceId}',  [CheckoutController::class, 'getDistricts']);
+Route::get('order/wards/{districtId}',      [CheckoutController::class, 'getWards']);
 
 
-Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
-Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
-Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
-Route::post('/guest-checkout/repayment', [CheckoutController::class, 'repaymentForGuest'])->name('guest.repayment');
-Route::post('/send-verification-code', [CheckoutController::class, 'sendVerificationCode'])
-    ->name('send-verification-code');
-Route::post('/verify-email-code', [CheckoutController::class, 'verifyEmailCode'])
-    ->name('verify-email-code');
+Route::post('/guest-checkout',              [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
+Route::get('/guest-checkout/success',       [CheckoutController::class, 'success'])->name('guest-checkout.success');
+Route::get('/guest-checkout/fail',          [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
+Route::post('/guest-checkout/repayment',    [CheckoutController::class, 'repaymentForGuest'])->name('guest.repayment');
+Route::post('/send-verification-code',      [CheckoutController::class, 'sendVerificationCode'])->name('send-verification-code');
+Route::post('/verify-email-code',           [CheckoutController::class, 'verifyEmailCode'])->name('verify-email-code');
 
 
 Route::middleware('auth', 'checkUserMiddleware')->group(function () {
-    // Route::middleware('auth')->group(function () {
 
-    // Route::post("login", [LoginController::class, 'login'])->name('login');
-    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])
-        ->name('favorite.toggle');
-    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])
-        ->name('favorites.list');
-    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])
-        ->name('favorites.remove');
+    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
+    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])->name('favorites.list');
+    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])->name('favorites.remove');
 
 
     // Checkout

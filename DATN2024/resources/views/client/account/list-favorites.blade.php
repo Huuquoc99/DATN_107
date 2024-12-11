@@ -6,7 +6,7 @@
         <section class="my-account container">
             <h2 class="page-title">Danh sách yêu thích</h2>
             <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <ul class="account-nav">
                         <li><a href="{{ route('account.dashboard') }}" class="menu-link">Bảng điều khiển</a></li>
                         <li><a href="{{ route('history') }}" class="menu-link">Đơn hàng</a></li>
@@ -43,7 +43,7 @@
                                                class="text-decoration-none text-dark">
                                                 {{ \Illuminate\Support\Str::limit($item->product->name, 18) }}
                                             </a>
-</h6>
+                                        </h6>
                                         <p class="fw-bold text">
                                             {{ number_format($item->product->price_regular, 0, ',', '.') }} VND
                                         </p>

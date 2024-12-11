@@ -41,12 +41,12 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts9" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-group-line"></i><span data-key="t-layouts">Quản lý người dùng</span>
+                       <i class="ri-group-line"></i><span data-key="t-layouts">Người dùng</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts9">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.customers.index') }}" class="nav-link">Danh sách người dùng</a>
+                                <a href="{{ route('admin.customers.index') }}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -55,15 +55,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-layout-2-fill"></i> <span data-key="t-layouts">Quản lý danh mục</span>
+                       <i class="ri-layout-2-fill"></i> <span data-key="t-layouts">Danh mục</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.catalogues.index') }}" class="nav-link">Danh sách danh mục</a>
+                                <a href="{{ route('admin.catalogues.index') }}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.catalogues.create') }}" class="nav-link">Thêm mới danh mục</a>
+                                <a href="{{ route('admin.catalogues.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
@@ -72,15 +72,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts2" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-checkbox-multiple-blank-fill"></i> <span data-key="t-layouts">Quản lý sản phẩm</span>
+                       <i class="ri-checkbox-multiple-blank-fill"></i> <span data-key="t-layouts">Sản phẩm</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts2">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.products.index') }}" class="nav-link">Danh sách sản phẩm</a>
+                                <a href="{{ route('admin.products.index') }}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.products.create') }}" class="nav-link">Thêm mới sản phẩm</a>
+                                <a href="{{ route('admin.products.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
@@ -88,16 +88,16 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts14" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-bookmark-line"></i> <span data-key="t-layouts">Quản lý tag</span>
+                       <i class="ri-bookmark-line"></i> <span data-key="t-layouts">Tag</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts14">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.tags.index') }}" class="nav-link">Danh sách tag
+                                <a href="{{ route('admin.tags.index') }}" class="nav-link">Danh sách
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.tags.create') }}" class="nav-link">Thêm mới tag</a>
+                                <a href="{{ route('admin.tags.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
@@ -105,12 +105,12 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts13" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-question-answer-line"></i><span data-key="t-layouts">Quản lý bình luận</span>
+                       <i class="ri-question-answer-line"></i><span data-key="t-layouts">Bình luận</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts13">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.comments.index') }}" class="nav-link">Danh sách bình luận</a>
+                                <a href="{{ route('admin.comments.index') }}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -118,15 +118,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts3" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                       <i class="ri-mist-fill"></i> <span data-key="t-layouts">Quản lý banner</span>
+                       <i class="ri-mist-fill"></i> <span data-key="t-layouts">Banner</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts3">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.banners.index') }}" class="nav-link">Danh sách banner</a>
+                                <a href="{{ route('admin.banners.index') }}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.banners.create') }}" class="nav-link">Thêm mới banner</a>
+                                <a href="{{ route('admin.banners.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
@@ -152,15 +152,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts5" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                       <i class="ri-sensor-fill"></i> <span data-key="t-layouts">Quản lý dung lượng</span>
+                       <i class="ri-sensor-fill"></i> <span data-key="t-layouts">Dung lượng</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts5">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.productCapacities.index') }}" class="nav-link">Danh sách dung lượng</a>
+                                <a href="{{ route('admin.productCapacities.index') }}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.productCapacities.create') }}" class="nav-link">Thêm mới dung lượng</a>
+                                <a href="{{ route('admin.productCapacities.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
@@ -170,15 +170,15 @@
                     <a class="nav-link menu-link" href="#sidebarLayouts6" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
                        <i class="ri-pantone-fill"></i>
-                       <span data-key="t-layouts">Quản lý màu sắc</span>
+                       <span data-key="t-layouts">Màu sắc</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts6">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.productColors.index') }}" class="nav-link">Danh sách màu sắc</a>
+                                <a href="{{ route('admin.productColors.index') }}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.productColors.create') }}" class="nav-link">Thêm mới màu sắc</a>
+                                <a href="{{ route('admin.productColors.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
@@ -221,12 +221,12 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts11" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                       <i class="ri-shopping-cart-2-line"></i> <span data-key="t-layouts">Quản lý đơn hàng</span>
+                       <i class="ri-shopping-cart-2-line"></i> <span data-key="t-layouts">Đơn hàng</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts11">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.orders.index') }}" class="nav-link">Danh sách đơn hàng</a>
+                                <a href="{{ route('admin.orders.index') }}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -235,12 +235,12 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts12" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                       <i class="ri-file-text-line"></i> <span data-key="t-layouts">Quản lý hoá đơn</span>
+                       <i class="ri-file-text-line"></i> <span data-key="t-layouts">Hoá đơn</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts12">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.invoices.index') }}" class="nav-link">Danh sách hoá đơn</a>
+                                <a href="{{ route('admin.invoices.index') }}" class="nav-link">Danh sách</a>
                             </li>
                         </ul>
                     </div>
@@ -249,15 +249,15 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarVoucher" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
-                        <i class="fas fa-ticket-alt"></i> <span data-key="t-layouts">Quản lý voucher</span>
+                        <i class="fas fa-ticket-alt"></i> <span data-key="t-layouts">Voucher</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarVoucher">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.vouchers.index') }}" class="nav-link">Danh sách voucher</a>
+                                <a href="{{ route('admin.vouchers.index') }}" class="nav-link">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.vouchers.create') }}" class="nav-link">Thêm mới voucher</a>
+                                <a href="{{ route('admin.vouchers.create') }}" class="nav-link">Thêm mới</a>
                             </li>
                         </ul>
                     </div>

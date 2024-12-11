@@ -31,13 +31,14 @@
                                         <div class="tab-content" id="v-pills-tabContent">
                                             <div class="product-gallery">
                                                 <div class="main-image mb-3">
-                                                    <img id="mainImage" src="{{ Storage::url($catalogue->cover) }}" alt="{{ $catalogue->name }}" class="img-fluid">
+                                                    <img id="mainImage" src="{{ Storage::url($catalogue->cover) }}"
+                                                        alt="{{ $catalogue->name }}" class="img-fluid">
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -47,10 +48,10 @@
                                 <h4 class="mt-1 mb-3">{{ $catalogue->name }}</h4>
 
                                 <div class="mt-4">
-                                    @if($catalogue->is_active == 1)
-                                        <span class="badge bg-primary">Hành động</span>
+                                    @if ($catalogue->is_active == 1)
+                                        <span class="badge bg-primary">Hoạt động</span>
                                     @elseif($catalogue->is_active == 0)
-                                        <span class="badge bg-danger">Không hành động</span>
+                                        <span class="badge bg-danger">Không hoạt động</span>
                                     @endif
                                 </div>
                             </div>
@@ -69,14 +70,16 @@
                         <a href="{{ route('admin.catalogues.edit', $catalogue->id) }}" class="btn btn-primary me-2">
                             <i class="bx bx-edit me-1"></i> Chỉnh sửa
                         </a>
-                        <form action="{{ route('admin.catalogues.destroy', $catalogue->id) }}" method="POST" class="me-2">
+                        <form action="{{ route('admin.catalogues.destroy', $catalogue->id) }}" method="POST"
+                            class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắn chắn muốn xoá không?')">
-                                <i class="bx bx-trash me-1"></i> Xoá 
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Bạn có chắn chắn muốn xoá không?')">
+                                <i class="bx bx-trash me-1"></i> Xoá
                             </button>
                         </form>
-                    <a href="{{ route('admin.catalogues.index') }}" class="btn btn-secondary">Quay lại</a>
+                        <a href="{{ route('admin.catalogues.index') }}" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.master')
 
 @section('title')
@@ -17,7 +16,6 @@
                         <li class="breadcrumb-item active"> Thêm mới</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
@@ -36,7 +34,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label for="name" class="form-label">Tên</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            name="name" id="name">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -47,15 +46,19 @@
                                         <div class="mt-4">
                                             @php
                                                 $is = [
-                                                    'is_active' => ['name' => 'Hành động', 'color' => 'primary'],
+                                                    'is_active' => ['name' => 'Hoạt động', 'color' => 'primary'],
                                                 ];
                                             @endphp
-                                            @foreach($is as $key => $value)
+                                            @foreach ($is as $key => $value)
                                                 <div class="col-md-4 mb-3">
-                                                    <div class="form-check form-switch form-switch-{{ $value['color'] }} d-flex align-items-center">
+                                                    <div
+                                                        class="form-check form-switch form-switch-{{ $value['color'] }} d-flex align-items-center">
                                                         <input class="form-check-input me-2" type="checkbox" role="switch"
-                                                                name="{{ $key }}" value="1" id="{{ $key }}" @if($key == 'is_active') checked @endif>
-                                                        <label class="form-check-label" for="{{ $key }}">{{ $value['name'] }}</label>
+                                                            name="{{ $key }}" value="1"
+                                                            id="{{ $key }}"
+                                                            @if ($key == 'is_active') checked @endif>
+                                                        <label class="form-check-label"
+                                                            for="{{ $key }}">{{ $value['name'] }}</label>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -89,4 +92,3 @@
 @section('script-libs')
     <script src="https:////cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 @endsection
-

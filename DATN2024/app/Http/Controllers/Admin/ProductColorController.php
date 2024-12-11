@@ -88,12 +88,27 @@ class ProductColorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(string $id)
+    // {
+    //     ProductVariant::query()->where("product_color_id", $id)->delete();
+    //     $productColor = ProductColor::query()->findOrFail($id);
+    //     $productColor->delete();
+    //     return redirect()->route("admin.productColors.index")->with("success", "Đã xóa màu sản phẩm thành công");
+
+    // }
+
     public function destroy(string $id)
     {
-        ProductVariant::query()->where("product_color_id", $id)->delete();
+        $isUsed = ProductVariant::query()->where("product_color_id", $id)->exists();
+
+        if ($isUsed) {
+            return redirect()->route("admin.productColors.index")->with("error", "Không thể xóa vì đang có sản phẩm sử dụng màu này.");
+        }
+
         $productColor = ProductColor::query()->findOrFail($id);
         $productColor->delete();
-        return redirect()->route("admin.productColors.index")->with("success", "Đã xóa màu sản phẩm thành công");
 
+        return redirect()->route("admin.productColors.index")->with("success", "Đã xóa màu sản phẩm thành công");
     }
+
 }
