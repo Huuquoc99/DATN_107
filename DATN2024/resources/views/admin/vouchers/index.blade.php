@@ -153,7 +153,7 @@
                         @endif
                         <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle text-center" style="width:100%">
                             <thead>
-                                <tr>
+                                <tr >
                                     <th>Code</th>
                                     <th>Tên</th>
                                     <th>Giảm giá</th>
@@ -249,9 +249,6 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Voucher Giảm Giá Theo Phần Trăm</h5>
-                    {{-- <a href="{{ route('admin.vouchers.create') }}" class="btn btn-primary mb-3">
-                        Thêm mới <i class="fa-regular fa-plus"></i>
-                    </a> --}}
                 </div>
                 
                 <div class="card-body">
@@ -269,7 +266,6 @@
                                     <th>Giá trị tối thiểu</th>
                                     <th>Ngày tạo</th>
                                     <th>Sản phẩm</th>
-                                    {{-- <th>Ngày cập nhật</th> --}}
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
@@ -320,7 +316,6 @@
                                                 </ul>
                                                 @endif
                                             </td>
-                                            {{-- <td>{{ $item->updated_at ? $item->updated_at->format('d M, Y h:iA') : 'N/A' }}</td> --}}
                                             
                                             <td>
                                                 <div class="d-flex gap-2 justify-content-center">
@@ -359,6 +354,10 @@
             margin-bottom: 15px;    /* Khoảng cách giữa các mục */
         }
 
+        .table-responsive {
+            max-height: 400px; 
+            overflow-y: auto; 
+        }
     </style>
     <!-- end row -->
 @endsection
