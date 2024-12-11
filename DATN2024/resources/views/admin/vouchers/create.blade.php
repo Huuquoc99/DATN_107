@@ -136,6 +136,23 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
+                                    <div class="mt-3">
+                                        <label for="min_order_value" class="form-label">Giá trị đơn hàng tối thiểu</label>
+                                        <input type="number" name="min_order_value" class="form-control @error('min_order_value') is-invalid @enderror" value="{{ old('min_order_value') }}">
+                                        @error('min_order_value')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <label for="product_ids" class="form-label">Chọn sản phẩm áp dụng:</label>
+                                        <select name="product_ids[]" id="product_ids" multiple class="form-control">
+                                            @foreach($products as $product)
+                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>

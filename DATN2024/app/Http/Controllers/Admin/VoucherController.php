@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,7 @@ class VoucherController extends Controller
     public function index()
     {
         // $listVoucher = Voucher::get();
-        $listVoucher = Voucher::orderBy('id', 'desc')->get();
+        $listVoucher = Voucher::with('products')->orderBy('id', 'desc')->get();
         // dd($listVoucher);
         return view("admin.vouchers.index", compact('listVoucher'));
     }
@@ -25,7 +26,8 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view("admin.vouchers.create");
+        $products = Product::all();
+        return view("admin.vouchers.create", compact('products'));
     }
 
     /**
@@ -42,6 +44,27 @@ class VoucherController extends Controller
     //     }
     // }
 
+    // public function store(VoucherRequest $request)
+    // {
+    //     if ($request->isMethod("POST")) {
+    //         if ($request->discount_type === 'percent') {
+    //             if ($request->discount < 0 || $request->discount > 5) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức chiết khấu phải nằm trong khoảng từ 0 đến 5 khi sử dụng phần trăm.'])
+    //                     ->withInput();
+    //             }
+    //         } elseif ($request->discount_type === 'amount') {
+    //             if ($request->discount < 0 || $request->discount > 1000000) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
+    //                     ->withInput();
+    //             }
+    //         }
+
+    //         Voucher::create($request->all());
+    //         return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được tạo thành công");
+    //     }
+    // }
     public function store(VoucherRequest $request)
     {
         if ($request->isMethod("POST")) {
@@ -59,11 +82,16 @@ class VoucherController extends Controller
                 }
             }
 
-            Voucher::create($request->all());
-            return redirect()->route("admin.vouchers.index")->with("success", "Phiếu mua hàng đã được tạo thành công");
+            $voucher = Voucher::create($request->all());
+
+            if ($request->has('product_ids')) {
+                $voucher->products()->sync($request->product_ids);  
+            }
+    
+            return redirect()->route("admin.vouchers.index")->with("success", "Voucher đã được tạo thành công");
         }
     }
-
+    
 
     /**
      * Display the specified resource.
@@ -78,8 +106,10 @@ class VoucherController extends Controller
      */
     public function edit(string $id)
     {
+        
         $voucher = Voucher::findOrFail($id);
-        return view("admin.vouchers.edit", compact("voucher"));
+        $products = Product::all();
+        return view("admin.vouchers.edit", compact("voucher", "products"));
     }
 
     /**
@@ -98,7 +128,6 @@ class VoucherController extends Controller
         // }
 
         if ($request->isMethod("PUT")) {
-            // Kiểm tra dữ liệu chiết khấu
             if ($request->discount_type === 'percent' && ($request->discount < 0 || $request->discount > 5)) {
                 return redirect()->back()
                     ->withErrors(['discount' => 'Mức chiết khấu không được lớn hơn 5 khi sử dụng phần trăm.'])
@@ -109,10 +138,13 @@ class VoucherController extends Controller
                     ->withInput();
             }
     
-            // Tìm voucher và cập nhật
             $voucher = Voucher::findOrFail($id);
-            $voucher->update($request->validated()); // Sử dụng validated() từ form request để đảm bảo dữ liệu an toàn.
+            $voucher->update($request->validated());
     
+            if ($request->has('product_ids')) {
+                $voucher->products()->sync($request->product_ids); 
+            }
+
             return redirect()->route("admin.vouchers.index")
                 ->with("success", "Phiếu mua hàng đã được cập nhật thành công");
         }

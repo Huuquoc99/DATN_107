@@ -16,57 +16,41 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-9">
-                    <div class="page-content my-account__dashboard">
-                        <div class="row">
-                            @foreach($favorites as $item)
-                            <div class="col-md-3 mb-4">
-                                <div class="product-card-wrapper">
-                                    <div class="product-card product-card_style9 border rounded-3 bg-white h-100 position-relative">
-                                        <div class="position-relative">
-                                            <a href="{{ route('product.detail', $item->product->slug) }}">
-                                                <div class="pc__img-wrapper pc__img-wrapper_wide3 overflow-hidden">
-                                                    <img loading="lazy"
-                                                         src="{{ \Illuminate\Support\Facades\Storage::url($item->product->img_thumbnail) }}"
-                                                         alt="{{ $item->product->name }}"
-                                                         class="pc__img img-fluid w-100 h-auto">
-                                                </div>
-                                            </a>
-                                        </div>
-                    
-                                        <div class="product-card__overlay">
-                                            <button class="favorite-btn"
-                                                    onclick="removeFavorite({{ $item->product->id }})"
-                                                    data-product-id="{{ $item->product->id }}">
+                <div class="col-lg-9 mt-5">
+                    <div class="row g-4">
+                        @foreach($favorites as $item)
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="position-relative">
+                                        <a href="{{ route('product.detail', $item->product->slug) }}">
+                                            <img loading="lazy"
+                                                 src="{{ \Illuminate\Support\Facades\Storage::url($item->product->img_thumbnail) }}"
+                                                 alt="{{ $item->product->name }}"
+                                                 class="card-img-top">
+                                        </a>
+                                        <div class="position-absolute top-0 end-0 p-2">
+                                            <button class="btn btn-light btn-sm" onclick="removeFavorite({{ $item->product->id }})">
                                                 ❤️
                                             </button>
-                    
-                                            <button class="product-card-view quick-view-btn"
-                                                    onclick="openQuickView({{ $item->id }})"
-                                                    data-product-id="{{ $item->id }}"
-                                                    title="Quick View">
-                                                👀
-                                            </button>
                                         </div>
-                    
-                                        <div class="pc__info position-relative">
-                                            <p class="pc__category fs-13 fw-medium">
-                                                {{ $item->product->catalogue ? $item->product->catalogue->name : 'No category' }}
-                                            </p>
-                                            <a href="{{ route('product.detail', $item->product->slug) }}">
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <label class="card-text">
+                                            {{ $item->product->catalogue ? $item->product->catalogue->name : 'No category' }}
+                                        </label>
+                                        <h6 class="card-title mb-2">
+                                            <a href="{{ route('product.detail', $item->product->slug) }}"
+                                               class="text-decoration-none text-dark">
                                                 {{ \Illuminate\Support\Str::limit($item->product->name, 18) }}
                                             </a>
-                                            <div class="product-card__price d-flex">
-                                                <span class="money price fs-16 fw-semi-bold">
-                                                    {{ number_format($item->product->price_regular, 0, ',', '.') }} VND
-                                                </span>
-                                            </div>
-                                        </div>
+</h6>
+                                        <p class="fw-bold text">
+                                            {{ number_format($item->product->price_regular, 0, ',', '.') }} VND
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -84,4 +68,3 @@
         }
     </style>
 @endsection
-

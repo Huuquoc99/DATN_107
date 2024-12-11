@@ -22,6 +22,7 @@ class Voucher extends Model
         'start_date',
         'expiration_date',
         'is_active',
+        'min_order_value'
     ];
 
     protected $casts = [
@@ -41,5 +42,12 @@ class Voucher extends Model
             ->where('expiration_date', '>', now())
             ->where('start_date', '<=', now());
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'voucher_product', 'voucher_id', 'product_id');
+    }
+
+
 
 }
