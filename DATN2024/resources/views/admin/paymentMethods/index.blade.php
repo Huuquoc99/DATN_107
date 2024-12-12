@@ -66,7 +66,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.paymentMethods.show', $item) }}">
+                                            <a href="{{ route('admin.paymentMethods.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>

@@ -129,13 +129,14 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('admin.products.show', $item) }}">
+                                            <a href="{{ route('admin.products.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 10, '...') }}
                                             </a>
-
                                         </td>
                                         <td>
-                                            {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'No Catalogue' }}
+                                            <a href="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->catalogue->name }}">
+                                                {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'Không có danh mục' }}
+                                            </a>
                                         </td>
                                         <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
                                         <td>{{ number_format($item->price_sale, 0, ',', '.') }} VND</td>

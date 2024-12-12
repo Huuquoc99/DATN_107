@@ -66,7 +66,12 @@
                                         <td>
                                             <a href="{{ route('admin.invoices.show', $invoice) }}">{{ $invoice->code }}</a>
                                         </td>
-                                        <td>{{ $invoice->ship_user_name }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.customers.show', $invoice) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $invoice->ship_user_name }}">
+                                                {{ \Illuminate\Support\Str::limit($invoice->ship_user_name, 15, '...') }}</td>
+                                            </a>
+                                            
+
                                         <td>{{ $invoice->ship_user_phone }}</td>
                                         <td>
                                             <span id="invoice-date">{{ $invoice->created_at->format('d M, Y') }}</span> 

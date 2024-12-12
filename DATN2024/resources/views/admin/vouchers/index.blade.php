@@ -173,7 +173,11 @@
                                     @if($item->discount_type == 'amount')
                                         <tr>
                                             <td>{{ $item->code }}</td>
-                                            <td><a href="{{ route('admin.vouchers.edit', $item) }}">{{ $item->name }}</a></td>
+                                            <td>
+                                                <a href="{{ route('admin.vouchers.edit', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
+                                                    {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+                                                </a>
+                                            </td>
                                             <td>{{ number_format($item->discount) }} VND</td>
                                             <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                             <td>{{ $item->used_quantity }} / {{ $item->quantity }}</td>
@@ -318,7 +322,11 @@
                                     @if($item->discount_type == 'percent')
                                         <tr>
                                             <td>{{ $item->code }}</td>
-                                            <td><a href="{{ route('admin.vouchers.edit', $item) }}">{{ $item->name }}</a></td>
+                                            <td>
+                                                <a href="{{ route('admin.vouchers.edit', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
+                                                    {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+                                                </a>
+                                            </td>
                                             <td>{{ $item->discount }}%</td>
                                             <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                             <td>{{ $item->used_quantity }} / {{ $item->quantity }}</td>

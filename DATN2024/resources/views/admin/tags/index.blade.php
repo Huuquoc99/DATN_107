@@ -56,7 +56,9 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
-                                        {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+                                        <a href="#" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
+                                            {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ \Illuminate\Support\Str::limit($item->description, 15, '...') }}

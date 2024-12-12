@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <a href="{{ route('admin.productColors.edit', $item) }}">
+                                            <a href="{{ route('admin.productColors.edit', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
