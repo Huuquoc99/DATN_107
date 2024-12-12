@@ -84,13 +84,30 @@ class ProductCapacityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        ProductVariant::query()->where("product_color_id", $id)->delete();
-        $productCapacity = ProductCapacity::query()->findOrFail($id);
-        $productCapacity->delete();
-        return redirect()->route("admin.productCapacities.index")->with("success", "Đã xóa thành công Dung lượng sản phẩm");
+    // public function destroy(string $id)
+    // {
+    //     ProductVariant::query()->where("product_color_id", $id)->delete();
+    //     $productCapacity = ProductCapacity::query()->findOrFail($id);
+    //     $productCapacity->delete();
+    //     return redirect()->route("admin.productCapacities.index")->with("success", "Đã xóa thành công Dung lượng sản phẩm");
 
+    // }
+
+    public function destroy(string $id)
+{
+    // Kiểm tra xem có sản phẩm nào đang sử dụng capacity này không
+    $isUsed = ProductVariant::query()->where("product_capacity_id", $id)->exists();
+
+    if ($isUsed) {
+        return redirect()->route("admin.productCapacities.index")->with("error", "Không thể xóa vì đang có sản phẩm sử dụng dung lượng này.");
     }
+
+    // Tiến hành xóa nếu không bị sử dụng
+    $productCapacity = ProductCapacity::query()->findOrFail($id);
+    $productCapacity->delete();
+
+    return redirect()->route("admin.productCapacities.index")->with("success", "Đã xóa thành công Dung lượng sản phẩm");
+}
+
 }
 
