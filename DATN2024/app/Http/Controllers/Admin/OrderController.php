@@ -115,6 +115,14 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
+//
+//        \Log::info('Before Status Change', [
+//            'current_status' => $order->status_order_id
+//        ]);
+//
+//        $statusHistory = $order->statusChanges()->get();
+//
+////        dd($statusHistory);
 
         $validator = Validator::make($request->all(), [
             'status_order_id' => [

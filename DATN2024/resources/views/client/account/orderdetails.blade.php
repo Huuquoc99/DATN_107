@@ -172,7 +172,7 @@
                                             {{ $item->color->name ?? 'N/A' }}
                                         @endif
                                     </td>
-                                    
+
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
 
@@ -180,10 +180,10 @@
                                         $subTotal = $item->quantity * $item->productVariant->price
                                     @endphp
                                     <td>{{ number_format($subTotal, 0, ',', '.') }} VND</td>
-                                    
-                                    
+
+
                                 </tr>
-                                
+
                             @endforeach
                         </tbody>
                     </table>
@@ -199,8 +199,8 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        @if ($order->voucher)
                                         <td>Giảm giá :</td>
-                                       @if ($order->voucher)
                                         <td class="text-end">
                                             -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
                                         </td>
@@ -208,23 +208,129 @@
                                     </tr>
                                     <tr class="border-top border-top-dashed">
                                         <th scope="row">Tổng tiền:</th>
-                                        {{-- @if ($order->total_price) --}}
                                             <th class="text-end">
                                                 {{ number_format($order->total_price, 0, '.', ',') }} VND
                                             </th>
-                                        {{-- @endif --}}
                                     </tr>
                                 </tbody>
                             </table>
                         </td>
                     </tr>
-                    <a href="{{ route('orders.index') }}" class="btn btn-primary mt-3 mb-3">Quay lại</a>
+                    <div class="d-flex justify-content-end gap-2 mt-3 mb-3">
+                        <a href="{{ route('orders.index') }}" class="btn btn-primary">Quay lại</a>
+                        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#statusLogModal">
+                            Xem lịch sử
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="statusLogModal" tabindex="-1" aria-labelledby="statusLogModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="statusLogModalLabel">Lịch sử trạng thái</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-primary table-hover">
+                            <thead class="bg-gradient">
+                            <tr>
+                                <th>#</th>
+                                <th>Thay đổi bởi</th>
+                                <th>Quá trình</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Lý do (nếu hủy)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @php
+                                $statusMap = [
+                                    '1' => 'Chờ xử lý',
+                                    '2' => 'Đã xác nhận',
+                                    '3' => 'Đang giao hàng',
+                                    '4' => 'Đã giao',
+                                    '5' => 'Thành công',
+                                    '6' => 'Hủy',
+                                ];
+
+                                $statusColors = [
+                                    '1' => '#6c757d',
+                                    '2' => '#007bff',
+                                    '3' => '#17a2b8',
+                                    '4' => '#3d3393  ',
+                                    '5' => '#fa709a ',
+                                    '6' => '#dc3545  ',
+                                ];
+                                $cancelReasons = [
+                                    'product-out-in-stock' => 'Sản phẩm hết hàng trong kho.',
+                                    'payment-failed' => 'Thanh toán không thành công.',
+                                    'defective-product' => 'Phát hiện lỗi trong đơn hàng (sai giá, thông tin sản phẩm).',
+                                    'unable-to-contact' => 'Không thể liên lạc với khách để xác nhận đơn hàng.',
+                                    'no_confirmation_email' => 'Không có mail xác nhận đơn hàng',
+                                     'changed_mind' => 'Tôi đã thay đổi ý định',
+                                    'found_cheaper' => 'Đã tìm thấy một lựa chọn rẻ hơn',
+                                    'delivery_delay' => 'Giao hàng mất quá nhiều thời gian',
+                                    'incorrect_item' => 'Chi tiết mặt hàng sai',
+                                    'cost_high' => 'Chi phí vận chuyển quá cao',
+                                    'other' => 'Khác'
+                                ];
+                            @endphp
+
+                            @foreach ($statusLogs as $log)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ optional($log->changedBy)->name ?? 'N/A' }}</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span style="background-color: {{ $statusColors[$log->old_status] ?? '#000' }}; color: #fff; padding: 5px 10px; border-radius: 4px;">
+                                            {{ $statusMap[$log->old_status] ?? 'Unknown' }}
+                                        </span>
+                                            <span style="font-weight: bold;">
+                                            <i class="fa-solid fa-arrow-right fa-lg" style="color: #B197FC;"></i>
+                                        </span>
+                                            <span style="background-color: {{ $statusColors[$log->new_status] ?? '#000' }}; color: #fff; padding: 5px 10px; border-radius: 4px;">
+                                            {{ $statusMap[$log->new_status] ?? 'Unknown' }}
+                                        </span>
+                                        </div>
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($log->changed_at)->format('H:i, d/m/Y') }}</td>
+                                    <td>
+                                        @if ($log->new_status == 6)
+                                            @php
+                                                $cancelReason = $log->loggable ? $log->loggable->cancel_reason : '';
+                                                $otherReason = $log->loggable ? $log->loggable->other_reason : '';
+                                            @endphp
+
+                                            @if ($cancelReason == 'other')
+                                                <strong>{{ $otherReason ?? 'Khác' }}</strong>
+                                            @else
+                                                <strong>{{ $cancelReasons[$cancelReason] ?? 'N/A' }}</strong>
+                                            @endif
+                                        @else
+                                            ---
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" style="margin: 20px;" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </section>
     <section class="my-account container">
-        <h2 class="page-title pt-5">Thông tin người dùng</h2>
+        <h6 class="page-title pt-5">Thông tin người dùng</h6>
         <div class=" mb-xl-2 pb-3 pt-1 pb-xl-5"></div>
         <div class="row">
             <div class="col-lg-6">
