@@ -131,7 +131,8 @@ Route::middleware('auth', 'checkUserMiddleware')->group(function () {
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
     Route::post('/account/orders/{id}/repayment', [OrderController::class, 'repayment'])->name('account.orders.repayment');
-
+    // Route::post('/account/orders/', [OrderController::class, 'search'])->name('search');
+    Route::post('/account/orders/', [OrderController::class, 'search_order'])->name('search_order');
     // Comments
     Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
     Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);

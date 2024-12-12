@@ -47,6 +47,15 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3">
+                                        <label for="date-datepicker" class="form-label">Ngày bắt đầu</label>
+                                        <input type="date" id="date-datepicker"
+                                            class="form-control @error('start_date') is-invalid @enderror"
+                                            name="start_date" placeholder="Select date">
+                                        @error('start_date')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3">
                                         <label for="date-datepicker" class="form-label">Ngày hết hạn</label>
                                         <input type="date" id="date-datepicker"
                                             class="form-control @error('expiration_date') is-invalid @enderror"
@@ -86,15 +95,24 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                            
+                                    <div class="form-group mt-3">
+                                        <label for="discount_type">Loại giảm giá</label>
+                                        <select name="discount_type" id="discount_type" class="form-control">
+                                            <option value="amount" {{ old('discount_type', $voucher->discount_type ?? '') == 'amount' ? 'selected' : '' }}>Theo số tiền</option>
+                                            <option value="percent" {{ old('discount_type', $voucher->discount_type ?? '') == 'percent' ? 'selected' : '' }}>Theo tỷ lệ phần trăm</option>
+                                        </select>
+                                    </div>
                                     <div class="mt-3">
                                         <label for="discount" class="form-label">Giảm giá</label>
                                         <input type="number"
                                             class="form-control @error('discount') is-invalid @enderror"
-                                            name="discount" id="discount">
+                                            name="discount" id="discount" value="{{ old('discount', $voucher->discount ?? '') }}">
                                         @error('discount')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Mô tả</label>
                                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
@@ -103,13 +121,29 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
+                                    <div class="mt-3">
+                                        <label for="min_order_value" class="form-label">Giá trị đơn hàng tối thiểu</label>
+                                        <input type="number" name="min_order_value" class="form-control @error('min_order_value') is-invalid @enderror" value="{{ old('min_order_value') }}">
+                                        @error('min_order_value')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <label for="product_ids" class="form-label">Chọn sản phẩm áp dụng:</label>
+                                        <select name="product_ids[]" id="product_ids" multiple class="form-control">
+                                            @foreach($products as $product)
+                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

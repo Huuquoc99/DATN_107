@@ -42,7 +42,6 @@
                             </div>
                         </div>
                     </div>
-                  
                 </form>
             </div>
             <div class="card-body">
@@ -51,11 +50,6 @@
                         <table class="table align-middle table-nowrap text-center" id="invoiceTable">
                             <thead class="text-muted">
                                 <tr>
-                                    {{-- <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th> --}}
                                     <th class="sort text-uppercase" data-sort="invoice_id">Code</th>
                                     <th class="sort text-uppercase" data-sort="customer_name">Khách hàng</th>
                                     <th class="sort text-uppercase" data-sort="country">Điện thoại</th>
@@ -69,21 +63,21 @@
                             <tbody class="list form-check-all" id="invoice-list-data">
                                 @foreach($invoices as $invoice)
                                     <tr>
-                                        {{-- <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                            </div>
-                                        </th> --}}
                                         <td>
                                             <a href="{{ route('admin.invoices.show', $invoice) }}">{{ $invoice->code }}</a>
                                         </td>
-                                        <td>{{ $invoice->ship_user_name }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.customers.show', $invoice) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $invoice->ship_user_name }}">
+                                                {{ \Illuminate\Support\Str::limit($invoice->ship_user_name, 15, '...') }}</td>
+                                            </a>
+                                            
+
                                         <td>{{ $invoice->ship_user_phone }}</td>
                                         <td>
                                             <span id="invoice-date">{{ $invoice->created_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $invoice->created_at->format('h:iA') }}</small>
                                         </td>
-                                        <td>{{ $invoice->total_price }}</td>
+                                        <td>{{ number_format($invoice->total_price, 0, ',', '.') }} VND</td>
                                         <td>
                                             @switch($invoice->statusPayment->id)
                                                 @case(1)

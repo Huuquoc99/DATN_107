@@ -2,28 +2,37 @@
 @extends('client.layouts.master')
 
 @section('title')
-    Voucher
+    TechStore
 @endsection
 
 @section('content')
 <main class="container">
-    <h1 style="text-transform: uppercase;
+    <h4 style="text-transform: uppercase;
     font-weight: 900;
     border-left: 10px solid #fec500;
     padding-left: 10px;
-    margin: 30px 0">Mã giảm giá</h1>
+    margin: 30px 0">Mã giảm giá</h4>
     <div class="row list-vouchers">
         @foreach($vouchers as $voucher)
             <div class="col-6 col-md-6 col-lg-6 voucher">
                 <div class="d-flex item">
                     <div class="col-3 col-md-3 col-lg-3 col-sm-3 col-xs-3 head">
                         <div class="left"></div>
-                        <div class="voucher-logo"> {{number_format($voucher['discount']/1000)}}K</div>
+                        <div class="voucher-logo" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $voucher['name'] }}">
+                            @if($voucher['discount_type'] == 'amount')
+                                {{ number_format($voucher['discount'] / 1000) }}K
+                            @elseif($voucher['discount_type'] == 'percent')
+                                {{ $voucher['discount'] }}%
+                            @endif
+                        </div>
+                        
                     </div>
                     <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-9 content">
                         <div class="redirect">
                         </div>
-                        <div class="item-name">{{ $voucher['code'] }}</div>
+                        <div class="item-name">
+                            {{ $voucher['code'] }}
+                        </div>
                         <div>
                             <div class="progress" style="height:10px; background-color: #e1e1e1; margin: 17px 0;">
                                 <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
@@ -53,7 +62,7 @@
         .list-vouchers .voucher {
             height: 120px;
             padding-right: 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .list-vouchers .voucher .item {
             height: 100%;

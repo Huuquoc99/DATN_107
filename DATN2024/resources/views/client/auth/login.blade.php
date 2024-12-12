@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
     <main>
         <section class="login-register container">

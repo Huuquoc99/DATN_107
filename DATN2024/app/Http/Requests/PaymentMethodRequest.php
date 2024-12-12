@@ -31,12 +31,12 @@ class PaymentMethodRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a string',
-            'name.max' => 'The name cannot exceed 100 characters.',
-            'display_order.required' => 'The display order field is required.',
-            'display_order.integer'  => 'The display order must be an integer.',
-            'display_order.min'      => 'The display order must be at least 1.',
+            'name.required' => 'Trường tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi',
+            'name.max' => 'Tên không được vượt quá 100 ký tự.',
+            'display_order.required' => 'Trường thứ tự hiển thị là bắt buộc.',
+            'display_order.integer' => 'Thứ tự hiển thị phải là một số nguyên.',
+            'display_order.min' => 'Thứ tự hiển thị phải ít nhất là 1.',
         ];
     }
 }

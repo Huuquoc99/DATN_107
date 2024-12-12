@@ -29,8 +29,8 @@ class ProductCapacityRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "Product capacity names cannot be left blank",
-            "name.max" => "Product capacity name must not exceed 255 characters",
+            "name.required" => "Tên dung lượng sản phẩm không được để trống",
+            "name.max" => "Tên dung lượng sản phẩm không được vượt quá 255 ký tự",
         ];
     }
 }

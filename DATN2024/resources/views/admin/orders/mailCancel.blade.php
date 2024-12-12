@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,33 +72,38 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="header">
-        <h2 style="padding-left: 20px">Order Cancellation Notice</h2>
-    </div>
-
-    <div class="content">
-        <p>Hello <strong> {{ $order->user ? $order->user->name : $order->ship_user_name }}</strong>,</p>
-        <p>We regret to inform you that your order with code <strong>{{ $order->code }}</strong> has been cancelled at the request of the administrator.</p>
-
-        <div class="order-details">
-            <p><strong>Order details:</strong></p>
-            <p>Order code: <strong>{{ $order->code }}</strong></p>
-            <p>Status: <strong>{{ $order->statusOrder->name }}</strong></p>
+    <div class="container">
+        <div class="header">
+            <h2 style="padding-left: 20px">Thông báo hủy đơn hàng</h2>
         </div>
 
-        <p>We apologize for any inconvenience. If you have any questions or need further assistance, please contact us via email or phone number below.</p>
+        <div class="content">
+            <p>Xin chào <strong> {{ $order->user ? $order->user->name : $order->ship_user_name }}</strong>,</p>
+            <p>Chúng tôi rất tiếc phải thông báo rằng đơn hàng có mã <strong>{{ $order->code }}</strong> của bạn đã bị
+                hủy theo yêu cầu của người quản lý.</p>
 
-        <p>Thank you very much for using our service!</p>
-    </div>
+            <div class="order-details">
+                <p><strong>Chi tiết đơn hàng:</strong></p>
+                <p>Mã đơn hàng: <strong>{{ $order->code }}</strong></p>
+                <p>Trạng thái: <strong>{{ $order->statusOrder->name }}</strong></p>
+            </div>
 
-    <div class="footer">
-        <p><a href="mailto:techstore@gmail.com">Support Email</a> | <a href="tel:0987654321">Contact by phone</a></p>
-        <p>Best regards, TechStore</p>
+            <p>Chúng tôi xin lỗi vì bất kỳ sự bất tiện nào. Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ thêm, vui lòng
+                liên hệ với chúng tôi qua email hoặc số điện thoại bên dưới.</p>
+
+            <p>Cảm ơn bạn rất nhiều vì đã sử dụng dịch vụ của chúng tôi!</p>
+        </div>
+
+        <div class="footer">
+            <p><a href="mailto:techstore@gmail.com">Email hỗ trợ</a> | <a href="tel:0987654321">Liên hệ qua điện
+                    thoại</a></p>
+            <p>Trân trọng, TechStore</p>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

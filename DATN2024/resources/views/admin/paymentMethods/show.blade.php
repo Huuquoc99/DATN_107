@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Payment method detail: {{ $paymentMethod->name }}
+TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Payment method </h4>
+                <h4 class="mb-sm-0">Phương thức thanh toán </h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.paymentMethods.index') }}">Table</a></li>
-                        <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.paymentMethods.index') }}">Bảng</a></li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
                     </ol>
                 </div>
             </div>
@@ -46,9 +46,9 @@ Payment method detail: {{ $paymentMethod->name }}
 
                                 <div class="mt-4">
                                     @if($paymentMethod->is_active == 1)
-                                        <span class="badge bg-primary">Active</span>
+                                        <span class="badge bg-primary">Hoạt động</span>
                                     @elseif($banner->is_active == 0)
-                                        <span class="badge bg-danger">No active</span>
+                                        <span class="badge bg-danger">Không hoạt động</span>
                                     @endif
                                 </div>
                                 <h6 class="mt-3 mb-3">{{ $paymentMethod->description }}</h6>
@@ -67,16 +67,16 @@ Payment method detail: {{ $paymentMethod->name }}
                 <div class="card-body">
                     <div class="d-flex justify-content-start align-items-center">
                         <a href="{{ route('admin.paymentMethods.edit', $paymentMethod->id) }}" class="btn btn-primary me-2">
-                            <i class="bx bx-edit me-1"></i> Payment Method  edit
+                            <i class="bx bx-edit me-1"></i> Chỉnh sửa
                         </a>
                         <form action="{{ route('admin.paymentMethods.destroy', $paymentMethod->id) }}" method="POST" class="me-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">
-                                <i class="bx bx-trash me-1"></i> Payment Method delete
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xoá không?')">
+                                <i class="bx bx-trash me-1"></i> Xoá
                             </button>
                         </form>
-                        <a href="{{ route('admin.paymentMethods.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('admin.paymentMethods.index') }}" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
             </div>

@@ -40,7 +40,7 @@ class ProductCapacityController extends Controller
             $productCapacity = ProductCapacity::create($param);
             $productCapacity->is_active == 0 ? $productCapacity->hide() : $productCapacity->show();
 
-            return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity created successfully");
+            return redirect()->route("admin.productCapacities.index")->with("success", "Dung lượng sản phẩm đã được tạo thành công");
 
         }
     }
@@ -77,7 +77,7 @@ class ProductCapacityController extends Controller
         $productCapacity->update($param);
         $productCapacity->is_active == 0 ? $productCapacity->hide() : $productCapacity->show();
 
-        return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity updated successfully");
+        return redirect()->route("admin.productCapacities.index")->with("success", "Đã cập nhật thành công Dung lượng sản phẩm");
 
     }
 
@@ -86,11 +86,17 @@ class ProductCapacityController extends Controller
      */
     public function destroy(string $id)
     {
-        ProductVariant::query()->where("product_color_id", $id)->delete();
+        $isUsed = ProductVariant::query()->where("product_capacity_id", $id)->exists();
+
+        if ($isUsed) {
+            return redirect()->route("admin.productCapacities.index")->with("error", "Không thể xóa vì đang có sản phẩm sử dụng dung lượng này.");
+        }
+
         $productCapacity = ProductCapacity::query()->findOrFail($id);
         $productCapacity->delete();
-        return redirect()->route("admin.productCapacities.index")->with("success", "Product Capacity deleted successfully");
 
+        return redirect()->route("admin.productCapacities.index")->with("success", "Đã xóa thành công Dung lượng sản phẩm");
     }
+
 }
 

@@ -75,10 +75,8 @@ class CartController extends Controller
                             ];
                         }
 
-                        // Tính tổng giá
                         $totalAmount = $item['quantity'] * $item['price'];
                     }
-                    // Xóa session sau khi đã lưu vào db
                     session()->forget('cart');
                 }
             }
@@ -93,7 +91,7 @@ class CartController extends Controller
                 return view('client.cart', [
                     'unifiedCart' => [],
                     'totalAmount' => 0,
-                    'message' => 'No items in the cart'
+                    'message' => 'Không có sản phẩm nào trong giỏ hàng'
                 ]);
             }
         }
@@ -136,13 +134,13 @@ class CartController extends Controller
                     $newQuantity = $cartItem->quantity + $quantity;
 
                     if ($newQuantity > $stock_quantity) {
-                        return back()->withErrors(['quantity' => 'Quantity exceeds inventory.']);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá hàng tồn kho.']);
                     }
 
                     $cartItem->update(['quantity' => $newQuantity]);
                 } else {
                     if ($quantity > $stock_quantity) {
-                        return back()->withErrors(['quantity' => 'Quantity exceeds inventory.']);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá hàng tồn kho.']);
                     }
                     CartItem::query()->create([
                         'cart_id' => $cart->id,
@@ -159,14 +157,14 @@ class CartController extends Controller
                     $newQuantity = $cart[$cartItemKey]['quantity'] + $quantity;
 
                     if ($newQuantity > $stock_quantity) {
-                        return back()->withErrors(['quantity' => 'Quantity exceeds inventory..']);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá hàng tồn kho.']);
                     }
 
 
                     $cart[$cartItemKey]['quantity'] = $newQuantity;
                 } else {
                     if ($quantity > $stock_quantity) {
-                        return back()->withErrors(['quantity' => 'Quantity exceeds inventory..']);
+                        return back()->withErrors(['quantity' => 'Số lượng vượt quá hàng tồn kho.']);
                     }
 
                     $cart[$cartItemKey] = [
@@ -190,7 +188,7 @@ class CartController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                'error' => 'An error occurred, please try again.',
+                'error' => 'Đã xảy ra lỗi, vui lòng thử lại.',
                 'details' => $e->getMessage()
             ], 500);
         }
@@ -218,9 +216,9 @@ class CartController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', 'The product has been removed from the cart..');
+            return redirect()->back()->with('success', 'Sản phẩm đã bị xóa khỏi giỏ hàng.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while removing the product from the cart.');
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng.');
         }
     }
 
@@ -242,14 +240,14 @@ class CartController extends Controller
             if (!$productVariant) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Product does not exist.'
+                    'message' => 'Sản phẩm không tồn tại.'
                 ], 404);
             }
 
             if ($quantity > $productVariant->quantity) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Quantity requested exceeds quantity in stock.'
+                    'message' => 'Số lượng yêu cầu vượt quá số lượng trong kho.'
                 ], 404);
             }
 
@@ -261,7 +259,7 @@ class CartController extends Controller
                 if (!$cartItem) {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Product does not exist in cart.'
+                        'message' => 'Sản phẩm không tồn tại trong giỏ hàng.'
                     ], 404);
                 }
 
@@ -279,21 +277,21 @@ class CartController extends Controller
                 } else {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Product does not exist in cart.'
+                        'message' => 'Không có sản phẩm trong giỏ hàng.'
                     ], 404);
                 }
             }
 
             return response()->json([
                 'success' => true,
-                'message' => 'Update quantity successfully.',
+                'message' => 'Cập nhật số lượng thành công.',
                 'total' => $total,
                 'quantity' => $quantity
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage()
+                'message' => 'Đã xảy ra lỗi: ' . $e->getMessage()
             ], 500);
         }
     }

@@ -39,7 +39,6 @@
                             <li>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
-                                        <!-- Check if user exists and has an avatar -->
                                         @if($order->user && $order->user->avatar)
                                             <img src="{{ Storage::url($order->user->avatar) }}" alt="" class="avatar-sm rounded">
                                         @else
@@ -48,7 +47,7 @@
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h6 class="fs-14 mb-1">
-                                            {{ \Illuminate\Support\Str::limit($order->user->name ?? 'Unknown User', 20, '...') }}
+                                            {{ \Illuminate\Support\Str::limit($order->user->name ?? 'Guest', 20, '...') }}
                                         </h6>
                                         <p class="text-muted mb-0">
                                             @if ($order->user && $order->user->type == 1)
@@ -64,15 +63,15 @@
                             </li>
                             <li>
                                 <i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->email ?? 'No email available' }}
+                                {{ $order->user->email ?? 'Guest' }}
                             </li>
                             <li>
                                 <i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->phone ?? 'No phone available' }}
+                                {{ $order->user->phone ?? 'Guest' }}
                             </li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'No address available', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'Guest', 20, '...') }}
                             </li>
                         </ul>
                     </div>
@@ -86,13 +85,13 @@
                     <div class="card-body">
                         <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
                             <li class="fw-medium fs-14">
-                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Người dùng không xác định', 25, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Guest', 25, '...') }}
                             </li>
-                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Không có email nào khả dụng' }}</li>
-                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Không có điện thoại nào có sẵn' }}</li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Guest' }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Guest' }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Không có địa chỉ nào có sẵn', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Guest', 20, '...') }}
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
@@ -119,8 +118,6 @@
                                 {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
                                 {{ \Illuminate\Support\Str::limit($order->shipping_district, 20, '...') }},
                                 {{ \Illuminate\Support\Str::limit($order->shipping_province, 20, '...') }},
-
-
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
@@ -139,7 +136,37 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{ \Illuminate\Support\Str::limit($order->statusOrder->name, 25, '...') }}
+                                    <td class="status">
+                                        @if ($order->statusOrder->id == 1) 
+                                            <span class="badge bg-warning-subtle text-warning text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 2)
+                                            <span class="badge bg-secondary-subtle text-secondary text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 3)
+                                            <span class="badge bg-dask-subtle text-dask text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 4)
+                                            <span class="badge bg-primary-subtle text-primary text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 5)
+                                            <span class="badge bg-success-subtle text-success text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 6)
+                                            <span class="badge bg-danger-subtle text-danger text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @endif
+                                    </td>                                    
                                 </h6>
                             </div>
                         </div>
@@ -149,7 +176,25 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{ \Illuminate\Support\Str::limit($order->statusPayment->name, 20, '...') }}
+                                    <td class="status">
+                                        @if ($order->statusPayment->id == 1) 
+                                            <span class="badge bg-warning-subtle text-warning text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @elseif ($order->statusPayment->id == 2)
+                                            <span class="badge bg-success-subtle text-success text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @elseif ($order->statusPayment->id == 3)
+                                            <span class="badge bg-danger-subtle text-danger text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @endif
+                                    </td>  
                                 </h6>
                             </div>
                         </div>
@@ -159,7 +204,21 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{ \Illuminate\Support\Str::limit($order->paymentMethod->name, 15, '...') }}
+                                    <td class="status">
+                                        @if ($order->paymentMethod->id == 1) 
+                                            <span class="badge bg-primary-subtle text-primary text-uppercase">
+                                                {{ $order->paymentMethod?->name }}
+                                            </span>
+                                        @elseif ($order->paymentMethod->id == 2)
+                                            <span class="badge bg-success-subtle text-success text-uppercase">
+                                                {{ $order->paymentMethod?->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
+                                                {{ $order->paymentMethod?->name }}
+                                            </span>
+                                        @endif
+                                    </td>  
                                 </h6>
                             </div>
                         </div>
@@ -179,7 +238,7 @@
                                 <p class="text-muted mb-0">Tổng tiền:</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h6 class="mb-0">{{ number_format($order->total_price, 0, ',', '.') }} VND</h6>
+                                <h6 class="mb-0 text-danger"><b>{{ number_format($order->total_price, 0, ',', '.') }} VND</b></h6>
                             </div>
                         </div>
                     </div>
@@ -203,11 +262,11 @@
                                         <th scope="col">Sản phẩm</th>
                                         <th scope="col" class="text-center">Giá</th>
                                         <th scope="col" class="text-center">Số lượng</th>
-                                        <th scope="col" class="text-end">Total Amount</th>
+                                        <th scope="col" class="text-end">Tổng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($order->orderItems as $item)
+                                    @foreach ($order->orderItems as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
                                             <td>
@@ -257,40 +316,6 @@
                                                 {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
                                             </td>
                                         </tr>
-                                    @endforeach --}}
-
-                                    @foreach ($order->orderItems as $item)
-                                        <tr>
-                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                        @php
-                                                            $url = null;
-                                                            if (isset($item->productVariant)) {
-                                                                $url = $item->productVariant->image;
-                                                                if ($url && !Str::contains($url, 'http')) {
-                                                                    $url = \Illuminate\Support\Facades\Storage::url($url);
-                                                                }
-                                                            }
-                                                        @endphp
-                                                        @if ($url)
-                                                            <img src="{{ $url }}" alt="Product Image" class="img-fluid d-block">
-                                                        @else
-                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}" 
-                                                                alt="Không có hình ảnh nào có sẵn" 
-                                                                class="img-fluid d-block">
-                                                        @endif
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <!-- Other product details -->
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-center">{{ number_format($item->price, 0, ',', '.') }} VND</td>
-                                            <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-end">{{ number_format($item->total, 0, ',', '.') }} VND</td>
-                                        </tr>
                                     @endforeach
 
                                     <tr class="border-top border-top-dashed">
@@ -299,15 +324,23 @@
                                             <table class="table table-borderless mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <td>Sub Total :</td>
+                                                        <td>Tổng cộng :</td>
                                                         <td class="text-end">
-                                                            {{ number_format($item->order->total_price, 0, '.', ',') }} VND
+                                                            {{ number_format($order->subtotal, 0, '.', ',') }} VND
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Giảm giá :</td>
+                                                       @if ($order->voucher)
+                                                        <td class="text-end">
+                                                            -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
+                                                        </td>
+                                                       @endif
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
                                                         <th scope="row">Tổng tiền:</th>
                                                         <th class="text-end">
-                                                            {{ number_format($item->order->total_price, 0, '.', ',') }} VND
+                                                            <h5 class="text-danger"><b>{{ number_format($order->total_price, 0, '.', ',') }} VND</b></h5>
                                                         </th>
                                                     </tr>
                                                 </tbody>
@@ -382,7 +415,6 @@
                                 </select>
                             </div>
 
-                            <!-- Modal -->
                             <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -391,7 +423,6 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Lý do hủy đơn -->
                                             <div class="list-group">
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind">

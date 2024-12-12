@@ -25,14 +25,12 @@ class OrderNotificationHandler implements ShouldQueue
             });
 
         } elseif ($action === 'update') {
-
             Mail::send('admin.orders.mailUpdate', ['order' => $order], function ($message) use ($order) {
                 $message->to([$order->user_email, $order->ship_user_email])
                     ->subject('Your order status has been updated');
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
         } elseif ($action === 'client_cancel') {
-
             Mail::send('client.mail.cancel', ['order' => $order], function ($message) use ($order) {
                 $message->to([$order->user_email, $order->ship_user_email])
                 ->subject('Your order has been cancelled.');
@@ -40,6 +38,13 @@ class OrderNotificationHandler implements ShouldQueue
             });
         } elseif ($action === 'order_fail_guest') {
             Mail::send('client.guest.mailFailed', ['order' => $order], function ($message) use ($order) {
+                $message->to([$order->user_email, $order->ship_user_email])
+                    ->subject('Đơn hàng của bạn chưa hoàn thành.');
+                $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
+            });
+        }
+        elseif ($action === 'order_fail_user') {
+            Mail::send('client.mail.failed', ['order' => $order], function ($message) use ($order) {
                 $message->to([$order->user_email, $order->ship_user_email])
                     ->subject('Đơn hàng của bạn chưa hoàn thành.');
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');

@@ -1,30 +1,28 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
-<div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
 
-    <div class="my-account container">
-        <h2 class="page-title pt-5 ">Chi tiết đơn hàng: {{ $order->code }}</h2>
-    </div>
+<div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
     <section class="my-account container">
-        <h2 class="page-title pt-5">Chi tiết đơn hàng</h2>
+        @include('client.components.breadcrumb', [
+              'breadcrumbs' => [
+                  ['label' => 'Đơn hàng', 'url' => route('history')],
+                  ['label' =>  $order->code, 'url' => null],
+              ]
+          ])
         <div class="row">
             <div class="col-lg-4">
                 <div class="info-box">
                     <h4>Thông tin đặt hàng</h4>
                     <table class="info-table">
                         <tr>
-                            <td><strong> Trạng thái đơn hàng:</strong></td>
+                            <td><strong>Đơn hàng:</strong></td>
                             <td>
                                 @if ($order->status_order_id == 1 || $order->status_order_id == 2)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
-
-{{--                                    <form action="{{ route('account.orders.cancel', $order->id) }}" method="POST" id="cancelOrderForm">--}}
-{{--                                        @csrf--}}
-{{--                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmCancel()">Cancel</button>--}}
-{{--                                    </form>--}}
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy bỏ</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
 
                                     <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog">
@@ -96,7 +94,6 @@
                                         </div>
                                     </div>
 
-
                                 @elseif ($order->status_order_id == 3)
                                     {{ $order->statusOrder->name ?? 'N/A' }}
                                 @elseif ($order->status_order_id == 4)
@@ -115,19 +112,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Trạng thái thanh toán:</strong></td>
+                            <td><strong>Trạng thái:</strong></td>
                             <td>
                                 {{ $order->statusPayment->name ?? 'N/A' }}
                                 @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">hoàn trả</button>
+                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">Thanh toán lại</button>
                                     </form>
                                 @endif
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Phương thức thanh toán:</strong></td>
+                            <td><strong>Thanh toán:</strong></td>
                             <td>{{ $order->paymentMethod->name ?? 'N/A' }}</td>
                         </tr>
                         <tr>
@@ -146,15 +143,16 @@
             </div>
             <div class="col-lg-8">
                 <div class="info-box">
-                    <h4>Đặt hàng</h4>
+                    <h4>Đơn hàng</h4>
                     <table class="orders-table">
                         <thead>
                             <tr>
-                                <th>Sản phân</th>
-                                <th>Số lượng</th>
-                                <th>Giá</th>
+                                <th>Sản phẩm</th>
                                 <th>Dung lượng</th>
                                 <th>Màu sắc</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng cộng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -165,8 +163,6 @@
                                             {{ $item->product_name }}
                                         </a>
                                     </td>
-                                    <td>{{ $item->quantity }}</td>
-                                    <td>{{ number_format($item->productVariant->price, 0) }} VND</td>
                                     <td>
                                         @if ($item->product_capacity_id)
                                             {{ $item->capacity->name ?? 'N/A' }}
@@ -177,10 +173,50 @@
                                             {{ $item->color->name ?? 'N/A' }}
                                         @endif
                                     </td>
+                                    
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
+
+                                    @php
+                                        $subTotal = $item->quantity * $item->productVariant->price
+                                    @endphp
+                                    <td>{{ number_format($subTotal, 0, ',', '.') }} VND</td>
+                                    
+                                    
                                 </tr>
+                                
                             @endforeach
                         </tbody>
                     </table>
+                    <tr class="border-top border-top-dashed">
+                        <td colspan="3"></td>
+                        <td colspan="2" class="fw-medium p-0">
+                            <table class="table table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td>Tổng cộng :</td>
+                                        <td class="text-end">
+                                            {{ number_format($order->subtotal, 0, '.', ',') }} VND
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giảm giá :</td>
+                                       @if ($order->voucher)
+                                        <td class="text-end">
+                                            -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
+                                        </td>
+                                       @endif
+                                    </tr>
+                                    <tr class="border-top border-top-dashed">
+                                        <th scope="row">Tổng tiền:</th>
+                                        <th class="text-end">
+                                            {{ number_format($order->total_price, 0, '.', ',') }} VND
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
                     <a href="{{ route('orders.index') }}" class="btn btn-primary mt-3 mb-3">Quay lại</a>
                 </div>
             </div>

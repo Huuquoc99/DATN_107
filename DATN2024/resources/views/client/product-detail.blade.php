@@ -1,20 +1,25 @@
 @extends('client.layouts.master')
 
+@section('title')
+    TechStore
+@endsection
+
 @section('content')
     <div class="breadcrumb">
         <section class="product-single container">
             @include('client.components.breadcrumb', [
-                    'breadcrumbs' => [
-                        [
-                            'label' => 'Điện thoại ' . $product->catalogue->name,
-                            'url' => route('shop', array_merge(request()->except('c'),
-                                request()->get('c') == $product->catalogue->id
-                                    ? []
-                                    : ['c' => $product->catalogue->id])
-                            )
-                        ]
+                'breadcrumbs' => [
+                    [
+                        'label' => 'Điện thoại ' . $product->catalogue->name,
+                        'url' => route('shop', array_merge(request()->except('c'),
+                            request()->get('c') == $product->catalogue->id
+                                ? []
+                                : ['c' => $product->catalogue->id])
+                        )
                     ]
-                ])
+                ]
+            ])
+                
             <div class="row">
                 <div class="col-lg-7">
                     <div class="" data-media-type="vertical-thumbnail">
@@ -70,9 +75,6 @@
                                                 {{ $loop->first ? 'checked' : '' }} required>
                                             <label class="btn btn-outline color-choice"
                                                 for="radio_color_{{ $id }}">
-                                                {{-- <span class="color-dot"
-                                                    style="background-color: {{ $color['color_code'] }};"></span>
-                                                <span class="color-name">{{ $color['name'] }}</span> --}}
                                                 <div class="color-dot"
                                                     style="background-color: {{ $color['color_code'] }};"></div>
                                                 <div class="color-name">{{ $color['name'] }}</div>

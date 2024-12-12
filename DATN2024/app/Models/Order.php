@@ -36,6 +36,7 @@ class Order extends Model
         'status_payment_id',
         'payment_method_id',
         'total_price',
+        'subtotal',
         'voucher_id',
     ];
 

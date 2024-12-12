@@ -24,7 +24,7 @@ Voucher
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
@@ -40,6 +40,13 @@ Voucher
                                         <label for="quantity" class="form-label">Số lượng</label>
                                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" id="quantity" value="{{$voucher->quantity}}">
                                         @error('quantity')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="date-datepicker" class="form-label">Ngày bắt đầu</label>
+                                        <input type="date" id="date-datepicker" class="form-control @error('start_date') is-invalid @enderror" name="start_date" placeholder="Select date" value="{{\Carbon\Carbon::parse($voucher->start_date)->format('Y-m-d')}}">
+                                        @error('start_date')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -77,6 +84,13 @@ Voucher
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    <div class="form-group mt-3">
+                                        <label for="discount_type">Loại giảm giá</label>
+                                        <select name="discount_type" id="discount_type" class="form-control">
+                                            <option value="amount" {{ old('discount_type', $voucher->discount_type ?? '') == 'amount' ? 'selected' : '' }}>Theo số tiền</option>
+                                            <option value="percent" {{ old('discount_type', $voucher->discount_type ?? '') == 'percent' ? 'selected' : '' }}>Theo tỷ lệ phần trăm</option>
+                                        </select>
+                                    </div>
                                     <div>
                                         <label for="discount" class="form-label">Giảm giá</label>
                                         <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" id="discount" value="{{$voucher->discount}}">
@@ -91,13 +105,32 @@ Voucher
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
+                                    <div class="mt-3">
+                                        <label for="min_order_value" class="form-label">Giá trị đơn hàng tối thiểu</label>
+                                        <input type="number" name="min_order_value" class="form-control @error('min_order_value') is-invalid @enderror" id="min_order_value" value="{{$voucher->min_order_value}}">
+                                        @error('min_order_value')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <label for="product_ids" class="form-label">Chọn sản phẩm áp dụng:</label>
+                                        <select name="product_ids[]" id="product_ids" multiple class="form-control">
+                                            @foreach($products as $product)
+                                                <option value="{{ $product->id }}"
+                                                    @if($voucher->products->contains($product->id)) selected @endif>
+                                                    {{ $product->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

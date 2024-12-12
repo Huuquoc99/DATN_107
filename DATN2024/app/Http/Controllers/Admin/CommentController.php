@@ -69,7 +69,7 @@ class CommentController extends Controller
     
         $comment->save();
     
-        return redirect()->route('admin.comments.index')->with('success', 'Comment status updated successfully.');
+        return redirect()->route('admin.comments.index')->with('success', 'Bình luận đã được cập nhật thành công.');
     }
     
 
@@ -81,6 +81,6 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
         $comment->delete();
 
-        return redirect()->route('admin.comments.index')->with('success', 'Comment deleted successfully.');
+        return redirect()->route('admin.comments.index')->with('success', 'Bình luận đã được xóa thành công.');
     }
 }

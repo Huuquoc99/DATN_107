@@ -30,11 +30,11 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Thêm mới</h4>
                     </div>
+                
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-5">
-                                    <!-- Name -->
                                     <div>
                                         <label for="name" class="form-label">Tên</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -44,7 +44,6 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Price Regular -->
                                     <div class="mt-3">
                                         <label for="price_regular" class="form-label">Giá thường</label>
                                         <input type="number"
@@ -56,14 +55,15 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Price Sale -->
                                     <div class="mt-3">
                                         <label for="price_sale" class="form-label">Giá khuyến mãi</label>
                                         <input type="number" class="form-control" name="price_sale" id="price_sale"
                                                value="{{ old('price_sale') }}">
+                                        @error("price_sale")
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
-                                    <!-- Catalogues -->
                                     <div class="mt-3">
                                         <label for="catalogue_id" class="form-label">Danh mục</label>
                                         <select class="form-select @error('catalogue_id') is-invalid @enderror"
@@ -83,7 +83,6 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Image Thumbnail -->
                                     <div class="mt-3">
                                         <label for="img_thumbnail" class="form-label">Hình ảnh</label>
                                         <input type="file"
@@ -94,7 +93,6 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Processor -->
                                     <div class="mt-3">
                                         <label for="processor" class="form-label">Bộ xử lý</label>
                                         <input type="text" class="form-control @error('processor') is-invalid @enderror"
@@ -104,7 +102,6 @@
                                         @enderror
                                     </div>
 
-                                    <!-- RAM -->
                                     <div class="mt-3">
                                         <label for="ram" class="form-label">Ram</label>
                                         <input type="text" class="form-control @error('ram') is-invalid @enderror"
@@ -114,9 +111,6 @@
                                         @enderror
                                     </div>
 
-                                    
-
-                                    <!-- Short Description -->
                                     <div class="mt-3">
                                         <label for="short_description" class="form-label">Mô tả ngắn gọn</label>
                                         <textarea class="form-control @error('short_description') is-invalid @enderror"
@@ -130,7 +124,6 @@
 
                                 <div class="col-md-7 mt-2">
                                     <div class="row">
-                                        <!-- SKU -->
                                         <div class="mt-3">
                                             <label for="sku" class="form-label">SKU</label>
                                             <input type="text" class="form-control @error('sku') is-invalid @enderror"
@@ -138,7 +131,6 @@
                                                    value="{{ old('sku', strtoupper(\Str::random(8))) }}">
                                         </div>
 
-                                        <!-- Screen Size -->
                                         <div class="mt-3">
                                             <label for="screen_size" class="form-label">Kích thước màn hình</label>
                                             <input type="text"
@@ -149,7 +141,6 @@
                                             @enderror
                                         </div>
 
-                                        <!-- Operating System -->
                                         <div class="mt-3">
                                             <label for="operating_system" class="form-label">Hệ điều hành</label>
                                             <input type="text"
@@ -161,7 +152,6 @@
                                             @enderror
                                         </div>
 
-                                        <!-- Battery Capacity -->
                                         <div class="mt-3">
                                             <label for="battery_capacity" class="form-label">Dung lượng pin</label>
                                             <input type="text"
@@ -173,7 +163,6 @@
                                             @enderror
                                         </div>
 
-                                        <!-- Camera Resolution -->
                                         <div class="mt-3">
                                             <label for="camera_resolution" class="form-label">Độ phân giải của máy ảnh</label>
                                             <input type="text"
@@ -185,7 +174,6 @@
                                             @enderror
                                         </div>
 
-                                        <!-- Network Connectivity -->
                                         <div class="mt-3">
                                             <label for="network_connectivity" class="form-label">Kết nối mạng</label>
                                             <input type="text"
@@ -197,7 +185,6 @@
                                             @enderror
                                         </div>
 
-                                        {{-- <!-- Storage -->
                                         <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
                                             <input type="text"
@@ -206,9 +193,8 @@
                                             @error("storage")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
-                                        </div> --}}
+                                        </div>
 
-                                        <!-- SIM Type -->
                                         <div class="mt-3">
                                             <label for="sim_type" class="form-label">Loại SIM</label>
                                             <input type="text" class="form-control @error('sim_type') is-invalid @enderror"
@@ -218,7 +204,6 @@
                                             @enderror
                                         </div>
 
-                                        <!-- Checkboxes -->
                                         <div class="mt-5">
                                             <div class="row">
                                                 @php
@@ -259,17 +244,11 @@
                                         <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i
                                                 class="fa-solid fa-plus fa-xl"></i></button>
                                     </div>
-
                                     <div class="card-body" style="height: 450px; overflow: scroll">
                                         <div class="live-preview">
                                             <div class="row gy-4">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered" id="variant-table">
-                                                        @if ($errors->has('duplicate_error'))
-                                                            <div class="alert alert-danger">
-                                                                {{ $errors->first('duplicate_error') }}
-                                                            </div>
-                                                        @endif
                                                         <tbody>
                                                         <tr class="text-center">
                                                             <th>Dung lượng</th>

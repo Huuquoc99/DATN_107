@@ -227,9 +227,6 @@
                             </div>
                             <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
                                 <div class="col-sm">
-                                    {{-- <div class="text-muted">
-                                        Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
-                                    </div> --}}
                                 </div>
                                 <div class="col-sm-auto  mt-3 mt-sm-0">
                                     <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
@@ -255,48 +252,6 @@
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Đơn hàng gần đây</h4>
                         </div>
-
-                        {{-- <div class="card-body">
-                            <div class="table-responsive table-card">
-                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
-                                    <thead class="text-muted table-light">
-                                    <tr>
-                                        <th scope="col">Order ID</th>
-                                        <th scope="col">Customer</th>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Color</th>
-                                        <th scope="col">Capacity</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2112</a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Alex Smith</div>
-                                            </div>
-                                        </td>
-                                        <td>Clothes</td>
-                                        <td>
-                                            <span class="text-success">$109.00</span>
-                                        </td>
-                                        <td>Zoetic Fashion</td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success">Paid</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> --}}
-
                         <div class="card-body">
                             <div class="table-responsive table-card">
                                 <table class="table table-borderless table-centered align-middle table-nowrap mb-0 text-center">
@@ -339,14 +294,9 @@
                                                     <td>
                                                         {{ $item->productVariant && $item->productVariant->capacity ? $item->productVariant->capacity->name : 'Not Available' }}
                                                     </td>
-                                                    
-
-                                                    {{-- <td>
-                                                        <span class="badge bg-success-subtle text-success">{{ optional($order->status)->name }}</span>
-                                                    </td> --}}
                                                     <td>
                                                         @php
-                                                            $statusId = optional($order->statusOrder)->id; // Lấy id của status
+                                                            $statusId = optional($order->statusOrder)->id;
                                                         @endphp
                                                         <span class="badge 
                                                             @if ($statusId == 1) bg-warning-subtle text-warning
@@ -361,7 +311,7 @@
                                                     </td>
                                                     <td>
                                                         @php
-                                                            $statusId = optional($order->statusPayment)->id; // Lấy id của status
+                                                            $statusId = optional($order->statusPayment)->id;
                                                         @endphp
                                                         <span class="badge 
                                                             @if ($statusId == 1) bg-warning-subtle text-warning
@@ -396,43 +346,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    {{-- <script>
-        const labels = @json($statistics->pluck('month_year')); 
-        const data = @json($statistics->pluck('total_quantity_sold')); 
-        const revenueData = @json($statistics->pluck('total_revenue')); 
-
-        const config = {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: 'Number of products sold',
-                        data: data,
-                        borderColor: 'rgb(75, 192, 192)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: true,
-                    },
-                    {
-                        label: 'Revenue',
-                        data: revenueData,
-                        borderColor: 'rgb(255, 99, 132)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: true,
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    },
-                },
-            },
-        };
-
-        new Chart(document.getElementById('myChart'), config);
-    </script> --}}
 
     <script>
         const labels = @json($statistics->pluck('month_year')); 
@@ -445,7 +358,7 @@
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Number of products sold',
+                        label: 'Số lượng sản phẩm đã bán',
                         data: data,
                         borderColor: '#9ba4c1', 
                         backgroundColor: '#45558c', 
@@ -454,7 +367,7 @@
                         type: 'bar', 
                     },
                     {
-                        label: 'Revenue', 
+                        label: 'Doanh thu', 
                         data: revenueData,
                         borderColor: 'rgb(255, 99, 132)', 
                         backgroundColor: 'rgba(255, 99, 132, 0.2)', 

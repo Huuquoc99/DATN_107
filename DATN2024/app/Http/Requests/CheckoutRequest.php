@@ -42,16 +42,16 @@ class CheckoutRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_name.required' => 'User name is required.',
-            'user_email.required' => 'Email is required.',
-            'user_email.email' => 'Email must be a valid email address.',
-            'user_phone.required' => 'Phone number is required.',
-            'user_address.required' => 'Address is required.',
-            'is_ship_user_same_user.required' => 'Please specify shipping information.',
-            'status_order_id.required' => 'Order status is required.',
-            'status_payment_id.required' => 'Payment status is required.',
-            'status_order_id.exists' => 'The selected order status does not exist.',
-            'status_payment_id.exists' => 'The selected payment status does not exist.',
+            'user_name.required' => 'Tên người dùng là bắt buộc.',
+            'user_email.required' => 'Email là bắt buộc.',
+            'user_email.email' => 'Email phải là địa chỉ email hợp lệ.',
+            'user_phone.required' => 'Số điện thoại là bắt buộc.',
+            'user_address.required' => 'Địa chỉ là bắt buộc.',
+            'is_ship_user_same_user.required' => 'Vui lòng chỉ định thông tin giao hàng.',
+            'status_order_id.required' => 'Tình trạng đơn hàng là bắt buộc.',
+            'status_payment_id.required' => 'Tình trạng thanh toán là bắt buộc.',
+            'status_order_id.exists' => 'Tình trạng đơn hàng đã chọn không tồn tại.',
+            'status_payment_id.exists' => 'Tình trạng thanh toán đã chọn không tồn tại.',
         ];
     }
 }

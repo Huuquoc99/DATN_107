@@ -48,7 +48,7 @@ class PaymentMethodController extends Controller
             $paymentMethod = PaymentMethod::create($param);
             $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
             
-            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method created successfully");
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Phương thức thanh toán đã được tạo thành công");
 
         }
     }
@@ -97,7 +97,7 @@ class PaymentMethodController extends Controller
             $paymentMethod->update($param);
             $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
     
-            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method updated successfully");
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Phương thức thanh toán đã được cập nhật thành công");
 
         }
     }
@@ -113,7 +113,7 @@ class PaymentMethodController extends Controller
         {
             Storage::disk("public")->delete($paymentMethod->image);
         }
-        return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method deleted successfully");
+        return redirect()->route("admin.paymentMethods.index")->with("success", "Đã xóa phương thức thanh toán thành công");
 
     }
 }

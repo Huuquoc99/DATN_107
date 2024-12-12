@@ -113,7 +113,7 @@ class ProductController extends Controller
         if ($variant) {
             return response()->json([
                 'price'     => number_format($variant->price, 0, ',', '.') ,
-                'quantity'  => $variant->quantity > 0 // true nếu quantity > 0, ngược lại là false
+                'quantity'  => $variant->quantity > 0 
             ]);
         } else {
             return response()->json(['price' => null, 'quantity' => false]);
@@ -131,7 +131,7 @@ class ProductController extends Controller
         if ($variant) {
             return response()->json(['quantity' => $variant->quantity]);
         } else {
-            return response()->json(['quantity' => 0]); // Nếu không tìm thấy biến thể
+            return response()->json(['quantity' => 0]);
         }
     }
 

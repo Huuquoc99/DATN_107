@@ -30,8 +30,8 @@ class TagRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "Tag names cannot be left blank",
-            "name.max" => "Tag name must not exceed 255 characters",  
+           "name.required" => "Tên thẻ không được để trống",
+            "name.max" => "Tên thẻ không được vượt quá 255 ký tự",
         ];
     }
 }

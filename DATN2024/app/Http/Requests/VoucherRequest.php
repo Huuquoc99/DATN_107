@@ -32,41 +32,57 @@ class VoucherRequest extends FormRequest
             ],
             'description' => 'nullable|string|max:1000',
             'quantity' => 'required|integer|min:1',
-            'discount' => 'required|numeric|min:1',
-            'expiration_date' => 'required|date',
+            'discount' => 'required|numeric|min:0|' . ($this->discount_type == 'percent' ? 'max:100' : ''),
+            'discount_type' => 'required|in:percent,amount',
+            'start_date' => 'required|date|before_or_equal:expiration_date',
+            'expiration_date' => 'required|date|after:start_date',
             'is_active' => 'required|boolean',
-
+            'min_order_value' => 'required|numeric|min:0',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a valid string.',
-            'name.max' => 'The name may not be greater than 255 characters.',
+            'name.required' => 'Trường tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi hợp lệ.',
+            'name.max' => 'Tên không được dài quá 255 ký tự.',
+            
+            'code.required' => 'Trường mã là bắt buộc.',
+            'code.string' => 'Mã phải là một chuỗi hợp lệ.',
+            'code.unique' => 'Mã đã được sử dụng.',
+            'code.max' => 'Mã không được dài quá 10 ký tự.',
+            
+            'description.string' => 'Mô tả phải là một chuỗi hợp lệ.',
+            'description.max' => 'Mô tả không được dài quá 1000 ký tự.',
+            
+            'quantity.required' => 'Trường số lượng là bắt buộc.',
+            'quantity.integer' => 'Số lượng phải là một số nguyên.',
+            'quantity.min' => 'Số lượng phải ít nhất là 1.',
+            
+            'discount.required' => 'Yêu cầu giảm giá.',
+            'discount.numeric' => 'Giảm giá phải là một số hợp lệ.',
+            'discount.min' => 'Giảm giá phải ít nhất là 0.',
+            'discount.max' => 'Giảm giá không được lớn hơn 100 khi sử dụng phần trăm.',
+            
+            'discount_type.required' => 'Yêu cầu loại giảm giá.',
+            'discount_type.in' => 'Loại giảm giá phải là phần trăm hoặc số tiền.',
+            
+            'start_date.required' => 'Yêu cầu ngày bắt đầu.',
+            'start_date.date' => 'Ngày bắt đầu phải là ngày hợp lệ.',
+            'start_date.before_or_equal' => 'Ngày bắt đầu phải trước hoặc bằng ngày hết hạn.',
+            
+            'expiration_date.required' => 'Yêu cầu ngày hết hạn.',
+            
+            'expiration_date.date' => 'Ngày hết hạn phải là ngày hợp lệ.',
+            'expiration_date.after' => 'Ngày hết hạn phải sau ngày bắt đầu.',
+            
+            'is_active.required' => 'Trường đang hoạt động là bắt buộc.',
+            'is_active.boolean' => 'Trường đang hoạt động phải là đúng hoặc sai.',
 
-            'code.required' => 'The code field is required.',
-            'code.string' => 'The code must be a valid string.',
-            'code.unique' => 'The code has already been taken.',
-            'code.max' => 'The code may not be greater than 10 characters.',
-
-            'description.string' => 'The description must be a valid string.',
-            'description.max' => 'The description may not be greater than 1000 characters.',
-
-            'quantity.required' => 'The quantity field is required.',
-            'quantity.integer' => 'The quantity must be an integer.',
-            'quantity.min' => 'The quantity must be at least 1.',
-
-            'discount.required' => 'The discount field is required.',
-            'discount.numeric' => 'The discount must be a number.',
-            'discount.min' => 'The discount must be at least 1.',
-
-            'expiration_date.required' => 'The expiration date field is required.',
-            'expiration_date.date' => 'The expiration date must be a valid date.',
-
-            'is_active.required' => 'The is active field is required.',
-            'is_active.boolean' => 'The is active field must be true or false.',
+            'min_order_value.required' => 'Giá trị đơn hàng tối thiểu là bắt buộc.',
+            'min_order_value.numeric' => 'Giá trị đơn hàng tối thiểu phải là một số.',
+            'min_order_value.min' => 'Giá trị đơn hàng tối thiểu phải lớn hơn hoặc bằng 0.',
         ];
     }
 

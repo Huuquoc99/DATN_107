@@ -36,9 +36,10 @@
                         <a href="{{ route('admin.orders.show', $order) }}" class="fw-medium link-primary">#{{ $order->code }}</a>
                     </td>
                     <td class="customer_name">
-                        {{-- {{ \Illuminate\Support\Str::limit($order->user->name, 15, '...') }} --}}
-                        {{-- {{ $order->user->name ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'null' }} --}}
-                        {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'Guest' }}
+                        <a href="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $order->user?->name ?? 'Guest' }}">
+                            {{ $order->user ? \Illuminate\Support\Str::limit($order->user->name, 15, '...') : 'Guest' }}
+                        </a>
+                        
                     </td>
                     <td class="date">
                         <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>

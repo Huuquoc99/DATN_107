@@ -38,7 +38,7 @@ class TagController extends Controller
 
         Tag::query()->create($data);
 
-        return redirect()->route('admin.tags.index')->with("success", "Tags created successfully");
+        return redirect()->route('admin.tags.index')->with("success", "Thẻ đã được tạo thành công");
     }
 
     /**
@@ -46,9 +46,7 @@ class TagController extends Controller
      */
     public function show(string $id)
     {
-        // $tag = Tag::query()->findOrFail($id);
-
-        // return view(self::PATH_VIEW . __FUNCTION__, compact('tag'));
+        
     }
 
     /**
@@ -72,7 +70,7 @@ class TagController extends Controller
 
         $tag->update($data);
 
-        return redirect()->route('admin.tags.index')->with("success", value: "Tags updated successfully");
+        return redirect()->route('admin.tags.index')->with("success", value: "Thẻ đã được cập nhật thành công");
     }
 
     /**

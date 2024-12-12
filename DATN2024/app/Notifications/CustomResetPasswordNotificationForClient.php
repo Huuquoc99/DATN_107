@@ -45,8 +45,8 @@ class CustomResetPasswordNotificationForClient extends Notification
 
         return (new MailMessage)
             ->subject('Reset Password Notification')
-            ->line('You are receiving this email because we received a password reset request for your account.')
+            ->line('Bạn nhận được email này vì chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.')
             ->action('Reset Password', $url)
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line('Nếu bạn không yêu cầu đặt lại mật khẩu, không cần thực hiện thêm hành động nào nữa.');
     }
 }

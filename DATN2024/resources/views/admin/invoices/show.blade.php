@@ -141,7 +141,7 @@
                                             <th scope="col">Sản phẩm</th>
                                             <th scope="col">Giá</th>
                                             <th scope="col">Số lượng</th>
-                                            <th scope="col" class="text-end">Amount</th>
+                                            <th scope="col" class="text-end">Tổng</th>
                                         </tr>
                                     </thead>
                                     <tbody id="products-list">
@@ -159,9 +159,11 @@
                                                         @endif
                                                     </p>
                                                 </td>
-                                                <td>{{ number_format($item->productVariant->price, 0, ',', '.') }} VND</td>
+                                                <td>{{ $item->productVariant ? number_format($item->productVariant->price, 0, ',', '.') . ' VND' : 'N/A' }}</td>
                                                 <td>{{ $item->quantity }}</td>
-                                                <td class="text-end">{{ number_format($item->productVariant->price * $item->quantity, 0, ',', '.') }} VND</td>
+                                                <td class="text-end">
+                                                    {{ $item->productVariant ? number_format($item->productVariant->price * $item->quantity, 0, ',', '.') . ' VND' : 'N/A' }}
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -171,11 +173,21 @@
                                 <table class="table table-borderless table-nowrap align-middle mb-0 ms-auto" style="width:250px">
                                     <tbody>
                                         <tr>
-                                            <td>Sub Total</td>
-                                            <td class="text-end">{{ number_format($item->productVariant->price * $item->quantity, 0, ',', '.') }} VND</td>
+                                            <td>Tổng cộng</td>
+                                            <td class="text-end">
+                                                {{ $item->productVariant?->price ? number_format($item->productVariant->price * $item->quantity, 0, ',', '.') . ' VND' : 'N/A' }}
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>Giảm giá :</td>
+                                            <td class="text-end">
+                                                -{{ number_format(optional($order->voucher)->discount ?? 0, 0, '.', ',') }} VND
+                                            </td>
+                                            
                                         </tr>
                                         <tr class="border-top border-top-dashed fs-15">
-                                            <th scope="row">Total Amount</th>
+                                            <th scope="row">Tổng tiền</th>
                                             <th class="text-end">{{ number_format($order->total_price, 0, ',', '.') }} VND</th>
                                         </tr>
                                     </tbody>
@@ -183,8 +195,8 @@
                             </div>
                             <div class="mt-3">
                                 <h6 class="text-muted text-uppercase fw-semibold mb-3">Payment Details:</h6>
-                                <p class="text-muted mb-1">Payment Method: <span class="fw-medium" id="payment-method">{{ $order->paymentMethod->name }}</span></p>
-                                <p class="text-muted">Total Amount: 
+                                <p class="text-muted mb-1">Phương thức thanh toán: <span class="fw-medium" id="payment-method">{{ $order->paymentMethod->name }}</span></p>
+                                <p class="text-muted">Tổng tiền:
                                     <span class="fw-medium" id=""></span>
                                     <span id="card-total-amount">{{ number_format($order->total_price, 0, ',', '.') }} VND</span>
                                 </p>
@@ -201,8 +213,8 @@
                                 </div>
                             </div>
                             <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                                <a href="{{ route('admin.invoices.index') }}" class="btn btn-secondary"><i class="ri-arrow-left-line"></i> Back</a>
-                                <a href="javascript:window.print()" class="btn btn-primary"><i class="ri-printer-line align-bottom me-1"></i> Print</a>
+                                <a href="{{ route('admin.invoices.index') }}" class="btn btn-secondary"><i class="ri-arrow-left-line"></i> Quay lại</a>
+                                <a href="javascript:window.print()" class="btn btn-primary"><i class="ri-printer-line align-bottom me-1"></i> In hoá đơn</a>
                             </div>
                         </div>
                     </div>

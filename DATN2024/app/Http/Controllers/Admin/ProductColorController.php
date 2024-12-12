@@ -42,7 +42,7 @@ class ProductColorController extends Controller
             $productColor = ProductColor::create($param);
             $productColor->is_active == 0 ? $productColor->hide() : $productColor->show();
         
-            return redirect()->route("admin.productColors.index")->with("success", "Product color created successfully");
+            return redirect()->route("admin.productColors.index")->with("success", "Màu sản phẩm đã được tạo thành công");
 
         }
     }
@@ -81,7 +81,7 @@ class ProductColorController extends Controller
         $productColor->update($param);
         $productColor->is_active == 0 ? $productColor->hide() : $productColor->show();
     
-        return redirect()->route("admin.productColors.index")->with("success", "Product Color updated successfully");
+        return redirect()->route("admin.productColors.index")->with("success", "Màu sản phẩm đã được cập nhật thành công");
 
     }
 
@@ -90,10 +90,16 @@ class ProductColorController extends Controller
      */
     public function destroy(string $id)
     {
-        ProductVariant::query()->where("product_color_id", $id)->delete();
+        $isUsed = ProductVariant::query()->where("product_color_id", $id)->exists();
+
+        if ($isUsed) {
+            return redirect()->route("admin.productColors.index")->with("error", "Không thể xóa vì đang có sản phẩm sử dụng màu này.");
+        }
+
         $productColor = ProductColor::query()->findOrFail($id);
         $productColor->delete();
-        return redirect()->route("admin.productColors.index")->with("success", "Product Color deleted successfully");
 
+        return redirect()->route("admin.productColors.index")->with("success", "Đã xóa màu sản phẩm thành công");
     }
+
 }

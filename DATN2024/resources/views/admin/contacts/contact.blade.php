@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Contact Form Submission</title>
     <link rel="stylesheet" href="mail.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -26,12 +30,12 @@
             overflow: hidden;
             padding: 20px;
             transition: all 0.3s ease-in-out;
-            
-        
+
+
             background-image: url('https://www.bing.com/th/id/OGC.0dcee7f6333565ad73e68c69df4bddf6?pid=1.7&rurl=https%3a%2f%2fkhoinguonsangtao.vn%2fwp-content%2fuploads%2f2022%2f08%2fanh-dong-3d.gif&ehk=Ma5H3gplCsdEaq%2fd%2fwSbqdgcT80xnTAyuyoP7YHcsIk%3d');
-            
+
             background-size: cover;
-            background-position: center center; 
+            background-position: center center;
             /* background-attachment: fixed; */
         }
 
@@ -171,7 +175,7 @@
         }
 
         .address {
-            flex: 1; 
+            flex: 1;
             background: #f9fafa;
             padding: 20px;
             border: 1px solid #e0e0e0;
@@ -198,35 +202,36 @@
             color: #555;
             line-height: 1.6;
         }
-
     </style>
 </head>
+
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>You have received a new message</h1>
+            <h1>Bạn đã nhận được một tin nhắn mới</h1>
         </div>
 
         <div class="section">
-            <h2>Delivery information</h2>
+            <h2>Thông tin giao hàng</h2>
             <div class="address-container">
                 <div class="address">
-                    <h3>Information:</h3>
-                    <p><strong>Name:</strong> {{ $data['name'] }}</p>
+                    <h3>Thông tin:</h3>
+                    <p><strong>Tên:</strong> {{ $data['name'] }}</p>
                     <p><strong>Email:</strong> {{ $data['email'] }}</p>
                 </div>
-                
+
                 <div class="address" style="margin-left: 35px">
-                    <h3>Shipping address:</h3>
-                    <p><strong>Message:</strong>{{ $data['message'] }}</p>
+                    <h3>Địa chỉ giao hàng:</h3>
+                    <p><strong>Tin nhắn:</strong>{{ $data['message'] }}</p>
                 </div>
             </div>
-        </div>
 
-        <div class="footer">
-            <p><b>Thank you for shopping at TechStore!</b></p>
-            <p><b>If you have any questions, please contact us via email: <a href="mailto:techstore@gmail.com">techstore@gmail.com</a></b></p>
+            <div class="footer">
+                <p><b>Cảm ơn bạn đã mua sắm tại TechStore!</b></p>
+                <p><b>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email: <a
+                            href="mailto:techstore@gmail.com">techstore@gmail.com</a></b></p>
+            </div>
         </div>
-    </div>
 </body>
+
 </html>
