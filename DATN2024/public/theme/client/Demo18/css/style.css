@@ -2695,7 +2695,7 @@ progress {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: "Exo 2", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.7143;
@@ -2809,7 +2809,7 @@ progress {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: "Exo 2", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.7143;
@@ -9790,8 +9790,8 @@ svg.flaticon {
 }
 
 @font-face {
-    font-family: "SofiaProBold";
-    src: url(../fonts/SofiaProBold.woff);
+    font-family: "Roboto";
+    src: url(../fonts/Roboto.woff);
 }
 body {
     color: #222222;
@@ -9818,7 +9818,7 @@ h5,
 h6,
 .h6 {
     color: #222222;
-    font-family: "Exo 2", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 500;
 }
 
@@ -9836,7 +9836,7 @@ h6,
 }
 
 .font-sofia {
-    font-family: "SofiaProBold";
+    font-family: "Roboto";
 }
 
 .third-color {
@@ -9938,7 +9938,7 @@ h6,
 .blockquote__content {
     margin-bottom: 0;
     font-size: 1rem;
-    font-style: italic;
+    font-style: normal;
     font-weight: 500;
     line-height: 1.375;
 }
