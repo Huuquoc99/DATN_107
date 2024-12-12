@@ -178,15 +178,6 @@
                                             @enderror
                                         </div>
 
-                                        {{-- <div class="mt-3">
-                                            <label for="storage" class="form-label">Storage</label>
-                                            <input type="text" class="form-control @error('storage') is-invalid @enderror" name="storage" id="storage" value="{{ $product->storage }}">
-                                            @error('storage')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div> --}}
                                         <div class="mt-3">
                                             <label for="sim_type" class="form-label">Loại sim</label>
                                             <input type="text" class="form-control @error('sim_type') is-invalid @enderror" name="sim_type" id="sim_type" value="{{ $product->sim_type }}">
@@ -244,7 +235,7 @@
                         <h4 class="card-title mb-0 flex-grow-1">Biến thể</h4>
                         <button type="button" class="btn btn-primary btn-sm" onclick="addNewVariant()"><i class="fa-solid fa-plus fa-xl"></i></button>
 
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body" style="height: 450px; overflow: scroll">
                         <div class="live-preview">
                             <div class="row gy-4">

@@ -110,10 +110,7 @@
                                                         <th scope="row">Ram</th>
                                                         <td>{{ $product->ram }}</td>
                                                     </tr>
-                                                    {{-- <tr>
-                                                        <th scope="row">Storage</th>
-                                                        <td>{{ $product->storage }}</td>
-                                                    </tr> --}}
+                                                    
                                                     </tbody>
                                                 </table>
                                             </div>

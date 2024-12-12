@@ -39,7 +39,6 @@
                             <li>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
-                                        <!-- Check if user exists and has an avatar -->
                                         @if($order->user && $order->user->avatar)
                                             <img src="{{ Storage::url($order->user->avatar) }}" alt="" class="avatar-sm rounded">
                                         @else
@@ -119,8 +118,6 @@
                                 {{ \Illuminate\Support\Str::limit($order->shipping_ward, 20, '...') }},
                                 {{ \Illuminate\Support\Str::limit($order->shipping_district, 20, '...') }},
                                 {{ \Illuminate\Support\Str::limit($order->shipping_province, 20, '...') }},
-
-
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->ship_user_note ?: 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
@@ -139,7 +136,6 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{-- {{ \Illuminate\Support\Str::limit($order->statusOrder->name, 25, '...') }} --}}
                                     <td class="status">
                                         @if ($order->statusOrder->id == 1) 
                                             <span class="badge bg-warning-subtle text-warning text-uppercase">
@@ -180,7 +176,6 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{-- {{ \Illuminate\Support\Str::limit($order->statusPayment->name, 20, '...') }} --}}
                                     <td class="status">
                                         @if ($order->statusPayment->id == 1) 
                                             <span class="badge bg-warning-subtle text-warning text-uppercase">
@@ -209,7 +204,6 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{-- {{ \Illuminate\Support\Str::limit($order->paymentMethod->name, 15, '...') }} --}}
                                     <td class="status">
                                         @if ($order->paymentMethod->id == 1) 
                                             <span class="badge bg-primary-subtle text-primary text-uppercase">
@@ -324,40 +318,6 @@
                                         </tr>
                                     @endforeach
 
-                                    {{-- @foreach ($order->orderItems as $item)
-                                        <tr>
-                                            <td class="text-center">{{ $item->product_sku ?? 'N/A' }}</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                        @php
-                                                            $url = null;
-                                                            if (isset($item->productVariant)) {
-                                                                $url = $item->productVariant->image;
-                                                                if ($url && !Str::contains($url, 'http')) {
-                                                                    $url = \Illuminate\Support\Facades\Storage::url($url);
-                                                                }
-                                                            }
-                                                        @endphp
-                                                        @if ($url)
-                                                            <img src="{{ $url }}" alt="Product Image" class="img-fluid d-block">
-                                                        @else
-                                                            <img src="{{ asset('theme/admin/assets/images/default-avatar.png') }}"
-                                                                alt="Không có hình ảnh nào có sẵn"
-                                                                class="img-fluid d-block">
-                                                        @endif
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <!-- Other product details -->
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-center">{{ number_format($item->product_price_regular, 0, ',', '.') }} VND</td>
-                                            <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-end">{{ number_format($totalItems, 0, ',', '.') }} VND</td>
-                                        </tr>
-                                    @endforeach --}}
-
                                     <tr class="border-top border-top-dashed">
                                         <td colspan="3"></td>
                                         <td colspan="2" class="fw-medium p-0">
@@ -379,11 +339,9 @@
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
                                                         <th scope="row">Tổng tiền:</th>
-                                                        {{-- @if ($order->total_price) --}}
-                                                            <th class="text-end">
-                                                                <h5 class="text-danger"><b>{{ number_format($order->total_price, 0, '.', ',') }} VND</b></h5>
-                                                            </th>
-                                                        {{-- @endif --}}
+                                                        <th class="text-end">
+                                                            <h5 class="text-danger"><b>{{ number_format($order->total_price, 0, '.', ',') }} VND</b></h5>
+                                                        </th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -457,7 +415,6 @@
                                 </select>
                             </div>
 
-                            <!-- Modal -->
                             <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -466,7 +423,6 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Lý do hủy đơn -->
                                             <div class="list-group">
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind">

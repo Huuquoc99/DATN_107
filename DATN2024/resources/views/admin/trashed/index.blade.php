@@ -52,15 +52,6 @@
                             @foreach($trashed as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    {{-- <td>
-                                        @php
-                                            $url = $item->img_thumbnail;
-                                            if (!Str::contains($url, 'http')) {
-                                                $url = \Illuminate\Support\Facades\Storage::url($url);
-                                            }
-                                        @endphp
-                                        <img src="{{ $url }}" alt="" width="70px" height="60px">
-                                    </td> --}}
                                     <td style="width: auto; height: 30px">
                                         @php
                                             $url = $item->img_thumbnail;
@@ -92,30 +83,15 @@
                                             <span class="text-muted">N/A</span>
                                         @endif
                                     </td>
-                                    {{-- <td>
-                                        <div class="d-flex gap-2  justify-content-center">
-                                         
-                                         
-                                            <form action="{{ route('admin.restore', $item) }}" method="post">
-                                                @csrf
-                                                <button onclick="return confirm('Bạn có chắc chắn muốn khôi phục không?')" type="submit" class="btn btn-danger btn-sm">
-                                                    Khôi phục 
-                                                    <i class="fa-solid fa-circle-info fa-sm"></i>
-                                                </button>
-                                            </form>
-                                            
-                                        </div>
-                                    </td> --}}
+                               
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
-                                            <!-- Khôi phục -->
                                             <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#restoreModal{{ $item->id }}">
                                                 Khôi phục
                                                 <i class="fa-solid fa-circle-info fa-sm"></i>
                                             </a>
                                         </div>
                                     
-                                        <!-- Modal for Restore Confirmation -->
                                         <div id="restoreModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -168,50 +144,5 @@
 
 @section('script-libs')
 
-    {{-- <script>
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $(document).ready(function () {
-            $(document).on('click', '.pagination a', function (e) {
-                e.preventDefault();
-                let page = $(this).attr('href').split('page=')[1]
-                product(page);
-            })
-
-
-            function product(page) {
-                $.ajax({
-                    url: "products/pagination/?page=" + page,
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    }
-                })
-            }
-
-            $(document).on('keyup', function (e) {
-                e.preventDefault();
-                let search_string = $('#search').val();
-                $.ajax({
-                    url: "{{ route('admin.products.search') }}",
-                    method: 'get',
-                    data: {search_string: search_string},
-                    success: function (res) {
-                        $('.table-data').html(res);
-                    },
-                    error: function (res) {
-                        if (res.status === 404) {
-                            $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
-                        }
-                    }
-                })
-            })
-        });
-
-    </script> --}}
 @endsection
 

@@ -48,13 +48,11 @@
                                     </option>
                                 @endforeach
                             </optgroup>
-                            <!-- Giá -->
                             <optgroup label="Price">
                                 <option value="priceAsc">Giá tăng dần</option>
                                 <option value="priceDesc">Giá giảm dần</option>
                             </optgroup>
 
-                            <!-- Thời gian -->
                             <optgroup label="Thời gian">
                                 <option value="newest">Mới nhất</option>
                                 <option value="oldest">Cũ nhất</option>
@@ -189,7 +187,6 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <!-- Modal -->
                                                 <div id="removeItemModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
@@ -255,14 +252,14 @@
     </div>
     <style>
         .color-list {
-            list-style-type: none; /* Xóa ký hiệu mặc định của danh sách */
-            padding: 0;            /* Xóa khoảng cách padding mặc định */
-            margin: 0;             /* Xóa khoảng cách margin mặc định */
-            text-align: left;      /* Căn trái các mục */
+            list-style-type: none; 
+            padding: 0;            
+            margin: 0;         
+            text-align: left;     
         }
 
         .color-list li {
-            margin-bottom: 15px;    /* Khoảng cách giữa các mục */
+            margin-bottom: 15px;  
         }
 
     </style>
