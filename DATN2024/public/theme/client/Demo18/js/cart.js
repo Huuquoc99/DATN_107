@@ -333,7 +333,7 @@ $(document).on('click', '.remove-cart-v2', function (e) {
                     style: {
                         fontSize: "18px",  // Adjust the font size as needed
                         padding: "15px",   // Add padding to increase the size of the toast
-                        borderRadius: "2px", // Optional: rounded corners
+                        borderRadius: "5px", // Optional: rounded corners
                     },
                     stopOnFocus: true
                 }).showToast();
@@ -347,8 +347,8 @@ $(document).on('click', '.remove-cart-v2', function (e) {
                     backgroundColor: "#f44336",
                     style: {
                         fontSize: "18px",  // Adjust the font size as needed
-                        padding: "10px",   // Add padding to increase the size of the toast
-                        borderRadius: "2px", // Optional: rounded corners
+                        padding: "15px",   // Add padding to increase the size of the toast
+                        borderRadius: "5px", // Optional: rounded corners
                     },
                     stopOnFocus: true
                 }).showToast();
@@ -365,7 +365,7 @@ $(document).on('click', '.remove-cart-v2', function (e) {
                 style: {
                     fontSize: "18px",  // Adjust the font size as needed
                     padding: "15px",   // Add padding to increase the size of the toast
-                    borderRadius: "2px", // Optional: rounded corners
+                    borderRadius: "5px", // Optional: rounded corners
                 },
                 stopOnFocus: true
             }).showToast();

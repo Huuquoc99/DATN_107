@@ -104,12 +104,9 @@ Route::post('/verify-email-code',           [CheckoutController::class, 'verifyE
 
 Route::middleware('auth', 'checkUserMiddleware')->group(function () {
 
-    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])
-        ->name('favorite.toggle');
-    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])
-        ->name('favorites.list');
-    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])
-        ->name('favorites.remove');
+    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
+    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])->name('favorites.list');
+    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])->name('favorites.remove');
 
 
     // Checkout

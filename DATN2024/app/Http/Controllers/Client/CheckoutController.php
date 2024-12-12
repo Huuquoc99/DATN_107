@@ -184,6 +184,8 @@ class CheckoutController extends Controller
             'voucher_id' => $voucher ? $voucher->id : null,
         ]);
 
+        // dd($order);
+
 
         if ($voucher) {
             $voucher->used_quantity += 1;
