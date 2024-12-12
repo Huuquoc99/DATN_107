@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function showLogin(){
+    public function showLogin()
+    {
         return view('client.auth.register');
     }
 

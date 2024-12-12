@@ -185,15 +185,7 @@
                     </style>
                 </div>
 
-                <!-- <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
-                    class="header-search search-field me-0 border-radius-10">
-                    <button class="btn header-search__btn" type="submit">
-                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-                    </button>
-                    <input class="header-search__input w-100" type="text" name="search-keyword"
-                        placeholder="Search products...">
-                </form> -->
-
+            
                 <form action="{{route('search')}}" method="GET"
                       class="header-search search-field me-0 border-radius-10">
                     <button class="btn header-search__btn" type="submit">

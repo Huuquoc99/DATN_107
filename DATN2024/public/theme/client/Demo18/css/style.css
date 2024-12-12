@@ -399,7 +399,7 @@ select,
 optgroup,
 textarea {
     margin: 0;
-    font-family: inherit;
+    font-family: "Roboto";
     font-size: inherit;
     line-height: inherit;
 }
@@ -4600,7 +4600,7 @@ progress {
 }
 
 .bg-secondary {
-    background-color: #767676 !important;
+    background-color: #f66767 !important;
 }
 
 .bg-success {
@@ -4612,11 +4612,11 @@ progress {
 }
 
 .bg-warning {
-    background-color: #f7f3d7 !important;
+    background-color: #f2e15f !important ;
 }
 
 .bg-danger {
-    background-color: #ecc8c5 !important;
+    background-color: #eb6357 !important;
 }
 
 .bg-light {
@@ -9788,14 +9788,14 @@ svg.flaticon {
 .swiper-scrollbar-drag {
     background-color: rgba(0, 0, 0, 0.5);
 }
-
-@font-face {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* @font-face {
     font-family: "Roboto";
     src: url(../fonts/Roboto.woff);
-}
+} */
 body {
     color: #222222;
-   /* font-family: "Exo 2", sans-serif; */
+        font-family: "Roboto", sans-serif;
     font-size: 0.975rem;
     font-weight: 400;
     line-height: 1.7143;
@@ -14002,6 +14002,7 @@ textarea.form-control-lg {
 .multi-select__item:hover {
     color: #3b3b3b;
 }
+
 .multi-select__item:before {
     content: "";
     display: block;
@@ -17559,7 +17560,7 @@ textarea.form-control.is-invalid {
     padding-left: 0;
 }
 .header-search > :last-child {
-    margin-left: 1.25rem;
+    /* margin-left: 1.25rem; */
 }
 .header-search .hover-container {
     display: none;
