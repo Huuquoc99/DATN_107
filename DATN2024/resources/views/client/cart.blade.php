@@ -85,20 +85,7 @@
                     <div class="shopping-cart__totals-wrapper ">
                         <div class="sticky-content">
                             <div class="mb-3 pb-3 border-bottom">
-<<<<<<< HEAD
-                                Tổng tiền: <span id="cart-total"></span>
-                                {{-- <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="voucher-code-input"
-                                           value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
-                                    <button class="btn btn-dark" id="apply-voucher">Sử dụng</button>
-                                </div>
-                                <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                    Mã phiếu giảm giá không hợp lệ hoặc đã hết hạn.
-                                </div> --}}
-=======
                 
->>>>>>> hoa04
                             </div>
                             <div class="mobile_fixed-btn_wrapper">
                                 <div class="button-wrapper container">

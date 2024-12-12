@@ -127,13 +127,8 @@
                                         </td>
 
                                         <td>
-<<<<<<< HEAD
-                                            <a href="{{ route('admin.products.show', $item) }}" title="{{ $item->name }}">
-                                                {{ \Illuminate\Support\Str::limit($item->name, 20, '...') }}
-=======
                                             <a href="{{ route('admin.products.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 10, '...') }}
->>>>>>> hoa04
                                             </a>
                                         </td>
                                         <td>
