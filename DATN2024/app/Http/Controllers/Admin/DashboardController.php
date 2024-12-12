@@ -35,9 +35,6 @@ class DashboardController extends Controller
             ->orderByDesc('total_revenue')
             ->get(); 
         
-            // dd($statistics);
-
-
         $topProducts = Product::select(
             'products.*',
             DB::raw('COALESCE(SUM(order_items.quantity), 0) as total_quantity_sold'),
@@ -103,7 +100,6 @@ class DashboardController extends Controller
     
         
         $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
-        // dd($totalEarnings);
         $totalOrders = Order::count(); 
         $totalCustomers = User::count();
         $totalProducts = Product::count();
@@ -116,7 +112,6 @@ class DashboardController extends Controller
                 });
             })
             ->take(4);
-        // $orders = Order::with('user', 'orderItems.product')->get();
         return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings', 'totalOrders', 'totalCustomers', 'totalProducts', 'topOrders')); 
     }
 

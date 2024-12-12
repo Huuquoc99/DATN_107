@@ -95,22 +95,7 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    {{-- <div class="form-group mt-3">
-                                        <label for="discount_type">Loại giảm giá</label>
-                                        <select name="discount_type" id="discount_type" class="form-control">
-                                            <option value="amount" {{ old('discount_type', $voucher->discount_type ?? '') == 'amount' ? 'selected' : '' }}>Theo số tiền</option>
-                                            <option value="percent" {{ old('discount_type', $voucher->discount_type ?? '') == 'percent' ? 'selected' : '' }}>Theo tỷ lệ phần trăm</option>
-                                        </select>
-                                    </div>
-                                    <div class="mt-3">
-                                        <label for="discount" class="form-label">Giảm giá</label>
-                                        <input type="number"
-                                            class="form-control @error('discount') is-invalid @enderror"
-                                            name="discount" id="discount">
-                                        @error('discount')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div> --}}
+                            
                                     <div class="form-group mt-3">
                                         <label for="discount_type">Loại giảm giá</label>
                                         <select name="discount_type" id="discount_type" class="form-control">
@@ -159,7 +144,6 @@
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">

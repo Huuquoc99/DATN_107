@@ -96,12 +96,10 @@ class ProductController extends Controller
             }
 
             foreach ($dataNewProductVariants as $item) {
-                // Bỏ qua các item không có đầy đủ size và color
                 if (empty($item['size']) || empty($item['color'])) {
                     continue;
                 }
 
-                // Kiểm tra variant đã tồn tại
                 $existingVariant = ProductVariant::query()
                     ->whereHas('capacity', function ($query) use ($item) {
                         $query->where('name', $item['size']);
@@ -122,13 +120,11 @@ class ProductController extends Controller
                     ])->withInput();
                 }
 
-                // Tìm hoặc tạo size
                 $size = ProductCapacity::firstOrCreate(
                     ['name' => $item['size']],
                     ['is_active' => 1]
                 );
 
-                // Tìm hoặc tạo color
                 $color = ProductColor::firstOrCreate(
                     ['name' => $item['color']],
                     ['is_active' => 1]

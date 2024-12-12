@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
     <div class="breadcrumb">
         <div class="shop-checkout container">
@@ -157,12 +159,10 @@
                                             <tr>
                                                 <input type="hidden" name="voucher" value="{{$voucher->discount}}">
                                                 <th>GIẢM GIÁ</th>
-                                                {{-- <td>-{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ</td> --}}
                                                 <td>
                                                     @if($voucher->discount_type == 'amount')
                                                         -{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ
                                                     @elseif($voucher->discount_type == 'percent')
-                                                        {{-- -{{ $voucher->discount }}% --}}
                                                         -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
                                                     @endif
                                                 </td>
@@ -172,7 +172,6 @@
                                         <tr>
                                             <input type="hidden" name="total" value="{{$subtotal - ($voucher ? $voucher->discount : 0)}}">
                                             <th>TOTAL</th>
-                                            {{-- <td>{{ number_format($subtotal - ($voucher ? $voucher->discount : 0), 0, ',', '.') }} VNĐ</td> --}}
                                             <td>
                                                 @if($voucher)
                                                     @if($voucher->discount_type == 'percent')

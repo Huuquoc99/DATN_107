@@ -2,7 +2,6 @@
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
-                <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="#" class="logo logo-dark">
                         <span class="logo-sm">
@@ -136,10 +135,8 @@
                                 <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                                 <span class="align-middle" data-key="t-logout">Đăng xuất</span>
                             </a>
-
                         </div>
                         @endauth
-
                     </div>
             </div>
         </div>

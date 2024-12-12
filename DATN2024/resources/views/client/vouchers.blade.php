@@ -2,7 +2,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-    Voucher
+    TechStore
 @endsection
 
 @section('content')
@@ -18,8 +18,7 @@
                 <div class="d-flex item">
                     <div class="col-3 col-md-3 col-lg-3 col-sm-3 col-xs-3 head">
                         <div class="left"></div>
-                        {{-- <div class="voucher-logo"> {{number_format($voucher['discount']/1000)}}K</div> --}}
-                        <div class="voucher-logo">
+                        <div class="voucher-logo" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $voucher['name'] }}">
                             @if($voucher['discount_type'] == 'amount')
                                 {{ number_format($voucher['discount'] / 1000) }}K
                             @elseif($voucher['discount_type'] == 'percent')
@@ -31,7 +30,9 @@
                     <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-9 content">
                         <div class="redirect">
                         </div>
-                        <div class="item-name">{{ $voucher['code'] }}</div>
+                        <div class="item-name">
+                            {{ $voucher['code'] }}
+                        </div>
                         <div>
                             <div class="progress" style="height:10px; background-color: #e1e1e1; margin: 17px 0;">
                                 <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"

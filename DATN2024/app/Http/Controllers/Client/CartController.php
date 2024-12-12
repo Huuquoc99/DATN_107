@@ -75,10 +75,8 @@ class CartController extends Controller
                             ];
                         }
 
-                        // Tính tổng giá
                         $totalAmount = $item['quantity'] * $item['price'];
                     }
-                    // Xóa session sau khi đã lưu vào db
                     session()->forget('cart');
                 }
             }

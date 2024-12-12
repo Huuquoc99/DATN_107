@@ -61,7 +61,7 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->code }}</td>
                                         <td>
-                                            <a href="{{ route('admin.statusOrders.edit', $item) }}">
+                                            <a href="{{ route('admin.statusOrders.edit', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
@@ -85,36 +85,20 @@
                                             @endif
                                         </td>
                                         
-                                        {{-- <td>
-                                            <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.statusOrders.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
-                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>
-                                                </a>
-                                                <form action="{{ route('admin.statusOrders.destroy', $item) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Delete 
-                                                        <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td> --}}
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <!-- Edit Button -->
+                                            
                                                 <a href="{{ route('admin.statusOrders.edit', $item) }}" class="btn btn-primary btn-sm">
                                                     Edit 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                         
-                                                <!-- Delete Button - Trigger Modal -->
                                                 <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
                                                     Delete 
                                                     <i class="fa-solid fa-delete-left fa-sm"></i>
                                                 </a>
                                             </div>
                                         
-                                            <!-- Modal for Delete Confirmation -->
                                             <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">

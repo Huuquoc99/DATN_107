@@ -84,15 +84,6 @@ class ProductCapacityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(string $id)
-    // {
-    //     ProductVariant::query()->where("product_color_id", $id)->delete();
-    //     $productCapacity = ProductCapacity::query()->findOrFail($id);
-    //     $productCapacity->delete();
-    //     return redirect()->route("admin.productCapacities.index")->with("success", "Đã xóa thành công Dung lượng sản phẩm");
-
-    // }
-
     public function destroy(string $id)
     {
         $isUsed = ProductVariant::query()->where("product_capacity_id", $id)->exists();

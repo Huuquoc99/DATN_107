@@ -56,10 +56,14 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            {{ \Illuminate\Support\Str::limit($item->user->name, 15, '...') }}
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->user->name }}">
+                                                {{ \Illuminate\Support\Str::limit($item->user->name, 15, '...') }}
+                                            </a>
                                         </td>
                                         <td>
-                                            {{ $item->product ? \Illuminate\Support\Str::limit($item->product->name, 15, '...') : 'No product' }}
+                                            <a href="{{ route('admin.products.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->product->name }}">
+                                                {{ $item->product ? \Illuminate\Support\Str::limit($item->product->name, 15, '...') : 'No product' }}
+                                            </a>
                                         </td>
                                         
                                         <td>

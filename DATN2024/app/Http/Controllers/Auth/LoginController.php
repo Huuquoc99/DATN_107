@@ -81,11 +81,9 @@ class LoginController extends Controller
                     ])->first();
 
                     if ($cartItem) {
-                        // Cập nhật số lượng sản phẩm trong giỏ hàng
                         $newQuantity = $cartItem->quantity + $item['quantity'];
                         $cartItem->update(['quantity' => $newQuantity]);
                     } else {
-                        // Thêm mới sản phẩm vào giỏ hàng
                         CartItem::create([
                             'cart_id' => $dbCart->id,
                             'product_variant_id' => $item['product_variant_id'],
@@ -95,10 +93,8 @@ class LoginController extends Controller
                     }
                 }
 
-                // Xóa giỏ hàng trong session sau khi hợp nhất
                 session()->forget('cart');
             } else {
-                // Nếu giỏ hàng không tồn tại trong DB, tạo mới giỏ hàng cho người dùng
                 $dbCart = Cart::create(['user_id' => Auth::id()]);
 
                 foreach ($sessionCart as $item) {
@@ -110,7 +106,6 @@ class LoginController extends Controller
                     ]);
                 }
 
-                // Xóa giỏ hàng trong session sau khi hợp nhất
                 session()->forget('cart');
             }
         }

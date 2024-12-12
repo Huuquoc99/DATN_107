@@ -123,8 +123,6 @@ class OrderController extends Controller
             ]);
             broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));
 
-//            Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
-
             \App\Events\OrderPlaced::dispatch($order, 'client_cancel');
 
             return redirect()->back()->with('success', 'Đơn hàng đã bị hủy.');

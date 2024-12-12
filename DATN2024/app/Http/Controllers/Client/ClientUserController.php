@@ -65,12 +65,6 @@ class ClientUserController extends Controller
 
     public function changePassword(Request $request, $id)
     {
-        // $validated = $request->validate([
-        //     'old_password' => 'required|string',
-        //     'new_password' => 'required|string|min:8|confirmed|different:old_password|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/', 
-        // ]);
-    
-
         $validated = $request->validate([
             'old_password' => 'required|string',
             'new_password' => 'required|string|min:8|confirmed|different:old_password|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/',
@@ -118,10 +112,6 @@ class ClientUserController extends Controller
         $user = User::findOrFail($id);
 
         if ($request->hasFile('avatar')) {
-            // if ($user->avatar && Storage::exists('public/' . $user->avatar)) {
-            //     Storage::delete('public/' . $user->avatar);
-            // }
-
             if ($user->avatar && Storage::exists($user->avatar)) {
                 Storage::delete($user->avatar);
             }
