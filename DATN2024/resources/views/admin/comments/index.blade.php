@@ -84,36 +84,21 @@
                                             <span id="invoice-date">{{ $item->updated_at ? $item->updated_at->format('d M, Y') : 'N/A' }}</span>
                                             <small class="text-muted" id="invoice-time">{{ $item->updated_at ? $item->updated_at->format('h:iA') : '' }}</small>
                                         </td>                                        
-                                        {{-- <td >
-                                            <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.comments.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
-                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>
-                                                </a>
-                                                <form action="{{ route('admin.comments.destroy', $item) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Bạn có chắn chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Xoá 
-                                                        <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td> --}}
+                    
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <!-- Edit Button -->
+                                               
                                                 <a href="{{ route('admin.comments.edit', $item) }}" class="btn btn-primary btn-sm">
                                                     Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                         
-                                                <!-- Delete Button - Trigger Modal -->
                                                 <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
                                                     Xoá 
                                                     <i class="fa-solid fa-delete-left fa-sm"></i>
                                                 </a>
                                             </div>
                                         
-                                            <!-- Modal for Delete Confirmation -->
                                             <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">

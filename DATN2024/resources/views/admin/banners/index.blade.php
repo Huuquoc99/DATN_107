@@ -58,7 +58,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            {{-- <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px"> --}}
+                    
                                             @if ($item->image)
                                                 <img src="{{ Storage::url($item->image) }}" alt="" width="70px" height="60px">
                                             @else
@@ -79,46 +79,27 @@
                                             <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
                                         </td>
-                                        {{-- <td>
-                                            <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">Chi tiết 
-                                                    <i class="fa-solid fa-circle-info fa-sm"></i>
-                                                </a>
-                                                <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
-                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>
-                                                </a>
-                                                <form action="{{ route('admin.banners.destroy', $item) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Bạn có chắc chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Xoá 
-                                                        <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td> --}}
+                                    
 
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <!-- Show Button -->
+                                               
                                                 <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">
                                                     Chi tiết 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>
                                         
-                                                <!-- Edit Button -->
                                                 <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-primary btn-sm">
                                                     Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                         
-                                                <!-- Delete Button - Trigger Modal -->
                                                 <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
                                                     Xoá 
                                                     <i class="fa-solid fa-delete-left fa-sm"></i>
                                                 </a>
                                             </div>
                                         
-                                            <!-- Modal for Delete Confirmation -->
                                             <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
