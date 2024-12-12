@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-Shop
+    TechStore
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ Shop
             <div class="aside-header d-flex d-lg-none align-items-center">
                 <h3 class="text-uppercase fs-6 mb-0">Filter By</h3>
                 <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
-            </div><!-- /.aside-header -->
+            </div>
 
                 <div class="pt-4 pt-lg-0"></div>
 
@@ -21,7 +21,7 @@ Shop
                         <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button"
                             data-bs-toggle="collapse" data-bs-target="#accordion-filter-1" aria-expanded="true"
                             aria-controls="accordion-filter-1">
-                            Product Categories
+                            Danh mục sản phẩm
                             <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g aria-hidden="true" stroke="none" fill-rule="evenodd">
@@ -56,7 +56,7 @@ Shop
                         <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button"
                             data-bs-toggle="collapse" data-bs-target="#accordion-filter-2" aria-expanded="true"
                             aria-controls="accordion-filter-2">
-                            Color
+                            Màu sắc
                             <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g aria-hidden="true" stroke="none" fill-rule="evenodd">
@@ -67,18 +67,18 @@ Shop
                         </button>
                     </h5>
                     <div id="accordion-filter-2" class="accordion-collapse collapse show border-0"
-     aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
-    <div class="accordion-body px-0 pb-0">
-        <div class="d-flex flex-wrap" style="margin-top:-16px; margin-bottom: -18px;">
-            @foreach($colors as $color)
-                <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
-                   class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
-                   style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
-                </a>
-            @endforeach
-        </div>
-    </div>
-</div>
+                        aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
+                        <div class="accordion-body px-0 pb-0">
+                            <div class="d-flex flex-wrap" style="margin-top:-16px; margin-bottom: -18px;">
+                                @foreach($colors as $color)
+                                    <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
+                                    class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
+                                    style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="accordion" id="size-filters">
@@ -87,7 +87,7 @@ Shop
                         <button class="accordion-button p-0 border-0 fs-5 text-uppercase" style="margin-top:-10px;" type="button"
                             data-bs-toggle="collapse" data-bs-target="#accordion-filter-size" aria-expanded="true"
                             aria-controls="accordion-filter-size">
-                            capacity
+                            Dung lượng
                             <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g aria-hidden="true" stroke="none" fill-rule="evenodd">
@@ -116,7 +116,7 @@ Shop
                         <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button"
                             data-bs-toggle="collapse" data-bs-target="#accordion-filter-brand" aria-expanded="true"
                             aria-controls="accordion-filter-brand">
-                            PRICE
+                            Giá
                             <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g aria-hidden="true" stroke="none" fill-rule="evenodd">

@@ -1,5 +1,9 @@
 @extends('client.layouts.master')
 
+@section('title')
+    TechStore
+@endsection
+
 @section('content')
     <div class="breadcrumb">
         <section class="product-single container">
@@ -71,9 +75,6 @@
                                                 {{ $loop->first ? 'checked' : '' }} required>
                                             <label class="btn btn-outline color-choice"
                                                 for="radio_color_{{ $id }}">
-                                                {{-- <span class="color-dot"
-                                                    style="background-color: {{ $color['color_code'] }};"></span>
-                                                <span class="color-name">{{ $color['name'] }}</span> --}}
                                                 <div class="color-dot"
                                                     style="background-color: {{ $color['color_code'] }};"></div>
                                                 <div class="color-name">{{ $color['name'] }}</div>

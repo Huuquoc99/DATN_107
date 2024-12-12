@@ -1,5 +1,7 @@
 @extends('client.layouts.notfoundhd')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
     <body class="not-found-page">
   <svg class="d-none">

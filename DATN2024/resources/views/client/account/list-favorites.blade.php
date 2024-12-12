@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
     <main>
         <div class="mb-4 pb-4"></div>
@@ -43,7 +45,7 @@
                                                class="text-decoration-none text-dark">
                                                 {{ \Illuminate\Support\Str::limit($item->product->name, 18) }}
                                             </a>
-</h6>
+                                        </h6>
                                         <p class="fw-bold text">
                                             {{ number_format($item->product->price_regular, 0, ',', '.') }} VND
                                         </p>

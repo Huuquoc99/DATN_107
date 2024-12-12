@@ -1,13 +1,17 @@
 @extends('client.layouts.master')
 
+@section('title')
+    TechStore
+@endsection
+
 @section('content')
     <main>
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap my-3 mb-xl-4">
                 @if($products->count() > 0)
-                    <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Found {{$products->count()}} results</h2>
+                    <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Đã tìm thấy {{$products->count()}} kết quả</h2>
                 @else
-                    <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">No matching results found</h2>
+                    <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Không tìm thấy kết quả phù hợp</h2>
                 @endif
 
             </div>

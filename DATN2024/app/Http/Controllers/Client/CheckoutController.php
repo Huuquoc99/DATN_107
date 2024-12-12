@@ -149,7 +149,6 @@ class CheckoutController extends Controller
 
         $total_guest = $this->calculateTotalGuests($guest_cart);
 
-        // Tính toán tổng giá trị đơn hàng sau khi áp dụng voucher
         $total_price = $total_guest - ($voucher ? 
             ($voucher->discount_type == 'percent' 
                 ? $total_guest * $voucher->discount / 100 
@@ -175,11 +174,7 @@ class CheckoutController extends Controller
             'ship_user_address' => $request->ship_user_address,
             'payment_method_id' => $paymentMethodId,
             'subtotal' => $request->subtotal,
-            // 'total_price' => $this->calculateTotalGuests($guest_cart) - ($voucher ? $voucher->discount : 0),
             'total_price' => $total_price,
-            // 'total_price' => $this->calculateTotalGuests($guest_cart) - ($voucher ? ($voucher->discount_type == 'percent' 
-            // ? $this->calculateTotalGuests($guest_cart) * $voucher->discount / 100 : $voucher->discount) : 0),
-
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
@@ -187,7 +182,6 @@ class CheckoutController extends Controller
         ]);
 
         // dd($order);
-
 
         if ($voucher) {
             $voucher->used_quantity += 1;
@@ -335,8 +329,6 @@ class CheckoutController extends Controller
 
             'payment_method_id' => $paymentMethodId,
             'subtotal' => $request->subtotal,
-            // 'total_price' => $this->calculateTotal($cart->id) - ($voucher ? $voucher->discount : 0),
-            // 'total_price' => $this->calculateTotal($cart->id) - ($voucher ? $voucher->discount : 0),
             'total_price' => $this->calculateTotal($cart->id) - ($voucher ? ($voucher->discount_type == 'percent' ? $this->calculateTotal($cart->id) * $voucher->discount / 100 : $voucher->discount) : 0),
 
             'status_order_id' => 1,
@@ -417,8 +409,6 @@ class CheckoutController extends Controller
                 $order->save();
 
                 \App\Events\OrderPlaced::dispatch($order, 'order_fail_user');
-
-                // return redirect()->route('checkout.failed')->with('error', 'Payment failed, please try again.');
                 return redirect()->route('checkout.failed')->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
             }
         } else {
@@ -461,7 +451,6 @@ class CheckoutController extends Controller
                         $productVariant->quantity -= $cartItem->quantity;
                         $productVariant->save();
                     } else {
-                        // throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
                         return back()->withErrors(['quantity' => 'Số lượng vượt quá hàng tồn kho.']);
                     }
                 }
@@ -478,7 +467,6 @@ class CheckoutController extends Controller
                     $productVariant->quantity -= $item['quantity'];
                     $productVariant->save();
                 } else {
-                    // throw new \Exception("Product: " . $productVariant->name . " not enough stock.");
                     return back()->withErrors(['quantity' => 'Số lượng vượt quá hàng tồn kho.']);
                 }
             }

@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-    Home
+    TechStore
 @endsection
 
 @section('content')
@@ -199,14 +199,6 @@
     
     <div class="bg-grey py-5">
     <section class="featured-products container">
-        {{-- <div class="d-flex align-items-center justify-content-between mb-4">
-            <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Ưu Đãi Đặc Biệt</h2>
-            <div>
-                <button class="btn btn-outline-secondary me-2" data-bs-target="#productCarousel" data-bs-slide="prev">❮</button>
-                <button class="btn btn-outline-secondary" data-bs-target="#productCarousel" data-bs-slide="next">❯</button>
-            </div>
-        </div> --}}
-
         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
             <div class="carousel-inner">
                 <div class="carousel-item active">
