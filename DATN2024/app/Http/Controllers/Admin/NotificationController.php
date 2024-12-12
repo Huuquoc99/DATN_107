@@ -10,7 +10,6 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
-//        dd($request);
         $notifications = AdminNotification::query()->latest('id')->paginate(6);
         if ($request->get('page') > 1) {
             return view("admin.notification.data", compact('notifications'));

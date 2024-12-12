@@ -67,7 +67,6 @@
             font-size: 14px;
         }
 
-        /* Adjustments for mobile responsiveness */
         @media (max-width: 600px) {
             .email-container {
                 padding: 20px;

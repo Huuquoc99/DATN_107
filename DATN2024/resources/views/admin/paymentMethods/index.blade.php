@@ -58,7 +58,6 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            {{-- <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px"> --}}
                                             @if ($item->image)
                                                 <img src="{{ Storage::url($item->image) }}" alt="" width="70px" height="60px">
                                             @else
@@ -66,7 +65,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.paymentMethods.show', $item) }}">
+                                            <a href="{{ route('admin.paymentMethods.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
@@ -74,14 +73,7 @@
                                             {{ \Illuminate\Support\Str::limit($item->display_order, 15, '...') }}
                                         </td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
-                                        {{-- <td>
-                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
-                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
-                                        </td>
-                                        <td>
-                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
-                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
-                                        </td> --}}
+                    
                                         <td>
                                             @if ($item->created_at)
                                                 <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
@@ -99,47 +91,25 @@
                                                 <span class="text-muted">N/A</span>
                                             @endif
                                         </td>
-                                        
-                                        {{-- <td>
-                                            <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.paymentMethods.show', $item) }}" class="btn btn-info btn-sm">Show 
-                                                    <i class="fa-solid fa-circle-info fa-sm"></i>
-                                                </a>
-                                                <a href="{{ route('admin.paymentMethods.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
-                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>
-                                                </a>
-                                                <form action="{{ route('admin.paymentMethods.destroy', $item) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm">Delete 
-                                                        <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td> --}}
-
+                           
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <!-- Show Button -->
                                                 <a href="{{ route('admin.paymentMethods.show', $item) }}" class="btn btn-info btn-sm">
                                                     Chi tiết 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>
                                         
-                                                <!-- Edit Button -->
                                                 <a href="{{ route('admin.paymentMethods.edit', $item) }}" class="btn btn-primary btn-sm">
                                                     Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                         
-                                                <!-- Delete Button - Trigger Modal -->
                                                 <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
                                                     Xoá 
                                                     <i class="fa-solid fa-delete-left fa-sm"></i>
                                                 </a>
                                             </div>
                                         
-                                            <!-- Modal for Delete Confirmation -->
                                             <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">

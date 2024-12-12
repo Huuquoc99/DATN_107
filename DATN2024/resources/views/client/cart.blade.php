@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
     <div class="breadcrumb">
         <section class="shop-checkout container">
@@ -83,6 +85,7 @@
                     <div class="shopping-cart__totals-wrapper ">
                         <div class="sticky-content">
                             <div class="mb-3 pb-3 border-bottom">
+<<<<<<< HEAD
                                 Tổng tiền: <span id="cart-total"></span>
                                 {{-- <div style="color: black " class="fw-medium mb-2">Mã Giảm giá</div>
                                 <div class="input-group">
@@ -93,6 +96,9 @@
                                 <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
                                     Mã phiếu giảm giá không hợp lệ hoặc đã hết hạn.
                                 </div> --}}
+=======
+                
+>>>>>>> hoa04
                             </div>
                             <div class="mobile_fixed-btn_wrapper">
                                 <div class="button-wrapper container">

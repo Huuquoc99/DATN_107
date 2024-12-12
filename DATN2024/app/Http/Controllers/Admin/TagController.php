@@ -46,9 +46,7 @@ class TagController extends Controller
      */
     public function show(string $id)
     {
-        // $tag = Tag::query()->findOrFail($id);
-
-        // return view(self::PATH_VIEW . __FUNCTION__, compact('tag'));
+        
     }
 
     /**

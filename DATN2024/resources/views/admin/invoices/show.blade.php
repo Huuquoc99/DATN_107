@@ -159,14 +159,11 @@
                                                         @endif
                                                     </p>
                                                 </td>
-                                                {{-- <td>{{ number_format($item->productVariant->price, 0, ',', '.') }} VND</td> --}}
                                                 <td>{{ $item->productVariant ? number_format($item->productVariant->price, 0, ',', '.') . ' VND' : 'N/A' }}</td>
                                                 <td>{{ $item->quantity }}</td>
-                                                {{-- <td class="text-end">{{ number_format($item->productVariant->price * $item->quantity, 0, ',', '.') . 'VND' : 'N/A'}}</td> --}}
                                                 <td class="text-end">
                                                     {{ $item->productVariant ? number_format($item->productVariant->price * $item->quantity, 0, ',', '.') . ' VND' : 'N/A' }}
                                                 </td>
-                                                
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -177,7 +174,6 @@
                                     <tbody>
                                         <tr>
                                             <td>Tổng cộng</td>
-                                            {{-- <td class="text-end">{{ number_format($item->productVariant->price * $item->quantity, 0, ',', '.') }} VND</td> --}}
                                             <td class="text-end">
                                                 {{ $item->productVariant?->price ? number_format($item->productVariant->price * $item->quantity, 0, ',', '.') . ' VND' : 'N/A' }}
                                             </td>

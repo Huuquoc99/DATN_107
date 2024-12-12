@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
    <div class="container2">
     <div class="container1" id="container1">
@@ -7,14 +9,13 @@
             <form class="form" action="{{ route('register') }}" method="POST">
                 @csrf
                 <h2><b>Đăng ký</b></h2>
-                {{-- <div> --}}
-                    <input class="input form-control  @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
+                
+                <input class="input form-control  @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                {{-- </div> --}}
                 <input class="input form-control @error('email') is-invalid @enderror" type="email" placeholder="Email"   name="email">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -54,11 +55,6 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    {{-- @if (session('error'))
-                        <div class="text-danger" role="alert">
-                            {{ session('error') }}
-                        </div>
-                    @endif --}}
                     <div class="content1">
                         <div class="checkbox1">
                             <input class="input" type="checkbox" name="checkbox" id="checkbox">

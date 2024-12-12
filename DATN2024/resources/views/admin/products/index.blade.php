@@ -48,13 +48,11 @@
                                     </option>
                                 @endforeach
                             </optgroup>
-                            <!-- Giá -->
                             <optgroup label="Price">
                                 <option value="priceAsc">Giá tăng dần</option>
                                 <option value="priceDesc">Giá giảm dần</option>
                             </optgroup>
 
-                            <!-- Thời gian -->
                             <optgroup label="Thời gian">
                                 <option value="newest">Mới nhất</option>
                                 <option value="oldest">Cũ nhất</option>
@@ -129,13 +127,19 @@
                                         </td>
 
                                         <td>
+<<<<<<< HEAD
                                             <a href="{{ route('admin.products.show', $item) }}" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 20, '...') }}
+=======
+                                            <a href="{{ route('admin.products.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
+                                                {{ \Illuminate\Support\Str::limit($item->name, 10, '...') }}
+>>>>>>> hoa04
                                             </a>
-
                                         </td>
                                         <td>
-                                            {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'No Catalogue' }}
+                                            <a href="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->catalogue->name }}">
+                                                {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'Không có danh mục' }}
+                                            </a>
                                         </td>
                                         <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
                                         <td>{{ number_format($item->price_sale, 0, ',', '.') }} VND</td>
@@ -188,7 +192,6 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <!-- Modal -->
                                                 <div id="removeItemModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
@@ -254,14 +257,14 @@
     </div>
     <style>
         .color-list {
-            list-style-type: none; /* Xóa ký hiệu mặc định của danh sách */
-            padding: 0;            /* Xóa khoảng cách padding mặc định */
-            margin: 0;             /* Xóa khoảng cách margin mặc định */
-            text-align: left;      /* Căn trái các mục */
+            list-style-type: none; 
+            padding: 0;            
+            margin: 0;         
+            text-align: left;     
         }
 
         .color-list li {
-            margin-bottom: 15px;    /* Khoảng cách giữa các mục */
+            margin-bottom: 15px;  
         }
 
     </style>

@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
 
 <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
@@ -208,11 +210,9 @@
                                     </tr>
                                     <tr class="border-top border-top-dashed">
                                         <th scope="row">Tổng tiền:</th>
-                                        {{-- @if ($order->total_price) --}}
-                                            <th class="text-end">
-                                                {{ number_format($order->total_price, 0, '.', ',') }} VND
-                                            </th>
-                                        {{-- @endif --}}
+                                        <th class="text-end">
+                                            {{ number_format($order->total_price, 0, '.', ',') }} VND
+                                        </th>
                                     </tr>
                                 </tbody>
                             </table>

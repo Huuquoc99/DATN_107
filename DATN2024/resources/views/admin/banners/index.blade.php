@@ -66,7 +66,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.banners.show', $item) }}">
+                                            <a href="{{ route('admin.banners.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->title }}">
                                                 {{ \Illuminate\Support\Str::limit($item->title, 15, '...') }}
                                             </a>
                                         </td>

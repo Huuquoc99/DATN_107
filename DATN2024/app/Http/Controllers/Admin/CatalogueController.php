@@ -44,7 +44,6 @@ class CatalogueController extends Controller
             $param["cover"] = $filepath;
             $param['is_active'] = $request->has('is_active') ? 1 : 0;
             $catalogue = Catalogue::create($param);
-            // $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
 
             return redirect()->route("admin.catalogues.index")->with("success", "Danh mục đã được tạo thành công");
         }
@@ -89,7 +88,6 @@ class CatalogueController extends Controller
             $catalogue->is_active = $request->has('is_active') ? 1 : 0;
             $catalogue->update($param);
 
-            // $catalogue->is_active == 0 ? $catalogue->hide() : $catalogue->show();
             return redirect()->route("admin.catalogues.index")->with("success", "Đã cập nhật danh mục thành công");
 
         }

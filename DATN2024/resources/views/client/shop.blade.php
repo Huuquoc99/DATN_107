@@ -1,6 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
+<<<<<<< HEAD
     Shop
 @endsection
 
@@ -44,10 +45,168 @@
                                         </li>
                                     @endforeach
                                 </ul>
+=======
+    TechStore
+@endsection
+
+@section('content')
+<main>
+    <section class="shop-main container d-flex pt-1 pt-xl-5">
+        <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
+            <div class="aside-header d-flex d-lg-none align-items-center">
+                <h3 class="text-uppercase fs-6 mb-0">Filter By</h3>
+                <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
+            </div>
+
+                <div class="pt-4 pt-lg-0"></div>
+
+            <div class="accordion" id="categories-list">
+                <div class="accordion-item mb-4 pb-3">
+                    <h5 class="accordion-header" id="accordion-heading-11">
+                        <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#accordion-filter-1" aria-expanded="true"
+                            aria-controls="accordion-filter-1">
+                            Danh mục sản phẩm
+                            <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g aria-hidden="true" stroke="none" fill-rule="evenodd">
+                                    <path
+                                        d="M5.35668 0.159286C5.16235 -0.053094 4.83769 -0.0530941 4.64287 0.159286L0.147611 5.05963C-0.0492049 5.27473 -0.049205 5.62357 0.147611 5.83813C0.344427 6.05323 0.664108 6.05323 0.860924 5.83813L5 1.32706L9.13858 5.83867C9.33589 6.05378 9.65507 6.05378 9.85239 5.83867C10.0492 5.62357 10.0492 5.27473 9.85239 5.06018L5.35668 0.159286Z" />
+                                </g>
+                            </svg>
+                        </button>
+                    </h5>
+                    <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
+                        aria-labelledby="accordion-heading-11" data-bs-parent="#categories-list">
+                        <div class="accordion-body px-0 pb-0 pt-3" style="margin-top: -10px;">
+                            <ul class="list list-inline mb-0 text-dask">
+                                @foreach($catalogues as $catalogue)
+                                    <li class="list-item"
+                                        style="height: 40px; transition: background-color 0.3s;font-size: 24px;">
+                                        <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') == $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                                            style="color: black"
+                                            class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion" id="color-filters">
+                <div class="accordion-item mb-4 pb-3">
+                    <h5 class="accordion-header" id="accordion-heading-1">
+                        <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#accordion-filter-2" aria-expanded="true"
+                            aria-controls="accordion-filter-2">
+                            Màu sắc
+                            <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g aria-hidden="true" stroke="none" fill-rule="evenodd">
+                                    <path
+                                        d="M5.35668 0.159286C5.16235 -0.053094 4.83769 -0.0530941 4.64287 0.159286L0.147611 5.05963C-0.0492049 5.27473 -0.049205 5.62357 0.147611 5.83813C0.344427 6.05323 0.664108 6.05323 0.860924 5.83813L5 1.32706L9.13858 5.83867C9.33589 6.05378 9.65507 6.05378 9.85239 5.83867C10.0492 5.62357 10.0492 5.27473 9.85239 5.06018L5.35668 0.159286Z" />
+                                </g>
+                            </svg>
+                        </button>
+                    </h5>
+                    <div id="accordion-filter-2" class="accordion-collapse collapse show border-0"
+                        aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
+                        <div class="accordion-body px-0 pb-0">
+                            <div class="d-flex flex-wrap" style="margin-top:-16px; margin-bottom: -18px;">
+                                @foreach($colors as $color)
+                                    <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
+                                    class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
+                                    style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="accordion" id="size-filters">
+                <div class="accordion-item mb-4 pb-3">
+                    <h5 class="accordion-header" id="accordion-heading-size">
+                        <button class="accordion-button p-0 border-0 fs-5 text-uppercase" style="margin-top:-10px;" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#accordion-filter-size" aria-expanded="true"
+                            aria-controls="accordion-filter-size">
+                            Dung lượng
+                            <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g aria-hidden="true" stroke="none" fill-rule="evenodd">
+                                    <path
+                                        d="M5.35668 0.159286C5.16235 -0.053094 4.83769 -0.0530941 4.64287 0.159286L0.147611 5.05963C-0.0492049 5.27473 -0.049205 5.62357 0.147611 5.83813C0.344427 6.05323 0.664108 6.05323 0.860924 5.83813L5 1.32706L9.13858 5.83867C9.33589 6.05378 9.65507 6.05378 9.85239 5.83867C10.0492 5.62357 10.0492 5.27473 9.85239 5.06018L5.35668 0.159286Z" />
+                                </g>
+                            </svg>
+                        </button>
+                    </h5>
+                    <div id="accordion-filter-size" class="accordion-collapse collapse show border-0"
+                        aria-labelledby="accordion-heading-size" data-bs-parent="#size-filters">
+                        <div class="accordion-body px-0 pb-0">
+                            <div class="d-flex flex-wrap" style="margin-top:-18px;">
+                                @foreach($capacities as $capacity)
+                                    <a href="{{ route('shop', array_merge(request()->except('capacity'), request()->get('capacity') == $capacity ? [] : ['capacity' => $capacity])) }}"
+                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 text-uppercase {{ request()->get('capacity') == $capacity ? 'swatch_active' : '' }}">{{$capacity}}</a>
+                                @endforeach
+>>>>>>> hoa04
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<<<<<<< HEAD
+=======
+            </div>
+            <div class="accordion" id="brand-filters">
+                <div class="accordion-item mb-4 pb-3">
+                    <h5 class="accordion-header" id="accordion-heading-brand">
+                        <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#accordion-filter-brand" aria-expanded="true"
+                            aria-controls="accordion-filter-brand">
+                            Giá
+                            <svg class="accordion-button__icon type2" viewBox="0 0 10 6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g aria-hidden="true" stroke="none" fill-rule="evenodd">
+                                    <path
+                                        d="M5.35668 0.159286C5.16235 -0.053094 4.83769 -0.0530941 4.64287 0.159286L0.147611 5.05963C-0.0492049 5.27473 -0.049205 5.62357 0.147611 5.83813C0.344427 6.05323 0.664108 6.05323 0.860924 5.83813L5 1.32706L9.13858 5.83867C9.33589 6.05378 9.65507 6.05378 9.85239 5.83867C10.0492 5.62357 10.0492 5.27473 9.85239 5.06018L5.35668 0.159286Z" />
+                                </g>
+                            </svg>
+                        </button>
+                    </h5>
+                    <div id="accordion-filter-brand" class="accordion-collapse collapse show border-0"
+                        aria-labelledby="accordion-heading-brand" data-bs-parent="#brand-filters">
+                        @php
+                            $selectedPrices = explode(',', request()->get('prices', ''));
+                        @endphp
+                        <div class="search-field multi-select accordion-body px-0 pb-0">
+                            <select id="price-filter" class="d-none" multiple name="price-list">
+                                <option value="1" {{ in_array('1', $selectedPrices) ? 'selected' : '' }}>Dưới 1
+                                    triệu
+                                </option>
+                                <option value="2" {{ in_array('2', $selectedPrices) ? 'selected' : '' }}>1 đến 3
+                                    triệu
+                                </option>
+                                <option value="3" {{ in_array('3', $selectedPrices) ? 'selected' : '' }}>3 đến 5
+                                    triệu
+                                </option>
+                                <option value="4" {{ in_array('4', $selectedPrices) ? 'selected' : '' }}>5 đến 10
+                                    triệu
+                                </option>
+                                <option value="5" {{ in_array('5', $selectedPrices) ? 'selected' : '' }}>10 đến 15
+                                    triệu
+                                </option>
+                                <option value="6" {{ in_array('6', $selectedPrices) ? 'selected' : '' }}>15 đến 20
+                                    triệu
+                                </option>
+                                <option value="7" {{ in_array('7', $selectedPrices) ? 'selected' : '' }}>20 đến 30
+                                    triệu
+                                </option>
+                                <option value="8" {{ in_array('8', $selectedPrices) ? 'selected' : '' }}>trên 30
+                                    triệu
+                                </option>
+                            </select>
+>>>>>>> hoa04
 
 
                 <div class="accordion" id="color-filters">

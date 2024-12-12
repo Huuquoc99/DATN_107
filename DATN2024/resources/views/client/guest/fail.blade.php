@@ -1,5 +1,7 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
     <main style="margin-bottom: 300px">
         <section class="payment-failed">

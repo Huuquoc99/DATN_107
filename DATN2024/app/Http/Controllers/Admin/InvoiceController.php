@@ -22,15 +22,7 @@ class InvoiceController extends Controller
                 'status_payment_id',
                 'status_order_id',
             ]);
-            // $invoices = Order::paginate(5, [ 
-            //     'id', 
-            //     'code',
-            //     'ship_user_name', 
-            //     'ship_user_phone',
-            //     'total_price', 
-            //     'created_at',
-            //     'status_payment_id',
-            // ]);
+         
         return view('admin.invoices.index', compact('invoices'));
     }
 
@@ -39,8 +31,6 @@ class InvoiceController extends Controller
     {
         $order = Order::with('orderItems')
             ->where('id', $id)
-            // ->where('status_payment_id', 2)
-            // ->where('status_order_id', 3)
             ->first();
 
         return view('admin.invoices.show', compact('order'));
