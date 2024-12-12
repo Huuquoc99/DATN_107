@@ -21090,7 +21090,7 @@ a.add-to-wishlist.active .flaticon.flaticon-heart {
     color: #c32929;
 }
 .my-account .page-content {
-    padding-top: 2.5rem;
+    /* padding-top: 2.5rem; */
 }
 .my-account__dashboard p {
     width: 43.125rem;

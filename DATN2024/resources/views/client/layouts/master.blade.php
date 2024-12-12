@@ -33,10 +33,10 @@
         }
 
         .site-footer {
-            
-            
+
+
             text-align: center; /* Canh giữa nội dung footer */
-            
+
         }
     </style>
 </head>
@@ -55,4 +55,19 @@
     @include('client.layouts.partials.js')
     @yield('script')
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('{{ route('cart.count') }}', {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('cart-count').textContent = data.count;
+            })
+            .catch(error => console.error('Error fetching cart count:', error));
+    });
+</script>
 </html>

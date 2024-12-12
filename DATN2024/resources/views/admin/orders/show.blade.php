@@ -137,7 +137,7 @@
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
                                     <td class="status">
-                                        @if ($order->statusOrder->id == 1) 
+                                        @if ($order->statusOrder->id == 1)
                                             <span class="badge bg-warning-subtle text-warning text-uppercase">
                                                 {{ $order->statusOrder?->name }}
                                             </span>
@@ -166,7 +166,7 @@
                                                 {{ $order->statusOrder?->name }}
                                             </span>
                                         @endif
-                                    </td>                                    
+                                    </td>
                                 </h6>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
                                     <td class="status">
-                                        @if ($order->statusPayment->id == 1) 
+                                        @if ($order->statusPayment->id == 1)
                                             <span class="badge bg-warning-subtle text-warning text-uppercase">
                                                 {{ $order->statusPayment?->name }}
                                             </span>
@@ -194,7 +194,7 @@
                                                 {{ $order->statusPayment?->name }}
                                             </span>
                                         @endif
-                                    </td>  
+                                    </td>
                                 </h6>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
                                     <td class="status">
-                                        @if ($order->paymentMethod->id == 1) 
+                                        @if ($order->paymentMethod->id == 1)
                                             <span class="badge bg-primary-subtle text-primary text-uppercase">
                                                 {{ $order->paymentMethod?->name }}
                                             </span>
@@ -218,7 +218,7 @@
                                                 {{ $order->paymentMethod?->name }}
                                             </span>
                                         @endif
-                                    </td>  
+                                    </td>
                                 </h6>
                             </div>
                         </div>
@@ -311,7 +311,7 @@
                                             </td>
                                             <td class="text-center">{{ number_format($item->productVariant->price, 0, '.', ',') }} VND</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
-                                           
+
                                             <td class="fw-medium text-end">
                                                 {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
                                             </td>
@@ -367,7 +367,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group mb-3">
-                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width:320px">
+                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width: 400px;">
                                             @foreach ($statusPayments as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $order->status_payment_id == $status->id ? 'selected' : '' }}
@@ -405,7 +405,7 @@
                         <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" id="updateStatusForm">
                             @csrf
                             <div class="form-group mb-3">
-                                <select name="status_order_id" id="status_order_id" class="form-control" style="width: 320px;" onchange="checkStatus()">
+                                <select name="status_order_id" id="status_order_id" class="form-control" style="width: 100%;" onchange="checkStatus()">
                                     @foreach ($statusOrders as $status)
                                         <option value="{{ $status->id }}" {{ $status->is_disabled ? 'disabled' : '' }}
                                             {{ $order->status_order_id == $status->id ? 'selected' : '' }}>
@@ -425,13 +425,23 @@
                                         <div class="modal-body">
                                             <div class="list-group">
                                                 <label class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind">
-                                                    Đã thay đổi suy nghĩ của tôi
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="product-out-in-stock">
+                                                    Sản phẩm hết hàng trong kho.
                                                 </label>
                                                 <label class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
-                                                    Đã tìm thấy một lựa chọn rẻ hơn
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="payment-failed">
+                                                    Thanh toán không thành công.
                                                 </label>
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="defective-product">
+                                                    Phát hiện lỗi trong đơn hàng (sai giá, thông tin sản phẩm).
+                                                </label>
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="unable-to-contact">
+                                                    Không thể liên lạc với khách để xác nhận đơn hàng.
+                                                </label>
+                                                <div id="error_cancel_reason" class="text-danger mb-3" style="display: none;"></div>
+
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
                                                     Khác
@@ -440,13 +450,14 @@
                                                     <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
                                                     <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
                                                 </div>
+                                                <div id="error_cancel_reason" class="text-danger mb-3" style="display: none;"></div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal">
                                                 <i class="ri-close-line me-1 align-middle"></i> Đóng
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Gửi</button>
+                                            <button type="submit" class="btn btn-primary">Xác nhận</button>
                                         </div>
                                     </div>
                                 </div>
@@ -501,66 +512,54 @@
             updateButton.dataset.statusId = statusSelect.value;
         }
 
-        function handleSubmit() {
-            const updateButton = document.getElementById("updateStatusButton");
+        document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                var otherReasonContainer = document.getElementById('otherReasonContainer');
+                otherReasonContainer.style.display = (this.value === 'other') ? 'block' : 'none';
+            });
+        });
 
-            if (updateButton.dataset.statusId === "6") {
+        function handleSubmit() {
+            const statusSelect = document.getElementById("status_order_id");
+
+            if (statusSelect.value === "6") {
                 const modal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
+
+                const confirmButton = modal._element.querySelector('.modal-footer .btn-primary');
+                confirmButton.addEventListener('click', function(e) {
+                    const selectedReason = modal._element.querySelector('input[name="cancel_reason"]:checked');
+
+                    const errorReasonElement = modal._element.querySelector('#error_cancel_reason');
+                    errorReasonElement.innerHTML = '';
+                    errorReasonElement.style.display = 'none';
+
+                    if (!selectedReason) {
+                        errorReasonElement.innerHTML = 'Vui lòng chọn lý do hủy đơn';
+                        errorReasonElement.style.display = 'block';
+                        e.preventDefault();
+                        return;
+                    }
+
+                    if (selectedReason.value === 'other') {
+                        const otherReasonText = modal._element.querySelector('#otherReason').value.trim();
+
+                        if (!otherReasonText) {
+                            errorReasonElement.innerHTML = 'Vui lòng nhập lý do cụ thể';
+                            errorReasonElement.style.display = 'block';
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+
+                    document.getElementById('updateStatusForm').submit();
+                });
+
                 modal.show();
             } else {
                 document.getElementById("updateStatusForm").submit();
             }
         }
-
-        document.addEventListener("DOMContentLoaded", checkStatus);
     </script>
 
-            <script>
-                function confirmReceived() {
-                    if (confirm('Are you sure you want to mark this order as received?')) {
-                        document.getElementById('markAsReceivedForm').submit();
-                    }
-                }
-
-                function confirmCancel() {
-                    var cancelOrderModal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
-                    cancelOrderModal.show();
-                }
-
-                document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
-                    radio.addEventListener('change', function() {
-                        var otherReasonContainer = document.getElementById('otherReasonContainer');
-                        otherReasonContainer.style.display = (this.value === 'other') ? 'block' : 'none';
-                    });
-                });
-
-                document.getElementById('confirmCancelBtn').addEventListener('click', function() {
-                    var form = document.getElementById('cancelOrderReasonForm');
-                    var errorCancelReason = document.getElementById('error_cancel_reason');
-                    var errorOtherReason = document.getElementById('error_other_reason');
-                    var selectedReason = document.querySelector('input[name="cancel_reason"]:checked');
-
-                    if (!selectedReason) {
-                        errorCancelReason.innerHTML = 'Please select a reason for cancellation';
-                        errorCancelReason.style.display = 'block';
-                        return;
-                    } else {
-                        errorCancelReason.innerHTML = '';
-                        errorCancelReason.style.display = 'none';
-                    }
-
-                    if (selectedReason.value === 'other') {
-                        var otherReasonText = document.getElementById('otherReason').value.trim();
-
-                        if (!otherReasonText) {
-                            errorOtherReason.innerHTML = 'Please enter reason for cancellation!';
-                            errorOtherReason.style.display = 'block';
-                            return;
-                        }
-                    }
-                    form.submit();
-                });
-
-            </script>
 
 @endsection

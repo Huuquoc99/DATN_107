@@ -8,7 +8,7 @@
         <section class="my-account container">
             <h2 class="page-title">Danh sách yêu thích</h2>
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2 shadow">
                     <ul class="account-nav">
                         <li><a href="{{ route('account.dashboard') }}" class="menu-link">Bảng điều khiển</a></li>
                         <li><a href="{{ route('history') }}" class="menu-link">Đơn hàng</a></li>
@@ -18,7 +18,7 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-9 mt-5">
+                <div class="col-lg-10 shadow mt-5">
                     <div class="row g-4">
                         @foreach($favorites as $item)
                             <div class="col-lg-4 col-md-6">

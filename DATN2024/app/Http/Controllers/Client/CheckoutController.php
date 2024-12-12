@@ -110,8 +110,7 @@ class CheckoutController extends Controller
 
     public function processCheckoutForGuests(Request $request) {
 
-
-        // dd($request);
+        session()->forget('voucher');
 
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
@@ -281,9 +280,8 @@ class CheckoutController extends Controller
 
     public function processCheckout(Request $request)
     {
+        session()->forget('voucher');
 
-    //    dd(session('voucher'));
-    // dd($request->all());
 
         $province_code = $request->province;
         $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
@@ -309,6 +307,15 @@ class CheckoutController extends Controller
         $cart = Cart::where('user_id', $user->id)->first();
         $paymentMethodId = $request->input('payment_method_id');
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
+
+        $total_user = $this->calculateTotal($cart->id);
+
+        $total_price = $total_user - ($voucher
+                ? ($voucher->discount_type == 'percent'
+                    ? $total_user * $voucher->discount / 100
+                    : $voucher->discount)
+                : 0
+            );
 
         $order = Order::create([
             'user_id' => $user->id,

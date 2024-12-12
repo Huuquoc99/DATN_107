@@ -19,7 +19,7 @@
                     ]
                 ]
             ])
-                
+
             <div class="row">
                 <div class="col-lg-7">
                     <div class="" data-media-type="vertical-thumbnail">
@@ -60,7 +60,7 @@
                     <div class="product-single__short-desc">
                         {{ \Illuminate\Support\Str::limit($product->short_description, 200) }}
                     </div>
-                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="">
+                    <form action="{{ route('cart.add-to-cart') }}" name="addtocart-form" method="post" class="ajax-add-to-cart">
                         @csrf
                         <input type="hidden" name="product_id" data-product-id="{{ $product->id }}"
                             value="{{ $product->id }}">
@@ -115,8 +115,7 @@
                             </div>
                             <span class="option-label">Trạng thái: <span id="stock-status"></span></span>
 
-                            <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart"
-                                data-aside="cartDrawer">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 btn-addtocart">
                                 <i class="ri-shopping-cart-line me-2"></i>
                                 Thêm giỏ hàng
                             </button>
@@ -217,15 +216,14 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
-                        <h2 class="product-single__reviews-title">Reviews</h2>
+                        <h2 class="product-single__reviews-title">Đánh giá</h2>
                         @include('client.list-comment', [
                             'productId' => $product->id,
                             'comments' => $comments,
                         ])
                         <div class="text-center load-more-container"
                             style="display: {{ $comments->hasMorePages() ? 'block' : 'none' }}">
-                            <button id="load-more-reviews" class="btn btn-sm btn-primary load-more-reviews">Load
-                                More</button>
+                            <button id="load-more-reviews" class="btn btn-sm btn-primary load-more-reviews">Tải nhiều hơn</button>
                         </div>
                         <div class="product-single__review-form mt-4">
                             @include('client.comment', [
@@ -292,4 +290,5 @@
 
         </section>
     </div>
+
 @endsection

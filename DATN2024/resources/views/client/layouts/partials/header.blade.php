@@ -149,7 +149,9 @@
                     </div>
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
-{{--                        <span class="cart-amount d-block position-absolute js-cart-items-count">1</span>--}}
+                        <span id="cart-count" class="cart-amount d-block position-absolute">{{ $cartCount }}</span>
+
+                        {{--                        <span class="cart-amount d-block position-absolute js-cart-items-count">1</span>--}}
                     </a>
                 </div>
             </div>

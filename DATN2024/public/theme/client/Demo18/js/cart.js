@@ -234,67 +234,145 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-$(document).on('click', '.cart-table .remove-cart-v2', function(e) {
+// $(document).on('click', '.cart-table .remove-cart-v2', function(e) {
+//     e.preventDefault();
+//     let deleteId = $(this).data('id');
+//
+//     Swal.fire({
+//         title: 'Bạn chắc chứ?',
+//         text: 'Hành động này không thể khôi phục!',
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Vâng, xóa nó!',
+//         cancelButtonText: 'Không, Giữ lại!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             $.ajax({
+//                 headers: {
+//                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//                 },
+//                 url: '/cart/delete/',
+//                 method: 'POST',
+//                 data: { deleteId: deleteId },
+//                 success: function(res) {
+//                     Toastify({
+//                         text: "Sản phẩm đã được xóa khỏi giỏ hàng thành công!",
+//                         duration: 3000,
+//                         close: true,
+//                         gravity: "top",
+//                         position: "right",
+//                         backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+//                         stopOnFocus: true,
+//                     }).showToast();
+//
+//                     $('.table-data').html(res);
+//                 },
+//                 error: function(res) {
+//                     if (res.status === 404) {
+//                         $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
+//                     } else {
+//                         Toastify({
+//                             text: "An error occurred! Please try again.",
+//                             duration: 3000,
+//                             close: true,
+//                             gravity: "top",
+//                             position: "bottom",
+//                             backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+//                             stopOnFocus: true,
+//                         }).showToast();
+//
+//                         $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
+//                     }
+//                 }
+//             });
+//
+//
+//             let parentEl = $(this).closest('tr');
+//             $(parentEl).addClass('_removed');
+//             setTimeout(() => {
+//                 $(parentEl).remove();
+//             }, 350);
+//         }
+//     });
+// });
+
+$(document).on('click', '.remove-cart-v2', function (e) {
     e.preventDefault();
-    let deleteId = $(this).data('id');
 
-    Swal.fire({
-        title: 'Bạn chắc chứ?',
-        text: 'Hành động này không thể khôi phục!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Vâng, xóa nó!',
-        cancelButtonText: 'Không, Giữ lại!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '/cart/delete/',
-                method: 'POST',
-                data: { deleteId: deleteId },
-                success: function(res) {
-                    Toastify({
-                        text: "Sản phẩm đã được xóa khỏi giỏ hàng thành công!",
-                        duration: 3000,
-                        close: true,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-                        stopOnFocus: true,
-                    }).showToast();
+    var productId = $(this).data('id');
 
-                    $('.table-data').html(res);
-                },
-                error: function(res) {
-                    if (res.status === 404) {
-                        $('.table-data').html('<p class="alert alert-primary">Không tìm thấy kết quả!</p>');
-                    } else {
-                        Toastify({
-                            text: "An error occurred! Please try again.",
-                            duration: 3000,
-                            close: true,
-                            gravity: "top",
-                            position: "bottom",
-                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-                            stopOnFocus: true,
-                        }).showToast();
-
-                        $('.table-data').html('<p class="alert alert-danger">Có lỗi xảy ra! Vui lòng thử lại.</p>');
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: '/cart/delete/',
+        method: 'POST',
+        data: {
+            deleteId: productId
+        },
+        success: function(response) {
+            if (response.success) {
+                // Remove the product row from the cart
+                $('tr').each(function() {
+                    if ($(this).find('.remove-cart-v2').data('id') == productId) {
+                        $(this).remove();
                     }
-                }
-            });
+                });
 
+                $('#cart-count').text(response.cartCount);
 
-            let parentEl = $(this).closest('tr');
-            $(parentEl).addClass('_removed');
-            setTimeout(() => {
-                $(parentEl).remove();
-            }, 350);
+                Toastify({
+                    text: response.message,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top", // or "bottom"
+                    position: "right", // or "left"
+                    backgroundColor: "#4CAF50",
+                    style: {
+                        fontSize: "18px",  // Adjust the font size as needed
+                        padding: "15px",   // Add padding to increase the size of the toast
+                        borderRadius: "5px", // Optional: rounded corners
+                    },
+                    stopOnFocus: true
+                }).showToast();
+            } else {
+                Toastify({
+                    text: response.error,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f44336",
+                    style: {
+                        fontSize: "18px",  // Adjust the font size as needed
+                        padding: "15px",   // Add padding to increase the size of the toast
+                        borderRadius: "5px", // Optional: rounded corners
+                    },
+                    stopOnFocus: true
+                }).showToast();
+            }
+        },
+        error: function() {
+            Toastify({
+                text: 'Có lỗi xảy ra trong quá trình xóa sản phẩm.',
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#f44336",
+                style: {
+                    fontSize: "18px",  // Adjust the font size as needed
+                    padding: "15px",   // Add padding to increase the size of the toast
+                    borderRadius: "5px", // Optional: rounded corners
+                },
+                stopOnFocus: true
+            }).showToast();
         }
+
     });
 });
+
+
 

@@ -20,20 +20,20 @@ class OrderNotificationHandler implements ShouldQueue
         if ($action === 'admin_cancel') {
             Mail::send('admin.orders.mailCancel', ['order' => $order], function ($message) use ($order) {
                 $message->to([$order->user_email, $order->ship_user_email])
-                    ->subject('Your order has been cancelled.');
+                    ->subject('Đơn hàng bị hủy.');
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
 
         } elseif ($action === 'update') {
             Mail::send('admin.orders.mailUpdate', ['order' => $order], function ($message) use ($order) {
                 $message->to([$order->user_email, $order->ship_user_email])
-                    ->subject('Your order status has been updated');
+                    ->subject('Cập nhật trạng thái đơn hàng.');
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
         } elseif ($action === 'client_cancel') {
             Mail::send('client.mail.cancel', ['order' => $order], function ($message) use ($order) {
                 $message->to([$order->user_email, $order->ship_user_email])
-                ->subject('Your order has been cancelled.');
+                ->subject('Đơn hàng bị hủy.');
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
         } elseif ($action === 'order_fail_guest') {

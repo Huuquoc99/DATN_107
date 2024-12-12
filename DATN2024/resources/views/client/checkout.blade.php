@@ -166,7 +166,7 @@
                                                         -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
                                                     @endif
                                                 </td>
-                                                
+
                                             </tr>
                                         @endif
                                         <tr>
@@ -183,7 +183,7 @@
                                                     {{ number_format($subtotal, 0, ',', '.') }} VNĐ
                                                 @endif
                                             </td>
-                                            
+
                                         </tr>
                                     @endif
                                     </tbody>
@@ -216,36 +216,52 @@
 @endsection
 
 @section('api-address')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#apply-voucher').on('click', function(event) {
-                event.preventDefault();
-                var voucherCode = $('#voucher-code-input').val();
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#apply-voucher').on('click', function(event) {
+                        event.preventDefault();
+                        var voucherCode = $('#voucher-code-input').val();
 
-                $.ajax({
-                    url: '/apply-voucher',
-                    method: 'POST',
-                    data: {
-                        code: voucherCode,
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        window.location.reload();
-                    },
-                    error: function(xhr) {
-                        $('#error-message-add-voucher')
-                            .removeClass('d-none')
-                            .addClass('d-block')
-                            .removeClass('valid-feedback')
-                            .addClass('invalid-feedback')
-                            .text(xhr.responseJSON.message);
-                    }
+                        $.ajax({
+                            url: '/apply-voucher',
+                            method: 'POST',
+                            data: {
+                                code: voucherCode,
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                Toastify({
+                                    text: "Áp dụng mã giảm giá thành công! ",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)", // Màu nền
+                                    className: "toast-success",
+                                }).showToast();
+
+                                $('#cart-total').text(response.cartTotal + ' VND');
+
+                                window.location.reload();
+                            },
+                            error: function(xhr) {
+
+                                Toastify({
+                                    text: xhr.responseJSON.message || "An error occurred!",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                                    className: "toast-error",
+                                }).showToast();
+                            }
+                        });
+                    });
                 });
-            });
-        });
+            </script>
 
-    </script>
-    <script>
+            <script>
         function fetchDistricts(provinceId) {
             if (!provinceId) {
                 document.getElementById('district').innerHTML = '<option value="">Select District</option>';
