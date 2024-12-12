@@ -61,7 +61,7 @@
         .list-vouchers .voucher {
             height: 120px;
             padding-right: 0;
-            margin-bottom: 150px;
+            margin-bottom: 20px;
         }
         .list-vouchers .voucher .item {
             height: 100%;

@@ -88,17 +88,17 @@
                                    style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Brand</th>
-                                    <th>Price Regular</th>
-                                    <th>Price Sale</th>
-                                    <th>In Stock</th>
-                                    <th>Capacity</th>
-                                    <th>Color</th>
-                                    <th>Active</th>
-                                    <th>Action</th>
+                                    <th>SKU</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên</th>
+                                    <th>Danh mục</th>
+                                    <th>Giá thường</th>
+                                    <th>Giá khuyến mãi</th>
+                                    <th>Số lượng</th>
+                                    <th>Dung lượng</th>
+                                    <th>Màu sắc</th>
+                                    <th>Hoạt động</th>
+                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody id="product-list">
@@ -110,7 +110,7 @@
                                         $capacity = $variants->pluck('capacity')->flatten()->unique('id');
                                     @endphp
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->sku }}</td>
                                         <td style="width: auto; height: 30px">
                                             @php
                                                 $url = $item->img_thumbnail;
@@ -172,19 +172,19 @@
                                                     <li>
                                                         <a class="dropdown-item"
                                                            href="{{ route('admin.products.show', $item) }}"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                            View
+                                                            Chi tiết
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item edit-list" data-edit-id="1"
                                                            href="{{ route('admin.products.edit', $item) }}"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                            Edit
+                                                            Chỉnh sửa
                                                         </a>
                                                     </li>
                                                     <li class="dropdown-divider"></li>
                                                     <li>
                                                         <a class="dropdown-item remove-list" href="#" data-id="{{ $item->id }}" data-product-name="{{ $item->name }}" data-bs-toggle="modal" data-bs-target="#removeItemModal">
-                                                            <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
+                                                            <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Xoá
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -199,16 +199,16 @@
                                                                 <div class="mt-2 text-center">
                                                                     <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                                                                     <div class="mt-4 pt-2 fs-15 mx-sm-5">
-                                                                        <h4>Are you sure ?</h4>
-                                                                        <p class="text-muted mx-4 mb-0">Do you want to delete <strong id="product-name"></strong>?</p>
+                                                                        <h4>Bạn có chắc chắn?</h4>
+                                                                        <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xoá <strong id="product-name"></strong> không?</p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                                                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
                                                                     <form id="delete-form" action="{{ route('admin.products.destroy', $item) }}" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn w-sm btn-danger">Yes, Delete It!</button>
+                                                                        <button type="submit" class="btn w-sm btn-danger">Vâng, xoá nó!</button>
                                                                     </form>
                                                                 </div>
                                                             </div>

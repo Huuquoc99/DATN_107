@@ -50,11 +50,6 @@
                         <table class="table align-middle table-nowrap text-center" id="invoiceTable">
                             <thead class="text-muted">
                                 <tr>
-                                    {{-- <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                        </div>
-                                    </th> --}}
                                     <th class="sort text-uppercase" data-sort="invoice_id">Code</th>
                                     <th class="sort text-uppercase" data-sort="customer_name">Khách hàng</th>
                                     <th class="sort text-uppercase" data-sort="country">Điện thoại</th>
@@ -68,11 +63,6 @@
                             <tbody class="list form-check-all" id="invoice-list-data">
                                 @foreach($invoices as $invoice)
                                     <tr>
-                                        {{-- <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                            </div>
-                                        </th> --}}
                                         <td>
                                             <a href="{{ route('admin.invoices.show', $invoice) }}">{{ $invoice->code }}</a>
                                         </td>

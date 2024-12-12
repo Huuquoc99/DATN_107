@@ -37,7 +37,7 @@ class VoucherRequest extends FormRequest
             'start_date' => 'required|date|before_or_equal:expiration_date',
             'expiration_date' => 'required|date|after:start_date',
             'is_active' => 'required|boolean',
-
+            'min_order_value' => 'required|numeric|min:0',
         ];
     }
 
@@ -79,6 +79,10 @@ class VoucherRequest extends FormRequest
             
             'is_active.required' => 'Trường đang hoạt động là bắt buộc.',
             'is_active.boolean' => 'Trường đang hoạt động phải là đúng hoặc sai.',
+
+            'min_order_value.required' => 'Giá trị đơn hàng tối thiểu là bắt buộc.',
+            'min_order_value.numeric' => 'Giá trị đơn hàng tối thiểu phải là một số.',
+            'min_order_value.min' => 'Giá trị đơn hàng tối thiểu phải lớn hơn hoặc bằng 0.',
         ];
     }
 

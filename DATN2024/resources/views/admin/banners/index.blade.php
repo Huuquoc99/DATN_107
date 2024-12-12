@@ -58,7 +58,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            {{-- <img src="{{ Storage::url($item->image)}}" alt="" width="70px" height="60px"> --}}
+                    
                                             @if ($item->image)
                                                 <img src="{{ Storage::url($item->image) }}" alt="" width="70px" height="60px">
                                             @else
@@ -79,23 +79,55 @@
                                             <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
                                             <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
                                         </td>
+                                    
+
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">Chi tiết 
+                                               
+                                                <a href="{{ route('admin.banners.show', $item) }}" class="btn btn-info btn-sm">
+                                                    Chi tiết 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>
-                                                <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
+                                        
+                                                <a href="{{ route('admin.banners.edit', $item) }}" class="btn btn-primary btn-sm">
+                                                    Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
-                                                <form action="{{ route('admin.banners.destroy', $item) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Bạn có chắc chắn muốn xoá không?')" type="submit" class="btn btn-danger btn-sm">Xoá 
-                                                        <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                    </button>
-                                                </form>
+                                        
+                                                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                                                    Xoá 
+                                                    <i class="fa-solid fa-delete-left fa-sm"></i>
+                                                </a>
+                                            </div>
+                                        
+                                            <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mt-2 text-center">
+                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                                                <div class="mt-4 pt-2 fs-15 mx-sm-5">
+                                                                    <h4>Bạn có chắc chắn không?</h4>
+                                                                    <p class="text-muted mx-4 mb-0">Bạn muốn xoá banner này?</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
+                                                                <form id="delete-form{{ $item->id }}" action="{{ route('admin.banners.destroy', $item) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn w-sm btn-danger">Có, Xoá nó!</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>

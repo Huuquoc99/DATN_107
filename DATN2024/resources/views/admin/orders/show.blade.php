@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h6 class="fs-14 mb-1">
-                                            {{ \Illuminate\Support\Str::limit($order->user->name ?? 'Unknown User', 20, '...') }}
+                                            {{ \Illuminate\Support\Str::limit($order->user->name ?? 'Guest', 20, '...') }}
                                         </h6>
                                         <p class="text-muted mb-0">
                                             @if ($order->user && $order->user->type == 1)
@@ -64,15 +64,15 @@
                             </li>
                             <li>
                                 <i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->email ?? 'No email available' }}
+                                {{ $order->user->email ?? 'Guest' }}
                             </li>
                             <li>
                                 <i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->phone ?? 'No phone available' }}
+                                {{ $order->user->phone ?? 'Guest' }}
                             </li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'No address available', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'Guest', 20, '...') }}
                             </li>
                         </ul>
                     </div>
@@ -86,13 +86,13 @@
                     <div class="card-body">
                         <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
                             <li class="fw-medium fs-14">
-                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Người dùng không xác định', 25, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Guest', 25, '...') }}
                             </li>
-                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Không có email nào khả dụng' }}</li>
-                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Không có điện thoại nào có sẵn' }}</li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Guest' }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Guest' }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Không có địa chỉ nào có sẵn', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Guest', 20, '...') }}
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
@@ -139,7 +139,38 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{ \Illuminate\Support\Str::limit($order->statusOrder->name, 25, '...') }}
+                                    {{-- {{ \Illuminate\Support\Str::limit($order->statusOrder->name, 25, '...') }} --}}
+                                    <td class="status">
+                                        @if ($order->statusOrder->id == 1)
+                                            <span class="badge bg-warning-subtle text-warning text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 2)
+                                            <span class="badge bg-secondary-subtle text-secondary text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 3)
+                                            <span class="badge bg-dask-subtle text-dask text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 4)
+                                            <span class="badge bg-primary-subtle text-primary text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 5)
+                                            <span class="badge bg-success-subtle text-success text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @elseif ($order->statusOrder->id == 6)
+                                            <span class="badge bg-danger-subtle text-danger text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
+                                                {{ $order->statusOrder?->name }}
+                                            </span>
+                                        @endif
+                                    </td>
                                 </h6>
                             </div>
                         </div>
@@ -149,7 +180,26 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{ \Illuminate\Support\Str::limit($order->statusPayment->name, 20, '...') }}
+                                    {{-- {{ \Illuminate\Support\Str::limit($order->statusPayment->name, 20, '...') }} --}}
+                                    <td class="status">
+                                        @if ($order->statusPayment->id == 1)
+                                            <span class="badge bg-warning-subtle text-warning text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @elseif ($order->statusPayment->id == 2)
+                                            <span class="badge bg-success-subtle text-success text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @elseif ($order->statusPayment->id == 3)
+                                            <span class="badge bg-danger-subtle text-danger text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
+                                                {{ $order->statusPayment?->name }}
+                                            </span>
+                                        @endif
+                                    </td>
                                 </h6>
                             </div>
                         </div>
@@ -159,7 +209,22 @@
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 <h6 class="mb-0">
-                                    {{ \Illuminate\Support\Str::limit($order->paymentMethod->name, 15, '...') }}
+                                    {{-- {{ \Illuminate\Support\Str::limit($order->paymentMethod->name, 15, '...') }} --}}
+                                    <td class="status">
+                                        @if ($order->paymentMethod->id == 1)
+                                            <span class="badge bg-primary-subtle text-primary text-uppercase">
+                                                {{ $order->paymentMethod?->name }}
+                                            </span>
+                                        @elseif ($order->paymentMethod->id == 2)
+                                            <span class="badge bg-success-subtle text-success text-uppercase">
+                                                {{ $order->paymentMethod?->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
+                                                {{ $order->paymentMethod?->name }}
+                                            </span>
+                                        @endif
+                                    </td>
                                 </h6>
                             </div>
                         </div>
@@ -179,7 +244,7 @@
                                 <p class="text-muted mb-0">Tổng tiền:</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h6 class="mb-0">{{ number_format($order->total_price, 0, ',', '.') }} VND</h6>
+                                <h6 class="mb-0 text-danger"><b>{{ number_format($order->total_price, 0, ',', '.') }} VND</b></h6>
                             </div>
                         </div>
                     </div>
@@ -252,7 +317,7 @@
                                             </td>
                                             <td class="text-center">{{ number_format($item->productVariant->price, 0, '.', ',') }} VND</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
-                                           
+
                                             <td class="fw-medium text-end">
                                                 {{ number_format($item->productVariant->price * $item->quantity, 0, '.', ',') }} VND
                                             </td>
@@ -316,7 +381,7 @@
                                                         <th scope="row">Tổng tiền:</th>
                                                         {{-- @if ($order->total_price) --}}
                                                             <th class="text-end">
-                                                                {{ number_format($order->total_price, 0, '.', ',') }} VND
+                                                                <h5 class="text-danger"><b>{{ number_format($order->total_price, 0, '.', ',') }} VND</b></h5>
                                                             </th>
                                                         {{-- @endif --}}
                                                     </tr>
@@ -404,13 +469,23 @@
                                             <!-- Lý do hủy đơn -->
                                             <div class="list-group">
                                                 <label class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind">
-                                                    Đã thay đổi suy nghĩ của tôi
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="product-out-in-stock">
+                                                    Sản phẩm hết hàng trong kho.
                                                 </label>
                                                 <label class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
-                                                    Đã tìm thấy một lựa chọn rẻ hơn
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="payment-failed">
+                                                    Thanh toán không thành công.
                                                 </label>
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="defective-product">
+                                                    Phát hiện lỗi trong đơn hàng (sai giá, thông tin sản phẩm).
+                                                </label>
+                                                <label class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="unable-to-contact">
+                                                    Không thể liên lạc với khách để xác nhận đơn hàng.
+                                                </label>
+                                                <div id="error_cancel_reason" class="text-danger mb-3" style="display: none;"></div>
+
                                                 <label class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
                                                     Khác
@@ -419,13 +494,14 @@
                                                     <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
                                                     <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
                                                 </div>
+                                                <div id="error_cancel_reason" class="text-danger mb-3" style="display: none;"></div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal">
                                                 <i class="ri-close-line me-1 align-middle"></i> Đóng
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Gửi</button>
+                                            <button type="submit" class="btn btn-primary">Xác nhận</button>
                                         </div>
                                     </div>
                                 </div>
@@ -480,66 +556,54 @@
             updateButton.dataset.statusId = statusSelect.value;
         }
 
-        function handleSubmit() {
-            const updateButton = document.getElementById("updateStatusButton");
+        document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                var otherReasonContainer = document.getElementById('otherReasonContainer');
+                otherReasonContainer.style.display = (this.value === 'other') ? 'block' : 'none';
+            });
+        });
 
-            if (updateButton.dataset.statusId === "6") {
+        function handleSubmit() {
+            const statusSelect = document.getElementById("status_order_id");
+
+            if (statusSelect.value === "6") {
                 const modal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
+
+                const confirmButton = modal._element.querySelector('.modal-footer .btn-primary');
+                confirmButton.addEventListener('click', function(e) {
+                    const selectedReason = modal._element.querySelector('input[name="cancel_reason"]:checked');
+
+                    const errorReasonElement = modal._element.querySelector('#error_cancel_reason');
+                    errorReasonElement.innerHTML = '';
+                    errorReasonElement.style.display = 'none';
+
+                    if (!selectedReason) {
+                        errorReasonElement.innerHTML = 'Vui lòng chọn lý do hủy đơn';
+                        errorReasonElement.style.display = 'block';
+                        e.preventDefault();
+                        return;
+                    }
+
+                    if (selectedReason.value === 'other') {
+                        const otherReasonText = modal._element.querySelector('#otherReason').value.trim();
+
+                        if (!otherReasonText) {
+                            errorReasonElement.innerHTML = 'Vui lòng nhập lý do cụ thể';
+                            errorReasonElement.style.display = 'block';
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+
+                    document.getElementById('updateStatusForm').submit();
+                });
+
                 modal.show();
             } else {
                 document.getElementById("updateStatusForm").submit();
             }
         }
-
-        document.addEventListener("DOMContentLoaded", checkStatus);
     </script>
 
-            <script>
-                function confirmReceived() {
-                    if (confirm('Are you sure you want to mark this order as received?')) {
-                        document.getElementById('markAsReceivedForm').submit();
-                    }
-                }
-
-                function confirmCancel() {
-                    var cancelOrderModal = new bootstrap.Modal(document.getElementById('cancelOrderModal'));
-                    cancelOrderModal.show();
-                }
-
-                document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
-                    radio.addEventListener('change', function() {
-                        var otherReasonContainer = document.getElementById('otherReasonContainer');
-                        otherReasonContainer.style.display = (this.value === 'other') ? 'block' : 'none';
-                    });
-                });
-
-                document.getElementById('confirmCancelBtn').addEventListener('click', function() {
-                    var form = document.getElementById('cancelOrderReasonForm');
-                    var errorCancelReason = document.getElementById('error_cancel_reason');
-                    var errorOtherReason = document.getElementById('error_other_reason');
-                    var selectedReason = document.querySelector('input[name="cancel_reason"]:checked');
-
-                    if (!selectedReason) {
-                        errorCancelReason.innerHTML = 'Please select a reason for cancellation';
-                        errorCancelReason.style.display = 'block';
-                        return;
-                    } else {
-                        errorCancelReason.innerHTML = '';
-                        errorCancelReason.style.display = 'none';
-                    }
-
-                    if (selectedReason.value === 'other') {
-                        var otherReasonText = document.getElementById('otherReason').value.trim();
-
-                        if (!otherReasonText) {
-                            errorOtherReason.innerHTML = 'Please enter reason for cancellation!';
-                            errorOtherReason.style.display = 'block';
-                            return;
-                        }
-                    }
-                    form.submit();
-                });
-
-            </script>
 
 @endsection
