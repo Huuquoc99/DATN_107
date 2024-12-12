@@ -363,11 +363,7 @@
                         return isValid;
                     }
 
-                    $('#ship_user_name, #ship_user_email, #ship_user_phone, #ship_user_address, #province, #district, #ward')
-                        .on('input change', function() {
-                            validateFields();
-                        });
-
+                    // Sự kiện submit form checkout
                     $('#checkoutForm').on('submit', function (e) {
                         e.preventDefault();
 
@@ -418,7 +414,6 @@
                             success: function (response) {
                                 if (response.verified) {
                                     emailVerificationModal.hide();
-
                                     $('#checkoutForm')[0].submit();
                                 } else {
                                     $('#verificationError').text('Mã xác thực không đúng').show();
@@ -429,11 +424,6 @@
                             }
                         });
                     });
-
-                    function validateEmail(email) {
-                        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                        return re.test(String(email).toLowerCase());
-                    }
 
                     $('#resendCodeBtn').on('click', function () {
                         var email = $('#ship_user_email').val();
@@ -456,7 +446,6 @@
                                     stopOnFocus: true
                                 }).showToast();
                             },
-
                             error: function (xhr) {
                                 Toastify({
                                     text: "Có lỗi xảy ra khi gửi mã xác thực!",
@@ -470,11 +459,12 @@
                             }
                         });
                     });
+
+                    $('#emailVerificationModal').on('hidden.bs.modal', function () {
+                        $('.modal-backdrop').remove();
+                    });
                 });
 
-                $('#emailVerificationModal').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove();
-                });
 
             </script>
             <script>

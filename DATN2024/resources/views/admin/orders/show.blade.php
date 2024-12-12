@@ -409,7 +409,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group mb-3">
-                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width:320px">
+                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width: 400px;">
                                             @foreach ($statusPayments as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $order->status_payment_id == $status->id ? 'selected' : '' }}
@@ -447,7 +447,7 @@
                         <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" id="updateStatusForm">
                             @csrf
                             <div class="form-group mb-3">
-                                <select name="status_order_id" id="status_order_id" class="form-control" style="width: 320px;" onchange="checkStatus()">
+                                <select name="status_order_id" id="status_order_id" class="form-control" style="width: 100%;" onchange="checkStatus()">
                                     @foreach ($statusOrders as $status)
                                         <option value="{{ $status->id }}" {{ $status->is_disabled ? 'disabled' : '' }}
                                             {{ $order->status_order_id == $status->id ? 'selected' : '' }}>
