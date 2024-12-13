@@ -12,6 +12,7 @@ class InvoiceController extends Controller
     {
         $invoices = Order::where('status_payment_id', 2)
             ->where('status_order_id', 5)
+            ->orderBy('created_at', 'desc')
             ->paginate(5, [ 
                 'id', 
                 'code',

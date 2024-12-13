@@ -200,13 +200,25 @@
                                             {{ number_format($order->subtotal, 0, '.', ',') }} VND
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Giảm giá :</td>
                                        @if ($order->voucher)
                                         <td class="text-end">
                                             -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
                                         </td>
                                        @endif
+                                    </tr> --}}
+                                    <tr>
+                                        @if ($order->voucher)
+                                            <td>Giảm giá :</td>
+                                            <td class="text-end">
+                                                @if ($order->voucher->discount_type === 'percent')
+                                                    -{{ number_format(($order->subtotal * $order->voucher->discount / 100), 0, '.', ',') }} VND ({{ $order->voucher->discount }}%)
+                                                @elseif ($order->voucher->discount_type === 'amount')
+                                                    -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
+                                                @endif
+                                            </td>
+                                        @endif
                                     </tr>
                                     <tr class="border-top border-top-dashed">
                                         <th scope="row">Tổng tiền:</th>

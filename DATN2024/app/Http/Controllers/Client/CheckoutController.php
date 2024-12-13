@@ -30,6 +30,7 @@ class CheckoutController extends Controller
     use VnPayTrait;
     public function index()
     {
+        
         try {
             $response = Http::get('https://vapi.vnappmob.com/api/province/');
 
