@@ -32,7 +32,7 @@ class VoucherRequest extends FormRequest
             ],
             'description' => 'nullable|string|max:1000',
             'quantity' => 'required|integer|min:1',
-            'discount_type' => 'required|in:percent,amount',
+            'discount_type' => 'required|in:percent,amount,percent_max',
             'start_date' => 'required|date|before_or_equal:expiration_date',
             'expiration_date' => 'required|date|after:start_date',
             'is_active' => 'required|boolean',

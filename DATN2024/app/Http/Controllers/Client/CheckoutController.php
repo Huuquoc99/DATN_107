@@ -153,7 +153,9 @@ class CheckoutController extends Controller
         $total_price = $total_guest - ($voucher ? 
             ($voucher->discount_type == 'percent' 
                 ? $total_guest * $voucher->discount / 100 
-                : $voucher->discount) 
+                : ($voucher->discount_type == 'percent_max' 
+                    ? min($total_guest * $voucher->discount / 100, $voucher->max_discount)
+                    : $voucher->discount))
             : 0
         );
 
@@ -310,6 +312,13 @@ class CheckoutController extends Controller
         $cart = Cart::where('user_id', $user->id)->first();
         $paymentMethodId = $request->input('payment_method_id');
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
+        $total_price = $this->calculateTotal($cart->id) - ($voucher 
+                        ? ($voucher->discount_type == 'percent' 
+                            ? $this->calculateTotal($cart->id) * $voucher->discount / 100 
+                            : ($voucher->discount_type == 'percent_max' 
+                                ? min($this->calculateTotal($cart->id) * $voucher->discount / 100, $voucher->max_discount) 
+                                : $voucher->discount))
+                        : 0);
 
         $order = Order::create([
             'user_id' => $user->id,
@@ -330,7 +339,7 @@ class CheckoutController extends Controller
 
             'payment_method_id' => $paymentMethodId,
             'subtotal' => $request->subtotal,
-            'total_price' => $this->calculateTotal($cart->id) - ($voucher ? ($voucher->discount_type == 'percent' ? $this->calculateTotal($cart->id) * $voucher->discount / 100 : $voucher->discount) : 0),
+            'total_price' => $total_price,
 
             'status_order_id' => 1,
             'status_payment_id' => 1,

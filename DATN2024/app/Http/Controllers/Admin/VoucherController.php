@@ -83,7 +83,7 @@ class VoucherController extends Controller
             }
 
             elseif ($request->discount_type === 'percent_max') {
-                if ($request->max_discount < 0 || $request->max_discount > 10000000) {
+                if ($request->max_discount < 0 || $request->max_discount > 1000000) {
                     return redirect()->back()
                         ->withErrors(['max_discount' => 'Mức giảm giá tối đa phần trăm phải nằm trong khoảng từ 0 đến 1.000.000.'])
                         ->withInput();
@@ -134,6 +134,12 @@ class VoucherController extends Controller
                 return redirect()->back()
                     ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
                     ->withInput();
+            }elseif ($request->discount_type === 'percent_max') {
+                if ($request->max_discount < 0 || $request->max_discount > 1000000) {
+                    return redirect()->back()
+                        ->withErrors(['max_discount' => 'Mức giảm giá tối đa phần trăm phải nằm trong khoảng từ 0 đến 1.000.000.'])
+                        ->withInput();
+                }
             }
     
             $voucher = Voucher::findOrFail($id);
