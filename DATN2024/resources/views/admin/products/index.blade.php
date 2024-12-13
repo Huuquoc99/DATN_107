@@ -132,7 +132,12 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->catalogue->name }}">
+                                            <a href="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" 
+                                                @if($item->catalogue && $item->catalogue->name) 
+                                                    title="{{ $item->catalogue->name }}" 
+                                                @else
+                                                    title="Không có danh mục" 
+                                                @endif>
                                                 {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'Không có danh mục' }}
                                             </a>
                                         </td>

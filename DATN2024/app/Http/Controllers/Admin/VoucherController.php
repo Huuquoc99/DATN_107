@@ -31,6 +31,39 @@ class VoucherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(VoucherRequest $request)
+    // {
+    //     if ($request->isMethod("POST")) {
+    //         if ($request->discount_type === 'percent') {
+    //             if ($request->discount < 0 || $request->discount > 5) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức chiết khấu phải nằm trong khoảng từ 0 đến 5 khi sử dụng phần trăm.'])
+    //                     ->withInput();
+    //             }
+    //         } elseif ($request->discount_type === 'amount') {
+    //             if ($request->discount < 0 || $request->discount > 1000000) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
+    //                     ->withInput();
+    //             }
+    //         } elseif ($request->discount_type === 'percent_max') {
+    //             if ($request->max_discount < 0 || $request->max_discount  > 100) {
+    //                 return redirect()->back()
+    //                     ->withErrors(['discount' => 'Mức giảm giá tối đa phần trăm phải nằm trong khoảng từ 0 đến 100.'])
+    //                     ->withInput();
+    //             }
+    //         }
+
+    //         $voucher = Voucher::create($request->all());
+
+    //         if ($request->has('product_ids')) {
+    //             $voucher->products()->sync($request->product_ids);  
+    //         }
+    
+    //         return redirect()->route("admin.vouchers.index")->with("success", "Voucher đã được tạo thành công");
+    //     }
+    // }
+    
     public function store(VoucherRequest $request)
     {
         if ($request->isMethod("POST")) {
@@ -40,7 +73,8 @@ class VoucherController extends Controller
                         ->withErrors(['discount' => 'Mức chiết khấu phải nằm trong khoảng từ 0 đến 5 khi sử dụng phần trăm.'])
                         ->withInput();
                 }
-            } elseif ($request->discount_type === 'amount') {
+            }
+            elseif ($request->discount_type === 'amount') {
                 if ($request->discount < 0 || $request->discount > 1000000) {
                     return redirect()->back()
                         ->withErrors(['discount' => 'Mức giảm giá phải nằm trong khoảng từ 0 đến 1.000.000 khi sử dụng số tiền.'])
@@ -48,16 +82,24 @@ class VoucherController extends Controller
                 }
             }
 
+            elseif ($request->discount_type === 'percent_max') {
+                if ($request->max_discount < 0 || $request->max_discount > 10000000) {
+                    return redirect()->back()
+                        ->withErrors(['max_discount' => 'Mức giảm giá tối đa phần trăm phải nằm trong khoảng từ 0 đến 1.000.000.'])
+                        ->withInput();
+                }
+            }
+
             $voucher = Voucher::create($request->all());
 
             if ($request->has('product_ids')) {
-                $voucher->products()->sync($request->product_ids);  
+                $voucher->products()->sync($request->product_ids);
             }
-    
+
             return redirect()->route("admin.vouchers.index")->with("success", "Voucher đã được tạo thành công");
         }
     }
-    
+
 
     /**
      * Display the specified resource.

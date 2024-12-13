@@ -22,7 +22,8 @@ class Voucher extends Model
         'start_date',
         'expiration_date',
         'is_active',
-        'min_order_value'
+        'min_order_value',
+        'max_discount',
     ];
 
     protected $casts = [
