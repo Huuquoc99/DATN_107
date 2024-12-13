@@ -119,6 +119,99 @@ class VoucherController extends Controller
     //     ]);
     // }
     
+    // public function applyVoucher(ApplyVoucherRequest $request)
+    // {
+    //     session()->forget('voucher');
+
+    //     $voucher = Voucher::query()->active()->where('code', $request->code)->first();
+
+    //     if (!$voucher) {
+    //         return response()->json(['message' => 'Mã giảm giá không tồn tại'], 404);
+    //     }
+
+    //     if ($voucher->used_quantity >= $voucher->quantity) {
+    //         return response()->json(['message' => 'Mã giảm giá đã hết hạn'], 404);
+    //     }
+
+    //     $totalOrderValue = 0; 
+    //     $cartItems = [];
+
+    //     if (auth()->check()) {
+    //         $cart = Cart::where('user_id', auth()->id())->with('items')->first();
+    //         $cartItems = $cart ? $cart->items->toArray() : [];
+    //     } else {
+    //         $cartItems = session()->get('cart', []);
+    //     }
+
+    //     logger()->info('Giỏ hàng:', $cartItems); 
+
+    //     $eligibleForVoucher = false;
+
+    //     foreach ($cartItems as $cartItem) {
+    //         $productVariant = ProductVariant::find($cartItem['product_variant_id']);
+
+    //         if (!$productVariant || !$productVariant->product) {
+    //             continue;
+    //         }
+
+    //         $product = $productVariant->product;
+
+    //         $voucherProduct = DB::table('voucher_product')
+    //             ->where('voucher_id', $voucher->id)
+    //             ->where('product_id', $product->id)
+    //             ->exists();
+
+    //         logger()->info('Thông tin sản phẩm:', [
+    //             'product_id' => $product->id,
+    //             'cart_price' => $cartItem['price'],
+    //             'cart_quantity' => $cartItem['quantity'],
+    //             'product_min_order_value' => $product->min_order_value,
+    //             'voucher_applied' => $voucherProduct,
+    //         ]);
+
+    //         if ($voucherProduct) {
+    //             $productOrderValue = $cartItem['price'] * $cartItem['quantity'];
+
+    //             if ($productOrderValue < $product->min_order_value) {
+    //                 return response()->json([
+    //                     'message' => "Giá trị đơn hàng của sản phẩm '{$product->name}' không đủ để áp dụng mã giảm giá",
+    //                 ], 400);
+    //             }
+
+    //             $totalOrderValue += $productOrderValue;
+    //             $eligibleForVoucher = true;
+    //         }
+    //     }
+
+    //     logger()->info('Kiểm tra giá trị từ DB:', [
+    //         'voucher_min_order_value' => $voucher->min_order_value,
+    //         'totalOrderValue_calculated' => $totalOrderValue,
+    //     ]);
+
+    //     if (!$eligibleForVoucher) {
+    //         return response()->json([
+    //             'message' => 'Sản phẩm không đủ điều kiện để áp dụng mã giảm giá',
+    //         ], 400);
+    //     }
+
+    //     if ($totalOrderValue < $voucher->min_order_value) {
+    //         return response()->json([
+    //             'message' => 'Giá trị đơn hàng không đủ để áp dụng mã giảm giá',
+    //             'totalOrderValue' => $totalOrderValue,
+    //             'requiredValue' => $voucher->min_order_value,
+    //         ], 400);
+    //     }
+
+    //     session()->put('voucher', $voucher->code);
+
+    //     return response()->json([
+    //         'message' => 'Mã giảm giá đã được áp dụng thành công',
+    //         'voucher' => $voucher,
+    //         'totalOrderValue' => $totalOrderValue,
+    //     ]);
+    // }
+
+
     public function applyVoucher(ApplyVoucherRequest $request)
     {
         session()->forget('voucher');
@@ -133,7 +226,19 @@ class VoucherController extends Controller
             return response()->json(['message' => 'Mã giảm giá đã hết hạn'], 404);
         }
 
-        $totalOrderValue = 0; 
+        $clientIP = $request->ip();
+        $voucherUsedByIP = DB::table('voucher_usage')
+            ->where('voucher_code', $voucher->code)
+            ->where('ip_address', $clientIP)
+            ->exists();
+
+        if ($voucherUsedByIP) {
+            return response()->json([
+                'message' => 'IP của bạn đã sử dụng mã giảm giá này',
+            ], 400);
+        }
+
+        $totalOrderValue = 0;
         $cartItems = [];
 
         if (auth()->check()) {
@@ -143,7 +248,7 @@ class VoucherController extends Controller
             $cartItems = session()->get('cart', []);
         }
 
-        logger()->info('Giỏ hàng:', $cartItems); 
+        logger()->info('Giỏ hàng:', $cartItems);
 
         $eligibleForVoucher = false;
 
@@ -202,6 +307,13 @@ class VoucherController extends Controller
             ], 400);
         }
 
+        DB::table('voucher_usage')->insert([
+            'voucher_code' => $voucher->code,
+            'ip_address' => $clientIP,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         session()->put('voucher', $voucher->code);
 
         return response()->json([
@@ -210,7 +322,6 @@ class VoucherController extends Controller
             'totalOrderValue' => $totalOrderValue,
         ]);
     }
-
 
     
     
