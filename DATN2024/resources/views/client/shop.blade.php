@@ -133,7 +133,7 @@
                         @endphp
                         <div class="search-field multi-select accordion-body px-0 pb-0">
                             <select id="price-filter" class="d-none" multiple name="price-list">
-                                <option value="1" {{ in_array('1', $selectedPrices) ? 'selected' : '' }}>Dưới 1
+                                {{-- <option value="1" {{ in_array('1', $selectedPrices) ? 'selected' : '' }}>Dưới 1
                                     triệu
                                 </option>
                                 <option value="2" {{ in_array('2', $selectedPrices) ? 'selected' : '' }}>1 đến 3
@@ -141,8 +141,8 @@
                                 </option>
                                 <option value="3" {{ in_array('3', $selectedPrices) ? 'selected' : '' }}>3 đến 5
                                     triệu
-                                </option>
-                                <option value="4" {{ in_array('4', $selectedPrices) ? 'selected' : '' }}>5 đến 10
+                                </option> --}}
+                                <option value="4" {{ in_array('4', $selectedPrices) ? 'selected' : '' }}> Dưới 10
                                     triệu
                                 </option>
                                 <option value="5" {{ in_array('5', $selectedPrices) ? 'selected' : '' }}>10 đến 15
@@ -161,7 +161,7 @@
 
                             <ul class="multi-select__list list-unstyled"
                                 style="display: flex; flex-direction: column; padding: 0; margin: 0;">
-                                <li
+                                {{-- <li
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('1', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
                                     <span class="me-auto">Dưới 1 triệu</span>
                                 </li>
@@ -172,10 +172,10 @@
                                 <li
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('3', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
                                     <span class="me-auto">3 đến 5 triệu</span>
-                                </li>
+                                </li> --}}
                                 <li
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('4', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
-                                    <span class="me-auto">5 đến 10 triệu</span>
+                                    <span class="me-auto">Dưới 10 triệu</span>
                                 </li>
                                 <li
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('5', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
