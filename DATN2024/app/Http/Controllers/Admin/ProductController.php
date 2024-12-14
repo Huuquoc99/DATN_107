@@ -33,7 +33,6 @@ class ProductController extends Controller
                                 ->paginate(12);
 
         $catalogues = Catalogue::all();
-
         $this->destroySesstion();
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'catalogues'));
@@ -170,6 +169,7 @@ class ProductController extends Controller
 
         $color = ProductColor::query()->pluck('name', 'id')->all();
         $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
+
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity', 'color', 'totalQuantity'));
     }
