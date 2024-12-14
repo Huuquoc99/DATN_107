@@ -89,8 +89,9 @@
                                 <thead>
                                     <tr>
                                         <th>Đơn hàng</th>
-                                        <th>Ngày</th>
-                                        <th>Trạng thái</th>
+                                        <th>Ngày đặt hàng</th>
+                                        <th>Trạng thái thanh toán</th>
+                                        <th>Trạng thái đơn hàng</th>
                                         <th>Tổng cộng</th>
                                         <th>Hành động</th>
                                     </tr>
@@ -104,6 +105,27 @@
                                                     id="invoice-date">{{ $order['created_at'] ? $order['created_at']->format('d M, Y') : 'N/A' }}</span>
                                                 <small class="text-muted"
                                                     id="invoice-time">{{ $order['created_at'] ? $order['created_at']->format('h:iA') : '' }}</small>
+                                            </td>
+                                            <td>
+                                                @switch($order['status_payment_id'])
+                                                    @case(1)
+                                                        <span
+                                                            class="badge bg-warning text-dark">{{ $order['status_payment'] }}</span>
+                                                    @break
+
+                                                    @case(2)
+                                                        <span class="badge bg-primary">{{ $order['status_payment'] }}</span>
+                                                    @break
+
+                                                    @case(3)
+                                                        <span
+                                                            class="badge bg-success text-dark">{{ $order['status_payment'] }}</span>
+                                                    @break
+
+                                                    @default
+                                                        <span
+                                                            class="badge bg-secondary text-dark">{{ $order['status_payment'] }}</span>
+                                                @endswitch
                                             </td>
                                             <td>
                                                 @switch($order['status_order_id'])

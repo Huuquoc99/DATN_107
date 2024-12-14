@@ -159,32 +159,59 @@
                                             <tr>
                                                 <input type="hidden" name="voucher" value="{{$voucher->discount}}">
                                                 <th>GIẢM GIÁ</th>
+                                
                                                 <td>
                                                     @if($voucher->discount_type == 'amount')
                                                         -{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ
                                                     @elseif($voucher->discount_type == 'percent')
                                                         -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
+                                                    @elseif($voucher->discount_type == 'percent_max')
+                                                        @php
+                                                            $discount_value = $subtotal * $voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $voucher->max_discount);
+                                                        @endphp
+                                                        -{{ number_format($discount_value, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%, tối đa {{ number_format($voucher->max_discount, 0, ',', '.') }} VNĐ)
                                                     @endif
                                                 </td>
-
+                                                
                                             </tr>
                                         @endif
+        
                                         <tr>
-                                            <input type="hidden" name="total" value="{{$subtotal - ($voucher ? $voucher->discount : 0)}}">
+                                            <input type="hidden" name="total" 
+                                                value="{{ 
+                                                    $voucher 
+                                                        ? ($voucher->discount_type == 'percent' 
+                                                            ? $subtotal - ($subtotal * $voucher->discount / 100) 
+                                                            : ($voucher->discount_type == 'percent_max' 
+                                                                ? $subtotal - min($subtotal * $voucher->discount / 100, $voucher->max_discount) 
+                                                                : ($voucher->discount_type == 'amount'
+                                                                    ? $subtotal - $voucher->discount
+                                                                    : $subtotal)))
+                                                        : $subtotal }}">
                                             <th>TOTAL</th>
                                             <td>
                                                 @if($voucher)
                                                     @if($voucher->discount_type == 'percent')
                                                         {{ number_format($subtotal - ($subtotal * $voucher->discount / 100), 0, ',', '.') }} VNĐ
-                                                    @else
+                                                    @elseif($voucher->discount_type == 'percent_max')
+                                                        @php
+                                                            $discount_value = $subtotal * $voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $voucher->max_discount);
+                                                        @endphp
+                                                        {{ number_format($subtotal - $discount_value, 0, ',', '.') }} VNĐ
+                                                    @elseif($voucher->discount_type == 'amount')
                                                         {{ number_format($subtotal - $voucher->discount, 0, ',', '.') }} VNĐ
+                                                    @else
+                                                        {{ number_format($subtotal, 0, ',', '.') }} VNĐ
                                                     @endif
                                                 @else
                                                     {{ number_format($subtotal, 0, ',', '.') }} VNĐ
                                                 @endif
                                             </td>
-
                                         </tr>
+                                        
+                                        
                                     @endif
                                     </tbody>
                                 </table>

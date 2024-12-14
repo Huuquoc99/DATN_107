@@ -132,7 +132,7 @@
                                             <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
                                             <td>{{ $item['capacity'] }}</td>
                                             <td>{{ $item['color'] }}</td>
-                                            <td>{{ number_format($item['price'], 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($item['price'], 0, ',', '.') }} VND</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -152,37 +152,58 @@
                                         <tr>
                                             <input type="hidden" name="subtotal" value="{{$subtotal}}">
                                             <th>SUBTOTAL</th>
-                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VND</td>
                                             <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
+                        
                                         @if ($voucher)
                                             <tr>
                                                 <input type="hidden" name="voucher" value="{{$voucher->discount}}">
                                                 <th>GIẢM GIÁ</th>
                                                 <td>
                                                     @if($voucher->discount_type == 'amount')
-                                                        -{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ
+                                                        -{{ number_format($voucher->discount, 0, ',', '.') }} VND
                                                     @elseif($voucher->discount_type == 'percent')
-                                                        -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
+                                                        -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VND ({{ $voucher->discount }}%)
+                                                    @elseif($voucher->discount_type == 'percent_max')
+                                                        @php
+                                                            $discount_value = $subtotal * $voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $voucher->max_discount); // Giảm giá không vượt quá max_discount
+                                                        @endphp
+                                                        -{{ number_format($discount_value, 0, ',', '.') }} VND ({{ $voucher->discount }}%, tối đa {{ number_format($voucher->max_discount, 0, ',', '.') }} VND)
                                                     @endif
                                                 </td>
                                             </tr>
                                         @endif
                                         <tr>
-                                            <input type="hidden" name="total" value="{{$subtotal - ($voucher ? $voucher->discount : 0)}}">
+                                            <input type="hidden" name="total" value="{{$subtotal - ($voucher ? 
+                                                ($voucher->discount_type == 'percent' 
+                                                    ? $subtotal * $voucher->discount / 100 
+                                                    : ($voucher->discount_type == 'percent_max' 
+                                                        ? min($subtotal * $voucher->discount / 100, $voucher->max_discount) 
+                                                        : ($voucher->discount_type == 'amount' ? $voucher->discount : 0))) 
+                                                : 0)}}">
                                             <th>TOTAL</th>
                                             <td>
                                                 @if($voucher)
                                                     @if($voucher->discount_type == 'percent')
-                                                        {{ number_format($subtotal - ($subtotal * $voucher->discount / 100), 0, ',', '.') }} VNĐ
-                                                    @else
-                                                        {{ number_format($subtotal - $voucher->discount, 0, ',', '.') }} VNĐ
+                                                        {{ number_format($subtotal - ($subtotal * $voucher->discount / 100), 0, ',', '.') }} VND
+                                                    @elseif($voucher->discount_type == 'percent_max')
+                                                        @php
+                                                            $discount_value = $subtotal * $voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $voucher->max_discount);
+                                                        @endphp
+                                                        {{ number_format($subtotal - $discount_value, 0, ',', '.') }} VND
+                                                    @elseif($voucher->discount_type == 'amount')
+                                                        {{ number_format($subtotal - $voucher->discount, 0, ',', '.') }} VND
                                                     @endif
                                                 @else
-                                                    {{ number_format($subtotal, 0, ',', '.') }} VNĐ
+                                                    {{ number_format($subtotal, 0, ',', '.') }} VND
                                                 @endif
                                             </td>
                                         </tr>
+                                        
+
                                     </tbody>
                                 </table>
                             </div>

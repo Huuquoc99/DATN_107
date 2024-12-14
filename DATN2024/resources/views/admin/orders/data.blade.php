@@ -61,20 +61,22 @@
                         @elseif ($order->status_payment_id == 2)
                             <span class="badge bg-success-subtle text-success text-uppercase">{{ $order->statusPayment?->name }}</span>
                         @else
-                            <span class="badge bg-info-subtle text-info text-uppercase">{{ $order->statusPayment?->name }}</span>
+                            <span class="badge bg-danger-subtle text-danger text-uppercase">{{ $order->statusPayment?->name }}</span>
                         @endif
                     </td>
                     <td class="status">
-                        @if ($order->status_order_id == 1 || $order->status_order_id == 2)
+                        @if ($order->status_order_id == 1)
                             <span class="badge bg-warning-subtle text-warning text-uppercase">{{ $order->statusOrder?->name }}</span>
+                        @elseif ($order->status_order_id == 2)
+                            <span class="badge bg-info-subtle text-info text-uppercase">{{ $order->statusOrder?->name }}</span>
                         @elseif ($order->status_order_id == 3)
                             <span class="badge bg-secondary-subtle text-secondary text-uppercase">{{ $order->statusOrder?->name }}</span>
                         @elseif ($order->status_order_id == 4)
-                            <span class="badge bg-success-subtle text-success text-uppercase">{{ $order->statusOrder?->name }}</span>
+                            <span class="badge bg-primary-subtle text-primary text-uppercase">{{ $order->statusOrder?->name }}</span>
                         @elseif ($order->status_order_id == 5)
-                            <span class="badge bg-danger-subtle text-danger text-uppercase"> {{ $order->statusOrder?->name }}</span>
+                            <span class="badge bg-success-subtle text-success text-uppercase"> {{ $order->statusOrder?->name }}</span>
                         @else
-                            <span class="badge bg-info-subtle text-info text-uppercase">{{ $order->statusOrder?->name }}</span>
+                            <span class="badge bg-danger-subtle text-danger text-uppercase">{{ $order->statusOrder?->name }}</span>
                         @endif
                     </td>
                     <td class="amount">{{ number_format($order->total_price, 0, ',', '.') }} VND</td>

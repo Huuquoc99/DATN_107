@@ -11,9 +11,26 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $comments = Comment::orderBy('created_at', 'desc')->paginate(7);  
+    //     return view('admin.comments.index', compact('comments'));
+    // }
+
+    public function index(Request $request)
     {
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(7);  
+        $query = Comment::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            })
+            ->orWhere('content', 'like', "%$search%");
+        }
+
+        $comments = $query->with(['user', 'product'])->paginate(10);
+
         return view('admin.comments.index', compact('comments'));
     }
 
