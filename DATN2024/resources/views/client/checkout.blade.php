@@ -25,40 +25,45 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_name" placeholder="Họ và tên"
+                                    <input type="text" class="form-control @error('ship_user_name') is-invalid @enderror" id="ship_user_name" placeholder="Họ và tên"
                                            value="{{ old('ship_user_name', $user->name ?? '') }}" name="ship_user_name">
+                                    <label for="ship_user_name">Họ và tên</label>
+                                    @error('ship_user_name')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_name')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
+                                
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="email" class="input" id="ship_user_email" placeholder="Email"
+                                    <input type="email" class="form-control @error('ship_user_email') is-invalid @enderror" id="ship_user_email" placeholder="Email"
                                            value="{{ old('ship_user_email', $user->email ?? '') }}" name="ship_user_email">
+                                    <label for="ship_user_email">Email</label>
+                                    @error('ship_user_email')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_email')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="number" class="input" id="ship_user_phone" placeholder="Số điện thoại"
+                                    <input type="number" class="form-control @error('ship_user_phone') is-invalid @enderror" id="ship_user_phone" placeholder="Số điện thoại"
                                            value="{{ old('ship_user_phone', $user->phone ?? '') }}" name="ship_user_phone">
+                                    <label for="ship_user_phone">Số điện thoại</label>
+                                    @error('ship_user_phone')
+                                    <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_phone')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_address" placeholder="Địa chỉ"
+                                    <input type="text"class="form-control @error('ship_user_address') is-invalid @enderror" id="ship_user_address" placeholder="Địa chỉ"
                                            value="{{ old('ship_user_address', $user->address ?? '') }}" name="ship_user_address">
+                                    <label for="ship_user_address">Địa chỉ</label>
+                                    @error('ship_user_address')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_address')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
                             </div>
 
                             <div class="col-md-12">
@@ -66,34 +71,34 @@
                                     <div class="row">
                                         <div class="form-group col-12 col-md-4 ">
                                             <label for="province">Tỉnh/Thành phố</label>
-                                            <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
+                                            <select id="province" name="province" class="form-control @error('province') is-invalid @enderror" onchange="fetchDistricts(this.value)" >
                                                 <option value="">Chọn Tỉnh/Thành Phố</option>
                                                 @foreach($provinces['results'] as $province)
                                                     <option  value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                                 @endforeach
                                             </select>
                                             @error('province')
-                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                                <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
                                             <label for="district">Huyện</label>
-                                            <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
+                                            <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" onchange="fetchWards(this.value)">
                                                 <option value="">Chọn Huyện</option>
                                             </select>
                                             @error('district')
-                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                                <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
                                             <label for="ward">Phường/Xã</label>
-                                            <select id="ward" name="ward" class="form-control">
+                                            <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                                 <option value=""> ChọnPhường/Xã</option>
                                             </select>
                                             @error('ward')
-                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                                <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -183,7 +188,6 @@
                                             <tr>
                                                 <th>ĐIỂM THƯỞNG</th>
                                                 <td>
-                                                    
                                                     <div class="form-check form-switch">
                                                         <input
                                                             class="form-check-input"
@@ -194,7 +198,7 @@
                                                             style="transform: scale(0.7);"
                                                             {{ old('use_points') == 1 ? 'checked' : '' }}>
                                                         <label class="form-check-label" for="use_points">
-                                                            <strong>{{ number_format($points, 0, ',', '.') }}</strong>
+                                                            <strong>{{ number_format($points, 0, ',', '.') }} VND</strong>
                                                         </label>
                                                     </div>
                                                 </td>
