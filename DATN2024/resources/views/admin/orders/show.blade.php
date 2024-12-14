@@ -63,15 +63,15 @@
                             </li>
                             <li>
                                 <i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->email ?? 'Guest' }}
+                                {{ $order->user->email ?? 'Không có thông tin' }}
                             </li>
                             <li>
                                 <i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->phone ?? 'Guest' }}
+                                {{ $order->user->phone ?? 'Không có thông tin' }}
                             </li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'Guest', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'Không có thông tin', 20, '...') }}
                             </li>
                         </ul>
                     </div>
@@ -85,13 +85,13 @@
                     <div class="card-body">
                         <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
                             <li class="fw-medium fs-14">
-                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Guest', 25, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Không có thông tin', 25, '...') }}
                             </li>
-                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Guest' }}</li>
-                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Guest' }}</li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Không có thông tin' }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Không có thông tin' }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Guest', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Không có thông tin', 20, '...') }}
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
