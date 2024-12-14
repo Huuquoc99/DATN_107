@@ -61,22 +61,22 @@
                                     <button class="btn py-3 filter-status {{ request()->status == $orderStatus->id ? 'text-success' : '' }}" data-status="{{ $orderStatus->id }}">
                                         @switch($orderStatus->id)
                                             @case(1)
-                                                <i class="ri-time-line"></i>
+                                            <i class="ri-shopping-cart-line me-1 align-bottom"></i>
                                                 @break
                                             @case(2)
-                                                <i class="ri-time-line"></i>
+                                            <i class="ri-time-line me-1 align-bottom"></i>
                                                 @break
                                             @case(3)
-                                                <i class="ri-truck-line me-1 align-bottom"></i>
+                                            <i class="ri-truck-line me-1 align-bottom"></i>
                                                 @break
                                             @case(4)
-                                                <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
+                                            <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
                                                 @break
                                             @case(5)
-                                                <i class="ri-close-circle-line me-1 align-bottom"></i>
+                                            <i class="ri-check-double-line me-1 align-bottom"></i>
                                                 @break
                                             @default
-                                                <i class="ri-store-2-fill me-1 align-bottom"></i>
+                                                <i class="ri-close-circle-line me-1 align-bottom"></i>
                                         @endswitch
                                         {{ $orderStatus->name }}
                                     </button>
