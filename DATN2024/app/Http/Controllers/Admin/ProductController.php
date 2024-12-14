@@ -170,8 +170,20 @@ class ProductController extends Controller
         $color = ProductColor::query()->pluck('name', 'id')->all();
         $capacity = ProductCapacity::query()->pluck('name', 'id')->all();
 
+        $product = Product::with(['variants.orderItems.order'])
+            ->findOrFail($product->id);
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity', 'color', 'totalQuantity'));
+        $totalRevenue = 0;
+
+        foreach ($product->variants as $variant) {
+            foreach ($variant->orderItems as $item) {
+                if ($item->order->status_order_id == 5 && $item->order->status_payment_id == 2) {
+                    $totalRevenue += $item->quantity * $item->product_price_sale;
+                }
+            }
+        }
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'capacity', 'color', 'totalQuantity','totalRevenue'));
     }
 
     /**

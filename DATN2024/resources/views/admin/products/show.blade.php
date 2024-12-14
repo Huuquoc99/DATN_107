@@ -199,6 +199,7 @@
                                                 </div>
                                                 <div class="flex-grow-1">
                                                     <p class="text-muted mb-1">Tổng doanh thu</p>
+                                                    <h5 class="mb-0">{{ number_format($totalRevenue, 0, ',', '.') }} VND</h5>
                                                 </div>
                                             </div>
                                         </div>
