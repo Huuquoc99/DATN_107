@@ -176,7 +176,37 @@
                                                 
                                             </tr>
                                         @endif
-        
+                                   
+                                        
+
+                                        @if ($points > 0)
+                                            <tr>
+                                                <th>ĐIỂM THƯỞNG</th>
+                                                <td>
+                                                    
+                                                    <div class="form-check form-switch">
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="checkbox"
+                                                            id="use_points"
+                                                            name="use_points"
+                                                            value="{{ $points }}"
+                                                            style="transform: scale(0.7);"
+                                                            {{ old('use_points') == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="use_points">
+                                                            <strong>{{ number_format($points, 0, ',', '.') }}</strong>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td colspan="2">
+                                                    Bạn chưa có điểm nào để sử dụng.
+                                                </td>
+                                            </tr>
+                                        @endif
+
                                         <tr>
                                             <input type="hidden" name="total" 
                                                 value="{{ 
@@ -189,28 +219,34 @@
                                                                     ? $subtotal - $voucher->discount
                                                                     : $subtotal)))
                                                         : $subtotal }}">
+
                                             <th>TOTAL</th>
                                             <td>
-                                                @if($voucher)
-                                                    @if($voucher->discount_type == 'percent')
-                                                        {{ number_format($subtotal - ($subtotal * $voucher->discount / 100), 0, ',', '.') }} VNĐ
-                                                    @elseif($voucher->discount_type == 'percent_max')
-                                                        @php
+                                                @php
+                                                    $final_total = $subtotal;
+                                                    
+                                                    if($voucher) {
+                                                        if($voucher->discount_type == 'percent') {
+                                                            $final_total -= ($subtotal * $voucher->discount / 100);
+                                                        } elseif($voucher->discount_type == 'percent_max') {
                                                             $discount_value = $subtotal * $voucher->discount / 100;
                                                             $discount_value = min($discount_value, $voucher->max_discount);
-                                                        @endphp
-                                                        {{ number_format($subtotal - $discount_value, 0, ',', '.') }} VNĐ
-                                                    @elseif($voucher->discount_type == 'amount')
-                                                        {{ number_format($subtotal - $voucher->discount, 0, ',', '.') }} VNĐ
-                                                    @else
-                                                        {{ number_format($subtotal, 0, ',', '.') }} VNĐ
-                                                    @endif
-                                                @else
-                                                    {{ number_format($subtotal, 0, ',', '.') }} VNĐ
-                                                @endif
+                                                            $final_total -= $discount_value;
+                                                        } elseif($voucher->discount_type == 'amount') {
+                                                            $final_total -= $voucher->discount;
+                                                        }
+                                                    }
+
+                                                    if(request()->has('use_points') && request()->get('use_points') == 1) {
+                                                        $final_total -= $points;
+                                                        $final_total = max($final_total, 0);
+                                                    }
+                                                @endphp
+
+                                                {{ number_format($final_total, 0, ',', '.') }} VNĐ
                                             </td>
                                         </tr>
-                                        
+
                                         
                                     @endif
                                     </tbody>
@@ -240,6 +276,49 @@
             </form>
         </section>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const usePointsCheckbox = document.getElementById('use_points');
+                const totalElement = document.querySelector('input[name="total"]').parentElement.querySelector('td');
+                const totalInput = document.querySelector('input[name="total"]'); 
+        
+                function updateTotal() {
+                    let usePoints = usePointsCheckbox.checked;
+                    let points = {{ $points }};  
+                    let subtotal = {{ $subtotal }}; 
+                    let voucher = @json($voucher);  
+        
+                    let finalTotal = subtotal;
+        
+                    if(voucher) {
+                        if(voucher.discount_type == 'percent') {
+                            finalTotal -= (subtotal * voucher.discount / 100);
+                        } else if(voucher.discount_type == 'percent_max') {
+                            let discountValue = subtotal * voucher.discount / 100;
+                            discountValue = Math.min(discountValue, voucher.max_discount);
+                            finalTotal -= discountValue;
+                        } else if(voucher.discount_type == 'amount') {
+                            finalTotal -= voucher.discount;
+                        }
+                    }
+        
+                    if(usePoints) {
+                        finalTotal -= points;
+                        finalTotal = Math.max(finalTotal, 0);  
+                    }
+        
+                    totalElement.textContent = new Intl.NumberFormat('vi-VN').format(finalTotal) + ' VNĐ';
+        
+                    totalInput.value = finalTotal;
+                }
+        
+                usePointsCheckbox.addEventListener('change', updateTotal);
+        
+                updateTotal(); 
+            });
+        </script>
+        
+        
 @endsection
 
 @section('api-address')

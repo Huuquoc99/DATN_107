@@ -285,7 +285,7 @@
                                                         {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                                     </a>
                                                 </td>
-                                                <td class="client_name"> {{ number_format($item->discount) }} VND</td>
+                                                <td class="client_name"> {{ number_format($item->discount) }} %</td>
                                                 <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                                 <td class="create_date">{{ $item->used_quantity }} / {{ $item->quantity }}</td>
                                                 <td class="create_date">
@@ -435,7 +435,7 @@
                                                         {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                                     </a>
                                                 </td>
-                                                <td class="client_name"> {{ number_format($item->discount) }} VND</td>
+                                                <td class="client_name"> {{ number_format($item->discount) }} %</td>
                                                 <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                                 <td class="create_date">{{ $item->used_quantity }} / {{ $item->quantity }}</td>
                                                 <td class="create_date">

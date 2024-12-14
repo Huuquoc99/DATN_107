@@ -24,7 +24,7 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Thêm mới</h4>
                     </div>
-                    {{-- @if ($errors->any())
+                    @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -32,7 +32,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif --}}
+                    @endif
 
                     <div class="card-body">
                         <div class="live-preview">
@@ -130,8 +130,9 @@
                                         @enderror
                                     </div>
                                    
-                                    <div class="mt-3" id="discount_amount_div">
-                                        <label for="discount" class="form-label">Mức Giảm giá</label> 
+                                    <div class="mt-3">
+                                        <label for="discount" class="form-label" id="discount_amount_div">Mức Giảm giá</label> 
+                                        <label for="discount" class="form-label" id="discount_percent_div" style="display: none;">Phần trăm giảm giá</label> 
                                         <input type="number"
                                             class="form-control @error('discount') is-invalid @enderror"
                                             name="discount" id="discount" value="{{ old('discount', $voucher->discount ?? '') }}">
@@ -139,7 +140,7 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    
+{{--                                     
                                     <div class="mt-3" id="discount_percent_div" style="display: none;">
                                         <label for="discount" class="form-label">Phần trăm giảm giá</label> 
                                         <input type="number"
@@ -148,7 +149,7 @@
                                         @error('discount')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 
 
                                     <div class="mt-3">

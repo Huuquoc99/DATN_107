@@ -20,6 +20,7 @@ use App\Models\ProductCapacity;
 use App\Events\GuestOrderPlaced;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\UserPoint;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -45,7 +46,7 @@ class CheckoutController extends Controller
 
 
         $paymentMethods = PaymentMethod::all();
-
+        $points = Auth::user()->userPoints->points ?? 0;
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
         if(Auth::check()) {
             $user = Auth::user();
@@ -73,7 +74,7 @@ class CheckoutController extends Controller
                     return redirect()->route('cart.list')->with('error', 'Giỏ hàng của bạn đang trống.');
                 }
             }
-            return view('client.checkout', compact('user', 'cartItems', 'paymentMethods', 'provinces', 'voucher'));
+            return view('client.checkout', compact('user', 'cartItems', 'paymentMethods', 'provinces', 'voucher', 'points'));
 
 
         } else {
@@ -282,22 +283,233 @@ class CheckoutController extends Controller
     }
 
 
-    public function processCheckout(Request $request)
-    {
+    // public function processCheckout(Request $request)
+    // {
 
-    //    dd(session('voucher'));
+    // //    dd(session('voucher'));
     // dd($request->all());
 
+    //     $province_code = $request->province;
+    //     $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
+
+    //     $district_code = $request->district;
+    //     $district_name = Http::get("https://provinces.open-api.vn/api/d/{$district_code}")->json();
+
+    //     $ward_code = $request->ward;
+    //     $ward_name = Http::get("https://provinces.open-api.vn/api/w/{$ward_code}")->json();
+
+
+    //     $request->validate([
+    //         'ship_user_name' => 'required|string|max:255',
+    //         'ship_user_email' => 'required|email|max:255',
+    //         'ship_user_phone' => 'required|string|max:15',
+    //         'ship_user_address' => 'required|string|max:255',
+    //         'province' => 'required|string|max:255',
+    //         'district' => 'required|string|max:255',
+    //         'ward' => 'required|string|max:255',
+    //     ]);
+
+    //     $user = Auth::user();
+    //     $cart = Cart::where('user_id', $user->id)->first();
+    //     $paymentMethodId = $request->input('payment_method_id');
+    //     $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
+    //     $total_price = $this->calculateTotal($cart->id) - ($voucher 
+    //                     ? ($voucher->discount_type == 'percent' 
+    //                         ? $this->calculateTotal($cart->id) * $voucher->discount / 100 
+    //                         : ($voucher->discount_type == 'percent_max' 
+    //                             ? min($this->calculateTotal($cart->id) * $voucher->discount / 100, $voucher->max_discount) 
+    //                             : $voucher->discount))
+    //                     : 0);
+        
+    //     $order = Order::create([
+    //         'user_id' => $user->id,
+    //         'user_name' => $user->name,
+    //         'user_email' => $user->email,
+    //         'user_address' => $user->address,
+    //         'user_phone' => $user->phone,
+
+    //         'ship_user_name' => $request->ship_user_name,
+    //         'ship_user_email' => $request->ship_user_email,
+    //         'ship_user_phone' => $request->ship_user_phone,
+    //         'ship_user_address' => $request->ship_user_address,
+
+    //         'shipping_province' => $province_name['name'],
+    //         'shipping_district' => $district_name['name'],
+    //         'shipping_ward' => $ward_name['name'],
+
+
+    //         'payment_method_id' => $paymentMethodId,
+    //         'subtotal' => $request->subtotal,
+    //         'total_price' => $total_price,
+
+    //         'status_order_id' => 1,
+    //         'status_payment_id' => 1,
+    //         'code' => $this->generateOrderCode(),
+    //         'voucher_id' => $voucher ? $voucher->id : null,
+    //     ]);
+
+
+    //     $this->deductStockProduct();
+
+    //     if ($voucher) {
+    //         $voucher->used_quantity += 1;
+    //         $voucher->save();
+    //     }
+
+    //     foreach ($cart->items as $item) {
+    //         $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
+    //         OrderItem::create([
+    //             'order_id' => $order->id,
+    //             'product_id' => $item->product_id,
+    //             'product_variant_id' => $item->product_variant_id,
+    //             'quantity' => $item->quantity,
+    //             'price' => $item->price,
+    //             'product_name' => $item->productVariant->product->name,
+    //             'product_sku' => $item->productVariant->product->sku,
+    //             'product_img_thumbnail' => $item->productVariant->product->img_thumbnail,
+    //             'product_price_regular' => $item->productVariant->product->price_regular,
+    //             'product_price_sale' => $item->productVariant->product->price_sale,
+    //             'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null,
+    //             'product_color_id' => $productVariant->color ? $productVariant->color->id : null,
+
+    //         ]);
+    //     }
+
+    //     session()->forget('voucher');
+
+
+    //     if ($paymentMethodId == 2) {
+
+    //         return $this->processVNPAY($order);
+
+    //     } else {
+
+    //         $cart->items()->delete();
+
+    //         GuestOrderPlaced::dispatch($order);
+
+    //         return redirect()->route('checkout.success');
+    //     }
+    // }
+
+
+    // public function processCheckout(Request $request)
+    // {
+    //     $province_code = $request->province;
+    //     $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
+    
+    //     $district_code = $request->district;
+    //     $district_name = Http::get("https://provinces.open-api.vn/api/d/{$district_code}")->json();
+    
+    //     $ward_code = $request->ward;
+    //     $ward_name = Http::get("https://provinces.open-api.vn/api/w/{$ward_code}")->json();
+    
+    //     $request->validate([
+    //         'ship_user_name' => 'required|string|max:255',
+    //         'ship_user_email' => 'required|email|max:255',
+    //         'ship_user_phone' => 'required|string|max:15',
+    //         'ship_user_address' => 'required|string|max:255',
+    //         'province' => 'required|string|max:255',
+    //         'district' => 'required|string|max:255',
+    //         'ward' => 'required|string|max:255',
+    //     ]);
+    
+    //     $user = Auth::user();
+    //     $cart = Cart::where('user_id', $user->id)->first();
+    //     $paymentMethodId = $request->input('payment_method_id');
+        
+    //     $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
+    
+    //     $total_price = $this->calculateTotal($cart->id) - ($voucher 
+    //                         ? ($voucher->discount_type == 'percent' 
+    //                             ? $this->calculateTotal($cart->id) * $voucher->discount / 100 
+    //                             : ($voucher->discount_type == 'percent_max' 
+    //                                 ? min($this->calculateTotal($cart->id) * $voucher->discount / 100, $voucher->max_discount) 
+    //                                 : $voucher->discount))
+    //                         : 0);
+    
+    //     $use_points = $request->input('use_points', 0);
+    //     if ($use_points > 0) {
+    //         $total_price -= $use_points;
+    //         $total_price = max($total_price, 0); 
+    //     }
+    
+    //     $order = Order::create([
+    //         'user_id' => $user->id,
+    //         'user_name' => $user->name,
+    //         'user_email' => $user->email,
+    //         'user_address' => $user->address,
+    //         'user_phone' => $user->phone,
+    
+    //         'ship_user_name' => $request->ship_user_name,
+    //         'ship_user_email' => $request->ship_user_email,
+    //         'ship_user_phone' => $request->ship_user_phone,
+    //         'ship_user_address' => $request->ship_user_address,
+    
+    //         'shipping_province' => $province_name['name'],
+    //         'shipping_district' => $district_name['name'],
+    //         'shipping_ward' => $ward_name['name'],
+    
+    //         'payment_method_id' => $paymentMethodId,
+    //         'subtotal' => $request->subtotal,
+    //         'total_price' => $total_price, 
+    
+    //         'status_order_id' => 1,
+    //         'status_payment_id' => 1,
+    //         'code' => $this->generateOrderCode(),
+    //         'voucher_id' => $voucher ? $voucher->id : null,
+    //     ]);
+    
+    //     $this->deductStockProduct();
+    
+    //     if ($voucher) {
+    //         $voucher->used_quantity += 1;
+    //         $voucher->save();
+    //     }
+    
+    //     foreach ($cart->items as $item) {
+    //         $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item->product_variant_id);
+    //         OrderItem::create([
+    //             'order_id' => $order->id,
+    //             'product_id' => $item->product_id,
+    //             'product_variant_id' => $item->product_variant_id,
+    //             'quantity' => $item->quantity,
+    //             'price' => $item->price,
+    //             'product_name' => $item->productVariant->product->name,
+    //             'product_sku' => $item->productVariant->product->sku,
+    //             'product_img_thumbnail' => $item->productVariant->product->img_thumbnail,
+    //             'product_price_regular' => $item->productVariant->product->price_regular,
+    //             'product_price_sale' => $item->productVariant->product->price_sale,
+    //             'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null,
+    //             'product_color_id' => $productVariant->color ? $productVariant->color->id : null,
+    //         ]);
+    //     }
+    
+    //     session()->forget('voucher');
+    
+    //     if ($paymentMethodId == 2) {
+    //         return $this->processVNPAY($order);
+    //     } else {
+    //         $cart->items()->delete();
+    
+    //         GuestOrderPlaced::dispatch($order);
+    
+    //         return redirect()->route('checkout.success');
+    //     }
+    // }
+    
+   
+    public function processCheckout(Request $request)
+    {
         $province_code = $request->province;
         $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
-
+        
         $district_code = $request->district;
         $district_name = Http::get("https://provinces.open-api.vn/api/d/{$district_code}")->json();
-
+        
         $ward_code = $request->ward;
         $ward_name = Http::get("https://provinces.open-api.vn/api/w/{$ward_code}")->json();
-
-
+        
         $request->validate([
             'ship_user_name' => 'required|string|max:255',
             'ship_user_email' => 'required|email|max:255',
@@ -307,18 +519,39 @@ class CheckoutController extends Controller
             'district' => 'required|string|max:255',
             'ward' => 'required|string|max:255',
         ]);
-
+        
         $user = Auth::user();
+        
         $cart = Cart::where('user_id', $user->id)->first();
+        if (!$cart) {
+            return redirect()->route('cart.index')->with('error', 'Giỏ hàng không có sản phẩm');
+        }
+
         $paymentMethodId = $request->input('payment_method_id');
+
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
-        $total_price = $this->calculateTotal($cart->id) - ($voucher 
-                        ? ($voucher->discount_type == 'percent' 
-                            ? $this->calculateTotal($cart->id) * $voucher->discount / 100 
-                            : ($voucher->discount_type == 'percent_max' 
-                                ? min($this->calculateTotal($cart->id) * $voucher->discount / 100, $voucher->max_discount) 
-                                : $voucher->discount))
-                        : 0);
+
+        $subtotal = $this->calculateTotal($cart->id);
+        $total_price = $subtotal - ($voucher
+            ? ($voucher->discount_type == 'percent'
+                ? $subtotal * $voucher->discount / 100
+                : ($voucher->discount_type == 'percent_max'
+                    ? min($subtotal * $voucher->discount / 100, $voucher->max_discount)
+                    : $voucher->discount))
+            : 0);
+        
+        $use_points = $request->input('use_points', 0);
+        if ($use_points > 0) {
+            $userPoints = UserPoint::where('user_id', $user->id)->first();
+            if ($userPoints && $userPoints->points >= $use_points) {
+                $total_price -= $use_points;
+                $total_price = max($total_price, 0); 
+                $userPoints->points -= $use_points;
+                $userPoints->save();
+            } else {
+                return redirect()->route('checkout')->with('error', 'Số điểm không đủ để sử dụng');
+            }
+        }
 
         $order = Order::create([
             'user_id' => $user->id,
@@ -326,28 +559,23 @@ class CheckoutController extends Controller
             'user_email' => $user->email,
             'user_address' => $user->address,
             'user_phone' => $user->phone,
-
             'ship_user_name' => $request->ship_user_name,
             'ship_user_email' => $request->ship_user_email,
             'ship_user_phone' => $request->ship_user_phone,
             'ship_user_address' => $request->ship_user_address,
-
             'shipping_province' => $province_name['name'],
             'shipping_district' => $district_name['name'],
             'shipping_ward' => $ward_name['name'],
-
-
             'payment_method_id' => $paymentMethodId,
-            'subtotal' => $request->subtotal,
+            'subtotal' => $subtotal,
             'total_price' => $total_price,
-
             'status_order_id' => 1,
             'status_payment_id' => 1,
             'code' => $this->generateOrderCode(),
             'voucher_id' => $voucher ? $voucher->id : null,
+            'use_points' => $use_points, 
         ]);
-
-
+        
         $this->deductStockProduct();
 
         if ($voucher) {
@@ -370,28 +598,23 @@ class CheckoutController extends Controller
                 'product_price_sale' => $item->productVariant->product->price_sale,
                 'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null,
                 'product_color_id' => $productVariant->color ? $productVariant->color->id : null,
-
             ]);
         }
-
+        
         session()->forget('voucher');
-
-
+        
         if ($paymentMethodId == 2) {
-
             return $this->processVNPAY($order);
-
         } else {
-
             $cart->items()->delete();
-
+            
             GuestOrderPlaced::dispatch($order);
-
+            
             return redirect()->route('checkout.success');
         }
     }
 
-
+    
     public function vnpayReturn(Request $request)
     {
         $vnpayData = $request->all();

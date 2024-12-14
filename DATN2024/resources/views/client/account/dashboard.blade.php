@@ -30,6 +30,11 @@
                             <p>Từ bảng điều khiển tài khoản của bạn, bạn có thể xem <a class="unerline-link"
                                     href="{{ route('history') }}">đơn hàng gần đây</a> và <a class="unerline-link"
                                     href="{{ route('accountdetail') }}">chỉnh sửa mật khẩu và thông tin tài khoản của bạn.</a></p>
+                        
+                            <div class="mt-4">
+                                <h4>Ví Xu của bạn:</h4>
+                                <p>Số xu hiện tại: <strong>{{ Auth::user()->userPoints ? Auth::user()->userPoints->points : 0 }} xu</strong></p>
+                            </div>
                         @endauth
                     </div>
                 </div>
