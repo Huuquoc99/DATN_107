@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Events\OrderChangeStatus;
+use App\Traits\OrderStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, OrderStatusTrait;
 
     protected $fillable = [
         'user_id',
@@ -69,6 +70,12 @@ class Order extends Model
     {
         return $this->belongsTo(Voucher::class);
     }
+
+    public function statusLogs()
+    {
+        return $this->morphMany(OrderStatusLog::class, 'loggable');
+    }
+
     protected static function boot()
     {
         parent::boot();

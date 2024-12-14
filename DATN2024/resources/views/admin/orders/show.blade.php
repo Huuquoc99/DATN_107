@@ -354,47 +354,153 @@
                 </div>
             </div>
             <div class="col-xl-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i>Trạng thái thanh toán</h5>
+{{--                <div class="card">--}}
+{{--                    <div class="card-header">--}}
+{{--                        <h5 class="card-title mb-0"><i class="ri-money-dollar-circle-fill"></i>Trạng thái thanh toán</h5>--}}
 
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="flex-grow-1 ms-3 me-3">
-                                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST"
-                                    class="d-flex flex-column align-items-start">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group mb-3">
-                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width: 400px;">
-                                            @foreach ($statusPayments as $status)
-                                                <option value="{{ $status->id }}"
-                                                    {{ $order->status_payment_id == $status->id ? 'selected' : '' }}
-                                                    {{ $order->status_payment_id == 2 && $status->id == 1 ? 'disabled' : '' }}>
-                                                    {{ $status->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100 mb-3">Cập nhật trạng thái thanh toán</button>
-                                </form>
-                                @if (session('error1'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error1') }}
-                                    </div>
-                                @endif
+{{--                    </div>--}}
+{{--                    <div class="card-body">--}}
+{{--                        <div class="d-flex align-items-center mb-2">--}}
+{{--                            <div class="flex-grow-1 ms-3 me-3">--}}
+{{--                                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST"--}}
+{{--                                    class="d-flex flex-column align-items-start">--}}
+{{--                                    @csrf--}}
+{{--                                    @method('PUT')--}}
+{{--                                    <div class="form-group mb-3">--}}
+{{--                                        <select name="status_payment_id" id="status_payment_id" class="form-control" style="width: 400px;">--}}
+{{--                                            @foreach ($statusPayments as $status)--}}
+{{--                                                <option value="{{ $status->id }}"--}}
+{{--                                                    {{ $order->status_payment_id == $status->id ? 'selected' : '' }}--}}
+{{--                                                    {{ $order->status_payment_id == 2 && $status->id == 1 ? 'disabled' : '' }}>--}}
+{{--                                                    {{ $status->name }}--}}
+{{--                                                </option>--}}
+{{--                                            @endforeach--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                    <button type="submit" class="btn btn-primary w-100 mb-3">Cập nhật trạng thái thanh toán</button>--}}
+{{--                                </form>--}}
+{{--                                @if (session('error1'))--}}
+{{--                                    <div class="alert alert-danger">--}}
+{{--                                        {{ session('error1') }}--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
 
-                                @if (session('success1'))
-                                    <div class="alert alert-success">
-                                        {{ session('success1') }}
-                                    </div>
-                                @endif
+{{--                                @if (session('success1'))--}}
+{{--                                    <div class="alert alert-success">--}}
+{{--                                        {{ session('success1') }}--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+                    @php
+                        $statusMap = [
+                            '1' => 'Chờ xử lý',
+                            '2' => 'Đã xác nhận',
+                            '3' => 'Đang giao hàng',
+                            '4' => 'Đã giao',
+                            '5' => 'Thành công',
+                            '6' => 'Hủy',
+                        ];
+                        $status_icon = [
+                            '1' => 'ri-shopping-bag-line',
+                            '2' => 'mdi mdi-gift-outline',
+                            '3' => 'ri-truck-line',
+                            '4' => 'ri-takeaway-fill',
+                            '5' => 'mdi mdi-package-variant',
+                            '6' => 'mdi mdi-archive-remove-outline align-middle me-1'
+                        ];
+
+                        $status_text = [
+                            '1' => 'đã xác nhận đơn hàng.',
+                            '2' => 'đã xác nhận đơn hàng đang được vận chuyển.',
+                            '3' => 'xác nhận đơn hàng được đã giao thành công.',
+                            '4' => 'đã xác nhận đơn hàng.',
+                            '5' => 'thành công',
+                            '6' => 'đã hủy đơn hàng.',
+                        ];
+
+                        $cancelReasons = [
+                            'product-out-in-stock' => 'Sản phẩm hết hàng trong kho.',
+                            'payment-failed' => 'Thanh toán không thành công.',
+                            'defective-product' => 'Phát hiện lỗi trong đơn hàng (sai giá, thông tin sản phẩm).',
+                            'unable-to-contact' => 'Không thể liên lạc với khách để xác nhận đơn hàng.',
+                            'no_confirmation_email' => 'Không có mail xác nhận đơn hàng',
+                             'changed_mind' => 'Tôi đã thay đổi ý định',
+                            'found_cheaper' => 'Đã tìm thấy một lựa chọn rẻ hơn',
+                            'delivery_delay' => 'Giao hàng mất quá nhiều thời gian',
+                            'incorrect_item' => 'Chi tiết mặt hàng sai',
+                            'cost_high' => 'Chi phí vận chuyển quá cao',
+                            'other' => 'Khác'
+                        ];
+                    @endphp
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-sm-flex align-items-center">
+                                <h5 class="card-title flex-grow-1 mb-0">Lịch sử thay đổi</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="profile-timeline">
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    @foreach ($statusLogs as $log)
+                                        <div class="accordion-item border-0">
+                                            <div class="accordion-header" id="heading{{ $loop->index }}">
+                                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapse{{ $loop->index }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="collapse{{ $loop->index }}">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0 avatar-xs">
+                                                            <div class="avatar-title bg-success rounded-circle">
+                                                                <i class="{{ $status_icon[$log->new_status] }}"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <h6 class="fs-15 mb-0 fw-semibold"> {{ $statusMap[$log->new_status] ?? 'Unknown' }} - <span class="fw-normal">{{ \Carbon\Carbon::parse($log->changed_at)->setTimezone('Asia/Ho_Chi_Minh')->translatedFormat('l, d F Y - H:i A') }}</span></h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div id="collapse{{ $loop->index }}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" aria-labelledby="heading{{ $loop->index }}" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body ms-2 ps-5 pt-0">
+                                                    @if($log->new_status == 6)
+                                                        <h6 class="mb-2">
+                                                            <a href="{{ route('admin.customers.show', ['customer' => optional($log->changedBy)->id]) }}" class="text-decoration-none">
+                                                                {{ optional($log->changedBy)->name ?? 'N/A' }}
+                                                            </a>
+
+                                                            {{ $status_text[$log->new_status] }}</h6>
+                                                        @php
+                                                            $cancelReason = $log->loggable ? $log->loggable->cancel_reason : '';
+                                                            $otherReason = $log->loggable ? $log->loggable->other_reason : '';
+                                                        @endphp
+
+                                                        @if ($cancelReason == 'other')
+                                                            <strong>{{ $otherReason ?? '' }}</strong>
+                                                        @else
+                                                            <strong class="mt-2">Lý do hủy: {{ $cancelReasons[$cancelReason] ?? '' }}</strong>
+                                                        @endif
+                                                    @else
+                                                        <h6 class="mb-1">
+                                                            <a href="{{ route('admin.customers.show', ['customer' => optional($log->changedBy)->id]) }}" class="text-decoration-none fs-15">
+                                                               <i> {{ optional($log->changedBy)->name ?? 'N/A' }}</i>
+                                                            </a> {{ $status_text[$log->old_status] }}
+                                                        </h6>
+                                                    @endif
+                                                    <p class="text-muted">{{ \Carbon\Carbon::parse($log->changed_at)->format('D, d M Y - H:i A') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
+
+
+
 
             <div class="col-xl-3">
                 <div class="card">

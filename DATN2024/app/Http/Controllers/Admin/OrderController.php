@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\AdminNotification;
 use App\Models\Order;
+use App\Models\OrderStatusLog;
 use App\Models\StatusOrder;
 use App\Mail\OrderCancelled;
 use Illuminate\Http\Request;
@@ -59,6 +60,13 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $statusLogs = OrderStatusLog::where('loggable_type', Order::class)
+            ->where('loggable_id', $order->id)
+            ->with(['loggable', 'changedBy'])
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+
         if (!empty(request()->get('noti'))) {
             $notification = AdminNotification::find(request()->get('noti'));
             $notification->read_at = now();
@@ -78,7 +86,7 @@ class OrderController extends Controller
 
         $statusPayments = StatusPayment::all();
 
-        return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments'));
+        return view('admin.orders.show', compact('order', 'statusOrders', 'statusPayments','statusLogs'));
     }
 
 
@@ -115,6 +123,14 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
+//
+//        \Log::info('Before Status Change', [
+//            'current_status' => $order->status_order_id
+//        ]);
+//
+//        $statusHistory = $order->statusChanges()->get();
+//
+////        dd($statusHistory);
 
         $validator = Validator::make($request->all(), [
             'status_order_id' => [
@@ -124,12 +140,12 @@ class OrderController extends Controller
                     $currentStatus = $order->status_order_id;
 
                     $allowedTransitions = [
-                        1 => [2, 6],     
-                        2 => [3, 6],     
-                        3 => [3, 4],    
-                        4 => [5],        
-                        5 => [5],        
-                        6 => [6],      
+                        1 => [2, 6],
+                        2 => [3, 6],
+                        3 => [3, 4],
+                        4 => [5],
+                        5 => [5],
+                        6 => [6],
                     ];
 
                     if (!in_array($value, $allowedTransitions[$currentStatus] ?? [])) {
@@ -219,9 +235,9 @@ class OrderController extends Controller
         $currentStatusId = $order->status_payment_id;
 
         $allowedTransitions = [
-            1 => [],      
-            2 => [],    
-            3 => [], 
+            1 => [],
+            2 => [],
+            3 => [],
         ];
 
         if (!in_array($newPaymentStatusId, $allowedTransitions[$currentStatusId] ?? [])) {

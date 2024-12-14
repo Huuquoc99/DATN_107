@@ -7,6 +7,7 @@ use App\Mail\AdminOrderCancelled;
 use App\Mail\AdminOrderUpdated;
 use App\Models\Order;
 use App\Mail\OrderPlaced;
+use App\Models\OrderStatusLog;
 use App\Models\StatusOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,6 +26,7 @@ class OrderController extends Controller
         $statusFilter = $request->input('status_order', 'all');
         $query = Auth::user()->orders()->with(['statusOrder', 'statusPayment']);
 
+
         if ($statusFilter !== 'all') {
             $query->where('status_order_id', $statusFilter);
         }
@@ -42,6 +44,7 @@ class OrderController extends Controller
             ];
         });
 
+
         $orders->setCollection(collect($mappedOrders));
         $statusOrders = StatusOrder::all();
         $message = $orders->isEmpty() ? 'Bạn chưa có đơn hàng nào.' : null;
@@ -56,6 +59,15 @@ class OrderController extends Controller
             return redirect()->route('orders.index')->with('error', 'Hành động trái phép.');
         }
 
+        $statusLogs = OrderStatusLog::where('loggable_type', Order::class)
+            ->where('loggable_id', $order->id)
+            ->with(['loggable', 'changedBy'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+//        dd($statusLogs);
+
         $orderWithItems = $order->load([
             'orderItems.productVariant.product',
             'statusOrder:id,name',
@@ -66,6 +78,7 @@ class OrderController extends Controller
         return view('client.account.orderdetails', [
             'order' => $orderWithItems,
             'statusOrders' => $statusOrders,
+            'statusLogs' => $statusLogs
         ]);
     }
 
@@ -154,6 +167,7 @@ class OrderController extends Controller
 
     public function markAsReceived(Order $order)
     {
+
         try {
             if ($order->status_order_id == 4) {
                 $order->status_order_id = 5;
