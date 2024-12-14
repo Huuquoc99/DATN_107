@@ -185,12 +185,19 @@
                                                 <td class="text-end">
                                                     @if ($order->voucher->discount_type === 'percent')
                                                         -{{ number_format(($order->subtotal * $order->voucher->discount / 100), 0, '.', ',') }} VND ({{ $order->voucher->discount }}%)
+                                                    @elseif ($order->voucher->discount_type === 'percent_max')
+                                                        @php
+                                                            $discount_value = $order->subtotal * $order->voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $order->voucher->max_discount);
+                                                        @endphp
+                                                        -{{ number_format($discount_value, 0, '.', ',') }} VND ({{ $order->voucher->discount }}%, tối đa {{ number_format($order->voucher->max_discount, 0, '.', ',') }} VND)
                                                     @elseif ($order->voucher->discount_type === 'amount')
                                                         -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
                                                     @endif
                                                 </td>
                                             @endif
                                         </tr>
+                                        
                                         <tr class="border-top border-top-dashed fs-15">
                                             <th scope="row">Tổng tiền: </th>
                                             <th class="text-end ">
