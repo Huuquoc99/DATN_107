@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-info-subtle text-info rounded-circle fs-4">
+                            <span class="avatar-title bg-warning-subtle text-warning rounded-circle fs-4">
                                 <i class="mdi mdi-timer-sand"></i>
                             </span>
                         </div>
@@ -72,7 +72,7 @@
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-info-subtle text-info rounded-circle fs-4">
+                            <span class="avatar-title bg-success-subtle text-success rounded-circle fs-4">
                                 <i class="ri-shopping-bag-line"></i>
                             </span>
                         </div>

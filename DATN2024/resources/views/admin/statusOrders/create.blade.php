@@ -75,7 +75,7 @@ TechStore
                                 <div class="col-md-6 mt-2">  
                                     <div class="mt-3">
                                         <label for="code" class="form-label">Code</label>
-                                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" id="code">
+                                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" id="code" value="{{ old('code', strtoupper(\Str::random(8))) }}">
                                         @error('code')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
