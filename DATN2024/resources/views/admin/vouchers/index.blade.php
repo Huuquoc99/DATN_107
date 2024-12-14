@@ -97,18 +97,15 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-body border border-dashed border-end-0 border-start-0">
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-xxl-5 col-sm-12">
-                                <div class="search-box">
-                                    <input type="text" class="form-control search bg-light border-light" placeholder="Search for ticket details or something...">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
+                <div class="card-body bg-light-subtle border border-dashed border-start-0 border-end-0">
+                    <form action="{{ route('admin.vouchers.index') }}" method="GET" class="d-flex">
+                        <input type="hidden" name="section" value="amount">
+                        <div class="col-xxl-5 col-sm-6">
+                            <div class="search-box">
+                                <input type="text" class="form-control search" value="{{ request()->get('search') }}" id="search-input" name="search" placeholder="Tìm kiếm theo code, tên khách hàng...">
+                                <i class="ri-search-line search-icon"></i>
                             </div>
-            
                         </div>
-                    
                     </form>
                 </div>
                 <div class="card-body">
@@ -249,18 +246,15 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-body border border-dashed border-end-0 border-start-0">
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-xxl-5 col-sm-12">
-                                <div class="search-box">
-                                    <input type="text" class="form-control search bg-light border-light" placeholder="Search for ticket details or something...">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
+                <div class="card-body bg-light-subtle border border-dashed border-start-0 border-end-0">
+                    <form action="{{ route('admin.vouchers.index') }}" method="GET" class="d-flex">
+                        <input type="hidden" name="section" value="percent">
+                        <div class="col-xxl-5 col-sm-6">
+                            <div class="search-box">
+                                <input type="text" class="form-control search" value="{{ request()->get('search') }}" id="search-input" name="search" placeholder="Tìm kiếm theo code, tên khách hàng...">
+                                <i class="ri-search-line search-icon"></i>
                             </div>
-            
                         </div>
-                    
                     </form>
                 </div>
                 <div class="card-body">
@@ -401,18 +395,15 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-body border border-dashed border-end-0 border-start-0">
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-xxl-5 col-sm-12">
-                                <div class="search-box">
-                                    <input type="text" class="form-control search bg-light border-light" placeholder="Search for ticket details or something...">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
+                <div class="card-body bg-light-subtle border border-dashed border-start-0 border-end-0">
+                    <form action="{{ route('admin.vouchers.index') }}" method="GET" class="d-flex">
+                        <input type="hidden" name="section" value="percent_max">
+                        <div class="col-xxl-5 col-sm-6">
+                            <div class="search-box">
+                                <input type="text" class="form-control search" value="{{ request()->get('search') }}" id="search-input" name="search" placeholder="Tìm kiếm theo code, tên khách hàng...">
+                                <i class="ri-search-line search-icon"></i>
                             </div>
-            
                         </div>
-                    
                     </form>
                 </div>
                 <div class="card-body">

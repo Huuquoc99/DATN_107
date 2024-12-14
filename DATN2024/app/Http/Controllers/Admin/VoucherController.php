@@ -13,11 +13,56 @@ class VoucherController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $listVoucher = Voucher::with('products')->orderBy('id', 'desc')->get();
-        return view("admin.vouchers.index", compact('listVoucher'));
-    }
+    // public function index()
+    // {
+    //     $listVoucher = Voucher::with('products')->orderBy('id', 'desc')->get();
+    //     return view("admin.vouchers.index", compact('listVoucher'));
+    // }
+
+//     public function index(Request $request)
+// {
+//     // Get the search query from the request
+//     $search = $request->get('search');
+
+//     // Build the query with search functionality
+//     $listVoucher = Voucher::with('products')
+//         ->when($search, function($query) use ($search) {
+//             return $query->where('code', 'like', '%'.$search.'%')
+//                          ->orWhere('name', 'like', '%'.$search.'%')
+//                          ->orWhere('discount', 'like', '%'.$search.'%'); // Adding search for discount
+//         })
+//         ->orderBy('id', 'desc')
+//         ->get();
+
+//     return view("admin.vouchers.index", compact('listVoucher'));
+// }
+public function index(Request $request)
+{
+    $search = $request->get('search');
+    $section = $request->get('section');
+
+    // For different sections
+    $listVoucher = Voucher::with('products')
+        ->when($section == 'amount', function($query) use ($search) {
+            return $query->where('code', 'like', '%'.$search.'%')
+                         ->orWhere('name', 'like', '%'.$search.'%')
+                         ->orWhere('discount', 'like', '%'.$search.'%');
+        })
+        ->when($section == 'percent', function($query) use ($search) {
+            return $query->where('code', 'like', '%'.$search.'%')
+                         ->orWhere('name', 'like', '%'.$search.'%')
+                         ->orWhere('discount', 'like', '%'.$search.'%');
+        })
+        ->when($section == 'percent_max', function($query) use ($search) {
+            return $query->where('code', 'like', '%'.$search.'%')
+                         ->orWhere('name', 'like', '%'.$search.'%')
+                         ->orWhere('discount', 'like', '%'.$search.'%');
+        })
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return view("admin.vouchers.index", compact('listVoucher'));
+}
 
     /**
      * Show the form for creating a new resource.
