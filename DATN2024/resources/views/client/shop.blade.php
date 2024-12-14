@@ -142,9 +142,9 @@
                                 <option value="3" {{ in_array('3', $selectedPrices) ? 'selected' : '' }}>3 đến 5
                                     triệu
                                 </option> --}}
-                                <option value="4" {{ in_array('4', $selectedPrices) ? 'selected' : '' }}> Dưới 10
+                                {{-- <option value="4" {{ in_array('4', $selectedPrices) ? 'selected' : '' }}> Dưới 10
                                     triệu
-                                </option>
+                                </option> --}}
                                 <option value="5" {{ in_array('5', $selectedPrices) ? 'selected' : '' }}>10 đến 15
                                     triệu
                                 </option>
@@ -173,10 +173,10 @@
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('3', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
                                     <span class="me-auto">3 đến 5 triệu</span>
                                 </li> --}}
-                                <li
+                                {{-- <li
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('4', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
                                     <span class="me-auto">Dưới 10 triệu</span>
-                                </li>
+                                </li> --}}
                                 <li
                                     class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select js-price-select {{ in_array('5', $selectedPrices) ? 'mult-select__item_selected' : '' }}">
                                     <span class="me-auto">10 đến 15 triệu</span>
