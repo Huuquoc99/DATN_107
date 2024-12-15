@@ -21,6 +21,14 @@ class VoucherController extends Controller
         $catalogues = Catalogue::where('is_active', 1)->get();
         $vouchers = Voucher::query()->active()->whereColumn('used_quantity', '<', 'quantity')->get();
         // dd($vouchers);
+
+        $clientIP = request()->ip();
+        $vouchers = $vouchers->filter(function($voucher) use ($clientIP) {
+            return !DB::table('voucher_usage')
+                        ->where('voucher_code', $voucher->code)
+                        ->where('ip_address', $clientIP)
+                        ->exists();
+        });
         return view('client.vouchers', compact('catalogues','vouchers'));
     }
 
@@ -269,6 +277,8 @@ class VoucherController extends Controller
     // }
     
 
+    // oki
+
     public function applyVoucher(ApplyVoucherRequest $request)
     {
         session()->forget('voucher');
@@ -399,7 +409,8 @@ class VoucherController extends Controller
     }
 
 
-    
+
+
     
 
     
