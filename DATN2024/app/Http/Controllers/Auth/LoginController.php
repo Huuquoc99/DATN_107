@@ -18,34 +18,51 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-    //    dd($request);
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'min:8', 'max:20', 'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/'],
         ]);
 
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !$user->isUser()) {
+            Auth::logout();
+            return redirect()->back()
+                ->withInput($request->only('email'))
+                ->with('error', 'Bạn không có quyền truy cập trang này!');
+        }
+
 
         if (Auth::attempt($credentials)) {
-
             $request->session()->regenerate();
 
             $this->mergeSessionCartToDbCart();
 
+            session()->flash('success', 'Đăng nhập thành công! Chào mừng trở lại: ' . Auth::user()->name . '.');
+
             return redirect()->intended('/');
         }
 
+        session()->flash('error', 'Thông tin xác thực được cung cấp không khớp với hồ sơ của chúng tôi.');
+
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Thông tin xác thực được cung cấp không khớp với hồ sơ của chúng tôi.',
         ])->onlyInput('email');
     }
+
 
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        session()->flash('success', 'Đăng xuất thành công!.');
+
         return redirect('/');
     }
+
 
     protected function mergeSessionCartToDbCart()
     {
@@ -64,11 +81,9 @@ class LoginController extends Controller
                     ])->first();
 
                     if ($cartItem) {
-                        // Cập nhật số lượng sản phẩm trong giỏ hàng
                         $newQuantity = $cartItem->quantity + $item['quantity'];
                         $cartItem->update(['quantity' => $newQuantity]);
                     } else {
-                        // Thêm mới sản phẩm vào giỏ hàng
                         CartItem::create([
                             'cart_id' => $dbCart->id,
                             'product_variant_id' => $item['product_variant_id'],
@@ -78,10 +93,8 @@ class LoginController extends Controller
                     }
                 }
 
-                // Xóa giỏ hàng trong session sau khi hợp nhất
                 session()->forget('cart');
             } else {
-                // Nếu giỏ hàng không tồn tại trong DB, tạo mới giỏ hàng cho người dùng
                 $dbCart = Cart::create(['user_id' => Auth::id()]);
 
                 foreach ($sessionCart as $item) {
@@ -93,7 +106,6 @@ class LoginController extends Controller
                     ]);
                 }
 
-                // Xóa giỏ hàng trong session sau khi hợp nhất
                 session()->forget('cart');
             }
         }
@@ -104,4 +116,3 @@ class LoginController extends Controller
         return view('client.account.dashboard');
     }
 }
-// dsfsdf

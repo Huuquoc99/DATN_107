@@ -121,8 +121,22 @@
       <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/barryvdh/laravel-dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/dompdf/dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/dompdf/php-font-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/dompdf/php-svg-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/pusher/pusher-php-server" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/sabberworm/php-css-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/php-flasher/flasher" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/php-flasher/flasher-laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/DATN2024/vendor/yoeunes/toastr" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="ckeditor5.umd" level="application" />
+    <orderEntry type="library" name="ckeditor5" level="application" />
   </component>
 </module>

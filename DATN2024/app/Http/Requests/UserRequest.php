@@ -34,19 +34,19 @@ class UserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "Name is required.",
-            "name.max" => "Name must not exceed 255 characters.",
-            "email.required" => "Email is required.",
-            "email.max" => "Email must not exceed 255 characters.",
-            // "email.unique" => "This email is already taken.",
-            "password.required" => "Password is required.",
-            "password.max" => "Password must not exceed 20 characters.",
-            "password.min" => "Password must be at least 8 characters.",
-            "phone.required" => "Phone number is required.",
-            "phone.max" => "Phone number must not exceed 255 characters.",
-            "phone.numeric" => "Phone number must be a valid number.",
-            "address.required" => "Address is required.",
-            "address.max" => "Address must not exceed 255 characters.",
+            "name.required" => "Tên là bắt buộc.",
+            "name.max" => "Tên không được vượt quá 255 ký tự.",
+            "email.required" => "Email là bắt buộc.",
+            "email.max" => "Email không được vượt quá 255 ký tự.",
+            // "email.unique" => "Email này đã được sử dụng.",
+            "password.required" => "Mật khẩu là bắt buộc.",
+            "password.max" => "Mật khẩu không được vượt quá 20 ký tự.",
+            "password.min" => "Mật khẩu phải có ít nhất 8 ký tự.",
+            "phone.required" => "Số điện thoại là bắt buộc.",
+            "phone.max" => "Số điện thoại không được vượt quá 255 ký tự.",
+            "phone.numeric" => "Số điện thoại phải là số hợp lệ.",
+            "address.required" => "Địa chỉ là bắt buộc.",
+            "address.max" => "Địa chỉ không được vượt quá 255 ký tự.",
         ];
         
     }

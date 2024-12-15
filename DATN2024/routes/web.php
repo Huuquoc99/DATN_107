@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\Auth\Admin\AdminLoginController;
 use App\Http\Controllers\Auth\Admin\AdminResetPasswordController;
 use App\Http\Controllers\Auth\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\VoucherController as ClientVoucherController;
 
 // use App\Http\Controllers\Admin\PaymentMethodController;
@@ -53,50 +55,59 @@ use App\Http\Controllers\Client\VoucherController as ClientVoucherController;
     // });
 
 
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
-    // Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
-    Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
-        ->name('product.detail');
-    Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
-        ->name('product.getVariantDetails');
-    Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
-// Route::post('/search',  [HomeController::class, 'search'])->name('product.search');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/catalogue/{id}/product',  [HomeController::class, 'productByCatalogue'])->name('catalogue.product');
+Route::get('product-detail/{slug}', [\App\Http\Controllers\Client\ProductController::class, 'productDetail'])
+    ->name('product.detail');
+Route::post('product/get-variant-details', [\App\Http\Controllers\Client\ProductController::class, 'getVariantDetails'])
+    ->name('product.getVariantDetails');
+Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
-Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/search',           [HomeController::class, 'search'])->name('search');
 
-Route::get('notfound', [HomeController::class, 'notfound'])->name('notfound');
-Route::get('about', [HomeController::class, 'about'])->name('about');
-Route::get('contact', [HomeController::class, 'contact'])->name('contact');
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::get('notfound',          [HomeController::class, 'notfound'])->name('notfound');
+Route::get('about',             [HomeController::class, 'about'])->name('about');
+Route::get('contact',           [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact',         [ContactController::class, 'submit'])->name('contact.submit');
 
-Route::get('shop', [HomeController::class, 'shop'])->name('shop');
-Route::get('vouchers', [ClientVoucherController::class, 'index'])->name('voucher');
+Route::get('shop',              [HomeController::class, 'shop'])->name('shop');
+Route::get('blog',              [BlogController::class, 'index'])->name('blog');
+Route::get('vouchers',          [ClientVoucherController::class, 'index'])->name('voucher');
+Route::post('apply-voucher',    [ClientVoucherController::class, 'applyVoucher']);
 
 Route::prefix('cart')->name('cart.')->group(function () {
-    Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('list', [CartController::class, 'cartList'])->name('list');
-    Route::post('delete', [CartController::class, 'deleteCart'])->name('delete');
+    Route::post('add-to-cart',          [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('list',                  [CartController::class, 'cartList'])->name('list');
+    Route::post('delete',               [CartController::class, 'deleteCart'])->name('delete');
     Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
-
+    Route::get('count',                 [CartController::class, 'getCart'])->name('count');
 });
+
 
 // VnPay Payment
 Route::get('vnpay-return', [CheckoutController::class, 'vnpayReturn'])->name('checkout.vnpayReturn');
 
+Route::get('/checkout',    [CheckoutController::class, 'index'])->name('checkout.index');
 
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-
-Route::get('order/districts/{provinceId}', [CheckoutController::class, 'getDistricts']);
-Route::get('order/wards/{districtId}', [CheckoutController::class, 'getWards']);
+Route::get('order/districts/{provinceId}',  [CheckoutController::class, 'getDistricts']);
+Route::get('order/wards/{districtId}',      [CheckoutController::class, 'getWards']);
 
 
-Route::post('/guest-checkout', [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
-Route::get('/guest-checkout/success', [CheckoutController::class, 'success'])->name('guest-checkout.success');
-Route::get('/guest-checkout/fail', [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
+Route::post('/guest-checkout',              [CheckoutController::class, 'processCheckoutForGuests'])->name('guest-checkout.process');
+Route::get('/guest-checkout/success',       [CheckoutController::class, 'success'])->name('guest-checkout.success');
+Route::get('/guest-checkout/fail',          [CheckoutController::class, 'fail'])->name('guest-checkout.failed');
+Route::post('/guest-checkout/repayment',    [CheckoutController::class, 'repaymentForGuest'])->name('guest.repayment');
+Route::post('/send-verification-code',      [CheckoutController::class, 'sendVerificationCode'])->name('send-verification-code');
+Route::post('/verify-email-code',           [CheckoutController::class, 'verifyEmailCode'])->name('verify-email-code');
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware('auth', 'checkUserMiddleware')->group(function () {
+
+    Route::post('/toggle-favorite', [FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
+    Route::get('account/favorites', [FavoriteController::class, 'listFavorites'])->name('favorites.list');
+    Route::post('/remove-favorite', [FavoriteController::class, 'removeFavorite'])->name('favorites.remove');
+
 
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -111,13 +122,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
     Route::post('/account/orders/{id}/repayment', [OrderController::class, 'repayment'])->name('account.orders.repayment');
-
-    // // Comment
-    // Route::get('comments', [CommentController::class, 'index']);
-    // Route::put('comments/{id}', [CommentController::class, 'edit']);
-    // Route::delete('comments/{id}', [CommentController::class, 'destroy']);
-    // Route::post('products/{product_id}/comments', [CommentController::class, 'store'])->name('comments.store');
-
+    // Route::post('/account/orders/', [OrderController::class, 'search'])->name('search');
+    Route::post('/account/orders/', [OrderController::class, 'search_order'])->name('search_order');
+    // Comments
     Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
     Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
     Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
@@ -130,14 +137,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
     Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
     Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
-    
+
 });
 
 // Auth
 Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::get('/login', [LoginController::class, 'showLogin']);
 Route::post("login", [LoginController::class, 'login'])->name('login');
+Route::get('/login', [LoginController::class, 'showLogin']);
+
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Forgot password
@@ -200,7 +208,7 @@ Route::prefix('admin')
         Route::post('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
         Route::put('orders/{id}/update-payment-status', [AdminOrderController::class, 'updatePaymentStatus'])
         ->name('orders.updatePaymentStatus');
-    
+
         // Invoice
         Route::get('/invoices', [InvoiceController::class, 'getInvoices'])->name('invoices.index');
         Route::get('/invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
@@ -210,4 +218,6 @@ Route::prefix('admin')
         Route::put('account/{id}/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
         Route::put('account/{id}/update-avatar', [AccountController::class, 'updateAvatar'])->name('account.updateAvatar');
         Route::put('account/{id}/change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
+
+        Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notification.index');
     });

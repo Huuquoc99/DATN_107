@@ -1,69 +1,71 @@
-
 <div class="aside aside_right overflow-hidden customer-forms" id="customerForms">
-    
-    
-    <div class="container9 mt-5" style="max-width: 400px;">
+
+
+    <div class="container9 mt-5" style="max-width: 400px; margin-top: 200px;">
         <button class="btn-close-lg js-close-aside position-absolute top-0 end-0 m-2" aria-label="Close">
         </button>
         @auth
-        <div class="card9 shadow-lg">
-            <div class="card9-header text-center bg-primary text-white">
-                <h4 class="mb-0" style="color: white">Thông tin người dùng</h4>
+            <div class="card9 shadow-lg">
+                <div class="card9-header text-center bg-primary text-white">
+                    <h4 class="mb-0" style="color: white">Thông tin người dùng</h4>
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
+                    <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
+                    <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                        @csrf
+                        <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
+                    </form>
+                    <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">Quản lý tài khoản</a>
+                </div>
             </div>
-            <div class="card-body text-center">
-                <p class="mb-2">Xin chào, <strong>{{ Auth::user()->name }}</strong>!</p>
-                <p class="text-muted">Email: <strong>{{ Auth::user()->email }}</strong></p>
-                <form action="{{ route('logout') }}" method="POST" class="mt-3">
-                    @csrf
-                    <button type="submit" class="btn btn-primary w-100">Đăng xuất</button>
-                </form>
-                <a href="{{ route('account.dashboard') }}" class="btn btn-primary w-100 mt-2">My Account</a>
-            </div>
-        </div>
         @endauth
     </div>
-    
+
     @guest
-    <div class="customer-forms__wrapper d-flex position-relative">
-        <div class="customer__login">
-            <div class="aside-header d-flex align-items-center">
-                <h1 class="text-uppercase fs-6 mb-0">Sign In</h1>
-            </div><!-- /.aside-header -->
+        <div class="customer-forms__wrapper d-flex position-relative">
+            <div class="customer__login">
+                <div class="aside-header d-flex align-items-center">
+                    <h1 class="text-uppercase fs-6 mb-0">Đăng nhập</h1>
+                </div><!-- /.aside-header -->
 
-            <form action="{{ route('login') }}" method="POST" class="aside-content">
-                @csrf
-                <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
-                    id="customerNameEmailInput" placeholder="Email">
-                @error('password')
+                <form action="{{ route('login') }}" method="POST" class="aside-content">
+                    @csrf
+                    <input name="email" type="email" class="input form-control @error('email') is-invalid @enderror"
+                           id="customerNameEmailInput" placeholder="Email">
+                    @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                    @enderror
 
-                <div class="pb-3"></div>
+                    <div class="pb-3"></div>
 
-                <input name="password" id="customerPasswordInput"
-                    class="input form-control @error('password') is-invalid @enderror" type="password" placeholder="Password">
-                @error('password')
+                    <input name="password" id="customerPasswordInput"
+                           class="input form-control @error('password') is-invalid @enderror" type="password"
+                           placeholder="Mật khẩu">
+                    @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                    @enderror
 
-                <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
+                    @if (session('error'))
+                        <div class="text-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    <button class="btn btn-primary w-100 text-uppercase mt-3" type="submit">Đăng nhập</button>
 
-                <div class="customer-option mt-4 text-center">
-                    <span class="text-secondary">Chưa có tài khoản?</span>
-                    <a href="{{ route('register') }}" class="btn-text js-show-register">Tạo tài khoản</a>
-                </div>
-            </form>
+                    <div class="customer-option mt-4 text-center">
+                        <span class="text-secondary">Chưa có tài khoản?</span>
+                        <a href="{{ route('register') }}" class="btn-text js-show-register">Tạo tài khoản</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
     @endguest
 </div>
-
-
-
 
 
 <header id="header" class="fixed-top header w-100 theme-bg-color bg-dark">
@@ -98,7 +100,7 @@
                         </a>
                     </li>
                 </ul>
-               
+
             </div>
         </div>
     </div> -->
@@ -111,28 +113,28 @@
                     </a>
                 </div>
 
-                <nav class="navigation flex-grow-1 fs-15 fw-semi-bold">
-                    <ul class="navigation__list list-unstyled d-flex">
-                        <li class="navigation__item">
-                            <a href="{{ route('home') }}" class="navigation__link text-white">Home</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="/shop" class="navigation__link text-white">Shop</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="#" class="navigation__link text-white">Blog</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{route("voucher")}}" class="navigation__link text-white">Voucher</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{ route('about') }}" class="navigation__link text-white">About</a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{ route('contact') }}" class="navigation__link text-white">Contact</a>
-                        </li>
-                    </ul>
-                </nav>
+                <nav class="navigation flex-grow-1 fs-15" style="display: flex; padding: 0; margin: 0; align-items: center; margin-top:10px;">
+    <ul class="navigation__list list-unstyled d-flex" style="display: flex; padding: 0; margin: 0;">
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="{{ route('home') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Trang chủ</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="/shop" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Cửa hàng</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left:10px;">
+            <a href="{{ route('blog') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Tin Tức</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="{{ route('voucher') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Mã Giảm Giá</a>
+        </li>
+        <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
+            <a href="{{ route('about') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Giới thiệu</a>
+        </li>
+        <li class="navigation__item" style="margin-left: 15px;">
+            <a href="{{ route('contact') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Liên hệ</a>
+        </li>
+    </ul>
+</nav>
 
                 <div class="header-tools d-flex align-items-center me-0">
                     <div class="header-tools__item hover-container">
@@ -140,9 +142,16 @@
                             <i class="fa-regular fa-user fa-xl text-white"></i>
                         </a>
                     </div>
+                    <div class="header-tools__item hover-container">
+                        <a class="" href="{{ route('favorites.list') }}" data-aside="customerForms">
+                            <i class="fa-regular fa-heart fa-xl" style="color: #f2f2f2;"></i>
+                        </a>
+                    </div>
                     <a href="{{ route('cart.list') }}" class="header-tools__item header-tools__cart">
                         <i class="fa-solid fa-cart-shopping fa-xl text-white"></i>
-                        {{-- <span class="cart-amount d-block position-absolute js-cart-items-count">3</span> --}}
+                        <span id="cart-count" class="cart-amount d-block position-absolute">{{ $cartCount }}</span>
+
+                        {{--                        <span class="cart-amount d-block position-absolute js-cart-items-count">1</span>--}}
                     </a>
                 </div>
             </div>
@@ -151,25 +160,31 @@
         <div class="header-bottom pb-4">
             <div class="header-container mx-auto d-flex align-items-center ">
                 <div class="categories-nav position-relative">
-                    <h3
-                        class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4 border-radius-10">
+                    <h3 style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
+                        class="categories-nav__title d-flex align-items-center gap-4 py-2 btn-50 theme-bg-color-secondary text-primary px-4">
                         <i class="fa-solid fa-bars fa-xl"></i>
-                        <span class="fw-semi-bold lh-1 mb-4">Browse Categories</span>
+                        <span class="fw-semi-bold lh-1 mb-1">Danh mục</span>
                         <i class="fa-solid fa-angle-down fa-xl"></i>
+
                     </h3>
-                    <ul class="categories-nav__list list-unstyled border-radius-10">
-                        @if(isset($catalogues) && $catalogues->isNotEmpty())
-                            @foreach($catalogues as $catalogue)
-                                <li class="categories-nav__item">
-                                    <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
-                                      style="color: black"   class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">{{$catalogue->name}}</a>
-                                </li>
-                            @endforeach
-                        @endif
-                        {{-- <li class="categories-nav__item"><a class="text-primary" href="#">Electronics</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Computers</a></li>
-                        <li class="categories-nav__item"><a class="text-primary" href="#">Audio & Video</a></li> --}}
-                    </ul>
+                    <ul class="categories-nav__list list-unstyled">
+    @if(isset($catalogues) && $catalogues->isNotEmpty())
+        @foreach($catalogues as $catalogue)
+            <li class="categories-nav__item" style="height: 40px;  display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
+                <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"
+                   style="color: black; text-align: center; display: block; width: 100%;" class="menu-link py-1 {{ request()->get('c') == $catalogue->id ? 'shop_active' : '' }}">
+                   {{$catalogue->name}}
+                </a>
+            </li>
+        @endforeach
+    @endif
+</ul>
+
+                    <style>
+                        .categories-nav__item:hover {
+                            background-color: #d3d3d3; /* Màu xám */
+                        }
+                    </style>
                 </div>
 
                 <!-- <form action="https://uomo-html.flexkitux.com/Demo18/" method="GET"
@@ -182,12 +197,13 @@
                 </form> -->
 
                 <form action="{{route('search')}}" method="GET"
-                    class="header-search search-field me-0 border-radius-10">
+                      class="header-search search-field me-0 border-radius-10">
                     <button class="btn header-search__btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                     </button>
-                    <input class="header-search__input w-100" type="text" name="k" value="{{request()->routeIs('search') ? request()->get('k') : '' }}"
-                        placeholder="Search products...">
+                    <input class="header-search__input w-100" type="text" name="k"
+                           value="{{request()->routeIs('search') ? request()->get('k') : '' }}"
+                           placeholder="Tìm kiếm sản phẩm ..." style="">
                 </form>
             </div>
         </div>
@@ -195,9 +211,9 @@
 </header>
 
 <!-- End Header Type 6 -->
-<div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
+{{-- <div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
     <div class="aside-header d-flex align-items-center">
-        <h3 class="text-uppercase fs-6 mb-0">SHOPPING BAG ( <span class="cart-amount js-cart-items-count">1</span> )
+        <h3 class="text-uppercase fs-6 mb-0">Giỏ hàng ( <span class="cart-amount js-cart-items-count">1</span> )
         </h3>
         <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
     </div><!-- /.aside-header -->
@@ -207,7 +223,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
+                         src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -217,7 +233,7 @@
                 <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="qty-control position-relative">
                         <input type="number" name="quantity" value="1" min="1"
-                            class="qty-control__number border-0 text-center">
+                               class="qty-control__number border-0 text-center">
                         <div class="qty-control__reduce text-start">-</div>
                         <div class="qty-control__increase text-end">+</div>
                     </div><!-- .qty-control -->
@@ -234,7 +250,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
+                         src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -244,7 +260,7 @@
                 <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="qty-control position-relative">
                         <input type="number" name="quantity" value="4" min="1"
-                            class="qty-control__number border-0 text-center">
+                               class="qty-control__number border-0 text-center">
                         <div class="qty-control__reduce text-start">-</div>
                         <div class="qty-control__increase text-end">+</div>
                     </div><!-- .qty-control -->
@@ -261,7 +277,7 @@
             <div class="position-relative">
                 <a href="product1_simple.html">
                     <img loading="lazy" class="cart-drawer-item__img"
-                        src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
+                         src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
                 </a>
             </div>
             <div class="cart-drawer-item__info flex-grow-1">
@@ -271,7 +287,7 @@
                 <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="qty-control position-relative">
                         <input type="number" name="quantity" value="3" min="1"
-                            class="qty-control__number border-0 text-center">
+                               class="qty-control__number border-0 text-center">
                         <div class="qty-control__reduce text-start">-</div>
                         <div class="qty-control__increase text-end">+</div>
                     </div><!-- .qty-control -->
@@ -293,4 +309,4 @@
         <a href="shop_cart.html" class="btn btn-light mt-3 d-block">View Cart</a>
         <a href="shop_checkout.html" class="btn btn-primary mt-3 d-block">Checkout</a>
     </div>
-</div>
+</div> --}}

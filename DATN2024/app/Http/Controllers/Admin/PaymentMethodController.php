@@ -16,7 +16,6 @@ class PaymentMethodController extends Controller
     public function index()
     {
         $listPaymentMethod = PaymentMethod::paginate(5);
-        // return response()->json( $listPaymentMethod, 201);
         return view("admin.paymentMethods.index", compact('listPaymentMethod'));
 
     }
@@ -26,9 +25,7 @@ class PaymentMethodController extends Controller
      */
     public function create()
     {
-        // return response()->json();
         return view("admin.paymentMethods.create");
-
     }
 
     /**
@@ -50,8 +47,8 @@ class PaymentMethodController extends Controller
             $param['is_active'] = $request->has('is_active') ? 1 : 0;
             $paymentMethod = PaymentMethod::create($param);
             $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
-            // return response()->json(['message' => 'Payment method created successfully']);
-            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method created successfully");
+            
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Phương thức thanh toán đã được tạo thành công");
 
         }
     }
@@ -62,7 +59,6 @@ class PaymentMethodController extends Controller
     public function show(string $id)
     {
         $paymentMethod = PaymentMethod::query()->findOrFail($id);
-        // return response()->json($paymentMethod);
         return view("admin.paymentMethods.show", compact('paymentMethod'));
 
     }
@@ -73,7 +69,6 @@ class PaymentMethodController extends Controller
     public function edit(string $id)
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
-        // return response()->json($paymentMethod);
         return view("admin.paymentMethods.edit", compact("paymentMethod"));
 
     }
@@ -101,8 +96,8 @@ class PaymentMethodController extends Controller
             $paymentMethod->is_active = $request->has('is_active') ? 1 : 0;
             $paymentMethod->update($param);
             $paymentMethod->is_active == 0 ? $paymentMethod->hide() : $paymentMethod->show();
-            // return response()->json(['message' => 'Payment method updated successfully']);
-            return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method updated successfully");
+    
+            return redirect()->route("admin.paymentMethods.index")->with("success", "Phương thức thanh toán đã được cập nhật thành công");
 
         }
     }
@@ -118,8 +113,7 @@ class PaymentMethodController extends Controller
         {
             Storage::disk("public")->delete($paymentMethod->image);
         }
-        // return response()->json(['message' => 'Payment method deleted successfully']);
-        return redirect()->route("admin.paymentMethods.index")->with("success", "Payment method deleted successfully");
+        return redirect()->route("admin.paymentMethods.index")->with("success", "Đã xóa phương thức thanh toán thành công");
 
     }
 }

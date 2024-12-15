@@ -30,12 +30,15 @@
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/cart.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/index.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('theme/client/Demo18/css/wishlist-icon.css') }}" type="text/css">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Toastr JS -->
@@ -48,7 +51,7 @@
       <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    
+
     <!-- Document Title -->
     <title>Home v18 | Uomo eCommerce HTML5 Template</title>
 

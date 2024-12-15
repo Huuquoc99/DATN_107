@@ -11,9 +11,26 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $comments = Comment::orderBy('created_at', 'desc')->paginate(7);  
+    //     return view('admin.comments.index', compact('comments'));
+    // }
+
+    public function index(Request $request)
     {
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(7);  
+        $query = Comment::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            })
+            ->orWhere('content', 'like', "%$search%");
+        }
+
+        $comments = $query->with(['user', 'product'])->paginate(10);
+
         return view('admin.comments.index', compact('comments'));
     }
 
@@ -69,7 +86,7 @@ class CommentController extends Controller
     
         $comment->save();
     
-        return redirect()->route('admin.comments.index')->with('success', 'Comment status updated successfully.');
+        return redirect()->route('admin.comments.index')->with('success', 'Bình luận đã được cập nhật thành công.');
     }
     
 
@@ -81,6 +98,6 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
         $comment->delete();
 
-        return redirect()->route('admin.comments.index')->with('success', 'Comment deleted successfully.');
+        return redirect()->route('admin.comments.index')->with('success', 'Bình luận đã được xóa thành công.');
     }
 }

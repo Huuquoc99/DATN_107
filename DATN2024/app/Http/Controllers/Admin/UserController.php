@@ -13,9 +13,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
-        $users = User::orderBy('created_at', 'desc')->paginate(7);
-        // return response()->json($users);
+        // $users = User::orderBy('created_at', 'desc')->paginate(7);
+        $users = User::where('type', 0)
+            ->orderBy('created_at', 'desc')
+            ->paginate(7);
         return view("admin.customers.index", compact('users'));
 
     }
@@ -43,11 +44,10 @@ class UserController extends Controller
     {
         $users = User::findOrFail($id);
         if($users) {
-            // return response()->json($users);
             return view("admin.customers.show", compact('users'));
 
         }else{
-            return response()->json(["message" => "User not found"], 404);
+            return response()->json(["message" => "Không tìm thấy người dùng"], 404);
         }
     }
 
@@ -73,7 +73,7 @@ class UserController extends Controller
         $user->type = $request->type;
         $user->save();
     
-        return redirect()->route('admin.customers.index')->with('success', 'User type updated successfully.');
+        return redirect()->route('admin.customers.index')->with('success', 'Đã cập nhật loại người dùng thành công.');
     }
 
     /**

@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Tag
+    TechStore
 @endsection
 
 
@@ -14,8 +14,8 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">Create</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Thêm mới</li>
                     </ol>
                 </div>
 
@@ -29,14 +29,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Tag create</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Thêm mới</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="" class="form-label">Name</label>
+                                        <label for="" class="form-label">Tên</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -46,13 +46,13 @@
                                     </div>
                                     <div class="mb-3 form-check">
                                         <input type="checkbox" class="form-check-input" id="" name="status">
-                                        Status
+                                        Trạng thái
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <label for="" class="form-label">Description</label>
+                                            <label for="" class="form-label">Mô tả</label>
                                             <textarea name="description" id="" cols="30" rows="2" type="text" class="form-control" id="description"></textarea>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Tag create <i class="fa-regular fa-plus"></i></button>
+                        <button class="btn btn-primary">Thêm mới <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>

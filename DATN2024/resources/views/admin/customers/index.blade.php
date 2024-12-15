@@ -1,17 +1,17 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Customer')
+@section('title', 'TechStore')
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Customer</h4>
+                <h4 class="mb-sm-0">Người dùng</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active"> List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Customer list</h5>
+                    <h5 class="card-title mb-0">Danh sách người dùng</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table-data ">
@@ -36,19 +36,19 @@
                                style="width:100%">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Avatar</th>
-                                <th>Name</th>
+                                <th>STT</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên</th>
                                 <th>Email</th>
-                                <th>Type</th>
-                                <th>Create at</th>
-                                <th>Action</th>
+                                <th>Vai trò</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody id="product-list">
                                 @foreach($users as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $users->firstItem() + $loop->index }}</td>
                                         <td>
                                             @if ($item->avatar)
                                                 <img src="{{ Storage::url($item->avatar) }}" alt="" width="70px" height="60px">
@@ -58,7 +58,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.customers.show', $item) }}">
+                                            <a href="{{ route('admin.customers.show', $item) }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->name }}">
                                                 {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
@@ -70,10 +70,10 @@
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2  justify-content-center">
-                                                <a href="{{ route('admin.customers.show', $item) }}" class="btn btn-info btn-sm">Show 
+                                                <a href="{{ route('admin.customers.show', $item) }}" class="btn btn-info btn-sm">Chi tiết 
                                                     <i class="fa-solid fa-circle-info fa-sm"></i>
                                                 </a>
-                                                <a href="{{ route('admin.customers.edit', $item) }}" class="btn btn-primary btn-sm">Edit 
+                                                <a href="{{ route('admin.customers.edit', $item) }}" class="btn btn-primary btn-sm">Chỉnh sửa 
                                                     <i class="fa-regular fa-pen-to-square fa-sm"></i>
                                                 </a>
                                             </div>
@@ -84,7 +84,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p>Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} users</p>
+                                <p>Hiển thị từ {{ $users->firstItem() }} đến {{ $users->lastItem() }} trong tổng số {{ $users->total() }} người dùng</p>
                             </div>
                             <div>
                                 {{ $users->links() }}

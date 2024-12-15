@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,6 +35,7 @@ class Product extends Model
         "is_good_deal",
         "is_new",
         "is_show_home",
+        "views",
     ];
 
     protected $casts = [
@@ -80,5 +82,12 @@ class Product extends Model
             $query->where('quantity', '>', 0);
         });
     }
+
+    public function vouchers()
+    {
+        return $this->belongsToMany(Voucher::class, 'voucher_product', 'product_id', 'voucher_id');
+    }
+
+
 
 }

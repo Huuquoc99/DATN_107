@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Events\OrderChangeStatus;
+use App\Traits\OrderStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, OrderStatusTrait;
 
     protected $fillable = [
         'user_id',
@@ -16,6 +18,9 @@ class Order extends Model
         'code',
         'user_name',
         'user_email',
+        'cancel_reason',
+        'other_reason',
+        'canceled_by',
         'user_phone',
         'user_address',
         'user_note',
@@ -32,6 +37,8 @@ class Order extends Model
         'status_payment_id',
         'payment_method_id',
         'total_price',
+        'subtotal',
+        'voucher_id',
     ];
 
     public function user()
@@ -62,5 +69,21 @@ class Order extends Model
     public function voucher()
     {
         return $this->belongsTo(Voucher::class);
+    }
+
+    public function statusLogs()
+    {
+        return $this->morphMany(OrderStatusLog::class, 'loggable');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($order) {
+            if ($order->isDirty('status_order_id')) {
+                broadcast(new OrderChangeStatus($order->id, $order->status_order_id));
+            }
+        });
     }
 }

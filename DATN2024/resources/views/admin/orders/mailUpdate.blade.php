@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,33 +72,54 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="header">
-        <h2 style="padding-left: 20px">Order Status Update Notification</h2>
-    </div>
-
-    <div class="content">
-        <p>Hello <strong>{{ $order->user->name }}</strong>,</p>
-        <p>We would like to inform you that your order with code <strong>{{ $order->code }}</strong> has been updated by admin to status: {{ $order->statusOrder->name }}</p>
-        
-        <div class="order-details">
-            <p><strong>Order details:</strong></p>
-            <p>Order code: <strong>{{ $order->code }}</strong></p>
-            <p>Status: <strong>{{ $order->statusOrder->name }}</strong></p>
+    <div class="container">
+        <div class="header">
+            <h2 style="padding-left: 20px">Thông báo cập nhật trạng thái đơn hàng</h2>
         </div>
 
-        <p>If you have any questions or need further assistance, please contact us via email or phone number below.</p>
+        <div class="content">
+            <p>
+                Xin chào
+                <strong>
+                    {{ $order->user ? $order->user->name : $order->ship_user_name }}
+                </strong>,
+            </p>
+            <p>
+                Chúng tôi muốn thông báo với bạn rằng đơn hàng có mã
+                <strong>{{ $order->code }}</strong>
+                đã được quản trị viên cập nhật thành trạng thái:
+                <strong>{{ $order->statusOrder->name }}</strong>
+            </p>
 
-        <p>Thank you very much for using our service!</p>
-    </div>
+            <div class="order-details">
+                <p><strong>Chi tiết đơn hàng:</strong></p>
+                <p>Mã đơn hàng: <strong>{{ $order->code }}</strong></p>
+                <p>Trạng thái: <strong>{{ $order->statusOrder->name }}</strong></p>
+            </div>
 
-    <div class="footer">
-        <p><a href="mailto:techstore@gmail.com">Support Email</a> | <a href="tel:0987654321">Contact by phone</a></p>
-        <p>Best regards, TechStore</p>
+            <p>
+                @if ($order->user)
+                    Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ thêm, vui lòng liên hệ với chúng tôi qua email hoặc số
+                    điện thoại bên dưới.
+                @else
+                    Vì bạn đã đặt đơn hàng này với tư cách là khách, nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui
+                    lòng cung cấp mã đơn hàng của bạn khi liên hệ với chúng tôi.
+                @endif
+            </p>
+
+            <p>Cảm ơn bạn rất nhiều vì đã sử dụng dịch vụ của chúng tôi!</p>
+        </div>
+
+        <div class="footer">
+            <p><a href="mailto:techstore@gmail.com">Email hỗ trợ</a> | <a href="tel:0987654321">Liên hệ qua điện
+                    thoại</a></p>
+            <p>Trân trọng, TechStore</p>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

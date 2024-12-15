@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Order Management')
+@section('title', 'TechStore')
 
 @section('content')
 
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Order Management</h4>
+                <h4 class="mb-sm-0">Đơn hàng</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active">List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active">Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center gy-3">
                         <div class="col-sm">
-                            <h5 class="card-title mb-0">Order</h5>
+                            <h5 class="card-title mb-0">Đơn hàng</h5>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <div class="row g-3">
                             <div class="col-xxl-5 col-sm-6">
                                 <div class="search-box">
-                                    <input type="text" class="form-control search" value="{{request()->get('search')}}" id="search-input" placeholder="Search for order ID, customer, order status or something...">
+                                    <input type="text" class="form-control search" value="{{request()->get('search')}}" id="search-input" placeholder="Tìm kiếm theo code, tên khách hàng...">
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                             <li class="nav-item">
 
                                 <button class="btn py-3 filter-status {{empty(request()->status) ? 'text-success': ''}}" data-status="">
-                                    <i class="ri-store-2-fill me-1 align-bottom"></i>All Orders
+                                    <i class="ri-store-2-fill me-1 align-bottom"></i>Tất cả đơn hàng
                                 </button>
                             </li>
 
@@ -61,19 +61,22 @@
                                     <button class="btn py-3 filter-status {{ request()->status == $orderStatus->id ? 'text-success' : '' }}" data-status="{{ $orderStatus->id }}">
                                         @switch($orderStatus->id)
                                             @case(1)
-                                                <i class="ri-time-line"></i>
+                                            <i class="ri-shopping-cart-line me-1 align-bottom"></i>
                                                 @break
                                             @case(2)
-                                                <i class="ri-truck-line me-1 align-bottom"></i>
+                                            <i class="ri-time-line me-1 align-bottom"></i>
                                                 @break
                                             @case(3)
-                                                <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
+                                            <i class="ri-truck-line me-1 align-bottom"></i>
                                                 @break
                                             @case(4)
-                                            <i class="ri-close-circle-line me-1 align-bottom"></i>
+                                            <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
+                                                @break
+                                            @case(5)
+                                            <i class="ri-check-double-line me-1 align-bottom"></i>
                                                 @break
                                             @default
-                                                <i class="ri-store-2-fill me-1 align-bottom"></i>
+                                                <i class="ri-close-circle-line me-1 align-bottom"></i>
                                         @endswitch
                                         {{ $orderStatus->name }}
                                     </button>

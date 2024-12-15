@@ -1,22 +1,14 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
-    {{-- <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-        <label for="email">Email Address</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-
-        <button type="submit">
-            Send Password Reset Link
-        </button>
-    </form> --}}
     <div class="container2">
         <div class="container3">
             
             <form class="form" action="{{ route('password.email') }} " method="POST">
                 @csrf
-                {{-- <h1>Forgot password</h1> --}}
-                <h2 style="font-size: 50px"><b>Forgot password</b></h2>
+                <h2 style="font-size: 50px"><b>Quên mật khẩu</b></h2>
                 @if (session("status"))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session("status")}}
@@ -29,7 +21,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                <button class="button">Send Password Reset Link</button>
+                <button class="button">Gửi liên kết đặt lại mật khẩu</button>
             </form>
         </div>
     </div>

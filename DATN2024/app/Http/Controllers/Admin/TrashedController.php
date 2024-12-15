@@ -11,10 +11,9 @@ class TrashedController extends Controller
 {
     public function trashed()
     {
+
         $trashed = Product::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate(12);
         return view("admin.trashed.index", compact('trashed'));
-
-        // return view("admin.trashed.index", compact('trashed'));
     }
 
     public function restore($id)
@@ -33,7 +32,7 @@ class TrashedController extends Controller
             }, 3);
 
             return redirect()->route('admin.products.index')
-                ->with('success', 'Product restored successfully!');
+                ->with('success', 'Sản phẩm đã được khôi phục thành công!');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }

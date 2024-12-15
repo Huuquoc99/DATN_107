@@ -24,7 +24,6 @@ class BannerController extends Controller
      */
     public function create()
     {
-        // return response()->json();
         return view("admin.banners.create");
     }
 
@@ -49,9 +48,7 @@ class BannerController extends Controller
             $param['is_active'] = $request->has('is_active') ? 1 : 0;
             $banner = Banner::create($param);
             $banner->is_active == 0 ? $banner->hide() : $banner->show();
-
-            // return response()->json(['message' => 'Banner created successfully']);
-            return redirect()->route("admin.banners.index")->with("success", "Banner created successfully");
+            return redirect()->route("admin.banners.index")->with("success", "Banner đã được tạo thành công");
         }
     }
 
@@ -61,7 +58,6 @@ class BannerController extends Controller
     public function show(string $id)
     {
         $banner = Banner::query()->findOrFail($id);
-        // return response()->json($banner);
         return view("admin.banners.show", compact('banner'));
 
     }
@@ -72,7 +68,6 @@ class BannerController extends Controller
     public function edit(string $id)
     {
         $banner = Banner::findOrFail($id);
-        // return response()->json($banner);
         return view("admin.banners.edit", compact("banner"));
 
     }
@@ -89,15 +84,15 @@ class BannerController extends Controller
                 'link'        => 'required|url',
                 'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ], [
-                'title.required'       => 'The title field is required.',
-                'title.string'         => 'The title must be a string.',
-                'title.max'            => 'The title may not be greater than 255 characters.',
-                'description.string'   => 'The description must be a string.',
-                'description.max'      => 'The description may not be greater than 500 characters.',
-                'link.url'             => 'The link must be a valid URL.',
-                'image.image'          => 'The file must be an image.',
-                'image.mimes'          => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
-                'image.max'            => 'The image size may not be greater than 2MB.',
+                'title.required' => 'Trường tiêu đề là bắt buộc.',
+                'title.string' => 'Tiêu đề phải là một chuỗi.',
+                'title.max' => 'Tiêu đề không được dài hơn 255 ký tự.',
+                'description.string' => 'Mô tả phải là một chuỗi.',
+                'description.max' => 'Mô tả không được dài hơn 500 ký tự.',
+                'link.url' => 'Liên kết phải là một URL hợp lệ.',
+                'image.image' => 'Tệp phải là một hình ảnh.',
+                'image.mimes' => 'Hình ảnh phải là tệp có loại: jpeg, png, jpg, gif, svg.',
+                'image.max' => 'Kích thước hình ảnh không được lớn hơn 2MB.',
             ]);
 
             $param = $request->except("_token", "_method");
@@ -118,7 +113,7 @@ class BannerController extends Controller
             $banner->update($param);
             $banner->is_active == 0 ? $banner->hide() : $banner->show();
 
-            return redirect()->route("admin.banners.index")->with("success", "Banner updated successfully");
+            return redirect()->route("admin.banners.index")->with("success", "Banner đã được cập nhật thành công");
         }
     }
 
@@ -135,8 +130,7 @@ class BannerController extends Controller
             Storage::disk("public")->delete($banner->image);
         }
 
-        // return response()->json(['message' => 'Banner deleted successfully']);
-        return redirect()->route("admin.banners.index")->with("success", "Banner deleted successfully");
+        return redirect()->route("admin.banners.index")->with("success", "Banner đã được xoá thành công");
 
     }
 }

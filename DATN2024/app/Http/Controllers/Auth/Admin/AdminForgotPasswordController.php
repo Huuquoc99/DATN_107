@@ -30,11 +30,11 @@ class AdminForgotPasswordController extends Controller
             // dd(session()->all());
             return view('admin.auth.passwords.email')->with([
                 'email', $request->email,
-                'status' => 'We have emailed your password reset link!',
+                'status' => 'Chúng tôi đã gửi email liên kết đặt lại mật khẩu của bạn!',
             ]);
         }
 
-        return back()->withErrors(['email' => 'No user found with this email address.']);
+        return back()->withErrors(['email' => 'Không tìm thấy người dùng nào có địa chỉ email này.']);
     }
 
 

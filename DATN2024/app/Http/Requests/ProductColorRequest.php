@@ -30,10 +30,10 @@ class ProductColorRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "Product Color names cannot be left blank",
-            "name.max" => "Product Color name must not exceed 255 characters",
-            "color_code.required" => "Product Color codes cannot be left blank",
-            // "color_code.max" => "Product Color code name must not exceed 7 characters",
+            "name.required" => "Tên màu sản phẩm không được để trống",
+            "name.max" => "Tên màu sản phẩm không được vượt quá 255 ký tự",
+            "color_code.required" => "Mã màu sản phẩm không được để trống",
+            // "color_code.max" => "Tên mã màu sản phẩm không được vượt quá 7 ký tự",
         ];
     }
 }

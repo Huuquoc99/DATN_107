@@ -1,89 +1,99 @@
 @extends('client.layouts.master')
-
+@section('title')
+    TechStore
+@endsection
 @section('content')
-
-
-<main>
-    <section class="about-us container">
-        <div class="mw-930">
-            <h2 class="page-title text-center">ABOUT TECHSTORE</h2>
-        </div>
-        <div class="about-us__content pb-5 mb-5">
-        <p class="mb-5">
-    <img loading="lazy" class="w-100 d-block rounded shadow" 
-         src="{{ asset('theme/client/images/about/banner1.jpg') }}" alt="About TechStore" style="height: auto; max-height: 350px; width: auto; max-width: 80%; margin-left: 105px; ">
-</p>
+    <main>
+        <section class="about-us container">
             <div class="mw-930">
-                <h3 class="mb-4">OUR STORY</h3>
-                <p class="fs-6 fw-medium mb-4">We are committed to providing the highest quality phone products with dedicated service.</p>
-                <p class="mb-4">From the early days, TechStore was formed and developed with the mission of providing the most advanced technological equipment. We constantly innovate and strive to meet customer needs, creating products that are not only beautiful but also durable.</p>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <h5 class="mb-3">
-Our Mission</h5>
-                        <p class="mb-3">
-Bring the best experience to customers with quality products and services.</p>
+                <h2 class="page-title text-center">GIỚI THIỆU VỀ TECHSTORE</h2>
+            </div>
+            <div class="about-us__content pb-5 mb-5">
+                <p class="mb-5">
+                    <img loading="lazy" class="w-100 d-block rounded shadow"
+                        src="{{ asset('theme/client/images/about/banner1.jpg') }}" alt="About TechStore"
+                        style="height: auto; max-height: 350px; width: auto; max-width: 80%; margin-left: 105px; ">
+                </p>
+                <div class="mw-930">
+                    <h3 class="mb-4">CÂU CHUYỆN CỦA CHÚNG TÔI</h3>
+                    <p style="color: black" class="fs-6 fw-medium mb-4" >Chúng tôi cam kết cung cấp các sản phẩm điện thoại chất lượng cao nhất
+                        với dịch vụ tận tâm.</p>
+                    <p class="mb-4" style="color: black">Từ những ngày đầu, TechStore được hình thành và phát triển với sứ mệnh cung cấp các
+                        thiết bị công nghệ tiên tiến nhất. Chúng tôi không ngừng đổi mới và phấn đấu để đáp ứng nhu cầu của
+                        khách hàng, tạo ra những sản phẩm không chỉ đẹp mà còn bền.</p>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h5 style="color: black" class="mb-3">
+                                Sứ mệnh của chúng tôi</h5>
+                            <p style="color: black" class="mb-3">
+                                Mang đến trải nghiệm tốt nhất cho khách hàng bằng sản phẩm và dịch vụ chất lượng.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 style="color: black" class="mb-3">Tầm nhìn của chúng tôi</h5>
+                            <p style="color: black" class="mb-3">
+                                Trở thành thương hiệu hàng đầu trong ngành công nghệ di động tại Việt Nam.</p>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <h5 class="mb-3">Our Vision</h5>
-                        <p class="mb-3">
-Become a leading brand in the mobile technology industry in Vietnam.</p>
+                </div>
+                <div class="mw-930 d-lg-flex align-items-lg-center">
+                    <div class="image-wrapper col-lg-6">
+                        <img class="h-auto rounded shadow" loading="lazy"
+                            src="{{ asset('theme/client/images/about/banner2.jpg') }}" width="450" height="500"
+                            alt="The Company">
+                    </div>
+                    <div class="content-wrapper col-lg-6 px-lg-4">
+                        <h5 class="mb-3">CÔNG TY CỦA CHÚNG TÔI</h5>
+                        <p>
+                            TechStore tự hào cung cấp các sản phẩm điện thoại cao cấp với thiết kế hiện đại và các tính năng
+                            nổi bật. Chúng tôi nỗ lực để đảm bảo mỗi sản phẩm đều đạt tiêu chuẩn cao nhất về chất lượng và
+                            hiệu suất.</p>
                     </div>
                 </div>
             </div>
-            <div class="mw-930 d-lg-flex align-items-lg-center">
-                <div class="image-wrapper col-lg-6">
-                    <img class="h-auto rounded shadow" loading="lazy" 
-                         src="{{ asset('theme/client/images/about/banner2.jpg') }}" width="450" height="500" alt="The Company">
+        </section>
+
+        <section class="service-promotion horizontal container mw-930 pt-0 mb-md-4 pb-md-4 mb-xl-5">
+            <h3 class="text-center mb-4"> DỊCH VỤ CỦA CHÚNG TÔI</h3>
+            <div class="row">
+                <div class="col-md-4 text-center mb-5 mb-md-0">
+                    <div class="service-promotion__icon mb-4">
+                        <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_shipping" />
+                        </svg>
+                    </div>
+                    <h3 class="service-promotion__title fs-6 text-uppercase">Giao hàng nhanh</h3>
+                    <p class="service-promotion__content text-secondary">Uy tín tạo nên thương hiệu TechStore. </p>
                 </div>
-                <div class="content-wrapper col-lg-6 px-lg-4">
-                    <h5 class="mb-3">OUR COMPANY</h5>
-                    <p>
-TechStore is proud to provide high-class phone products with modern design and outstanding features. We work hard to ensure each product meets the highest standards of quality and performance.</p>
+
+                <div class="col-md-4 text-center mb-5 mb-md-0">
+                    <div class="service-promotion__icon mb-4">
+                        <svg width="53" height="52" viewBox="0 0 53 52" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_headphone" />
+                        </svg>
+                    </div>
+                    <h3 class="service-promotion__title fs-6 text-uppercase">Hỗ trợ khách hàng 24/7</h3>
+                    <p class="service-promotion__content text-secondary">Hỗ trợ thân thiện 24/7 cho mọi khách hàng.</p>
+                </div>
+
+                <div class="col-md-4 text-center mb-4 pb-1 mb-md-0">
+                    <div class="service-promotion__icon mb-4">
+                        <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#icon_shield" />
+                        </svg>
+                    </div>
+                    <h3 class="service-promotion__title fs-6 text-uppercase">Đảm bảo hoàn tiền</h3>
+                    <p class="service-promotion__content text-secondary">Chúng tôi hoàn lại tiền trong vòng 30 ngày.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="service-promotion horizontal container mw-930 pt-0 mb-md-4 pb-md-4 mb-xl-5">
-        <h3 class="text-center mb-4">OUR SERVICES</h3>
-        <div class="row">
-            <div class="col-md-4 text-center mb-5 mb-md-0">
-                <div class="service-promotion__icon mb-4">
-                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_shipping"/>
-                    </svg>
-                </div>
-                <h3 class="service-promotion__title fs-6 text-uppercase">Fast Delivery</h3>
-                <p class="service-promotion__content text-secondary">Prestige creates the TechStore brand. </p>
-            </div>
-
-            <div class="col-md-4 text-center mb-5 mb-md-0">
-                <div class="service-promotion__icon mb-4">
-                    <svg width="53" height="52" viewBox="0 0 53 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_headphone"/>
-                    </svg>
-                </div>
-                <h3 class="service-promotion__title fs-6 text-uppercase">24/7 Customer Support</h3>
-                <p class="service-promotion__content text-secondary">24/7 friendly support for every customer.</p>
-            </div>
-
-            <div class="col-md-4 text-center mb-4 pb-1 mb-md-0">
-                <div class="service-promotion__icon mb-4">
-                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_shield"/>
-                    </svg>
-                </div>
-                <h3 class="service-promotion__title fs-6 text-uppercase">Money Back Guarantee</h3>
-                <p class="service-promotion__content text-secondary">We refund within 30 days.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- <section class="brands-carousel container mw-930">
-        <h5 class="mb-3 mb-xl-5 text-center">ĐỐI TÁC CÔNG TY</h5>
-        <div class="position-relative">
-            <div class="swiper-container js-swiper-slider" data-settings='{
+        <!-- <section class="brands-carousel container mw-930">
+                    <h5 class="mb-3 mb-xl-5 text-center">ĐỐI TÁC CÔNG TY</h5>
+                    <div class="position-relative">
+                        <div class="swiper-container js-swiper-slider" data-settings='{
                 "autoplay": {
                     "delay": 5000
                 },
@@ -113,33 +123,33 @@ TechStore is proud to provide high-class phone products with modern design and o
                     }
                 }
             }'>
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand1.png') }}" width="120" height="20" alt="Brand 1">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand1.png') }}" width="120" height="20" alt="Brand 1">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand2.png') }}" width="87" height="20" alt="Brand 2">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand3.png') }}" width="132" height="22" alt="Brand 3">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand4.png') }}" width="72" height="21" alt="Brand 4">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand5.png') }}" width="123" height="31" alt="Brand 5">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand6.png') }}" width="137" height="22" alt="Brand 6">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img loading="lazy" src="{{ asset('theme/client/images/brands/brand7.png') }}" width="94" height="21" alt="Brand 7">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand2.png') }}" width="87" height="20" alt="Brand 2">
-                    </div>
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand3.png') }}" width="132" height="22" alt="Brand 3">
-                    </div>
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand4.png') }}" width="72" height="21" alt="Brand 4">
-                    </div>
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand5.png') }}" width="123" height="31" alt="Brand 5">
-                    </div>
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand6.png') }}" width="137" height="22" alt="Brand 6">
-                    </div>
-                    <div class="swiper-slide">
-                        <img loading="lazy" src="{{ asset('theme/client/images/brands/brand7.png') }}" width="94" height="21" alt="Brand 7">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-</main>
+                </section> -->
+    </main>
 
     <div class="mb-5 pb-xl-5"></div>
 
@@ -154,10 +164,10 @@ TechStore is proud to provide high-class phone products with modern design and o
                 </div><!-- /.aside-header -->
 
                 <form action="https://uomo-html.flexkitux.com/Demo18/login_register.html" method="POST"
-                      class="aside-content">
+                    class="aside-content">
                     <div class="form-floating mb-3">
                         <input name="email" type="email" class="form-control form-control_gray"
-                               id="customerNameEmailInput" placeholder="name@example.com">
+                            id="customerNameEmailInput" placeholder="name@example.com">
                         <label for="customerNameEmailInput">Username or email address *</label>
                     </div>
 
@@ -166,13 +176,13 @@ TechStore is proud to provide high-class phone products with modern design and o
                     <div class="form-label-fixed mb-3">
                         <label for="customerPasswordInput" class="form-label">Password *</label>
                         <input name="password" id="customerPasswordInput" class="form-control form-control_gray"
-                               type="password" placeholder="********">
+                            type="password" placeholder="********">
                     </div>
 
                     <div class="d-flex align-items-center mb-3 pb-2">
                         <div class="form-check mb-0">
                             <input name="remember" class="form-check-input form-check-input_fill" type="checkbox"
-                                   value="" id="flexCheckDefault">
+                                value="" id="flexCheckDefault">
                             <label class="form-check-label text-secondary" for="flexCheckDefault">Remember me</label>
                         </div>
                         <a href="reset_password.html" class="btn-text ms-auto">Lost password?</a>
@@ -194,10 +204,10 @@ TechStore is proud to provide high-class phone products with modern design and o
                 </div><!-- /.aside-header -->
 
                 <form action="https://uomo-html.flexkitux.com/Demo18/login_register.html" method="POST"
-                      class="aside-content">
+                    class="aside-content">
                     <div class="form-floating mb-4">
                         <input name="username" type="text" class="form-control form-control_gray"
-                               id="registerUserNameInput" placeholder="Username">
+                            id="registerUserNameInput" placeholder="Username">
                         <label for="registerUserNameInput">Username</label>
                     </div>
 
@@ -205,7 +215,7 @@ TechStore is proud to provide high-class phone products with modern design and o
 
                     <div class="form-floating mb-4">
                         <input name="email" type="email" class="form-control form-control_gray"
-                               id="registerUserEmailInput" placeholder="user@company.com">
+                            id="registerUserEmailInput" placeholder="user@company.com">
                         <label for="registerUserEmailInput">Email address *</label>
                     </div>
 
@@ -214,7 +224,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                     <div class="form-label-fixed mb-4">
                         <label for="registerPasswordInput" class="form-label">Password *</label>
                         <input name="password" id="registerPasswordInput" class="form-control form-control_gray"
-                               type="password" placeholder="*******">
+                            type="password" placeholder="*******">
                     </div>
 
                     <p class="text-secondary mb-4">Your personal data will be used to support your experience throughout
@@ -245,7 +255,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                 <div class="position-relative">
                     <a href="product1_simple.html">
                         <img loading="lazy" class="cart-drawer-item__img"
-                             src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
+                            src="{{ asset('theme/client/images/cart-item-1.jpg') }}" alt="">
                     </a>
                 </div>
                 <div class="cart-drawer-item__info flex-grow-1">
@@ -255,7 +265,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <div class="qty-control position-relative">
                             <input type="number" name="quantity" value="1" min="1"
-                                   class="qty-control__number border-0 text-center">
+                                class="qty-control__number border-0 text-center">
                             <div class="qty-control__reduce text-start">-</div>
                             <div class="qty-control__increase text-end">+</div>
                         </div><!-- .qty-control -->
@@ -272,7 +282,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                 <div class="position-relative">
                     <a href="product1_simple.html">
                         <img loading="lazy" class="cart-drawer-item__img"
-                             src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
+                            src="{{ asset('theme/client/images/cart-item-2.jpg') }}" alt="">
                     </a>
                 </div>
                 <div class="cart-drawer-item__info flex-grow-1">
@@ -282,7 +292,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <div class="qty-control position-relative">
                             <input type="number" name="quantity" value="4" min="1"
-                                   class="qty-control__number border-0 text-center">
+                                class="qty-control__number border-0 text-center">
                             <div class="qty-control__reduce text-start">-</div>
                             <div class="qty-control__increase text-end">+</div>
                         </div><!-- .qty-control -->
@@ -299,7 +309,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                 <div class="position-relative">
                     <a href="product1_simple.html">
                         <img loading="lazy" class="cart-drawer-item__img"
-                             src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
+                            src="{{ asset('theme/client/images/cart-item-3.jpg') }}" alt="">
                     </a>
                 </div>
                 <div class="cart-drawer-item__info flex-grow-1">
@@ -310,7 +320,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <div class="qty-control position-relative">
                             <input type="number" name="quantity" value="3" min="1"
-                                   class="qty-control__number border-0 text-center">
+                                class="qty-control__number border-0 text-center">
                             <div class="qty-control__reduce text-start">-</div>
                             <div class="qty-control__increase text-end">+</div>
                         </div><!-- .qty-control -->
@@ -340,7 +350,7 @@ TechStore is proud to provide high-class phone products with modern design and o
             <div class="sitemap d-flex">
                 <div class="w-50 d-none d-lg-block">
                     <img loading="lazy" src="{{ asset('theme/client/images/nav-bg.jpg') }}" alt="Site map"
-                         class="sitemap__bg">
+                        class="sitemap__bg">
                 </div><!-- /.sitemap__bg w-50 d-none d-lg-block -->
                 <div class="sitemap__links w-50 flex-grow-1">
                     <div class="modal-content">
@@ -348,87 +358,97 @@ TechStore is proud to provide high-class phone products with modern design and o
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link active rounded-1 text-uppercase" id="pills-item-1-tab"
-                                       data-bs-toggle="pill" href="#pills-item-1" role="tab"
-                                       aria-controls="pills-item-1" aria-selected="true">WOMEN</a>
+                                        data-bs-toggle="pill" href="#pills-item-1" role="tab"
+                                        aria-controls="pills-item-1" aria-selected="true">WOMEN</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link rounded-1 text-uppercase" id="pills-item-2-tab"
-                                       data-bs-toggle="pill" href="#pills-item-2" role="tab"
-                                       aria-controls="pills-item-2" aria-selected="false">MEN</a>
+                                        data-bs-toggle="pill" href="#pills-item-2" role="tab"
+                                        aria-controls="pills-item-2" aria-selected="false">MEN</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link rounded-1 text-uppercase" id="pills-item-3-tab"
-                                       data-bs-toggle="pill" href="#pills-item-3" role="tab"
-                                       aria-controls="pills-item-3" aria-selected="false">KIDS</a>
+                                        data-bs-toggle="pill" href="#pills-item-3" role="tab"
+                                        aria-controls="pills-item-3" aria-selected="false">KIDS</a>
                                 </li>
                             </ul>
                             <button type="button" class="btn-close-lg" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
                             <div class="tab-content col-12" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-item-1" role="tabpanel"
-                                     aria-labelledby="pills-item-1-tab">
+                                    aria-labelledby="pills-item-1-tab">
                                     <div class="row">
-                                        <ul class="nav nav-tabs list-unstyled col-5 d-block" id="myTab" role="tablist">
+                                        <ul class="nav nav-tabs list-unstyled col-5 d-block" id="myTab"
+                                            role="tablist">
                                             <li class="nav-item position-relative" role="presentation">
                                                 <a class="nav-link nav-link_rline active" id="tab-item-1-tab"
-                                                   data-bs-toggle="tab" href="#tab-item-1" role="tab"
-                                                   aria-controls="tab-item-1" aria-selected="true"><span
+                                                    data-bs-toggle="tab" href="#tab-item-1" role="tab"
+                                                    aria-controls="tab-item-1" aria-selected="true"><span
                                                         class="rline-content">WOMEN</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
                                                 <a class="nav-link nav-link_rline" id="tab-item-2-tab"
-                                                   data-bs-toggle="tab" href="#tab-item-2" role="tab"
-                                                   aria-controls="tab-item-2" aria-selected="false"><span
+                                                    data-bs-toggle="tab" href="#tab-item-2" role="tab"
+                                                    aria-controls="tab-item-2" aria-selected="false"><span
                                                         class="rline-content">MAN</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
                                                 <a class="nav-link nav-link_rline" id="tab-item-3-tab"
-                                                   data-bs-toggle="tab" href="#tab-item-3" role="tab"
-                                                   aria-controls="tab-item-3" aria-selected="false"><span
+                                                    data-bs-toggle="tab" href="#tab-item-3" role="tab"
+                                                    aria-controls="tab-item-3" aria-selected="false"><span
                                                         class="rline-content">KIDS</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">HOME</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">HOME</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">COLLECTION</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">COLLECTION</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
                                                 <a class="nav-link nav-link_rline text-red" href="#">SALE UP TO 50%
                                                     OFF</a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">NEW</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">NEW</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">SHOES</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">SHOES</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">ACCESSORIES</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">ACCESSORIES</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">JOIN LIFE</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">JOIN LIFE</span></a>
                                             </li>
                                             <li class="nav-item position-relative" role="presentation">
-                                                <a class="nav-link nav-link_rline" href="#"><span class="rline-content">#UOMOSTYLE</span></a>
+                                                <a class="nav-link nav-link_rline" href="#"><span
+                                                        class="rline-content">#UOMOSTYLE</span></a>
                                             </li>
                                         </ul>
 
                                         <div class="tab-content col-7" id="myTabContent">
                                             <div class="tab-pane fade show active" id="tab-item-1" role="tabpanel"
-                                                 aria-labelledby="tab-item-1-tab">
+                                                aria-labelledby="tab-item-1-tab">
                                                 <ul class="sub-menu list-unstyled">
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">New</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Best Sellers</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">Best
+                                                            Sellers</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Collaborations®</a>
+                                                        <a href="#"
+                                                            class="menu-link menu-link_us-s">Collaborations®</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Sets</a>
@@ -437,7 +457,8 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                         <a href="#" class="menu-link menu-link_us-s">Denim</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Jackets & Coats</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">Jackets &
+                                                            Coats</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Overshirts</a>
@@ -456,7 +477,8 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                             Hoodies</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">T-shirts & Tops</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">T-shirts &
+                                                            Tops</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Shirts &
@@ -470,7 +492,8 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                         <a href="#" class="menu-link menu-link_us-s">Shoes</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a>
+                                                        <a href="shop3.html"
+                                                            class="menu-link menu-link_us-s">Accessories</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Bags</a>
@@ -482,10 +505,11 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                 </ul><!-- /.sub-menu -->
                                             </div>
                                             <div class="tab-pane fade" id="tab-item-2" role="tabpanel"
-                                                 aria-labelledby="tab-item-2-tab">
+                                                aria-labelledby="tab-item-2-tab">
                                                 <ul class="sub-menu list-unstyled">
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Best Sellers</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">Best
+                                                            Sellers</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">New</a>
@@ -497,13 +521,15 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                         <a href="#" class="menu-link menu-link_us-s">Denim</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Collaborations®</a>
+                                                        <a href="#"
+                                                            class="menu-link menu-link_us-s">Collaborations®</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Trousers</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Jackets & Coats</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">Jackets &
+                                                            Coats</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Overshirts</a>
@@ -527,14 +553,16 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                             Blouses</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">T-shirts & Tops</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">T-shirts &
+                                                            Tops</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Shorts and
                                                             Bermudas</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a>
+                                                        <a href="shop3.html"
+                                                            class="menu-link menu-link_us-s">Accessories</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Shoes</a>
@@ -545,14 +573,15 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                 </ul><!-- /.sub-menu -->
                                             </div>
                                             <div class="tab-pane fade" id="tab-item-3" role="tabpanel"
-                                                 aria-labelledby="tab-item-3-tab">
+                                                aria-labelledby="tab-item-3-tab">
                                                 <ul class="sub-menu list-unstyled">
                                                     <li class="sub-menu__item">
                                                         <a href="about.html" class="menu-link menu-link_us-s">Gift
                                                             Card</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Collaborations®</a>
+                                                        <a href="#"
+                                                            class="menu-link menu-link_us-s">Collaborations®</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Sets</a>
@@ -564,13 +593,15 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                         <a href="#" class="menu-link menu-link_us-s">New</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Best Sellers</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">Best
+                                                            Sellers</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Overshirts</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="#" class="menu-link menu-link_us-s">Jackets & Coats</a>
+                                                        <a href="#" class="menu-link menu-link_us-s">Jackets &
+                                                            Coats</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Jeans</a>
@@ -586,7 +617,8 @@ TechStore is proud to provide high-class phone products with modern design and o
                                                         <a href="#" class="menu-link menu-link_us-s">Shoes</a>
                                                     </li>
                                                     <li class="sub-menu__item">
-                                                        <a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a>
+                                                        <a href="shop3.html"
+                                                            class="menu-link menu-link_us-s">Accessories</a>
                                                     </li>
                                                     <li class="sub-menu__item">
                                                         <a href="#" class="menu-link menu-link_us-s">Dresses</a>
@@ -600,7 +632,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                                     </div><!-- /.row -->
                                 </div>
                                 <div class="tab-pane fade" id="pills-item-2" role="tabpanel"
-                                     aria-labelledby="pills-item-2-tab">
+                                    aria-labelledby="pills-item-2-tab">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                                         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -609,7 +641,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                                     Elementum lectus a porta commodo suspendisse arcu, aliquam lectus faucibus.
                                 </div>
                                 <div class="tab-pane fade" id="pills-item-3" role="tabpanel"
-                                     aria-labelledby="pills-item-3-tab">
+                                    aria-labelledby="pills-item-3-tab">
                                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
                                         doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
                                         veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
@@ -635,7 +667,7 @@ TechStore is proud to provide high-class phone products with modern design and o
                     <div class="product-single__media m-0">
                         <div class="product-single__image position-relative w-100">
                             <div class="swiper-container js-swiper-slider"
-                                 data-settings='{
+                                data-settings='{
                   "slidesPerView": 1,
                   "slidesPerGroup": 1,
                   "effect": "none",
@@ -648,29 +680,31 @@ TechStore is proud to provide high-class phone products with modern design and o
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide product-single__image-item">
                                         <img loading="lazy" src="{{ asset('theme/client/images/quickview_1.jpg') }}"
-                                             alt="">
+                                            alt="">
                                     </div>
                                     <div class="swiper-slide product-single__image-item">
                                         <img loading="lazy" src="{{ asset('theme/client/images/quickview_2.jpg') }}"
-                                             alt="">
+                                            alt="">
                                     </div>
                                     <div class="swiper-slide product-single__image-item">
                                         <img loading="lazy" src="{{ asset('theme/client/images/quickview_3.jpg') }}"
-                                             alt="">
+                                            alt="">
                                     </div>
                                     <div class="swiper-slide product-single__image-item">
                                         <img loading="lazy" src="{{ asset('theme/client/images/quickview_4.jpg') }}"
-                                             alt="">
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-button-prev">
-                                    <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_prev_sm"/>
+                                    <svg width="7" height="11" viewBox="0 0 7 11"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_prev_sm" />
                                     </svg>
                                 </div>
                                 <div class="swiper-button-next">
-                                    <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_next_sm"/>
+                                    <svg width="7" height="11" viewBox="0 0 7 11"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_next_sm" />
                                     </svg>
                                 </div>
                             </div>
@@ -693,87 +727,87 @@ TechStore is proud to provide high-class phone products with modern design and o
                                     <div class="swatch-list">
                                         <input type="radio" name="size" id="swatch-1">
                                         <label class="swatch js-swatch" for="swatch-1" aria-label="Extra Small"
-                                               data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="Extra Small">XS</label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Extra Small">XS</label>
                                         <input type="radio" name="size" id="swatch-2" checked>
                                         <label class="swatch js-swatch" for="swatch-2" aria-label="Small"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Small">S</label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Small">S</label>
                                         <input type="radio" name="size" id="swatch-3">
                                         <label class="swatch js-swatch" for="swatch-3" aria-label="Middle"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Middle">M</label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Middle">M</label>
                                         <input type="radio" name="size" id="swatch-4">
                                         <label class="swatch js-swatch" for="swatch-4" aria-label="Large"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Large">L</label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Large">L</label>
                                         <input type="radio" name="size" id="swatch-5">
                                         <label class="swatch js-swatch" for="swatch-5" aria-label="Extra Large"
-                                               data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="Extra Large">XL</label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Extra Large">XL</label>
                                     </div>
                                     <a href="#" class="sizeguide-link" data-bs-toggle="modal"
-                                       data-bs-target="#sizeGuide">Size Guide</a>
+                                        data-bs-target="#sizeGuide">Size Guide</a>
                                 </div>
                                 <div class="product-swatch color-swatches">
                                     <label>Color</label>
                                     <div class="swatch-list">
                                         <input type="radio" name="color" id="swatch-11">
                                         <label class="swatch swatch-color js-swatch" for="swatch-11" aria-label="Black"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Black"
-                                               style="color: #222"></label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Black"
+                                            style="color: #222"></label>
                                         <input type="radio" name="color" id="swatch-12" checked>
                                         <label class="swatch swatch-color js-swatch" for="swatch-12" aria-label="Red"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Red"
-                                               style="color: #C93A3E"></label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Red"
+                                            style="color: #C93A3E"></label>
                                         <input type="radio" name="color" id="swatch-13">
                                         <label class="swatch swatch-color js-swatch" for="swatch-13" aria-label="Grey"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Grey"
-                                               style="color: #E4E4E4"></label>
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Grey"
+                                            style="color: #E4E4E4"></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="product-single__addtocart">
                                 <div class="qty-control position-relative">
                                     <input type="number" name="quantity" value="1" min="1"
-                                           class="qty-control__number text-center">
+                                        class="qty-control__number text-center">
                                     <div class="qty-control__reduce">-</div>
                                     <div class="qty-control__increase">+</div>
                                 </div><!-- .qty-control -->
                                 <button type="submit" class="btn btn-primary btn-addtocart js-open-aside"
-                                        data-aside="cartDrawer">Add to Cart
+                                    data-aside="cartDrawer">Add to Cart
                                 </button>
                             </div>
                         </form>
                         <div class="product-single__addtolinks">
                             <a href="#" class="menu-link menu-link_us-s add-to-wishlist">
                                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_heart"/>
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <use href="#icon_heart" />
                                 </svg>
                                 <span>Add to Wishlist</span></a>
                             <share-button class="share-button">
                                 <button
                                     class="menu-link menu-link_us-s to-share border-0 bg-transparent d-flex align-items-center">
                                     <svg width="16" height="19" viewBox="0 0 16 19" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_sharing"/>
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_sharing" />
                                     </svg>
                                 </button>
                                 <details id="Details-share-template__main" class="m-1 xl:m-1.5" hidden="">
                                     <summary class="btn-solid m-1 xl:m-1.5 pt-3.5 pb-3 px-5">+</summary>
                                     <div id="Article-share-template__main"
-                                         class="share-button__fallback flex items-center absolute top-full left-0 w-full px-2 py-4 bg-container shadow-theme border-t z-10">
+                                        class="share-button__fallback flex items-center absolute top-full left-0 w-full px-2 py-4 bg-container shadow-theme border-t z-10">
                                         <div class="field grow mr-4">
                                             <label class="field__label sr-only" for="url">Link</label>
                                             <input type="text" class="field__input w-full" id="url"
-                                                   value="https://uomo-crystal.myshopify.com/blogs/news/go-to-wellness-tips-for-mental-health"
-                                                   placeholder="Link" onclick="this.select();" readonly="">
+                                                value="https://uomo-crystal.myshopify.com/blogs/news/go-to-wellness-tips-for-mental-health"
+                                                placeholder="Link" onclick="this.select();" readonly="">
                                         </div>
                                         <button class="share-button__copy no-js-hidden">
-                                            <svg class="icon icon-clipboard inline-block mr-1" width="11" height="13"
-                                                 fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                                 focusable="false" viewBox="0 0 11 13">
+                                            <svg class="icon icon-clipboard inline-block mr-1" width="11"
+                                                height="13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                aria-hidden="true" focusable="false" viewBox="0 0 11 13">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                                      d="M2 1a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1V1H2zM1 2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V3a1 1 0 00-1-1H1zm0 10V3h7v9H1z"
-                                                      fill="currentColor"></path>
+                                                    d="M2 1a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1V1H2zM1 2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V3a1 1 0 00-1-1H1zm0 10V3h7v9H1z"
+                                                    fill="currentColor"></path>
                                             </svg>
                                             <span class="sr-only">Copy link</span>
                                         </button>

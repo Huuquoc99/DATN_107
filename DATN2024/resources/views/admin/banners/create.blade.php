@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Banner
+    TechStore
 @endsection
 
 @section('content')
@@ -13,8 +13,8 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active"> Create</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active"> Thêm mới</li>
                     </ol>
                 </div>
 
@@ -28,14 +28,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Banner create</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Thêm mới</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div>
-                                        <label for="title" class="form-label">Title</label>
+                                        <label for="title" class="form-label">Tiêu đề</label>
                                         <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title">
                                         @error('title')
                                             <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="mt-3">
-                                            <label for="description" class="form-label">Description</label>
+                                            <label for="description" class="form-label">Mô tả</label>
                                             <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="2"></textarea>
                                             @error('title')
                                                 <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                                         <div class="mt-4">
                                             @php
                                                 $is = [
-                                                    'is_active' => ['name' => 'Active', 'color' => 'primary'],
+                                                    'is_active' => ['name' => 'Hoạt động', 'color' => 'primary'],
                                                 ];
                                             @endphp
                                             @foreach($is as $key => $value)
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <div class="mt-3">
-                                        <label for="image" class="form-label">Image</label>
+                                        <label for="image" class="form-label">Hình ảnh</label>
                                         <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image">
                                         @error('image')
                                             <span class="invalid-feedback" role="alert">
@@ -98,13 +98,12 @@
                     </div>
                 </div>
             </div>
-            <!--end col-->
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Banner create <i class="fa-regular fa-plus"></i></button>
+                        <button class="btn btn-primary">Thêm mới <i class="fa-regular fa-plus"></i></button>
                     </div>
                 </div>
             </div>

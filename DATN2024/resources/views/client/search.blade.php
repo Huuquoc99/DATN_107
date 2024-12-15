@@ -1,11 +1,15 @@
 @extends('client.layouts.master')
 
+@section('title')
+    TechStore
+@endsection
+
 @section('content')
     <main>
         <section class="featured-products container">
             <div class="d-flex align-items-center justify-content-md-between flex-wrap my-3 mb-xl-4">
                 @if($products->count() > 0)
-                    <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Tìm thấy {{$products->count()}} kết quả</h2>
+                    <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Đã tìm thấy {{$products->count()}} kết quả</h2>
                 @else
                     <h2 class="section-title fw-semi-bold fs-30 theme-color text-uppercase">Không tìm thấy kết quả phù hợp</h2>
                 @endif
@@ -34,16 +38,12 @@
                                                 <div class="product-card__price d-flex">
                                                     <span class="money price fs-16 fw-semi-bold">{{ number_format($product->price_regular, 0, ',', '.') }} VND</span>
                                                 </div>
-                                                <div class="product-card__review d-flex align-items-center">
-                                                    <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                         </div>
                         <nav class="shop-pages d-flex justify-content-between my-3" aria-label="Page navigation">
-                            <!-- Link trang trước -->
                             @if ($products->onFirstPage())
                                 <span class="btn-link d-inline-flex align-items-center text-muted">
                         <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">

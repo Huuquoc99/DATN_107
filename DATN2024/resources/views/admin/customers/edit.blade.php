@@ -2,19 +2,19 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Customer
+TechStore
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Customer</h4>
+                <h4 class="mb-sm-0">Người dùng</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Customer</a></li>
-                        <li class="breadcrumb-item active"> Edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Người dùng</a></li>
+                        <li class="breadcrumb-item active"> Chỉnh sửa</li>
                     </ol>
                 </div>
 
@@ -29,13 +29,13 @@ Customer
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Customer edit</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Chỉnh sửa người dùng</h4>
                     </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
                                 <div class="form-group">
-                                    <label for="type">Type</label>
+                                    <label for="type">Vai trò</label>
                                     <select name="type" id="type" class="form-control " style="width: 25%; ">
                                         <option value="1" {{ $users->type == 1 ? 'selected' : '' }}>Admin</option>
                                         <option value="0" {{ $users->type == 0 ? 'selected' : '' }}>User</option>
@@ -51,7 +51,7 @@ Customer
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <button class="btn btn-primary">Customer edit 
+                        <button class="btn btn-primary">Chỉnh sửa người dùng 
                             <i class="fa-regular fa-pen-to-square fa-sm"></i>
                         </button>
                     </div>
