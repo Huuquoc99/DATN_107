@@ -27,14 +27,14 @@ class DashboardController extends Controller
             SUM(order_items.quantity * order_items.product_price_sale) AS total_revenue,
             DATE_FORMAT(orders.created_at, "%Y-%m") AS month_year
         ')
-            ->join('orders', 'orders.id', '=', 'order_items.order_id')  
-            ->join('products', 'products.id', '=', 'order_items.product_variant_id')  
-            ->where('orders.status_order_id', '1')  
-            ->whereBetween('orders.created_at', [$start_date, $end_date]) 
-            ->groupBy('order_items.product_variant_id', 'order_items.product_name', 'order_items.product_price_sale', 'month_year', 'products.name')  
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->join('products', 'products.id', '=', 'order_items.product_variant_id')
+            ->where('orders.status_order_id', '1')
+            ->whereBetween('orders.created_at', [$start_date, $end_date])
+            ->groupBy('order_items.product_variant_id', 'order_items.product_name', 'order_items.product_price_sale', 'month_year', 'products.name')
             ->orderByDesc('total_revenue')
-            ->get(); 
-        
+            ->get();
+
         $topProducts = Product::select(
             'products.*',
             DB::raw('COALESCE(SUM(order_items.quantity), 0) as total_quantity_sold'),
@@ -48,10 +48,10 @@ class DashboardController extends Controller
             })
             ->whereNull('orders.deleted_at')
             ->groupBy(
-                'products.id', 
-                'products.catalogue_id', 
+                'products.id',
+                'products.catalogue_id',
                 'products.name',
-                'products.slug', 
+                'products.slug',
                 'products.sku',
                 'products.created_at',
                 'products.img_thumbnail',
@@ -80,7 +80,7 @@ class DashboardController extends Controller
             )
             ->orderByDesc('total_quantity_sold')
             ->get();
-    
+
         $topCustomers = Order::selectRaw('
             orders.user_id,
             users.id,
@@ -92,15 +92,15 @@ class DashboardController extends Controller
             SUM(order_items.product_price_sale * order_items.quantity) AS total_spent
         ')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-            ->join('users', 'users.id', '=', 'orders.user_id')  
+            ->join('users', 'users.id', '=', 'orders.user_id')
             ->where('orders.status_order_id', '1')
-            ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')  
-            ->orderByDesc('total_spent') 
+            ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')
+            ->orderByDesc('total_spent')
             ->get();
-    
-        
+
+
         $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
-        $totalOrders = Order::count(); 
+        $totalOrders = Order::count();
         $totalCustomers = User::count();
         $totalProducts = Product::count();
 
@@ -112,7 +112,7 @@ class DashboardController extends Controller
                 });
             })
             ->take(4);
-        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings', 'totalOrders', 'totalCustomers', 'totalProducts', 'topOrders')); 
+        return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings', 'totalOrders', 'totalCustomers', 'totalProducts', 'topOrders'));
     }
 
 
@@ -126,5 +126,18 @@ class DashboardController extends Controller
         return view('admin.dashboard.sales', compact('salesData'));
     }
 
+    public function getSalesDataProvice()
+    {
+        $salesData = DB::table('orders')
+            ->select('shipping_province', DB::raw('SUM(total_price) as total_sales'))
+            ->where('status_order_id', 5)
+            ->where('status_payment_id', 2)
+            ->groupBy('shipping_province')
+            ->orderByDesc('total_sales')
+            ->get();
+
+        return response()->json($salesData);
+
+    }
 
 }

@@ -174,8 +174,9 @@ Route::prefix('admin')
     ->group(function () {
 
         // Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'statistics'])->name('dashboard');
         Route::get('/', [DashboardController::class, 'statistics'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'statistics'])->name('dashboard');
+        Route::get('/sales-by-location', [DashboardController::class, 'getSalesDataProvice']);
 
         // Product
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');

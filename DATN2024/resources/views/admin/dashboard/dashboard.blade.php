@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-xl-3 col-md-6">
                     <div class="card card-animate">
                         <div class="card-body">
@@ -136,7 +136,7 @@
                     <div class="card">
                         <div class="card-header border-0 align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Doanh thu</h4>
-                            
+
                         </div>
 
                         <div class="card-header p-0 border-0 bg-light-subtle">
@@ -145,12 +145,12 @@
                                     <form action="{{ route('admin.dashboard') }}" method="GET" class="row g-3 align-items-center">
                                         <div class="col-auto">
                                             <label for="start_date" class="form-label mb-0">Ngày bắt đầu:</label>
-                                            <input type="date" id="start_date" name="start_date" 
+                                            <input type="date" id="start_date" name="start_date"
                                                 class="form-control" style="width: 200px" value="{{ request('start_date') }}">
                                         </div>
                                         <div class="col-auto">
                                             <label for="end_date" class="form-label mb-0">Ngày kết thúc:</label>
-                                            <input type="date" id="end_date" name="end_date" 
+                                            <input type="date" id="end_date" name="end_date"
                                                 class="form-control" style="width: 200px" value="{{ request('end_date') }}">
                                         </div>
                                         <div class="col-auto">
@@ -160,14 +160,14 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="card-body pt-3 pb-3 d-flex justify-content-center align-items-center">
                             <div style="width:80%" >
                                 <canvas id="myChart"></canvas>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -202,7 +202,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -277,17 +277,17 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-shrink-0 me-2">
-                                                                <img src="{{ optional($order->user)->avatar ? '/storage/' . optional($order->user)->avatar : '/theme/admin/assets/images/default-avatar.png' }}" 
+                                                                <img src="{{ optional($order->user)->avatar ? '/storage/' . optional($order->user)->avatar : '/theme/admin/assets/images/default-avatar.png' }}"
                                                                      alt="Avatar" class="avatar-xs rounded-circle" />
                                                             </div>
                                                             <div class="flex-grow-1">{{ optional($order->user)->name ? Str::limit(optional($order->user)->name, 15) : 'Not Available' }}</div>
 
                                                         </div>
                                                     </td>
-        
+
                                                     <td>{{ optional($item->product)->name ? Str::limit(optional($item->product)->name, 15) : 'Not Available' }}</td>
 
-                                                    
+
                                                     <td>
                                                         {{ $item->productVariant && $item->productVariant->color ? $item->productVariant->color->name : 'Not Available' }}
                                                     </td>
@@ -298,7 +298,7 @@
                                                         @php
                                                             $statusId = optional($order->statusOrder)->id;
                                                         @endphp
-                                                        <span class="badge 
+                                                        <span class="badge
                                                             @if ($statusId == 1) bg-warning-subtle text-warning
                                                             @elseif ($statusId == 2) bg-secondary-subtle text-secondary
                                                             @elseif ($statusId == 3) bg-success-subtle text-primary
@@ -313,7 +313,7 @@
                                                         @php
                                                             $statusId = optional($order->statusPayment)->id;
                                                         @endphp
-                                                        <span class="badge 
+                                                        <span class="badge
                                                             @if ($statusId == 1) bg-warning-subtle text-warning
                                                             @elseif ($statusId == 2) bg-secondary-subtle text-success
                                                             @else bg-danger-subtle text-danger
@@ -324,7 +324,7 @@
                                                     <td>
                                                         <span class="text-success">{{ number_format(optional($item->order)->total_price, 0, ',', '.') }} VND</span>
                                                     </td>
-                                                    
+
                                                 </tr>
                                             @endforeach
                                         @endforeach
@@ -332,25 +332,76 @@
                                 </table>
                             </div>
                         </div>
-                        
-                        
-                    </div> 
-                </div>
-            </div> 
 
-        </div> 
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card card-height-100">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Top tỉnh cao nhất</h4>
+                        <div class="flex-shrink-0">
+                            <button type="button" class="btn btn-soft-primary btn-sm">
+                                Xem chi tiết
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <canvas id="sales-by-locations" style="height: 269px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/admin/sales-by-location')
+            .then(response => response.json())
+            .then(data => {
+                const provinces = data.map(item => item.shipping_province);
+                const sales = data.map(item => item.total_sales);
 
+                const ctx = document.getElementById('sales-by-locations').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: provinces,
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: sales,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
-        const labels = @json($statistics->pluck('month_year')); 
-        const data = @json($statistics->pluck('total_quantity_sold')); 
-        const revenueData = @json($statistics->pluck('total_revenue')); 
+        const labels = @json($statistics->pluck('month_year'));
+        const data = @json($statistics->pluck('total_quantity_sold'));
+        const revenueData = @json($statistics->pluck('total_revenue'));
 
         const config = {
             type: 'bar',
@@ -360,20 +411,20 @@
                     {
                         label: 'Số lượng sản phẩm đã bán',
                         data: data,
-                        borderColor: '#9ba4c1', 
-                        backgroundColor: '#45558c', 
+                        borderColor: '#9ba4c1',
+                        backgroundColor: '#45558c',
                         borderWidth: 1,
-                        fill: false, 
-                        type: 'bar', 
+                        fill: false,
+                        type: 'bar',
                     },
                     {
-                        label: 'Doanh thu', 
+                        label: 'Doanh thu',
                         data: revenueData,
-                        borderColor: 'rgb(255, 99, 132)', 
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)', 
-                        fill: false, 
-                        type: 'line', 
-                        borderWidth: 2, 
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false,
+                        type: 'line',
+                        borderWidth: 2,
                     },
                 ],
             },
@@ -386,10 +437,10 @@
                 },
                 plugins: {
                     legend: {
-                        position: 'bottom', 
+                        position: 'bottom',
                         labels: {
                             padding: 50,
-                            boxWidth: 30, 
+                            boxWidth: 30,
                         },
                     },
                 },
@@ -431,7 +482,7 @@
             var btn_prev = document.getElementById("btn_prev");
             var page_span = document.getElementById("page");
             var listing_table_body = document.getElementById("productTableBody");
-            
+
 
             if (page < 1) page = 1;
             if (page > numPagesProduct()) page = numPagesProduct();
@@ -455,7 +506,7 @@
                             <div class="avatar-sm bg-light rounded p-1 me-2">
                                 <img src="${productImage}" alt="Product Image" class="img-fluid d-block" />
                             </div>
-                           
+
                             <div>
                                 <h5 class="fs-14 my-1">
                                     <a href="/admin/products/${product.id}" class="text-reset">
@@ -470,7 +521,7 @@
                         <h5 class="fs-14 my-1 fw-normal">${productPrice}</h5>
                         <span class="text-muted">Giá</span>
                     </td>
-                   
+
                     <td>
                         <h5 class="fs-14 my-1 fw-normal">${product.total_quantity_sold}</h5>
                         <span class="text-muted">Số lượng sản phẩm đã bán</span>

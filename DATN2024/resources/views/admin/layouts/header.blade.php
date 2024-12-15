@@ -5,22 +5,22 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="#" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt=""
                                  height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt=""
                                  height="17">
                         </span>
                     </a>
 
                     <a href="#" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt=""
                                  height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo') }}" alt=""
+                            <img src="{{ asset('theme/admin/assets/images/tech-store-logo.png') }}" alt=""
                                  height="17">
                         </span>
                     </a>
