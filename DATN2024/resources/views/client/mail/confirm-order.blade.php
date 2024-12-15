@@ -230,13 +230,13 @@
             <h2>Thông tin giao hàng</h2>
             <div class="address-container">
 
-                <div class="address">
+                {{-- <div class="address">
                     <h3>Thông tin người dùng:</h3>
                     <p>{{ $customer_name }}</p>
                     <p>{{ $customer_email }}</p>
                     <p>{{ $customer_phone }}</p>
                     <p>{{ $customer_address}}</p>
-                </div>
+                </div> --}}
 
                 <div class="address">
                     <h3>Địa chỉ giao hàng:</h3>

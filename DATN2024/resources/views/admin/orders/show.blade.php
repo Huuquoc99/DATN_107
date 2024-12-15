@@ -146,7 +146,7 @@
                                                 {{ $order->statusOrder?->name }}
                                             </span>
                                         @elseif ($order->statusOrder->id == 3)
-                                            <span class="badge bg-dask-subtle text-dask text-uppercase">
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
                                                 {{ $order->statusOrder?->name }}
                                             </span>
                                         @elseif ($order->statusOrder->id == 4)

@@ -97,10 +97,14 @@ class DashboardController extends Controller
             ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')
             ->orderByDesc('total_spent')
             ->get();
+    
+        
+        // $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
+        $totalEarnings = Order::where('status_order_id', 5)
+            ->where('status_payment_id', 2)
+            ->sum('total_price');
 
-
-        $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
-        $totalOrders = Order::count();
+        $totalOrders = Order::count(); 
         $totalCustomers = User::count();
         $totalProducts = Product::count();
 
