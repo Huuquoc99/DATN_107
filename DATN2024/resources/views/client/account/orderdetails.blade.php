@@ -184,7 +184,7 @@
                                         @csrf
                                         <button type="button" class="btn btn-success btn-sm" onclick="confirmReceived(event)">Đã nhận</button>
                                     </form>
-
+                                    <div class="coins-container"></div>
                                 @elseif ($order->status_order_id == 5)
                                     <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
                                         {{ $order->statusOrder->name ?? 'N/A' }}
@@ -531,6 +531,54 @@
         </div>
     </section>
     <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
+    <style>
+        body {
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .coins-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1000;
+        }
+    
+        .coin {
+            position: absolute;
+            width: 50px; 
+            height: 50px;
+            background-color: gold;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            animation: fall 2s linear forwards;
+            z-index: 1000;
+    
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 14px; 
+            font-weight: bold;
+            color: white; 
+            text-align: center;
+        }
+    
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+    
 @endsection
 @section('script')
     <script type="text/javascript">
@@ -599,4 +647,34 @@
         });
 
     </script>
+    <script>
+        function confirmReceived(event) {
+            event.preventDefault();
+    
+            const container = document.querySelector(".coins-container");
+    
+            for (let i = 0; i < 20; i++) {
+                const coin = document.createElement("div");
+                coin.classList.add("coin");
+    
+                coin.innerHTML = "100VND";
+    
+                coin.style.left = Math.random() * 100 + "vw";
+                coin.style.animationDuration = Math.random() * 2 + 2 + "s";
+                coin.style.animationDelay = Math.random() * 0.5 + "s";
+    
+                container.appendChild(coin);
+    
+                setTimeout(() => {
+                    coin.remove();
+                }, 3000);
+            }
+    
+            setTimeout(() => {
+                document.getElementById("markAsReceivedForm").submit();
+            }, 2000);
+        }
+    </script>
+    
+    
 @endsection
