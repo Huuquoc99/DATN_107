@@ -20,8 +20,11 @@
                         <tr>
                             <td><strong>Đơn hàng:</strong></td>
                             <td>
-                                @if ($order->status_order_id == 1 || $order->status_order_id == 2)
-                                    {{ $order->statusOrder->name ?? 'N/A' }}
+                                @if ($order->status_order_id == 1)
+                                    <span class="badge" style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">
+                                        {{ $order->statusOrder->name ?? 'N/A' }}
+                                    </span>
+
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
 
                                     <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" >
@@ -93,20 +96,103 @@
                                             </div>
                                         </div>
                                     </div>
+                                @elseif ($order->status_order_id == 2)
+                                <span class="badge" style="background-color: rgba(108, 117, 125, 0.2); color: rgba(108, 117, 125, 0.8);">
+                                    {{ $order->statusOrder->name ?? 'N/A' }}
+                                </span>
 
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
+
+                                <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="cancelOrderModalLabel">Hủy đơn hàng</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="cancelOrderReasonForm" action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Lý do hủy bỏ:</label>
+                                                        <div class="list-group">
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind" required>
+                                                                Tôi đã thay đổi ý định
+                                                            </label>
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
+                                                                Đã tìm thấy một lựa chọn rẻ hơn
+                                                            </label>
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="delivery_delay">
+                                                                Giao hàng mất quá nhiều thời gian
+                                                            </label>
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="incorrect_item">
+                                                                Chi tiết mặt hàng sai
+                                                            </label>
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="no_confirmation_email">
+                                                                Không nhận được email xác nhận
+                                                            </label>
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="cost_high">
+                                                                Chi phí vận chuyển quá cao
+                                                            </label>
+                                                            <label class="list-group-item">
+                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
+                                                                Khác
+                                                            </label>
+                                                            <div class="text-primary mt-2" id="error_cancel_reason"></div>
+                                                            @error('cancel_reason')
+                                                            <div class="text-danger" id="error_cancel_reason">
+                                                                {{ $message }}
+                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3" id="otherReasonContainer" style="display: none;">
+                                                        <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
+                                                        <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
+                                                        @error('other_reason')
+                                                        <div class="text-danger" id="error_other_reason">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                        <div class="text-primary mt-2" id="error_other_reason"></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer mb-3 mx-4">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger" id="confirmCancelBtn">Xác nhận Hủy bỏ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @elseif ($order->status_order_id == 3)
-                                    {{ $order->statusOrder->name ?? 'N/A' }}
+                                     <span class="badge" style="background-color: rgba(23, 162, 184, 0.2); color: rgba(23, 162, 184, 0.8);">
+                                        {{ $order->statusOrder->name ?? 'N/A' }}
+                                    </span>
                                 @elseif ($order->status_order_id == 4)
-                                    {{ $order->statusOrder->name ?? 'N/A' }}
+                                     <span class="badge" style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">
+                                        {{ $order->statusOrder->name ?? 'N/A' }}
+                                    </span>
                                     <form id="markAsReceivedForm" action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
                                         <button type="button" class="btn btn-success btn-sm" onclick="confirmReceived(event)">Đã nhận</button>
                                     </form>
-
+                                    <div class="coins-container"></div>
                                 @elseif ($order->status_order_id == 5)
-                                    <span class="text-success">Hoàn thành</span>
+                                    <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
+                                        {{ $order->statusOrder->name ?? 'N/A' }}
+                                    </span>
                                 @elseif ($order->status_order_id == 6)
-                                    <span class="text-danger">Đã hủy</span>
+                                    <span class="badge" style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">
+                                        {{ $order->statusOrder->name ?? 'N/A' }}
+                                    </span>
                                 @else
                                     <span class="text-muted">Không rõ</span>
                                 @endif
@@ -115,7 +201,20 @@
                         <tr>
                             <td><strong>Trạng thái:</strong></td>
                             <td>
-                                {{ $order->statusPayment->name ?? 'N/A' }}
+                                @if ($order->status_payment_id == 1)
+                                    <span class="badge" style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">
+                                        {{ $order->statusPayment->name ?? 'N/A' }}
+                                    </span>
+                                @elseif ($order->status_payment_id == 2)
+                                    <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
+                                        {{ $order->statusPayment->name ?? 'N/A' }}
+                                    </span>
+                                @elseif ($order->status_payment_id == 3)
+                                    <span class="badge" style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">
+                                        {{ $order->statusPayment->name ?? 'N/A' }}
+                                    </span>
+                                @endif
+
                                 @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
@@ -126,11 +225,22 @@
                         </tr>
                         <tr>
                             <td><strong>Thanh toán:</strong></td>
-                            <td>{{ $order->paymentMethod->name ?? 'N/A' }}</td>
+{{--                            @dd($order->paymentMethod->name);--}}
+                            <td>
+                                @if ($order->status_payment_id == 1)
+                                    <span class="badge" style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">
+                                        {{ $order->paymentMethod->name ?? 'N/A' }}
+                                    </span>
+                                @elseif ($order->status_payment_id == 2)
+                                    <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
+                                        {{ $order->paymentMethod->name ?? 'N/A' }}
+                                    </span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Tổng giá:</strong></td>
-                            <td>{{ number_format($order->total_price) }} VND</td>
+                            <td style="color: rgba(220, 53, 69, 0.8);"><b>{{ number_format($order->total_price) }} VND</b></td>
                         </tr>
                         <tr>
                             <td><strong>Tạo vào lúc:</strong></td>
@@ -200,19 +310,44 @@
                                             {{ number_format($order->subtotal, 0, '.', ',') }} VND
                                         </td>
                                     </tr>
-                                    <tr>
-                                        @if ($order->voucher)
+                                    {{-- <tr>
                                         <td>Giảm giá :</td>
                                         <td class="text-end">
                                             -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
                                         </td>
                                        @endif
+                                    </tr> --}}
+                                    <tr>
+                                        @if ($order->voucher)
+                                            <td>Giảm giá :</td>
+                                            <td class="text-end">
+                                                @if ($order->voucher->discount_type === 'percent')
+                                                    -{{ number_format(($order->subtotal * $order->voucher->discount / 100), 0, '.', ',') }} VND ({{ $order->voucher->discount }}%)
+                                                @elseif ($order->voucher->discount_type === 'percent_max')
+                                                    @php
+                                                        $discount_value = $order->subtotal * $order->voucher->discount / 100;
+                                                        $discount_value = min($discount_value, $order->voucher->max_discount);
+                                                    @endphp
+                                                    -{{ number_format($discount_value, 0, '.', ',') }} VND ({{ $order->voucher->discount }}%, tối đa {{ number_format($order->voucher->max_discount, 0, '.', ',') }} VND)
+                                                @elseif ($order->voucher->discount_type === 'amount')
+                                                    -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
+                                                @endif
+                                            </td>
+                                        @endif
                                     </tr>
+                                    @if ($order->use_points)
+                                        <tr>
+                                            <td>Điểm thưởng</td>
+                                            <td class="text-end">
+                                                -{{ $order->use_points }} VND
+                                            </td>
+                                        </tr>
+                                    @endif
                                     <tr class="border-top border-top-dashed">
-                                        <th scope="row">Tổng tiền:</th>
-                                        <th class="text-end">
-                                            {{ number_format($order->total_price, 0, '.', ',') }} VND
-                                        </th>
+                                        <td scope="row">Tổng tiền:</td>
+                                        <td class="text-end" >
+                                            <h4><b style="color: rgba(220, 53, 69, 0.8);">{{ number_format($order->total_price, 0, '.', ',') }} VND</b></h4>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -397,6 +532,54 @@
         </div>
     </section>
     <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
+    <style>
+        body {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coins-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .coin {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: gold;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            animation: fall 2s linear forwards;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+
 @endsection
 @section('script')
     <script type="text/javascript">
@@ -465,4 +648,34 @@
         });
 
     </script>
+    <script>
+        function confirmReceived(event) {
+            event.preventDefault();
+
+            const container = document.querySelector(".coins-container");
+
+            for (let i = 0; i < 20; i++) {
+                const coin = document.createElement("div");
+                coin.classList.add("coin");
+
+                coin.innerHTML = "100VND";
+
+                coin.style.left = Math.random() * 100 + "vw";
+                coin.style.animationDuration = Math.random() * 2 + 2 + "s";
+                coin.style.animationDelay = Math.random() * 0.5 + "s";
+
+                container.appendChild(coin);
+
+                setTimeout(() => {
+                    coin.remove();
+                }, 3000);
+            }
+
+            setTimeout(() => {
+                document.getElementById("markAsReceivedForm").submit();
+            }, 2000);
+        }
+    </script>
+
+
 @endsection

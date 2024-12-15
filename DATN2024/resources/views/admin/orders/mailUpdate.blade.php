@@ -75,42 +75,6 @@
 
 <body>
 
-<<<<<<< HEAD
-<div class="container">
-    <div class="header">
-        <h2 style="padding-left: 20px">Thông báo cập nhật trạng thái đơn hàng</h2>
-    </div>
-
-    <div class="content">
-        <p>
-            Xin chào
-            <strong>
-                {{ $order->user ? $order->user->name : $order->ship_user_name }}
-            </strong>,
-        </p>
-        <p>
-            Chúng tôi muốn thông báo cho bạn rằng đơn hàng của bạn có mã
-            <strong>{{ $order->code }}</strong>
-            đã được cập nhật trạng thái:
-            <strong>{{ $order->statusOrder->name }}</strong>
-        </p>
-
-        <div class="order-details">
-            <p><strong>Chi tiết đơn hàng:</strong></p>
-            <p>Mã đơn hàng: <strong>{{ $order->code }}</strong></p>
-            <p>Trạng thái: <strong>{{ $order->statusOrder->name }}</strong></p>
-        </div>
-
-        <p>
-            @if ($order->user)
-                Nếu bạn có thắc mắc hoặc cần hỗ trợ thêm, vui lòng liên hệ với chúng tôi qua email hoặc số điện thoại bên dưới.
-            @else
-                Khi bạn đặt đơn hàng này với tư cách là khách, nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui lòng cung cấp mã đơn hàng khi liên hệ với chúng tôi.
-            @endif
-        </p>
-
-        <p>Cảm ơn bạn rất nhiều vì đã sử dụng dịch vụ của chúng tôi!</p>
-=======
     <div class="container">
         <div class="header">
             <h2 style="padding-left: 20px">Thông báo cập nhật trạng thái đơn hàng</h2>
@@ -154,7 +118,6 @@
                     thoại</a></p>
             <p>Trân trọng, TechStore</p>
         </div>
->>>>>>> hoa04
     </div>
 
 </body>

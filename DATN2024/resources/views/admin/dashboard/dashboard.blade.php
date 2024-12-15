@@ -12,7 +12,7 @@
                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                         <div class="flex-grow-1">
                             @php
-                                $hour = now()->format('H'); // Lấy giờ hiện tại (24 giờ)
+                                $hour = now()->format('H'); 
                                 if ($hour < 12) {
                                     $greeting = 'Chào buổi sáng';
                                 } elseif ($hour < 18) {
@@ -250,7 +250,7 @@
                 <div class="col-xl-6">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Đơn hàng gần đây</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">Top đơn hàng giá trị</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table-card">

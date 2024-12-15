@@ -180,15 +180,36 @@
                                             
                                         </tr>
                                         <tr>
-                                            <td>Giảm giá :</td>
-                                            <td class="text-end">
-                                                -{{ number_format(optional($order->voucher)->discount ?? 0, 0, '.', ',') }} VND
-                                            </td>
-                                            
+                                            @if ($order->voucher)
+                                                <td>Giảm giá :</td>
+                                                <td class="text-end">
+                                                    @if ($order->voucher->discount_type === 'percent')
+                                                        -{{ number_format(($order->subtotal * $order->voucher->discount / 100), 0, '.', ',') }} VND ({{ $order->voucher->discount }}%)
+                                                    @elseif ($order->voucher->discount_type === 'percent_max')
+                                                        @php
+                                                            $discount_value = $order->subtotal * $order->voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $order->voucher->max_discount);
+                                                        @endphp
+                                                        -{{ number_format($discount_value, 0, '.', ',') }} VND ({{ $order->voucher->discount }}%, tối đa {{ number_format($order->voucher->max_discount, 0, '.', ',') }} VND)
+                                                    @elseif ($order->voucher->discount_type === 'amount')
+                                                        -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
+                                                    @endif
+                                                </td>
+                                            @endif
+                                        </tr>
+                                        <tr>
+                                            @if ($order->use_points)
+                                                <td>Điểm thưởng</td>
+                                                <td class="text-end">
+                                                    -{{ $order->use_points }} VND
+                                                </td>
+                                            @endif
                                         </tr>
                                         <tr class="border-top border-top-dashed fs-15">
-                                            <th scope="row">Tổng tiền</th>
-                                            <th class="text-end">{{ number_format($order->total_price, 0, ',', '.') }} VND</th>
+                                            <th scope="row">Tổng tiền: </th>
+                                            <th class="text-end ">
+                                                <h5 class="text-danger"><b>{{ number_format($order->total_price, 0, ',', '.') }} VND</b></h5>
+                                            </th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -198,7 +219,9 @@
                                 <p class="text-muted mb-1">Phương thức thanh toán: <span class="fw-medium" id="payment-method">{{ $order->paymentMethod->name }}</span></p>
                                 <p class="text-muted">Tổng tiền:
                                     <span class="fw-medium" id=""></span>
-                                    <span id="card-total-amount">{{ number_format($order->total_price, 0, ',', '.') }} VND</span>
+                                    <span id="card-total-amount">
+                                        <span class="text-danger"><b>{{ number_format($order->total_price, 0, ',', '.') }} VND</b></span>
+                                    </span>
                                 </p>
                             </div>
                             <div class="mt-4">

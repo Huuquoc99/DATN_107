@@ -7,7 +7,7 @@
                 href="{{ route('shop') }}">Mua tất cả sản phẩm</a>
         </div>
 
-        <div class="swiper-wrapper row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-start">
+        <div class="swiper-wrapper row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
             @foreach($catalogues as $catalogue)
             <div class="col text-center d-flex flex-column align-items-center" style="width: 180px;">
                 <a href="{{ route('shop', array_merge(request()->except('c'), request()->get('c') ==  $catalogue->id ? [] : ['c' => $catalogue->id])) }}"

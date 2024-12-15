@@ -3,7 +3,7 @@
     TechStore
 @endsection
 @section('content')
-    <div class="breadcrumb">
+    <div class="breadcrumb"  style="margin-top: 100px;">
         <div class="shop-checkout container">
             @include('client.components.breadcrumb', [
                    'breadcrumbs' => [
@@ -25,75 +25,80 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_name" placeholder="Họ và tên"
+                                    <input type="text" class="form-control @error('ship_user_name') is-invalid @enderror" id="ship_user_name" placeholder="Họ và tên"
                                            value="{{ old('ship_user_name', $user->name ?? '') }}" name="ship_user_name">
+                                    <label for="ship_user_name">Họ và tên *</label>
+                                    @error('ship_user_name')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_name')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
+
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="email" class="input" id="ship_user_email" placeholder="Email"
+                                    <input type="email" class="form-control @error('ship_user_email') is-invalid @enderror" id="ship_user_email" placeholder="Email"
                                            value="{{ old('ship_user_email', $user->email ?? '') }}" name="ship_user_email">
+                                    <label for="ship_user_email">Email *</label>
+                                    @error('ship_user_email')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_email')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="number" class="input" id="ship_user_phone" placeholder="Số điện thoại"
+                                    <input type="number" class="form-control @error('ship_user_phone') is-invalid @enderror" id="ship_user_phone" placeholder="Số điện thoại"
                                            value="{{ old('ship_user_phone', $user->phone ?? '') }}" name="ship_user_phone">
+                                    <label for="ship_user_phone">Số điện thoại *</label>
+                                    @error('ship_user_phone')
+                                    <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_phone')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <input type="text" class="input" id="ship_user_address" placeholder="Địa chỉ"
+                                    <input type="text"class="form-control @error('ship_user_address') is-invalid @enderror" id="ship_user_address" placeholder="Địa chỉ"
                                            value="{{ old('ship_user_address', $user->address ?? '') }}" name="ship_user_address">
+                                    <label for="ship_user_address">Địa chỉ *</label>
+                                    @error('ship_user_address')
+                                        <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('ship_user_address')
-                                <div class="" style="color: #EA5651;">{{ $message }}</div>
-                                @enderror
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <div class="row">
                                         <div class="form-group col-12 col-md-4 ">
-                                            <label for="province">Tỉnh/Thành phố</label>
-                                            <select id="province" name="province" class="form-control" onchange="fetchDistricts(this.value)">
+                                            <label for="province">Tỉnh/Thành phố *</label>
+                                            <select id="province" name="province" class="form-control @error('province') is-invalid @enderror" onchange="fetchDistricts(this.value)" >
                                                 <option value="">Chọn Tỉnh/Thành Phố</option>
                                                 @foreach($provinces['results'] as $province)
                                                     <option  value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                                 @endforeach
                                             </select>
                                             @error('province')
-                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                                <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
-                                            <label for="district">Huyện</label>
-                                            <select id="district" name="district" class="form-control" onchange="fetchWards(this.value)">
-                                                <option value="">Chọn Huyện</option>
+                                            <label for="district">Quận / Huyện</label>
+                                            <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" onchange="fetchWards(this.value)">
+                                                <option value="">Chọn Huyện *</option>
                                             </select>
                                             @error('district')
-                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                                <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="form-group col-12 col-md-4">
-                                            <label for="ward">Phường/Xã</label>
-                                            <select id="ward" name="ward" class="form-control">
+                                            <label for="ward">Phường/Xã *</label>
+                                            <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                                 <option value=""> ChọnPhường/Xã</option>
                                             </select>
                                             @error('ward')
-                                            <div class="" style="color: #EA5651;">{{ $message }}</div>
+                                                <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -111,7 +116,7 @@
                     <div class="checkout__totals-wrapper mt-5">
                         <div class="sticky-content">
                             <div class="checkout__totals">
-                                <h3>Your Order</h3>
+                                <h3>Đơn hàng của bạn</h3>
                                 <table class="checkout-cart-items">
                                     <thead>
                                         <th>SẢN PHẨM</th>
@@ -151,7 +156,7 @@
                                     @if(Auth::check())
                                         <tr>
                                             <input type="hidden" name="subtotal" value="{{$subtotal}}">
-                                            <th>SUBTOTAL</th>
+                                            <th>TẠM TÍNH</th>
                                             <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
                                             <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
@@ -159,32 +164,94 @@
                                             <tr>
                                                 <input type="hidden" name="voucher" value="{{$voucher->discount}}">
                                                 <th>GIẢM GIÁ</th>
+
                                                 <td>
                                                     @if($voucher->discount_type == 'amount')
                                                         -{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ
                                                     @elseif($voucher->discount_type == 'percent')
                                                         -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
+                                                    @elseif($voucher->discount_type == 'percent_max')
+                                                        @php
+                                                            $discount_value = $subtotal * $voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $voucher->max_discount);
+                                                        @endphp
+                                                        -{{ number_format($discount_value, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%, tối đa {{ number_format($voucher->max_discount, 0, ',', '.') }} VNĐ)
                                                     @endif
                                                 </td>
 
                                             </tr>
                                         @endif
-                                        <tr>
-                                            <input type="hidden" name="total" value="{{$subtotal - ($voucher ? $voucher->discount : 0)}}">
-                                            <th>TOTAL</th>
-                                            <td>
-                                                @if($voucher)
-                                                    @if($voucher->discount_type == 'percent')
-                                                        {{ number_format($subtotal - ($subtotal * $voucher->discount / 100), 0, ',', '.') }} VNĐ
-                                                    @else
-                                                        {{ number_format($subtotal - $voucher->discount, 0, ',', '.') }} VNĐ
-                                                    @endif
-                                                @else
-                                                    {{ number_format($subtotal, 0, ',', '.') }} VNĐ
-                                                @endif
-                                            </td>
 
+
+
+                                        @if ($points > 0)
+                                            <tr>
+                                                <th>ĐIỂM THƯỞNG</th>
+                                                <td>
+                                                    <div class="form-check form-switch">
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="checkbox"
+                                                            id="use_points"
+                                                            name="use_points"
+                                                            value="{{ $points }}"
+                                                            style="transform: scale(0.7);"
+                                                            {{ old('use_points') == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="use_points">
+                                                            <strong>{{ number_format($points, 0, ',', '.') }} VND</strong>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td colspan="2">
+                                                    Bạn chưa có điểm nào để sử dụng.
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        <tr>
+                                            <input type="hidden" name="total"
+                                                value="{{
+                                                    $voucher
+                                                        ? ($voucher->discount_type == 'percent'
+                                                            ? $subtotal - ($subtotal * $voucher->discount / 100)
+                                                            : ($voucher->discount_type == 'percent_max'
+                                                                ? $subtotal - min($subtotal * $voucher->discount / 100, $voucher->max_discount)
+                                                                : ($voucher->discount_type == 'amount'
+                                                                    ? $subtotal - $voucher->discount
+                                                                    : $subtotal)))
+                                                        : $subtotal }}">
+
+                                            <th>TỔNG</th>
+                                            <td>
+                                                @php
+                                                    $final_total = $subtotal;
+
+                                                    if($voucher) {
+                                                        if($voucher->discount_type == 'percent') {
+                                                            $final_total -= ($subtotal * $voucher->discount / 100);
+                                                        } elseif($voucher->discount_type == 'percent_max') {
+                                                            $discount_value = $subtotal * $voucher->discount / 100;
+                                                            $discount_value = min($discount_value, $voucher->max_discount);
+                                                            $final_total -= $discount_value;
+                                                        } elseif($voucher->discount_type == 'amount') {
+                                                            $final_total -= $voucher->discount;
+                                                        }
+                                                    }
+
+                                                    if(request()->has('use_points') && request()->get('use_points') == 1) {
+                                                        $final_total -= $points;
+                                                        $final_total = max($final_total, 0);
+                                                    }
+                                                @endphp
+
+                                                {{ number_format($final_total, 0, ',', '.') }} VNĐ
+                                            </td>
                                         </tr>
+
+
                                     @endif
                                     </tbody>
                                 </table>
@@ -213,6 +280,49 @@
             </form>
         </section>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const usePointsCheckbox = document.getElementById('use_points');
+                const totalElement = document.querySelector('input[name="total"]').parentElement.querySelector('td');
+                const totalInput = document.querySelector('input[name="total"]');
+
+                function updateTotal() {
+                    let usePoints = usePointsCheckbox.checked;
+                    let points = {{ $points }};
+                    let subtotal = {{ $subtotal }};
+                    let voucher = @json($voucher);
+
+                    let finalTotal = subtotal;
+
+                    if(voucher) {
+                        if(voucher.discount_type == 'percent') {
+                            finalTotal -= (subtotal * voucher.discount / 100);
+                        } else if(voucher.discount_type == 'percent_max') {
+                            let discountValue = subtotal * voucher.discount / 100;
+                            discountValue = Math.min(discountValue, voucher.max_discount);
+                            finalTotal -= discountValue;
+                        } else if(voucher.discount_type == 'amount') {
+                            finalTotal -= voucher.discount;
+                        }
+                    }
+
+                    if(usePoints) {
+                        finalTotal -= points;
+                        finalTotal = Math.max(finalTotal, 0);
+                    }
+
+                    totalElement.textContent = new Intl.NumberFormat('vi-VN').format(finalTotal) + ' VNĐ';
+
+                    totalInput.value = finalTotal;
+                }
+
+                usePointsCheckbox.addEventListener('change', updateTotal);
+
+                updateTotal();
+            });
+        </script>
+
+
 @endsection
 
 @section('api-address')
@@ -245,9 +355,19 @@
                                 window.location.reload();
                             },
                             error: function(xhr) {
+                                var message = xhr.responseJSON.message || "An error occurred!";
+                                    var invalidItems = xhr.responseJSON.invalid_items || [];
 
+                                    if (invalidItems.length > 0) {
+                                        let invalidItemsMessage = "Có các sản phẩm không hợp lệ trong giỏ hàng:\n";
+                                        invalidItems.forEach(item => {
+                                            invalidItemsMessage += `- ${item.product_name}: ${item.reason || "Không hợp lệ"} \n`;
+                                        });
+                                        message = invalidItemsMessage;
+                                    }
                                 Toastify({
-                                    text: xhr.responseJSON.message || "An error occurred!",
+                                    // text: xhr.responseJSON.message || "An error occurred!",
+                                    text: message,
                                     duration: 3000,
                                     close: true,
                                     gravity: "top",
@@ -260,54 +380,57 @@
                     });
                 });
             </script>
-
             <script>
-        function fetchDistricts(provinceId) {
-            if (!provinceId) {
-                document.getElementById('district').innerHTML = '<option value="">Select District</option>';
-                document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
-                return;
-            }
-
-            fetch(`/order/districts/${provinceId}`)
-                .then(response => response.json())
-                .then(data => {
-
-                    let districtOptions = '<option value="">Select District</option>';
-
-                    if (Array.isArray(data)) {
-                        console.log(data);
-                        data.forEach(district => {
-                            districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
-                        });
-                    } else {
-                        console.error("Data is not an array:", data);
+                function fetchDistricts(provinceId) {
+                    if (!provinceId) {
+                        document.getElementById('district').innerHTML = '<option value="">Chọn quận/huyện</option>';
+                        document.getElementById('ward').innerHTML = '<option value="">Chọn xã/phường</option>';
+                        return;
                     }
 
-                    document.getElementById('district').innerHTML = districtOptions;
-                    document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
-                })
-                .catch(error => {
-                    console.error("Error while fetching data:", error);
-                });
-        }
+                    fetch(`/order/districts/${provinceId}`)
+                        .then(response => response.json())
+                        .then(data => {
 
-        function fetchWards(districtId) {
-            if (!districtId) {
-                document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
-                return;
-            }
+                            let districtOptions = '<option value="">Chọn quận/huyện</option>';
 
-            fetch(`/order/wards/${districtId}`)
-                .then(response => response.json())
-                .then(data => {
-                    let wardOptions = '<option value="">Select Ward/Commune</option>';
-                    data.forEach(ward => {
-                        wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
-                    });
-                    document.getElementById('ward').innerHTML = wardOptions;
-                });
-        }
+                            if (Array.isArray(data)) {
+                                console.log(data);
+                                data.forEach(district => {
+                                    districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
+                                });
+                            } else {
+                                console.error("Data is not an array:", data);
+                            }
+
+                            document.getElementById('district').innerHTML = districtOptions;
+                            document.getElementById('ward').innerHTML = '<option value="">Chọn xã/phường</option>';
+                        })
+                        .catch(error => {
+                            console.error("Error while fetching data:", error);
+                        });
+                }
+
+                function fetchWards(districtId) {
+                    if (!districtId) {
+                        document.getElementById('ward').innerHTML = '<option value="">Chọn xã/phường</option>';
+                        return;
+                    }
+
+                    fetch(`/order/wards/${districtId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let wardOptions = '<option value="">Chọn xã/phường</option>';
+                            data.forEach(ward => {
+                                wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
+                            });
+                            document.getElementById('ward').innerHTML = wardOptions;
+                        });
+                }
 
             </script>
+
+
+
+
 @endsection

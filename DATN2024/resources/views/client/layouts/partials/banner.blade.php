@@ -5,41 +5,24 @@
                 <div class="slideshow swiper-container js-swiper-slider w-100 bg-white mx-0 mt-0">
                     <div class="swiper-wrapper">
                         @foreach ($banners as $banner)
-                                <div class="swiper-slide">
-                                    <div class="overflow-hidden position-relative border-radius-10 h-100">
-                                        <a href="{{ $banner->link }}">
-                                            <img loading="lazy" src="{{ asset('storage/' . $banner->image) }}"
-                                                class="position-absolute w-100 h-100 object-fit-cover"
-                                                alt="{{ $banner->title }}">
-                                        </a>
-
-                                        {{-- <div
-                                                        class="slideshow-text full-width_padding position-absolute start-50 top-50 translate-middle pb-4 pb-xl-5">
-                                                        <p
-                                                            class="text_dash text-uppercase fs-base fw-medium animate animate_fade animate_btt animate_delay-3 text-white mb-2">
-                                                            {{ $banner->description }}
-                                        </p>
-                                        <h2
-                                            class="fs-45 fw-semi-bold animate animate_fade animate_btt animate_delay-5 mb-2 text-white text-uppercase lh-1">
-                                            {{ $banner->title }}
-                                        </h2>
-                                        <div class="animate animate_fade animate_btt animate_delay-7 pt-4">
-                                            <a href="/shop"
-                                                class="btn btn-primary border-0 fw-semi-bold text-uppercase theme-bg-color-secondary border-radius-10 btn-50 fs-base text-primary">Shop
-                                                Now</a>
-                                        </div>
-                                    </div> --}}
+                            <div class="swiper-slide">
+                                <div class="overflow-hidden position-relative border-radius-10 h-100 mt-3">
+                                    <a href="{{ $banner->link }}">
+                                        <img loading="lazy" src="{{ asset('storage/' . $banner->image) }}"
+                                             class="position-absolute w-100 h-100 object-fit-cover"
+                                             alt="{{ $banner->title }}">
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
-                </div>
+                    </div>
 
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev" style="color:white"></div>
-                <div class="swiper-button-next" style="color:white"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev" style="color:white"></div>
+                    <div class="swiper-button-next" style="color:white"></div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 
@@ -48,7 +31,7 @@
         <div class="col-md-4 text-center mb-5 mb-md-0">
             <div class="service-promotion__icon mb-4">
                 <img src="https://cdn-icons-png.flaticon.com/512/869/869126.png" alt="Shipping Icon" width="52"
-                    height="52" />
+                     height="52"/>
             </div>
             <h3 class="service-promotion__title fs-6 text-uppercase">Giao hàng nhanh và miễn phí</h3>
             <p class="service-promotion__content text-secondary">Giao hàng miễn phí cho tất cả các đơn hàng </p>
@@ -57,7 +40,7 @@
         <div class="col-md-4 text-center mb-5 mb-md-0">
             <div class="service-promotion__icon mb-4">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTClomf-mZmmDxN6XaEAcuuRjqW1hIAVkniUw&s"
-                    alt="Support Icon" width="52" height="52" />
+                     alt="Support Icon" width="52" height="52"/>
             </div>
             <h3 class="service-promotion__title fs-6 text-uppercase">Hỗ trợ khách hàng 24/7</h3>
             <p class="service-promotion__content text-secondary">
@@ -66,8 +49,9 @@
 
         <div class="col-md-4 text-center mb-4 pb-1 mb-md-0">
             <div class="service-promotion__icon mb-4">
-                <img src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-shield-icon-design-png-image_4273189.jpg"
-                    alt="Guarantee Icon" width="52" height="52" />
+                <img
+                    src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-shield-icon-design-png-image_4273189.jpg"
+                    alt="Guarantee Icon" width="52" height="52"/>
             </div>
             <h3 class="service-promotion__title fs-6 text-uppercase">Đảm bảo hoàn tiền</h3>
             <p class="service-promotion__content text-secondary">Hoàn trả lại tiền trong vòng 30 ngày</p>

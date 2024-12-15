@@ -91,4 +91,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function userPoints()
+    {
+        return $this->hasOne(UserPoint::class);
+    }
+    
 }

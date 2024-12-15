@@ -228,13 +228,13 @@
             <h2>Delivery information</h2>
             <div class="address-container">
 
-                <div class="address">
+                {{-- <div class="address">
                     <h3>Billing address:</h3>
                     <p>{{ $order->user_name }}</p>
                     <p>{{ $order->user_email }}</p>
                     <p>{{ $order->user_phone }}</p>
                     <p>{{ $order->user_address}}</p>
-                </div>
+                </div> --}}
                 
                 <div class="address">
                     <h3>Shipping address:</h3>

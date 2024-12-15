@@ -63,15 +63,15 @@
                             </li>
                             <li>
                                 <i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->email ?? 'Guest' }}
+                                {{ $order->user->email ?? 'Không có thông tin' }}
                             </li>
                             <li>
                                 <i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>
-                                {{ $order->user->phone ?? 'Guest' }}
+                                {{ $order->user->phone ?? 'Không có thông tin' }}
                             </li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'Guest', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user->address ?? 'Không có thông tin', 20, '...') }}
                             </li>
                         </ul>
                     </div>
@@ -85,13 +85,13 @@
                     <div class="card-body">
                         <ul class="list-unstyled vstack fs-13 mb-0 gap-3">
                             <li class="fw-medium fs-14">
-                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Guest', 25, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_name ?? 'Không có thông tin', 25, '...') }}
                             </li>
-                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Guest' }}</li>
-                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Guest' }}</li>
+                            <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_email ?? 'Không có thông tin' }}</li>
+                            <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_phone ?? 'Không có thông tin' }}</li>
                             <li>
                                 <i class="ri-map-pin-line me-2 align-middle text-muted fs-16"></i>
-                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Guest', 20, '...') }}
+                                {{ \Illuminate\Support\Str::limit($order->user_address ?? 'Không có thông tin', 20, '...') }}
                             </li>
                             <li><i class="ri-sticky-note-line me-2 align-middle text-muted fs-16"></i>{{ $order->user_note ?? 'Không có ghi chú nào được cung cấp' }}</li>
                         </ul>
@@ -146,7 +146,7 @@
                                                 {{ $order->statusOrder?->name }}
                                             </span>
                                         @elseif ($order->statusOrder->id == 3)
-                                            <span class="badge bg-dask-subtle text-dask text-uppercase">
+                                            <span class="badge bg-info-subtle text-info text-uppercase">
                                                 {{ $order->statusOrder?->name }}
                                             </span>
                                         @elseif ($order->statusOrder->id == 4)
@@ -329,13 +329,32 @@
                                                             {{ number_format($order->subtotal, 0, '.', ',') }} VND
                                                         </td>
                                                     </tr>
+                                                
                                                     <tr>
-                                                        <td>Giảm giá :</td>
-                                                       @if ($order->voucher)
-                                                        <td class="text-end">
-                                                            -{{ number_format($order->voucher->discount, 0, '.', ',' ?? 0) }} VND
-                                                        </td>
-                                                       @endif
+                                                        @if ($order->voucher)
+                                                            <td>Giảm giá :</td>
+                                                            <td class="text-end">
+                                                                @if ($order->voucher->discount_type === 'percent')
+                                                                    -{{ number_format(($order->subtotal * $order->voucher->discount / 100), 0, '.', ',') }} VND ({{ $order->voucher->discount }}%)
+                                                                @elseif ($order->voucher->discount_type === 'percent_max')
+                                                                    @php
+                                                                        $discount_value = $order->subtotal * $order->voucher->discount / 100;
+                                                                        $discount_value = min($discount_value, $order->voucher->max_discount);
+                                                                    @endphp
+                                                                    -{{ number_format($discount_value, 0, '.', ',') }} VND ({{ $order->voucher->discount }}%, tối đa {{ number_format($order->voucher->max_discount, 0, '.', ',') }} VND)
+                                                                @elseif ($order->voucher->discount_type === 'amount')
+                                                                    -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
+                                                                @endif
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                    <tr>
+                                                        @if ($order->use_points)
+                                                            <td>Điểm thưởng</td>
+                                                            <td class="text-end">
+                                                                -{{ $order->use_points }} VND
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                     <tr class="border-top border-top-dashed">
                                                         <th scope="row">Tổng tiền:</th>

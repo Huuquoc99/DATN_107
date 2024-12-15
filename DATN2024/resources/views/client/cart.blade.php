@@ -31,6 +31,7 @@
                             </thead>
                             <tbody>
                             @foreach ($unifiedCart as $item)
+                                @php $product = \App\Models\Product::query()->where('id', $item['product_id'])->first(); @endphp
                                 <tr>
 
                                     <td>
@@ -42,8 +43,10 @@
                                     </td>
                                     <td>
                                         <div class="shopping-cart__product-item__detail">
-                                            <h4><a
-                                                    href="#">{{ \Illuminate\Support\Str::limit($item['name'], 25) }}</a>
+                                            <h4>
+                                                <a href="{{ route('product.detail', ['slug' => $product->slug]) }}">
+                                                    {{ \Illuminate\Support\Str::limit($item['name'], 25) }}
+                                                </a>
                                             </h4>
                                             <ul class="shopping-cart__product-item__options">
                                                 <li>{{ $item['color'] }}</li>
@@ -51,6 +54,7 @@
                                             </ul>
                                         </div>
                                     </td>
+
                                     <td>
                                         <span
                                             class="shopping-cart__product-price">{{ number_format($item['price'], 0, ',', '.') }}
@@ -85,7 +89,7 @@
                     <div class="shopping-cart__totals-wrapper ">
                         <div class="sticky-content">
                             <div class="mb-3 pb-3 border-bottom">
-                
+
                             </div>
                             <div class="mobile_fixed-btn_wrapper">
                                 <div class="button-wrapper container">

@@ -99,7 +99,11 @@ class DashboardController extends Controller
             ->get();
 
 
-        $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
+        // $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
+        $totalEarnings = Order::where('status_order_id', 5)
+            ->where('status_payment_id', 2)
+            ->sum('total_price');
+
         $totalOrders = Order::count();
         $totalCustomers = User::count();
         $totalProducts = Product::count();

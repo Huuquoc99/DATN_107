@@ -9,11 +9,21 @@
                 <div class="order-complete__message">
                     <h3><i class="fa-regular fa-circle-check fa-xl" style="color: #d8cb9c;"></i> Thanh toán thành công</h3>
                     <label>Bạn sẽ nhận được email xác nhận đơn hàng kèm theo thông tin chi tiết về đơn hàng của bạn.</label>
+                    <div class="m-4 text-center d-flex justify-content-center">
+                        <a  class="btn btn-secondary mt-3" href="{{ route('account.orders.show', $order->id) }}">
+                            Xem đơn hàng
+                        </a>
+                        <a href="/home" class="btn btn-primary" style="margin-left: 20px">Về trang chủ</a>
+                    </div>
                 </div>
                 <div class="order-info">
                     <div class="order-info__item">
                         <label>Mã đơn hàng</label>
-                        <span>{{ $order->code }}</span>
+                        <span>
+                            <a href="{{ route('account.orders.show', $order->id) }}">
+                                {{ $order->code }}
+                            </a>
+                        </span>
                     </div>
                     <div class="order-info__item">
                         <label>Ngày</label>
@@ -21,7 +31,7 @@
                     </div>
                     <div class="order-info__item">
                         <label>Tổng</label>
-                        <span>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</span>
+                        <span>{{ number_format($order->total_price, 0, ',', '.') }} VND</span>
                     </div>
                     <div class="order-info__item">
                         <label>Phương thức thanh toán</label>
@@ -35,15 +45,18 @@
                             <thead>
                             <tr>
                                 <th>Sản phẩm</th>
-                                <th>Màu</th>
+                                <th>Số lượng</th>
                                 <th>Dung lượng</th>
+                                <th>Màu</th>
+
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($order->orderItems as $item)
                                 <tr>
-                                    <td>{{ $item->product_name }} x {{ $item->quantity }}</td>
+                                    <td>{{ $item->product_name }} </td>
+                                    <td>{{ $item->quantity }}</td>
                                     <td>
                                         @if ($item->product_capacity_id)
                                             {{ $item->capacity->name }}
@@ -62,17 +75,39 @@
                             <tbody>
                             <tr>
                                 <th class="align-left">Tổng</th>
-                                <td class="align-right">{{ number_format($order->subtotal, 0, ',', '.') }} VNĐ</td>
+                                <td class="align-right" >{{ number_format($order->subtotal, 0, ',', '.') }} VND</td>
                             </tr>
                             @if ($order->voucher)
                                 <tr>
                                     <th class="align-left">Giảm giá</th>
-                                    <td class="align-right">-{{ number_format($order->voucher->discount, 0, ',', '.') }} VNĐ</td>
+                                    <td class="align-right">
+                                        @if($order->voucher->discount_type == 'percent')
+                                            -{{ number_format($order->subtotal * $order->voucher->discount / 100, 0, ',', '.') }} VND ({{ $order->voucher->discount }}%)
+                                        @elseif($order->voucher->discount_type == 'percent_max')
+                                            @php
+                                                $discount_value = $order->subtotal * $order->voucher->discount / 100;
+                                                $discount_value = min($discount_value, $order->voucher->max_discount);
+                                            @endphp
+                                            -{{ number_format($discount_value, 0, ',', '.') }} VND ({{ $order->voucher->discount }}%, tối đa {{ number_format($order->voucher->max_discount, 0, ',', '.') }} VND)
+                                        @elseif($order->voucher->discount_type == 'amount')
+                                            -{{ number_format($order->voucher->discount, 0, ',', '.') }} VND
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($order->use_points)
+                                <tr>
+                                    <th class="align-left">Điểm thưởng</th>
+                                    <td class="align-right">
+                                        -{{ $order->use_points }} VND
+                                    </td>
                                 </tr>
                             @endif
                             <tr>
                                 <th class="align-left">Tổng thanh toán</th>
-                                <td class="align-right">{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
+                                <td class="align-right">
+                                    <h5><b class="" style="color: rgba(220, 53, 69, 1);">{{ number_format($order->total_price, 0, ',', '.') }} VND</b></h5>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
