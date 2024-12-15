@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Mail\OrderPlaced;
 use App\Models\UserPoint;
@@ -206,6 +207,7 @@ class OrderController extends Controller
                 );
 
                 $userPoints->points += 100;
+                $userPoints->expire_at = Carbon::now()->addMonth();
                 $userPoints->save();
 
                 Mail::to($user->email)->send(new OrderPlaced($order));
