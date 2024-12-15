@@ -355,9 +355,19 @@
                                 window.location.reload();
                             },
                             error: function(xhr) {
+                                var message = xhr.responseJSON.message || "An error occurred!";
+                                    var invalidItems = xhr.responseJSON.invalid_items || [];
 
+                                    if (invalidItems.length > 0) {
+                                        let invalidItemsMessage = "Có các sản phẩm không hợp lệ trong giỏ hàng:\n";
+                                        invalidItems.forEach(item => {
+                                            invalidItemsMessage += `- ${item.product_name}: ${item.reason || "Không hợp lệ"} \n`;
+                                        });
+                                        message = invalidItemsMessage;
+                                    }
                                 Toastify({
-                                    text: xhr.responseJSON.message || "An error occurred!",
+                                    // text: xhr.responseJSON.message || "An error occurred!",
+                                    text: message,
                                     duration: 3000,
                                     close: true,
                                     gravity: "top",
@@ -370,54 +380,57 @@
                     });
                 });
             </script>
-
             <script>
-        function fetchDistricts(provinceId) {
-            if (!provinceId) {
-                document.getElementById('district').innerHTML = '<option value="">Select District</option>';
-                document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
-                return;
-            }
-
-            fetch(`/order/districts/${provinceId}`)
-                .then(response => response.json())
-                .then(data => {
-
-                    let districtOptions = '<option value="">Select District</option>';
-
-                    if (Array.isArray(data)) {
-                        console.log(data);
-                        data.forEach(district => {
-                            districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
-                        });
-                    } else {
-                        console.error("Data is not an array:", data);
+                function fetchDistricts(provinceId) {
+                    if (!provinceId) {
+                        document.getElementById('district').innerHTML = '<option value="">Select District</option>';
+                        document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
+                        return;
                     }
 
-                    document.getElementById('district').innerHTML = districtOptions;
-                    document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
-                })
-                .catch(error => {
-                    console.error("Error while fetching data:", error);
-                });
-        }
+                    fetch(`/order/districts/${provinceId}`)
+                        .then(response => response.json())
+                        .then(data => {
 
-        function fetchWards(districtId) {
-            if (!districtId) {
-                document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
-                return;
-            }
+                            let districtOptions = '<option value="">Select District</option>';
 
-            fetch(`/order/wards/${districtId}`)
-                .then(response => response.json())
-                .then(data => {
-                    let wardOptions = '<option value="">Select Ward/Commune</option>';
-                    data.forEach(ward => {
-                        wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
-                    });
-                    document.getElementById('ward').innerHTML = wardOptions;
-                });
-        }
+                            if (Array.isArray(data)) {
+                                console.log(data);
+                                data.forEach(district => {
+                                    districtOptions += `<option value="${district.district_id}">${district.district_name}</option>`;
+                                });
+                            } else {
+                                console.error("Data is not an array:", data);
+                            }
+
+                            document.getElementById('district').innerHTML = districtOptions;
+                            document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
+                        })
+                        .catch(error => {
+                            console.error("Error while fetching data:", error);
+                        });
+                }
+
+                function fetchWards(districtId) {
+                    if (!districtId) {
+                        document.getElementById('ward').innerHTML = '<option value="">Select Ward/Commune</option>';
+                        return;
+                    }
+
+                    fetch(`/order/wards/${districtId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let wardOptions = '<option value="">Select Ward/Commune</option>';
+                            data.forEach(ward => {
+                                wardOptions += `<option value="${ward.ward_id}">${ward.ward_name}</option>`;
+                            });
+                            document.getElementById('ward').innerHTML = wardOptions;
+                        });
+                }
 
             </script>
+
+
+
+           
 @endsection
