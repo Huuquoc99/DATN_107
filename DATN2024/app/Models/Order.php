@@ -39,6 +39,7 @@ class Order extends Model
         'total_price',
         'subtotal',
         'voucher_id',
+        'use_points',
     ];
 
     public function user()

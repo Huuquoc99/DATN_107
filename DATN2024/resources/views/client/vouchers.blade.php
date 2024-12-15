@@ -18,12 +18,33 @@
                 <div class="d-flex item">
                     <div class="col-3 col-md-3 col-lg-3 col-sm-3 col-xs-3 head">
                         <div class="left"></div>
-                        <div class="voucher-logo" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $voucher['name'] }}">
+                        {{-- <div class="voucher-logo" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $voucher['name'] }}">
                             @if($voucher['discount_type'] == 'amount')
                                 {{ number_format($voucher['discount'] / 1000) }}K
                             @elseif($voucher['discount_type'] == 'percent')
                                 {{ $voucher['discount'] }}%
                             @endif
+                        </div> --}}
+                        <div class="voucher-logo" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-trigger="hover" 
+                            data-bs-placement="top" 
+                            title="
+                                @if($voucher['discount_type'] == 'amount')
+                                    {{ number_format($voucher['discount'] / 1000) }}K
+                                @elseif($voucher['discount_type'] == 'percent')
+                                    {{ $voucher['discount'] }}%
+                                @elseif($voucher['discount_type'] == 'percent_max')
+                                    {{ $voucher['discount'] }}% (Max {{ number_format($voucher['max_discount'] / 1000) }}K)
+                                @endif
+                            ">
+                                @if($voucher['discount_type'] == 'amount')
+                                    {{ number_format($voucher['discount'] / 1000) }}K
+                                @elseif($voucher['discount_type'] == 'percent')
+                                    {{ $voucher['discount'] }}%
+                                @elseif($voucher['discount_type'] == 'percent_max')
+                                    {{ $voucher['discount'] }}%
+                                @endif
                         </div>
                         
                     </div>
@@ -298,6 +319,13 @@
                 font-size: 14px;
             }
         }
+
+        .voucher-logo .max-discount {
+            font-size: 0.3em;
+            color: white;
+            vertical-align: top;
+        }
+
     </style>
 
     

@@ -85,7 +85,14 @@
                                     </td>
                                 </tr>
                             @endif
-
+                            @if ($order->use_points)
+                                <tr>
+                                    <th class="align-left">Điểm thưởng</th>
+                                    <td class="align-right">
+                                        -{{ $order->use_points }} VND
+                                    </td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th class="align-left">Tổng thanh toán</th>
                                 <td class="align-right">

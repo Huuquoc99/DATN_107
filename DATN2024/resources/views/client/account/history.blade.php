@@ -109,43 +109,45 @@
                                             <td>
                                                 @switch($order['status_payment_id'])
                                                     @case(1)
-                                                        <span
-                                                            class="badge bg-warning text-dark">{{ $order['status_payment'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">{{ $order['status_payment'] }}</span>
                                                     @break
 
                                                     @case(2)
-                                                        <span class="badge bg-primary">{{ $order['status_payment'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">{{ $order['status_payment'] }}</span>
                                                     @break
 
                                                     @case(3)
-                                                        <span
-                                                            class="badge bg-success text-dark">{{ $order['status_payment'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">{{ $order['status_payment'] }}</span>
                                                     @break
 
                                                     @default
-                                                        <span
-                                                            class="badge bg-secondary text-dark">{{ $order['status_payment'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">{{ $order['status_payment'] }}</span>
                                                 @endswitch
                                             </td>
                                             <td>
                                                 @switch($order['status_order_id'])
                                                     @case(1)
-                                                        <span
-                                                            class="badge bg-warning text-dark">{{ $order['status_order_name'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">{{ $order['status_order_name'] }}</span>
                                                     @break
 
                                                     @case(2)
-                                                        <span class="badge bg-primary">{{ $order['status_order_name'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(108, 117, 125, 0.2); color: rgba(108, 117, 125, 0.8);">{{ $order['status_order_name'] }}</span>
                                                     @break
 
                                                     @case(3)
-                                                        <span
-                                                            class="badge bg-success text-dark">{{ $order['status_order_name'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(23, 162, 184, 0.2); color: rgba(23, 162, 184, 0.8);">{{ $order['status_order_name'] }}</span>
                                                     @break
 
+                                                    @case(4)
+                                                        <span class="badge" style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">{{ $order['status_order_name'] }}</span>
+                                                        @break
+
+                                                    @case(5)
+                                                        <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">{{ $order['status_order_name'] }}</span>
+                                                        @break
+                                                        
                                                     @default
-                                                        <span
-                                                            class="badge bg-secondary text-dark">{{ $order['status_order_name'] }}</span>
+                                                        <span class="badge" style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">{{ $order['status_order_name'] }}</span>
                                                 @endswitch
                                             </td>
                                             <td>{{ number_format($order['total_price']) }} VND</td>

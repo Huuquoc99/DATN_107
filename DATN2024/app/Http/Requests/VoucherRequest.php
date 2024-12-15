@@ -42,8 +42,9 @@ class VoucherRequest extends FormRequest
                 'required',
                 'numeric',
                 'min:0',
-                ($this->discount_type == 'percent' || $this->discount_type == 'percent_max' ? 'max:100' : ''),
+                Rule::when(in_array($this->input('discount_type'), ['percent', 'percent_max']), 'max:100'),
             ],
+
 
             'product_ids' => 'required|array', 
             'product_ids.*' => 'exists:products,id', 
@@ -51,7 +52,8 @@ class VoucherRequest extends FormRequest
         ];
     }
 
-
+   
+    
     public function messages()
     {
         return [
@@ -107,4 +109,7 @@ class VoucherRequest extends FormRequest
         
     }
 
+
+   
+    
 }

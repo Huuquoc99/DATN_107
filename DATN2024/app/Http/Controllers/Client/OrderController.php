@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Events\AdminNotification;
-use App\Mail\AdminOrderCancelled;
-use App\Mail\AdminOrderUpdated;
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Mail\OrderPlaced;
-use App\Models\OrderStatusLog;
+use App\Models\UserPoint;
+use App\Traits\VnPayTrait;
 use App\Models\StatusOrder;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Mail\OrderCancelled;
+use Illuminate\Http\Request;
+use App\Models\OrderStatusLog;
+use App\Mail\AdminOrderUpdated;
+use App\Events\AdminNotification;
+use App\Mail\AdminOrderCancelled;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Traits\VnPayTrait;
 
 class OrderController extends Controller
 {
@@ -166,28 +168,56 @@ class OrderController extends Controller
     }
 
 
+    // public function markAsReceived(Order $order)
+    // {
+
+    //     try {
+    //         if ($order->status_order_id == 4) {
+    //             $order->status_order_id = 5;
+
+    //             $order->status_payment_id = 2;
+
+    //             $order->save();
+
+    //             Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
+
+    //             return redirect()->back()->with('success', 'The order has been updated to completed.');
+    //         }
+
+    //     } catch (\Exception $exception) {
+    //         return redirect()->back()->with('error', 'There was an error updating the order.');
+    //     }
+    // }
+
+
+
     public function markAsReceived(Order $order)
     {
-
         try {
+            
             if ($order->status_order_id == 4) {
-                $order->status_order_id = 5;
-
-                $order->status_payment_id = 2;
-
+                $order->status_order_id = 5; 
+                $order->status_payment_id = 2; 
                 $order->save();
 
-                Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
+                $user = Auth::user();
+                $userPoints = UserPoint::firstOrCreate(
+                    ['user_id' => $user->id], 
+                    ['points' => 0] 
+                );
 
-                return redirect()->back()->with('success', 'The order has been updated to completed.');
+                $userPoints->points += 100;
+                $userPoints->expire_at = Carbon::now()->addMonth();
+                $userPoints->save();
+
+                Mail::to($user->email)->send(new OrderPlaced($order));
+
+                return redirect()->back()->with('success', 'Đơn hàng đã được cập nhật thành hoàn tất và 100 điểm đã được thêm vào ví của bạn.');
             }
-
         } catch (\Exception $exception) {
-            return redirect()->back()->with('error', 'There was an error updating the order.');
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi cập nhật đơn hàng.');
         }
     }
-
-
     public function repayment($orderId)
     {
         $order = Order::findOrFail($orderId);

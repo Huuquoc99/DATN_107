@@ -65,7 +65,7 @@
                                 <div class="row">
                                     <div class="form-group col-12 col-md-4">
                                         <label for="province">Province/City</label>
-                                        <select id="province" name="province" class="form-control"
+                                        <select id="province" name="province" class="form-control @error('province') is-invalid @enderror"
                                                 onchange="fetchDistricts(this.value)">
                                             <option value="">Select Province/City</option>
                                             @foreach($provinces['results'] as $province)
@@ -80,7 +80,7 @@
 
                                     <div class="form-group col-12 col-md-4">
                                         <label for="district">District</label>
-                                        <select id="district" name="district" class="form-control"
+                                        <select id="district" name="district" class="form-control @error('district') is-invalid @enderror"
                                                 onchange="fetchWards(this.value)">
                                             <option value="">Select District</option>
                                         </select>
@@ -91,7 +91,7 @@
 
                                     <div class="form-group col-12 col-md-4">
                                         <label for="ward">Phường/Xã</label>
-                                        <select id="ward" name="ward" class="form-control">
+                                        <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                             <option value="">Chọn Phường/Xã</option>
                                         </select>
                                         @error('ward')
