@@ -597,22 +597,6 @@
         });
     </script>
     <script>
-        function confirmReceived(event) {
-            event.preventDefault();
-            Swal.fire({
-                title: 'Bạn chắc chắn chứ ?',
-                text: 'Bạn có muốn xác nhận đã nhận đơn hàng này không ?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Vâng, tôi đã nhận!',
-                cancelButtonText: 'Chưa, tôi vẫn chưa nhận!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('markAsReceivedForm').submit();
-                }
-            });
-        }
         document.querySelectorAll('input[name="cancel_reason"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
                 var otherReasonContainer = document.getElementById('otherReasonContainer');
@@ -652,28 +636,42 @@
         function confirmReceived(event) {
             event.preventDefault();
 
-            const container = document.querySelector(".coins-container");
+            Swal.fire({
+                title: 'Bạn chắc chắn chứ?',
+                text: 'Bạn có muốn xác nhận đã nhận đơn hàng này không?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Vâng, tôi đã nhận!',
+                cancelButtonText: 'Chưa, tôi vẫn chưa nhận!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Hiệu ứng rơi xu
+                    const container = document.querySelector(".coins-container");
 
-            for (let i = 0; i < 20; i++) {
-                const coin = document.createElement("div");
-                coin.classList.add("coin");
+                    for (let i = 0; i < 20; i++) {
+                        const coin = document.createElement("div");
+                        coin.classList.add("coin");
+                        coin.innerHTML = "100VND";
 
-                coin.innerHTML = "100VND";
+                        coin.style.left = Math.random() * 100 + "vw";
+                        coin.style.animationDuration = Math.random() * 2 + 2 + "s";
+                        coin.style.animationDelay = Math.random() * 0.5 + "s";
 
-                coin.style.left = Math.random() * 100 + "vw";
-                coin.style.animationDuration = Math.random() * 2 + 2 + "s";
-                coin.style.animationDelay = Math.random() * 0.5 + "s";
+                        container.appendChild(coin);
 
-                container.appendChild(coin);
+                        // Loại bỏ xu sau 3 giây
+                        setTimeout(() => {
+                            coin.remove();
+                        }, 3000);
+                    }
 
-                setTimeout(() => {
-                    coin.remove();
-                }, 3000);
-            }
-
-            setTimeout(() => {
-                document.getElementById("markAsReceivedForm").submit();
-            }, 2000);
+                    // Gửi form sau khi hiệu ứng hoàn tất
+                    setTimeout(() => {
+                        document.getElementById("markAsReceivedForm").submit();
+                    }, 2000);
+                }
+            });
         }
     </script>
 

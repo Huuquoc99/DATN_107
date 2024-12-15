@@ -24,11 +24,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Danh sách </h5>
-                    <a href="{{ route('admin.statusOrders.create') }}" class="btn btn-primary mb-3">
-                        Thêm mới <i class="fa-regular fa-plus"></i>
-                    </a>
+{{--                    <a href="{{ route('admin.statusOrders.create') }}" class="btn btn-primary mb-3">--}}
+{{--                        Thêm mới <i class="fa-regular fa-plus"></i>--}}
+{{--                    </a>--}}
                 </div>
-                
+
 
                 <div class="card-body">
                     <div class="table-responsive table-data ">
@@ -52,7 +52,7 @@
                                 <th>Hoạt động</th>
                                 <th>Ngày tạo</th>
                                 <th>Ngày cập nhật</th>
-                                <th>Hành động</th>
+{{--                                <th>Hành động</th>--}}
                             </tr>
                             </thead>
                             <tbody id="product-list">
@@ -75,7 +75,7 @@
                                                 <span class="text-muted">N/A</span>
                                             @endif
                                         </td>
-                                        
+
                                         <td>
                                             @if($item->updated_at)
                                                 <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span>
@@ -84,49 +84,49 @@
                                                 <span class="text-muted">N/A</span>
                                             @endif
                                         </td>
-                                        
-                                        <td>
-                                            <div class="d-flex gap-2 justify-content-center">
-                                            
-                                                <a href="{{ route('admin.statusOrders.edit', $item) }}" class="btn btn-primary btn-sm">
-                                                    Edit 
-                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>
-                                                </a>
-                                        
-                                                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                                                    Delete 
-                                                    <i class="fa-solid fa-delete-left fa-sm"></i>
-                                                </a>
-                                            </div>
-                                        
-                                            <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="mt-2 text-center">
-                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                                                                <div class="mt-4 pt-2 fs-15 mx-sm-5">
-                                                                    <h4>Are you sure?</h4>
-                                                                    <p class="text-muted mx-4 mb-0">Do you want to delete this order status?</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                                                                <form id="delete-form{{ $item->id }}" action="{{ route('admin.statusOrders.destroy', $item) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn w-sm btn-danger">Yes, Delete It!</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        
+
+{{--                                        <td>--}}
+{{--                                            <div class="d-flex gap-2 justify-content-center">--}}
+{{--                                            --}}
+{{--                                                <a href="{{ route('admin.statusOrders.edit', $item) }}" class="btn btn-primary btn-sm">--}}
+{{--                                                    Edit --}}
+{{--                                                    <i class="fa-regular fa-pen-to-square fa-sm"></i>--}}
+{{--                                                </a>--}}
+{{--                                        --}}
+{{--                                                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">--}}
+{{--                                                    Delete --}}
+{{--                                                    <i class="fa-solid fa-delete-left fa-sm"></i>--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+{{--                                        --}}
+{{--                                            <div id="deleteModal{{ $item->id }}" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">--}}
+{{--                                                <div class="modal-dialog modal-dialog-centered">--}}
+{{--                                                    <div class="modal-content">--}}
+{{--                                                        <div class="modal-header">--}}
+{{--                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="modal-body">--}}
+{{--                                                            <div class="mt-2 text-center">--}}
+{{--                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>--}}
+{{--                                                                <div class="mt-4 pt-2 fs-15 mx-sm-5">--}}
+{{--                                                                    <h4>Are you sure?</h4>--}}
+{{--                                                                    <p class="text-muted mx-4 mb-0">Do you want to delete this order status?</p>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">--}}
+{{--                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>--}}
+{{--                                                                <form id="delete-form{{ $item->id }}" action="{{ route('admin.statusOrders.destroy', $item) }}" method="POST">--}}
+{{--                                                                    @csrf--}}
+{{--                                                                    @method('DELETE')--}}
+{{--                                                                    <button type="submit" class="btn w-sm btn-danger">Yes, Delete It!</button>--}}
+{{--                                                                </form>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </td>--}}
+
                                     </tr>
                                 @endforeach
                             </tbody>

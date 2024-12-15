@@ -34,6 +34,16 @@
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
+                                @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    
                                 <div class="col-md-5">
                                     <div>
                                         <label for="name" class="form-label">Tên</label>
@@ -185,7 +195,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="mt-3">
+                                        {{-- <div class="mt-3">
                                             <label for="storage" class="form-label">Storage</label>
                                             <input type="text"
                                                    class="form-control @error('storage') is-invalid @enderror"
@@ -193,7 +203,7 @@
                                             @error("storage")
                                             <p class="text-danger">{{ $message }}</p>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
                                         <div class="mt-3">
                                             <label for="sim_type" class="form-label">Loại SIM</label>
@@ -305,7 +315,7 @@
                                                                         </td>
                                                                         <td>
                                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                                    onclick="removeVariant('{{ $sizeID . '-' . $colorID }}')">Del</button>
+                                                                                    onclick="removeVariant('{{ $sizeID . '-' . $colorID }}')">Xóa</button>
                                                                         </td>
                                                                     </tr>
                                                                 @endif

@@ -38,7 +38,7 @@ class ProductStoreRequest extends FormRequest
             'battery_capacity' => 'required|string|max:255',
             'camera_resolution' => 'required|string|max:255',
             'network_connectivity' => 'required|string|max:255',
-            'storage' => 'required|string|max:255',
+            // 'storage' => 'required|string|max:255',
             'sim_type' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
 

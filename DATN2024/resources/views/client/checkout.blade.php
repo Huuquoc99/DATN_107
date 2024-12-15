@@ -141,13 +141,13 @@
                                     @endforeach
                                     </tbody>
                                     <div class="mb-3 pb-3 border-bottom">
-                                        <div class="fw-medium mb-2">VOUCHER</div>
+                                        <div class="fw-medium mb-2">Mã giảm giá</div>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
-                                            <button type="button" class="btn btn-dark" id="apply-voucher">Apply</button>
+                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
+                                            <button type="button" class="btn btn-dark" id="apply-voucher">Áp dụng</button>
                                         </div>
                                         <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                            The voucher code is invalid or has expired.
+                                            Mã voucher không hợp lệ hoặc đã hết hạn.
                                         </div>
                                     </div>
                                 </table>
@@ -429,8 +429,4 @@
                 }
 
             </script>
-
-
-
-
 @endsection

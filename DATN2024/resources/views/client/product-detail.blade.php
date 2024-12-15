@@ -160,31 +160,31 @@
                             <div class="row gy-3">
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">Screen Size</label>
+                                        <label class="h6 mb-0">Kích thước màn hình</label>
                                         <span>{{ $product->screen_size }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">Battery Capacity</label>
+                                        <label class="h6 mb-0">Dung lượng pinpin</label>
                                         <span>{{ $product->battery_capacity }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">Camera Resolution</label>
+                                        <label class="h6 mb-0">Độ phân giải cameracamera</label>
                                         <span>{{ $product->camera_resolution }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">Operating System</label>
+                                        <label class="h6 mb-0">Hệ điều hành</label>
                                         <span>{{ $product->operating_system }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">Processor</label>
+                                        <label class="h6 mb-0">Chíp</label>
                                         <span>{{ $product->processor }}</span>
                                     </div>
                                 </div>
@@ -194,21 +194,21 @@
                                         <span>{{ $product->ram }}</span>
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="d-flex justify-content-between">
                                         <label class="h6 mb-0">Storage</label>
                                         <span>{{ $product->storage }}</span>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">SIM Type</label>
+                                        <label class="h6 mb-0">Loại sim</label>
                                         <span>{{ $product->sim_type }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
-                                        <label class="h6 mb-0">Network Connectivity</label>
+                                        <label class="h6 mb-0">Kết nối mạng</label>
                                         <span>{{ $product->network_connectivity }}</span>
                                     </div>
                                 </div>
