@@ -38,7 +38,7 @@ class ProductUpdateRequest extends FormRequest
             'battery_capacity' => 'nullable|string|max:255',
             'camera_resolution' => 'nullable|string|max:255',
             'network_connectivity' => 'nullable|string|max:255',
-            'storage' => 'nullable|string|max:255',
+            // 'storage' => 'nullable|string|max:255',
             'sim_type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'is_active' => 'nullable|boolean',
