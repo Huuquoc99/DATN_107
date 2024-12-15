@@ -116,7 +116,7 @@
                     <div class="checkout__totals-wrapper mt-5">
                         <div class="sticky-content">
                             <div class="checkout__totals">
-                                <h3>Your Order</h3>
+                                <h3>Mã giảm giá </h3>
                                 <table class="checkout-cart-items">
                                     <thead>
                                         <th>SẢN PHẨM</th>
@@ -141,13 +141,13 @@
                                     @endforeach
                                     </tbody>
                                     <div class="mb-3 pb-3 border-bottom">
-                                        <div class="fw-medium mb-2">VOUCHER</div>
+                                        <div class="fw-medium mb-2">Mã giảm giá</div>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
-                                            <button type="button" class="btn btn-dark" id="apply-voucher">Apply</button>
+                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
+                                            <button type="button" class="btn btn-dark" id="apply-voucher">Áp dụng</button>
                                         </div>
                                         <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                            The voucher code is invalid or has expired.
+                                            Mã voucher không hợp lệ hoặc đã hết hạn.
                                         </div>
                                     </div>
                                 </table>
@@ -156,7 +156,7 @@
                                     @if(Auth::check())
                                         <tr>
                                             <input type="hidden" name="subtotal" value="{{$subtotal}}">
-                                            <th>SUBTOTAL</th>
+                                            <th>TẠM TÍNH </th>
                                             <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
                                             <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
@@ -224,7 +224,7 @@
                                                                     : $subtotal)))
                                                         : $subtotal }}">
 
-                                            <th>TOTAL</th>
+                                            <th>THÀNH TIỀN </th>
                                             <td>
                                                 @php
                                                     $final_total = $subtotal;
