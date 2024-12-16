@@ -98,7 +98,8 @@ class DashboardController extends Controller
         ')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->join('users', 'users.id', '=', 'orders.user_id')
-            ->where('orders.status_order_id', '1')
+            ->where('orders.status_order_id', '5')
+            ->where('orders.status_payment_id', '2')
             ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')
             ->orderByDesc('total_spent')
             ->get();
@@ -147,7 +148,7 @@ class DashboardController extends Controller
         $query = Order::where('status_order_id', 5);
 
         if ($startDate) {
-            $query->where('created_at', '>=', $startDate);
+            $query->where('update', '>=', $startDate);
         }
 
         $totalEarnings = $query->sum('total_price');

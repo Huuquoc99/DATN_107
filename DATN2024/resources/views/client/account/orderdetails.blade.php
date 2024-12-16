@@ -598,6 +598,7 @@
     </section>
     <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
     <style>
+      
         .coins-container {
             position: fixed;
             top: 0;

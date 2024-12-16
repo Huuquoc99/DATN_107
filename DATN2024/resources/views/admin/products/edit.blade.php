@@ -464,7 +464,7 @@
                             <div class="row gy-4">
                                 <div class="col-md-12">
                                     <div>
-                                        <label for="tags" class="form-label">Tags</label>
+                                        <label for="tags" class="form-label">Thẻ</label>
                                         <select class="form-select" name="tags[]" id="tags" multiple>
                                             @foreach($tags as $id => $name)
                                                 <option
@@ -523,23 +523,23 @@
 
             <tr class="text-center">
                 <td style="vertical-align: middle;">
-                     <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
+                     <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Dung lượng">
                  </td>
                <td style="vertical-align: middle;">
-                    <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
+                    <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Màu sắc">
                 </td>
                 <td>
-                   <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
+                   <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Số lượng">
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
+                    <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Giá">
                 </td>
                 <td>
                     <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">
                 </td>
                 <td></td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Del</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xoá</button>
                 </td>
             </tr>
                    `;
@@ -580,7 +580,7 @@
 
             const newGalleryHtml = `
         <div class="col-md-4" id="${randomId}_item">
-            <label class="form-label">Image</label>
+            <label class="form-label">Hình ảnh</label>
             <div class="d-flex">
                 <input type="file"
                        class="form-control me-3"
@@ -626,7 +626,7 @@
         function addDefaultGalleryItem() {
             const defaultHtml = `
         <div class="col-md-4" id="gallery_default_item">
-            <label for="gallery_default" class="form-label">Image</label>
+            <label for="gallery_default" class="form-label">Hình ảnh</label>
             <div class="d-flex">
                 <input type="file"
                        class="form-control"

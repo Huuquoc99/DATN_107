@@ -4,7 +4,7 @@
 <head>
     <head>
         <meta charset="utf-8"/>
-        <title>Login</title>
+        <title>TechStore</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         @yield('style-libs')
@@ -67,13 +67,13 @@
                                                 </div>
                                                 <div class="carousel-inner text-center text-white-50 pb-5">
                                                     <div class="carousel-item active">
-                                                        <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                        <p class="fs-15 fst-italic">" Tuyệt vời! Mã sạch, thiết kế sạch, dễ tùy chỉnh. Cảm ơn rất nhiều!"</p>
                                                     </div>
                                                     <div class="carousel-item">
-                                                        <p class="fs-15 fst-italic">" The theme is really great with an amazing customer support."</p>
+                                                        <p class="fs-15 fst-italic">" Chủ đề này thực sự tuyệt vời với dịch vụ hỗ trợ khách hàng tuyệt vời."</p>
                                                     </div>
                                                     <div class="carousel-item">
-                                                        <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                        <p class="fs-15 fst-italic">"Tuyệt vời! Mã sạch, thiết kế sạch, dễ tùy chỉnh. Cảm ơn rất nhiều! "</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -85,8 +85,8 @@
                             <div class="col-lg-6">
                                 <div class="p-lg-5 p-4">
                                     <div>
-                                        <h5 class="text-primary">Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to TechStore.</p>
+                                        <h5 class="text-primary">Chào mừng trở lại!</h5>
+                                        <p class="text-muted">Đăng nhập để tiếp tục đến TechStore.</p>
                                     </div>
 
                                     <div class="mt-4">
@@ -95,7 +95,7 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" class="form-control mb-3 @error('email') is-invalid @enderror" id="email" placeholder="Enter email">
+                                                <input type="email" name="email" class="form-control mb-3 @error('email') is-invalid @enderror" id="email" placeholder="Nhập email">
 
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
@@ -106,9 +106,9 @@
                                                 
                                             <div class="mb-3">
                                                 
-                                                <label class="form-label" for="password-input">Password</label>
+                                                <label class="form-label" for="password-input">Mật khẩu</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    <input type="password" name="password" class="form-control pe-5 password-input mb-3 @error('password') is-invalid @enderror" placeholder="Enter password" id="password-input" >
+                                                    <input type="password" name="password" class="form-control pe-5 password-input mb-3 @error('password') is-invalid @enderror" placeholder="Nhập mật khẩu" id="password-input" >
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -119,14 +119,14 @@
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                                <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                                <label class="form-check-label" for="auth-remember-check">Nhớ tôi nhé</label>
                                                 <div class="float-end">
-                                                    <a href="{{ route('admin.password.request') }}" class="text-muted" style="text-decoration: underline;">Forgot password?</a>
+                                                    <a href="{{ route('admin.password.request') }}" class="text-muted" style="text-decoration: underline;">Quên mật khẩu?</a>
                                                 </div>
                                             </div>
 
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Sign In</button>
+                                                <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
                                             </div>
                                         </form>
                                     </div>
@@ -144,7 +144,7 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <p class="mb-0">&copy;
-                            <script>document.write(new Date().getFullYear())</script> TechStore. Crafted with <i class="mdi mdi-heart text-danger"></i> by TechStore
+                            <script>document.write(new Date().getFullYear())</script> TechStore. Được chế tạo bởi <i class="mdi mdi-heart text-danger"></i> TechStore
                         </p>
                     </div>
                 </div>

@@ -11,8 +11,8 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Table</a></li>
-                        <li class="breadcrumb-item active"> List</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                        <li class="breadcrumb-item active"> Danh sách</li>
                     </ol>
                 </div>
             </div>
@@ -76,19 +76,25 @@
                     
                                         <td>
                                             @if ($item->created_at)
-                                                <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
-                                                <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                                @php
+                                                    \Carbon\Carbon::setLocale('vi'); 
+                                                @endphp
+                                                <span id="invoice-date">{{ $item->created_at->translatedFormat('d F, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->created_at->format('H:i') }}</small>
                                             @else
-                                                <span class="text-muted">N/A</span>
+                                                <span class="text-muted">Không có thông tin</span>
                                             @endif
                                         </td>
                                         
                                         <td>
                                             @if ($item->updated_at)
-                                                <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span>
-                                                <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                                @php
+                                                    \Carbon\Carbon::setLocale('vi'); 
+                                                @endphp
+                                                <span id="invoice-date">{{ $item->updated_at->translatedFormat('d F, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('H:i') }}</small>
                                             @else
-                                                <span class="text-muted">N/A</span>
+                                                <span class="text-muted">Không có thông tin</span>
                                             @endif
                                         </td>
                            

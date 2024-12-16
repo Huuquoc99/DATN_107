@@ -195,16 +195,6 @@
                                             @enderror
                                         </div>
 
-                                        {{-- <div class="mt-3">
-                                            <label for="storage" class="form-label">Storage</label>
-                                            <input type="text"
-                                                   class="form-control @error('storage') is-invalid @enderror"
-                                                   name="storage" id="storage" value="{{ old('storage') }}">
-                                            @error("storage")
-                                            <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div> --}}
-
                                         <div class="mt-3">
                                             <label for="sim_type" class="form-label">Loại SIM</label>
                                             <input type="text" class="form-control @error('sim_type') is-invalid @enderror"
@@ -423,7 +413,7 @@
                                             <div class="row gy-4">
                                                 <div class="col-md-12">
                                                     <div>
-                                                        <label for="tags" class="form-label">Tags</label>
+                                                        <label for="tags" class="form-label">Thẻ</label>
                                                         <select class="form-select" name="tags[]" id="tags" multiple>
                                                             @foreach($tags as $id => $name)
                                                                 <option value="{{ $id }}">{{ $name }}</option>
@@ -484,7 +474,7 @@
         }
 
         function removeImageGallery(id) {
-            if (confirm('Are you sure you want to delete?')) {
+            if (confirm('Bạn có chắc chắn muốn xoá không?')) {
                 $('#' + id).remove();
             }
         }
@@ -531,16 +521,16 @@
             newRow.innerHTML = `
                 <tr class="text-center">
                     <td>
-                        <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Capacity">
+                        <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][size]" placeholder="Dung lượng">
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Color">
+                        <input type="text" class="form-control" name="new_product_variants[${sizeID}-${colorID}][color]" placeholder="Màu sắc">
                     </td>
                     <td>
-                        <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Quantity">
+                        <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][quantity]" placeholder="Số lượng">
                     </td>
                     <td>
-                        <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Price">
+                        <input type="number" class="form-control" name="new_product_variants[${sizeID}-${colorID}][price]" placeholder="Giá">
                     </td>
                     <td>
                         <input type="file" class="form-control" name="new_product_variants[${sizeID}-${colorID}][image]">

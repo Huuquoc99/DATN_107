@@ -60,7 +60,7 @@
                                         <label for="date-datepicker" class="form-label">Ngày bắt đầu</label>
                                         <input type="date" id="date-datepicker"
                                             class="form-control @error('start_date') is-invalid @enderror"
-                                            name="start_date" placeholder="Select date">
+                                            name="start_date" placeholder="Chọn ngày">
                                         @error('start_date')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -69,7 +69,7 @@
                                         <label for="date-datepicker" class="form-label">Ngày hết hạn</label>
                                         <input type="date" id="date-datepicker"
                                             class="form-control @error('expiration_date') is-invalid @enderror"
-                                            name="expiration_date" placeholder="Select date">
+                                            name="expiration_date" placeholder="Chọn ngày">
                                         @error('expiration_date')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -140,17 +140,6 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
-{{--                                     
-                                    <div class="mt-3" id="discount_percent_div" style="display: none;">
-                                        <label for="discount" class="form-label">Phần trăm giảm giá</label> 
-                                        <input type="number"
-                                            class="form-control @error('discount') is-invalid @enderror"
-                                            name="discount" id="discount" value="{{ old('discount', $voucher->discount ?? '') }}">
-                                        @error('discount')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div> --}}
-                                
 
                                     <div class="mt-3">
                                         <label for="min_order_value" class="form-label">Giá trị đơn hàng tối thiểu</label>

@@ -157,7 +157,7 @@ class OrderController extends Controller
                        $timeElapsed = $lastUpdated ? now()->diffInMinutes($lastUpdated) : null;
 
                        if ($timeElapsed !== null && $timeElapsed <= 4320) {
-                           $fail('Không thể thay đổi trạng thái thành Đã hủy trong vòng 10 phút sau khi thành công.');
+                           $fail('Không thể thay đổi trạng thái thành Đã hủy trong vòng 3 ngày sau khi thành công.');
                        }
                    }
 

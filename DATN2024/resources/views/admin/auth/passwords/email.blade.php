@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Reset Password</title>
+    <title>TechStore</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -54,13 +54,13 @@
                                                     </div>
                                                     <div class="carousel-inner text-center text-white-50 pb-5">
                                                         <div class="carousel-item active">
-                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                            <p class="fs-15 fst-italic">" Tuyệt vời! Mã sạch, thiết kế sạch, dễ tùy chỉnh. Cảm ơn rất nhiều!"</p>
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" The theme is really great with an amazing customer support."</p>
+                                                            <p class="fs-15 fst-italic">" Chủ đề này thực sự tuyệt vời với dịch vụ hỗ trợ khách hàng tuyệt vời."</p>
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                            <p class="fs-15 fst-italic">" Tuyệt vời! Mã sạch, thiết kế sạch, dễ tùy chỉnh. Cảm ơn rất nhiều!"</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,7 +72,7 @@
                                 <div class="col-lg-6">
                                     <div class="p-lg-5 p-3">
                                         <h5 class="text-primary">Forgot Password?</h5>
-                                        <p class="text-muted">Reset password with velzon</p>
+                                        <p class="text-muted">Đặt lại mật khẩu</p>
 
                                         <div class="text-center">
                                             <lord-icon
@@ -81,7 +81,7 @@
                                         </div>
 
                                         <div class="alert border-0 alert-warning text-center mb-2 mx-2" role="alert">
-                                            Enter your email and instructions will be sent to you!
+                                            Nhập email của bạn và hướng dẫn sẽ được gửi đến bạn!
                                         </div>
                                         
                                         <div class="p-2">
@@ -106,7 +106,7 @@
                                         </div>
 
                                         <div class="mt-3 text-center">
-                                            <p class="mb-0">Wait, I remember my password... <a href="{{ route("admin.login")}}" class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
+                                            <p class="mb-0">Đợi đã, tôi nhớ ra mật khẩu của mình rồi... <a href="{{ route("admin.login")}}" class="fw-semibold text-primary text-decoration-underline"> Nhấp vào đây </a> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0">&copy;
-                                <script>document.write(new Date().getFullYear())</script> TechStore. Crafted with <i class="mdi mdi-heart text-danger"></i> by TechStore
+                                <script>document.write(new Date().getFullYear())</script> TechStore. Được chế tạo bởi <i class="mdi mdi-heart text-danger"></i>TechStore
                             </p>
                         </div>
                     </div>
