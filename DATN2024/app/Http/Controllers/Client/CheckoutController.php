@@ -160,75 +160,88 @@ class CheckoutController extends Controller
                 : 0
             );
 
-        $order = Order::query()->create([
-            'user_id' => null,
-            'is_guest' => 1,
-            'user_name' => $request->ship_user_name,
-            'user_email' => $request->ship_user_email,
-            'user_address' => $request->ship_user_address,
-            'user_phone' => $request->ship_user_phone,
+        DB::beginTransaction();
 
-            'shipping_province' => $province_name['name'],
-            'shipping_district' => $district_name['name'],
-            'shipping_ward' => $ward_name['name'],
+        try {
+            $this->deductStockProduct();
 
-            'ship_user_name' => $request->ship_user_name,
-            'ship_user_email' => $request->ship_user_email,
-            'ship_user_phone' => $request->ship_user_phone,
-            'ship_user_address' => $request->ship_user_address,
-            'payment_method_id' => $paymentMethodId,
-            'subtotal' => $request->subtotal,
-            'total_price' => $total_price,
-            'status_order_id' => 1,
-            'status_payment_id' => 1,
-            'code' => $this->generateOrderCode(),
-            'voucher_id' => $voucher ? $voucher->id : null,
-        ]);
+            $order = Order::query()->create([
+                'user_id' => null,
+                'is_guest' => 1,
+                'user_name' => $request->ship_user_name,
+                'user_email' => $request->ship_user_email,
+                'user_address' => $request->ship_user_address,
+                'user_phone' => $request->ship_user_phone,
 
-        // dd($order);
+                'shipping_province' => $province_name['name'],
+                'shipping_district' => $district_name['name'],
+                'shipping_ward' => $ward_name['name'],
 
-        if ($voucher) {
-            $voucher->used_quantity += 1;
-            $voucher->save();
-        }
-
-        foreach ($guest_cart as $item) {
-            $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item['product_variant_id']);
-
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item['product_id'],
-                'product_variant_id' => $item['product_variant_id'],
-                'quantity' => $item['quantity'],
-                'price' => $item['price'],
-                'product_name' => $productVariant->product->name,
-                'product_sku' => $productVariant->product->sku,
-                'product_img_thumbnail' => $productVariant->image,
-                'product_price_regular' => $productVariant->price,
-                'product_price_sale' => $productVariant->price,
-                'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null,
-                'product_color_id' => $productVariant->color ? $productVariant->color->id : null,
+                'ship_user_name' => $request->ship_user_name,
+                'ship_user_email' => $request->ship_user_email,
+                'ship_user_phone' => $request->ship_user_phone,
+                'ship_user_address' => $request->ship_user_address,
+                'payment_method_id' => $paymentMethodId,
+                'subtotal' => $request->subtotal,
+                'total_price' => $total_price,
+                'status_order_id' => 1,
+                'status_payment_id' => 1,
+                'code' => $this->generateOrderCode(),
+                'voucher_id' => $voucher ? $voucher->id : null,
             ]);
-        }
+
+            // dd($order);
+
+            if ($voucher) {
+                $voucher->used_quantity += 1;
+                $voucher->save();
+            }
+
+            foreach ($guest_cart as $item) {
+                $productVariant = ProductVariant::with(['product', 'capacity', 'color'])->find($item['product_variant_id']);
+
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item['product_id'],
+                    'product_variant_id' => $item['product_variant_id'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                    'product_name' => $productVariant->product->name,
+                    'product_sku' => $productVariant->product->sku,
+                    'product_img_thumbnail' => $productVariant->image,
+                    'product_price_regular' => $productVariant->price,
+                    'product_price_sale' => $productVariant->price,
+                    'product_capacity_id' => $productVariant->capacity ? $productVariant->capacity->id : null,
+                    'product_color_id' => $productVariant->color ? $productVariant->color->id : null,
+                ]);
+            }
 
 
-        session(['order_code' => $order->code]);
-        session()->save();
-        session()->forget('voucher');
-
-
-        if ($paymentMethodId == 2) {
-
-            $this->processVNPAY($order);
-
-        } else {
-
-            GuestOrderPlaced::dispatch($order);
-
-            session()->forget('cart');
             session(['order_code' => $order->code]);
+            session()->save();
+            session()->forget('voucher');
 
-            return redirect()->route('guest-checkout.success');
+            DB::commit();
+
+
+            if ($paymentMethodId == 2) {
+
+                $this->processVNPAY($order);
+
+            } else {
+
+                GuestOrderPlaced::dispatch($order);
+
+                session()->forget('cart');
+                session(['order_code' => $order->code]);
+
+                return redirect()->route('guest-checkout.success');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Checkout Error: ' . $e->getMessage());
+            return redirect()->route('cart.list')->with('error', 'Có lỗi xảy ra trong quá trình đặt hàng. Vui lòng thử lại.');
         }
     }
 
@@ -462,6 +475,9 @@ class CheckoutController extends Controller
 
                 return redirect()->route('checkout.success');
             } else {
+
+                session()->forget('voucher');
+
                 $order->status_payment_id = 3;
                 $order->save();
 
@@ -482,7 +498,7 @@ class CheckoutController extends Controller
             } else {
 
                 \App\Events\OrderPlaced::dispatch($order, 'order_fail_guest');
-
+                session()->forget('voucher');
                 $order->status_payment_id = 3;
                 $order->save();
 

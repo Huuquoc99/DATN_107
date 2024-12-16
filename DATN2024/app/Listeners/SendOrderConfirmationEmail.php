@@ -64,7 +64,7 @@ class SendOrderConfirmationEmail implements ShouldQueue
 
             Mail::send('client.mail.confirm-order', $data, function ($message) use ($order) {
                 $message->to($order->user_email, $order->ship_user_email)
-                    ->subject('Order Confirmation #' . $order->code);
+                    ->subject('Xác nhận đơn hàng #' . $order->code);
                 $message->from('hoadtph31026@fpt.edu.vn', 'Techstore');
             });
 

@@ -89,7 +89,7 @@
                     <div class="shopping-cart__totals-wrapper ">
                         <div class="sticky-content">
                             <div class="mb-3 pb-3 border-bottom">
-
+                                <span id="total_cart"></span>
                             </div>
                             <div class="mobile_fixed-btn_wrapper">
                                 <div class="button-wrapper container">
@@ -156,4 +156,6 @@
             });
         });
     </script>
+
+
 @endsection

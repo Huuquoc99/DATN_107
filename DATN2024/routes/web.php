@@ -178,6 +178,7 @@ Route::prefix('admin')
         Route::get('/earnings',          [DashboardController::class, 'getEarnings']);
 
 
+
         // Product
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
         Route::resource('products', ProductController::class);

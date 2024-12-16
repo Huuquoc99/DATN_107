@@ -41,18 +41,22 @@
                                     </div>
                                     <div>
                                         <button type="button" class="btn btn-soft-secondary btn-sm" data-period="all" id="filter-all">
-                                            Tất cả
+                                            All
+                                        </button>
+                                        <button type="button" class="btn btn-soft-primary btn-sm" data-period="today" id="filter-today">
+                                            Today
                                         </button>
                                         <button type="button" class="btn btn-soft-primary btn-sm" data-period="1m" id="filter-1m">
-                                            1 Tháng
+                                            1M
                                         </button>
                                         <button type="button" class="btn btn-soft-primary btn-sm" data-period="6m" id="filter-6m">
-                                            6 Tháng
+                                            6M
                                         </button>
                                         <button type="button" class="btn btn-soft-primary btn-sm" data-period="1y" id="filter-1y">
-                                            1 Năm
+                                            1Y
                                         </button>
                                     </div>
+
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                     <div>

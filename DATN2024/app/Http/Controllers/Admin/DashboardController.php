@@ -43,7 +43,7 @@ class DashboardController extends Controller
             ->leftJoin('order_items', 'products.id', '=', 'order_items.product_variant_id')
             ->leftJoin('orders', 'orders.id', '=', 'order_items.order_id')
             ->where(function($query) {
-                $query->where('orders.status_order_id', '1')
+                $query->where('orders.status_order_id', '5')
                     ->orWhereNull('orders.status_order_id');
             })
             ->whereNull('orders.deleted_at')
@@ -93,7 +93,8 @@ class DashboardController extends Controller
         ')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->join('users', 'users.id', '=', 'orders.user_id')
-            ->where('orders.status_order_id', '1')
+            ->where('orders.status_order_id', '5')
+            ->where('orders.status_payment_id', '2')
             ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')
             ->orderByDesc('total_spent')
             ->get();
@@ -125,6 +126,9 @@ class DashboardController extends Controller
         $period = $request->query('period');
 
         switch ($period) {
+            case 'today':
+                $startDate = now()->startOfDay();
+                break;
             case '1m':
                 $startDate = now()->subMonth();
                 break;
@@ -142,7 +146,7 @@ class DashboardController extends Controller
         $query = Order::where('status_order_id', 5);
 
         if ($startDate) {
-            $query->where('created_at', '>=', $startDate);
+            $query->where('updated_at', '>=', $startDate);
         }
 
         $totalEarnings = $query->sum('total_price');
@@ -151,8 +155,6 @@ class DashboardController extends Controller
             'total_earnings' => $totalEarnings,
         ]);
     }
-
-
 
     public function getSalesData(Request $request)
     {
