@@ -72,8 +72,8 @@
                             <div class="d-flex flex-wrap" style="margin-top:-16px; margin-bottom: -18px;">
                                 @foreach($colors as $color)
                                     <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
-                                    class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
-                                    style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
+                                        class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
+                                        style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
                                     </a>
                                 @endforeach
                             </div>

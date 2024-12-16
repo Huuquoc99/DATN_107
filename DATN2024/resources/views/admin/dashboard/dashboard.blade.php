@@ -414,8 +414,8 @@
                         borderColor: '#9ba4c1',
                         backgroundColor: '#45558c',
                         borderWidth: 1,
-                        fill: false,
-                        type: 'bar',
+                        fill: true, 
+                        type: 'bar', 
                     },
                     {
                         label: 'Doanh thu',
