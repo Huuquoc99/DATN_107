@@ -22,7 +22,7 @@
                     <div class="billing-info__wrapper">
                         <h4>CHI TIẾT THANH TOÁN</h4>
 
-                        <div class="row">
+                        <div class="row">   
                             <div class="col-md-12">
                                 <div class="form-floating my-3">
                                     <input type="text" class="form-control @error('ship_user_name') is-invalid @enderror" id="ship_user_name" placeholder="Họ và tên"

@@ -4,14 +4,14 @@
 @endsection
 @section('content')
 
-<div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
+    <div class="mb-3 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
     <section class="my-account container">
         @include('client.components.breadcrumb', [
-              'breadcrumbs' => [
-                  ['label' => 'Đơn hàng', 'url' => route('history')],
-                  ['label' =>  $order->code, 'url' => null],
-              ]
-          ])
+            'breadcrumbs' => [
+                ['label' => 'Đơn hàng', 'url' => route('history')],
+                ['label' => $order->code, 'url' => null],
+            ],
+        ])
         <div class="row">
             <div class="col-lg-4">
                 <div class="info-box">
@@ -21,176 +21,220 @@
                             <td><strong>Đơn hàng:</strong></td>
                             <td>
                                 @if ($order->status_order_id == 1)
-                                    <span class="badge" style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">
                                         {{ $order->statusOrder->name ?? 'N/A' }}
                                     </span>
 
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
 
-                                    <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" >
+                                    <div class="modal fade" id="cancelOrderModal" tabindex="-1"
+                                        aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="cancelOrderModalLabel">Hủy đơn hàng</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="cancelOrderReasonForm" action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
+                                                    <form id="cancelOrderReasonForm"
+                                                        action="{{ route('account.orders.cancel', $order->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="form-label">Lý do hủy bỏ:</label>
                                                             <div class="list-group">
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind" required>
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="changed_mind" required>
                                                                     Tôi đã thay đổi ý định
                                                                 </label>
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="found_cheaper">
                                                                     Đã tìm thấy một lựa chọn rẻ hơn
                                                                 </label>
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="delivery_delay">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="delivery_delay">
                                                                     Giao hàng mất quá nhiều thời gian
                                                                 </label>
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="incorrect_item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="incorrect_item">
                                                                     Chi tiết mặt hàng sai
                                                                 </label>
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="no_confirmation_email">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="no_confirmation_email">
                                                                     Không nhận được email xác nhận
                                                                 </label>
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="cost_high">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="cost_high">
                                                                     Chi phí vận chuyển quá cao
                                                                 </label>
                                                                 <label class="list-group-item">
-                                                                    <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="other">
                                                                     Khác
                                                                 </label>
-                                                                <div class="text-primary mt-2" id="error_cancel_reason"></div>
-                                                                @error('cancel_reason')
-                                                                <div class="text-danger" id="error_cancel_reason">
-                                                                    {{ $message }}
+                                                                <div class="text-primary mt-2" id="error_cancel_reason">
                                                                 </div>
+                                                                @error('cancel_reason')
+                                                                    <div class="text-danger" id="error_cancel_reason">
+                                                                        {{ $message }}
+                                                                    </div>
                                                                 @enderror
                                                             </div>
                                                         </div>
 
-                                                        <div class="mb-3" id="otherReasonContainer" style="display: none;">
-                                                            <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
+                                                        <div class="mb-3" id="otherReasonContainer"
+                                                            style="display: none;">
+                                                            <label for="otherReason" class="form-label">Vui lòng nêu rõ lý
+                                                                do của bạn</label>
                                                             <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
                                                             @error('other_reason')
-                                                            <div class="text-danger" id="error_other_reason">
-                                                                {{ $message }}
-                                                            </div>
+                                                                <div class="text-danger" id="error_other_reason">
+                                                                    {{ $message }}
+                                                                </div>
                                                             @enderror
                                                             <div class="text-primary mt-2" id="error_other_reason"></div>
                                                         </div>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer mb-3 mx-4">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Xác nhận Hủy bỏ</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Xác
+                                                        nhận Hủy bỏ</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 @elseif ($order->status_order_id == 2)
-                                <span class="badge" style="background-color: rgba(108, 117, 125, 0.2); color: rgba(108, 117, 125, 0.8);">
-                                    {{ $order->statusOrder->name ?? 'N/A' }}
-                                </span>
+                                    <span class="badge"
+                                        style="background-color: rgba(108, 117, 125, 0.2); color: rgba(108, 117, 125, 0.8);">
+                                        {{ $order->statusOrder->name ?? 'N/A' }}
+                                    </span>
 
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#cancelOrderModal">Hủy đơn hàng</button>
 
-                                <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="cancelOrderModalLabel">Hủy đơn hàng</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="cancelOrderReasonForm" action="{{ route('account.orders.cancel', $order->id) }}" method="POST">
-                                                    @csrf
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Lý do hủy bỏ:</label>
-                                                        <div class="list-group">
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="changed_mind" required>
-                                                                Tôi đã thay đổi ý định
-                                                            </label>
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="found_cheaper">
-                                                                Đã tìm thấy một lựa chọn rẻ hơn
-                                                            </label>
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="delivery_delay">
-                                                                Giao hàng mất quá nhiều thời gian
-                                                            </label>
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="incorrect_item">
-                                                                Chi tiết mặt hàng sai
-                                                            </label>
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="no_confirmation_email">
-                                                                Không nhận được email xác nhận
-                                                            </label>
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="cost_high">
-                                                                Chi phí vận chuyển quá cao
-                                                            </label>
-                                                            <label class="list-group-item">
-                                                                <input class="form-check-input me-1" type="radio" name="cancel_reason" value="other">
-                                                                Khác
-                                                            </label>
-                                                            <div class="text-primary mt-2" id="error_cancel_reason"></div>
-                                                            @error('cancel_reason')
-                                                            <div class="text-danger" id="error_cancel_reason">
-                                                                {{ $message }}
+                                    <div class="modal fade" id="cancelOrderModal" tabindex="-1"
+                                        aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="cancelOrderModalLabel">Hủy đơn hàng</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="cancelOrderReasonForm"
+                                                        action="{{ route('account.orders.cancel', $order->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Lý do hủy bỏ:</label>
+                                                            <div class="list-group">
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="changed_mind"
+                                                                        required>
+                                                                    Tôi đã thay đổi ý định
+                                                                </label>
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="found_cheaper">
+                                                                    Đã tìm thấy một lựa chọn rẻ hơn
+                                                                </label>
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="delivery_delay">
+                                                                    Giao hàng mất quá nhiều thời gian
+                                                                </label>
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="incorrect_item">
+                                                                    Chi tiết mặt hàng sai
+                                                                </label>
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason"
+                                                                        value="no_confirmation_email">
+                                                                    Không nhận được email xác nhận
+                                                                </label>
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="cost_high">
+                                                                    Chi phí vận chuyển quá cao
+                                                                </label>
+                                                                <label class="list-group-item">
+                                                                    <input class="form-check-input me-1" type="radio"
+                                                                        name="cancel_reason" value="other">
+                                                                    Khác
+                                                                </label>
+                                                                <div class="text-primary mt-2" id="error_cancel_reason">
+                                                                </div>
+                                                                @error('cancel_reason')
+                                                                    <div class="text-danger" id="error_cancel_reason">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
                                                             </div>
-                                                            @enderror
                                                         </div>
-                                                    </div>
 
-                                                    <div class="mb-3" id="otherReasonContainer" style="display: none;">
-                                                        <label for="otherReason" class="form-label">Vui lòng nêu rõ lý do của bạn</label>
-                                                        <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
-                                                        @error('other_reason')
-                                                        <div class="text-danger" id="error_other_reason">
-                                                            {{ $message }}
+                                                        <div class="mb-3" id="otherReasonContainer"
+                                                            style="display: none;">
+                                                            <label for="otherReason" class="form-label">Vui lòng nêu rõ lý
+                                                                do của bạn</label>
+                                                            <textarea class="form-control" id="otherReason" name="other_reason" rows="3"></textarea>
+                                                            @error('other_reason')
+                                                                <div class="text-danger" id="error_other_reason">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                            <div class="text-primary mt-2" id="error_other_reason"></div>
                                                         </div>
-                                                        @enderror
-                                                        <div class="text-primary mt-2" id="error_other_reason"></div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer mb-3 mx-4">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                <button type="button" class="btn btn-danger" id="confirmCancelBtn">Xác nhận Hủy bỏ</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer mb-3 mx-4">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        id="confirmCancelBtn">Xác nhận Hủy bỏ</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 @elseif ($order->status_order_id == 3)
-                                     <span class="badge" style="background-color: rgba(23, 162, 184, 0.2); color: rgba(23, 162, 184, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(23, 162, 184, 0.2); color: rgba(23, 162, 184, 0.8);">
                                         {{ $order->statusOrder->name ?? 'N/A' }}
                                     </span>
                                 @elseif ($order->status_order_id == 4)
-                                     <span class="badge" style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">
                                         {{ $order->statusOrder->name ?? 'N/A' }}
                                     </span>
-                                    <form id="markAsReceivedForm" action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
+                                    <form id="markAsReceivedForm"
+                                        action="{{ route('account.orders.markAsReceived', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="button" class="btn btn-success btn-sm" onclick="confirmReceived(event)">Đã nhận</button>
+                                        <button type="button" class="btn btn-success btn-sm"
+                                            onclick="confirmReceived(event)">Đã nhận</button>
                                     </form>
                                     <div class="coins-container"></div>
                                 @elseif ($order->status_order_id == 5)
-                                    <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
                                         {{ $order->statusOrder->name ?? 'N/A' }}
                                     </span>
                                 @elseif ($order->status_order_id == 6)
-                                    <span class="badge" style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">
                                         {{ $order->statusOrder->name ?? 'N/A' }}
                                     </span>
                                 @else
@@ -202,37 +246,46 @@
                             <td><strong>Trạng thái:</strong></td>
                             <td>
                                 @if ($order->status_payment_id == 1)
-                                    <span class="badge" style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(255, 193, 7, 0.2); color: rgba(255, 193, 7, 0.8);">
                                         {{ $order->statusPayment->name ?? 'N/A' }}
                                     </span>
                                 @elseif ($order->status_payment_id == 2)
-                                    <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
                                         {{ $order->statusPayment->name ?? 'N/A' }}
                                     </span>
                                 @elseif ($order->status_payment_id == 3)
-                                    <span class="badge" style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(220, 53, 69, 0.2); color: rgba(220, 53, 69, 0.8);">
                                         {{ $order->statusPayment->name ?? 'N/A' }}
                                     </span>
                                 @endif
 
-                                @if (($order->statusPayment->id == 1 || $order->statusPayment->id == 3) && $order->statusOrder->id == 1 && $order->paymentMethod->id == 2)
+                                @if (
+                                    ($order->statusPayment->id == 1 || $order->statusPayment->id == 3) &&
+                                        $order->statusOrder->id == 1 &&
+                                        $order->paymentMethod->id == 2)
                                     <form action="{{ route('account.orders.repayment', $order->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">Thanh toán lại</button>
+                                        <button type="submit" name="redirect" class="btn btn-warning btn-sm">Thanh toán
+                                            lại</button>
                                     </form>
                                 @endif
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Thanh toán:</strong></td>
-{{--                            @dd($order->paymentMethod->name);--}}
+                            {{--                            @dd($order->paymentMethod->name); --}}
                             <td>
                                 @if ($order->status_payment_id == 1)
-                                    <span class="badge" style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(0, 123, 255, 0.2); color: rgba(0, 123, 255, 0.8);">
                                         {{ $order->paymentMethod->name ?? 'N/A' }}
                                     </span>
                                 @elseif ($order->status_payment_id == 2)
-                                    <span class="badge" style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
+                                    <span class="badge"
+                                        style="background-color: rgba(40, 167, 69, 0.2); color: rgba(40, 167, 69, 0.8);">
                                         {{ $order->paymentMethod->name ?? 'N/A' }}
                                     </span>
                                 @endif
@@ -240,13 +293,15 @@
                         </tr>
                         <tr>
                             <td><strong>Tổng giá:</strong></td>
-                            <td style="color: rgba(220, 53, 69, 0.8);"><b>{{ number_format($order->total_price) }} VND</b></td>
+                            <td style="color: rgba(220, 53, 69, 0.8);"><b>{{ number_format($order->total_price) }} VND</b>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Tạo vào lúc:</strong></td>
                             <td>
                                 <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
-                                <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
+                                <small class="text-muted"
+                                    id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
                             </td>
                         </tr>
                     </table>
@@ -289,13 +344,12 @@
                                     <td>{{ number_format($item->product_price_sale, 0, ',', '.') }} VND</td>
 
                                     @php
-                                        $subTotal = $item->quantity * $item->productVariant->price
+                                        $subTotal = $item->quantity * $item->productVariant->price;
                                     @endphp
                                     <td>{{ number_format($subTotal, 0, ',', '.') }} VND</td>
 
 
                                 </tr>
-
                             @endforeach
                         </tbody>
                     </table>
@@ -322,13 +376,20 @@
                                             <td>Giảm giá :</td>
                                             <td class="text-end">
                                                 @if ($order->voucher->discount_type === 'percent')
-                                                    -{{ number_format(($order->subtotal * $order->voucher->discount / 100), 0, '.', ',') }} VND ({{ $order->voucher->discount }}%)
+                                                    -{{ number_format(($order->subtotal * $order->voucher->discount) / 100, 0, '.', ',') }}
+                                                    VND ({{ $order->voucher->discount }}%)
                                                 @elseif ($order->voucher->discount_type === 'percent_max')
                                                     @php
-                                                        $discount_value = $order->subtotal * $order->voucher->discount / 100;
-                                                        $discount_value = min($discount_value, $order->voucher->max_discount);
+                                                        $discount_value =
+                                                            ($order->subtotal * $order->voucher->discount) / 100;
+                                                        $discount_value = min(
+                                                            $discount_value,
+                                                            $order->voucher->max_discount,
+                                                        );
                                                     @endphp
-                                                    -{{ number_format($discount_value, 0, '.', ',') }} VND ({{ $order->voucher->discount }}%, tối đa {{ number_format($order->voucher->max_discount, 0, '.', ',') }} VND)
+                                                    -{{ number_format($discount_value, 0, '.', ',') }} VND
+                                                    ({{ $order->voucher->discount }}%, tối đa
+                                                    {{ number_format($order->voucher->max_discount, 0, '.', ',') }} VND)
                                                 @elseif ($order->voucher->discount_type === 'amount')
                                                     -{{ number_format($order->voucher->discount, 0, '.', ',') }} VND
                                                 @endif
@@ -345,8 +406,9 @@
                                     @endif
                                     <tr class="border-top border-top-dashed">
                                         <td scope="row">Tổng tiền:</td>
-                                        <td class="text-end" >
-                                            <h4><b style="color: rgba(220, 53, 69, 0.8);">{{ number_format($order->total_price, 0, '.', ',') }} VND</b></h4>
+                                        <td class="text-end">
+                                            <h4><b style="color: rgba(220, 53, 69, 0.8);">{{ number_format($order->total_price, 0, '.', ',') }}
+                                                    VND</b></h4>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -355,7 +417,8 @@
                     </tr>
                     <div class="d-flex justify-content-end gap-2 mt-3 mb-3">
                         <a href="{{ route('orders.index') }}" class="btn btn-primary">Quay lại</a>
-                        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#statusLogModal">
+                        <a type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#statusLogModal">
                             Xem lịch sử
                         </a>
                     </div>
@@ -365,7 +428,8 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="statusLogModal" tabindex="-1" aria-labelledby="statusLogModalLabel" aria-hidden="true">
+        <div class="modal fade" id="statusLogModal" tabindex="-1" aria-labelledby="statusLogModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -375,96 +439,97 @@
                     <div class="modal-body">
                         <table class="table table-primary table-hover">
                             <thead class="bg-gradient">
-                            <tr>
-                                <th>#</th>
-                                <th>Thay đổi bởi</th>
-                                <th>Quá trình</th>
-                                <th>Ngày cập nhật</th>
-                                <th>Lý do (nếu hủy)</th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Thay đổi bởi</th>
+                                    <th>Quá trình</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Lý do (nếu hủy)</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @php
-                                $statusMap = [
-                                    '1' => 'Chờ xử lý',
-                                    '2' => 'Đã xác nhận',
-                                    '3' => 'Đang giao hàng',
-                                    '4' => 'Đã giao',
-                                    '5' => 'Thành công',
-                                    '6' => 'Hủy',
-                                ];
+                                @php
+                                    $statusMap = [
+                                        '1' => 'Chờ xử lý',
+                                        '2' => 'Đã xác nhận',
+                                        '3' => 'Đang giao hàng',
+                                        '4' => 'Đã giao',
+                                        '5' => 'Thành công',
+                                        '6' => 'Hủy',
+                                    ];
 
-                                $statusColors = [
-                                    '1' => '#6c757d',
-                                    '2' => '#007bff',
-                                    '3' => '#17a2b8',
-                                    '4' => '#3d3393  ',
-                                    '5' => '#fa709a ',
-                                    '6' => '#dc3545  ',
-                                ];
-                                $cancelReasons = [
-                                    'product-out-in-stock' => 'Sản phẩm hết hàng trong kho.',
-                                    'payment-failed' => 'Thanh toán không thành công.',
-                                    'defective-product' => 'Phát hiện lỗi trong đơn hàng (sai giá, thông tin sản phẩm).',
-                                    'unable-to-contact' => 'Không thể liên lạc với khách để xác nhận đơn hàng.',
-                                    'no_confirmation_email' => 'Không có mail xác nhận đơn hàng',
-                                     'changed_mind' => 'Tôi đã thay đổi ý định',
-                                    'found_cheaper' => 'Đã tìm thấy một lựa chọn rẻ hơn',
-                                    'delivery_delay' => 'Giao hàng mất quá nhiều thời gian',
-                                    'incorrect_item' => 'Chi tiết mặt hàng sai',
-                                    'cost_high' => 'Chi phí vận chuyển quá cao',
-                                    'other' => 'Khác'
-                                ];
-                            @endphp
+                                    $statusColors = [
+                                        '1' => '#6c757d',
+                                        '2' => '#007bff',
+                                        '3' => '#17a2b8',
+                                        '4' => '#3d3393  ',
+                                        '5' => '#fa709a ',
+                                        '6' => '#dc3545  ',
+                                    ];
+                                    $cancelReasons = [
+                                        'product-out-in-stock' => 'Sản phẩm hết hàng trong kho.',
+                                        'payment-failed' => 'Thanh toán không thành công.',
+                                        'defective-product' =>
+                                            'Phát hiện lỗi trong đơn hàng (sai giá, thông tin sản phẩm).',
+                                        'unable-to-contact' => 'Không thể liên lạc với khách để xác nhận đơn hàng.',
+                                        'no_confirmation_email' => 'Không có mail xác nhận đơn hàng',
+                                        'changed_mind' => 'Tôi đã thay đổi ý định',
+                                        'found_cheaper' => 'Đã tìm thấy một lựa chọn rẻ hơn',
+                                        'delivery_delay' => 'Giao hàng mất quá nhiều thời gian',
+                                        'incorrect_item' => 'Chi tiết mặt hàng sai',
+                                        'cost_high' => 'Chi phí vận chuyển quá cao',
+                                        'other' => 'Khác',
+                                    ];
+                                @endphp
 
-                            @foreach ($statusLogs as $log)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ optional($log->changedBy)->name ?? 'N/A' }}</td>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 10px;">
-                                        <span style="background-color: {{ $statusColors[$log->old_status] ?? '#000' }}; color: #fff; padding: 5px 10px; border-radius: 4px;">
-                                            {{ $statusMap[$log->old_status] ?? 'Unknown' }}
-                                        </span>
-                                            <span style="font-weight: bold;">
-                                            <i class="fa-solid fa-arrow-right fa-lg" style="color: #B197FC;"></i>
-                                        </span>
-                                            <span style="background-color: {{ $statusColors[$log->new_status] ?? '#000' }}; color: #fff; padding: 5px 10px; border-radius: 4px;">
-                                            {{ $statusMap[$log->new_status] ?? 'Unknown' }}
-                                        </span>
-                                        </div>
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($log->changed_at)->format('H:i, d/m/Y') }}</td>
-                                    <td>
-                                        @if ($log->new_status == 6)
-                                            @php
-                                                $cancelReason = $log->loggable ? $log->loggable->cancel_reason : '';
-                                                $otherReason = $log->loggable ? $log->loggable->other_reason : '';
-                                            @endphp
+                                @foreach ($statusLogs as $log)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ optional($log->changedBy)->name ?? 'N/A' }}</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <span
+                                                    style="background-color: {{ $statusColors[$log->old_status] ?? '#000' }}; color: #fff; padding: 5px 10px; border-radius: 4px;">
+                                                    {{ $statusMap[$log->old_status] ?? 'Unknown' }}
+                                                </span>
+                                                <span style="font-weight: bold;">
+                                                    <i class="fa-solid fa-arrow-right fa-lg" style="color: #B197FC;"></i>
+                                                </span>
+                                                <span
+                                                    style="background-color: {{ $statusColors[$log->new_status] ?? '#000' }}; color: #fff; padding: 5px 10px; border-radius: 4px;">
+                                                    {{ $statusMap[$log->new_status] ?? 'Unknown' }}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($log->changed_at)->format('H:i, d/m/Y') }}</td>
+                                        <td>
+                                            @if ($log->new_status == 6)
+                                                @php
+                                                    $cancelReason = $log->loggable ? $log->loggable->cancel_reason : '';
+                                                    $otherReason = $log->loggable ? $log->loggable->other_reason : '';
+                                                @endphp
 
-                                            @if ($cancelReason == 'other')
-                                                <strong>{{ $otherReason ?? 'Khác' }}</strong>
+                                                @if ($cancelReason == 'other')
+                                                    <strong>{{ $otherReason ?? 'Khác' }}</strong>
+                                                @else
+                                                    <strong>{{ $cancelReasons[$cancelReason] ?? 'N/A' }}</strong>
+                                                @endif
                                             @else
-                                                <strong>{{ $cancelReasons[$cancelReason] ?? 'N/A' }}</strong>
+                                                ---
                                             @endif
-                                        @else
-                                            ---
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" style="margin: 20px;" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-secondary" style="margin: 20px;"
+                            data-bs-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </section>
     <section class="my-account container">
         <h6 class="page-title pt-5">Thông tin người dùng</h6>
@@ -533,11 +598,6 @@
     </section>
     <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
     <style>
-        body {
-            position: relative;
-            overflow: hidden;
-        }
-
         .coins-container {
             position: fixed;
             top: 0;
@@ -573,6 +633,7 @@
                 transform: translateY(-50px) rotate(0deg);
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
@@ -630,7 +691,6 @@
             }
             form.submit();
         });
-
     </script>
     <script>
         function confirmReceived(event) {
@@ -674,6 +734,4 @@
             });
         }
     </script>
-
-
 @endsection

@@ -64,10 +64,10 @@
                             <div class="form-floating my-3">
                                 <div class="row">
                                     <div class="form-group col-12 col-md-4">
-                                        <label for="province">Province/City</label>
+                                        <label for="province">Tỉnh/Thành phố *</label>
                                         <select id="province" name="province" class="form-control @error('province') is-invalid @enderror"
                                                 onchange="fetchDistricts(this.value)">
-                                            <option value="">Select Province/City</option>
+                                            <option value="">Tỉnh/Thành phố</option>
                                             @foreach($provinces['results'] as $province)
                                                 <option
                                                     value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
@@ -79,10 +79,10 @@
                                     </div>
 
                                     <div class="form-group col-12 col-md-4">
-                                        <label for="district">District</label>
+                                        <label for="district">Quận / Huyện</label>
                                         <select id="district" name="district" class="form-control @error('district') is-invalid @enderror"
                                                 onchange="fetchWards(this.value)">
-                                            <option value="">Select District</option>
+                                            <option value="">Chọn Huyện *</option>
                                         </select>
                                         @error('district')
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="mt-3">
-                            <textarea class="form-control form-control_gray" placeholder="Order Notes (optional)"
+                            <textarea class="form-control form-control_gray" placeholder="Ghi chú đơn hàng (tùy chọn)"
                                       cols="30" rows="8"
                                       name="ship_user_note"></textarea>
                             </div>
@@ -137,13 +137,13 @@
                                     @endforeach
                                     </tbody>
                                     <div class="mb-3 pb-3 border-bottom">
-                                        <div class="fw-medium mb-2">VOUCHER</div>
+                                        <div class="fw-medium mb-2">Mã Giảm giágiá</div>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Enter voucher code">
-                                            <button type="button" class="btn btn-dark" id="apply-voucher">Apply</button>
+                                            <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
+                                            <button type="button" class="btn btn-dark" id="apply-voucher">Sử dụng</button>
                                         </div>
                                         <div class="invalid-feedback d-none mt-2" id="error-message-add-voucher">
-                                            The voucher code is invalid or has expired.
+                                            Mã voucher không hợp lệ hoặc đã hết hạn.
                                         </div>
                                     </div>
                                 </table>
