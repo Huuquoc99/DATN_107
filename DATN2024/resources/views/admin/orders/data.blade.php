@@ -41,9 +41,16 @@
                         </a>
                         
                     </td>
-                    <td class="date">
-                        <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span>
-                        <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
+                    <td>
+                        @if ($order->created_at)
+                            @php
+                                \Carbon\Carbon::setLocale('vi'); 
+                            @endphp
+                            <span id="invoice-date">{{ $order->created_at->translatedFormat('d F, Y') }}</span>
+                            <small class="text-muted" id="invoice-time">{{ $order->created_at->format('H:i') }}</small>
+                        @else
+                            <span class="text-muted">Không có thông tin</span>
+                        @endif
                     </td>
                     <td class="payment">
                         @if ($order->payment_method_id == 1)

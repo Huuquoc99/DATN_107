@@ -3,7 +3,7 @@
     TechStore
 @endsection
 @section('content')
-    <div class="breadcrumb"  style="margin-top: 100px;">
+    <div class="breadcrumb"  style="margin-top: 75px;">
         <div class="shop-checkout container">
             @include('client.components.breadcrumb', [
                    'breadcrumbs' => [

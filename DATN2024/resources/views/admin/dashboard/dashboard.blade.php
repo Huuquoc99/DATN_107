@@ -23,8 +23,6 @@
                                 @endphp
 
                                 <h4 class="fs-16 mb-1">{{ $greeting }}, {{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}!</h4>
-
-                                {{-- <h4 class="fs-16 mb-1">Good Morning, Anna!</h4> --}}
                                 <p class="text-muted mb-0">Đây là những gì đang xảy ra với cửa hàng của bạn ngày hôm nay.</p>
                             </div>
                         </div>
@@ -44,13 +42,13 @@
                                             Tất cả
                                         </button>
                                         <button type="button" class="btn btn-soft-primary btn-sm" data-period="1m" id="filter-1m">
-                                            1 Tháng
+                                            1T
                                         </button>
                                         <button type="button" class="btn btn-soft-primary btn-sm" data-period="6m" id="filter-6m">
-                                            6 Tháng
+                                            6T
                                         </button>
                                         <button type="button" class="btn btn-soft-primary btn-sm" data-period="1y" id="filter-1y">
-                                            1 Năm
+                                            1N
                                         </button>
                                     </div>
                                 </div>
@@ -83,7 +81,6 @@
                                 })
                                     .then(response => response.json())
                                     .then(data => {
-                                        // Cập nhật giao diện với dữ liệu nhận được
                                         document.querySelector('h4 span').innerText = `${data.total_earnings.toLocaleString()} VND`;
                                     })
                                     .catch(error => console.error('Error:', error));
@@ -402,8 +399,6 @@
                                     </table>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -413,7 +408,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetch('/admin/sales-by-location')
@@ -618,7 +614,6 @@
 
             listing_table_body.innerHTML = "";
 
-            // Hiển thị dữ liệu của từng khách hàng
             for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < topCustomers.length; i++) {
                 var customer = topCustomers[i];
                 // var avatars = customer.avatar ? customer.avatar : '/theme/admin/assets/images/default-avatar.png';
@@ -669,7 +664,6 @@
             return Math.ceil(topCustomers.length / records_per_page);
         }
 
-        // Hợp nhất code để chỉ có 1 window.onload
         window.onload = function() {
             changePageProduct(1);
             changePageCustomer(1);

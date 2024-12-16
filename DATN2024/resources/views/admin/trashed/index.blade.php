@@ -75,15 +75,18 @@
                                         </a>
                                         
                                     </td>
+
                                     <td>
-                                        @if($item->deleted_at)
-                                            <span id="invoice-date">{{ $item->deleted_at->format('d M, Y') }}</span>
-                                            <small class="text-muted" id="invoice-time">{{ $item->deleted_at->format('h:iA') }}</small>
+                                        @if ($item->deleted_at)
+                                            @php
+                                                \Carbon\Carbon::setLocale('vi'); 
+                                            @endphp
+                                            <span id="invoice-date">{{ $item->deleted_at->translatedFormat('d F, Y') }}</span>
+                                            <small class="text-muted" id="invoice-time">{{ $item->deleted_at->format('H:i') }}</small>
                                         @else
-                                            <span class="text-muted">N/A</span>
+                                            <span class="text-muted">Không có thông tin</span>
                                         @endif
                                     </td>
-                               
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
                                             <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#restoreModal{{ $item->id }}">
@@ -102,15 +105,15 @@
                                                         <div class="mt-2 text-center">
                                                             <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                                                             <div class="mt-4 pt-2 fs-15 mx-sm-5">
-                                                                <h4>Are you sure?</h4>
-                                                                <p class="text-muted mx-4 mb-0">Do you want to restore this item?</p>
+                                                                <h4>Bạn có chắc chắn?</h4>
+                                                                <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn khôi phục sản phẩm này không?</p>
                                                             </div>
                                                         </div>
                                                         <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
                                                             <form id="restore-form{{ $item->id }}" action="{{ route('admin.restore', $item) }}" method="POST">
                                                                 @csrf
-                                                                <button type="submit" class="btn w-sm btn-danger">Yes, Restore It!</button>
+                                                                <button type="submit" class="btn w-sm btn-danger">Vâng, xoá nó!</button>
                                                             </form>
                                                         </div>
                                                     </div>

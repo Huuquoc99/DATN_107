@@ -48,7 +48,7 @@
 
             </td>
             <td>
-                {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'No Catalogue' }}
+                {{ $item->catalogue ? \Illuminate\Support\Str::limit($item->catalogue->name, 7, '...') : 'Không có danh mục' }}
             </td>
             <td>{{ number_format($item->price_regular, 0, ',', '.') }} VND</td>
             <td>{{ number_format($item->price_sale, 0, ',', '.') }} VND</td>

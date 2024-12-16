@@ -33,7 +33,7 @@
                                     <img src="{{ asset('theme/admin/assets/images/techStore.png') }}" class="card-logo card-logo-light" alt="logo light" height="40">
                                     <div class="mt-sm-5 mt-4">
                                         <h6 class="text-muted text-uppercase fw-semibold">Địa chỉ</h6>
-                                        <p class="text-muted mb-1" id="address-details">Hà Nôi, Việt Nam</p>
+                                        <p class="text-muted mb-1" id="address-details">Hà Nội, Việt Nam</p>
                                         <p class="text-muted mb-0" id="zip-code"><span>Mã bưu điện:</span> 100000</p>
                                     </div>
                                 </div>
@@ -56,9 +56,17 @@
                                 <div class="col-lg-3 col-6">
                                     <p class="text-muted mb-2 text-uppercase fw-semibold">Ngày tạo</p>
                                     <h5 class="fs-14 mb-0">
-                                        <span id="invoice-date">{{ $order->created_at->format('d M, Y') }}</span> 
-                                        <small class="text-muted" id="invoice-time">{{ $order->created_at->format('h:iA') }}</small>
+                                        @if ($order->created_at)
+                                            @php
+                                                \Carbon\Carbon::setLocale('vi');
+                                            @endphp
+                                            <span id="invoice-date">{{ $order->created_at->translatedFormat('d F, Y') }}</span> 
+                                            <small class="text-muted" id="invoice-time">{{ $order->created_at->format('H:i') }}</small>
+                                        @else
+                                            <span class="text-muted">Không có thông tin</span>
+                                        @endif
                                     </h5>
+                                    
                                 </div>
                                 <div class="col-lg-3 col-6">
                                     <div class="pb-3">
@@ -105,7 +113,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-6">
-                                    <p class="text-muted mb-2 text-uppercase fw-semibold">Total Amount</p>
+                                    <p class="text-muted mb-2 text-uppercase fw-semibold">Tổng đơn hàng</p>
                                     <h5 class="fs-14 mb-0"><span id="total-amount">{{ number_format($order->total_price, 0, ',', '.') }}</span> VND</h5>
                                 </div>
                             </div>
@@ -215,7 +223,7 @@
                                 </table>
                             </div>
                             <div class="mt-3">
-                                <h6 class="text-muted text-uppercase fw-semibold mb-3">Payment Details:</h6>
+                                <h6 class="text-muted text-uppercase fw-semibold mb-3">Chi tiết thanh toán</h6>
                                 <p class="text-muted mb-1">Phương thức thanh toán: <span class="fw-medium" id="payment-method">{{ $order->paymentMethod->name }}</span></p>
                                 <p class="text-muted">Tổng tiền:
                                     <span class="fw-medium" id=""></span>
@@ -226,11 +234,9 @@
                             </div>
                             <div class="mt-4">
                                 <div class="alert alert-info">
-                                    <p class="mb-0"><span class="fw-semibold">NOTES:</span>
-                                        <span id="note">All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or
-                                            credit card or direct payment online. If account is not paid within 7
-                                            days the credits details supplied as confirmation of work undertaken
-                                            will be charged the agreed quoted fee noted above.
+                                    <p class="mb-0"><span class="fw-semibold">GHI CHÚ:</span>
+                                        <span id="note">Cảm ơn quý khách đã mua hàng tại cửa hàng của chúng tôi. 
+                                            Nếu có bất kỳ thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ bộ phận chăm sóc khách hàng qua hotline <b>0987654321</b> hoặc email <b>techstore@gmail.com</b>
                                         </span>
                                     </p>
                                 </div>

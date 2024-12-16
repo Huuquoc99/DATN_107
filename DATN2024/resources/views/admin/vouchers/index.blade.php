@@ -137,7 +137,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="client_name"> {{ number_format($item->discount) }} VND</td>
-                                                <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
+                                                <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Hoạt động</span>' : '<span class="badge bg-danger">Không hoạt động</span>' !!}</td>
                                                 <td class="create_date">{{ $item->used_quantity }} / {{ $item->quantity }}</td>
                                                 <td class="create_date">
                                                     @if ($item->start_date)
@@ -145,7 +145,7 @@
                                                             {{ \Carbon\Carbon::parse($item->start_date)->format('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 
@@ -156,16 +156,19 @@
                                                             {{ \Carbon\Carbon::parse($item->expiration_date)->format('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 <td class="status">{{ number_format($item->min_order_value) }} VND</td>
                                                 <td>
                                                     @if ($item->created_at)
-                                                        <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
-                                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                                        @php
+                                                            \Carbon\Carbon::setLocale('vi');
+                                                        @endphp
+                                                        <span id="invoice-date">{{ $item->created_at->translatedFormat('d F, Y') }}</span>
+                                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('H:i') }}</small>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -286,7 +289,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="client_name"> {{ number_format($item->discount) }} %</td>
-                                                <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
+                                                <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Hoạt động</span>' : '<span class="badge bg-danger">Không hoạt động</span>' !!}</td>
                                                 <td class="create_date">{{ $item->used_quantity }} / {{ $item->quantity }}</td>
                                                 <td class="create_date">
                                                     @if ($item->start_date)
@@ -294,7 +297,7 @@
                                                             {{ \Carbon\Carbon::parse($item->start_date)->format('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 
@@ -305,16 +308,19 @@
                                                             {{ \Carbon\Carbon::parse($item->expiration_date)->format('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 <td class="status">{{ number_format($item->min_order_value) }} VND</td>
                                                 <td>
                                                     @if ($item->created_at)
-                                                        <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
-                                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                                        @php
+                                                            \Carbon\Carbon::setLocale('vi');
+                                                        @endphp
+                                                        <span id="invoice-date">{{ $item->created_at->translatedFormat('d F, Y') }}</span>
+                                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('H:i') }}</small>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -436,7 +442,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="client_name"> {{ number_format($item->discount) }} %</td>
-                                                <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
+                                                <td class="status">{!! $item->is_active ? '<span class="badge bg-primary">Hoạt động</span>' : '<span class="badge bg-danger">Không hoạt động</span>' !!}</td>
                                                 <td class="create_date">{{ $item->used_quantity }} / {{ $item->quantity }}</td>
                                                 <td class="create_date">
                                                     @if ($item->start_date)
@@ -444,7 +450,7 @@
                                                             {{ \Carbon\Carbon::parse($item->start_date)->format('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 
@@ -455,19 +461,24 @@
                                                             {{ \Carbon\Carbon::parse($item->expiration_date)->format('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
                                                 <td class="status">{{ number_format($item->min_order_value) }} VND</td>
                                                 <td class="status">{{ number_format($item->max_discount) }} VND</td>
+                                            
                                                 <td>
                                                     @if ($item->created_at)
-                                                        <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span>
-                                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                                        @php
+                                                            \Carbon\Carbon::setLocale('vi');
+                                                        @endphp
+                                                        <span id="invoice-date">{{ $item->created_at->translatedFormat('d F, Y') }}</span>
+                                                        <small class="text-muted" id="invoice-time">{{ $item->created_at->format('H:i') }}</small>
                                                     @else
-                                                        <span class="text-muted">N/A</span>
+                                                        <span class="text-muted">Không có thông tin</span>
                                                     @endif
                                                 </td>
+                                                
                                                 <td>
                                                     @if($item->products->count())
                                                     <ul class="color-list">

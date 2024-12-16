@@ -533,11 +533,7 @@
     </section>
     <div class="mb-2 mb-xl-5 pb-3 pt-1 pb-xl-5"></div>
     <style>
-        body {
-            position: relative;
-            overflow: hidden;
-        }
-
+      
         .coins-container {
             position: fixed;
             top: 0;

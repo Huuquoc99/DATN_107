@@ -207,8 +207,7 @@
                         style="color: black">Home</a>
                     <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1" style="color: black">/</span>
                     <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium"
-                        style="color: black">The
-                        Shop</a>
+                        style="color: black">CửA hàng</a>
                 </div>
             </div>
             @if(count($products))

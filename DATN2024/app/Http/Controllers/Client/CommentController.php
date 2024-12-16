@@ -75,7 +75,7 @@ class CommentController extends Controller
 
         if (!$comment) {
             return response()->json([
-                'message' => 'Comment not found',
+                'message' => 'Không tìm thấy bình luận',
             ], 404);
         }
 

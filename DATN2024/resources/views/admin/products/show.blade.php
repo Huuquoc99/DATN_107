@@ -85,7 +85,7 @@
                                                     <tr>
                                                         <th scope="row" style="width: 200px;">Danh mục</th>
                                                         <td>
-                                                            {{ \Illuminate\Support\Str::limit($product->catalogue ? $product->catalogue->name : 'No Catalogue', 30, '...') }}
+                                                            {{ \Illuminate\Support\Str::limit($product->catalogue ? $product->catalogue->name : 'Không có danh mục', 30, '...') }}
                                                         </td>
 
 
@@ -148,15 +148,31 @@
 
                                 <div class="text-muted">Đã xuất bản :
                                     <span class="text-body fw-medium">
-                                        <span id="invoice-date">{{ $product->created_at->format('d M, Y') }}</span>
-                                        <small class="text-muted" id="invoice-time">{{ $product->created_at->format('h:iA') }}</small>
+                                        @if ($product->created_at)
+                                            @php
+                                                \Carbon\Carbon::setLocale('vi');
+                                            @endphp
+                                            <span id="invoice-date">{{ $product->created_at->translatedFormat('d F, Y') }}</span>
+                                            <small class="text-muted" id="invoice-time">{{ $product->created_at->format('H:i') }}</small>
+                                        @else
+                                            <span class="text-muted">Không có thông tin</span>
+                                        @endif
                                     </span>
+                                    
                                 </div>
                                 <div class="text-muted">Đã cập nhật :
                                     <span class="text-body fw-medium">
-                                        <span id="invoice-date">{{ $product->updated_at->format('d M, Y') }}</span>
-                                        <small class="text-muted" id="invoice-time">{{ $product->updated_at->format('h:iA') }}</small>
+                                        @if ($product->created_at)
+                                            @php
+                                                \Carbon\Carbon::setLocale('vi'); 
+                                            @endphp
+                                            <span id="invoice-date">{{ $product->created_at->translatedFormat('d F, Y') }}</span>
+                                            <small class="text-muted" id="invoice-time">{{ $product->created_at->format('H:i') }}</small>
+                                        @else
+                                            <span class="text-muted">Không có thông tin</span>
+                                        @endif
                                     </span>
+                                    
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-4 col-sm-6">
@@ -216,7 +232,7 @@
                                         <p class="text-muted">
                                             <i class="bx bx-shape-triangle font-size-20 align-middle text-primary me-1"></i>
                                             <b>Danh mục:</b>
-                                            {{ \Illuminate\Support\Str::limit($product->catalogue->name ?? 'N/A', 30, '...') }}
+                                            {{ \Illuminate\Support\Str::limit($product->catalogue->name ?? 'Không có danh mục', 30, '...') }}
                                         </p>
 
                                     </div>
