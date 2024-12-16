@@ -49,9 +49,20 @@
                         
                     </div>
                     <div class="col-9 col-md-9 col-lg-9 col-sm-9 col-xs-9 content">
-                        <div class="redirect">
-                        </div>
-                        <div class="item-name">
+                        <div class="redirect" ></div>
+                        <div class="item-name" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-html="true" 
+                            data-bs-placement="top" 
+                            title="
+                                @if(isset($voucher->products) && $voucher->products->count())
+                                    {{-- <ul class='color-list'> --}}
+                                        @foreach($voucher->products as $product)
+                                            <li>{{ $product->name }}</li>
+                                        @endforeach
+                                    {{-- </ul> --}}
+                                @endif
+                            ">
                             {{ $voucher['code'] }}
                         </div>
                         <div>

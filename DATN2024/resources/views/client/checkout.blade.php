@@ -66,11 +66,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-floating my-3">
-                                    <div class="row">
-                                        <div class="form-group col-12 col-md-4 ">
-                                            <label for="province">Tỉnh/Thành phố *</label>
+                                    <div class="row"> --}}
+                                        <div class="col-12 form-floating my-3 ">
+                                            {{-- <label for="province">Tỉnh/Thành phố *</label> --}}
                                             <select id="province" name="province" class="form-control @error('province') is-invalid @enderror" onchange="fetchDistricts(this.value)" >
                                                 <option value="">Chọn Tỉnh/Thành Phố</option>
                                                 @foreach($provinces['results'] as $province)
@@ -82,18 +82,18 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-12 col-md-4">
-                                            <label for="district">Quận / Huyện</label>
+                                        <div class="col-12 form-floating  my-3">
+                                            {{-- <label for="district">Quận / Huyện</label> --}}
                                             <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" onchange="fetchWards(this.value)">
-                                                <option value="">Chọn Huyện *</option>
+                                                <option value="">Chọn Quận / Huyện *</option>
                                             </select>
                                             @error('district')
                                                 <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-12 col-md-4">
-                                            <label for="ward">Phường/Xã *</label>
+                                        <div class="col-12 form-floating  my-3">
+                                            {{-- <label for="ward">Phường/Xã *</label> --}}
                                             <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                                 <option value=""> ChọnPhường/Xã</option>
                                             </select>
@@ -101,9 +101,9 @@
                                                 <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    {{-- </div> --}}
+                                {{-- </div>
+                            </div> --}}
 
                         </div>
                         <div class="col-md-12">
@@ -115,14 +115,16 @@
                     </div>
                     <div class="checkout__totals-wrapper mt-5">
                         <div class="sticky-content">
-                            <div class="checkout__totals">
+                            <div class="checkout__totals text-center">
                                 <h3>Đơn hàng của bạn</h3>
                                 <table class="checkout-cart-items">
                                     <thead>
                                         <th>SẢN PHẨM</th>
+                                        <th>SỐ LƯỢNG</th>
                                         <th>DUNG LƯỢNG</th>
                                         <th>MÀU SẮC</th>
                                         <th>GIÁ</th>
+                                        <th>THÀNH TIỀN</th>
                                     </thead>
                                     <tbody>
                                     @php
@@ -133,10 +135,12 @@
                                             $subtotal += $item->price * $item->quantity;
                                         @endphp
                                         <tr>
-                                            <td>{{ $item->productVariant->product->name }} x {{ $item->quantity }}</td>
+                                            <td data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item->productVariant->product->name }}">{{ \Illuminate\Support\Str::limit($item->productVariant->product->name, 15, '...') }}</td>
+                                            <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->productVariant->capacity->name }}</td>
                                             <td>{{ $item->productVariant->color->name }}</td>
-                                            <td>{{ number_format($item->price, 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($item->price, 0, ',', '.') }} VND</td>
+                                            <td>{{ number_format($item->quantity * $item->price, 0, ',', '.') }} VND</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -151,7 +155,7 @@
                                         </div>
                                     </div>
                                 </table>
-                                <table class="checkout-totals">
+                                <table class="checkout-totals text-center">
                                     <tbody>
                                     @if(Auth::check())
                                         <tr>
@@ -257,7 +261,7 @@
                                 </table>
 
                             </div>
-                            <div class="checkout__payment-methods">
+                            {{-- <div class="checkout__payment-methods">
                                 @foreach ($paymentMethods as $method)
                                     <div class="form-check">
                                         <input class="form-check-input form-check-input_fill" type="radio"
@@ -272,7 +276,23 @@
                                     </div>
                                 @endforeach
 
+                            </div> --}}
+                            <div class="checkout__payment-methods">
+                                @foreach ($paymentMethods as $method)
+                                    <div class="form-check">
+                                        <input class="form-check-input form-check-input_fill" type="radio"
+                                               name="payment_method_id" id="checkout_payment_method_{{ $method->id }}"
+                                               value="{{ $method->id }}" @if ($loop->first) checked @endif>
+                                        <label class="form-check-label" for="checkout_payment_method_{{ $method->id }}">
+                                            {{ $method->name }}
+                                            <span class="option-detail d-block">
+                                                {{ $method->description }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
+                            
                             <button type="submit" class="btn btn-primary btn-checkout mb-4" name="redirect">ĐẶT HÀNG</button>
                         </div>
                     </div>
@@ -321,7 +341,23 @@
                 updateTotal();
             });
         </script>
+        <style>
+            .checkout__payment-methods {
+                display: flex;
+                flex-wrap: wrap; 
+                gap: 20px; 
+            }
 
+            .form-check {
+                flex: 1 0 45%; 
+                box-sizing: border-box; 
+            }
+
+            .form-check input {
+                margin-right: 10px;
+            }
+
+        </style>
 
 @endsection
 

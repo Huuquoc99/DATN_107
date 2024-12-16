@@ -38,8 +38,8 @@
                         </form>
 
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle py-3" type="button" id="statusOrderDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn dropdown-toggle py-3" type="button" id="statusOrderDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false"  style="background-color: rgb(69, 175, 176); color:#fff">
                                 Trạng thái đơn hàng
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="statusOrderDropdown">
@@ -85,14 +85,14 @@
                         @if (isset($message))
                             <p class="text-center text-muted">{{ $message }}</p>
                         @else
-                            <table class="orders-table">
+                            <table class="orders-table text-center">
                                 <thead>
                                     <tr>
                                         <th>Đơn hàng</th>
-                                        <th>Ngày đặt hàng</th>
-                                        <th>Trạng thái thanh toán</th>
-                                        <th>Trạng thái đơn hàng</th>
-                                        <th>Tổng cộng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>TT thanh toán</th>
+                                        <th>TT đơn hàng</th>
+                                        <th>Tổng</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
@@ -101,11 +101,14 @@
                                         <tr>
                                             <td>{{ $order['code'] }}</td>
                                             <td>
-                                                <span
-                                                    id="invoice-date">{{ $order['created_at'] ? $order['created_at']->format('d M, Y') : 'N/A' }}</span>
-                                                <small class="text-muted"
-                                                    id="invoice-time">{{ $order['created_at'] ? $order['created_at']->format('h:iA') : '' }}</small>
+                                                <span id="invoice-date">
+                                                    {{ $order['created_at'] ? $order['created_at']->locale('vi')->translatedFormat('d M, Y') : 'Không xác định' }}
+                                                </span>
+                                                <small class="text-muted" id="invoice-time">
+                                                    {{ $order['created_at'] ? $order['created_at']->locale('vi')->translatedFormat('H:i') : '' }}
+                                                </small>
                                             </td>
+                                            
                                             <td>
                                                 @switch($order['status_payment_id'])
                                                     @case(1)

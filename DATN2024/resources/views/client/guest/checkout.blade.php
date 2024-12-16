@@ -60,11 +60,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <div class="form-floating my-3">
-                                <div class="row">
-                                    <div class="form-group col-12 col-md-4">
-                                        <label for="province">Tỉnh/Thành phố *</label>
+                                <div class="row"> --}}
+                                    <div class="col-12 form-floating my-3 ">
+                                        {{-- <label for="province">Tỉnh/Thành phố *</label> --}}
                                         <select id="province" name="province" class="form-control @error('province') is-invalid @enderror"
                                                 onchange="fetchDistricts(this.value)">
                                             <option value="">Tỉnh/Thành phố</option>
@@ -78,8 +78,8 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-12 col-md-4">
-                                        <label for="district">Quận / Huyện</label>
+                                    <div class="col-12 form-floating  my-3">
+                                        {{-- <label for="district">Quận / Huyện</label> --}}
                                         <select id="district" name="district" class="form-control @error('district') is-invalid @enderror"
                                                 onchange="fetchWards(this.value)">
                                             <option value="">Chọn Huyện *</option>
@@ -89,8 +89,8 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-12 col-md-4">
-                                        <label for="ward">Phường/Xã</label>
+                                    <div class="col-12 form-floating  my-3">
+                                        {{-- <label for="ward">Phường/Xã</label> --}}
                                         <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                             <option value="">Chọn Phường/Xã</option>
                                         </select>
@@ -98,9 +98,9 @@
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                {{-- </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12">
                             <div class="mt-3">
                             <textarea class="form-control form-control_gray" placeholder="Ghi chú đơn hàng (tùy chọn)"
@@ -113,12 +113,14 @@
                         <div class="sticky-content">
                             <div class="checkout__totals">
                                 <h3>Đơn hàng của bạn</h3>
-                                <table class="checkout-cart-items">
+                                <table class="checkout-cart-items text-center">
                                     <thead>
                                         <th>SẢN PHẨM</th>
+                                        <th>SỐ LƯỢNG</th>
                                         <th>DUNG LƯỢNG</th>
                                         <th>MÀU SẮC</th>
                                         <th>GIÁ</th>
+                                        <th>THÀNH TIỀN</th>
                                     </thead>
                                     <tbody>
                                     @php
@@ -129,15 +131,17 @@
                                             $subtotal += $item['price'] * $item['quantity'];
                                         @endphp
                                         <tr>
-                                            <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
+                                            <td data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="{{ $item['name'] }}">{{ \Illuminate\Support\Str::limit($item['name'], 15, '...') }}</td>
+                                            <td>{{ $item['quantity'] }}</td>
                                             <td>{{ $item['capacity'] }}</td>
                                             <td>{{ $item['color'] }}</td>
                                             <td>{{ number_format($item['price'], 0, ',', '.') }} VND</td>
+                                            <td>{{ number_format($item['quantity'] * $item['price'], 0, ',', '.') }} VND</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                     <div class="mb-3 pb-3 border-bottom">
-                                        <div class="fw-medium mb-2">Mã Giảm giágiá</div>
+                                        <div class="fw-medium mb-2">Mã Giảm giá</div>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="voucher-code-input" value="{{ session('voucher') }}" placeholder="Nhập mã giảm giá">
                                             <button type="button" class="btn btn-dark" id="apply-voucher">Sử dụng</button>
@@ -147,11 +151,11 @@
                                         </div>
                                     </div>
                                 </table>
-                                <table class="checkout-totals">
+                                <table class="checkout-totals text-center">
                                     <tbody>
                                         <tr>
                                             <input type="hidden" name="subtotal" value="{{$subtotal}}">
-                                            <th>SUBTOTAL</th>
+                                            <th>TẠM TÍNH</th>
                                             <td>{{ number_format($subtotal, 0, ',', '.') }} VND</td>
                                             <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
@@ -183,7 +187,7 @@
                                                         ? min($subtotal * $voucher->discount / 100, $voucher->max_discount) 
                                                         : ($voucher->discount_type == 'amount' ? $voucher->discount : 0))) 
                                                 : 0)}}">
-                                            <th>TOTAL</th>
+                                            <th>TỔNG TIỀN</th>
                                             <td>
                                                 @if($voucher)
                                                     @if($voucher->discount_type == 'percent')
@@ -223,7 +227,7 @@
                                 @endforeach
                             </div>
                                 <input type="hidden" name="redirect" value="true">
-                                <button type="submit" class="btn btn-primary mb-4" name="redirect">ĐẶT HÀNG</button>
+                                <button type="submit" class="btn btn-primary mb-4 btn-checkout" name="redirect">ĐẶT HÀNG</button>
                         </div>
                     </div>
                 </div>
