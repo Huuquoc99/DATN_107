@@ -343,8 +343,6 @@
     </div>
 </div>
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -363,7 +361,7 @@
                         borderColor: '#9ba4c1', 
                         backgroundColor: '#45558c', 
                         borderWidth: 1,
-                        fill: false, 
+                        fill: true, 
                         type: 'bar', 
                     },
                     {
