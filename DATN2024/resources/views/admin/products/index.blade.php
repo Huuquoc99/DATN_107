@@ -165,7 +165,7 @@
                                             </ul>
                                         </td>
 
-                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">active</span>' : '<span class="badge bg-danger">no</span>' !!}</td>
+                                        <td>{!! $item->is_active ? '<span class="badge bg-primary">Hoạt động</span>' : '<span class="badge bg-danger">Không hoạt động</span>' !!}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-soft-secondary btn-sm dropdown" type="button"

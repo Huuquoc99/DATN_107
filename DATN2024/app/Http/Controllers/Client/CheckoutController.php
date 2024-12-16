@@ -129,14 +129,18 @@ class CheckoutController extends Controller
             return redirect()->back()->with('error', 'Vui lòng xác thực email trước khi đặt hàng');
         }
 
-        $province_code = $request->province;
-        $province_name = Http::get("https://provinces.open-api.vn/api/p/{$province_code}")->json();
+        try {
+            $addressInfo = $this->fetchAddressInformation(
+                $request->province,
+                $request->district,
+                $request->ward
+            );
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Không thể xác minh địa chỉ. Vui lòng thử lại.')
+                ->withInput();
+        }
 
-        $district_code = $request->district;
-        $district_name = Http::get("https://provinces.open-api.vn/api/d/{$district_code}")->json();
-
-        $ward_code = $request->ward;
-        $ward_name = Http::get("https://provinces.open-api.vn/api/w/{$ward_code}")->json();
 
         $guest_cart = session('cart', []);
         $voucher = session('voucher') ? Voucher::where('code', session('voucher'))->first() : null;
@@ -173,9 +177,9 @@ class CheckoutController extends Controller
                 'user_address' => $request->ship_user_address,
                 'user_phone' => $request->ship_user_phone,
 
-                'shipping_province' => $province_name['name'],
-                'shipping_district' => $district_name['name'],
-                'shipping_ward' => $ward_name['name'],
+                'shipping_province' => $addressInfo['province'],
+                'shipping_district' => $addressInfo['district'],
+                'shipping_ward' => $addressInfo['ward'],
 
                 'ship_user_name' => $request->ship_user_name,
                 'ship_user_email' => $request->ship_user_email,

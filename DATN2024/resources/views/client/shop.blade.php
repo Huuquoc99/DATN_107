@@ -72,8 +72,8 @@
                             <div class="d-flex flex-wrap" style="margin-top:-16px; margin-bottom: -18px;">
                                 @foreach($colors as $color)
                                     <a href="{{ route('shop', array_merge(request()->except('color'), request()->get('color') == $color ? [] : ['color' => $color])) }}"
-                                    class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
-                                    style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
+                                        class="swatch-color {{ request()->get('color') == $color ? 'swatch_active' : '' }}"
+                                        style="color: {{$color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%; margin: 5px;">
                                     </a>
                                 @endforeach
                             </div>
@@ -207,8 +207,7 @@
                         style="color: black">Home</a>
                     <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1" style="color: black">/</span>
                     <a href="{{route('shop')}}" class="menu-link menu-link_us-s text-uppercase fw-medium"
-                        style="color: black">The
-                        Shop</a>
+                        style="color: black">CửA hàng</a>
                 </div>
             </div>
             @if(count($products))

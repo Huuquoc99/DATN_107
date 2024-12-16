@@ -21,14 +21,13 @@ class NotificationOrderPlaced
      */
     public function handle(object $event): void
     {
-        // gửi thông báo cho admin
         $order = $event->order;
 
         \App\Models\AdminNotification::create([
             'type' => 'Event\AdminNotification',
             'data' => [
                 'order' => $order,
-                'message' => 'order placed successfully #<b>'. $order->code .'<b>'
+                'message' => 'đơn hàng đã được đặt thành công #<b>'. $order->code .'<b>'
             ]
         ]);
         broadcast(new AdminNotification(\App\Models\AdminNotification::unread()->count()));

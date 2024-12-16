@@ -64,12 +64,26 @@
                                         <td>{{ $item->color_code }}</td>
                                         <td>{!! $item->is_active ? '<span class="badge bg-primary">Active</span>' : '<span class="badge bg-danger">No active</span>' !!}</td>
                                         <td>
-                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
-                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                            @if ($item->created_at)
+                                                @php
+                                                    \Carbon\Carbon::setLocale('vi'); 
+                                                @endphp
+                                                <span id="invoice-date">{{ $item->created_at->translatedFormat('d F, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->created_at->format('H:i') }}</small>
+                                            @else
+                                                <span class="text-muted">Không có thông tin</span>
+                                            @endif
                                         </td>
                                         <td>
-                                            <span id="invoice-date">{{ $item->updated_at->format('d M, Y') }}</span> 
-                                            <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
+                                            @if ($item->updated_at)
+                                                @php
+                                                    \Carbon\Carbon::setLocale('vi'); 
+                                                @endphp
+                                                <span id="invoice-date">{{ $item->updated_at->translatedFormat('d F, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->updated_at->format('H:i') }}</small>
+                                            @else
+                                                <span class="text-muted">Không có thông tin</span>
+                                            @endif
                                         </td>
                                      
                                         <td>
@@ -95,16 +109,16 @@
                                                             <div class="mt-2 text-center">
                                                                 <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                                                                 <div class="mt-4 pt-2 fs-15 mx-sm-5">
-                                                                    <h4>Are you sure?</h4>
-                                                                    <p class="text-muted mx-4 mb-0">Do you want to delete this product color?</p>
+                                                                    <h4>Bạn có chắc chắn</h4>
+                                                                    <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xoá màu sắc không?</p>
                                                                 </div>
                                                             </div>
                                                             <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
                                                                 <form id="delete-form{{ $item->id }}" action="{{ route('admin.productColors.destroy', $item) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn w-sm btn-danger">Yes, Delete It!</button>
+                                                                    <button type="submit" class="btn w-sm btn-danger">Vâng, xoá nó!</button>
                                                                 </form>
                                                             </div>
                                                         </div>

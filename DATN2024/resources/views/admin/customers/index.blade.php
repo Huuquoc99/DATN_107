@@ -65,8 +65,15 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{!! $item->type == 1 ? '<span class="badge bg-primary">Admin</span>' : '<span class="badge bg-success">User</span>' !!}</td>
                                         <td>
-                                            <span id="invoice-date">{{ $item->created_at->format('d M, Y') }}</span> 
-                                            <small class="text-muted" id="invoice-time">{{ $item->created_at->format('h:iA') }}</small>
+                                            @if ($item->created_at)
+                                                @php
+                                                    \Carbon\Carbon::setLocale('vi'); 
+                                                @endphp
+                                                <span id="invoice-date">{{ $item->created_at->translatedFormat('d F, Y') }}</span>
+                                                <small class="text-muted" id="invoice-time">{{ $item->created_at->format('H:i') }}</small>
+                                            @else
+                                                <span class="text-muted">Không có thông tin</span>
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2  justify-content-center">

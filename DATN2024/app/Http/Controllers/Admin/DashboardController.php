@@ -29,10 +29,12 @@ class DashboardController extends Controller
         ')
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->join('products', 'products.id', '=', 'order_items.product_variant_id')
-            ->where('orders.status_order_id', '1')
+            ->where('orders.status_order_id', '5')
+            ->where('orders.status_payment_id', '2')
             ->whereBetween('orders.created_at', [$start_date, $end_date])
             ->groupBy('order_items.product_variant_id', 'order_items.product_name', 'order_items.product_price_sale', 'month_year', 'products.name')
-            ->orderByDesc('total_revenue')
+            // ->orderByDesc('total_revenue')
+            ->orderBy('month_year')
             ->get();
 
         $topProducts = Product::select(
@@ -42,11 +44,14 @@ class DashboardController extends Controller
         )
             ->leftJoin('order_items', 'products.id', '=', 'order_items.product_variant_id')
             ->leftJoin('orders', 'orders.id', '=', 'order_items.order_id')
-            ->where(function($query) {
-                $query->where('orders.status_order_id', '5')
-                    ->orWhereNull('orders.status_order_id');
-            })
+            // ->where(function($query) {
+            //     $query->where('orders.status_order_id', '5')
+            //         ->orWhereNull('orders.status_order_id');
+            // })
+            ->where('orders.status_order_id', '5')
+            ->where('orders.status_payment_id', '2')
             ->whereNull('orders.deleted_at')
+            ->whereNotNull('order_items.id')
             ->groupBy(
                 'products.id',
                 'products.catalogue_id',
@@ -80,7 +85,7 @@ class DashboardController extends Controller
             )
             ->orderByDesc('total_quantity_sold')
             ->get();
-
+            // dd($topProducts);
         $topCustomers = Order::selectRaw('
             orders.user_id,
             users.id,

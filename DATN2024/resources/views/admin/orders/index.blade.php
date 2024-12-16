@@ -150,7 +150,7 @@
 
                 params.set('date', date);
                 params.delete('page');
-                let url = currentUrl.origin + currentUrl.pathname + '?' + params.toString(); // Tạo URL mới
+                let url = currentUrl.origin + currentUrl.pathname + '?' + params.toString(); 
                 getData(url);
             });
 
