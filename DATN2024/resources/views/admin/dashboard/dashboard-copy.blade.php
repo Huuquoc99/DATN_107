@@ -3,329 +3,329 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
 
-            <div class="h-100">
-                <div class="row mb-3 pb-1">
-                    <div class="col-12">
-                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
-                            <div class="flex-grow-1">
-                                @php
-                                    $hour = now()->format('H');
-                                    if ($hour < 12) {
-                                        $greeting = 'Chào buổi sáng';
-                                    } elseif ($hour < 18) {
-                                        $greeting = 'Chào buổi chiều';
-                                    } else {
-                                        $greeting = 'Chào buổi tối';
-                                    }
-                                @endphp
+        <div class="h-100">
+            <div class="row mb-3 pb-1">
+                <div class="col-12">
+                    <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                        <div class="flex-grow-1">
+                            @php
+                                $hour = now()->format('H');
+                                if ($hour < 12) {
+                                    $greeting = 'Chào buổi sáng';
+                                } elseif ($hour < 18) {
+                                    $greeting = 'Chào buổi chiều';
+                                } else {
+                                    $greeting = 'Chào buổi tối';
+                                }
+                            @endphp
 
-                                <h4 class="fs-16 mb-1">{{ $greeting }}, {{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}!</h4>
+                            <h4 class="fs-16 mb-1">{{ $greeting }}, {{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}!</h4>
 
-                                {{-- <h4 class="fs-16 mb-1">Good Morning, Anna!</h4> --}}
-                                <p class="text-muted mb-0">Đây là những gì đang xảy ra với cửa hàng của bạn ngày hôm nay.</p>
-                            </div>
+                            {{-- <h4 class="fs-16 mb-1">Good Morning, Anna!</h4> --}}
+                            <p class="text-muted mb-0">Đây là những gì đang xảy ra với cửa hàng của bạn ngày hôm nay.</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng doanh thu</p>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn btn-soft-secondary btn-sm" data-period="all" id="filter-all">
-                                            Tất cả
-                                        </button>
-                                        <button type="button" class="btn btn-soft-primary btn-sm" data-period="1m" id="filter-1m">
-                                            1 Tháng
-                                        </button>
-                                        <button type="button" class="btn btn-soft-primary btn-sm" data-period="6m" id="filter-6m">
-                                            6 Tháng
-                                        </button>
-                                        <button type="button" class="btn btn-soft-primary btn-sm" data-period="1y" id="filter-1y">
-                                            1 Năm
-                                        </button>
-                                    </div>
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng doanh thu</p>
                                 </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                            <span>{{ number_format($totalEarnings, 0, ',', '.') }} VND</span>
-                                        </h4>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
+                                <div>
+                                    <button type="button" class="btn btn-soft-secondary btn-sm" data-period="all" id="filter-all">
+                                        Tất cả
+                                    </button>
+                                    <button type="button" class="btn btn-soft-primary btn-sm" data-period="1m" id="filter-1m">
+                                        1 Tháng
+                                    </button>
+                                    <button type="button" class="btn btn-soft-primary btn-sm" data-period="6m" id="filter-6m">
+                                        6 Tháng
+                                    </button>
+                                    <button type="button" class="btn btn-soft-primary btn-sm" data-period="1y" id="filter-1y">
+                                        1 Năm
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{ number_format($totalEarnings, 0, ',', '.') }} VND</span>
+                                    </h4>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-success-subtle rounded fs-3">
                                         <i class="bx bx-dollar-circle text-success"></i>
                                     </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <script>
-                        document.querySelectorAll('button[data-period]').forEach(button => {
-                            button.addEventListener('click', function () {
-                                const period = this.getAttribute('data-period');
+                <script>
+                    document.querySelectorAll('button[data-period]').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const period = this.getAttribute('data-period');
 
-                                fetch(`/admin/earnings?period=${period}`, {
-                                    method: 'GET',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        // Cập nhật giao diện với dữ liệu nhận được
-                                        document.querySelector('h4 span').innerText = `${data.total_earnings.toLocaleString()} VND`;
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            });
-                        });
-
-                        $('button[data-period]').on('click', function () {
-                            const period = $(this).data('period');
-                            $.ajax({
-                                url: `/admin/earnings?period=${period}`,
+                            fetch(`/admin/earnings?period=${period}`, {
                                 method: 'GET',
-                                success: function (data) {
-                                    $('h4 span').text(`${data.total_earnings.toLocaleString()} VND`);
+                                headers: {
+                                    'Content-Type': 'application/json',
                                 },
-                                error: function (error) {
-                                    console.log('Error:', error);
-                                }
-                            });
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Cập nhật giao diện với dữ liệu nhận được
+                                    document.querySelector('h4 span').innerText = `${data.total_earnings.toLocaleString()} VND`;
+                                })
+                                .catch(error => console.error('Error:', error));
                         });
+                    });
+
+                    $('button[data-period]').on('click', function () {
+                        const period = $(this).data('period');
+                        $.ajax({
+                            url: `/admin/earnings?period=${period}`,
+                            method: 'GET',
+                            success: function (data) {
+                                $('h4 span').text(`${data.total_earnings.toLocaleString()} VND`);
+                            },
+                            error: function (error) {
+                                console.log('Error:', error);
+                            }
+                        });
+                    });
 
 
-                    </script>
+                </script>
 
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng đơn hàng</p>
-                                    </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng đơn hàng</p>
                                 </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                                         <span>
                                             {{ $totalOrders }}
                                         </span>
-                                        </h4>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
+                                    </h4>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-info-subtle rounded fs-3">
                                         <i class="bx bx-shopping-bag text-info"></i>
                                     </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng người dùng</p>
-                                    </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Tổng người dùng</p>
                                 </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                            <span>{{$totalCustomers}}</span>
-                                        </h4>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{$totalCustomers}}</span>
+                                    </h4>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title bg-warning-subtle rounded fs-3">
                                             <i class="bx bx-user-circle text-warning"></i>
                                         </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Tổng sản phẩm</p>
-                                    </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Tổng sản phẩm</p>
                                 </div>
-                                <div class="d-flex align-items-end justify-content-between mt-4">
-                                    <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                            <span>{{$totalProducts}}</span>
-                                        </h4>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                        <span>{{$totalProducts}}</span>
+                                    </h4>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-primary-subtle rounded fs-3">
                                         <i class="bx bx-wallet text-primary"></i>
                                     </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card">
-                            <div class="card-header border-0 align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Doanh thu</h4>
-
-                            </div>
-
-                            <div class="card-header p-0 border-0 bg-light-subtle">
-                                <div class="border border-dashed border-start-0">
-                                    <div class="d-flex justify-content-center align-items-center" style="height: 100%; min-height: 100px;">
-                                        <form action="{{ route('admin.dashboard') }}" method="GET" class="row g-3 align-items-center">
-                                            <div class="col-auto">
-                                                <label for="start_date" class="form-label mb-0">Ngày bắt đầu:</label>
-                                                <input type="date" id="start_date" name="start_date"
-                                                       class="form-control" style="width: 200px" value="{{ request('start_date') }}">
-                                            </div>
-                                            <div class="col-auto">
-                                                <label for="end_date" class="form-label mb-0">Ngày kết thúc:</label>
-                                                <input type="date" id="end_date" name="end_date"
-                                                       class="form-control" style="width: 200px" value="{{ request('end_date') }}">
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="submit" class="btn btn-primary mt-3" style="width: 100px">Lọc</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="card-body pt-3 pb-3 d-flex justify-content-center align-items-center">
-                                <div style="width:80%" >
-                                    <canvas id="myChart"></canvas>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-header border-0 align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Doanh thu</h4>
 
                         </div>
-                    </div>
 
-                    <div class="col-xl-4">
+                        <div class="card-header p-0 border-0 bg-light-subtle">
+                            <div class="border border-dashed border-start-0">
+                                <div class="d-flex justify-content-center align-items-center" style="height: 100%; min-height: 100px;">
+                                    <form action="{{ route('admin.dashboard') }}" method="GET" class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label for="start_date" class="form-label mb-0">Ngày bắt đầu:</label>
+                                            <input type="date" id="start_date" name="start_date"
+                                                class="form-control" style="width: 200px" value="{{ request('start_date') }}">
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="end_date" class="form-label mb-0">Ngày kết thúc:</label>
+                                            <input type="date" id="end_date" name="end_date"
+                                                class="form-control" style="width: 200px" value="{{ request('end_date') }}">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-primary mt-3" style="width: 100px">Lọc</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card-body pt-3 pb-3 d-flex justify-content-center align-items-center">
+                            <div style="width:80%" >
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-xl-4">
+                    <div class="card card-height-50">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1"> Khách hàng thân thiết</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-centered table-hover align-middle table-nowrap mb-0">
+                                    <tbody id="customerTableBody">
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                <div class="col-sm-auto  mt-3 mt-sm-0">
+                                    <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                        <li class="page-item disabled">
+                                            <a href="javascript:prevPageCustomer()" id="btn_prev1" class="page-link">←</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link"><span id="page1"></span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a id="btn_next1" href="javascript:prevPageCustomer()" class="page-link">→</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div class="card card-height-50">
                             <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1"> Khách hàng thân thiết</h4>
+                                <h4 class="card-title mb-0 flex-grow-1">Top tỉnh cao nhất</h4>
+                                <div class="flex-shrink-0">
+                                    <button type="button" class="btn btn-soft-primary btn-sm">
+                                       ---
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="card-body">
-                                <div class="table-responsive table-card">
-                                    <table class="table table-centered table-hover align-middle table-nowrap mb-0">
-                                        <tbody id="customerTableBody">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
-                                    <div class="col-sm-auto  mt-3 mt-sm-0">
-                                        <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a href="javascript:prevPageCustomer()" id="btn_prev1" class="page-link">←</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link"><span id="page1"></span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a id="btn_next1" href="javascript:prevPageCustomer()" class="page-link">→</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div>
+                                    <canvas id="sales-by-locations" style="height: 269px"></canvas>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="card card-height-50">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Top tỉnh cao nhất</h4>
-                                    <div class="flex-shrink-0">
-                                        <button type="button" class="btn btn-soft-primary btn-sm">
-                                            ---
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="card-body">
-                                    <div>
-                                        <canvas id="sales-by-locations" style="height: 269px"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
 
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Sản phẩm bán chạy nhất</h4>
-                            </div>
+            </div>
 
-                            <div class="card-body">
-                                <div class="table-responsive table-card">
-                                    <table class="table table-hover table-centered align-middle table-nowrap mb-0">
-                                        <tbody id="productTableBody">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Sản phẩm bán chạy nhất</h4>
+                        </div>
 
-                                        </tbody>
-                                    </table>
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                                    <tbody id="productTableBody">
 
+                                    </tbody>
+                                </table>
 
-                                </div>
-                                <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
-                                    <div class="col-sm">
-                                    </div>
-                                    <div class="col-sm-auto  mt-3 mt-sm-0">
-                                        <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
-                                            <li class="page-item">
-                                                <a href="javascript:prevPageProduct()" id="btn_prev" class="page-link">←</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <span id="page" class="page-link"></span>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="javascript:nextPageProduct()" id="btn_next" class="page-link">→</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
 
                             </div>
+                            <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                <div class="col-sm">
+                                </div>
+                                <div class="col-sm-auto  mt-3 mt-sm-0">
+                                    <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                        <li class="page-item">
+                                            <a href="javascript:prevPageProduct()" id="btn_prev" class="page-link">←</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <span id="page" class="page-link"></span>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="javascript:nextPageProduct()" id="btn_next" class="page-link">→</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-xl-6">
-                        <div class="card card-height-100">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Top đơn hàng giá trị</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive table-card">
-                                    <table class="table table-borderless table-centered align-middle table-nowrap mb-0 text-center">
-                                        <thead class="text-muted table-light">
+                <div class="col-xl-6">
+                    <div class="card card-height-100">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Top đơn hàng giá trị</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0 text-center">
+                                    <thead class="text-muted table-light">
                                         <tr>
                                             <th scope="col">Order code</th>
                                             <th scope="col">Khách hàng</th>
@@ -336,8 +336,8 @@
                                             <th scope="col">Trạng thái thanh toán</th>
                                             <th scope="col">Tổng tiền</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
+                                    </thead>
+                                    <tbody>
                                         @foreach ($topOrders as $order)
                                             @foreach ($order->orderItems as $item)
                                                 <tr>
@@ -398,57 +398,57 @@
                                                 </tr>
                                             @endforeach
                                         @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
-
-
                         </div>
+
+
                     </div>
                 </div>
             </div>
-
         </div>
+
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('/admin/sales-by-location')
-                .then(response => response.json())
-                .then(data => {
-                    const provinces = data.map(item => item.shipping_province);
-                    const sales = data.map(item => item.total_sales);
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/admin/sales-by-location')
+            .then(response => response.json())
+            .then(data => {
+                const provinces = data.map(item => item.shipping_province);
+                const sales = data.map(item => item.total_sales);
 
-                    const ctx = document.getElementById('sales-by-locations').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: provinces,
-                            datasets: [{
-                                label: 'Doanh thu',
-                                data: sales,
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                const ctx = document.getElementById('sales-by-locations').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: provinces,
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: sales,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
                             }
                         }
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        });
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
 
-    </script>
+</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const labels = @json($statistics->pluck('month_year'));
@@ -466,8 +466,8 @@
                         borderColor: '#9ba4c1',
                         backgroundColor: '#45558c',
                         borderWidth: 1,
-                        fill: true, 
-                        type: 'bar', 
+                        fill: false,
+                        type: 'bar',
                     },
                     {
                         label: 'Doanh thu',
@@ -701,7 +701,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese" rel="stylesheet">
 
     <link href="{{ asset('theme/admin/assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet"
-          type="text/css" />
+        type="text/css" />
 
     <!--Swiper slider css-->
     <link href="{{ asset('theme/admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />

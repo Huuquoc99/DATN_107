@@ -280,6 +280,9 @@
             @endforeach
             </tbody>
         </table>
+        <div>
+            <a class="btn btn-primary" href="{{ route('account.orders.show', $id) }}">Xem chi tiết</a>
+        </div>
     </div>
 
     <div class="footer">

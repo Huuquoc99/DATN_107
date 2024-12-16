@@ -121,9 +121,9 @@
         <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
             <a href="/shop" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Cửa hàng</a>
         </li>
-        <li class="navigation__item" style="margin-right: 20px; margin-left:10px;">
-            <a href="{{ route('blog') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Tin Tức</a>
-        </li>
+{{--        <li class="navigation__item" style="margin-right: 20px; margin-left:10px;">--}}
+{{--            <a href="{{ route('blog') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Tin Tức</a>--}}
+{{--        </li>--}}
         <li class="navigation__item" style="margin-right: 20px; margin-left: 10px;">
             <a href="{{ route('voucher') }}" class="navigation__link text-white" style="text-decoration: none; color: white; line-height: 1; padding: 10px 0;">Mã Giảm Giá</a>
         </li>
@@ -136,11 +136,26 @@
     </ul>
 </nav>
 
+
+
                 <div class="header-tools d-flex align-items-center me-0">
                     <div class="header-tools__item hover-container">
-                        <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
-                            <i class="fa-regular fa-user fa-xl text-white"></i>
-                        </a>
+                        @if (Auth::check())
+                            <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
+                                @php
+                                    $avatar = Auth::user()->avatar;
+                                    $avatarUrl = $avatar ? \Illuminate\Support\Facades\Storage::url($avatar) : asset('theme/admin/assets/images/default-avatar.png');
+                                @endphp
+                                <img src="{{ $avatarUrl }}"
+                                     id="preview-avatar"
+                                     class="rounded-circle avatar-sm img-thumbnail user-profile-image" style="width: 40px; height: 40px;">
+                            </a>
+                        @else
+                            <a class="header-tools__item js-open-aside" href="#" data-aside="customerForms">
+                                <i class="fa-regular fa-user fa-xl text-white"></i>
+                            </a>
+                        @endif
+
                     </div>
                     <div class="header-tools__item hover-container">
                         <a class="" href="{{ route('favorites.list') }}" data-aside="customerForms">

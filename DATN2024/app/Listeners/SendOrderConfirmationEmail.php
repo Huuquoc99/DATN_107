@@ -40,6 +40,7 @@ class SendOrderConfirmationEmail implements ShouldQueue
             }
 
             $data = [
+                'id' => $order->id,
                 'order_code' => $order->code,
                 'created_at' => $order->created_at,
                 'customer_name' => $order->user_name,

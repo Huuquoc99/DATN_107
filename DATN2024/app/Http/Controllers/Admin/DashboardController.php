@@ -102,14 +102,13 @@ class DashboardController extends Controller
             ->groupBy('orders.user_id', 'users.id', 'users.name', 'users.email', 'users.avatar')
             ->orderByDesc('total_spent')
             ->get();
-    
-        
+
         // $totalEarnings = Order::where('status_order_id', '1')->sum('total_price');
         $totalEarnings = Order::where('status_order_id', 5)
             ->where('status_payment_id', 2)
             ->sum('total_price');
 
-        $totalOrders = Order::count(); 
+        $totalOrders = Order::count();
         $totalCustomers = User::count();
         $totalProducts = Product::count();
 
@@ -123,6 +122,41 @@ class DashboardController extends Controller
             ->take(4);
         return view('admin.dashboard.dashboard', compact('statistics', 'topProducts', 'topCustomers', 'totalEarnings', 'totalOrders', 'totalCustomers', 'totalProducts', 'topOrders'));
     }
+
+
+
+    public function getEarnings(Request $request)
+    {
+        $period = $request->query('period');
+
+        switch ($period) {
+            case '1m':
+                $startDate = now()->subMonth();
+                break;
+            case '6m':
+                $startDate = now()->subMonths(6);
+                break;
+            case '1y':
+                $startDate = now()->subYear();
+                break;
+            default:
+                $startDate = null; // ALL
+                break;
+        }
+
+        $query = Order::where('status_order_id', 5);
+
+        if ($startDate) {
+            $query->where('created_at', '>=', $startDate);
+        }
+
+        $totalEarnings = $query->sum('total_price');
+
+        return response()->json([
+            'total_earnings' => $totalEarnings,
+        ]);
+    }
+
 
 
     public function getSalesData(Request $request)

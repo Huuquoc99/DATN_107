@@ -85,10 +85,70 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts11" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-shopping-cart-2-line"></i> <span data-key="t-layouts">Đơn hàng</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts11">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.orders.index') }}" class="nav-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts12" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="ri-file-text-line"></i> <span data-key="t-layouts">Hoá đơn</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts12">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.invoices.index') }}" class="nav-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarVoucher" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts3">
+                        <i class="fas fa-ticket-alt"></i> <span data-key="t-layouts">Voucher</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarVoucher">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.vouchers.index') }}" class="nav-link">Danh sách</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.vouchers.create') }}" class="nav-link">Thêm mới</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarLayouts13" data-bs-toggle="collapse" role="button"
+                       aria-controls="sidebarLayouts">
+                        <i class="ri-question-answer-line"></i><span data-key="t-layouts">Bình luận</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarLayouts13">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.comments.index') }}" class="nav-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts14" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts">
-                       <i class="ri-bookmark-line"></i> <span data-key="t-layouts">Tag</span>
+                       <i class="ri-bookmark-line"></i> <span data-key="t-layouts">Thẻ</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLayouts14">
                         <ul class="nav nav-sm flex-column">
@@ -102,19 +162,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLayouts13" data-bs-toggle="collapse" role="button"
-                       aria-controls="sidebarLayouts">
-                       <i class="ri-question-answer-line"></i><span data-key="t-layouts">Bình luận</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLayouts13">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.comments.index') }}" class="nav-link">Danh sách</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts3" data-bs-toggle="collapse" role="button"
                        aria-controls="sidebarLayouts3">
@@ -194,9 +242,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.statusOrders.index') }}" class="nav-link">Danh sách</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.statusOrders.create') }}" class="nav-link">Thêm mới</a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{ route('admin.statusOrders.create') }}" class="nav-link">Thêm mới</a>--}}
+{{--                            </li>--}}
                         </ul>
                     </div>
                 </li>
@@ -211,57 +259,13 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.statusPayments.index') }}" class="nav-link">Danh sách</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.statusPayments.create') }}" class="nav-link">Thêm mới</a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{ route('admin.statusPayments.create') }}" class="nav-link">Thêm mới</a>--}}
+{{--                            </li>--}}
                         </ul>
                     </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLayouts11" data-bs-toggle="collapse" role="button"
-                       aria-controls="sidebarLayouts3">
-                       <i class="ri-shopping-cart-2-line"></i> <span data-key="t-layouts">Đơn hàng</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLayouts11">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.orders.index') }}" class="nav-link">Danh sách</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLayouts12" data-bs-toggle="collapse" role="button"
-                       aria-controls="sidebarLayouts3">
-                       <i class="ri-file-text-line"></i> <span data-key="t-layouts">Hoá đơn</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLayouts12">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.invoices.index') }}" class="nav-link">Danh sách</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarVoucher" data-bs-toggle="collapse" role="button"
-                       aria-controls="sidebarLayouts3">
-                        <i class="fas fa-ticket-alt"></i> <span data-key="t-layouts">Voucher</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarVoucher">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.vouchers.index') }}" class="nav-link">Danh sách</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.vouchers.create') }}" class="nav-link">Thêm mới</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLayouts10" data-bs-toggle="collapse" role="button"
@@ -276,13 +280,8 @@
                         </ul>
                     </div>
                 </li>
-
-                
-
-
             </ul>
         </div>
     </div>
-
     <div class="sidebar-background"></div>
 </div>

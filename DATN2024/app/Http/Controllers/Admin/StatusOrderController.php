@@ -14,7 +14,7 @@ class StatusOrderController extends Controller
      */
     public function index()
     {
-        $listStatusOrder = StatusOrder::paginate(5);
+        $listStatusOrder = StatusOrder::paginate(6);
         return view("admin.statusOrders.index", compact('listStatusOrder'));
 
     }
@@ -36,10 +36,10 @@ class StatusOrderController extends Controller
         if ($request->isMethod("POST")) {
             $param = $request->except("_token",);
             $param['is_active'] = $request->has('is_active') ? 1 : 0;
-        
+
             $statusOrder = StatusOrder::create($param);
             $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
-        
+
             return redirect()->route("admin.statusOrders.index")->with("success", "Trạng thái đơn hàng đã được tạo thành công");
 
         }
@@ -74,10 +74,10 @@ class StatusOrderController extends Controller
             $param = $request->except("_token", "_method");
             $statusOrder = StatusOrder::findOrFail($id);
             $statusOrder->is_active = $request->has('is_active') ? 1 : 0;
-        
+
             $statusOrder->update($param);
             $statusOrder->is_active == 0 ? $statusOrder->hide() : $statusOrder->show();
-        
+
             return redirect()->route("admin.statusOrders.index")->with("success", "Trạng thái đơn hàng đã được cập nhật thành công");
 
         }

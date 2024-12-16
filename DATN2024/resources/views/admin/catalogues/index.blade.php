@@ -49,6 +49,7 @@
                                     <th>ID</th>
                                     <th>Hình ảnh</th>
                                     <th>Tên</th>
+                                    <th>Số lượng sản phẩm</th>
                                     <th>Hoạt động</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
@@ -73,6 +74,12 @@
                                                 {{ \Illuminate\Support\Str::limit($item->name, 15, '...') }}
                                             </a>
                                         </td>
+                                        <td>
+                                            @php
+                                                $products = $item->products_count;
+                                            @endphp
+                                                {{ $products }}
+                                        </td>
                                         <td>{!! $item->is_active
                                             ? '<span class="badge bg-primary">Hoạt động</span>'
                                             : '<span class="badge bg-danger">Không hoạt động</span>' !!}</td>
@@ -86,10 +93,10 @@
                                             <small class="text-muted"
                                                 id="invoice-time">{{ $item->updated_at->format('h:iA') }}</small>
                                         </td>
-                                
+
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                
+
                                                 <a href="{{ route('admin.catalogues.show', $item) }}"
                                                     class="btn btn-info btn-sm">
                                                     Chi tiết

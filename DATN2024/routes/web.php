@@ -64,24 +64,23 @@ Route::post('product/get-variant-details', [\App\Http\Controllers\Client\Product
     ->name('product.getVariantDetails');
 Route::get('/check-stock/{productId}/{colorId}/{capacityId}', [\App\Http\Controllers\Client\ProductController::class, 'checkStock']);
 
-Route::get('/search',           [HomeController::class, 'search'])->name('search');
-
-Route::get('notfound',          [HomeController::class, 'notfound'])->name('notfound');
-Route::get('about',             [HomeController::class, 'about'])->name('about');
-Route::get('contact',           [HomeController::class, 'contact'])->name('contact');
+Route::get('/search',           [HomeController::class, 'search'])   ->name('search');
+Route::get('notfound',          [HomeController::class, 'notfound']) ->name('notfound');
+Route::get('about',             [HomeController::class, 'about'])    ->name('about');
+Route::get('contact',           [HomeController::class, 'contact'])  ->name('contact');
 Route::post('/contact',         [ContactController::class, 'submit'])->name('contact.submit');
 
-Route::get('shop',              [HomeController::class, 'shop'])->name('shop');
-Route::get('blog',              [BlogController::class, 'index'])->name('blog');
+Route::get('shop',              [HomeController::class, 'shop'])          ->name('shop');
+Route::get('blog',              [BlogController::class, 'index'])         ->name('blog');
 Route::get('vouchers',          [ClientVoucherController::class, 'index'])->name('voucher');
 Route::post('apply-voucher',    [ClientVoucherController::class, 'applyVoucher']);
 
 Route::prefix('cart')->name('cart.')->group(function () {
-    Route::post('add-to-cart',          [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('list',                  [CartController::class, 'cartList'])->name('list');
-    Route::post('delete',               [CartController::class, 'deleteCart'])->name('delete');
+    Route::post('add-to-cart',          [CartController::class, 'addToCart'])     ->name('add-to-cart');
+    Route::get('list',                  [CartController::class, 'cartList'])      ->name('list');
+    Route::post('delete',               [CartController::class, 'deleteCart'])    ->name('delete');
     Route::post('update-cart-quantity', [CartController::class, 'updateQuantity'])->name('update-cart-quantity');
-    Route::get('count',                 [CartController::class, 'getCart'])->name('count');
+    Route::get('count',                 [CartController::class, 'getCart'])       ->name('count');
 });
 
 
@@ -111,13 +110,13 @@ Route::middleware('auth', 'checkUserMiddleware')->group(function () {
 
     // Checkout
 //    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::post('/checkout',        [CheckoutController::class, 'processCheckout'])->name('checkout.process');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-    Route::get('/checkout/fail', [CheckoutController::class, 'fail'])->name('checkout.failed');
+    Route::get('/checkout/fail',    [CheckoutController::class, 'fail'])->name('checkout.failed');
 
     // Order
-    Route::get('/account/orders', [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
-    Route::get('/account/orders/{order}', [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
+    Route::get('/account/orders',           [App\Http\Controllers\Client\OrderController::class, 'index'])->name('history');
+    Route::get('/account/orders/{order}',   [App\Http\Controllers\Client\OrderController::class, 'show'])->name('account.orders.show');
     Route::post('/account/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('account.orders.updateStatus');
     Route::post('/account/orders/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('account.orders.cancel');
     Route::post('/account/orders/{order}/mark-as-received', [OrderController::class, 'markAsReceived'])->name('account.orders.markAsReceived');
@@ -125,28 +124,27 @@ Route::middleware('auth', 'checkUserMiddleware')->group(function () {
     // Route::post('/account/orders/', [OrderController::class, 'search'])->name('search');
     Route::post('/account/orders/', [OrderController::class, 'search_order'])->name('search_order');
     // Comments
-    Route::delete('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
-    Route::put('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
-    Route::post('comments', [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
-    Route::get('comments/{id}', [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
+    Route::delete('comments/{id}',  [\App\Http\Controllers\Client\CommentController::class, 'destroyAjax']);
+    Route::put('comments/{id}',     [\App\Http\Controllers\Client\CommentController::class, 'updateAjax']);
+    Route::post('comments',         [\App\Http\Controllers\Client\CommentController::class, 'storeAjax']);
+    Route::get('comments/{id}',     [\App\Http\Controllers\Client\CommentController::class, 'showAjax']);
 
     // Account
-    Route::get('/account/dashboard', [LoginController::class, 'dashboard'])->name('account.dashboard');
-    Route::get('/account/detail', [ClientUserController::class, 'accountDetail'])->name('accountdetail');
-    Route::put('account/{id}/update-profile', [ClientUserController::class, 'updateProfile'])->name('account.updateProfile');
-    Route::get('/account/change-password', [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
-    Route::put('account/change-password/{id}', [ClientUserController::class, 'changePassword'])->name('account.updatePassword');
-    Route::put('account/{id}/update-avatar', [ClientUserController::class, 'updateAvatar'])->name('account.updateAvatar');
+    Route::get('/account/dashboard',            [LoginController::class, 'dashboard'])                  ->name('account.dashboard');
+    Route::get('/account/detail',               [ClientUserController::class, 'accountDetail'])         ->name('accountdetail');
+    Route::put('account/{id}/update-profile',   [ClientUserController::class, 'updateProfile'])         ->name('account.updateProfile');
+    Route::get('/account/change-password',      [ClientUserController::class, 'showChangePasswordForm'])->name('account.changePassword');
+    Route::put('account/change-password/{id}',  [ClientUserController::class, 'changePassword'])        ->name('account.updatePassword');
+    Route::put('account/{id}/update-avatar',    [ClientUserController::class, 'updateAvatar'])          ->name('account.updateAvatar');
 
 });
 
 // Auth
-Route::get('/register', [RegisterController::class, 'showFormRegister'])->name('register.form');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post("login", [LoginController::class, 'login'])->name('login');
-Route::get('/login', [LoginController::class, 'showLogin']);
-
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/register',     [RegisterController::class, 'showFormRegister'])->name('register.form');
+Route::post('/register',    [RegisterController::class, 'register'])        ->name('register');
+Route::post("login",        [LoginController::class, 'login'])              ->name('login');
+Route::get('/login',        [LoginController::class, 'showLogin']);
+Route::post('/logout',      [LoginController::class, 'logout'])             ->name('logout');
 
 // Forgot password
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -154,29 +152,31 @@ Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkE
 
 // Reset password
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('client.passwords.reset');
-Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+Route::post('reset-password',          [ResetPasswordController::class, 'reset'])       ->name('password.update');
 
 Route::prefix('admin')
     ->as('admin.')
     ->group(function () {
 
-        Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
-        Route::post('login', [AdminLoginController::class, 'login'])->name('login');
-        Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
+        Route::get('login',     [AdminLoginController::class, 'showLoginForm'])->name('login');
+        Route::post('login',    [AdminLoginController::class, 'login'])         ->name('login');
+        Route::post('logout',   [AdminLoginController::class, 'logout'])        ->name('logout');
 
-        Route::get('password/reset', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-        Route::post('password/email', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-        Route::get('password/reset/{token}', [AdminForgotPasswordController::class, 'showResetForm'])->name('password.reset');
-        Route::post('password/reset', [AdminForgotPasswordController::class, 'reset'])->name('password.update');
+        Route::get('password/reset',        [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        Route::post('password/email',       [AdminForgotPasswordController::class, 'sendResetLinkEmail']) ->name('password.email');
+        Route::get('password/reset/{token}',[AdminForgotPasswordController::class, 'showResetForm'])      ->name('password.reset');
+        Route::post('password/reset',       [AdminForgotPasswordController::class, 'reset'])              ->name('password.update');
     })
 
    ->middleware(['checkAdminMiddleware'])
     ->group(function () {
 
         // Dashboard
-        Route::get('/', [DashboardController::class, 'statistics'])->name('dashboard');
-        Route::get('/dashboard', [DashboardController::class, 'statistics'])->name('dashboard');
+        Route::get('/',                  [DashboardController::class, 'statistics'])->name('dashboard');
+        Route::get('/dashboard',         [DashboardController::class, 'statistics'])->name('dashboard');
         Route::get('/sales-by-location', [DashboardController::class, 'getSalesDataProvice']);
+        Route::get('/earnings',          [DashboardController::class, 'getEarnings']);
+
 
         // Product
         Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');

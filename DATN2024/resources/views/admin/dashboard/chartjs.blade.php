@@ -14,7 +14,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labels = @json($statistics->pluck('month_year')); 
+    const labels = @json($statistics->pluck('month_year'));
     const data = @json($statistics->pluck('total_quantity_sold'));
     const revenueData = @json($statistics->pluck('total_revenue'));
 

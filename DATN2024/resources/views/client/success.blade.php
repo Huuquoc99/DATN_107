@@ -9,11 +9,21 @@
                 <div class="order-complete__message">
                     <h3><i class="fa-regular fa-circle-check fa-xl" style="color: #d8cb9c;"></i> Thanh toán thành công</h3>
                     <label>Bạn sẽ nhận được email xác nhận đơn hàng kèm theo thông tin chi tiết về đơn hàng của bạn.</label>
+                    <div class="m-4 text-center d-flex justify-content-center">
+                        <a  class="btn btn-secondary mt-3" href="{{ route('account.orders.show', $order->id) }}">
+                            Xem đơn hàng
+                        </a>
+                        <a href="/home" class="btn btn-primary" style="margin-left: 20px">Về trang chủ</a>
+                    </div>
                 </div>
                 <div class="order-info">
                     <div class="order-info__item">
                         <label>Mã đơn hàng</label>
-                        <span>{{ $order->code }}</span>
+                        <span>
+                            <a href="{{ route('account.orders.show', $order->id) }}">
+                                {{ $order->code }}
+                            </a>
+                        </span>
                     </div>
                     <div class="order-info__item">
                         <label>Ngày</label>
@@ -38,7 +48,7 @@
                                 <th>Số lượng</th>
                                 <th>Dung lượng</th>
                                 <th>Màu</th>
-                               
+
                                 <th></th>
                             </tr>
                             </thead>
@@ -65,7 +75,7 @@
                             <tbody>
                             <tr>
                                 <th class="align-left">Tổng</th>
-                                <td class="align-right">{{ number_format($order->subtotal, 0, ',', '.') }} VND</td>
+                                <td class="align-right" >{{ number_format($order->subtotal, 0, ',', '.') }} VND</td>
                             </tr>
                             @if ($order->voucher)
                                 <tr>
@@ -96,7 +106,7 @@
                             <tr>
                                 <th class="align-left">Tổng thanh toán</th>
                                 <td class="align-right">
-                                    <h5><b class="text-danger">{{ number_format($order->total_price, 0, ',', '.') }} VND</b></h5>
+                                    <h5><b class="" style="color: rgba(220, 53, 69, 1);">{{ number_format($order->total_price, 0, ',', '.') }} VND</b></h5>
                                 </td>
                             </tr>
                             </tbody>
