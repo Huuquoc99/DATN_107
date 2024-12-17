@@ -64,7 +64,6 @@
                             <div class="form-floating my-3">
                                 <div class="row"> --}}
                                     <div class="col-12 form-floating my-3 ">
-                                        {{-- <label for="province">Tỉnh/Thành phố *</label> --}}
                                         <select id="province" name="province" class="form-control @error('province') is-invalid @enderror"
                                                 onchange="fetchDistricts(this.value)">
                                             <option value="">Tỉnh/Thành phố</option>
@@ -73,17 +72,19 @@
                                                     value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                             @endforeach
                                         </select>
+                                        <label for="province">Tỉnh/Thành phố *</label>
                                         @error('province')
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-12 form-floating  my-3">
-                                        {{-- <label for="district">Quận / Huyện</label> --}}
+                                        
                                         <select id="district" name="district" class="form-control @error('district') is-invalid @enderror"
                                                 onchange="fetchWards(this.value)">
                                             <option value="">Chọn Huyện *</option>
                                         </select>
+                                        <label for="district">Quận / Huyện</label>
                                         @error('district')
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
                                         @enderror
@@ -94,6 +95,7 @@
                                         <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                             <option value="">Chọn Phường/Xã</option>
                                         </select>
+                                        <label for="ward">Phường/Xã</label>
                                         @error('ward')
                                         <div class="" style="color: #EA5651;">{{ $message }}</div>
                                         @enderror
@@ -227,7 +229,7 @@
                                 @endforeach
                             </div>
                                 <input type="hidden" name="redirect" value="true">
-                                <button type="submit" class="btn btn-primary mb-4 btn-checkout" name="redirect">ĐẶT HÀNG</button>
+                                <button type="submit" class="btn btn-primary mb-4" name="redirect">ĐẶT HÀNG</button>
                         </div>
                     </div>
                 </div>

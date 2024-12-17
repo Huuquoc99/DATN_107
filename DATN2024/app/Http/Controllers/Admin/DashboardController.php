@@ -148,7 +148,7 @@ class DashboardController extends Controller
         $query = Order::where('status_order_id', 5);
 
         if ($startDate) {
-            $query->where('update', '>=', $startDate);
+            $query->where('updated_at', '>=', $startDate);
         }
 
         $totalEarnings = $query->sum('total_price');

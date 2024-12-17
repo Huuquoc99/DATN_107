@@ -70,13 +70,13 @@
                                 <div class="form-floating my-3">
                                     <div class="row"> --}}
                                         <div class="col-12 form-floating my-3 ">
-                                            {{-- <label for="province">Tỉnh/Thành phố *</label> --}}
                                             <select id="province" name="province" class="form-control @error('province') is-invalid @enderror" onchange="fetchDistricts(this.value)" >
                                                 <option value="">Chọn Tỉnh/Thành Phố</option>
                                                 @foreach($provinces['results'] as $province)
                                                     <option  value="{{ $province['province_id'] }}">{{ $province['province_name'] }}</option>
                                                 @endforeach
                                             </select>
+                                            <label for="province">Tỉnh/Thành phố *</label>
                                             @error('province')
                                                 <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
@@ -87,16 +87,17 @@
                                             <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" onchange="fetchWards(this.value)">
                                                 <option value="">Chọn Quận / Huyện *</option>
                                             </select>
+                                            <label for="ship_user_address">Chọn Quận / Huyện *</label>
                                             @error('district')
                                                 <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="col-12 form-floating  my-3">
-                                            {{-- <label for="ward">Phường/Xã *</label> --}}
                                             <select id="ward" name="ward" class="form-control @error('ward') is-invalid @enderror">
                                                 <option value=""> ChọnPhường/Xã</option>
                                             </select>
+                                             <label for="ward">Phường/Xã *</label>
                                             @error('ward')
                                                 <div class="" style="color: #EA5651;">{{ $message }}</div>
                                             @enderror
@@ -161,7 +162,7 @@
                                         <tr>
                                             <input type="hidden" name="subtotal" value="{{$subtotal}}">
                                             <th>TẠM TÍNH</th>
-                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ number_format($subtotal, 0, ',', '.') }} VND</td>
                                             <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                                         </tr>
                                         @if ($voucher)
@@ -171,15 +172,15 @@
 
                                                 <td>
                                                     @if($voucher->discount_type == 'amount')
-                                                        -{{ number_format($voucher->discount, 0, ',', '.') }} VNĐ
+                                                        -{{ number_format($voucher->discount, 0, ',', '.') }} VND
                                                     @elseif($voucher->discount_type == 'percent')
-                                                        -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%)
+                                                        -{{ number_format($subtotal * $voucher->discount / 100, 0, ',', '.') }} VND ({{ $voucher->discount }}%)
                                                     @elseif($voucher->discount_type == 'percent_max')
                                                         @php
                                                             $discount_value = $subtotal * $voucher->discount / 100;
                                                             $discount_value = min($discount_value, $voucher->max_discount);
                                                         @endphp
-                                                        -{{ number_format($discount_value, 0, ',', '.') }} VNĐ ({{ $voucher->discount }}%, tối đa {{ number_format($voucher->max_discount, 0, ',', '.') }} VNĐ)
+                                                        -{{ number_format($discount_value, 0, ',', '.') }} VND ({{ $voucher->discount }}%, tối đa {{ number_format($voucher->max_discount, 0, ',', '.') }} VND)
                                                     @endif
                                                 </td>
 
@@ -251,7 +252,7 @@
                                                     }
                                                 @endphp
 
-                                                {{ number_format($final_total, 0, ',', '.') }} VNĐ
+                                                {{ number_format($final_total, 0, ',', '.') }} VND
                                             </td>
                                         </tr>
 
@@ -331,7 +332,7 @@
                         finalTotal = Math.max(finalTotal, 0);
                     }
 
-                    totalElement.textContent = new Intl.NumberFormat('vi-VN').format(finalTotal) + ' VNĐ';
+                    totalElement.textContent = new Intl.NumberFormat('vi-VN').format(finalTotal) + ' VND';
 
                     totalInput.value = finalTotal;
                 }

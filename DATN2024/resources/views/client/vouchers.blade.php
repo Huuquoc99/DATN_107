@@ -35,7 +35,11 @@
                                 @elseif($voucher['discount_type'] == 'percent')
                                     {{ $voucher['discount'] }}%
                                 @elseif($voucher['discount_type'] == 'percent_max')
-                                    {{ $voucher['discount'] }}% (Max {{ number_format($voucher['max_discount'] / 1000) }}K)
+                                    {{-- {{ $voucher['discount'] }}% (Max {{ number_format($voucher['max_discount'] / 1000) }}K) --}}
+                                    {{ $voucher['discount'] }}% 
+                                    (Max {{ number_format($voucher['max_discount'] / 1000) }}K, 
+                                    Min Order {{ number_format($voucher['min_order_value'] / 1000) }}K)
+
                                 @endif
                             ">
                                 @if($voucher['discount_type'] == 'amount')

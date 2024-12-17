@@ -142,21 +142,20 @@
                                                 <td class="create_date">
                                                     @if ($item->start_date)
                                                         <span id="invoice-date">
-                                                            {{ \Carbon\Carbon::parse($item->start_date)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">Không có thông tin</span>
+                                                        <span class="text-muted">Không có ngày bắt đầu</span>
                                                     @endif
                                                 </td>
                                                 
-                                                                                    
                                                 <td class="create_date">
                                                     @if ($item->expiration_date)
                                                         <span id="invoice-date">
-                                                            {{ \Carbon\Carbon::parse($item->expiration_date)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->expiration_date)->translatedFormat('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">Không có thông tin</span>
+                                                        <span class="text-muted">Không có ngày hết hạn</span>
                                                     @endif
                                                 </td>
                                                 <td class="status">{{ number_format($item->min_order_value) }} VND</td>
@@ -294,21 +293,20 @@
                                                 <td class="create_date">
                                                     @if ($item->start_date)
                                                         <span id="invoice-date">
-                                                            {{ \Carbon\Carbon::parse($item->start_date)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">Không có thông tin</span>
+                                                        <span class="text-muted">Không có ngày bắt đầu</span>
                                                     @endif
                                                 </td>
                                                 
-                                                                                    
                                                 <td class="create_date">
                                                     @if ($item->expiration_date)
                                                         <span id="invoice-date">
-                                                            {{ \Carbon\Carbon::parse($item->expiration_date)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->expiration_date)->translatedFormat('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">Không có thông tin</span>
+                                                        <span class="text-muted">Không có ngày hết hạn</span>
                                                     @endif
                                                 </td>
                                                 <td class="status">{{ number_format($item->min_order_value) }} VND</td>
@@ -447,23 +445,23 @@
                                                 <td class="create_date">
                                                     @if ($item->start_date)
                                                         <span id="invoice-date">
-                                                            {{ \Carbon\Carbon::parse($item->start_date)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">Không có thông tin</span>
+                                                        <span class="text-muted">Không có ngày bắt đầu</span>
                                                     @endif
                                                 </td>
                                                 
-                                                                                    
                                                 <td class="create_date">
                                                     @if ($item->expiration_date)
                                                         <span id="invoice-date">
-                                                            {{ \Carbon\Carbon::parse($item->expiration_date)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->expiration_date)->translatedFormat('d M, Y') }}
                                                         </span>
                                                     @else
-                                                        <span class="text-muted">Không có thông tin</span>
+                                                        <span class="text-muted">Không có ngày hết hạn</span>
                                                     @endif
                                                 </td>
+                                                
                                                 <td class="status">{{ number_format($item->min_order_value) }} VND</td>
                                                 <td class="status">{{ number_format($item->max_discount) }} VND</td>
                                             
